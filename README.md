@@ -1,10 +1,11 @@
 # GOAP
 A multi-threaded GOAP system for Unity3D
 
-This library was used to create the AI in the game [Basher Beatdown](http://swordgc.com), but has been written to function on it's own and as such should be usable in any game.
+This library was used to create the AI in the game [Basher Beatdown](https://youtu.be/x653mVuNP0A?t=12s), but has been written to function on it's own and as such should be usable in any game.
 
 ## Functions
 * Simple
+* Fast
 * Multi-Threaded
 * GOAP Visualizer
 
@@ -52,14 +53,14 @@ public GoapAction interveneAction
 ### Functions
 ```C#
 // Adds an action to the AI
-public void AddAction(GoapAction)
+public void AddAction(GoapAction){}
 
 // Removes an action to the AI
 // Note: This is reference based, not type based
-public void RemoveAction(GoapAction)
+public void RemoveAction(GoapAction){}
 
 // Implement for a callback when the AI needs to move
-protected override void Move(GoapAction)
+protected override void Move(GoapAction){}
 ```
 
 ## GoapGoal
@@ -86,12 +87,12 @@ public class MyGoapGoal : GoapGoal
 ### Variables
 ```C#
 // The cost of a goal is multiplied by this value. Default is 1, lower value to make this goal more attractive;
-public float multiplier
+public float multiplier;
 ```
 ### Functions
 ```C#
 // Implement to update the multiplier when needed
-public virtual void UpdateMultiplier(DataSet)
+public virtual void UpdateMultiplier(DataSet){}
 ```
 ## GoapAction
 
@@ -143,16 +144,16 @@ namespace SwordGC.AI.Actions
 ### Variables
 ```C#
 // Optional: When set to the key of a matching goal it will parent itself directly under that goal
-public string goal
+public string goal;
 
 // Optional: Add the preconditions to this dictionary
-public Dictionary<string, bool> preconditions 
+public Dictionary<string, bool> preconditions ;
 
 // Required: Add the effects of the action to this, is used to chain with other actions that have preconditions
-public Dictionary<string, bool> effects
+public Dictionary<string, bool> effects;
 
 // Required: The cost of this actions 
-public float cost
+public float cost;
 
 // Optional: How much delay should be aplied before performing this action (value between 0 (slow) and 1 (fast))
 protected float delay = 0.5f;
@@ -167,16 +168,16 @@ protected float delayFast = 0.1f;
 protected float maxRunTime = 3f;
 
 // Required: When not in range, the AI wil try to move closer
-public float requiredRange
+public float requiredRange;
 
 // Required: Is used to search for a target when no gameObject target is cached
-public string targetString
+public string targetString;
 
 // Optional: Can be used to easilly remove this action when it's target is destroyed
-public bool removeWhenTargetless = false
+public bool removeWhenTargetless = false;
 
 // Optional: A string describing this action, usefull for debugging
-protected string description
+protected string description;
 
 // There's loads more variables, but are mostly for internal caching and usage
 
@@ -185,19 +186,19 @@ protected string description
 
 ```C#
 // Should be implemented to check if all procedural preconditions are true
-protected virtual bool CheckProceduralPreconditions(DataSet data)
+protected virtual bool CheckProceduralPreconditions(DataSet data){}
 
 // Required: Is called when this action needs to be performed (During FixedUpdate)
-public virtual void Perform()
+public virtual void Perform(){}
 
 // Required: Implement as in the example, don't forget the .SetClone(originalObjectGUID);
-public virtual void Clone()
+public virtual void Clone(){}
 
 // Called when this actions is first run
-public virtual void OnStart()
+public virtual void OnStart(){}
 
 // Called when another action is becoming active
-public virtual void OnStop()
+public virtual void OnStop(){}
 
 ```
 
@@ -209,10 +210,10 @@ DataSet should contain all the data that the GoapAction.preconditions are checke
 
 ```C#
 // Used to update data
-public void SetData(string, bool)
+public void SetData(string, bool){}
 
 // Used to check data
-public void Equals(string, bool)
+public void Equals(string, bool){}
 ```
 
 ## GOAP visualizer
