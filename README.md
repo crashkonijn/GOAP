@@ -1,5 +1,5 @@
 # GOAP
-A multi-threaded GOAP system for Unity3D
+A multi-threaded GOAP (Goal Oriented Action Planning) system for Unity3D
 
 This library was used to create the AI in the game [Basher Beatdown](https://youtu.be/x653mVuNP0A?t=12s), but has been written to function on it's own and as such should be usable in any game.
 
@@ -19,7 +19,7 @@ This project uses [CeilaSpike's Thread Ninja](https://assetstore.unity.com/packa
 
 # Usage
 
-The goap system contains mainly out of 3 parts; The GoapAgent, GoapGoal and GoapAction classes. The examples folder contains a very basic example of a basic implementation
+The goap system consists mainly out of 3 parts; The GoapAgent, GoapGoal and GoapAction classes. The examples folder contains a very basic example of a basic implementation
 
 ## GoapAgent
 
