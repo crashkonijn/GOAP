@@ -13,7 +13,7 @@ This library was used to create the AI in the game [Basher Beatdown](https://you
 
 # Warning
 
-This project uses [CeilaSpike's Thread Ninja](https://assetstore.unity.com/packages/tools/thread-ninja-multithread-coroutine-15717) for it's multithreading and won't work without it. Please download and import it first before importing this project.
+This project uses [CeilaSpike's Thread Ninja](https://www.assetstore.unity3d.com/en/#!/content/15717) for it's multithreading and won't work without it. Please download and import it first before importing this project.
 
 ---
 
@@ -65,7 +65,7 @@ protected override void Move(GoapAction){}
 
 ## GoapGoal
 The start of each AI's decision making, actions are always (sub) child of a goal.
-Best practice is to implement multiple goals, not just a "win" goal with a huge tree benieth it.
+Best practice is to implement multiple goals, not just a "win" goal with a huge tree beneath it.
 
 ### Minimal implementation
 ```C#
