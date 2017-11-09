@@ -47,7 +47,7 @@ public class MyGoapAgent : GoapAgent {
 ### Variables
 ```C#
 // When set this action will override anything else when it's conditions are true
-protected GoapAction interveneAction
+protected GoapAction interveneAction;
 
 // Can contain an action that needs to be performed when all other actions fail (idle)
 protected GoapAction idleAction;
