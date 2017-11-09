@@ -26,9 +26,11 @@ using UnityEngine;
 namespace SwordGC.AI.Goap {
     public class GoapAgent : MonoBehaviour {
 
+        /* ENUMS */
         public enum THREADTYPE { NONE, TREE_UPDATE, GOAP_UPDATE }
         public enum STATE { MOVING, ACTION }
 
+        /* STATES */
         /// <summary>
         /// The current running thread type
         /// </summary>
@@ -38,6 +40,7 @@ namespace SwordGC.AI.Goap {
         /// </summary>
         public STATE state { get; private set; }
 
+        /* VARIABLES */
         /// <summary>
         /// Contains all current goals
         /// </summary>
@@ -55,9 +58,13 @@ namespace SwordGC.AI.Goap {
         /// </summary>
         public List<GoapAction> addActions { get; protected set; }
         /// <summary>
-        /// Can contain a action that needs to be performed before everything else when it's conditions are true
+        /// Can contain an action that needs to be performed before everything else when it's conditions are true
         /// </summary>
         protected GoapAction interveneAction;
+        /// <summary>
+        /// Can contain an action that needs to be performed when all other actions fail (idle)
+        /// </summary>
+        protected GoapAction idleAction;
         /// <summary>
         /// Contains the current active actions
         /// </summary>
@@ -74,11 +81,27 @@ namespace SwordGC.AI.Goap {
         /// The name of this transform
         /// </summary>
         public string transformName { get; private set; }
-
         /// <summary>
         /// Holds the past X actions
         /// </summary>
         public Queue<GoapAction> actionHistory = new Queue<GoapAction>();
+
+        /* GETTERS/SETTERS */
+        /// <summary>
+        /// Returns the current active action. It will return the idle action if there's none (can be null)
+        /// </summary>
+        public GoapAction ActiveAction
+        {
+            get { return activeActions != null && activeActions.Count > 0 ? activeActions[0] : idleAction; }
+        }
+        /// <summary>
+        /// Returns true if the current action is in range
+        /// </summary>
+        protected bool ActiveActionInRange
+        {
+            get { return Vector3.Distance(transform.position, ActiveAction.target.transform.position) < ActiveAction.requiredRange; }
+        }
+
 
         public virtual void Awake()
         {
@@ -98,7 +121,19 @@ namespace SwordGC.AI.Goap {
         }
         
         public virtual void FixedUpdate() {
+            if (RunInterveneAction()) return;
 
+            CheckThread();
+
+            RunAction();
+        }
+
+        /// <summary>
+        /// Runs the intervene action if it needs to
+        /// </summary>
+        /// <returns>True if the intervene action was run</returns>
+        private bool RunInterveneAction ()
+        {
             if (interveneAction != null)
             {
                 interveneAction.Update(dataSet);
@@ -107,13 +142,21 @@ namespace SwordGC.AI.Goap {
                 {
                     state = STATE.ACTION;
                     interveneAction.Perform();
-                    return;
+                    return true;
                 }
             }
 
+            return false;
+        }
+
+        /// <summary>
+        /// Checks the state of the threads, starts new threads as needed
+        /// </summary>
+        private void CheckThread ()
+        {
             if (runningThread == THREADTYPE.NONE)
             {
-                if(InternalRemoveActions() || InternalAddActions())
+                if (InternalRemoveActions() || InternalAddActions())
                 {
                     StartUpdatingTrees();
                 }
@@ -122,20 +165,26 @@ namespace SwordGC.AI.Goap {
                     StartRunning();
                 }
             }
+        }
 
-            if (activeActions != null && activeActions.Count > 0)
+        /// <summary>
+        /// Runs the current action
+        /// </summary>
+        private void RunAction ()
+        {
+            if (ActiveAction != null)
             {
-                activeActions[0].Run(Time.deltaTime);
+                ActiveAction.Run(Time.deltaTime);
 
-                if (activeActions[0].target != null && Vector3.Distance(transform.position, activeActions[0].target.transform.position) < activeActions[0].requiredRange)
+                if (ActiveAction.target != null && ActiveActionInRange)
                 {
                     state = STATE.ACTION;
-                    activeActions[0].Perform();
+                    ActiveAction.Perform();
                 }
                 else
                 {
                     state = STATE.MOVING;
-                    Move(activeActions[0]);
+                    Move(ActiveAction);
                 }
             }
         }

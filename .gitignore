@@ -32,3 +32,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+/CielaSpike/
+/CielaSpike.meta
+LICENSE.meta
+README.md.meta
