@@ -8,11 +8,14 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - "./Demo"
+          - "./Demo/"
         testMode:
           - playmode
           - editmode
     steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: false
       - uses: game-ci/unity-test-runner@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
