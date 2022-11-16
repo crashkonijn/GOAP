@@ -1,3 +1,6 @@
+# New version!
+A new version is being build, read more about it [here](https://github.com/crashkonijn/GOAP/issues/8).
+
 # GOAP
 A multi-threaded GOAP (Goal Oriented Action Planning) system for Unity3D
 
