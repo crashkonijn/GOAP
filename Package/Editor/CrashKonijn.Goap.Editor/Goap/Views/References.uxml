@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <uie:InspectorElement>
+        <ui:Label name="label" text="Goals" />
+        <ui:VisualElement name="slot" class="container grid">
+        </ui:VisualElement>
+    </uie:InspectorElement>
+</ui:UXML>

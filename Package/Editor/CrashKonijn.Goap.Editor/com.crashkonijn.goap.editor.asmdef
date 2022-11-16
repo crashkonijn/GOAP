@@ -1,0 +1,18 @@
+{
+    "name": "CrashKonijn.Goap.Editor",
+    "rootNamespace": "CrashKonijn.Goap.Editor",
+    "references": [
+        "GUID:6eb7f39de256eea4bb8708df2c32e1ba",
+        "GUID:9a4f4f993c75b2341aa3b2b1b03e407f",
+        "GUID:7bf83737d95a21440b04e5d922c29599"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

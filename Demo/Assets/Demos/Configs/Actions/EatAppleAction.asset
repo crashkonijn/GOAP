@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27acd4f287b434884cbdf46e38203c6, type: 3}
+  m_Name: EatAppleAction
+  m_EditorClassIdentifier: 
+  config:
+    actionClass: 
+    baseCost: 1
+    target: {fileID: 11400000, guid: 59d5b26a149e88a4ea08994ab801bcd4, type: 2}
+    inRange: 0.1
+    conditions:
+    - worldKey: {fileID: 11400000, guid: 4cc9aaaf590d3e346947382bd8b9fd0c, type: 2}
+      positive: 1
+    effects:
+    - worldKey: {fileID: 11400000, guid: 1b936068c70b82240b99a05d2be98745, type: 2}
+      positive: 0
