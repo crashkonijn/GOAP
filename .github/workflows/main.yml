@@ -1,0 +1,23 @@
+name: Test project
+
+on: workflow_dispatch: {}
+
+jobs:
+  testAllModes:
+    name: Test in ${{ matrix.testMode }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath:
+          - test-project
+        testMode:
+          - playmode
+          - editmode
+    steps:
+      - uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: /Demo
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
