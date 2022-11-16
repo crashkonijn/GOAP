@@ -1,5 +1,7 @@
 name: Test project
+
 on: [push, pull_request]
+
 jobs:
   testAllModes:
     name: Test in ${{ matrix.testMode }}
@@ -8,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - "./Demo/"
+          - Demo
         testMode:
           #- playmode
           - editmode
@@ -23,6 +25,7 @@ jobs:
           restore-keys: |
             Library-
       - uses: game-ci/unity-test-runner@v2
+        id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
