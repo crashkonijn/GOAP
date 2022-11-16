@@ -1,7 +1,6 @@
 name: Test project
-
-on: workflow_dispatch: {}
-
+on:
+  workflow_dispatch: {}
 jobs:
   testAllModes:
     name: Test in ${{ matrix.testMode }}
