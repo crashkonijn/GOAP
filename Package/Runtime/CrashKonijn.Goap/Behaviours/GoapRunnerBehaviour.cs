@@ -1,7 +1,6 @@
 ﻿using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Observers;
-using CrashKonijn.Goap.Resolvers;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
@@ -16,9 +15,9 @@ namespace CrashKonijn.Goap.Behaviours
             this.runner = new Classes.Runners.GoapRunner(
                 this.GetComponent<AgentCollection>(),
                 new GoapConfig(
-                    this.GetComponent<CostObserverBase<IActionBase>>(),
-                    this.GetComponent<ConditionObserverBase<Condition, Effect>>(),
-                    this.GetComponent<ActionKeyResolverBase<IActionBase, IGoalBase>>()
+                    this.GetComponent<ICostObserver>(),
+                    this.GetComponent<IConditionObserver>(),
+                    this.GetComponent<IKeyResolver>()
                 )
             );
         }

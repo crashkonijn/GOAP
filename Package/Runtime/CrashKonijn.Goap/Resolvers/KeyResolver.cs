@@ -1,17 +1,9 @@
 ﻿using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
-using LamosInteractive.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Resolvers
 {
-    public interface IKeyResolver
-    {
-        string GetKey(IAction action, ICondition condition);
-        string GetKey(IAction action, IEffect effect);
-        void SetWorldData(IWorldData globalWorldData);
-    }
-
-    public class KeyResolver : ActionKeyResolverBase<IActionBase, IGoalBase>, IKeyResolver
+    public class KeyResolver : KeyResolverBase<IActionBase, IGoalBase>
     {
         protected override string GetKey(IActionBase action, Condition condition)
         {

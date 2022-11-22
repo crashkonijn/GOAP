@@ -6,11 +6,11 @@ namespace CrashKonijn.Goap.Classes
 {
     public class GoapConfig
     {
-        public CostObserverBase<IActionBase> CostObserver { get; }
-        public ConditionObserverBase<Condition, Effect> ConditionObserver { get; }
-        public ActionKeyResolverBase<IActionBase, IGoalBase> KeyResolver { get; }
+        public ICostObserver CostObserver { get; }
+        public IConditionObserver ConditionObserver { get; }
+        public IKeyResolver KeyResolver { get; }
         
-        public GoapConfig(CostObserverBase<IActionBase> costObserver, ConditionObserverBase<Condition, Effect> conditionObserver, ActionKeyResolverBase<IActionBase, IGoalBase> keyResolver)
+        public GoapConfig(ICostObserver costObserver, IConditionObserver conditionObserver, IKeyResolver keyResolver)
         {
             this.CostObserver = costObserver;
             this.ConditionObserver = conditionObserver;

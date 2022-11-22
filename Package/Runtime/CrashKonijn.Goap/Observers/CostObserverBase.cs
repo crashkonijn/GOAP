@@ -2,18 +2,18 @@
 using System.Linq;
 using CrashKonijn.Goap.Interfaces;
 using LamosInteractive.Goap.Interfaces;
-using UnityEngine;
+using ICostObserver = CrashKonijn.Goap.Interfaces.ICostObserver;
 
 namespace CrashKonijn.Goap.Observers
 {
-    public abstract class CostObserverBase<TAction> : MonoBehaviour, ICostObserver
+    public abstract class CostObserverBase<TAction> : ICostObserver
         where TAction : IAction
     {
         protected IWorldData WorldData { get; private set; }
 
-        public void SetWorldData(IWorldData globalWorldData)
+        public void SetWorldData(IWorldData worldData)
         {
-            this.WorldData = globalWorldData;
+            this.WorldData = worldData;
         }
         
         public float GetCost(IAction current, List<IAction> path)

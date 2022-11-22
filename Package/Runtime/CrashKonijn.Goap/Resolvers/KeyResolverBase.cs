@@ -7,7 +7,7 @@ using IAction = LamosInteractive.Goap.Interfaces.IAction;
 
 namespace CrashKonijn.Goap.Resolvers
 {
-    public abstract class ActionKeyResolverBase<TAction, TGoal> : IActionKeyResolver
+    public abstract class KeyResolverBase<TAction, TGoal> : IActionKeyResolver
         where TAction : IAction
         where TGoal : IGoalBase
     {

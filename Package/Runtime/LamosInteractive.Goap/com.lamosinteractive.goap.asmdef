@@ -1,6 +1,6 @@
 {
 	"name": "LamosInteractive.Goap",
-	"rootNamespace": "LamosInteractive.Goap.Debug",
+	"rootNamespace": "LamosInteractive.Goap",
 	"references": [
 		
 	],

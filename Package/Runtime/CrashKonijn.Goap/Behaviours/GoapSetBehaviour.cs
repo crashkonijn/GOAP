@@ -25,6 +25,7 @@ namespace CrashKonijn.Goap.Behaviours
         AgentDebugGraph GetDebugGraph();
     }
 
+    [DefaultExecutionOrder(-99)]
     public class GoapSetBehaviour : MonoBehaviour, IGoapSet
     {
         [SerializeField]
@@ -45,6 +46,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void Awake()
         {
+            Debug.Log("Awake");
             this.runner = new GoapSetRunner(this.config, this.goapRunner);
         }
 

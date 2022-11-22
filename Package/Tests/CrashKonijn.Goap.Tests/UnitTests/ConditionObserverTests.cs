@@ -18,7 +18,7 @@ public class ConditionObserverTests
         {
             States = new HashSet<WorldKey>{ key }
         };
-        var observer = new GameObject().AddComponent<ConditionObserver>();
+        var observer = new ConditionObserver();
         observer.SetWorldData(worldData);
         
         var condition = new Condition
@@ -43,7 +43,7 @@ public class ConditionObserverTests
         {
             States = new HashSet<WorldKey>()
         };
-        var observer = new GameObject().AddComponent<ConditionObserver>();
+        var observer = new ConditionObserver();
         observer.SetWorldData(worldData);
         
         var condition = new Condition
@@ -68,7 +68,7 @@ public class ConditionObserverTests
         {
             States = new HashSet<WorldKey>{ key }
         };
-        var observer = new GameObject().AddComponent<ConditionObserver>();
+        var observer = new ConditionObserver();
         observer.SetWorldData(worldData);
         
         var condition = new Condition
@@ -93,7 +93,7 @@ public class ConditionObserverTests
         {
             States = new HashSet<WorldKey>()
         };
-        var observer = new GameObject().AddComponent<ConditionObserver>();
+        var observer = new ConditionObserver();
         observer.SetWorldData(worldData);
         
         var condition = new Condition

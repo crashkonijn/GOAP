@@ -1,18 +1,23 @@
 ﻿using CrashKonijn.Goap.Interfaces;
 using LamosInteractive.Goap.Interfaces;
-using UnityEngine;
 
 namespace CrashKonijn.Goap.Observers
 {
-    public abstract class ConditionObserverBase<TCondition, TEffect> : MonoBehaviour, IConditionObserver
+    public interface IConditionObserver : LamosInteractive.Goap.Interfaces.IConditionObserver
+    {
+        void SetWorldData(IWorldData worldData);
+        bool IsMet(IEffect effect);
+    }
+    
+    public abstract class ConditionObserverBase<TCondition, TEffect> : IConditionObserver
         where TCondition : ICondition
         where TEffect : IEffect
     {
         protected IWorldData WorldData { get; private set; }
 
-        public void SetWorldData(IWorldData globalWorldData)
+        public void SetWorldData(IWorldData worldData)
         {
-            this.WorldData = globalWorldData;
+            this.WorldData = worldData;
         }
         
         public bool IsMet(ICondition condition)
