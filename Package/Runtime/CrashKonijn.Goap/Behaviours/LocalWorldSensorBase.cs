@@ -10,6 +10,6 @@ namespace CrashKonijn.Goap.Behaviours
         
         public void SetConfig(WorldSensorConfig config) => this.config = config;
         
-        public abstract bool Sense(Agent agent);
+        public abstract bool Sense(IMonoAgent agent);
     }
 }

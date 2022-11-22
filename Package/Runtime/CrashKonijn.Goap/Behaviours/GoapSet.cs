@@ -12,7 +12,7 @@ namespace CrashKonijn.Goap.Behaviours
     public class GoapSet : MonoBehaviour
     {
         [SerializeField]
-        public GoapResolver goapResolver;
+        public GoapRunnerBehaviour goapRunner;
         [SerializeField]
         public GoapSetConfig config;
 
@@ -32,7 +32,7 @@ namespace CrashKonijn.Goap.Behaviours
             
             // this.goals = this.GetComponentsInChildren<IGoalBase>().ToHashSet();
             // this.actions = this.GetComponentsInChildren<IActionBase>().ToHashSet();
-            this.goapResolver.Register(this);
+            this.goapRunner.Register(this);
 
             this.GatherSensors();
         }
@@ -58,10 +58,10 @@ namespace CrashKonijn.Goap.Behaviours
             );
         }
 
-        public void Register(Agent agent) => this.goapResolver.Register(agent);
-        public void Unregister(Agent agent) => this.goapResolver.Unregister(agent);
+        public void Register(AgentBehaviour agent) => this.goapRunner.Register(agent);
+        public void Unregister(AgentBehaviour agent) => this.goapRunner.Unregister(agent);
 
-        public void Run(HashSet<Agent> agents)
+        public void Run(HashSet<IMonoAgent> agents)
         {
             var globalData = this.sensorRunner.SenseGlobal();
 
@@ -71,7 +71,7 @@ namespace CrashKonijn.Goap.Behaviours
             }
         }
 
-        private void Run(GlobalWorldData globalData, Agent agent)
+        private void Run(GlobalWorldData globalData, IMonoAgent agent)
         {
             if (agent.CurrentGoal == null)
                 return;

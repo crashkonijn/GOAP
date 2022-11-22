@@ -19,7 +19,7 @@ namespace CrashKonijn.Goap.Editor
         private int marginX = 50;
         private int marginY = 50;
         
-        private Agent agent;
+        private AgentBehaviour agent;
 
         private GUIStyle activeWindow;
         private GUIStyle inactiveWindow;
@@ -48,7 +48,7 @@ namespace CrashKonijn.Goap.Editor
 
             this.LoadStyles();
             
-            this.agent = Selection.activeGameObject?.GetComponent<Agent>();
+            this.agent = Selection.activeGameObject?.GetComponent<AgentBehaviour>();
 
             if (this.agent == null)
                 return;

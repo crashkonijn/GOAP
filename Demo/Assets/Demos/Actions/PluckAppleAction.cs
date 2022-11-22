@@ -10,7 +10,7 @@ namespace Demos.Actions
     [CreateAssetMenu(menuName = "Goap/Actions/PluckAppleAction")]
     public class PluckAppleAction : ActionBase<PluckAppleAction.Data>
     {
-        public override void OnStart(Agent agent, Data data)
+        public override void OnStart(IMonoAgent agent, Data data)
         {
             if (data.Target is not TransformTarget transformTarget)
                 return;
@@ -18,7 +18,7 @@ namespace Demos.Actions
             data.Tree =  transformTarget.Transform.GetComponent<TreeBehaviour>();
         }
 
-        public override ActionRunState Perform(Agent agent, Data data)
+        public override ActionRunState Perform(IMonoAgent agent, Data data)
         {
             if (data.Tree == null)
                 return ActionRunState.Stop;
@@ -37,7 +37,7 @@ namespace Demos.Actions
             return ActionRunState.Stop;
         }
         
-        public override void OnEnd(Agent agent, Data data)
+        public override void OnEnd(IMonoAgent agent, Data data)
         {
         }
         

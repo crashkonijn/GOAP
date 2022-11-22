@@ -23,17 +23,17 @@ namespace CrashKonijn.Goap.Behaviours
             return new TActionData();
         }
 
-        public override void OnStart(Agent agent, IActionData data) => this.OnStart(agent, (TActionData) data);
+        public override void OnStart(IMonoAgent agent, IActionData data) => this.OnStart(agent, (TActionData) data);
         
-        public abstract void OnStart(Agent agent, TActionData data);
+        public abstract void OnStart(IMonoAgent agent, TActionData data);
 
-        public override ActionRunState Perform(Agent agent, IActionData data) => this.Perform(agent, (TActionData) data);
+        public override ActionRunState Perform(IMonoAgent agent, IActionData data) => this.Perform(agent, (TActionData) data);
 
-        public abstract ActionRunState Perform(Agent agent, TActionData data);
+        public abstract ActionRunState Perform(IMonoAgent agent, TActionData data);
 
-        public override void OnEnd(Agent agent, IActionData data) => this.OnEnd(agent, (TActionData) data);
+        public override void OnEnd(IMonoAgent agent, IActionData data) => this.OnEnd(agent, (TActionData) data);
         
-        public abstract void OnEnd(Agent agent, TActionData data);
+        public abstract void OnEnd(IMonoAgent agent, TActionData data);
     }
 
     public abstract class ActionBase : ScriptableObject, IActionBase
@@ -64,8 +64,8 @@ namespace CrashKonijn.Goap.Behaviours
         }
 
         public abstract IActionData GetData();
-        public abstract ActionRunState Perform(Agent agent, IActionData data);
-        public abstract void OnStart(Agent agent, IActionData data);
-        public abstract void OnEnd(Agent agent, IActionData data);
+        public abstract ActionRunState Perform(IMonoAgent agent, IActionData data);
+        public abstract void OnStart(IMonoAgent agent, IActionData data);
+        public abstract void OnEnd(IMonoAgent agent, IActionData data);
     }
 }

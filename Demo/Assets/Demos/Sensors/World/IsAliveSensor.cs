@@ -4,7 +4,7 @@ namespace Demos.Sensors.World
 {
     public class IsAliveSensor : LocalWorldSensorBase
     {
-        public override bool Sense(Agent agent)
+        public override bool Sense(IMonoAgent agent)
         {
             return true;
         }

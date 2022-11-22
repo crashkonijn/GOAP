@@ -4,6 +4,6 @@ namespace CrashKonijn.Goap.Interfaces
 {
     public interface ILocalWorldSensor : IWorldSensor
     {
-        public bool Sense(Agent agent);
+        public bool Sense(IMonoAgent agent);
     }
 }

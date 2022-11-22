@@ -5,7 +5,7 @@ namespace Demos.Sensors.World
 {
     public class IsHungrySensor : LocalWorldSensorBase
     {
-        public override bool Sense(Agent agent)
+        public override bool Sense(IMonoAgent agent)
         {
             var hungerBehaviour = agent.GetComponent<HungerBehaviour>();
 

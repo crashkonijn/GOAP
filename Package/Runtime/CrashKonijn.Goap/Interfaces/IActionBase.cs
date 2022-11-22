@@ -13,8 +13,8 @@ namespace CrashKonijn.Goap.Interfaces
         public int GetCost(IWorldData data);
 
         public IActionData GetData();
-        public ActionRunState Perform(Agent agent, IActionData data);
-        public void OnStart(Agent agent, IActionData data);
-        public void OnEnd(Agent agent, IActionData data);
+        public ActionRunState Perform(IMonoAgent agent, IActionData data);
+        public void OnStart(IMonoAgent agent, IActionData data);
+        public void OnEnd(IMonoAgent agent, IActionData data);
     }
 }

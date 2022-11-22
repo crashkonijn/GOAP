@@ -8,7 +8,7 @@ namespace Demos.Sensors.Target
 {
     public class TransformSensor : LocalTargetSensorBase
     {
-        public override ITarget Sense(Agent agent)
+        public override ITarget Sense(IMonoAgent agent)
         {
             return new TransformTarget(agent.transform);
         }

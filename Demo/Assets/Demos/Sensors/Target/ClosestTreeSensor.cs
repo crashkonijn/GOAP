@@ -8,7 +8,7 @@ namespace Demos.Sensors.Target
 {
     public class ClosestTree : LocalTargetSensorBase
     {
-        public override ITarget Sense(Agent agent)
+        public override ITarget Sense(IMonoAgent agent)
         {
             return new TransformTarget(GameObject.FindObjectsOfType<TreeBehaviour>().Closest(agent.transform.position).transform);
         }

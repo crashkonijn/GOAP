@@ -10,7 +10,7 @@ namespace Demos.Actions
     [CreateAssetMenu(menuName = "Goap/Actions/EatAppleAction")]
     public class EatAppleAction : ActionBase<EatAppleAction.Data>
     {
-        public override void OnStart(Agent agent, Data data)
+        public override void OnStart(IMonoAgent agent, Data data)
         {
             if (data.Target is not TransformTarget)
                 return;
@@ -24,7 +24,7 @@ namespace Demos.Actions
             data.Hunger = agent.GetComponent<HungerBehaviour>();
         }
 
-        public override ActionRunState Perform(Agent agent, Data data)
+        public override ActionRunState Perform(IMonoAgent agent, Data data)
         {
             if (data.Apple == null || data.Hunger == null)
                 return ActionRunState.Stop;
@@ -40,7 +40,7 @@ namespace Demos.Actions
             return ActionRunState.Continue;
         }
         
-        public override void OnEnd(Agent agent, Data data)
+        public override void OnEnd(IMonoAgent agent, Data data)
         {
             if (data.Apple == null)
                 return;

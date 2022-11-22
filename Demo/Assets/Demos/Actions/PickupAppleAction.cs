@@ -10,11 +10,11 @@ namespace Demos.Actions
     [CreateAssetMenu(menuName = "Goap/Actions/PickupAppleAction")]
     public class PickupAppleAction : ActionBase<PickupAppleAction.Data>
     {
-        public override void OnStart(Agent agent, Data data)
+        public override void OnStart(IMonoAgent agent, Data data)
         {
         }
 
-        public override ActionRunState Perform(Agent agent, Data data)
+        public override ActionRunState Perform(IMonoAgent agent, Data data)
         {
             if (data.Target is not TransformTarget transformTarget)
                 return ActionRunState.Stop;
@@ -29,7 +29,7 @@ namespace Demos.Actions
             return ActionRunState.Stop;
         }
         
-        public override void OnEnd(Agent agent, Data data)
+        public override void OnEnd(IMonoAgent agent, Data data)
         {
         }
         

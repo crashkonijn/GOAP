@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Editor.TypeDrawers
 {
-    [CustomEditor(typeof(Agent))]
+    [CustomEditor(typeof(AgentBehaviour))]
     public class AgentEditor : UnityEditor.Editor
     {
         private TreeViewState treeViewState;
@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             if (!Application.isPlaying)
                 return;
             
-            var agent = (Agent) this.target;
+            var agent = (AgentBehaviour) this.target;
             
             EditorGUILayout.LabelField("Goal", agent.CurrentGoal?.ToString());
             EditorGUILayout.LabelField("Action", agent.CurrentAction?.ToString());
@@ -63,7 +63,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             // this.DrawData(agent);
         }
 
-        private void DrawData(Agent agent)
+        private void DrawData(AgentBehaviour agent)
         {
             
         }

@@ -5,7 +5,7 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "LamosInteractive.Goap",
-        "LamosInteractive.Goap.Unity"
+        "CrashKonijn.Goap"
     ],
     "includePlatforms": [
         "Editor"

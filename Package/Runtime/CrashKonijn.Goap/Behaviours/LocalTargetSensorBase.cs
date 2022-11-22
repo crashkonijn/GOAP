@@ -9,6 +9,6 @@ namespace CrashKonijn.Goap.Behaviours
         public TargetKey Key => this.config.key;
         public void SetConfig(TargetSensorConfig config) => this.config = config;
         
-        public abstract ITarget Sense(Agent agent);
+        public abstract ITarget Sense(IMonoAgent agent);
     }
 }

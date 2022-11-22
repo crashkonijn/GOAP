@@ -13,17 +13,17 @@ namespace Demos.Actions
             return new Data();
         }
 
-        public override void OnStart(Agent agent, Data data)
+        public override void OnStart(IMonoAgent agent, Data data)
         {
             
         }
 
-        public override ActionRunState Perform(Agent agent, Data data)
+        public override ActionRunState Perform(IMonoAgent agent, Data data)
         {
             return ActionRunState.Stop;
         }
 
-        public override void OnEnd(Agent agent, Data data)
+        public override void OnEnd(IMonoAgent agent, Data data)
         {
             
         }

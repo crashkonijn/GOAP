@@ -7,12 +7,12 @@ namespace Demos.Behaviours
 {
     public class AgentBrain : MonoBehaviour
     {
-        private Agent agent;
+        private AgentBehaviour agent;
         private HungerBehaviour hunger;
 
         private void Awake()
         {
-            this.agent = this.GetComponent<Agent>();
+            this.agent = this.GetComponent<AgentBehaviour>();
             this.hunger = this.GetComponent<HungerBehaviour>();
         }
 

@@ -5,17 +5,41 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
 {
-    public class Agent : MonoBehaviour
+    public interface IMonoAgent : IAgent, IMonoBehaviour
     {
+        
+    }
+    
+    public interface IAgent
+    {
+        GoapSet GoapSet { get; }
+        IGoalBase CurrentGoal { get; }
+        IActionBase CurrentAction { get; }
+        IActionData CurrentActionData { get; }
+        IWorldData WorldData { get; }
+        List<IActionBase> CurrentActionPath { get; }
+
+        void SetGoal<TGoal>(bool endAction) where TGoal : IGoalBase;
+
+        void SetGoal(IGoalBase goal, bool endAction);
+        void SetWorldData(IWorldData worldData);
+        void SetAction(IActionBase action, List<IActionBase> path, ITarget target);
+    }
+
+    public class AgentBehaviour : MonoBehaviour, IMonoAgent
+    {
+        private IAgentMover mover;
+
         public GoapSet goapSet;
 
+        public IAgentMover Mover => this.mover;
+        public GoapSet GoapSet => this.goapSet;
         public IGoalBase CurrentGoal { get; private set; }
         public IActionBase CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
         public IWorldData WorldData { get; private set; }
         public List<IActionBase> CurrentActionPath { get; private set; }
 
-        private IAgentMover mover;
 
         private void Awake()
         {

@@ -9,7 +9,7 @@ namespace Demos.Sensors.Target
 {
     public class ClosestAppleSensor : LocalTargetSensorBase
     {
-        public override ITarget Sense(Agent agent)
+        public override ITarget Sense(IMonoAgent agent)
         {
             return new TransformTarget(GameObject.FindObjectsOfType<AppleBehaviour>().Where(x => x.GetComponent<Renderer>().enabled).Closest(agent.transform.position).transform);
         }

@@ -60,7 +60,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             return this.worldData;
         }
 
-        public LocalWorldData SenseLocal(GlobalWorldData worldData, Agent agent)
+        public LocalWorldData SenseLocal(GlobalWorldData worldData, IMonoAgent agent)
         {
             this.localWorldData = new LocalWorldData(worldData);
 

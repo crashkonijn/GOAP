@@ -7,7 +7,7 @@ namespace Demos.Sensors.Target
 {
     public class WanderTargetSensor : LocalTargetSensorBase
     {
-        public override ITarget Sense(Agent agent)
+        public override ITarget Sense(IMonoAgent agent)
         {
             var random = Random.insideUnitCircle * 10f;
             return new PositionTarget(agent.transform.position + new Vector3(random.x, 0f, random.y) );

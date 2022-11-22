@@ -4,6 +4,6 @@ namespace CrashKonijn.Goap.Interfaces
 {
     public interface ILocalTargetSensor : ITargetSensor
     {
-        public ITarget Sense(Agent agent);
+        public ITarget Sense(IMonoAgent agent);
     }
 }

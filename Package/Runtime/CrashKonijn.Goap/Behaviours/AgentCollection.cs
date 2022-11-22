@@ -3,29 +3,36 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
 {
-    public class AgentCollection : MonoBehaviour
+    public interface IAgentCollection
     {
-        private Dictionary<GoapSet, HashSet<Agent>> agents = new();
+        Dictionary<GoapSet, HashSet<IMonoAgent>> All();
+        void Add(IMonoAgent agent);
+        void Remove(IMonoAgent agent);
+    }
 
-        public Dictionary<GoapSet, HashSet<Agent>> All() => this.agents;
+    public class AgentCollection : MonoBehaviour, IAgentCollection
+    {
+        private Dictionary<GoapSet, HashSet<IMonoAgent>> agents = new();
+
+        public Dictionary<GoapSet, HashSet<IMonoAgent>> All() => this.agents;
         
-        public void Add(Agent agent)
+        public void Add(IMonoAgent agent)
         {
             this.GetSet(agent).Add(agent);
         }
 
-        public void Remove(Agent agent)
+        public void Remove(IMonoAgent agent)
         {
             this.GetSet(agent).Remove(agent);
         }
 
-        private HashSet<Agent> GetSet(Agent agent)
+        private HashSet<IMonoAgent> GetSet(IMonoAgent agent)
         {
-            if (this.agents.TryGetValue(agent.goapSet, out var set))
+            if (this.agents.TryGetValue(agent.GoapSet, out var set))
                 return set;
 
-            set = new HashSet<Agent>();
-            this.agents.Add(agent.goapSet, set);
+            set = new HashSet<IMonoAgent>();
+            this.agents.Add(agent.GoapSet, set);
             return set;
         }
     }
