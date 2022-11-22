@@ -1,4 +1,6 @@
 # New version!
+![test-status](https://github.com/crashkonijn/GOAP/actions/workflows/main.yml/badge.svg?branch=feature/version-2)
+
 A new version is being build, read more about it [here](https://github.com/crashkonijn/GOAP/issues/8).
 
 # GOAP
