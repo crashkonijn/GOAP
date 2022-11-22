@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Sensors;
 using Demos.Behaviours;
 
 namespace Demos.Sensors.World
