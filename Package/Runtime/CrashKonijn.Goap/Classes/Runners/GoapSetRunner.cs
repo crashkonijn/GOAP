@@ -1,21 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.Runners;
+using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Scriptables;
 using LamosInteractive.Goap;
-using UnityEngine;
 
-namespace CrashKonijn.Goap.Behaviours
+namespace CrashKonijn.Goap.Classes.Runners
 {
-    public class GoapSet : MonoBehaviour
+    public class GoapSetRunner : IGoapSet
     {
-        [SerializeField]
-        public GoapRunnerBehaviour goapRunner;
-        [SerializeField]
-        public GoapSetConfig config;
-
+        private readonly GoapSetConfig config;
+        private readonly IGoapRunner goapRunner;
+        
         private HashSet<IGoalBase> goals;
         private HashSet<ActionBase> actions;
         private GraphResolver graphResolver;
@@ -25,13 +21,14 @@ namespace CrashKonijn.Goap.Behaviours
         // GC cache
         private LocalWorldData localData;
 
-        private void Awake()
+        public GoapSetRunner(GoapSetConfig config, IGoapRunner goapRunner)
         {
-           this.actions = this.config.actions.ToHashSet();
-           this.goals = new ClassResolver().Load(this.config.goals);
+            this.config = config;
+            this.goapRunner = goapRunner;
             
-            // this.goals = this.GetComponentsInChildren<IGoalBase>().ToHashSet();
-            // this.actions = this.GetComponentsInChildren<IActionBase>().ToHashSet();
+            this.actions = this.config.actions.ToHashSet();
+            this.goals = new ClassResolver().Load(this.config.goals);
+           
             this.goapRunner.Register(this);
 
             this.GatherSensors();

@@ -27,7 +27,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.runner.Initialize();
         }
 
-        public void Register(GoapSet set) => this.runner.Register(set);
+        public void Register(IGoapSet set) => this.runner.Register(set);
         public void Register(IMonoAgent agent) => this.runner.Register(agent);
         public void Unregister(IMonoAgent agent) => this.runner.Unregister(agent);
 

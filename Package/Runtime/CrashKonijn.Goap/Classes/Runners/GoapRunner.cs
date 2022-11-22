@@ -8,7 +8,7 @@ namespace CrashKonijn.Goap.Classes.Runners
     {
         private readonly IAgentCollection agentCollection;
         private readonly GoapConfig config;
-        private HashSet<GoapSet> sets = new();
+        private HashSet<IGoapSet> sets = new();
 
         public GoapRunner(IAgentCollection agentCollection, GoapConfig config)
         {
@@ -16,7 +16,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             this.config = config;
         }
 
-        public void Register(GoapSet set) => this.sets.Add(set);
+        public void Register(IGoapSet set) => this.sets.Add(set);
         public void Register(IMonoAgent agent) => this.agentCollection.Add(agent);
         public void Unregister(IMonoAgent agent) => this.agentCollection.Remove(agent);
 

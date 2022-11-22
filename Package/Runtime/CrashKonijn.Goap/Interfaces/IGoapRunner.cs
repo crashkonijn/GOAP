@@ -5,7 +5,7 @@ namespace CrashKonijn.Goap.Interfaces
 {
     public interface IGoapRunner
     {
-        void Register(GoapSet set);
+        void Register(IGoapSet set);
         void Register(IMonoAgent agent);
         void Unregister(IMonoAgent agent);
     }
