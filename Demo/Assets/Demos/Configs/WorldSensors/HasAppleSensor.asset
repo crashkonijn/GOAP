@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 572705dead71414d8a4e2c1911b8feb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 826454e3c7f400943baf947860d47a92, type: 3}
   m_Name: HasAppleSensor
   m_EditorClassIdentifier: 
   sensorClass: Demos.Sensors.World.HasAppleSensor, Assembly-CSharp, Version=0.0.0.0,

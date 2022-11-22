@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc78d2ff7e384b37b61a92f5caa812ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 831838a5ef26c5d47969f27b895a59c8, type: 3}
   m_Name: WanderTargetSensor
   m_EditorClassIdentifier: 
   sensorClass: Demos.Sensors.Target.WanderTargetSensor, Assembly-CSharp, Version=0.0.0.0,
