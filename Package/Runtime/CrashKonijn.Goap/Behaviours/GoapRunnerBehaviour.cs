@@ -1,6 +1,7 @@
 ﻿using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Observers;
+using CrashKonijn.Goap.Resolvers;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours

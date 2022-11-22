@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Observers;
+using CrashKonijn.Goap.Resolvers;
 
 namespace CrashKonijn.Goap.Classes
 {

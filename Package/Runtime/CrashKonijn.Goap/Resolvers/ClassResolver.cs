@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Scriptables;
 
-namespace CrashKonijn.Goap.Classes
+namespace CrashKonijn.Goap.Resolvers
 {
     public class ClassResolver
     {

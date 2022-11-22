@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Resolvers;
 using CrashKonijn.Goap.Scriptables;
 using LamosInteractive.Goap;
 

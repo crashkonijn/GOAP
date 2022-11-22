@@ -5,9 +5,9 @@ using LamosInteractive.Goap.Interfaces;
 using UnityEngine;
 using IAction = LamosInteractive.Goap.Interfaces.IAction;
 
-namespace CrashKonijn.Goap
+namespace CrashKonijn.Goap.Resolvers
 {
-    public abstract class ActionKeyResolverBase<TAction, TGoal> : MonoBehaviour, IActionKeyResolver
+    public abstract class ActionKeyResolverBase<TAction, TGoal> : IActionKeyResolver
         where TAction : IAction
         where TGoal : IGoalBase
     {
@@ -33,8 +33,8 @@ namespace CrashKonijn.Goap
             return this.GetKey((TAction) action, (Effect) effect);
         }
 
-        public abstract string GetKey(TAction action, Condition key);
-        public abstract string GetKey(TAction action, Effect key);
-        public abstract string GetKey(TGoal action, Condition key);
+        protected abstract string GetKey(TAction action, Condition key);
+        protected abstract string GetKey(TAction action, Effect key);
+        protected abstract string GetKey(TGoal action, Condition key);
     }
 }
