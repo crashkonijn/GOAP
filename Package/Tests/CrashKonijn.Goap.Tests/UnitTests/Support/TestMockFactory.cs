@@ -12,6 +12,8 @@ namespace CrashKonijn.Goap.UnitTests.Support
 
         public T Create<T>() where T : class
         {
+            if (this.mocks.ContainsKey(typeof(T)))
+                return this.Get<T>();
             
             if (typeof(T).IsInterface)
             {

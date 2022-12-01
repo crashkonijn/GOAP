@@ -494,7 +494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goapRunner: {fileID: 2048474744}
-  configScriptable: {fileID: 11400000, guid: bc3345faa62c03c4f8c98047a812dfce, type: 2}
+  config: {fileID: 11400000, guid: bc3345faa62c03c4f8c98047a812dfce, type: 2}
 --- !u!1001 &916364576
 PrefabInstance:
   m_ObjectHideFlags: 0

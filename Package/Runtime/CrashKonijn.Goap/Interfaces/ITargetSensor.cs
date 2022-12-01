@@ -4,6 +4,6 @@ namespace CrashKonijn.Goap.Interfaces
 {
     public interface ITargetSensor : IHasConfig<ITargetSensorConfig>
     {
-        public ITargetKey key { get; }
+        public ITargetKey Key { get; }
     }
 }

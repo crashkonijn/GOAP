@@ -5,7 +5,6 @@ using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolvers;
-using CrashKonijn.Goap.Scriptables;
 using LamosInteractive.Goap;
 
 namespace CrashKonijn.Goap.Classes.Runners

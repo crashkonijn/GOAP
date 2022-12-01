@@ -55,7 +55,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                 .ToHashSet();
 
             this.worldData.Targets = this.globalTargetSensors
-                .ToDictionary(x => x.key, y => y.Sense());
+                .ToDictionary(x => x.Key, y => y.Sense());
 
             return this.worldData;
         }
@@ -64,14 +64,13 @@ namespace CrashKonijn.Goap.Classes.Runners
         {
             this.localWorldData = new LocalWorldData(worldData);
 
-            foreach (var worldSensor in this.localWorldSensors.Where(x => x.Sense(agent)))
-            {
-                this.localWorldData.States.Add(worldSensor.Key);
-            }
-            foreach (var targetSensor in this.localTargetSensors)
-            {
-                this.localWorldData.Targets.Add(targetSensor.key, targetSensor.Sense(agent));
-            }
+            this.localWorldData.States = this.localWorldSensors
+                .Where(x => x.Sense(agent))
+                .Select(x => x.Key)
+                .ToHashSet();
+
+            this.localWorldData.Targets = this.localTargetSensors
+                .ToDictionary(x => x.Key, y => y.Sense(agent));
 
             return this.localWorldData;
         }
