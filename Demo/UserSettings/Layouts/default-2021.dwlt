@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Test Runner
   m_RootView: {fileID: 9}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -39,10 +39,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1449
+    x: 1116
     y: 0
-    width: 566
-    height: 663
+    width: 931
+    height: 766
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 20}
@@ -65,12 +65,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 311
+    x: 314
     y: 0
-    width: 1704
-    height: 644
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
+    width: 1733
+    height: 541
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -94,13 +94,13 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 663
-    width: 2015
-    height: 644
+    y: 766
+    width: 2047
+    height: 541
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 44
+  controlID: 124
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 355
+  controlID: 113
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -136,23 +136,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: InspectorWindow
+  m_Name: TestRunnerWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 2015
+    x: 2047
     y: 0
-    width: 545
+    width: 513
     height: 1307
-  m_MinSize: {x: 275, y: 100}
+  m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 15}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 15}
   - {fileID: 16}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -170,10 +170,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 311
-    height: 663
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+    width: 314
+    height: 766
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -196,8 +196,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 311
-    height: 644
+    width: 314
+    height: 541
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 17}
@@ -295,12 +295,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2015
+    width: 2047
     height: 1307
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 169
+  controlID: 114
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -321,12 +321,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2015
-    height: 663
+    width: 2047
+    height: 766
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 170
+  controlID: 115
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -342,10 +342,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 311
+    x: 314
     y: 0
-    width: 1138
-    height: 663
+    width: 802
+    height: 766
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
@@ -374,9 +374,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2015
+    x: 2047
     y: 73
-    width: 544
+    width: 512
     height: 1286
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -415,16 +415,16 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2015
+    x: 2047
     y: 73
-    width: 544
+    width: 512
     height: 1286
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_Spl:
-    ID: 178
+    ID: 183
     splitterInitialOffset: 0
     currentActiveSplitter: -1
     realSizes:
@@ -490,9 +490,9 @@ MonoBehaviour:
       uniqueId: '[UnityGoap][suite]'
       name: UnityGoap
       fullName: UnityGoap
-      resultStatus: 2
-      duration: 0.154476
-      messages: One or more child tests had errors
+      resultStatus: 1
+      duration: 0.1646026
+      messages: 
       output: 
       stacktrace: 
       notRunnable: 0
@@ -503,12 +503,12 @@ MonoBehaviour:
       parentId: 
       parentUniqueId: 
     - id: 1016
-      uniqueId: '[CrashKonijn.Goap.UnitTests][E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/CrashKonijn.Goap.UnitTests.dll][suite]'
-      name: CrashKonijn.Goap.UnitTests.dll
-      fullName: E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/CrashKonijn.Goap.UnitTests.dll
-      resultStatus: 2
-      duration: 0.1284195
-      messages: One or more child tests had errors
+      uniqueId: '[UnitTests][E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/UnitTests.dll][suite]'
+      name: UnitTests.dll
+      fullName: E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/UnitTests.dll
+      resultStatus: 1
+      duration: 0.1304271
+      messages: 
       output: 
       stacktrace: 
       notRunnable: 0
@@ -519,11 +519,11 @@ MonoBehaviour:
       parentId: 1000
       parentUniqueId: '[UnityGoap][suite]'
     - id: 1001
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests][suite]
+      uniqueId: UnitTests.dll/[UnitTests][ActionKeyResolverTests][suite]
       name: ActionKeyResolverTests
       fullName: ActionKeyResolverTests
       resultStatus: 1
-      duration: 0.0481395
+      duration: 0.1198845
       messages: 
       output: 
       stacktrace: 
@@ -533,13 +533,13 @@ MonoBehaviour:
       isSuite: 1
       categories: []
       parentId: 1016
-      parentUniqueId: '[CrashKonijn.Goap.UnitTests][E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/CrashKonijn.Goap.UnitTests.dll][suite]'
+      parentUniqueId: '[UnitTests][E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/UnitTests.dll][suite]'
     - id: 1004
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect][suite]
+      uniqueId: UnitTests.dll/ActionKeyResolverTests/[UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect][suite]
       name: GetKey_ActionCondition_IsCorrect
       fullName: ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect
       resultStatus: 1
-      duration: 0.0262428
+      duration: 0.0950358
       messages: 
       output: 
       stacktrace: 
@@ -549,20 +549,16 @@ MonoBehaviour:
       isSuite: 1
       categories: []
       parentId: 1001
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests][suite]
+      parentUniqueId: UnitTests.dll/[UnitTests][ActionKeyResolverTests][suite]
     - id: 1002
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/GetKey_ActionCondition_IsCorrect/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect(True,"_true")]
+      uniqueId: UnitTests.dll/ActionKeyResolverTests/GetKey_ActionCondition_IsCorrect/[UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect(True,"_true")]
       name: GetKey_ActionCondition_IsCorrect(True,"_true")
       fullName: ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect(True,"_true")
       resultStatus: 1
-      duration: 0.0153375
+      duration: 0.084205
       messages: 
-      output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
-        ScriptableObject.CreateInstance method instead of new WorldKey.
-
-        Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data.Action
-        must be instantiated using the ScriptableObject.CreateInstance method instead
-        of new Action.
+      output: 'Castle.Proxies.WorldKeyProxy must be instantiated using the ScriptableObject.CreateInstance
+        method instead of new WorldKeyProxy.
 
 '
       stacktrace: 
@@ -573,20 +569,16 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1004
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect][suite]
+      parentUniqueId: UnitTests.dll/ActionKeyResolverTests/[UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect][suite]
     - id: 1003
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/GetKey_ActionCondition_IsCorrect/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect(False,"_false")]
+      uniqueId: UnitTests.dll/ActionKeyResolverTests/GetKey_ActionCondition_IsCorrect/[UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect(False,"_false")]
       name: GetKey_ActionCondition_IsCorrect(False,"_false")
       fullName: ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect(False,"_false")
       resultStatus: 1
-      duration: 0.001236
+      duration: 0.00208
       messages: 
-      output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
-        ScriptableObject.CreateInstance method instead of new WorldKey.
-
-        Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data.Action
-        must be instantiated using the ScriptableObject.CreateInstance method instead
-        of new Action.
+      output: 'Castle.Proxies.WorldKeyProxy must be instantiated using the ScriptableObject.CreateInstance
+        method instead of new WorldKeyProxy.
 
 '
       stacktrace: 
@@ -597,13 +589,13 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1004
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect][suite]
+      parentUniqueId: UnitTests.dll/ActionKeyResolverTests/[UnitTests][ActionKeyResolverTests.GetKey_ActionCondition_IsCorrect][suite]
     - id: 1007
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect][suite]
+      uniqueId: UnitTests.dll/ActionKeyResolverTests/[UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect][suite]
       name: GetKey_ActionEffect_IsCorrect
       fullName: ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect
       resultStatus: 1
-      duration: 0.0112569
+      duration: 0.0124296
       messages: 
       output: 
       stacktrace: 
@@ -613,20 +605,16 @@ MonoBehaviour:
       isSuite: 1
       categories: []
       parentId: 1001
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests][suite]
+      parentUniqueId: UnitTests.dll/[UnitTests][ActionKeyResolverTests][suite]
     - id: 1005
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/GetKey_ActionEffect_IsCorrect/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect(True,"_true")]
+      uniqueId: UnitTests.dll/ActionKeyResolverTests/GetKey_ActionEffect_IsCorrect/[UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect(True,"_true")]
       name: GetKey_ActionEffect_IsCorrect(True,"_true")
       fullName: ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect(True,"_true")
       resultStatus: 1
-      duration: 0.0015044
+      duration: 0.0016873
       messages: 
-      output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
-        ScriptableObject.CreateInstance method instead of new WorldKey.
-
-        Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data.Action
-        must be instantiated using the ScriptableObject.CreateInstance method instead
-        of new Action.
+      output: 'Castle.Proxies.WorldKeyProxy must be instantiated using the ScriptableObject.CreateInstance
+        method instead of new WorldKeyProxy.
 
 '
       stacktrace: 
@@ -637,20 +625,16 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1007
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect][suite]
+      parentUniqueId: UnitTests.dll/ActionKeyResolverTests/[UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect][suite]
     - id: 1006
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/GetKey_ActionEffect_IsCorrect/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect(False,"_false")]
+      uniqueId: UnitTests.dll/ActionKeyResolverTests/GetKey_ActionEffect_IsCorrect/[UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect(False,"_false")]
       name: GetKey_ActionEffect_IsCorrect(False,"_false")
       fullName: ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect(False,"_false")
       resultStatus: 1
-      duration: 0.0009989
+      duration: 0.0007554
       messages: 
-      output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
-        ScriptableObject.CreateInstance method instead of new WorldKey.
-
-        Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data.Action
-        must be instantiated using the ScriptableObject.CreateInstance method instead
-        of new Action.
+      output: 'Castle.Proxies.WorldKeyProxy must be instantiated using the ScriptableObject.CreateInstance
+        method instead of new WorldKeyProxy.
 
 '
       stacktrace: 
@@ -661,13 +645,13 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1007
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect][suite]
+      parentUniqueId: UnitTests.dll/ActionKeyResolverTests/[UnitTests][ActionKeyResolverTests.GetKey_ActionEffect_IsCorrect][suite]
     - id: 1010
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect][suite]
+      uniqueId: UnitTests.dll/ActionKeyResolverTests/[UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect][suite]
       name: GetKey_GoalCondition_IsCorrect
       fullName: ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect
       resultStatus: 1
-      duration: 0.0081269
+      duration: 0.0096414
       messages: 
       output: 
       stacktrace: 
@@ -677,16 +661,16 @@ MonoBehaviour:
       isSuite: 1
       categories: []
       parentId: 1001
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests][suite]
+      parentUniqueId: UnitTests.dll/[UnitTests][ActionKeyResolverTests][suite]
     - id: 1008
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/GetKey_GoalCondition_IsCorrect/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect(True,"_true")]
+      uniqueId: UnitTests.dll/ActionKeyResolverTests/GetKey_GoalCondition_IsCorrect/[UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect(True,"_true")]
       name: GetKey_GoalCondition_IsCorrect(True,"_true")
       fullName: ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect(True,"_true")
       resultStatus: 1
-      duration: 0.0011896
+      duration: 0.002757
       messages: 
-      output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
-        ScriptableObject.CreateInstance method instead of new WorldKey.
+      output: 'Castle.Proxies.WorldKeyProxy must be instantiated using the ScriptableObject.CreateInstance
+        method instead of new WorldKeyProxy.
 
 '
       stacktrace: 
@@ -697,16 +681,16 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1010
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect][suite]
+      parentUniqueId: UnitTests.dll/ActionKeyResolverTests/[UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect][suite]
     - id: 1009
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/GetKey_GoalCondition_IsCorrect/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect(False,"_false")]
+      uniqueId: UnitTests.dll/ActionKeyResolverTests/GetKey_GoalCondition_IsCorrect/[UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect(False,"_false")]
       name: GetKey_GoalCondition_IsCorrect(False,"_false")
       fullName: ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect(False,"_false")
       resultStatus: 1
-      duration: 0.0004768
+      duration: 0.0007864
       messages: 
-      output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
-        ScriptableObject.CreateInstance method instead of new WorldKey.
+      output: 'Castle.Proxies.WorldKeyProxy must be instantiated using the ScriptableObject.CreateInstance
+        method instead of new WorldKeyProxy.
 
 '
       stacktrace: 
@@ -717,13 +701,13 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1010
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/ActionKeyResolverTests/[CrashKonijn.Goap.UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect][suite]
+      parentUniqueId: UnitTests.dll/ActionKeyResolverTests/[UnitTests][ActionKeyResolverTests.GetKey_GoalCondition_IsCorrect][suite]
     - id: 1011
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn.Goap.UnitTests][ConditionObserverTests][suite]
+      uniqueId: UnitTests.dll/[UnitTests][ConditionObserverTests][suite]
       name: ConditionObserverTests
       fullName: ConditionObserverTests
       resultStatus: 1
-      duration: 0.0101681
+      duration: 0.0092573
       messages: 
       output: 
       stacktrace: 
@@ -733,13 +717,13 @@ MonoBehaviour:
       isSuite: 1
       categories: []
       parentId: 1016
-      parentUniqueId: '[CrashKonijn.Goap.UnitTests][E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/CrashKonijn.Goap.UnitTests.dll][suite]'
+      parentUniqueId: '[UnitTests][E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/UnitTests.dll][suite]'
     - id: 1015
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ConditionObserverTests/[CrashKonijn.Goap.UnitTests][ConditionObserverTests.IsMet_Negative_IsNotPresent]
+      uniqueId: UnitTests.dll/ConditionObserverTests/[UnitTests][ConditionObserverTests.IsMet_Negative_IsNotPresent]
       name: IsMet_Negative_IsNotPresent
       fullName: ConditionObserverTests.IsMet_Negative_IsNotPresent
       resultStatus: 1
-      duration: 0.0015824
+      duration: 0.0018401
       messages: 
       output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
         ScriptableObject.CreateInstance method instead of new WorldKey.
@@ -753,13 +737,13 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1011
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn.Goap.UnitTests][ConditionObserverTests][suite]
+      parentUniqueId: UnitTests.dll/[UnitTests][ConditionObserverTests][suite]
     - id: 1014
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ConditionObserverTests/[CrashKonijn.Goap.UnitTests][ConditionObserverTests.IsMet_Negative_IsPresent]
+      uniqueId: UnitTests.dll/ConditionObserverTests/[UnitTests][ConditionObserverTests.IsMet_Negative_IsPresent]
       name: IsMet_Negative_IsPresent
       fullName: ConditionObserverTests.IsMet_Negative_IsPresent
       resultStatus: 1
-      duration: 0.0008985
+      duration: 0.0008238
       messages: 
       output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
         ScriptableObject.CreateInstance method instead of new WorldKey.
@@ -773,13 +757,13 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1011
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn.Goap.UnitTests][ConditionObserverTests][suite]
+      parentUniqueId: UnitTests.dll/[UnitTests][ConditionObserverTests][suite]
     - id: 1013
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ConditionObserverTests/[CrashKonijn.Goap.UnitTests][ConditionObserverTests.IsMet_Positive_IsNotPresent]
+      uniqueId: UnitTests.dll/ConditionObserverTests/[UnitTests][ConditionObserverTests.IsMet_Positive_IsNotPresent]
       name: IsMet_Positive_IsNotPresent
       fullName: ConditionObserverTests.IsMet_Positive_IsNotPresent
       resultStatus: 1
-      duration: 0.0006719
+      duration: 0.0005479
       messages: 
       output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
         ScriptableObject.CreateInstance method instead of new WorldKey.
@@ -793,13 +777,13 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1011
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn.Goap.UnitTests][ConditionObserverTests][suite]
+      parentUniqueId: UnitTests.dll/[UnitTests][ConditionObserverTests][suite]
     - id: 1012
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/ConditionObserverTests/[CrashKonijn.Goap.UnitTests][ConditionObserverTests.IsMet_Positive_IsPresent]
+      uniqueId: UnitTests.dll/ConditionObserverTests/[UnitTests][ConditionObserverTests.IsMet_Positive_IsPresent]
       name: IsMet_Positive_IsPresent
       fullName: ConditionObserverTests.IsMet_Positive_IsPresent
       resultStatus: 1
-      duration: 0.0007682
+      duration: 0.0005593
       messages: 
       output: 'CrashKonijn.Goap.Scriptables.WorldKey must be instantiated using the
         ScriptableObject.CreateInstance method instead of new WorldKey.
@@ -813,110 +797,13 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1011
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn.Goap.UnitTests][ConditionObserverTests][suite]
-    - id: 1019
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn][suite]
-      name: CrashKonijn
-      fullName: CrashKonijn
-      resultStatus: 2
-      duration: 0.1279925
-      messages: One or more child tests had errors
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1018
-      parentUniqueId: '[CrashKonijn.Goap.UnitTests][E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/CrashKonijn.Goap.UnitTests.dll][suite]'
-    - id: 1020
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/CrashKonijn/[Goap][suite]
-      name: Goap
-      fullName: CrashKonijn.Goap
-      resultStatus: 2
-      duration: 0.1278779
-      messages: One or more child tests had errors
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1019
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/[CrashKonijn][suite]
-    - id: 1021
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/CrashKonijn/Goap/[CrashKonijn.Goap.UnitTests][CrashKonijn.Goap.UnitTests][suite]
-      name: UnitTests
-      fullName: CrashKonijn.Goap.UnitTests
-      resultStatus: 2
-      duration: 0.1253747
-      messages: One or more child tests had errors
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1020
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/CrashKonijn/[Goap][suite]
-    - id: 1016
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/CrashKonijn/Goap/UnitTests/[CrashKonijn.Goap.UnitTests][CrashKonijn.Goap.UnitTests.CostObserverTests][suite]
-      name: CostObserverTests
-      fullName: CrashKonijn.Goap.UnitTests.CostObserverTests
-      resultStatus: 2
-      duration: 0.1215115
-      messages: One or more child tests had errors
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1021
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/CrashKonijn/Goap/[CrashKonijn.Goap.UnitTests][CrashKonijn.Goap.UnitTests][suite]
-    - id: 1017
-      uniqueId: CrashKonijn.Goap.UnitTests.dll/CrashKonijn/Goap/UnitTests/CostObserverTests/[CrashKonijn.Goap.UnitTests][CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithoutPath_ReturnsCurrentCost]
-      name: GetCost_WithoutPath_ReturnsCurrentCost
-      fullName: CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithoutPath_ReturnsCurrentCost
-      resultStatus: 2
-      duration: 0.1115708
-      messages: "  Expected: 10\r\n  But was:  0.0f\r\n"
-      output: 'You are trying to create a MonoBehaviour using the ''new'' keyword. 
-        This is not allowed.  MonoBehaviours can only be added using AddComponent().
-        Alternatively, your script can inherit from ScriptableObject or no base class
-        at all
-
-'
-      stacktrace: 'at CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithoutPath_ReturnsCurrentCost
-        () [0x0003e] in E:\Development\CrashKonijn\GOAP\Package\Tests\CrashKonijn.Goap.Tests\UnitTests\CostObserverTests.cs:35
-
-'
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1016
-      parentUniqueId: CrashKonijn.Goap.UnitTests.dll/CrashKonijn/Goap/UnitTests/[CrashKonijn.Goap.UnitTests][CrashKonijn.Goap.UnitTests.CostObserverTests][suite]
-    m_ResultText: "GetCost_WithoutPath_ReturnsCurrentCost (0,112s)\n---\nExpected:
-      10\r\n  But was:  0.0f\n---\nat CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithoutPath_ReturnsCurrentCost
-      () [0x0003e] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\CostObserverTests.cs:35\n---\nYou
-      are trying to create a MonoBehaviour using the 'new' keyword.  This is not
-      allowed.  MonoBehaviours can only be added using AddComponent(). Alternatively,
-      your script can inherit from ScriptableObject or no base class at all"
-    m_ResultStacktrace: 'at CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithoutPath_ReturnsCurrentCost
-      () [0x0003e] in E:\Development\CrashKonijn\GOAP\Package\Tests\CrashKonijn.Goap.Tests\UnitTests\CostObserverTests.cs:35
-
-'
+      parentUniqueId: UnitTests.dll/[UnitTests][ConditionObserverTests][suite]
+    m_ResultText: UnityGoap (0,165s)
+    m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: e80c7463
-      m_LastClickedID: 1668549864
+      m_SelectedIDs: f887fc56
+      m_LastClickedID: 1459390456
       m_ExpandedIDs: 4fed6d8c15567b992b132daa3e889fcae7e66fcdb8db52d453d1dcecd63c3df801dd1d00cc9e3210b3f8a51cd03d582f0bb0ea3c1a516b56f887fc5610cb8d5b02b060639b83b6669c98587b2d8f377dffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -965,9 +852,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 736
-    width: 310
-    height: 623
+    y: 839
+    width: 313
+    height: 520
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -984,8 +871,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Packages/com.crashkonijn.goap/Tests/CrashKonijn.Goap.Tests/UnitTests
+    m_Folders: []
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
@@ -999,7 +885,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 88b50000
     m_LastClickedID: 46472
-    m_ExpandedIDs: 0000000030690000326900003469000036690000386900003a6900003c6900003e69000040690000426900004469000046690000486900004a6900004c6900004e69000050690000526900005469000056690000586900005a6900005c6900005e69000060690000626900006469000066690000
+    m_ExpandedIDs: 000000006469000066690000686900006a6900006c6900006e69000070690000726900007469000076690000786900007a6900007c6900007e69000080690000826900008469000086690000886900008a6900008c6900008e69000090690000926900009469000096690000986900009a6900009c6900009e690000a0690000a2690000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1027,7 +913,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff0000000030690000326900003469000036690000386900003a6900003c6900003e69000040690000426900004469000046690000486900004a6900004c6900004e69000050690000526900005469000056690000586900005a6900005c6900005e690000606900006269000064690000666900005e6b0000726b0000dc6b0000e06b0000ffffff7f
+    m_ExpandedIDs: ffffffff000000006469000066690000686900006a6900006c6900006e69000070690000726900007469000076690000786900007a6900007c6900007e69000080690000826900008469000086690000886900008a6900008c6900008e69000090690000926900009469000096690000986900009a6900009c6900009e690000a0690000a2690000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1106,8 +992,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 73
-    width: 310
-    height: 642
+    width: 313
+    height: 745
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1115,9 +1001,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 046b0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: acb2ffff24b3ffff66b9ffff2efbffff
+      m_ExpandedIDs: a2ccffff36d1ffff8ed5ffff2efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1162,10 +1048,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 311
+    x: 314
     y: 73
-    width: 1136
-    height: 642
+    width: 800
+    height: 745
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1367,9 +1253,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -3.130187, y: 0.80916977, z: 2.3520184}
+    m_Target: {x: -2.80192, y: 0.40751266, z: 3.740693}
     speed: 2
-    m_Value: {x: -3.130187, y: 0.80916977, z: 2.3520184}
+    m_Value: {x: -2.80192, y: 0.40751266, z: 3.740693}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1420,9 +1306,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.28965962, y: 0.7102562, z: -0.46008736, w: -0.4471613}
   m_Size:
-    m_Target: 19.861492
+    m_Target: 17.72196
     speed: 2
-    m_Value: 19.861492
+    m_Value: 17.72196
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1468,10 +1354,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1449
+    x: 1116
     y: 73
-    width: 564
-    height: 642
+    width: 929
+    height: 745
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1482,7 +1368,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 564, y: 621}
+  m_TargetSize: {x: 929, y: 724}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -1497,10 +1383,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -282
-    m_HBaseRangeMax: 282
-    m_VBaseRangeMin: -310.5
-    m_VBaseRangeMax: 310.5
+    m_HBaseRangeMin: -464.5
+    m_HBaseRangeMax: 464.5
+    m_VBaseRangeMin: -362
+    m_VBaseRangeMax: 362
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -1518,23 +1404,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 564
-      height: 621
+      width: 929
+      height: 724
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 282, y: 310.5}
+    m_Translation: {x: 464.5, y: 362}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -282
-      y: -310.5
-      width: 564
-      height: 621
+      x: -464.5
+      y: -362
+      width: 929
+      height: 724
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 564, y: 642}
+  m_LastWindowPixelSize: {x: 929, y: 745}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -1561,10 +1447,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 311
-    y: 736
-    width: 1702
-    height: 623
+    x: 314
+    y: 839
+    width: 1731
+    height: 520
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default

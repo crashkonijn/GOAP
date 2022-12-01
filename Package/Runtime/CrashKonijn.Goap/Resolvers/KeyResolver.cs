@@ -7,17 +7,17 @@ namespace CrashKonijn.Goap.Resolvers
     {
         protected override string GetKey(IActionBase action, Condition condition)
         {
-            return condition.worldKey.name + this.GetText(condition.positive);
+            return condition.worldKey.Name + this.GetText(condition.positive);
         }
 
         protected override string GetKey(IActionBase action, Effect effect)
         {
-            return effect.worldKey.name + this.GetText(effect.positive);
+            return effect.worldKey.Name + this.GetText(effect.positive);
         }
 
         protected override string GetKey(IGoalBase action, Condition condition)
         {
-            return condition.worldKey.name + this.GetText(condition.positive);
+            return condition.worldKey.Name + this.GetText(condition.positive);
         }
 
         private string GetText(bool value)

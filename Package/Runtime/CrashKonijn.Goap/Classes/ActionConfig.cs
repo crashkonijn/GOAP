@@ -11,7 +11,7 @@ namespace CrashKonijn.Goap.Classes
         [HideInInspector]
         public string actionClass;
         public int baseCost = 1;
-        public TargetKey target;
+        public TargetKeyScriptable target;
         public float inRange = 0.1f;
         
         public List<Condition> conditions;

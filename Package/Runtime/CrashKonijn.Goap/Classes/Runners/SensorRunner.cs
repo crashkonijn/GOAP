@@ -55,7 +55,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                 .ToHashSet();
 
             this.worldData.Targets = this.globalTargetSensors
-                .ToDictionary(x => x.Key, y => y.Sense());
+                .ToDictionary(x => x.key, y => y.Sense());
 
             return this.worldData;
         }
@@ -70,7 +70,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
             foreach (var targetSensor in this.localTargetSensors)
             {
-                this.localWorldData.Targets.Add(targetSensor.Key, targetSensor.Sense(agent));
+                this.localWorldData.Targets.Add(targetSensor.key, targetSensor.Sense(agent));
             }
 
             return this.localWorldData;

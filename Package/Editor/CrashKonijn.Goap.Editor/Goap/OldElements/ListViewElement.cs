@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using CrashKonijn.Goap.Configs.Interfaces;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.Goap.OldElements
 {
     public class ListViewElement<T> : IEditorElement
-        where T : UnityEngine.Object
+        where T : class, IConfig
     {
         private readonly List<T> elements;
         private readonly Action<T> onSelectionChange;
@@ -21,7 +22,7 @@ namespace CrashKonijn.Goap.Editor.Goap.OldElements
             var list = new ListView();
             
             list.makeItem = () => new Label();
-            list.bindItem = (item, index) => { (item as Label).text = this.elements[index].name; };
+            list.bindItem = (item, index) => { (item as Label).text = this.elements[index].Name; };
             list.itemsSource = this.elements;
 
             list.onSelectionChange += _ =>

@@ -15,14 +15,14 @@ namespace CrashKonijn.Goap.Editor.Goap.OldElements
             
             box.Add(new Label
             {
-                text = state.SelectedGoalConfig.name
+                text = state.SelectedGoalConfig.Name
             });
 
             var baseCost = new IntegerField("Base cost");
 
-            baseCost.value = state.SelectedGoalConfig.baseCost;
+            baseCost.value = state.SelectedGoalConfig.BaseCost;
 
-            baseCost.RegisterValueChangedCallback(value => state.SelectedGoalConfig.baseCost = value.newValue);
+            baseCost.RegisterValueChangedCallback(value => state.SelectedGoalConfig.BaseCost = value.newValue);
             
             box.Add(baseCost);
 

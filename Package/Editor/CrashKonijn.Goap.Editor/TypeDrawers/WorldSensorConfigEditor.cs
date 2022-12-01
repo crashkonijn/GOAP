@@ -7,16 +7,16 @@ using UnityEditor;
 
 namespace CrashKonijn.Goap.Editor.TypeDrawers
 {
-    [CustomEditor(typeof(WorldSensorConfig))]
+    [CustomEditor(typeof(WorldSensorConfigScriptable))]
     public class WorldSensorConfigEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
-            var config = (WorldSensorConfig) this.target;
+            var config = (WorldSensorConfigScriptable) this.target;
             
             base.OnInspectorGUI();
 
-            config.sensorClass = this.DrawTypeSelect(config.sensorClass, this.GetAllOfType<IWorldSensor>());
+            config.ClassType = this.DrawTypeSelect(config.ClassType, this.GetAllOfType<IWorldSensor>());
         }
 
         private string DrawTypeSelect(string currentValue, List<string> options)

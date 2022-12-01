@@ -1,10 +1,10 @@
-﻿using CrashKonijn.Goap.Scriptables;
+﻿using CrashKonijn.Goap.Configs;
+using CrashKonijn.Goap.Configs.Interfaces;
 
 namespace CrashKonijn.Goap.Interfaces
 {
-    public interface IWorldSensor
+    public interface IWorldSensor : IHasConfig<IWorldSensorConfig>
     {
-        public WorldKey Key { get; }
-        public void SetConfig(WorldSensorConfig config);
+        public IWorldKey Key { get; }
     }
 }

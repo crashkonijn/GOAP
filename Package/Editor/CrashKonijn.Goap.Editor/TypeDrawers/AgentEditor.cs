@@ -45,7 +45,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             foreach (var (key, value) in agent.WorldData.Targets)
             {
-                EditorGUILayout.LabelField(key.name, value.Position.ToString());
+                EditorGUILayout.LabelField(key.Name, value.Position.ToString());
             }
 
             EditorGUI.indentLevel = 0;
@@ -54,7 +54,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             foreach (var worldKey in agent.WorldData.States)
             {
-                EditorGUILayout.LabelField(worldKey.name);
+                EditorGUILayout.LabelField(worldKey.Name);
             }
             
             GUILayout.EndVertical();

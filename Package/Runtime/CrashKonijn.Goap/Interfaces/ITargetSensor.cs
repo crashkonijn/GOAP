@@ -1,11 +1,9 @@
-﻿using CrashKonijn.Goap.Scriptables;
+﻿using CrashKonijn.Goap.Configs.Interfaces;
 
 namespace CrashKonijn.Goap.Interfaces
 {
-    public interface ITargetSensor
+    public interface ITargetSensor : IHasConfig<ITargetSensorConfig>
     {
-        public TargetKey Key { get; }
-        
-        public void SetConfig(TargetSensorConfig config);
+        public ITargetKey key { get; }
     }
 }

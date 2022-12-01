@@ -1,15 +1,15 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Scriptables;
 
 namespace CrashKonijn.Goap.Sensors
 {
     public abstract class LocalWorldSensorBase : ILocalWorldSensor
     {
-        private WorldSensorConfig config;
-        public WorldKey Key => this.config.key;
-        
-        public void SetConfig(WorldSensorConfig config) => this.config = config;
+        public IWorldKey Key => this.Config.Key;
+
+        public IWorldSensorConfig Config { get; private set; }
+        public void SetConfig(IWorldSensorConfig config) => this.Config = config;
         
         public abstract bool Sense(IMonoAgent agent);
     }

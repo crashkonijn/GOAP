@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Configs;
+using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Editor.Goap.Elements;
 using CrashKonijn.Goap.Editor.Goap.OldElements;
 using CrashKonijn.Goap.Scriptables;
@@ -75,7 +77,7 @@ namespace CrashKonijn.Goap.Editor.Goap
 
         private void RenderGoals()
         {
-            var left = new ListViewElement<GoalConfig>(this.state.GoalConfigs, item =>
+            var left = new ListViewElement<IGoalConfig>(this.state.GoalConfigs, item =>
             {
                 this.state.SelectedGoalConfig = item;
                 this.Render();
@@ -88,7 +90,7 @@ namespace CrashKonijn.Goap.Editor.Goap
     
         private void RenderSets()
         {
-            var left = new ListViewElement<GoapSetConfig>(this.state.SetConfigs, item =>
+            var left = new ListViewElement<IGoapSetConfig>(this.state.SetConfigs, item =>
             {
                 this.state.SelectedSetConfig = item;
                 this.Render();
@@ -104,8 +106,8 @@ namespace CrashKonijn.Goap.Editor.Goap
             return new EditorState
             {
                 ActionConfigs = this.Load<ActionBase>(),
-                GoalConfigs = this.Load<GoalConfig>(),
-                SetConfigs = this.Load<GoapSetConfig>(),
+                GoalConfigs = this.Load<GoalConfigScriptable>().Cast<IGoalConfig>().ToList(),
+                SetConfigs = this.Load<GoapSetConfigScriptable>().Cast<IGoapSetConfig>().ToList(),
             };
         }
 

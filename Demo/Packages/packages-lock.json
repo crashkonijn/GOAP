@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.boundfoxstudios.fluentassertions": {
+      "version": "https://github.com/BoundfoxStudios/fluentassertions-unity.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "73575516048ef17c212d93e03517740d429183e8"
+    },
     "com.crashkonijn.goap": {
       "version": "file:../../Package",
       "depth": 0,
@@ -168,6 +175,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "net.tnrd.nsubstitute": {
+      "version": "https://github.com/Thundernerd/Unity3D-NSubstitute.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "eec6769f8e3f904c00755e1aa1f491088bd76d9f"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

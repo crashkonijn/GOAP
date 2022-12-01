@@ -179,7 +179,7 @@ namespace CrashKonijn.Goap.Editor
             var suffix = condition.positive ? "true" : "false";
             var color = value ? "green" : "red";
 
-            return $"    <color={color}>{condition.worldKey.name} ({suffix})</color>";
+            return $"    <color={color}>{condition.worldKey.Name} ({suffix})</color>";
         }
 
         private string GetText(Effect effect, bool value)
@@ -187,7 +187,7 @@ namespace CrashKonijn.Goap.Editor
             var suffix = effect.positive ? "true" : "false";
             var color = value ? "green" : "red";
 
-            return $"    <color={color}>{effect.worldKey.name} ({suffix})</color>";
+            return $"    <color={color}>{effect.worldKey.Name} ({suffix})</color>";
         }
 
         void DrawNodeCurve(RenderNode start, RenderNode end)

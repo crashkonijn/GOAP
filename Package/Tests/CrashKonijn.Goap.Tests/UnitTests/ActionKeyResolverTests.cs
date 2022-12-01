@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using CrashKonijn.Goap;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Configs;
+using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolvers;
-using CrashKonijn.Goap.Scriptables;
+using NSubstitute;
 using NUnit.Framework;
-using Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data;
-using UnityEngine;
-using UnityEngine.TestTools;
 
 public class ActionKeyResolverTests
 {
@@ -21,11 +21,11 @@ public class ActionKeyResolverTests
         var condition = new Condition
         {
             positive = positive,
-            worldKey = new WorldKey()
+            worldKey = Substitute.For<IWorldKey>()
         };
 
         // Act
-        var result = resolver.GetKey(new Action(), condition);
+        var result = resolver.GetKey(Substitute.For<IActionBase>(), condition);
 
         // Assert
         Assert.AreEqual(expected, result);
@@ -41,11 +41,11 @@ public class ActionKeyResolverTests
         var condition = new Effect
         {
             positive = positive,
-            worldKey = new WorldKey()
+            worldKey = Substitute.For<IWorldKey>()
         };
 
         // Act
-        var result = resolver.GetKey(new Action(), condition);
+        var result = resolver.GetKey(Substitute.For<IActionBase>(), condition);
 
         // Assert
         Assert.AreEqual(expected, result);
@@ -61,11 +61,11 @@ public class ActionKeyResolverTests
         var condition = new Condition
         {
             positive = positive,
-            worldKey = new WorldKey()
+            worldKey = Substitute.For<IWorldKey>()
         };
 
         // Act
-        var result = resolver.GetKey(new Goal(), condition);
+        var result = resolver.GetKey(Substitute.For<IGoalBase>(), condition);
 
         // Assert
         Assert.AreEqual(expected, result);

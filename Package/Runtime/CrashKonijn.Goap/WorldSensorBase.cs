@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Scriptables;
+﻿using CrashKonijn.Goap.Configs;
+using CrashKonijn.Goap.Configs.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap
@@ -6,8 +7,8 @@ namespace CrashKonijn.Goap
     public abstract class WorldSensorBase : MonoBehaviour
     {
         [SerializeField]
-        private WorldKey key;
+        private IWorldKey keyScriptable;
 
-        public WorldKey Key => this.key;
+        public IWorldKey KeyScriptable => this.keyScriptable;
     }
 }

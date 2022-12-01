@@ -1,11 +1,12 @@
 {
     "name": "UnitTests",
-    "rootNamespace": "",
+    "rootNamespace": "CrashKonijn.Goap.UnitTests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "LamosInteractive.Goap",
-        "CrashKonijn.Goap"
+        "CrashKonijn.Goap",
+        "BoundfoxStudios.FluentAssertions"
     ],
     "includePlatforms": [
         "Editor"
@@ -14,7 +15,8 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "NSubstitute.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

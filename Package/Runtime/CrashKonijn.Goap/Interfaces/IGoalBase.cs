@@ -1,13 +1,10 @@
-﻿using CrashKonijn.Goap.Scriptables;
+﻿using CrashKonijn.Goap.Configs.Interfaces;
 using LamosInteractive.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Interfaces
 {
-    public interface IGoalBase : IAction
+    public interface IGoalBase : IAction, IHasConfig<IGoalConfig>
     {
-        public GoalConfig Config { get; }
-
         public int GetCost(IWorldData data);
-        public void SetConfig(GoalConfig config);
     }
 }

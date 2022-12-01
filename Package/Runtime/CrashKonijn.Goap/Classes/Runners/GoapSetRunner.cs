@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Configs;
+using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolvers;
 using CrashKonijn.Goap.Scriptables;
@@ -10,25 +12,25 @@ namespace CrashKonijn.Goap.Classes.Runners
 {
     public class GoapSetRunner : IGoapSet
     {
-        private readonly GoapSetConfig config;
+        private readonly IGoapSetConfig config;
         private readonly IGoapRunner goapRunner;
         
         private HashSet<IGoalBase> goals;
         private HashSet<ActionBase> actions;
         private GraphResolver graphResolver;
         private SensorRunner sensorRunner;
-        public  GoapConfig goapConfig;
+        public GoapConfig goapConfig;
         
         // GC cache
         private LocalWorldData localData;
 
-        public GoapSetRunner(GoapSetConfig config, IGoapRunner goapRunner)
+        public GoapSetRunner(IGoapSetConfig config, IGoapRunner goapRunner)
         {
             this.config = config;
             this.goapRunner = goapRunner;
             
-            this.actions = this.config.actions.ToHashSet();
-            this.goals = new ClassResolver().Load(this.config.goals);
+            this.actions = this.config.Actions.ToHashSet();
+            this.goals = new ClassResolver().Load<IGoalBase, IGoalConfig>(this.config.Goals);
            
             this.goapRunner.Register(this);
 
@@ -37,8 +39,8 @@ namespace CrashKonijn.Goap.Classes.Runners
 
         private void GatherSensors()
         {
-            var worldSensors = new ClassResolver().Load(this.config.worldSensors);
-            var targetSensors = new ClassResolver().Load(this.config.targetSensors);
+            var worldSensors = new ClassResolver().Load<IWorldSensor, IWorldSensorConfig>(this.config.WorldSensors);
+            var targetSensors = new ClassResolver().Load<ITargetSensor, ITargetSensorConfig>(this.config.TargetSensors);
 
             this.sensorRunner = new SensorRunner(worldSensors, targetSensors);
         }

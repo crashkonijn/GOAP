@@ -31,7 +31,7 @@ namespace CrashKonijn.Goap.Behaviours
         [SerializeField]
         public GoapRunnerBehaviour goapRunner;
         [SerializeField]
-        public GoapSetConfig config;
+        public GoapSetConfigScriptable config;
 
         private GoapSetRunner runner;
 

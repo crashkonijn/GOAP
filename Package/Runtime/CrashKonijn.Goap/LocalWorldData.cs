@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using CrashKonijn.Goap.Configs;
+using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Scriptables;
 
@@ -6,8 +8,8 @@ namespace CrashKonijn.Goap
 {
     public class LocalWorldData : IWorldData
     {
-        public HashSet<WorldKey> States { get; set; }
-        public Dictionary<TargetKey, ITarget> Targets { get; set; }
+        public HashSet<IWorldKey> States { get; set; }
+        public Dictionary<ITargetKey, ITarget> Targets { get; set; }
 
         public ITarget GetTarget(IActionBase action)
         {
@@ -23,8 +25,8 @@ namespace CrashKonijn.Goap
 
         public LocalWorldData(IWorldData globalWorldData)
         {
-            this.States = new HashSet<WorldKey>(globalWorldData.States);
-            this.Targets = new Dictionary<TargetKey, ITarget>(globalWorldData.Targets);
+            this.States = new HashSet<IWorldKey>(globalWorldData.States);
+            this.Targets = new Dictionary<ITargetKey, ITarget>(globalWorldData.Targets);
         }
     }
 }
