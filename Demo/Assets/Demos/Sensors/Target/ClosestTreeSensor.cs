@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Demos.Sensors.Target
 {
-    public class ClosestTree : LocalTargetSensorBase
+    public class ClosestTreeSensor : LocalTargetSensorBase
     {
         public override ITarget Sense(IMonoAgent agent)
         {
