@@ -4,8 +4,8 @@ using UnityEditor;
 
 namespace CrashKonijn.Goap.Editor.Attributes
 {
-    [CustomPropertyDrawer(typeof(GoalClassAttribute))]
-    public class GoalClassDrawer : ClassDrawerBase<IGoalBase>
+    [CustomPropertyDrawer(typeof(WorldSensorAttribute))]
+    public class WorldSensorDrawer : ClassDrawerBase<IWorldSensor>
     {
 
     }

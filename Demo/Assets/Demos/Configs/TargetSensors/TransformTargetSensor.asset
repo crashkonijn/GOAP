@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831838a5ef26c5d47969f27b895a59c8, type: 3}
   m_Name: TransformTargetSensor
   m_EditorClassIdentifier: 
-  sensorClass: Demos.Sensors.Target.TransformSensor, Assembly-CSharp, Version=0.0.0.0,
+  classType: Demos.Sensors.Target.TransformSensor, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
   key: {fileID: 11400000, guid: 59d5b26a149e88a4ea08994ab801bcd4, type: 2}

@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Configs.Interfaces;
+﻿using CrashKonijn.Goap.Attributes;
+using CrashKonijn.Goap.Configs.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Scriptables
@@ -6,7 +7,7 @@ namespace CrashKonijn.Goap.Scriptables
     [CreateAssetMenu(menuName = "Goap/WorldSensorConfig")]
     public class WorldSensorConfigScriptable : ScriptableObject, IWorldSensorConfig
     {
-        [HideInInspector]
+        [WorldSensor]
         public string classType;
 
         public WorldKeyScriptable key;

@@ -50,7 +50,11 @@ namespace CrashKonijn.Goap.Behaviours
             this.runner = new GoapSetRunner(this.config, this.goapRunner);
         }
 
-        public void Initialize(GoapConfig config) => this.runner.Initialize(config);
+        public void Initialize(GoapConfig config)
+        {
+            this.goapConfig = config;
+            this.runner.Initialize(config);
+        }
         public void Register(AgentBehaviour agent) => this.runner.Register(agent);
         public void Unregister(AgentBehaviour agent) => this.runner.Unregister(agent);
         public void Run(HashSet<IMonoAgent> agents) => this.runner.Run(agents);

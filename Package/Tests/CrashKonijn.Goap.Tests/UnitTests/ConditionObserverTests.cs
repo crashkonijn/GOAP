@@ -1,112 +1,112 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Observers;
-using CrashKonijn.Goap.Serializables;
 using NUnit.Framework;
 
-
-public class ConditionObserverTests
+namespace CrashKonijn.Goap.UnitTests
 {
-    [Test]
-    public void IsMet_Positive_IsPresent()
+    public class ConditionObserverTests
     {
-        // Arrange
-        var key = new WorldKey("world-key");
-        var worldData = new GlobalWorldData
+        [Test]
+        public void IsMet_Positive_IsPresent()
         {
-            States = new HashSet<IWorldKey>{ key }
-        };
-        var observer = new ConditionObserver();
-        observer.SetWorldData(worldData);
+            // Arrange
+            var key = new WorldKey("world-key");
+            var worldData = new GlobalWorldData
+            {
+                States = new HashSet<IWorldKey>{ key }
+            };
+            var observer = new ConditionObserver();
+            observer.SetWorldData(worldData);
         
-        var condition = new Condition
-        {
-            Positive = true,
-            WorldKey = key
-        };
+            var condition = new Condition
+            {
+                Positive = true,
+                WorldKey = key
+            };
 
-        // Act
-        var result = observer.IsMet(condition);
+            // Act
+            var result = observer.IsMet(condition);
 
-        // Assert
-        Assert.IsTrue(result);
-    }
+            // Assert
+            Assert.IsTrue(result);
+        }
     
-    [Test]
-    public void IsMet_Positive_IsNotPresent()
-    {
-        // Arrange
-        var key = new WorldKey("world-key");
-        var worldData = new GlobalWorldData
+        [Test]
+        public void IsMet_Positive_IsNotPresent()
         {
-            States = new HashSet<IWorldKey>()
-        };
-        var observer = new ConditionObserver();
-        observer.SetWorldData(worldData);
+            // Arrange
+            var key = new WorldKey("world-key");
+            var worldData = new GlobalWorldData
+            {
+                States = new HashSet<IWorldKey>()
+            };
+            var observer = new ConditionObserver();
+            observer.SetWorldData(worldData);
         
-        var condition = new Condition
-        {
-            Positive = true,
-            WorldKey = key
-        };
+            var condition = new Condition
+            {
+                Positive = true,
+                WorldKey = key
+            };
 
-        // Act
-        var result = observer.IsMet(condition);
+            // Act
+            var result = observer.IsMet(condition);
 
-        // Assert
-        Assert.IsFalse(result);
-    }
+            // Assert
+            Assert.IsFalse(result);
+        }
     
-    [Test]
-    public void IsMet_Negative_IsPresent()
-    {
-        // Arrange
-        var key = new WorldKey("world-key");
-        var worldData = new GlobalWorldData
+        [Test]
+        public void IsMet_Negative_IsPresent()
         {
-            States = new HashSet<IWorldKey>{ key }
-        };
-        var observer = new ConditionObserver();
-        observer.SetWorldData(worldData);
+            // Arrange
+            var key = new WorldKey("world-key");
+            var worldData = new GlobalWorldData
+            {
+                States = new HashSet<IWorldKey>{ key }
+            };
+            var observer = new ConditionObserver();
+            observer.SetWorldData(worldData);
         
-        var condition = new Condition
-        {
-            Positive = false,
-            WorldKey = key
-        };
+            var condition = new Condition
+            {
+                Positive = false,
+                WorldKey = key
+            };
 
-        // Act
-        var result = observer.IsMet(condition);
+            // Act
+            var result = observer.IsMet(condition);
 
-        // Assert
-        Assert.IsFalse(result);
-    }
+            // Assert
+            Assert.IsFalse(result);
+        }
     
-    [Test]
-    public void IsMet_Negative_IsNotPresent()
-    {
-        // Arrange
-        var key = new WorldKey("world-key");
-        var worldData = new GlobalWorldData
+        [Test]
+        public void IsMet_Negative_IsNotPresent()
         {
-            States = new HashSet<IWorldKey>()
-        };
-        var observer = new ConditionObserver();
-        observer.SetWorldData(worldData);
+            // Arrange
+            var key = new WorldKey("world-key");
+            var worldData = new GlobalWorldData
+            {
+                States = new HashSet<IWorldKey>()
+            };
+            var observer = new ConditionObserver();
+            observer.SetWorldData(worldData);
         
-        var condition = new Condition
-        {
-            Positive = false,
-            WorldKey = key
-        };
+            var condition = new Condition
+            {
+                Positive = false,
+                WorldKey = key
+            };
 
-        // Act
-        var result = observer.IsMet(condition);
+            // Act
+            var result = observer.IsMet(condition);
 
-        // Assert
-        Assert.IsTrue(result);
+            // Assert
+            Assert.IsTrue(result);
+        }
     }
 }
