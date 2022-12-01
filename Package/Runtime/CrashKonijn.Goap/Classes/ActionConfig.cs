@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Serializables;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes
@@ -14,7 +15,7 @@ namespace CrashKonijn.Goap.Classes
         public TargetKeyScriptable target;
         public float inRange = 0.1f;
         
-        public List<Condition> conditions;
-        public List<Effect> effects;
+        public List<SerializableCondition> conditions;
+        public List<SerializableEffect> effects;
     }
 }

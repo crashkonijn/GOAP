@@ -1,23 +1,24 @@
 ﻿using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Serializables;
 
 namespace CrashKonijn.Goap.Observers
 {
-    public class ConditionObserver : ConditionObserverBase<Condition, Effect>
+    public class ConditionObserver : ConditionObserverBase<ICondition, IEffect>
     {
-        protected override bool IsMet(Condition condition)
+        protected override bool IsMet(ICondition condition)
         {
-            if (condition.positive)
-                return this.WorldData.States.Contains(condition.worldKey);
+            if (condition.Positive)
+                return this.WorldData.States.Contains(condition.WorldKey);
             
-            return !this.WorldData.States.Contains(condition.worldKey);
+            return !this.WorldData.States.Contains(condition.WorldKey);
         }
 
-        protected override bool IsMet(Effect effect)
+        protected override bool IsMet(IEffect effect)
         {
-            if (effect.positive)
-                return this.WorldData.States.Contains(effect.worldKey);
+            if (effect.Positive)
+                return this.WorldData.States.Contains(effect.WorldKey);
             
-            return !this.WorldData.States.Contains(effect.worldKey);
+            return !this.WorldData.States.Contains(effect.WorldKey);
         }
     }
 }

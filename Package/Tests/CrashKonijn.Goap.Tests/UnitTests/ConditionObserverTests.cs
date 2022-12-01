@@ -4,6 +4,7 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Observers;
+using CrashKonijn.Goap.Serializables;
 using NUnit.Framework;
 
 
@@ -23,8 +24,8 @@ public class ConditionObserverTests
         
         var condition = new Condition
         {
-            positive = true,
-            worldKey = key
+            Positive = true,
+            WorldKey = key
         };
 
         // Act
@@ -48,8 +49,8 @@ public class ConditionObserverTests
         
         var condition = new Condition
         {
-            positive = true,
-            worldKey = key
+            Positive = true,
+            WorldKey = key
         };
 
         // Act
@@ -73,8 +74,8 @@ public class ConditionObserverTests
         
         var condition = new Condition
         {
-            positive = false,
-            worldKey = key
+            Positive = false,
+            WorldKey = key
         };
 
         // Act
@@ -98,8 +99,8 @@ public class ConditionObserverTests
         
         var condition = new Condition
         {
-            positive = false,
-            worldKey = key
+            Positive = false,
+            WorldKey = key
         };
 
         // Act

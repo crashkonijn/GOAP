@@ -6,6 +6,6 @@ namespace CrashKonijn.Goap.Configs.Interfaces
     public interface IGoalConfig : IClassConfig
     {
         int BaseCost { get; set; }
-        List<Condition> Conditions { get; set; }
+        List<ICondition> Conditions { get; }
     }
 }

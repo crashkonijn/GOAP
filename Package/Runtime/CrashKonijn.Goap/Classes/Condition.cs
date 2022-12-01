@@ -1,14 +1,15 @@
-﻿using System;
-using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
-using LamosInteractive.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Configs.Interfaces;
 
 namespace CrashKonijn.Goap.Classes
 {
-    [Serializable]
+    public interface ICondition : LamosInteractive.Goap.Interfaces.ICondition {
+        public IWorldKey WorldKey { get; }
+        public bool Positive { get; }
+    }
+    
     public class Condition : ICondition
     {
-        public IWorldKey worldKey;
-        public bool positive = true;
+        public IWorldKey WorldKey { get; set; }
+        public bool Positive { get; set; }
     }
 }

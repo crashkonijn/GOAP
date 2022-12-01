@@ -4,7 +4,6 @@ using System.Linq;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
-using LamosInteractive.Goap.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
@@ -45,8 +44,8 @@ namespace CrashKonijn.Goap.Behaviours
         
         // IAction
         public Guid Guid { get; } = Guid.NewGuid();
-        public HashSet<IEffect> Effects => this.config.effects.Cast<IEffect>().ToHashSet();
-        public HashSet<ICondition> Conditions => this.config.conditions.Cast<ICondition>().ToHashSet();
+        public HashSet<LamosInteractive.Goap.Interfaces.IEffect> Effects => this.config.effects.Cast<LamosInteractive.Goap.Interfaces.IEffect>().ToHashSet();
+        public HashSet<LamosInteractive.Goap.Interfaces.ICondition> Conditions => this.config.conditions.Cast<LamosInteractive.Goap.Interfaces.ICondition>().ToHashSet();
 
         public void SetConfig(ActionConfig config)
         {

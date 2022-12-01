@@ -1,11 +1,10 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
-using LamosInteractive.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Interfaces
 {
-    public interface IActionBase : IAction
+    public interface IActionBase : LamosInteractive.Goap.Interfaces.IAction
     {
         public ActionConfig Config { get; }
         public void SetConfig(ActionConfig config);

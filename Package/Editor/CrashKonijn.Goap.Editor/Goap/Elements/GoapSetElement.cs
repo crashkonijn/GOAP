@@ -4,6 +4,7 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Editor.Goap.OldElements;
 using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Serializables;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -50,7 +51,7 @@ namespace CrashKonijn.Goap.Editor.Goap.Elements
         
         private void ValidateWorldKeys(VisualElement root, EditorState state, Action onChange)
         {
-            var required = state.SelectedSetConfig.Actions.SelectMany(x => x.Conditions.Cast<Condition>().Select(y => y.worldKey).Concat(x.Effects.Cast<Effect>().Select(z => z.worldKey)));
+            var required = state.SelectedSetConfig.Actions.SelectMany(x => x.Conditions.Cast<ICondition>().Select(y => y.WorldKey).Concat(x.Effects.Cast<IEffect>().Select(z => z.WorldKey)));
             var provided = state.SelectedSetConfig.WorldSensors.Select(x => x.Key);
 
             var missing = required.Except(provided).ToHashSet();

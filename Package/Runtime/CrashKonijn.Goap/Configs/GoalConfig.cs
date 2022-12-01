@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Serializables;
 
 namespace CrashKonijn.Goap.Configs
 {
@@ -25,6 +26,6 @@ namespace CrashKonijn.Goap.Configs
         public string Name { get; }
         public string ClassType { get; }
         public int BaseCost { get; set; }
-        public List<Condition> Conditions { get; set; } = new();
+        public List<ICondition> Conditions { get; set; } = new();
     }
 }

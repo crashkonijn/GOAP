@@ -6,6 +6,7 @@ using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolvers;
+using CrashKonijn.Goap.Serializables;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -20,8 +21,8 @@ public class ActionKeyResolverTests
         var resolver = new KeyResolver();
         var condition = new Condition
         {
-            positive = positive,
-            worldKey = Substitute.For<IWorldKey>()
+            Positive = positive,
+            WorldKey = Substitute.For<IWorldKey>()
         };
 
         // Act
@@ -40,8 +41,8 @@ public class ActionKeyResolverTests
         var resolver = new KeyResolver();
         var condition = new Effect
         {
-            positive = positive,
-            worldKey = Substitute.For<IWorldKey>()
+            Positive = positive,
+            WorldKey = Substitute.For<IWorldKey>()
         };
 
         // Act
@@ -60,8 +61,8 @@ public class ActionKeyResolverTests
         var resolver = new KeyResolver();
         var condition = new Condition
         {
-            positive = positive,
-            worldKey = Substitute.For<IWorldKey>()
+            Positive = positive,
+            WorldKey = Substitute.For<IWorldKey>()
         };
 
         // Act

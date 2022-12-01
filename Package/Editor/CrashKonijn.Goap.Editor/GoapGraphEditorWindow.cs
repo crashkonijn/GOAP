@@ -5,10 +5,13 @@ using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Editor.Classes;
 using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Serializables;
 using LamosInteractive.Goap.Debug;
 using LamosInteractive.Goap.Interfaces;
 using UnityEditor;
 using UnityEngine;
+using ICondition = CrashKonijn.Goap.Classes.ICondition;
+using IEffect = CrashKonijn.Goap.Classes.IEffect;
 
 namespace CrashKonijn.Goap.Editor
 {
@@ -154,8 +157,8 @@ namespace CrashKonijn.Goap.Editor
             var conditionObserver = this.agent.goapSet.goapConfig.ConditionObserver;
             conditionObserver.SetWorldData(this.agent.WorldData);
 
-            var conditions = action.Conditions.Select(x => this.GetText(x as Condition, conditionObserver.IsMet(x)));
-            var effects = action.Effects.Select(x => this.GetText(x as Effect, conditionObserver.IsMet(x)));
+            var conditions = action.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));
+            var effects = action.Effects.Select(x => this.GetText(x as IEffect, conditionObserver.IsMet(x)));
 
             var text = $"Target: {this.agent.WorldData.GetTarget(action).Position}\n\nEffects:\n{string.Join("\n", effects)}\nConditions:\n{string.Join("\n", conditions)}\n";
 
@@ -174,20 +177,20 @@ namespace CrashKonijn.Goap.Editor
             this.Repaint();
         }
 
-        private string GetText(Condition condition, bool value)
+        private string GetText(ICondition condition, bool value)
         {
-            var suffix = condition.positive ? "true" : "false";
+            var suffix = condition.Positive ? "true" : "false";
             var color = value ? "green" : "red";
 
-            return $"    <color={color}>{condition.worldKey.Name} ({suffix})</color>";
+            return $"    <color={color}>{condition.WorldKey.Name} ({suffix})</color>";
         }
 
-        private string GetText(Effect effect, bool value)
+        private string GetText(IEffect effect, bool value)
         {
-            var suffix = effect.positive ? "true" : "false";
+            var suffix = effect.Positive ? "true" : "false";
             var color = value ? "green" : "red";
 
-            return $"    <color={color}>{effect.worldKey.Name} ({suffix})</color>";
+            return $"    <color={color}>{effect.WorldKey.Name} ({suffix})</color>";
         }
 
         void DrawNodeCurve(RenderNode start, RenderNode end)
