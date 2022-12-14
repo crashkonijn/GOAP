@@ -1,76 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Resolvers;
 using LamosInteractive.Goap;
 
 namespace CrashKonijn.Goap.Classes.Runners
 {
-    public class GoapSetRunner : IGoapSet
+    public class GoapSetRunner
     {
-        private readonly IGoapSetConfig config;
-        private readonly IGoapRunner goapRunner;
-        
-        private HashSet<IGoalBase> goals;
-        private HashSet<ActionBase> actions;
-        private GraphResolver graphResolver;
-        private SensorRunner sensorRunner;
-        public GoapConfig goapConfig;
-        
+        private readonly Dictionary<IGoapSet, GraphResolver> graphResolvers = new();
+
         // GC cache
         private LocalWorldData localData;
 
-        public GoapSetRunner(IGoapSetConfig config, IGoapRunner goapRunner)
+        public void Run(IGoapSet set)
         {
-            this.config = config;
-            this.goapRunner = goapRunner;
-            
-            this.actions = this.config.Actions.ToHashSet();
-            this.goals = new ClassResolver().Load<IGoalBase, IGoalConfig>(this.config.Goals);
-           
-            this.goapRunner.Register(this);
+            var globalData = set.SensorRunner.SenseGlobal();
 
-            this.GatherSensors();
-        }
-
-        private void GatherSensors()
-        {
-            var worldSensors = new ClassResolver().Load<IWorldSensor, IWorldSensorConfig>(this.config.WorldSensors);
-            var targetSensors = new ClassResolver().Load<ITargetSensor, ITargetSensorConfig>(this.config.TargetSensors);
-
-            this.sensorRunner = new SensorRunner(worldSensors, targetSensors);
-        }
-        
-        public void Initialize(GoapConfig config)
-        {
-            this.goapConfig = config;
-            var mixed = this.goals.Concat(this.actions.Cast<LamosInteractive.Goap.Interfaces.IAction>()).ToHashSet();
-            
-            this.graphResolver = new GraphResolver(
-                actions: mixed, 
-                conditionObserver: config.ConditionObserver, 
-                costObserver: config.CostObserver, 
-                keyResolver: config.KeyResolver
-            );
-        }
-
-        public void Register(AgentBehaviour agent) => this.goapRunner.Register(agent);
-        public void Unregister(AgentBehaviour agent) => this.goapRunner.Unregister(agent);
-
-        public void Run(HashSet<IMonoAgent> agents)
-        {
-            var globalData = this.sensorRunner.SenseGlobal();
-
-            foreach (var agent in agents)
+            foreach (var agent in set.Agents.All())
             {
-                this.Run(globalData, agent);
+                this.Run(set, globalData, agent);
             }
         }
 
-        private void Run(GlobalWorldData globalData, IMonoAgent agent)
+        private void Run(IGoapSet set, GlobalWorldData globalData, IMonoAgent agent)
         {
             if (agent.CurrentGoal == null)
                 return;
@@ -78,12 +31,12 @@ namespace CrashKonijn.Goap.Classes.Runners
             if (agent.CurrentAction != null)
                 return;
             
-            this.localData = this.sensorRunner.SenseLocal(globalData, agent);
-            this.InjectData(this.localData);
+            this.localData = set.SensorRunner.SenseLocal(globalData, agent);
+            this.InjectData(set.GoapConfig, this.localData);
             
             agent.SetWorldData(this.localData);
             
-            var result = this.graphResolver.Resolve(agent.CurrentGoal);
+            var result = this.GetGraphResolver(set).Resolve(agent.CurrentGoal);
             var action = result.Action as IActionBase;
 
             if (action == null)
@@ -95,43 +48,30 @@ namespace CrashKonijn.Goap.Classes.Runners
             agent.SetAction(action, result.Path.OfType<IActionBase>().ToList(), this.localData.GetTarget(action));
         }
 
-        private void InjectData(LocalWorldData worldData)
+        private void InjectData(GoapConfig config, LocalWorldData worldData)
         {
-            this.goapConfig.ConditionObserver.SetWorldData(worldData);
-            this.goapConfig.CostObserver.SetWorldData(worldData);
-            this.goapConfig.KeyResolver.SetWorldData(worldData);
+            config.ConditionObserver.SetWorldData(worldData);
+            config.CostObserver.SetWorldData(worldData);
+            config.KeyResolver.SetWorldData(worldData);
         }
 
-        public TAction ResolveAction<TAction>()
-            where TAction : ActionBase
+        private GraphResolver GetGraphResolver(IGoapSet set)
         {
-            var result = this.actions.FirstOrDefault(x => x.GetType() == typeof(TAction));
-
-            if (result != null)
-                return (TAction) result;
-            
-            throw new KeyNotFoundException($"No action found of type {typeof(TAction)}");
-        }
-
-        public TGoal ResolveGoal<TGoal>()
-            where TGoal : IGoalBase
-        {
-            var result = this.goals.FirstOrDefault(x => x.GetType() == typeof(TGoal));
-
-            if (result != null)
-                return (TGoal) result;
-            
-            throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");
-        }
-
-        public AgentDebugGraph GetDebugGraph()
-        {
-            return new AgentDebugGraph
+            if (this.graphResolvers.TryGetValue(set, out var resolver))
             {
-                Goals = this.goals,
-                Actions = this.actions,
-                Config = this.goapConfig
-            };
+                return resolver;
+            }
+
+            resolver = new GraphResolver(
+                set.GetAllNodes(),
+                set.GoapConfig.ConditionObserver,
+                set.GoapConfig.CostObserver,
+                set.GoapConfig.KeyResolver
+            );
+            
+            this.graphResolvers.Add(set, resolver);
+
+            return resolver;
         }
     }
 }

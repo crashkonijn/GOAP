@@ -30,16 +30,18 @@ namespace CrashKonijn.Goap.Behaviours
     {
         private IAgentMover mover;
 
-        public GoapSetBehaviour goapSet;
-
         public IAgentMover Mover => this.mover;
-        public IGoapSet GoapSet => this.goapSet;
+        public IGoapSet GoapSet { get; set; }
         public IGoalBase CurrentGoal { get; private set; }
         public IActionBase CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
         public IWorldData WorldData { get; private set; }
         public List<IActionBase> CurrentActionPath { get; private set; }
 
+        public void Construct(IGoapSet goapSet)
+        {
+            this.GoapSet = goapSet;
+        }
 
         private void Awake()
         {
@@ -48,12 +50,12 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void OnEnable()
         {
-            this.goapSet.Register(this);
+            this.GoapSet.Register(this);
         }
 
         private void OnDisable()
         {
-            this.goapSet.Unregister(this);
+            this.GoapSet.Unregister(this);
         }
 
         public void Update()
@@ -87,7 +89,6 @@ namespace CrashKonijn.Goap.Behaviours
         {
             if (this.CurrentActionData?.Target == null)
             {
-                UnityEngine.Debug.Log(this.CurrentAction);
                 return 0f;
             }
 
@@ -97,7 +98,7 @@ namespace CrashKonijn.Goap.Behaviours
         public void SetGoal<TGoal>(bool endAction)
             where TGoal : IGoalBase
         {
-            this.SetGoal(this.goapSet.ResolveGoal<TGoal>(), endAction);
+            this.SetGoal(this.GoapSet.ResolveGoal<TGoal>(), endAction);
         }
 
         public void SetGoal(IGoalBase goal, bool endAction)

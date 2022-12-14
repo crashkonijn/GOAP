@@ -56,7 +56,7 @@ namespace CrashKonijn.Goap.Editor
             if (this.agent == null)
                 return;
 
-            var data = this.agent.goapSet.GetDebugGraph();
+            var data = this.agent.GoapSet.GetDebugGraph();
 
             var debugger = new GraphDebugger(data.Actions.Cast<IAction>().Concat(data.Goals).ToHashSet(), data.Config.ConditionObserver, data.Config.CostObserver, data.Config.KeyResolver);
             var graph = debugger.GetGraph();
@@ -154,7 +154,7 @@ namespace CrashKonijn.Goap.Editor
             if (action == null)
                 return;
 
-            var conditionObserver = this.agent.goapSet.goapConfig.ConditionObserver;
+            var conditionObserver = this.agent.GoapSet.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(this.agent.WorldData);
 
             var conditions = action.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));

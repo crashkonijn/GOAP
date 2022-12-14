@@ -13,23 +13,11 @@ namespace CrashKonijn.Goap.Behaviours
         private void Awake()
         {
             this.runner = new Classes.Runners.GoapRunner(
-                this.GetComponent<AgentCollection>(),
-                new GoapConfig(
-                    this.GetComponent<ICostObserver>(),
-                    this.GetComponent<IConditionObserver>(),
-                    this.GetComponent<IKeyResolver>()
-                )
+                GoapConfig.Default
             );
         }
 
-        private void Start()
-        {
-            this.runner.Initialize();
-        }
-
         public void Register(IGoapSet set) => this.runner.Register(set);
-        public void Register(IMonoAgent agent) => this.runner.Register(agent);
-        public void Unregister(IMonoAgent agent) => this.runner.Unregister(agent);
 
         private void FixedUpdate()
         {

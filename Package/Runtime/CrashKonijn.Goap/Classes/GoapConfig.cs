@@ -16,5 +16,7 @@ namespace CrashKonijn.Goap.Classes
             this.ConditionObserver = conditionObserver;
             this.KeyResolver = keyResolver;
         }
+
+        public static GoapConfig Default => new(new CostObserver(), new ConditionObserver(), new KeyResolver());
     }
 }

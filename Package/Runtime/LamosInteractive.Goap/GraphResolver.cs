@@ -8,9 +8,6 @@ namespace LamosInteractive.Goap
 {
     public class GraphResolver : IGraphResolver
     {
-        private readonly IConditionObserver conditionObserver;
-        private readonly ICostObserver costObserver;
-        private readonly IActionKeyResolver keyResolver;
         private readonly AStar aStar;
         
         internal readonly Graph Graph;
@@ -21,9 +18,6 @@ namespace LamosInteractive.Goap
             ICostObserver costObserver, 
             IActionKeyResolver keyResolver)
         {
-            this.conditionObserver = conditionObserver;
-            this.costObserver = costObserver;
-            this.keyResolver = keyResolver;
             this.Graph = new GraphBuilder(keyResolver).Build(actions);
             this.aStar = new AStar(conditionObserver, costObserver);
         }

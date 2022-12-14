@@ -9,7 +9,7 @@ using ILamosEffect = LamosInteractive.Goap.Interfaces.IEffect;
 
 namespace CrashKonijn.Goap.Resolvers
 {
-    public abstract class KeyResolverBase<TAction, TGoal> : IActionKeyResolver
+    public abstract class KeyResolverBase<TAction, TGoal> : IKeyResolver
         where TAction : IAction
         where TGoal : IGoalBase
     {
