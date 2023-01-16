@@ -12,6 +12,8 @@ namespace CrashKonijn.Goap.Unity.Injectors
         
         private void Awake()
         {
+            var injector = FindObjectOfType<GoapAgentInjector>();
+            
             this.GetComponent<AgentBehaviour>().Construct(this.goapSet.Set);
         }
     }

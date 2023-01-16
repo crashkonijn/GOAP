@@ -30,7 +30,7 @@ namespace CrashKonijn.Goap.Editor
         private GUIStyle disabledWindow;
         private Vector3 offset;
 
-        [MenuItem("Window/Node editor")]
+        [MenuItem("Tools/GOAP/Agent Nodes")]
         static void ShowEditor() {
             var editor = EditorWindow.GetWindow<GoapGraphEditorWindow>();
             editor.Init();

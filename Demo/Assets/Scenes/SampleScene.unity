@@ -450,7 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: bc3345faa62c03c4f8c98047a812dfce, type: 2}
-  runner: {fileID: 0}
+  runner: {fileID: 2048474744}
 --- !u!1001 &916364576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1013,9 +1013,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2048474743}
   - component: {fileID: 2048474744}
-  - component: {fileID: 2048474748}
-  - component: {fileID: 2048474747}
-  - component: {fileID: 2048474746}
   m_Layer: 0
   m_Name: Goap
   m_TagString: Untagged
@@ -1048,42 +1045,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19925b6b65787cf439172e5e095b51fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2048474746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048474739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f64e508ec8284ed3ac07a76ff795d991, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2048474747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048474739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7309bed80504a3da485e771f211699d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2048474748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048474739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45afffe678984942a20543f3ad20a5f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4823857909504879859

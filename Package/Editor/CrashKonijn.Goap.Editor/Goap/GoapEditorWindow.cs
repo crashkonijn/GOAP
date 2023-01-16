@@ -19,7 +19,7 @@ namespace CrashKonijn.Goap.Editor.Goap
 
         private EditorState state = new EditorState();
 
-        [MenuItem("Tools/GOAP Editor")]
+        [MenuItem("Tools/GOAP/Setup Inspector")]
         public static void ShowMyEditor()
         {
             // This method is called when the user selects the menu item in the Editor

@@ -14,7 +14,7 @@ namespace CrashKonijn.Goap.Editor.Goap.Elements
         public VisualElement Render(EditorState state, Action onChange)
         {
             // Import UXML
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Packages/LamosInteractive.Goap.Unity/Editor/Goap/Views/Alert.uxml");
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Goap/Views/Alert.uxml");
             var root = visualTree.Instantiate();
 
             root.Q<VisualElement>("root").EnableInClassList($"alert--{this.Type.ToString().ToLower()}", true);

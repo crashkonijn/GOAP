@@ -6,6 +6,7 @@ using CrashKonijn.Goap.Editor.Goap.OldElements;
 using CrashKonijn.Goap.Scriptables;
 using CrashKonijn.Goap.Serializables;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.Goap.Elements
@@ -18,7 +19,7 @@ namespace CrashKonijn.Goap.Editor.Goap.Elements
                 return null;
 
             // Import UXML
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Packages/LamosInteractive.Goap.Unity/Editor/Goap/Views/GoapSet.uxml");
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Goap/Views/GoapSet.uxml");
             var set = visualTree.Instantiate();
             
             var slot = set.Q("slot");
