@@ -49,10 +49,8 @@ namespace CrashKonijn.Goap.Classes
             throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");
         }
 
-        public List<IAction> GetAllNodes()
-        {
-            return this.actions.Cast<IAction>().Concat(this.goals.Cast<IAction>()).ToList();
-        }
+        public List<IAction> GetAllNodes() => this.actions.Cast<IAction>().Concat(this.goals).ToList();
+        public List<IActionBase> GetActions() => this.actions;
 
         public AgentDebugGraph GetDebugGraph()
         {

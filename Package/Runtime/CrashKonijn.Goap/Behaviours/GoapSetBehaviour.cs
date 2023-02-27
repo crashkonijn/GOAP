@@ -16,6 +16,7 @@ namespace CrashKonijn.Goap.Behaviours
         void Register(AgentBehaviour agent);
         void Unregister(AgentBehaviour agent);
         List<IAction> GetAllNodes();
+        List<IActionBase> GetActions();
 
         TAction ResolveAction<TAction>()
             where TAction : ActionBase;

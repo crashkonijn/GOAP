@@ -1,6 +1,4 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Observers;
+﻿using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
@@ -12,16 +10,24 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void Awake()
         {
-            this.runner = new Classes.Runners.GoapRunner(
-                GoapConfig.Default
-            );
+            this.runner = new Classes.Runners.GoapRunner();
         }
 
         public void Register(IGoapSet set) => this.runner.Register(set);
 
-        private void FixedUpdate()
+        private void Update()
         {
             this.runner.Run();
+        }
+
+        private void LateUpdate()
+        {
+            this.runner.Complete();
+        }
+        
+        private void OnDestroy()
+        {
+            this.runner.Dispose();
         }
     }
 }

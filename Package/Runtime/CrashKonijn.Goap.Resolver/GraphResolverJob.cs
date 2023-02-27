@@ -58,14 +58,12 @@ namespace CrashKonijn.Goap.Resolver
             };
             openSet.Add(runData.StartIndex, nodeData);
 
-            Debug.Log("ehmz");
             while (!openSet.IsEmpty)
             {
                 var openList = openSet.GetValueArray(Allocator.Temp);
                 openList.Sort(new NodeSorter());
             
                 var currentNode = openList[0];
-                Debug.Log("Checking node: " + currentNode.Index + "");
 
                 if (runData.IsExecutable[currentNode.Index])
                 {
@@ -112,7 +110,6 @@ namespace CrashKonijn.Goap.Resolver
                 openList.Dispose();
             }
 
-            Debug.Log("Done");
             openSet.Dispose();
             closedSet.Dispose();
         }

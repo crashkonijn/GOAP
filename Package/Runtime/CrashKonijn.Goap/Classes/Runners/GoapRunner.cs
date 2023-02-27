@@ -6,23 +6,31 @@ namespace CrashKonijn.Goap.Classes.Runners
 {
     public class GoapRunner : IGoapRunner
     {
-        private readonly GoapConfig config;
-        private HashSet<IGoapSet> sets = new();
-        private GoapSetRunner goapSetRunner;
+        private Dictionary<IGoapSet, GoapSetJobRunner> sets = new();
 
-        public GoapRunner(GoapConfig config)
-        {
-            this.config = config;
-            this.goapSetRunner = new GoapSetRunner();
-        }
-
-        public void Register(IGoapSet set) => this.sets.Add(set);
+        public void Register(IGoapSet set) => this.sets.Add(set, new GoapSetJobRunner(set));
 
         public void Run()
         {
-            foreach (var goapSet in this.sets)
+            foreach (var runner in this.sets.Values)
             {
-                this.goapSetRunner.Run(goapSet);
+                runner.Run();
+            }
+        }
+
+        public void Complete()
+        {
+            foreach (var runner in this.sets.Values)
+            {
+                runner.Complete();
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var runner in this.sets.Values)
+            {
+                runner.Dispose();
             }
         }
     }

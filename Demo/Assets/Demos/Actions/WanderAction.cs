@@ -25,7 +25,6 @@ namespace Demos.Actions
 
         public override void OnEnd(IMonoAgent agent, Data data)
         {
-            
         }
 
         public class Data : IActionData
