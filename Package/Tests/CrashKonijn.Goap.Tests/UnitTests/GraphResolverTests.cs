@@ -43,6 +43,9 @@ namespace CrashKonijn.Goap.UnitTests
 
             // Assert
             result.Should().BeEmpty();
+            
+            // Cleanup
+            resolver.Dispose();
         }
         
         [Test]
@@ -74,6 +77,9 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             result.Should().HaveCount(1);
             result.First().Should().Be(action);
+            
+            // Cleanup
+            resolver.Dispose();
         }
         
         [Test]
@@ -114,6 +120,9 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             result.Should().HaveCount(1);
             result.First().Should().Be(thirdAction);
+            
+            // Cleanup
+            resolver.Dispose();
         }
         
         [Test]
