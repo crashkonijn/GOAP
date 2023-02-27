@@ -46,6 +46,8 @@ namespace CrashKonijn.Goap.Resolver
 
         // Results
         public NativeList<NodeData> Result;
+        
+        public static readonly float3 InvalidPosition = new float3(float.MaxValue, float.MaxValue, float.MaxValue);
 
         [BurstCompile]
         public void Execute()
@@ -126,7 +128,7 @@ namespace CrashKonijn.Goap.Resolver
             var previousPosition = this.RunData.Positions[previousIndex];
             var currentPosition = this.RunData.Positions[currentIndex];
 
-            if (previousPosition.Equals(currentPosition))
+            if (previousPosition.Equals(InvalidPosition) || currentPosition.Equals(InvalidPosition))
             {
                 return 0;
             }
