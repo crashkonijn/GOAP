@@ -4,7 +4,7 @@ using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using Unity.Collections;
-using UnityEngine;
+using Unity.Mathematics;
 
 namespace CrashKonijn.Goap.Classes.Runners
 {
@@ -44,33 +44,40 @@ namespace CrashKonijn.Goap.Classes.Runners
             var localData = goapSet.SensorRunner.SenseLocal(globalData, agent);
             agent.SetWorldData(localData);
 
-            var executables = this.GetExecutables(localData);
+            var data = this.GetData(localData);
             
             this.resolveHandles.Add(new JobRunHandle(agent)
             {
                 Handle = this.resolver.StartResolve(new RunData
                 {
                     StartIndex = this.resolver.GetIndex(agent.CurrentGoal),
-                    IsExecutable = new NativeArray<bool>(executables, Allocator.TempJob)
+                    IsExecutable = new NativeArray<bool>(data.ExecutableBuilder.Build(), Allocator.TempJob),
+                    Positions = new NativeArray<float3>(data.PositionBuilder.Build(), Allocator.TempJob)
                 })
             });
         }
 
-        private bool[] GetExecutables(LocalWorldData localData)
+        private (ExecutableBuilder ExecutableBuilder, PositionBuilder PositionBuilder) GetData(LocalWorldData localData)
         {
             var conditionObserver = this.goapSet.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(localData);
 
-            var builder = this.resolver.GetExecutableBuilder();
+            var executableBuilder = this.resolver.GetExecutableBuilder();
+            var positionBuilder = this.resolver.GetPositionBuilder();
 
             foreach (var node in this.goapSet.GetActions())
             {
                 var allMet = node.Conditions.All(x => conditionObserver.IsMet(x));
 
-                builder.SetExecutable(node, allMet);
+                var target = localData.GetTarget(node);
+
+                executableBuilder.SetExecutable(node, allMet);
+                
+                if (target is not null)
+                    positionBuilder.SetPosition(node, target.Position);
             }
             
-            return builder.Build();
+            return (executableBuilder, positionBuilder);
         }
 
         public void Complete()

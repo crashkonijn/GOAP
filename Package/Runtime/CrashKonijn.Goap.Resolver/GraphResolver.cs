@@ -52,6 +52,11 @@ namespace CrashKonijn.Goap.Resolver
             return new ExecutableBuilder(this.actionIndexList);
         }
         
+        public PositionBuilder GetPositionBuilder()
+        {
+            return new PositionBuilder(this.actionIndexList);
+        }
+        
         public int GetIndex(IAction action) => this.actionIndexList.IndexOf(action);
         public IAction GetAction(int index) => this.actionIndexList[index];
         
@@ -96,7 +101,9 @@ public class ResolveHandle
         }
         
         this.job.Result.Dispose();
+        
         this.job.RunData.IsExecutable.Dispose();
+        this.job.RunData.Positions.Dispose();
 
         return results.ToArray();
     }

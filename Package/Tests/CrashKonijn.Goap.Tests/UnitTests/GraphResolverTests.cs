@@ -7,6 +7,7 @@ using FluentAssertions;
 using LamosInteractive.Goap.Interfaces;
 using NUnit.Framework;
 using Unity.Collections;
+using Unity.Mathematics;
 
 namespace CrashKonijn.Goap.UnitTests
 {
@@ -36,7 +37,8 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
-                IsExecutable = new NativeArray<bool>(new [] { false }, Allocator.TempJob)
+                IsExecutable = new NativeArray<bool>(new [] { false }, Allocator.TempJob),
+                Positions = new NativeArray<float3>(new [] { float3.zero }, Allocator.TempJob)
             });
 
             var result = handle.Complete();
@@ -69,7 +71,8 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
-                IsExecutable = new NativeArray<bool>(new [] { false, true }, Allocator.TempJob)
+                IsExecutable = new NativeArray<bool>(new [] { false, true }, Allocator.TempJob),
+                Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero }, Allocator.TempJob)
             });
 
             var result = handle.Complete();
@@ -112,7 +115,8 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
-                IsExecutable = new NativeArray<bool>(new [] { false, false, false, true }, Allocator.TempJob)
+                IsExecutable = new NativeArray<bool>(new [] { false, false, false, true }, Allocator.TempJob),
+                Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero, float3.zero, float3.zero }, Allocator.TempJob)
             });
 
             var result = handle.Complete();
@@ -166,7 +170,8 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
-                IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob)
+                IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
+                Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero, float3.zero, float3.zero, float3.zero }, Allocator.TempJob)
             });
 
             var result = handle.Complete();

@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
-using UnityEngine;
+using Unity.Mathematics;
 
 namespace CrashKonijn.Goap.Resolver
 {
+    [BurstCompile]
     public struct NodeData
     {
         public int Index;
@@ -16,12 +18,15 @@ namespace CrashKonijn.Goap.Resolver
         public int F => this.G + this.H;
     }
 
+    [BurstCompile]
     public struct RunData
     {
         public int StartIndex;
         public NativeArray<bool> IsExecutable;
+        public NativeArray<float3> Positions;
     }
 
+    [BurstCompile]
     public struct NodeSorter : IComparer<NodeData>
     {
         public int Compare(NodeData x, NodeData y)
@@ -30,6 +35,7 @@ namespace CrashKonijn.Goap.Resolver
         }
     }
 
+    [BurstCompile]
     public struct GraphResolverJob : IJob
     {
         // Graph specific
@@ -41,6 +47,7 @@ namespace CrashKonijn.Goap.Resolver
         // Results
         public NativeList<NodeData> Result;
 
+        [BurstCompile]
         public void Execute()
         {
             var nodeCount = this.Connections.Count();
@@ -116,7 +123,15 @@ namespace CrashKonijn.Goap.Resolver
 
         private int Heuristic(int currentIndex, int previousIndex)
         {
-            return 0;
+            var previousPosition = this.RunData.Positions[previousIndex];
+            var currentPosition = this.RunData.Positions[currentIndex];
+
+            if (previousPosition.Equals(currentPosition))
+            {
+                return 0;
+            }
+
+            return (int) math.ceil(math.distance(previousPosition, currentPosition));
         }
 
         private void RetracePath(NodeData startNode, NativeHashMap<int, NodeData> closedSet, NativeList<NodeData> path)
@@ -127,7 +142,6 @@ namespace CrashKonijn.Goap.Resolver
                 path.Add(currentNode);
                 currentNode = closedSet[currentNode.ParentIndex];
             }
-            // path.Reverse();
         }
     }
 }

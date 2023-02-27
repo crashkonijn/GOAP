@@ -7,7 +7,8 @@
         "LamosInteractive.Goap",
         "CrashKonijn.Goap",
         "BoundfoxStudios.FluentAssertions",
-        "CrashKonijn.Goap.Resolver"
+        "CrashKonijn.Goap.Resolver",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [
         "Editor"
