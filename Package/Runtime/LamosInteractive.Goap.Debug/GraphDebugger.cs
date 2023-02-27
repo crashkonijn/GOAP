@@ -6,7 +6,7 @@ namespace LamosInteractive.Goap.Debug
 {
     public class GraphDebugger : GraphResolver
     {
-        public GraphDebugger(HashSet<IAction> actions, IConditionObserver conditionObserver, ICostObserver costObserver, IActionKeyResolver keyResolver) : base(actions, conditionObserver, costObserver, keyResolver)
+        public GraphDebugger(List<IAction> actions, IConditionObserver conditionObserver, ICostObserver costObserver, IActionKeyResolver keyResolver) : base(actions, conditionObserver, costObserver, keyResolver)
         {
         }
 

@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Sensors;
 
-namespace Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data
+namespace CrashKonijn.Goap.UnitTests.Data
 {
     public class LocalWorldSensor : LocalWorldSensorBase
     {

@@ -7,13 +7,13 @@ namespace LamosInteractive.Goap
 {
     internal static class Extensions
     {
-        public static (HashSet<Node> RootNodes, HashSet<Node> ChildNodes) ToNodes(this IEnumerable<IAction> actions)
+        public static (Node[] RootNodes, Node[] ChildNodes) ToNodes(this IEnumerable<IAction> actions)
         {
-            var mappedNodes =actions.Select(ToNode).ToHashSet();
+            var mappedNodes =actions.Select(ToNode).ToArray();
             
             return (
-                mappedNodes.Where(x => x.IsRootNode).ToHashSet(),
-                mappedNodes.Where(x => !x.IsRootNode).ToHashSet()
+                mappedNodes.Where(x => x.IsRootNode).ToArray(),
+                mappedNodes.Where(x => !x.IsRootNode).ToArray()
             );
         }
 
@@ -30,11 +30,11 @@ namespace LamosInteractive.Goap
                 Conditions = action.Conditions?.Select(y => new NodeCondition
                 {
                     Condition = y
-                }).ToHashSet() ?? new HashSet<NodeCondition>(),
+                }).ToList() ?? new List<NodeCondition>(),
                 Effects = action.Effects?.Select(y => new NodeEffect
                 {
                     Effect = y
-                }).ToHashSet() ?? new HashSet<NodeEffect>()
+                }).ToList() ?? new List<NodeEffect>()
             };
         }
     }

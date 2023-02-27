@@ -2,7 +2,7 @@
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 
-namespace Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data
+namespace CrashKonijn.Goap.UnitTests.Data
 {
     public class Action : ActionBase<Action.Data>
     {

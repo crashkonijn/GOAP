@@ -44,8 +44,8 @@ namespace CrashKonijn.Goap.Behaviours
         
         // IAction
         public Guid Guid { get; } = Guid.NewGuid();
-        public HashSet<LamosInteractive.Goap.Interfaces.IEffect> Effects => this.config.effects.Cast<LamosInteractive.Goap.Interfaces.IEffect>().ToHashSet();
-        public HashSet<LamosInteractive.Goap.Interfaces.ICondition> Conditions => this.config.conditions.Cast<LamosInteractive.Goap.Interfaces.ICondition>().ToHashSet();
+        public List<LamosInteractive.Goap.Interfaces.IEffect> Effects => this.config.effects.Cast<LamosInteractive.Goap.Interfaces.IEffect>().ToList();
+        public List<LamosInteractive.Goap.Interfaces.ICondition> Conditions => this.config.conditions.Cast<LamosInteractive.Goap.Interfaces.ICondition>().ToList();
 
         public void SetConfig(ActionConfig config)
         {

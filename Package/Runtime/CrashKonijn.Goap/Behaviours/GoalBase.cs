@@ -17,8 +17,8 @@ namespace CrashKonijn.Goap.Behaviours
         
         // IAction
         public Guid Guid { get; } = Guid.NewGuid();
-        public HashSet<IEffect> Effects { get; } = new();
-        public HashSet<ICondition> Conditions => this.config.Conditions.Cast<ICondition>().ToHashSet();
+        public List<IEffect> Effects { get; } = new();
+        public List<ICondition> Conditions => this.config.Conditions.Cast<ICondition>().ToList();
 
         public void SetConfig(IGoalConfig config)
         {

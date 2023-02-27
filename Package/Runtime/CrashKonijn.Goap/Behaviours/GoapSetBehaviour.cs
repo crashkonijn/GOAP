@@ -15,7 +15,7 @@ namespace CrashKonijn.Goap.Behaviours
         SensorRunner SensorRunner { get; }
         void Register(AgentBehaviour agent);
         void Unregister(AgentBehaviour agent);
-        HashSet<IAction> GetAllNodes();
+        List<IAction> GetAllNodes();
 
         TAction ResolveAction<TAction>()
             where TAction : ActionBase;

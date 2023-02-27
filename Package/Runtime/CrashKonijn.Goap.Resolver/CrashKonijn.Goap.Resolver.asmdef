@@ -1,0 +1,17 @@
+{
+    "name": "CrashKonijn.Goap.Resolver",
+    "rootNamespace": "CrashKonijn.Goap.Resolver",
+    "references": [
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:9a4f4f993c75b2341aa3b2b1b03e407f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

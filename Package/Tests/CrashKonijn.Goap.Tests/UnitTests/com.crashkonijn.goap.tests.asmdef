@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "LamosInteractive.Goap",
         "CrashKonijn.Goap",
-        "BoundfoxStudios.FluentAssertions"
+        "BoundfoxStudios.FluentAssertions",
+        "CrashKonijn.Goap.Resolver"
     ],
     "includePlatforms": [
         "Editor"

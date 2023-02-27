@@ -1,6 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 
-namespace Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data
+namespace CrashKonijn.Goap.UnitTests.Data
 {
     public class Goal : GoalBase
     {

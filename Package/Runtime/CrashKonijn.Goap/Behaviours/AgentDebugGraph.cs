@@ -6,8 +6,8 @@ namespace CrashKonijn.Goap.Behaviours
 {
     public struct AgentDebugGraph
     {
-        public HashSet<IGoalBase> Goals { get; set; }
-        public HashSet<IActionBase> Actions { get; set; }
+        public List<IGoalBase> Goals { get; set; }
+        public List<IActionBase> Actions { get; set; }
         public GoapConfig Config { get; set; }
     }
 }

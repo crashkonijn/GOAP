@@ -58,7 +58,7 @@ namespace CrashKonijn.Goap.Editor
 
             var data = this.agent.GoapSet.GetDebugGraph();
 
-            var debugger = new GraphDebugger(data.Actions.Cast<IAction>().Concat(data.Goals).ToHashSet(), data.Config.ConditionObserver, data.Config.CostObserver, data.Config.KeyResolver);
+            var debugger = new GraphDebugger(data.Actions.Cast<IAction>().Concat(data.Goals).ToList(), data.Config.ConditionObserver, data.Config.CostObserver, data.Config.KeyResolver);
             var graph = debugger.GetGraph();
             
             var nodes = new DebugGraph(graph).GetGraph(graph.RootNodes.Values.First(x => x.Action == this.agent.CurrentGoal));

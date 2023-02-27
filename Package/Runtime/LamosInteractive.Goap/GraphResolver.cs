@@ -13,7 +13,7 @@ namespace LamosInteractive.Goap
         internal readonly Graph Graph;
 
         public GraphResolver(
-            HashSet<IAction> actions, 
+            List<IAction> actions, 
             IConditionObserver conditionObserver, 
             ICostObserver costObserver, 
             IActionKeyResolver keyResolver)

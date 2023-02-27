@@ -2,7 +2,7 @@
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Sensors;
 
-namespace Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data
+namespace CrashKonijn.Goap.UnitTests.Data
 {
     public class LocalTargetSensor : LocalTargetSensorBase
     {

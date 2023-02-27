@@ -21,7 +21,7 @@ namespace CrashKonijn.Goap.Resolvers
             }).ToHashSet();
         }
 
-        public HashSet<TType> Load<TType, TConfig>(IEnumerable<TConfig> list)
+        public List<TType> Load<TType, TConfig>(IEnumerable<TConfig> list)
             where TType : class, IHasConfig<TConfig>
             where TConfig : IClassConfig
         {
@@ -32,7 +32,7 @@ namespace CrashKonijn.Goap.Resolvers
                 action = Activator.CreateInstance(Type.GetType(x.ClassType)) as TType;
                 action?.SetConfig(x);
                 return action;
-            }).ToHashSet();
+            }).ToList();
         }
         
         public HashSet<T> LoadTypes<T>(IEnumerable<string> list)

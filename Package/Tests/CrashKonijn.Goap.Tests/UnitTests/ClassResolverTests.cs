@@ -3,10 +3,10 @@ using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolvers;
+using CrashKonijn.Goap.UnitTests.Data;
 using CrashKonijn.Goap.UnitTests.Support;
 using FluentAssertions;
 using NUnit.Framework;
-using Packages.LamosInteractive.Goap.Unity.Tests.UnitTests.Data;
 
 namespace CrashKonijn.Goap.UnitTests
 {

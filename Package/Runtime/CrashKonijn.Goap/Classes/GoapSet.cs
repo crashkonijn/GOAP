@@ -13,10 +13,10 @@ namespace CrashKonijn.Goap.Classes
         public GoapConfig GoapConfig { get; }
         public SensorRunner SensorRunner { get; }
         
-        private HashSet<IGoalBase> goals;
-        private HashSet<IActionBase> actions;
+        private List<IGoalBase> goals;
+        private List<IActionBase> actions;
 
-        public GoapSet(GoapConfig config, HashSet<IGoalBase> goals, HashSet<IActionBase> actions, SensorRunner sensorRunner)
+        public GoapSet(GoapConfig config, List<IGoalBase> goals, List<IActionBase> actions, SensorRunner sensorRunner)
         {
             this.GoapConfig = config;
             this.SensorRunner = sensorRunner;
@@ -49,9 +49,9 @@ namespace CrashKonijn.Goap.Classes
             throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");
         }
 
-        public HashSet<IAction> GetAllNodes()
+        public List<IAction> GetAllNodes()
         {
-            return this.actions.Cast<IAction>().Concat(this.goals.Cast<IAction>()).ToHashSet();
+            return this.actions.Cast<IAction>().Concat(this.goals.Cast<IAction>()).ToList();
         }
 
         public AgentDebugGraph GetDebugGraph()

@@ -9,7 +9,7 @@ namespace LamosInteractive.Goap.Interfaces
     public interface IAction
     {
         Guid Guid { get; }
-        HashSet<IEffect> Effects { get; }
-        HashSet<ICondition> Conditions { get; }
+        List<IEffect> Effects { get; }
+        List<ICondition> Conditions { get; }
     }
 }

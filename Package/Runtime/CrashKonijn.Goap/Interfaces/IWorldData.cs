@@ -9,7 +9,6 @@ namespace CrashKonijn.Goap.Interfaces
     {
         public HashSet<IWorldKey> States { get; }
         public Dictionary<ITargetKey, ITarget> Targets { get; }
-
         public ITarget GetTarget(IActionBase action);
     }
 }

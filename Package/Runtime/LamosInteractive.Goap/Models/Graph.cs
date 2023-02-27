@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LamosInteractive.Goap.Models
 {
-    internal class Graph
+    public class Graph
     {
-        public HashSet<Node> RootNodes { get; set; } = new HashSet<Node>();
-        public HashSet<Node> ChildNodes { get; set; } = new HashSet<Node>();
-        public HashSet<Node> AllNodes => RootNodes.Union(ChildNodes).ToHashSet();
+        public List<Node> RootNodes { get; set; } = new();
+        public List<Node> ChildNodes { get; set; } = new();
+        public Node[] AllNodes => RootNodes.Union(ChildNodes).ToArray();
     }
 }

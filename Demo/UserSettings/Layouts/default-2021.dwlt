@@ -8,6 +8,30 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12004, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PixelRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 6
+  m_ShowMode: 0
+  m_Title: 
+  m_RootView: {fileID: 3}
+  m_MinSize: {x: 0, y: 0}
+  m_MaxSize: {x: 0, y: 0}
+  m_Maximized: 0
+--- !u!114 &2
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12004, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -19,12 +43,35 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Hierarchy
-  m_RootView: {fileID: 9}
+  m_Title: Test Runner
+  m_RootView: {fileID: 11}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
---- !u!114 &2
+--- !u!114 &3
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children: []
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  m_MinSize: {x: 0, y: 0}
+  m_MaxSize: {x: 0, y: 0}
+  vertical: 0
+  controlID: 0
+--- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,18 +86,19 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1112
+    x: 818
     y: 0
-    width: 877
+    width: 660
     height: 767
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 20}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 23}
   m_Panes:
-  - {fileID: 20}
+  - {fileID: 23}
+  - {fileID: 17}
   m_Selected: 0
-  m_LastSelected: 0
---- !u!114 &3
+  m_LastSelected: 1
+--- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,18 +113,18 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 296
+    x: 218
     y: 0
-    width: 1693
+    width: 1260
     height: 540
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 21}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 24}
   m_Panes:
-  - {fileID: 21}
+  - {fileID: 24}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &4
+--- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,19 +137,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 8}
-  - {fileID: 3}
+  - {fileID: 10}
+  - {fileID: 5}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 767
-    width: 1989
+    width: 1478
     height: 540
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 124
---- !u!114 &5
+  controlID: 19
+--- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,8 +162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 12}
-  - {fileID: 6}
+  - {fileID: 14}
+  - {fileID: 8}
   m_Position:
     serializedVersion: 2
     x: 0
@@ -125,8 +173,8 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 122
---- !u!114 &6
+  controlID: 94
+--- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,24 +184,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: InspectorWindow
+  m_Name: TestRunnerWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1989
+    x: 1478
     y: 0
-    width: 571
+    width: 1082
     height: 1307
-  m_MinSize: {x: 275, y: 100}
+  m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 15}
+  m_ActualView: {fileID: 19}
   m_Panes:
-  - {fileID: 15}
-  - {fileID: 16}
-  m_Selected: 0
-  m_LastSelected: 1
---- !u!114 &7
+  - {fileID: 18}
+  - {fileID: 19}
+  m_Selected: 1
+  m_LastSelected: 0
+--- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,16 +218,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 296
+    width: 214
     height: 767
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 18}
+  m_ActualView: {fileID: 21}
   m_Panes:
-  - {fileID: 18}
+  - {fileID: 21}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &8
+--- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,16 +244,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 296
+    width: 218
     height: 540
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 17}
+  m_ActualView: {fileID: 20}
   m_Panes:
-  - {fileID: 17}
+  - {fileID: 20}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &9
+--- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,9 +266,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 10}
-  - {fileID: 5}
-  - {fileID: 11}
+  - {fileID: 12}
+  - {fileID: 7}
+  - {fileID: 13}
   m_Position:
     serializedVersion: 2
     x: 0
@@ -233,7 +281,7 @@ MonoBehaviour:
   m_TopViewHeight: 30
   m_UseBottomView: 1
   m_BottomViewHeight: 20
---- !u!114 &10
+--- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -255,7 +303,7 @@ MonoBehaviour:
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
   m_LastLoadedLayoutName: 
---- !u!114 &11
+--- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,7 +324,7 @@ MonoBehaviour:
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
---- !u!114 &12
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,45 +337,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 13}
+  - {fileID: 15}
+  - {fileID: 6}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1478
+    height: 1307
+  m_MinSize: {x: 300, y: 200}
+  m_MaxSize: {x: 24288, y: 16192}
+  vertical: 1
+  controlID: 155
+--- !u!114 &15
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 9}
+  - {fileID: 16}
   - {fileID: 4}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1989
-    height: 1307
-  m_MinSize: {x: 300, y: 200}
-  m_MaxSize: {x: 24288, y: 16192}
-  vertical: 1
-  controlID: 123
---- !u!114 &13
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Children:
-  - {fileID: 7}
-  - {fileID: 14}
-  - {fileID: 2}
-  m_Position:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1989
+    width: 1478
     height: 767
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 18
---- !u!114 &14
+  controlID: 156
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,18 +390,46 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 296
+    x: 214
     y: 0
-    width: 816
+    width: 604
     height: 767
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 19}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 22}
   m_Panes:
-  - {fileID: 19}
+  - {fileID: 22}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &15
+--- !u!114 &17
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d92e20f665b9e48be2c6f9fa61bf1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: CrashKonijn.Goap.Editor.GoapGraphEditorWindow
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 3223
+    y: 73
+    width: 530
+    height: 746
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -374,9 +450,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 4549
+    x: 4038
     y: 73
-    width: 570
+    width: 1081
     height: 1286
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -395,7 +471,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &16
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -415,24 +491,24 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 4550
+    x: 4038
     y: 73
-    width: 569
+    width: 1081
     height: 1286
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_Spl:
-    ID: 196
-    splitterInitialOffset: 0
+    ID: 173
+    splitterInitialOffset: 576
     currentActiveSplitter: -1
     realSizes:
-    - 912
-    - 304
+    - 508
+    - 708
     relativeSizes:
-    - 0.75
-    - 0.25
+    - 0.41776314
+    - 0.5822369
     minSizes:
     - 32
     - 32
@@ -449,7 +525,7 @@ MonoBehaviour:
     oldSplitSize: 0
   m_TestTypeToolbarIndex: 1
   m_PlayModeTestListGUI:
-    m_Window: {fileID: 16}
+    m_Window: {fileID: 19}
     m_NewResultList:
     - id: 1025
       uniqueId: '[UnityGoap][suite]'
@@ -501,15 +577,15 @@ MonoBehaviour:
       - Uncategorized
     m_SelectedOption: 0
   m_EditModeTestListGUI:
-    m_Window: {fileID: 16}
+    m_Window: {fileID: 19}
     m_NewResultList:
     - id: 1000
       uniqueId: '[UnityGoap][suite]'
       name: UnityGoap
       fullName: UnityGoap
-      resultStatus: 1
-      duration: 0.1876691
-      messages: 
+      resultStatus: 2
+      duration: 23.505096
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -523,9 +599,9 @@ MonoBehaviour:
       uniqueId: '[UnitTests.dll][suite]'
       name: UnitTests.dll
       fullName: E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/UnitTests.dll
-      resultStatus: 1
-      duration: 0.1532678
-      messages: 
+      resultStatus: 2
+      duration: 23.466646
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -539,9 +615,9 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/[CrashKonijn][suite]
       name: CrashKonijn
       fullName: CrashKonijn
-      resultStatus: 1
-      duration: 0.1529976
-      messages: 
+      resultStatus: 2
+      duration: 23.465351
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -555,9 +631,9 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/[Goap][suite]
       name: Goap
       fullName: CrashKonijn.Goap
-      resultStatus: 1
-      duration: 0.1500436
-      messages: 
+      resultStatus: 2
+      duration: 23.46511
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -571,9 +647,9 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/Goap/[UnitTests][suite]
       name: UnitTests
       fullName: CrashKonijn.Goap.UnitTests
-      resultStatus: 1
-      duration: 0.146697
-      messages: 
+      resultStatus: 2
+      duration: 23.461454
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -804,6 +880,165 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1010
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.CostObserverTests][suite]
+    - id: 1014
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests][suite]
+      name: GraphResolverTests
+      fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests
+      resultStatus: 2
+      duration: 23.457376
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1038
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/[UnitTests][suite]
+    - id: 1017
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithMultipleConnections_ReturnsExecutableAction]
+      name: Resolve_WithMultipleConnections_ReturnsExecutableAction
+      fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithMultipleConnections_ReturnsExecutableAction
+      resultStatus: 1
+      duration: 0.0965354
+      messages: 
+      output: 'ehmz
+
+        Checking node: 0
+
+        Checking node: 1
+
+        Checking
+        node: 2
+
+        Checking node: 3
+
+        Done
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests][suite]
+    - id: 1018
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNestedConnections_ReturnsExecutableAction]
+      name: Resolve_WithNestedConnections_ReturnsExecutableAction
+      fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNestedConnections_ReturnsExecutableAction
+      resultStatus: 2
+      duration: 23.453917
+      messages: "Expected result to contain 2 item(s), but found 1: {\r\n    CrashKonijn.Goap.UnitTests.GraphResolverTests+TestAction\r\n   
+        {\r\n        Conditions = {\r\n            CrashKonijn.Goap.UnitTests.Data.TestConnection\r\n           
+        {\r\n            }\r\n        }\r\n        , \r\n        Effects = {\r\n           
+        CrashKonijn.Goap.UnitTests.Data.TestConnection\r\n            {\r\n           
+        }\r\n        }\r\n        , \r\n        Guid = {3a7ed7e6-ea00-41de-b961-4f86df24d7ea},
+        \r\n        Name = \"action2\"\r\n    }\r\n}\r\n."
+      output: 'ehmz
+
+        Checking node: 0
+
+        Checking node: 1
+
+        Checking
+        node: 3
+
+        Done
+
+'
+      stacktrace: 'at FluentAssertions.Execution.LateBoundTestFramework.Throw (System.String
+        message) [0x0005c] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\LateBoundTestFramework.cs:22
+
+        at
+        FluentAssertions.Execution.TestFrameworkProvider.Throw (System.String message)
+        [0x00019] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\TestFrameworkProvider.cs:34
+
+        at
+        FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure (System.String
+        message) [0x00001] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\DefaultAssertionStrategy.cs:25
+
+        at
+        FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
+        failReasonFunc) [0x00057] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\AssertionScope.cs:274
+
+        at
+        FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
+        failReasonFunc) [0x00015] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\AssertionScope.cs:246
+
+        at
+        FluentAssertions.Execution.AssertionScope.FailWith (System.String message,
+        System.Object[] args) [0x00015] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\AssertionScope.cs:296
+
+        at
+        FluentAssertions.Collections.GenericCollectionAssertions`3[TCollection,T,TAssertions].HaveCount
+        (System.Int32 expected, System.String because, System.Object[] becauseArgs)
+        [0x00059] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Collections\GenericCollectionAssertions.cs:1217
+
+        at
+        CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNestedConnections_ReturnsExecutableAction
+        () [0x0017b] in E:\Development\CrashKonijn\GOAP\Package\Tests\CrashKonijn.Goap.Tests\UnitTests\GraphResolverTests.cs:163
+
+'
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests][suite]
+    - id: 1015
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNoActions_ReturnsEmptyList]
+      name: Resolve_WithNoActions_ReturnsEmptyList
+      fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNoActions_ReturnsEmptyList
+      resultStatus: 1
+      duration: 0.009042
+      messages: 
+      output: 'ehmz
+
+        Checking node: 0
+
+        Done
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests][suite]
+    - id: 1016
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithOneExecutableConnection_ReturnsAction]
+      name: Resolve_WithOneExecutableConnection_ReturnsAction
+      fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithOneExecutableConnection_ReturnsAction
+      resultStatus: 1
+      duration: 0.0037981
+      messages: 
+      output: 'ehmz
+
+        Checking node: 0
+
+        Checking node: 1
+
+        Done
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests][suite]
     - id: 1014
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.KeyResolverTests][suite]
       name: KeyResolverTests
@@ -1122,13 +1357,68 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1024
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests][suite]
-    m_ResultText: UnityGoap (0,188s)
-    m_ResultStacktrace: 
+    m_ResultText: "Resolve_WithNestedConnections_ReturnsExecutableAction (23,454s)\n---\nExpected
+      result to contain 2 item(s), but found 1: {\r\n    CrashKonijn.Goap.UnitTests.GraphResolverTests+TestAction\r\n   
+      {\r\n        Conditions = {\r\n            CrashKonijn.Goap.UnitTests.Data.TestConnection\r\n           
+      {\r\n            }\r\n        }\r\n        , \r\n        Effects = {\r\n           
+      CrashKonijn.Goap.UnitTests.Data.TestConnection\r\n            {\r\n           
+      }\r\n        }\r\n        , \r\n        Guid = {3a7ed7e6-ea00-41de-b961-4f86df24d7ea},
+      \r\n        Name = \"action2\"\r\n    }\r\n}\r\n.\n---\nat FluentAssertions.Execution.LateBoundTestFramework.Throw
+      (System.String message) [0x0005c] in E:\\Development\\CrashKonijn\\GOAP\\Demo\\Library\\PackageCache\\com.boundfoxstudios.fluentassertions@7357551604\\Runtime\\FluentAssertions\\Execution\\LateBoundTestFramework.cs:22\r\nat
+      FluentAssertions.Execution.TestFrameworkProvider.Throw (System.String message)
+      [0x00019] in E:\\Development\\CrashKonijn\\GOAP\\Demo\\Library\\PackageCache\\com.boundfoxstudios.fluentassertions@7357551604\\Runtime\\FluentAssertions\\Execution\\TestFrameworkProvider.cs:34\r\nat
+      FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure (System.String
+      message) [0x00001] in E:\\Development\\CrashKonijn\\GOAP\\Demo\\Library\\PackageCache\\com.boundfoxstudios.fluentassertions@7357551604\\Runtime\\FluentAssertions\\Execution\\DefaultAssertionStrategy.cs:25\r\nat
+      FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
+      failReasonFunc) [0x00057] in E:\\Development\\CrashKonijn\\GOAP\\Demo\\Library\\PackageCache\\com.boundfoxstudios.fluentassertions@7357551604\\Runtime\\FluentAssertions\\Execution\\AssertionScope.cs:274\r\nat
+      FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
+      failReasonFunc) [0x00015] in E:\\Development\\CrashKonijn\\GOAP\\Demo\\Library\\PackageCache\\com.boundfoxstudios.fluentassertions@7357551604\\Runtime\\FluentAssertions\\Execution\\AssertionScope.cs:246\r\nat
+      FluentAssertions.Execution.AssertionScope.FailWith (System.String message,
+      System.Object[] args) [0x00015] in E:\\Development\\CrashKonijn\\GOAP\\Demo\\Library\\PackageCache\\com.boundfoxstudios.fluentassertions@7357551604\\Runtime\\FluentAssertions\\Execution\\AssertionScope.cs:296\r\nat
+      FluentAssertions.Collections.GenericCollectionAssertions`3[TCollection,T,TAssertions].HaveCount
+      (System.Int32 expected, System.String because, System.Object[] becauseArgs)
+      [0x00059] in E:\\Development\\CrashKonijn\\GOAP\\Demo\\Library\\PackageCache\\com.boundfoxstudios.fluentassertions@7357551604\\Runtime\\FluentAssertions\\Collections\\GenericCollectionAssertions.cs:1217\r\nat
+      CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNestedConnections_ReturnsExecutableAction
+      () [0x0017b] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\GraphResolverTests.cs:163\n---\nehmz\r\nChecking
+      node: 0\r\nChecking node: 1\r\nChecking node: 3\r\nDone"
+    m_ResultStacktrace: 'at FluentAssertions.Execution.LateBoundTestFramework.Throw
+      (System.String message) [0x0005c] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\LateBoundTestFramework.cs:22
+
+      at
+      FluentAssertions.Execution.TestFrameworkProvider.Throw (System.String message)
+      [0x00019] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\TestFrameworkProvider.cs:34
+
+      at
+      FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure (System.String
+      message) [0x00001] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\DefaultAssertionStrategy.cs:25
+
+      at
+      FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
+      failReasonFunc) [0x00057] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\AssertionScope.cs:274
+
+      at
+      FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
+      failReasonFunc) [0x00015] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\AssertionScope.cs:246
+
+      at
+      FluentAssertions.Execution.AssertionScope.FailWith (System.String message,
+      System.Object[] args) [0x00015] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Execution\AssertionScope.cs:296
+
+      at
+      FluentAssertions.Collections.GenericCollectionAssertions`3[TCollection,T,TAssertions].HaveCount
+      (System.Int32 expected, System.String because, System.Object[] becauseArgs)
+      [0x00059] in E:\Development\CrashKonijn\GOAP\Demo\Library\PackageCache\com.boundfoxstudios.fluentassertions@7357551604\Runtime\FluentAssertions\Collections\GenericCollectionAssertions.cs:1217
+
+      at
+      CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNestedConnections_ReturnsExecutableAction
+      () [0x0017b] in E:\Development\CrashKonijn\GOAP\Package\Tests\CrashKonijn.Goap.Tests\UnitTests\GraphResolverTests.cs:163
+
+'
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: f887fc56
-      m_LastClickedID: 1459390456
-      m_ExpandedIDs: 4fed6d8c15567b9961a474a52b132daad8fe75b6ddcc12bb3e889fcae7e66fcdb8db52d43e20cce253d1dcec12104beed63c3df801dd1d00cc9e32109561f618b3f8a51c4e720d1ed03d582fe3a8223c0bb0ea3c50f8ee46c2b227521a516b56f887fc5610cb8d5b02b060631f4b66649b83b6668cc8747a9c98587b2d8f377dffffff7f
+      m_SelectedIDs: 9c81c23e
+      m_LastClickedID: 1052934556
+      m_ExpandedIDs: 4fed6d8c15567b9961a474a52b132daad8fe75b6ddcc12bb3e889fcae7e66fcdb8db52d43e20cce253d1dcec12104beed63c3df801dd1d00cc9e32109561f618b3f8a51c4e720d1ed03d582fe3a8223c0bb0ea3c50f8ee46a35cd151c2b227521a516b56f887fc5610cb8d5b02b060631f4b66649b83b6668cc8747a9c98587b2d8f377dffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1154,7 +1444,7 @@ MonoBehaviour:
       selectedCategoryMask: 0
       availableCategories:
       - Uncategorized
---- !u!114 &17
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1177,7 +1467,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 2560
     y: 840
-    width: 295
+    width: 217
     height: 519
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1209,7 +1499,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 88b50000
     m_LastClickedID: 46472
-    m_ExpandedIDs: 00000000586c00005a6c00005c6c00005e6c0000606c0000626c0000646c0000666c0000686c00006a6c00006c6c00006e6c0000706c0000726c0000746c0000766c0000786c00007a6c00007c6c00007e6c0000806c0000826c0000846c0000866c0000886c00008a6c00008c6c00008e6c0000906c0000926c0000946c0000966c0000986c00009a6c0000
+    m_ExpandedIDs: 00000000506d0000526d0000546d0000566d0000586d00005a6d00005c6d00005e6d0000606d0000626d0000646d0000666d0000686d00006a6d00006c6d00006e6d0000706d0000726d0000746d0000766d0000786d00007a6d00007c6d00007e6d0000806d0000826d0000846d0000866d0000886d00008a6d00008c6d00008e6d0000906d0000926d0000946d0000966d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1234,10 +1524,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 74}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000586c00005a6c00005c6c00005e6c0000606c0000626c0000646c0000666c0000686c00006a6c00006c6c00006e6c0000706c0000726c0000746c0000766c0000786c00007a6c00007c6c00007e6c0000806c0000826c0000846c0000866c0000886c00008a6c00008c6c00008e6c0000906c0000926c0000946c0000966c0000986c00009a6c0000
+    m_ExpandedIDs: ffffffff00000000506d0000526d0000546d0000566d0000586d00005a6d00005c6d00005e6d0000606d0000626d0000646d0000666d0000686d00006a6d00006c6d00006e6d0000706d0000726d0000746d0000766d0000786d00007a6d00007c6d00007e6d0000806d0000826d0000846d0000866d0000886d00008a6d00008c6d00008e6d0000906d0000926d0000946d0000966d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1253,7 +1543,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 8}
+      m_ClientGUIView: {fileID: 10}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -1281,7 +1571,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 8}
+      m_ClientGUIView: {fileID: 10}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1293,7 +1583,7 @@ MonoBehaviour:
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 207
---- !u!114 &18
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1316,7 +1606,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 2560
     y: 73
-    width: 295
+    width: 213
     height: 746
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1325,9 +1615,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ccfaffff
-      m_LastClickedID: -1332
-      m_ExpandedIDs: 2efbffff
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 9aa0feff6ea7feff8aabfeff9eaefeff58b4feff86b9feff86bffeff16c5feff08ccfeff84d4feffeed9feff68ddfeff40e1feff86e7feff92edfeff1ef3feffdaf7feff50fcfeff1200ffffc004ffffaa0cffffa410ffffea13ffff221affffa61fffff7624ffff9228fffff42effffb034fffff637ffffc440ffff7246ffffc84bffff9e50ffff165affff5e5effff2262ffff4a76ffffda7cffff9c80ffffd28affff0a8dffff428fffff7a91ffff6694ffff029bffff3a9dffff42a2ffffaaa7ffffb6b2ffffe0b7ffff94c2fffffcc9ffff0ccfffffecd2ffff3ed6ffff58daffff78ddffff9cdfffffeee2ffffc2ebffffa6f2ffff2efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1343,7 +1633,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 7}
+        m_ClientGUIView: {fileID: 9}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1351,7 +1641,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: 4c969a2b90040154d917609493e03593
---- !u!114 &19
+--- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1372,9 +1662,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2856
+    x: 2774
     y: 73
-    width: 814
+    width: 602
     height: 746
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1657,7 +1947,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &20
+--- !u!114 &23
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1678,9 +1968,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 3672
+    x: 3378
     y: 73
-    width: 875
+    width: 658
     height: 746
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1692,7 +1982,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 875, y: 725}
+  m_TargetSize: {x: 658, y: 725}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -1707,8 +1997,8 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -437.5
-    m_HBaseRangeMax: 437.5
+    m_HBaseRangeMin: -329
+    m_HBaseRangeMax: 329
     m_VBaseRangeMin: -362.5
     m_VBaseRangeMax: 362.5
     m_HAllowExceedBaseRangeMin: 1
@@ -1728,29 +2018,29 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 875
+      width: 658
       height: 725
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 437.5, y: 362.5}
+    m_Translation: {x: 329, y: 362.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -437.5
+      x: -329
       y: -362.5
-      width: 875
+      width: 658
       height: 725
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 875, y: 746}
+  m_LastWindowPixelSize: {x: 658, y: 746}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &21
+--- !u!114 &24
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1771,9 +2061,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2856
+    x: 2778
     y: 840
-    width: 1691
+    width: 1258
     height: 519
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
