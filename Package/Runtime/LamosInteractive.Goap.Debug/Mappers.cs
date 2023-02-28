@@ -4,7 +4,7 @@ using OriginalModels = LamosInteractive.Goap.Models;
 
 namespace LamosInteractive.Goap.Debug
 {
-    internal static class Mappers
+    public static class Mappers
     {
         public static DebugModels.Graph ToPublic(this OriginalModels.Graph original)
         {

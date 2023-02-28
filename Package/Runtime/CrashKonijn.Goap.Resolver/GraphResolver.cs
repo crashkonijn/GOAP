@@ -19,11 +19,13 @@ namespace CrashKonijn.Goap.Resolver
         private GraphResolverJob job;
         private JobHandle handle;
 
+        private Graph graph;
+
         public GraphResolver(IAction[] actions, IActionKeyResolver keyResolver)
         {
-            var graph = new GraphBuilder(keyResolver).Build(actions);
+            this.graph = new GraphBuilder(keyResolver).Build(actions);
             
-            this.indexList = graph.AllNodes.ToList();
+            this.indexList = this.graph.AllNodes.ToList();
             this.actionIndexList = this.indexList.Select(x => x.Action).ToList();
 
             var map = new NativeMultiHashMap<int, int>(this.indexList.Count, Allocator.Persistent);
@@ -55,6 +57,11 @@ namespace CrashKonijn.Goap.Resolver
         public PositionBuilder GetPositionBuilder()
         {
             return new PositionBuilder(this.actionIndexList);
+        }
+        
+        public Graph GetGraph()
+        {
+            return this.graph;
         }
         
         public int GetIndex(IAction action) => this.actionIndexList.IndexOf(action);

@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 namespace CrashKonijn.Goap.Editor.Goap.OldElements
 {
     public class ListViewElement<T> : IEditorElement
-        where T : class, IConfig
+        where T : class
     {
         private readonly List<T> elements;
         private readonly Action<T> onSelectionChange;
@@ -22,7 +22,7 @@ namespace CrashKonijn.Goap.Editor.Goap.OldElements
             var list = new ListView();
             
             list.makeItem = () => new Label();
-            list.bindItem = (item, index) => { (item as Label).text = this.elements[index].Name; };
+            list.bindItem = (item, index) => { (item as Label).text = ""; };
             list.itemsSource = this.elements;
 
             list.onSelectionChange += _ =>

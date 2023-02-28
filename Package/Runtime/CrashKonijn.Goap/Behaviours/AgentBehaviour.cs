@@ -12,6 +12,7 @@ namespace CrashKonijn.Goap.Behaviours
     
     public interface IAgent
     {
+        AgentState State { get; }
         IGoapSet GoapSet { get; }
         IGoalBase CurrentGoal { get; }
         IActionBase CurrentAction { get; }
@@ -31,6 +32,8 @@ namespace CrashKonijn.Goap.Behaviours
         private IAgentMover mover;
 
         public IAgentMover Mover => this.mover;
+
+        public AgentState State { get; private set; } = AgentState.NoAction;
         public IGoapSet GoapSet { get; set; }
         public IGoalBase CurrentGoal { get; private set; }
         public IActionBase CurrentAction  { get;  private set;}
@@ -65,6 +68,8 @@ namespace CrashKonijn.Goap.Behaviours
             
             if (this.GetDistance() <= this.CurrentAction.Config.inRange)
                 return;
+
+            this.State = AgentState.MovingToTarget;
             
             this.mover.Move(this.CurrentActionData.Target);
         }
@@ -72,10 +77,15 @@ namespace CrashKonijn.Goap.Behaviours
         public void FixedUpdate()
         {
             if (this.CurrentAction == null)
+            {
+                this.State = AgentState.NoAction;
                 return;
+            }
             
             if (this.GetDistance() > this.CurrentAction.Config.inRange)
                 return;
+            
+            this.State = AgentState.PerformingAction;
 
             var result = this.CurrentAction.Perform(this, this.CurrentActionData);
 

@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Interfaces;
+using LamosInteractive.Goap.Models;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
@@ -29,5 +30,8 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.runner.Dispose();
         }
+
+        public Graph GetGraph(IGoapSet set) => this.runner.GetGraph(set);
+        public bool Knows(IGoapSet set) => this.runner.Knows(set);
     }
 }

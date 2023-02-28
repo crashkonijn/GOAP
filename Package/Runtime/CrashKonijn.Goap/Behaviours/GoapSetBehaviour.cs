@@ -4,6 +4,7 @@ using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Scriptables;
 using LamosInteractive.Goap.Interfaces;
+using LamosInteractive.Goap.Models;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours

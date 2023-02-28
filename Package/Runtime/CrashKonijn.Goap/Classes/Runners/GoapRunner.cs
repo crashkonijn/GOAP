@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
+using LamosInteractive.Goap.Models;
 
 namespace CrashKonijn.Goap.Classes.Runners
 {
@@ -33,5 +34,8 @@ namespace CrashKonijn.Goap.Classes.Runners
                 runner.Dispose();
             }
         }
+
+        public Graph GetGraph(IGoapSet set) => this.sets[set].GetGraph();
+        public bool Knows(IGoapSet set) => this.sets.ContainsKey(set);
     }
 }

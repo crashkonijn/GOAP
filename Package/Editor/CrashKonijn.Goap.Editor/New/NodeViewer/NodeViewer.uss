@@ -1,0 +1,28 @@
+#node-viewer {
+    
+}
+
+#node-viewer__node {
+    position: absolute;
+    padding: 10;
+    border-radius: 5;
+    border-color: black;
+    border-width: 1;
+}
+
+.node-viewer__node--normal {
+    background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_normal.jpg');
+}
+
+.node-viewer__node--active {
+    background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_active.jpg');
+}
+
+.node-viewer__node--path {
+    background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_path.jpg');
+}
+
+#agent {
+    margin: 5;
+    padding: 5;
+}

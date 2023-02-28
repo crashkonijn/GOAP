@@ -34,7 +34,8 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             this.DrawProperties(agent.CurrentActionData);
             GUILayout.EndVertical();
 
-
+            if (agent.WorldData == null)
+                return;
             
             EditorGUILayout.LabelField("WorldData:");
             GUILayout.BeginVertical( "box");
@@ -58,9 +59,6 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             }
             
             GUILayout.EndVertical();
-
-            
-            // this.DrawData(agent);
         }
 
         private void DrawData(AgentBehaviour agent)

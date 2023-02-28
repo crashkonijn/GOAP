@@ -3,6 +3,7 @@ using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
+using LamosInteractive.Goap.Models;
 using Unity.Collections;
 using Unity.Mathematics;
 
@@ -106,5 +107,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                 this.Agent = agent;
             }
         }
+
+        public Graph GetGraph() => this.resolver.GetGraph();
     }
 }
