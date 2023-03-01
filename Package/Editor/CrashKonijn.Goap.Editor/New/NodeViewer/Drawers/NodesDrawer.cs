@@ -2,6 +2,8 @@
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Editor.Classes;
+using CrashKonijn.Goap.Editor.New.NodeViewer.Classes;
+using UnityEditor.Graphs;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,19 +15,16 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer.Drawers
         private const int Width = 200;
         private const int Height = 150;
         private const int MarginX = 50;
-        private const int MarginY = 50;
-        private const int Padding = 50;
+        private const int MarginY = 60;
+        private const int Padding = 60;
 
         public NodesDrawer(Nodes nodes, IAgent agent)
         {
+            this.name = "node-viewer";
+            
             foreach (var (depth, renderNodes) in nodes.DepthNodes)
             {
                 this.SetPositions(depth, renderNodes, nodes.MaxWidth);
-            }
-            
-            foreach (var node in nodes.AllNodes.Values)
-            {
-                this.Add(new NodeDrawer(node, agent));
             }
 
             foreach (var (key, start) in nodes.AllNodes)
@@ -36,9 +35,27 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer.Drawers
                     var startPos = new Vector3(start.Rect.x + (start.Rect.width / 2f), start.Rect.y + start.Rect.height, 0);
                     var endPos = new Vector3(end.Rect.x + (start.Rect.width / 2f), end.Rect.y, 0);
                     
-                    this.Add(new LineDrawer(startPos, endPos, 2f));
+                    var startTan = startPos + (Vector3.up * 40);
+                    var endTan = endPos + (Vector3.down * 40);
+                    
+                    this.Add(new BezierDrawer(startPos, endPos, startTan, endTan, 2f, this.GetLineColor(end, agent)));
                 }
             }
+            
+            foreach (var node in nodes.AllNodes.Values)
+            {
+                this.Add(new NodeDrawer(node, agent));
+            }
+        }
+
+        private Color GetLineColor(RenderNode node, IAgent agent)
+        {
+            var color = Color.black;
+            
+            if (agent.CurrentActionPath.Contains(node.Node.Action))
+                ColorUtility.TryParseHtmlString("#009dff", out color);
+            
+            return color;
         }
                 
         private void SetPositions(int depth, List<RenderNode> renderNodes, int maxWidth)

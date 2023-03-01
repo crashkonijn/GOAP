@@ -21,9 +21,12 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
         private VisualElement leftPanel;
         private VisualElement rightPanel;
 
+        private Vector2 positionOffset;
         private float lastUpdate = 0f;
-        
-        
+        private DragDrawer dragDrawer;
+        private VisualElement nodesDrawer;
+
+
         [MenuItem("Tools/GOAP/Node Viewer")]
         private static void ShowWindow()
         {
@@ -40,7 +43,7 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
 
         public void OnEnable()
         {
-            this.CreateGUI();
+            this.Render();
         }
 
         private void Update()
@@ -48,28 +51,9 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
             this.Render();
         }
 
-        public void CreateGUI()
+        private void Render()
         {
-            this.Render();
-        }
-
-        public void Render()
-        {
-            if (this.leftPanel == null)
-            {
-                Debug.Log("Creating GUI");
-                
-                var (left, right) = this.CreatePanels();
-
-                this.leftPanel = left;
-                this.rightPanel = right;
-                
-                var root = this.rootVisualElement;
-                root.name = "node-viewer";
-            
-                var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/New/NodeViewer/NodeViewer.uss");
-                root.styleSheets.Add(styleSheet);
-            }
+            this.Init();
             
             if (!Application.isPlaying)
                 return;
@@ -96,13 +80,59 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
             this.RenderGraph();
         }
 
+        private void Init()
+        {
+            if (this.leftPanel != null)
+                return;
+            
+            var (left, right) = this.CreatePanels();
+                
+            this.leftPanel = left;
+
+            var dragParent = new VisualElement
+            {
+                name = "drag-parent"
+            };
+                
+            right.Add(dragParent);
+            this.rightPanel = dragParent;
+                
+            this.dragDrawer = new DragDrawer(right, (offset) =>
+            {
+                this.positionOffset = offset;
+                    
+                dragParent.transform.position = offset;
+                    
+                var posX = right.style.backgroundPositionX;
+                posX.value = new BackgroundPosition(BackgroundPositionKeyword.Left, offset.x);
+                right.style.backgroundPositionX = posX;
+                    
+                var posY = right.style.backgroundPositionY;
+                posY.value = new BackgroundPosition(BackgroundPositionKeyword.Top, offset.y);
+                right.style.backgroundPositionY = posY;
+            });
+                
+            var root = this.rootVisualElement;
+            root.name = "node-viewer-editor";
+            
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/New/NodeViewer/NodeViewer.uss");
+            root.styleSheets.Add(styleSheet);
+        }
+
         private (VisualElement RootElement, VisualElement Right) CreatePanels()
         {
             var splitView = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Horizontal);
 
-            var leftView = new VisualElement();
-            var rightView = new VisualElement();
-            
+            var leftView = new VisualElement
+            {
+                name = "left-panel"
+            };
+
+            var rightView = new VisualElement
+            {
+                name = "right-panel"
+            };
+
             splitView.Add(leftView);
             splitView.Add(rightView);
             
@@ -124,19 +154,15 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
         private void RenderAgents()
         {
             this.leftPanel.Clear();
-            
-            // this.agents.ForEach(agent =>
-            // {
-            //     this.leftPanel.Add(new AgentDrawer(agent));
-            // });
-            
-            var list = new ListView();
 
-            list.fixedItemHeight = 70;
-            list.makeItem = () => new AgentDrawer();
-            list.bindItem = (item, index) => { (item as AgentDrawer).Update(this.agents[index]); };
-            list.itemsSource = this.agents;
-            
+            var list = new ListView
+            {
+                fixedItemHeight = 70,
+                makeItem = () => new AgentDrawer(),
+                bindItem = (item, index) => { (item as AgentDrawer).Update(this.agents[index]); },
+                itemsSource = this.agents
+            };
+
             list.SetSelectionWithoutNotify(new []{ this.agents.IndexOf(this.agent) });
 
             list.selectionChanged += _ =>
@@ -151,7 +177,10 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
         private void RenderGraph()
         {
             this.rightPanel.Clear();
-            this.rightPanel.Add(this.GetGraphElement());
+
+            this.nodesDrawer = this.GetGraphElement();
+            
+            this.rightPanel.Add(this.nodesDrawer);
         }
     }
 }

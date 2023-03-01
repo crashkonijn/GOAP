@@ -10,14 +10,12 @@ namespace Demos.Behaviours
 
         public void Put(AppleBehaviour apple)
         {
-            Debug.Log("Put");
             apple.GetComponent<Renderer>().enabled = false;
             this.Apples.Add(apple);
         }
 
         public AppleBehaviour Get()
         {
-            Debug.Log("Get");
             var apple = this.Apples.FirstOrDefault();
 
             if (apple == null)

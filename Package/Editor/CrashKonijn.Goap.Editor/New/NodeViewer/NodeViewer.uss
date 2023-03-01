@@ -1,28 +1,45 @@
+#drag-parent {
+    height: 100%;
+}
+
+#right-panel {
+    overflow: hidden;
+    background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/background_grid.png');
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: 100px 100px;
+    height: 100%;
+}
+
 #node-viewer {
-    
+
 }
 
 #node-viewer__node {
     position: absolute;
-    padding: 10;
-    border-radius: 5;
-    border-color: black;
-    border-width: 1;
+    padding: 10px;
+    border-width: 1px;
+    border-radius: 5px;
+    background-color: #262626;
+    
 }
 
 .node-viewer__node--normal {
-    background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_normal.jpg');
+    /*background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_normal.jpg');*/
+    border-color: #b0b0b0;
 }
 
 .node-viewer__node--active {
-    background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_active.jpg');
+    /*background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_active.jpg');*/
+    border-color: #14b214;
 }
 
 .node-viewer__node--path {
-    background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_path.jpg');
+    /*background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_path.jpg');*/
+    border-color: #009dff;
 }
 
 #agent {
-    margin: 5;
-    padding: 5;
+    margin: 5px;
+    padding: 5px;
 }
