@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="root" class="alert">
-        <ui:Label name="header" text="Header" class="alert__title"/>
-        <ui:TextElement name="text" text="text" class="alert__text"/>
-    </ui:VisualElement>
-</ui:UXML>
