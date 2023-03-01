@@ -67,7 +67,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             var conditions = action.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));
             var effects = action.Effects.Select(x => this.GetText(x as IEffect, conditionObserver.IsMet(x)));
 
-            var text = $"Target: {agent.WorldData.GetTarget(action).Position}\n\nEffects:\n{string.Join("\n", effects)}\nConditions:\n{string.Join("\n", conditions)}\n";
+            var text = $"Target:\n    position: {agent.WorldData.GetTarget(action).Position}\n    name: {action.Config.target.name}\n\nEffects:\n{string.Join("\n", effects)}\nConditions:\n{string.Join("\n", conditions)}\n";
             
             this.Add(new Label(text));
         }
