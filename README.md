@@ -17,10 +17,18 @@ The previous version of this library was used to create the AI in the game [Bash
 * Well [documented](https://goap.crashkonijn.com/)
 
 ## Installation
-// Todo
+Add the package to your project using the package manager. Add the following URL to the package manager:
+```
+https://github.com/crashkonijn/GOAP.git?path=/Package#feature/version-2
+```
 
-## Usage
-// Todo
+## Node viewer
+![Screenshot of NodeViewer](Package/Documentation/images/goap-viewer.jpg)
+
+## Documentation
+The documentation can be found in the `Package/Documentation` folder, or at [goap.crashkonijn.com](https://goap.crashkonijn.com/).
 
 ## Demo
-// Todo
+A Demo can be found in the Demo folder. Clone this repository and open the Demo project in Unity.
+
+// Todo: Add gif of demo

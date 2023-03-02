@@ -1,6 +1,8 @@
 ﻿# GoapSet
 The `GoapSet` contains all available `Goals` and `Actions` that an agent can use. Different agents can use different `GoapSets`. This allows for different agents to have different `Goals` and `Actions`.
 
+![Screenshot of GoapSetConfig](images/goap-set.jpg)
+
 ## GoapSet Config
 The `GoapSetConfig` is used to configure a `GoapSet`. It contains the following properties:
 
