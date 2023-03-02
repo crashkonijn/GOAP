@@ -10,10 +10,12 @@ Each action has a target. This target provides a position that the agent should 
 
 ### SetGoal
 This method can be used to change the current goal of the agent. The `endAction` parameter determines if the current action should be ended before the new goal is set. If this is set to `false` the current action will be continued until it is finished.
-```c#
+{% code lineNumbers="true" %}
+```csharp
 public void SetGoal<TGoal>(bool endAction) where TGoal : IGoalBase;
 public void SetGoal(IGoalBase goal, bool endAction);
 ```
+{% endcode %}
 
 ## Determining the Goal
 Determining the best `Goal` is very game specific. As such this package does not provide a way to determine the best goal.
@@ -21,7 +23,8 @@ Determining the best `Goal` is very game specific. As such this package does not
 ### Example
 This is an example of how to determine the best goal. In this example the agent will wander around until it's hunger is above 80. When it's hunger is above 80 it will try to fix it's hunger. When it's hunger is below 20 it will wander around again.
 
-```c#
+{% code title="AgentBrain.cs" lineNumbers="true" %}
+```csharp
 using System;
 using CrashKonijn.Goap.Behaviours;
 using Demos.Goals;
@@ -56,3 +59,4 @@ namespace Demos.Behaviours
     }
 }
 ```
+{% endcode %}

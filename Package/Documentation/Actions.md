@@ -25,6 +25,9 @@ Each action has a target position. An agent will first move towards this positio
 ### InRange
 If the agent is not in range of the target position, it will move towards it. This value determines how close the agent needs to be to the target position before performing the action.
 
+## Action data
+The action data is used to store the state of the action for a single agent. This data is not persistent between agents or between multiple runs of the same action.
+
 ## Action class
 An action always inherits from the `ActionBase<TData>` class. The generic type is the action data class. The action data class is used to store the state of the action. The action class itself should be stateless, since only one instance is used to perform the same action on multiple agents.
 
@@ -78,7 +81,8 @@ namespace Demos.Actions
 ```
 {% endcode %}
 
-```C#
+{% code title="EatAppleAction.cs" lineNumbers="true" %}
+```csharp
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
@@ -143,6 +147,4 @@ namespace Demos.Actions
     }
 }
 ```
-
-## Action data
-The action data is used to store the state of the action for a single agent. This data is not persistent between agents or between multiple runs of the same action.
+{% endcode %}

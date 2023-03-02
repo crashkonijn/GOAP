@@ -14,7 +14,8 @@ The `conditions` is a list of `WorldKeys` that need to be true or false in order
 A `Goal` class always inherits from the `GoalBase` class. A `Goal` doesn't contain any state, since it is only used by the `Planner` to determine the best `Action` to perform.
 
 ## Example
-```c#
+{% code title="FixHungerGoal.cs" lineNumbers="true" %}
+```csharp
 using CrashKonijn.Goap.Behaviours;
 
 namespace Demos.Goals
@@ -25,3 +26,4 @@ namespace Demos.Goals
     }
 }
 ```
+{% endcode %}

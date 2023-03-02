@@ -22,7 +22,8 @@ For example:
 ### Example
 To create a new `WorldSensor`, create a new class that inherits from `LocalWorldSensorBase` or `GlobalWorldSensorBase` and implement its `Sense` method.
 
-```c#
+{% code title="IsHungrySensor.cs" lineNumbers="true" %}
+```csharp
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Sensors;
 using Demos.Behaviours;
@@ -43,6 +44,7 @@ namespace Demos.Sensors.World
     }
 }
 ```
+{% endcode %}
 
 ## TargetSensor
 A `TargetSensor` is used to determine the position for a given `TargetKey`. The TargetState is used by the `Planner` to determine distance between `Actions`.
@@ -63,7 +65,8 @@ There are two types of `Target`: `TransformTarget` and `PositionTarget`.
 ### Example
 To create a new `TargetSensor`, create a new class that inherits from `LocalTargetSensorBase` or `GlobalTargetSensorBase` and implement its `Sense` method.
 
-```c#
+{% code title="ClosestAppleSensor.cs" lineNumbers="true" %}
+```csharp
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
@@ -83,8 +86,10 @@ namespace Demos.Sensors.Target
     }
 }
 ```
+{% endcode %}
 
-```c#
+{% code title="WanderTargetSensor.cs" lineNumbers="true" %}
+```csharp
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
@@ -103,3 +108,4 @@ namespace Demos.Sensors.Target
     }
 }
 ```
+{% endcode %}
