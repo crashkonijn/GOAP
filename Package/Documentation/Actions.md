@@ -32,8 +32,8 @@ An action always inherits from the `ActionBase<TData>` class. The generic type i
 The `ActionRunState` is an enum that determines the state of the action. It can be one of the following values: `Continue` or `Stop`.
 
 ### Examples
-{% code title="WanderAction.cs" overflow="wrap" lineNumbers="true" %}
-```c#
+{% code title="WanderAction.cs" lineNumbers="true" %}
+```csharp
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
