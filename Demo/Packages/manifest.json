@@ -2,6 +2,7 @@
   "dependencies": {
     "com.boundfoxstudios.fluentassertions": "https://github.com/BoundfoxStudios/fluentassertions-unity.git#upm",
     "com.crashkonijn.goap": "file:../../Package",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "1.1.1",
     "com.unity.collab-proxy": "2.0.0",
     "com.unity.collections": "1.2.4",

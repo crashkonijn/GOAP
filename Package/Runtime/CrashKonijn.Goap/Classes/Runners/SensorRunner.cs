@@ -64,13 +64,12 @@ namespace CrashKonijn.Goap.Classes.Runners
         {
             this.localWorldData = new LocalWorldData(worldData);
 
-            this.localWorldData.States = this.localWorldSensors
+            this.localWorldData.AddStates(this.localWorldSensors
                 .Where(x => x.Sense(agent))
-                .Select(x => x.Key)
-                .ToHashSet();
+                .Select(x => x.Key));
 
-            this.localWorldData.Targets = this.localTargetSensors
-                .ToDictionary(x => x.Key, y => y.Sense(agent));
+            this.localWorldData.AddTargets(this.localTargetSensors
+                .ToDictionary(x => x.Key, y => y.Sense(agent)));
 
             return this.localWorldData;
         }

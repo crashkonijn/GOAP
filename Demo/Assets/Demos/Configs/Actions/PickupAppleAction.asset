@@ -16,8 +16,10 @@ MonoBehaviour:
     actionClass: 
     baseCost: 1
     target: {fileID: 11400000, guid: 225f125307d5a874d8bc597b07cf88b3, type: 2}
-    inRange: 0.1
-    conditions: []
+    inRange: 0.5
+    conditions:
+    - worldKey: {fileID: 11400000, guid: 7e7ac88264081b047be14454aa8e56bf, type: 2}
+      positive: 1
     effects:
     - worldKey: {fileID: 11400000, guid: 4cc9aaaf590d3e346947382bd8b9fd0c, type: 2}
       positive: 1

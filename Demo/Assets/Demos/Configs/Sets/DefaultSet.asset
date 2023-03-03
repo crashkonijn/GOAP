@@ -28,3 +28,4 @@ MonoBehaviour:
   worldSensors:
   - {fileID: 11400000, guid: 053f4aa51d3f155479308e653a4a77bb, type: 2}
   - {fileID: 11400000, guid: 72b48ee625321094997477639b9ad6d8, type: 2}
+  - {fileID: 11400000, guid: b9364d9672de70143a6091f52ed97efb, type: 2}

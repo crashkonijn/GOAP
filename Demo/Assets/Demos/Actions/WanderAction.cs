@@ -10,7 +10,10 @@ namespace Demos.Actions
     {
         public override Data CreateData()
         {
-            return new Data();
+            return new Data
+            {
+                Timer = Random.Range(0.3f, 1f)
+            };
         }
 
         public override void OnStart(IMonoAgent agent, Data data)
@@ -20,6 +23,11 @@ namespace Demos.Actions
 
         public override ActionRunState Perform(IMonoAgent agent, Data data)
         {
+            data.Timer -= Time.deltaTime;
+            
+            if (data.Timer > 0)
+                return ActionRunState.Continue;
+            
             return ActionRunState.Stop;
         }
 
@@ -30,6 +38,7 @@ namespace Demos.Actions
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
+            public float Timer { get; set; }
         }
     }
 }

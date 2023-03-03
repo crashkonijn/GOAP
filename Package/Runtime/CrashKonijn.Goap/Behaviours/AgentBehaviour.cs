@@ -30,6 +30,8 @@ namespace CrashKonijn.Goap.Behaviours
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
         private IAgentMover mover;
+        
+        public GoapSetBehaviour goapSet;
 
         public IAgentMover Mover => this.mover;
 
@@ -40,15 +42,14 @@ namespace CrashKonijn.Goap.Behaviours
         public IActionData CurrentActionData { get; private set; }
         public IWorldData WorldData { get; private set; }
         public List<IActionBase> CurrentActionPath { get; private set; }
-
-        public void Construct(IGoapSet goapSet)
-        {
-            this.GoapSet = goapSet;
-        }
+        
 
         private void Awake()
         {
             this.mover = this.GetComponent<IAgentMover>();
+            
+            if (this.goapSet != null)
+                this.GoapSet = this.goapSet.Set;
         }
 
         private void OnEnable()
@@ -134,7 +135,7 @@ namespace CrashKonijn.Goap.Behaviours
                 this.EndAction();
             }
 
-            UnityEngine.Debug.Log($"Starting action: {action}");
+            // UnityEngine.Debug.Log($"Starting action: {action}");
             this.CurrentAction = action;
             this.CurrentActionData = action.GetData();
             this.CurrentActionData.Target = target;
@@ -145,7 +146,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void EndAction()
         {
-            UnityEngine.Debug.Log($"End action: {this.CurrentAction}");
+            // UnityEngine.Debug.Log($"End action: {this.CurrentAction}");
             this.CurrentAction?.OnEnd(this, this.CurrentActionData);
             this.CurrentAction = null;
             this.CurrentActionData = null;

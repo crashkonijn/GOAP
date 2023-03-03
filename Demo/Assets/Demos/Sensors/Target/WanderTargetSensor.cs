@@ -8,10 +8,24 @@ namespace Demos.Sensors.Target
 {
     public class WanderTargetSensor : LocalTargetSensorBase
     {
+        private static readonly Vector2 Bounds = new Vector2(15, 8);
+        
         public override ITarget Sense(IMonoAgent agent)
         {
-            var random = Random.insideUnitCircle * 10f;
-            return new PositionTarget(agent.transform.position + new Vector3(random.x, 0f, random.y) );
+            var random = this.GetRandomPosition(agent);
+            
+            return new PositionTarget(random);
+        }
+
+        private Vector3 GetRandomPosition(IMonoAgent agent)
+        {
+            var random =  Random.insideUnitCircle * 10f;
+            var position = agent.transform.position + new Vector3(random.x, 0f, random.y);
+            
+            if (position.x > -Bounds.x && position.x < Bounds.x && position.z > -Bounds.y && position.z < Bounds.y)
+                return position;
+
+            return this.GetRandomPosition(agent);
         }
     }
 }

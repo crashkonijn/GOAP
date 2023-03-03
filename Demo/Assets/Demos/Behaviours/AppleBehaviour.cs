@@ -8,7 +8,7 @@ namespace Demos.Behaviours
 
         private void Awake()
         {
-            this.nutritionValue = Random.Range(40f, 60f);
+            this.nutritionValue = Random.Range(80f, 150f);
         }
     }
 }

@@ -20,26 +20,39 @@
     padding: 10px;
     border-width: 1px;
     border-radius: 5px;
-    background-color: #262626;
-    
+    background-color: #2d2d2d;
 }
 
 .node-viewer__node--normal {
-    /*background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_normal.jpg');*/
     border-color: #b0b0b0;
 }
 
 .node-viewer__node--active {
-    /*background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_active.jpg');*/
     border-color: #14b214;
 }
 
 .node-viewer__node--path {
-    /*background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/node_background_path.jpg');*/
     border-color: #009dff;
 }
 
 #agent {
     margin: 5px;
     padding: 5px;
+}
+
+#float-right {
+    position: absolute;
+    right: 10px;
+}
+
+#world-data {
+    margin-top:10px;
+}
+
+#agent-data {
+    margin-top:10px;
+}
+
+#card {
+    background-color: #2d2d2d;
 }

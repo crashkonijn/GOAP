@@ -29,7 +29,7 @@ namespace Demos.Actions
             if (data.Apple == null || data.Hunger == null)
                 return ActionRunState.Stop;
 
-            var eatNutrition = Time.fixedDeltaTime * 10f;
+            var eatNutrition = Time.fixedDeltaTime * 20f;
 
             data.Apple.nutritionValue -= eatNutrition;
             data.Hunger.hunger -= eatNutrition;

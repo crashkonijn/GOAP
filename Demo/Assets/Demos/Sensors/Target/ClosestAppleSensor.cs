@@ -12,7 +12,15 @@ namespace Demos.Sensors.Target
     {
         public override ITarget Sense(IMonoAgent agent)
         {
-            return new TransformTarget(GameObject.FindObjectsOfType<AppleBehaviour>().Where(x => x.GetComponent<Renderer>().enabled).Closest(agent.transform.position).transform);
+            var allApples = GameObject.FindObjectsOfType<AppleBehaviour>();
+            var notPickedUpApples = allApples.Where(x => x.GetComponentInChildren<SpriteRenderer>().enabled).ToArray();
+
+            var closestApple = notPickedUpApples.Closest(agent.transform.position);
+
+            if (closestApple is null)
+                return null;
+            
+            return new TransformTarget(closestApple.transform);
         }
     }
 }

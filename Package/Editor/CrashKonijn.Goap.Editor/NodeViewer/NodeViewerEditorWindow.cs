@@ -21,7 +21,6 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
         private VisualElement leftPanel;
         private VisualElement rightPanel;
 
-        private Vector2 positionOffset;
         private float lastUpdate = 0f;
         private DragDrawer dragDrawer;
         private VisualElement nodesDrawer;
@@ -99,8 +98,6 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
                 
             this.dragDrawer = new DragDrawer(right, (offset) =>
             {
-                this.positionOffset = offset;
-                    
                 dragParent.transform.position = offset;
                     
                 var posX = right.style.backgroundPositionX;
@@ -115,8 +112,8 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
             var root = this.rootVisualElement;
             root.name = "node-viewer-editor";
             
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer.uss");
-            root.styleSheets.Add(styleSheet);
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss"));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer.uss"));
         }
 
         private (VisualElement RootElement, VisualElement Right) CreatePanels()
@@ -181,6 +178,16 @@ namespace CrashKonijn.Goap.Editor.New.NodeViewer
             this.nodesDrawer = this.GetGraphElement();
             
             this.rightPanel.Add(this.nodesDrawer);
+
+            var floatData = new VisualElement()
+            {
+                name = "float-right"
+            };
+            
+            floatData.Add(new WorldDataDrawer(this.agent.WorldData));
+            floatData.Add(new AgentDataDrawer(this.agent));
+            
+            this.rightPanel.Add(floatData);
         }
     }
 }

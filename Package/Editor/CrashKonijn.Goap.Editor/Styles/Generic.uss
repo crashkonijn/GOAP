@@ -2,7 +2,7 @@
     font-size: 20px;
     border-bottom-width: 1px;
     border-bottom-color: #1e1e1e;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 5px;
     padding-bottom: 5px;
 }
@@ -17,6 +17,7 @@
     border-width: 1px;
     border-color: var(--unity-colors-default-border);
     padding: 10px;
+    margin-bottom: 10px;
 }
 
 .card {
@@ -25,6 +26,7 @@
     border-width: 1px;
     border-color: var(--unity-colors-default-border);
     padding: 5px;
+    margin-bottom: 10px;
 }
 
 .unity-foldout__content {

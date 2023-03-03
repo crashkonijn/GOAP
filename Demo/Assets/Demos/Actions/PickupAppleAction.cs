@@ -19,6 +19,10 @@ namespace Demos.Actions
             if (data.Target is not TransformTarget transformTarget)
                 return ActionRunState.Stop;
             
+            // Prevent picking up same apple
+            if (!transformTarget.Transform.GetComponentInChildren<SpriteRenderer>().enabled)
+                return ActionRunState.Stop;
+            
             var inventory = agent.GetComponent<InventoryBehaviour>();
 
             if (inventory == null)

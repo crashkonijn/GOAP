@@ -10,7 +10,7 @@ namespace Demos.Behaviours
 
         public void Put(AppleBehaviour apple)
         {
-            apple.GetComponent<Renderer>().enabled = false;
+            apple.GetComponentInChildren<SpriteRenderer>().enabled = false;
             this.Apples.Add(apple);
         }
 
