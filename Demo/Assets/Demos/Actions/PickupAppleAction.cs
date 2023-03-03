@@ -19,8 +19,16 @@ namespace Demos.Actions
             if (data.Target is not TransformTarget transformTarget)
                 return ActionRunState.Stop;
             
+            if (transformTarget.Transform == null)
+                return ActionRunState.Stop;
+            
+            var apple = transformTarget.Transform.GetComponent<AppleBehaviour>();
+
+            if (apple == null)
+                return ActionRunState.Stop;
+            
             // Prevent picking up same apple
-            if (!transformTarget.Transform.GetComponentInChildren<SpriteRenderer>().enabled)
+            if (apple.IsPickedUp)
                 return ActionRunState.Stop;
             
             var inventory = agent.GetComponent<InventoryBehaviour>();
@@ -28,7 +36,7 @@ namespace Demos.Actions
             if (inventory == null)
                 return ActionRunState.Stop;
             
-            inventory.Put(transformTarget.Transform.GetComponent<AppleBehaviour>());
+            inventory.Put(apple);
             
             return ActionRunState.Stop;
         }

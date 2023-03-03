@@ -15,16 +15,23 @@ namespace CrashKonijn.Goap.Classes.Runners
         private readonly GraphResolver resolver;
         
         private List<JobRunHandle> resolveHandles = new();
+        private readonly ExecutableBuilder executableBuilder;
+        private readonly PositionBuilder positionBuilder;
 
         public GoapSetJobRunner(IGoapSet goapSet)
         {
             this.goapSet = goapSet;
             this.resolver = new GraphResolver(goapSet.GetAllNodes().ToArray(), goapSet.GoapConfig.KeyResolver);
+            
+            this.executableBuilder = this.resolver.GetExecutableBuilder();
+            this.positionBuilder = this.resolver.GetPositionBuilder();
         }
 
         public void Run()
         {
             this.resolveHandles = new();
+            
+            this.goapSet.SensorRunner.Update();
             
             var globalData = this.goapSet.SensorRunner.SenseGlobal();
 
@@ -42,29 +49,28 @@ namespace CrashKonijn.Goap.Classes.Runners
             if (agent.CurrentAction != null)
                 return;
             
-            var localData = goapSet.SensorRunner.SenseLocal(globalData, agent);
-            agent.SetWorldData(localData);
+            var localData = this.goapSet.SensorRunner.SenseLocal(globalData, agent);
 
-            var data = this.GetData(localData);
+            this.FillBuilders(localData);
             
             this.resolveHandles.Add(new JobRunHandle(agent)
             {
                 Handle = this.resolver.StartResolve(new RunData
                 {
                     StartIndex = this.resolver.GetIndex(agent.CurrentGoal),
-                    IsExecutable = new NativeArray<bool>(data.ExecutableBuilder.Build(), Allocator.TempJob),
-                    Positions = new NativeArray<float3>(data.PositionBuilder.Build(), Allocator.TempJob)
+                    IsExecutable = new NativeArray<bool>(this.executableBuilder.Build(), Allocator.TempJob),
+                    Positions = new NativeArray<float3>(this.positionBuilder.Build(), Allocator.TempJob)
                 })
             });
         }
 
-        private (ExecutableBuilder ExecutableBuilder, PositionBuilder PositionBuilder) GetData(LocalWorldData localData)
+        private void FillBuilders(LocalWorldData localData)
         {
             var conditionObserver = this.goapSet.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(localData);
 
-            var executableBuilder = this.resolver.GetExecutableBuilder();
-            var positionBuilder = this.resolver.GetPositionBuilder();
+            this.executableBuilder.Clear();
+            this.positionBuilder.Clear();
 
             foreach (var node in this.goapSet.GetActions())
             {
@@ -72,13 +78,10 @@ namespace CrashKonijn.Goap.Classes.Runners
 
                 var target = localData.GetTarget(node);
 
-                executableBuilder.SetExecutable(node, allMet);
+                this.executableBuilder.SetExecutable(node, allMet);
                 
-                if (target is not null)
-                    positionBuilder.SetPosition(node, target.Position);
+                if (target is not null) this.positionBuilder.SetPosition(node, target.Position);
             }
-            
-            return (executableBuilder, positionBuilder);
         }
 
         public void Complete()

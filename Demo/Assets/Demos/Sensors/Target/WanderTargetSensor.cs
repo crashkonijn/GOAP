@@ -9,7 +9,12 @@ namespace Demos.Sensors.Target
     public class WanderTargetSensor : LocalTargetSensorBase
     {
         private static readonly Vector2 Bounds = new Vector2(15, 8);
-        
+
+        public override void Update()
+        {
+            
+        }
+
         public override ITarget Sense(IMonoAgent agent)
         {
             var random = this.GetRandomPosition(agent);

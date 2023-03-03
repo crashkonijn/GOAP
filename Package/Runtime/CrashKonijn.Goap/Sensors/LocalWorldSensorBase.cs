@@ -10,7 +10,8 @@ namespace CrashKonijn.Goap.Sensors
 
         public IWorldSensorConfig Config { get; private set; }
         public void SetConfig(IWorldSensorConfig config) => this.Config = config;
-        
+
+        public abstract void Update();
         public abstract bool Sense(IMonoAgent agent);
     }
 }

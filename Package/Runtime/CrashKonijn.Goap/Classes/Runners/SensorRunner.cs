@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Runners
@@ -14,7 +14,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         
         // GC caches
         private LocalWorldData localWorldData;
-        private GlobalWorldData worldData;
+        private readonly GlobalWorldData worldData = new();
 
         public SensorRunner(IEnumerable<IWorldSensor> worldSensors, IEnumerable<ITargetSensor> targetSensors)
         {
@@ -45,32 +45,50 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
+        public void Update()
+        {
+            foreach (var localWorldSensor in this.localWorldSensors)
+            {
+                localWorldSensor.Update();
+            }
+
+            foreach (var localTargetSensor in this.localTargetSensors)
+            {
+                localTargetSensor.Update();
+            }
+        }
+
         public GlobalWorldData SenseGlobal()
         {
-            this.worldData = new GlobalWorldData();
-
-            this.worldData.States = this.globalWorldSensors
-                .Where(x => x.Sense())
-                .Select(x => x.Key)
-                .ToHashSet();
-
-            this.worldData.Targets = this.globalTargetSensors
-                .ToDictionary(x => x.Key, y => y.Sense());
+            foreach (var globalWorldSensor in this.globalWorldSensors)
+            {
+                this.worldData.SetState(globalWorldSensor.Key, globalWorldSensor.Sense() ? WorldKeyState.True : WorldKeyState.False);
+            }
+            
+            foreach (var globalTargetSensor in this.globalTargetSensors)
+            {
+                this.worldData.SetTarget(globalTargetSensor.Key, globalTargetSensor.Sense());
+            }
 
             return this.worldData;
         }
 
         public LocalWorldData SenseLocal(GlobalWorldData worldData, IMonoAgent agent)
         {
-            this.localWorldData = new LocalWorldData(worldData);
+            this.localWorldData = (LocalWorldData) agent.WorldData;
 
-            this.localWorldData.AddStates(this.localWorldSensors
-                .Where(x => x.Sense(agent))
-                .Select(x => x.Key));
-
-            this.localWorldData.AddTargets(this.localTargetSensors
-                .ToDictionary(x => x.Key, y => y.Sense(agent)));
-
+            this.localWorldData.Apply(worldData);
+            
+            foreach (var localWorldSensor in this.localWorldSensors)
+            {
+                this.localWorldData.SetState(localWorldSensor.Key, localWorldSensor.Sense(agent) ? WorldKeyState.True : WorldKeyState.False);
+            }
+            
+            foreach (var localTargetSensor in this.localTargetSensors)
+            {
+                this.localWorldData.SetTarget(localTargetSensor.Key, localTargetSensor.Sense(agent));
+            }
+            
             return this.localWorldData;
         }
     }

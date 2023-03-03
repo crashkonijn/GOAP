@@ -9,12 +9,12 @@ namespace CrashKonijn.Goap.Resolver
     public class PositionBuilder
     {
         private readonly List<IAction> actionIndexList;
-        private readonly List<float3> executableList;
+        private float3[] executableList;
 
         public PositionBuilder(List<IAction> actionIndexList)
         {
             this.actionIndexList = actionIndexList;
-            this.executableList = this.actionIndexList.Select(x => GraphResolverJob.InvalidPosition).ToList();
+            this.executableList = this.actionIndexList.Select(x => GraphResolverJob.InvalidPosition).ToArray();
         }
         
         public PositionBuilder SetPosition(IAction action, Vector3 position)
@@ -28,7 +28,12 @@ namespace CrashKonijn.Goap.Resolver
         
         public float3[] Build()
         {
-            return this.executableList.ToArray();
+            return this.executableList;
+        }
+
+        public void Clear()
+        {
+            this.executableList = this.actionIndexList.Select(x => GraphResolverJob.InvalidPosition).ToArray();
         }
     }
 }

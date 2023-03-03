@@ -9,6 +9,9 @@ namespace CrashKonijn.Goap.Behaviours
     {
         private Classes.Runners.GoapRunner runner;
 
+        public float RunTime => this.runner.RunTime;
+        public float CompleteTime => this.runner.CompleteTime;
+        
         private void Awake()
         {
             this.runner = new Classes.Runners.GoapRunner();
@@ -33,5 +36,6 @@ namespace CrashKonijn.Goap.Behaviours
 
         public Graph GetGraph(IGoapSet set) => this.runner.GetGraph(set);
         public bool Knows(IGoapSet set) => this.runner.Knows(set);
+        public IMonoAgent[] Agents => this.runner.Agents;
     }
 }

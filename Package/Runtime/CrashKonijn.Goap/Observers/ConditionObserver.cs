@@ -8,17 +8,17 @@ namespace CrashKonijn.Goap.Observers
         protected override bool IsMet(ICondition condition)
         {
             if (condition.Positive)
-                return this.WorldData.States.Contains(condition.WorldKey);
+                return this.WorldData.IsTrue(condition.WorldKey);
             
-            return !this.WorldData.States.Contains(condition.WorldKey);
+            return !this.WorldData.IsTrue(condition.WorldKey);
         }
 
         protected override bool IsMet(IEffect effect)
         {
             if (effect.Positive)
-                return this.WorldData.States.Contains(effect.WorldKey);
+                return this.WorldData.IsTrue(effect.WorldKey);
             
-            return !this.WorldData.States.Contains(effect.WorldKey);
+            return !this.WorldData.IsTrue(effect.WorldKey);
         }
     }
 }

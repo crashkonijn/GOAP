@@ -57,14 +57,10 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var target = new TargetKeyScriptable();
             var observer = new CostObserver();
-            observer.SetWorldData(new GlobalWorldData
-            {
-                Targets = new Dictionary<ITargetKey, ITarget>
-                {
-                    { target, null }
-                },
-                States = new HashSet<IWorldKey>()
-            });
+
+            var worldData = new GlobalWorldData();
+            worldData.SetTarget(target, null);
+            observer.SetWorldData(worldData);
             
             var actionConfig = Substitute.For<ActionConfig>();
             actionConfig.target = target;

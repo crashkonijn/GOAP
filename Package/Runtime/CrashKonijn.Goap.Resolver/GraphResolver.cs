@@ -91,8 +91,6 @@ public class ResolveHandle
             Result = new NativeList<NodeData>(Allocator.TempJob)
         };
         
-        // this.job.Execute();
-        
         this.handle = this.job.Schedule();
     }
 

@@ -3,6 +3,7 @@ using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using FluentAssertions;
 using NSubstitute;
@@ -33,11 +34,12 @@ namespace CrashKonijn.Goap.UnitTests
             var data = runner.SenseGlobal();
 
             // Assert
-            data.States.Should().Contain(key);
+            data.States.Should().ContainKey(key);
+            data.States[key].Should().Be(WorldKeyState.True);
         }
         
         [Test]
-        public void SenseGlobal_WithNegativeWorldSense_IsNotPresentInStates()
+        public void SenseGlobal_WithNegativeWorldSense_IsPresentInStates()
         {
             // Arrange
             var key = new WorldKey("test");
@@ -55,7 +57,8 @@ namespace CrashKonijn.Goap.UnitTests
             var data = runner.SenseGlobal();
 
             // Assert
-            data.States.Should().NotContain(key);
+            data.States.Should().ContainKey(key);
+            data.States[key].Should().Be(WorldKeyState.False);
         }
         
         [Test]
@@ -121,16 +124,16 @@ namespace CrashKonijn.Goap.UnitTests
             var targetSensors = new ITargetSensor[] { };
             
             var runner = new SensorRunner(worldSensors, targetSensors);
+            
+            var agent = Substitute.For<IMonoAgent>();
+            agent.WorldData.Returns(new LocalWorldData());
 
             // Act
-            var data = runner.SenseLocal(new GlobalWorldData
-            {
-                Targets = new Dictionary<ITargetKey, ITarget>(),
-                States = new HashSet<IWorldKey>()
-            }, Substitute.For<IMonoAgent>());
+            var data = runner.SenseLocal(new GlobalWorldData(), agent);
 
             // Assert
-            data.States.Should().Contain(key);
+            data.States.Should().ContainKey(key);
+            data.States[key].Should().Be(WorldKeyState.True);
         }
         
         [Test]
@@ -148,15 +151,15 @@ namespace CrashKonijn.Goap.UnitTests
             
             var runner = new SensorRunner(worldSensors, targetSensors);
 
+            var agent = Substitute.For<IMonoAgent>();
+            agent.WorldData.Returns(new LocalWorldData());
+
             // Act
-            var data = runner.SenseLocal(new GlobalWorldData
-            {
-                Targets = new Dictionary<ITargetKey, ITarget>(),
-                States = new HashSet<IWorldKey>()
-            }, Substitute.For<IMonoAgent>());
+            var data = runner.SenseLocal(new GlobalWorldData(), agent);
 
             // Assert
-            data.States.Should().NotContain(key);
+            data.States.Should().ContainKey(key);
+            data.States[key].Should().Be(WorldKeyState.False);
         }
         
         [Test]
@@ -175,12 +178,11 @@ namespace CrashKonijn.Goap.UnitTests
             
             var runner = new SensorRunner(worldSensors, targetSensors);
 
+            var agent = Substitute.For<IMonoAgent>();
+            agent.WorldData.Returns(new LocalWorldData());
+            
             // Act
-            var data = runner.SenseLocal(new GlobalWorldData
-            {
-                Targets = new Dictionary<ITargetKey, ITarget>(),
-                States = new HashSet<IWorldKey>()
-            }, Substitute.For<IMonoAgent>());
+            var data = runner.SenseLocal(new GlobalWorldData(), agent);
 
             // Assert
             data.Targets.Should().ContainKey(key);
@@ -203,16 +205,74 @@ namespace CrashKonijn.Goap.UnitTests
             
             var runner = new SensorRunner(worldSensors, targetSensors);
 
+            var agent = Substitute.For<IMonoAgent>();
+            agent.WorldData.Returns(new LocalWorldData());
+            
             // Act
-            var data = runner.SenseLocal(new GlobalWorldData
-            {
-                Targets = new Dictionary<ITargetKey, ITarget>(),
-                States = new HashSet<IWorldKey>()
-            }, Substitute.For<IMonoAgent>());
+            var data = runner.SenseLocal(new GlobalWorldData(), agent);
 
             // Assert
             data.Targets.Should().ContainKey(key);
             data.Targets.Should().NotContainValue(target);
+        }
+        
+        [Test]
+        public void SenseLocal_ContainsGlobalTarget()
+        {
+            // Arrange
+            var target = Substitute.For<ITarget>();
+            var key = new TargetKey("test");
+            
+            var sensor = Substitute.For<IGlobalTargetSensor>();
+            sensor.Sense().Returns(target);
+            sensor.Key.Returns(key);
+            
+            var worldSensors = new IWorldSensor[] {  };
+            var targetSensors = new ITargetSensor[] { sensor };
+            
+            var runner = new SensorRunner(worldSensors, targetSensors);
+
+            var agent = Substitute.For<IMonoAgent>();
+            agent.WorldData.Returns(new LocalWorldData());
+
+            var globalWorldData = new GlobalWorldData();
+            globalWorldData.Targets.Add(key, target);
+            
+            // Act
+            var data = runner.SenseLocal(globalWorldData, agent);
+
+            // Assert
+            data.Targets.Should().ContainKey(key);
+            data.Targets.Should().ContainValue(target);
+        }
+        
+        [Test]
+        public void SenseLocal_ContainsGlobalState()
+        {
+            // Arrange
+            var key = new WorldKey("test");
+            
+            var sensor = Substitute.For<ILocalWorldSensor>();
+            sensor.Sense(Arg.Any<IMonoAgent>()).Returns(false);
+            sensor.Key.Returns(key);
+            
+            var worldSensors = new IWorldSensor[] { };
+            var targetSensors = new ITargetSensor[] { };
+            
+            var runner = new SensorRunner(worldSensors, targetSensors);
+
+            var agent = Substitute.For<IMonoAgent>();
+            agent.WorldData.Returns(new LocalWorldData());
+            
+            var globalWorldData = new GlobalWorldData();
+            globalWorldData.States.Add(key, WorldKeyState.True);
+
+            // Act
+            var data = runner.SenseLocal(globalWorldData, agent);
+
+            // Assert
+            data.States.Should().ContainKey(key);
+            data.States[key].Should().Be(WorldKeyState.True);
         }
     }
 }

@@ -6,6 +6,11 @@ namespace CrashKonijn.Goap.UnitTests.Data
 {
     public class LocalTargetSensor : LocalTargetSensorBase
     {
+        public override void Update()
+        {
+            
+        }
+
         public override ITarget Sense(IMonoAgent agent)
         {
             return default;

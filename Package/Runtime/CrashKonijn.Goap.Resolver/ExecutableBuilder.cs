@@ -7,12 +7,12 @@ namespace CrashKonijn.Goap.Resolver
     public class ExecutableBuilder
     {
         private readonly List<IAction> actionIndexList;
-        private readonly List<bool> executableList;
+        private bool[] executableList;
 
         public ExecutableBuilder(List<IAction> actionIndexList)
         {
             this.actionIndexList = actionIndexList;
-            this.executableList = this.actionIndexList.Select(x => false).ToList();
+            this.executableList = this.actionIndexList.Select(x => false).ToArray();
         }
         
         public ExecutableBuilder SetExecutable(IAction action, bool executable)
@@ -22,10 +22,15 @@ namespace CrashKonijn.Goap.Resolver
 
             return this;
         }
+
+        public void Clear()
+        {
+            this.executableList = this.actionIndexList.Select(x => false).ToArray();
+        }
         
         public bool[] Build()
         {
-            return this.executableList.ToArray();
+            return this.executableList;
         }
     }
 }

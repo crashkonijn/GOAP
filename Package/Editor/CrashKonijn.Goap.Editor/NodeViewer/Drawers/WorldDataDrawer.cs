@@ -1,4 +1,6 @@
-﻿using CrashKonijn.Goap.Editor.Elements;
+﻿using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Editor.Elements;
+using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine.UIElements;
 
@@ -14,13 +16,20 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             {
                 card.Add(new Header("Conditions"));
                 
-                foreach (var worldKey in worldData.States)
+                foreach (var (key, state) in worldData.States)
                 {
-                    card.Add(new Label(worldKey.Name));
+                    card.Add(new Label(this.GetText(key, state)));
                 }
             });
             
             this.Add(card);
+        }
+        
+        private string GetText(IWorldKey worldKey, WorldKeyState state)
+        {
+            var color = state == WorldKeyState.True ? "green" : "red";
+            
+            return  $"<color={color}>{worldKey.Name} ({state})</color>";
         }
     }
 }

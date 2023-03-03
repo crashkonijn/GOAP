@@ -16,23 +16,9 @@ namespace CrashKonijn.Goap.Interfaces
         Transform transform { get; }
         GameObject gameObject { get; }
         string tag { get; set; }
-        Component rigidbody { get; }
-        Component rigidbody2D { get; }
-        Component camera { get; }
-        Component light { get; }
-        Component animation { get; }
-        Component constantForce { get; }
-        Component renderer { get; }
-        Component audio { get; }
-        Component networkView { get; }
-        Component collider { get; }
-        Component collider2D { get; }
-        Component hingeJoint { get; }
-        Component particleSystem { get; }
         bool enabled { get; set; }
         bool isActiveAndEnabled { get; }
         bool useGUILayout { get; set; }
-        bool runInEditMode { get; set; }
         Component GetComponent(Type type);
         T GetComponent<T>();
         Component GetComponent(string type);

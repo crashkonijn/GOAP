@@ -54,6 +54,9 @@ namespace CrashKonijn.Goap.Behaviours
 
         public virtual float GetDistanceCost(ITarget currentTarget, ITarget otherTarget)
         {
+            if (currentTarget == null || otherTarget == null)
+                return 0;
+            
             return Vector3.Distance(currentTarget.Position, otherTarget.Position);
         }
         

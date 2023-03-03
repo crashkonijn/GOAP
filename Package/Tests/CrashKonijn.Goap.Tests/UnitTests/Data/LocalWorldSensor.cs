@@ -5,6 +5,10 @@ namespace CrashKonijn.Goap.UnitTests.Data
 {
     public class LocalWorldSensor : LocalWorldSensorBase
     {
+        public override void Update()
+        {
+        }
+
         public override bool Sense(IMonoAgent agent)
         {
             return default;

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using CrashKonijn.Goap.Sensors;
+﻿using CrashKonijn.Goap.Sensors;
 using Demos.Behaviours;
 using UnityEngine;
 
@@ -7,12 +6,16 @@ namespace Demos.Sensors.World
 {
     public class ThereAreApplesSensor : GlobalWorldSensorBase
     {
+        private readonly AppleCollection apples;
+
+        public ThereAreApplesSensor()
+        {
+            this.apples = GameObject.FindObjectOfType<AppleCollection>();
+        }
+        
         public override bool Sense()
         {
-            var allApples = GameObject.FindObjectsOfType<AppleBehaviour>();
-            var notPickedUpApples = allApples.Where(x => x.GetComponentInChildren<SpriteRenderer>().enabled).ToArray();
-
-            return notPickedUpApples.Any();
+            return this.apples.Any();
         }
     }
 }

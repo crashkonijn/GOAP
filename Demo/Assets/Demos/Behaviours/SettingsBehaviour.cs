@@ -18,18 +18,45 @@ namespace Demos.Behaviours
         
         public TextMeshProUGUI appleCountText;
         public TextMeshProUGUI agentCountText;
+        public TextMeshProUGUI fpsText;
 
         private bool debug = true;
+        private GoapRunnerBehaviour goapRunner;
+
+        private int frameCount;
+        private float fps;
+        private float fpsTimer;
+        
+        private AppleCollection apples;
 
         private void Awake()
         {
             this.agentPrefab.SetActive(false);
+            this.goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
+            this.apples = FindObjectOfType<AppleCollection>();
+            
+            Screen.SetResolution(1024, 576, false);
+        }
+
+        private void Update()
+        {
+            this.frameCount++;
+            this.fpsTimer += Time.deltaTime;
+
+            if (this.fpsTimer >= 1)
+            {
+                this.fps = this.frameCount;
+                this.frameCount = 0;
+                this.fpsTimer -= 1;
+            }
+            
+            this.fpsText.text = $"FPS: {this.fps}\nRunTime: {this.goapRunner.RunTime} (ms)\nCompleteTime: {this.goapRunner.CompleteTime} (ms)";
         }
 
         private void FixedUpdate()
         {
-            this.appleCountText.text = $"+ Apple ({FindObjectsOfType<AppleBehaviour>().Count(x => x.GetComponentInChildren<SpriteRenderer>().enabled)})";
-            this.agentCountText.text = $"+ Agent ({FindObjectsOfType<AgentBehaviour>().Length})";
+            this.appleCountText.text = $"+ Apple ({this.apples.Get().Length})";
+            this.agentCountText.text = $"+ Agent ({this.goapRunner.Agents.Length})";
         }
 
         public void SetDebug(bool value)
@@ -50,7 +77,7 @@ namespace Demos.Behaviours
 
         public void SpawnApple()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
                 Instantiate(this.applePrefab, this.GetRandomPosition(), Quaternion.identity);
             }
@@ -58,7 +85,10 @@ namespace Demos.Behaviours
 
         public void SpawnAgent()
         {
-            for (int i = 0; i < 10; i++)
+            var agentCount = this.goapRunner.Agents.Length;
+            var count = agentCount < 50 ? 50 - agentCount : 50;
+            
+            for (int i = 0; i < count; i++)
             {
                 var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
                 agent.GoapSet = this.goapSet.Set;

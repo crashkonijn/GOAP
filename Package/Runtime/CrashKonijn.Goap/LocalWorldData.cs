@@ -1,48 +1,20 @@
-﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Scriptables;
+﻿using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap
 {
-    public class LocalWorldData : IWorldData
+    public class LocalWorldData : WorldDataBase
     {
-        public HashSet<IWorldKey> States { get; }
-        public Dictionary<ITargetKey, ITarget> Targets { get; }
-
-        public ITarget GetTarget(IActionBase action)
+        public void Apply(IWorldData globalWorldData)
         {
-            if (action?.Config?.target == null)
+            foreach (var (key, value) in globalWorldData.States)
             {
-                return null;
+                this.SetState(key, value);
             }
-
-            this.Targets.TryGetValue(action.Config.target, out var value);
             
-            return value;
-        }
-
-        public void AddStates(IEnumerable<IWorldKey> states)
-        {
-            foreach (var worldKey in states)
+            foreach (var (key, value) in globalWorldData.Targets)
             {
-                this.States.Add(worldKey);
+                this.SetTarget(key, value);
             }
-        }
-
-        public void AddTargets(Dictionary<ITargetKey, ITarget> targets)
-        {
-            foreach (var (key, value) in targets)
-            {
-                this.Targets.Add(key, value);
-            }
-        }
-
-        public LocalWorldData(IWorldData globalWorldData)
-        {
-            this.States = new HashSet<IWorldKey>(globalWorldData.States);
-            this.Targets = new Dictionary<ITargetKey, ITarget>(globalWorldData.Targets);
         }
     }
 }

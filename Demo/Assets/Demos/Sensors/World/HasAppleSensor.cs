@@ -6,6 +6,11 @@ namespace Demos.Sensors.World
 {
     public class HasAppleSensor : LocalWorldSensorBase
     {
+        public override void Update()
+        {
+            
+        }
+
         public override bool Sense(IMonoAgent agent)
         {
             var inventory = agent.GetComponent<InventoryBehaviour>();

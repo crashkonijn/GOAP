@@ -23,7 +23,6 @@ namespace CrashKonijn.Goap.Behaviours
         void SetGoal<TGoal>(bool endAction) where TGoal : IGoalBase;
 
         void SetGoal(IGoalBase goal, bool endAction);
-        void SetWorldData(IWorldData worldData);
         void SetAction(IActionBase action, List<IActionBase> path, ITarget target);
     }
 
@@ -40,7 +39,7 @@ namespace CrashKonijn.Goap.Behaviours
         public IGoalBase CurrentGoal { get; private set; }
         public IActionBase CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
-        public IWorldData WorldData { get; private set; }
+        public IWorldData WorldData { get; } = new LocalWorldData();
         public List<IActionBase> CurrentActionPath { get; private set; }
         
 
@@ -121,11 +120,6 @@ namespace CrashKonijn.Goap.Behaviours
             
             if (endAction)
                 this.EndAction();
-        }
-
-        public void SetWorldData(IWorldData worldData)
-        {
-            this.WorldData = worldData;
         }
 
         public void SetAction(IActionBase action, List<IActionBase> path, ITarget target)

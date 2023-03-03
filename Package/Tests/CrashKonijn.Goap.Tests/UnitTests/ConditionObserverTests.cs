@@ -2,6 +2,7 @@
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Observers;
 using NUnit.Framework;
 
@@ -14,10 +15,9 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var key = new WorldKey("world-key");
-            var worldData = new GlobalWorldData
-            {
-                States = new HashSet<IWorldKey>{ key }
-            };
+            var worldData = new GlobalWorldData();
+            worldData.SetState(key, WorldKeyState.True);
+            
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
         
@@ -39,10 +39,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var key = new WorldKey("world-key");
-            var worldData = new GlobalWorldData
-            {
-                States = new HashSet<IWorldKey>()
-            };
+            var worldData = new GlobalWorldData();
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
         
@@ -64,10 +61,9 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var key = new WorldKey("world-key");
-            var worldData = new GlobalWorldData
-            {
-                States = new HashSet<IWorldKey>{ key }
-            };
+            var worldData = new GlobalWorldData();
+            worldData.SetState(key, WorldKeyState.True);
+            
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
         
@@ -89,10 +85,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var key = new WorldKey("world-key");
-            var worldData = new GlobalWorldData
-            {
-                States = new HashSet<IWorldKey>()
-            };
+            var worldData = new GlobalWorldData();
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
         

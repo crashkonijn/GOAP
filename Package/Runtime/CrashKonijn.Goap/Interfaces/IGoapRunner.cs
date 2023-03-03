@@ -8,5 +8,6 @@ namespace CrashKonijn.Goap.Interfaces
         void Register(IGoapSet set);
         Graph GetGraph(IGoapSet set);
         bool Knows(IGoapSet set);
+        IMonoAgent[] Agents { get; }
     }
 }

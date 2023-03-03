@@ -556,6 +556,7 @@ namespace CrashKonijn.Goap.Resolver {
 
         [Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
         internal unsafe void IsValidIndexInternal(NativeHeapIndex index, ref bool result, ref int errorCode) {
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
             AtomicSafetyHandle.CheckReadAndThrow(this.m_Safety);
 
             if (index.StructureId != this.Id) {
@@ -576,6 +577,7 @@ namespace CrashKonijn.Goap.Resolver {
                 result = false;
                 return;
             }
+#endif
         }
 
         #endregion

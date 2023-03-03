@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
+﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Sensors;
@@ -10,12 +9,21 @@ namespace Demos.Sensors.Target
 {
     public class ClosestAppleSensor : LocalTargetSensorBase
     {
+        private AppleCollection apples;
+
+        public ClosestAppleSensor()
+        {
+            this.apples = GameObject.FindObjectOfType<AppleCollection>();
+        }
+
+        public override void Update()
+        {
+            
+        }
+
         public override ITarget Sense(IMonoAgent agent)
         {
-            var allApples = GameObject.FindObjectsOfType<AppleBehaviour>();
-            var notPickedUpApples = allApples.Where(x => x.GetComponentInChildren<SpriteRenderer>().enabled).ToArray();
-
-            var closestApple = notPickedUpApples.Closest(agent.transform.position);
+            var closestApple = this.apples.Get().Closest(agent.transform.position);
 
             if (closestApple is null)
                 return null;
