@@ -66,7 +66,7 @@ namespace CrashKonijn.Goap.Behaviours
             if (this.CurrentAction == null)
                 return;
             
-            if (this.GetDistance() <= this.CurrentAction.Config.inRange)
+            if (this.GetDistance() <= this.CurrentAction.Config.InRange)
                 return;
 
             this.State = AgentState.MovingToTarget;
@@ -82,7 +82,7 @@ namespace CrashKonijn.Goap.Behaviours
                 return;
             }
             
-            if (this.GetDistance() > this.CurrentAction.Config.inRange)
+            if (this.GetDistance() > this.CurrentAction.Config.InRange)
                 return;
             
             this.State = AgentState.PerformingAction;

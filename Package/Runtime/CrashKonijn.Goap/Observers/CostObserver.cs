@@ -14,7 +14,7 @@ namespace CrashKonijn.Goap.Observers
             if (last == null)
                 return cost;
 
-            if (last.Config.target == null)
+            if (last.Config.Target == null)
                 return cost;
             
             return cost + current.GetDistanceCost(this.WorldData.GetTarget(current), this.WorldData.GetTarget(last));

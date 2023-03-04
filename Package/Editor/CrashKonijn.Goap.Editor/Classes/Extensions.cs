@@ -13,8 +13,8 @@ namespace CrashKonijn.Goap.Editor.Classes
             return config.Actions
                 .SelectMany((action) =>
                 {
-                    var conditions = action.Conditions.Cast<ICondition>().Select(y => y.WorldKey);
-                    var effects = action.Effects.Cast<IEffect>().Select(z => z.WorldKey);
+                    var conditions = action.Conditions.Select(y => y.WorldKey);
+                    var effects = action.Effects.Select(z => z.WorldKey);
                     
                     return conditions.Concat(effects);
                 })
@@ -22,9 +22,9 @@ namespace CrashKonijn.Goap.Editor.Classes
                 .ToArray();
         }
         
-        public static TargetKeyScriptable[] GetTargetKeys(this IGoapSetConfig config)
+        public static ITargetKey[] GetTargetKeys(this IGoapSetConfig config)
         {
-            return config.Actions.Select(x => x.Config.target).Distinct().ToArray();
+            return config.Actions.Select(x => x.Target).Distinct().ToArray();
         }
     }
 }

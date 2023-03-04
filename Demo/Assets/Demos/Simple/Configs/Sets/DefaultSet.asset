@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539bc3388ee5fe4418e66a11759478e5, type: 3}
+  m_Name: DefaultSet
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: a5ec52e35b7cd0b4088f9677cc010ed3, type: 2}
+  - {fileID: 11400000, guid: 0972539c19d955a438d6b3c030deb8e7, type: 2}
+  - {fileID: 11400000, guid: 62a956640239c504cbeb7a85908cb7c6, type: 2}
+  - {fileID: 11400000, guid: 2a4fdd75dd41ef044baac52c302f40e6, type: 2}
+  goals:
+  - {fileID: 11400000, guid: b40fb0aad36b1a041b2348576ff721b7, type: 2}
+  - {fileID: 11400000, guid: f3185c0fcf18bd241a121a233101bed6, type: 2}
+  targetSensors:
+  - {fileID: 11400000, guid: 86df22d879879e9428c778c38a496a7d, type: 2}
+  - {fileID: 11400000, guid: e9a364b72b5a02d4b82c960463f8a028, type: 2}
+  - {fileID: 11400000, guid: ca7c6656e9a32114f8523f14697a625e, type: 2}
+  - {fileID: 11400000, guid: c3a5dbe88e7dd9c468fc47e0ad136c82, type: 2}
+  worldSensors:
+  - {fileID: 11400000, guid: 72b48ee625321094997477639b9ad6d8, type: 2}
+  - {fileID: 11400000, guid: 053f4aa51d3f155479308e653a4a77bb, type: 2}
+  - {fileID: 11400000, guid: b9364d9672de70143a6091f52ed97efb, type: 2}

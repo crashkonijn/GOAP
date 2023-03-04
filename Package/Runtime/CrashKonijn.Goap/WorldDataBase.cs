@@ -12,10 +12,10 @@ namespace CrashKonijn.Goap
 
         public ITarget GetTarget(IActionBase action)
         {
-            if (!this.Targets.ContainsKey(action.Config.target))
+            if (!this.Targets.ContainsKey(action.Config.Target))
                 return null;
             
-            return this.Targets[action.Config.target];
+            return this.Targets[action.Config.Target];
         }
 
         public bool IsTrue(IWorldKey worldKey)

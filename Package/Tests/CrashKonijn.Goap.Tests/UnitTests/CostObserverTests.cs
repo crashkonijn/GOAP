@@ -9,6 +9,7 @@ using CrashKonijn.Goap.UnitTests.Support;
 using FluentAssertions;
 using LamosInteractive.Goap.Interfaces;
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -40,9 +41,11 @@ namespace CrashKonijn.Goap.UnitTests
             
             var inputAction = Substitute.For<IActionBase>();
             inputAction.GetCost(Arg.Any<IWorldData>()).Returns(5);
-            
+
+            var lastConfig = Substitute.For<IActionConfig>();
+            lastConfig.Target.ReturnsNull();
             var lastAction = Substitute.For<IActionBase>();
-            lastAction.Config.Returns(Substitute.For<ActionConfig>());
+            lastAction.Config.Returns(lastConfig);
 
             // Act
             var result = observer.GetCost(inputAction, new List<IAction>() { lastAction });
@@ -62,8 +65,8 @@ namespace CrashKonijn.Goap.UnitTests
             worldData.SetTarget(target, null);
             observer.SetWorldData(worldData);
             
-            var actionConfig = Substitute.For<ActionConfig>();
-            actionConfig.target = target;
+            var actionConfig = Substitute.For<IActionConfig>();
+            actionConfig.Target.Returns(target);
             
             var inputAction = Substitute.For<IActionBase>();
             inputAction.GetCost(Arg.Any<IWorldData>()).Returns(5);

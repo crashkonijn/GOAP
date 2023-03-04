@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
@@ -35,19 +35,18 @@ namespace CrashKonijn.Goap.Behaviours
         public abstract void OnEnd(IMonoAgent agent, TActionData data);
     }
 
-    public abstract class ActionBase : ScriptableObject, IActionBase
+    public abstract class ActionBase : IActionBase
     {
-        [SerializeField]
-        private ActionConfig config;
+        private IActionConfig config;
         
-        public ActionConfig Config => this.config;
+        public IActionConfig Config => this.config;
         
         // IAction
         public Guid Guid { get; } = Guid.NewGuid();
-        public List<LamosInteractive.Goap.Interfaces.IEffect> Effects => this.config.effects.Cast<LamosInteractive.Goap.Interfaces.IEffect>().ToList();
-        public List<LamosInteractive.Goap.Interfaces.ICondition> Conditions => this.config.conditions.Cast<LamosInteractive.Goap.Interfaces.ICondition>().ToList();
+        public List<LamosInteractive.Goap.Interfaces.IEffect> Effects => this.config.Effects.Cast<LamosInteractive.Goap.Interfaces.IEffect>().ToList();
+        public List<LamosInteractive.Goap.Interfaces.ICondition> Conditions => this.config.Conditions.Cast<LamosInteractive.Goap.Interfaces.ICondition>().ToList();
 
-        public void SetConfig(ActionConfig config)
+        public void SetConfig(IActionConfig config)
         {
             this.config = config;
         }
@@ -62,7 +61,7 @@ namespace CrashKonijn.Goap.Behaviours
         
         public virtual int GetCost(IWorldData data)
         {
-            return this.config.baseCost;
+            return this.config.BaseCost;
         }
 
         public abstract IActionData GetData();

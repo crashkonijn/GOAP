@@ -22,7 +22,7 @@ namespace CrashKonijn.Goap.Classes
             
             return new GoapSet(
                 config: this.goapConfig,
-                actions: config.Actions.Cast<IActionBase>().ToList(), // Todo, load through class resolver
+                actions: new ClassResolver().Load<IActionBase, IActionConfig>(config.Actions), // Todo, load through class resolver
                 goals: new ClassResolver().Load<IGoalBase, IGoalConfig>(config.Goals),
                 sensorRunner: sensorRunner
             );

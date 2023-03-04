@@ -43,7 +43,7 @@ namespace CrashKonijn.Goap.Editor.Attributes
             var type = typeof(TType);
 
             return AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => !a.IsDynamic)
+                .Where(a => !a.IsDynamic && !a.FullName.ToLower().Contains("test"))
                 .SelectMany(a => a.GetTypes())
                 .Where(t => type.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract)
                 .Select(x => x.AssemblyQualifiedName).ToList();
