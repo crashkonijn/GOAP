@@ -4,7 +4,6 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "LamosInteractive.Goap",
         "CrashKonijn.Goap",
         "BoundfoxStudios.FluentAssertions",
         "CrashKonijn.Goap.Resolver",

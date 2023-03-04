@@ -1,6 +1,5 @@
-﻿using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
-using LamosInteractive.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Resolver.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Scriptables

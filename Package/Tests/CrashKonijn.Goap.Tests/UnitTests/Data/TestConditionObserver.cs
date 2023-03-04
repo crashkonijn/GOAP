@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using LamosInteractive.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.UnitTests.Data
 {
@@ -22,6 +22,11 @@ namespace CrashKonijn.Goap.UnitTests.Data
                 return this.metConditionActions.Contains(testConnection.GetKey());
             
             throw new Exception("Invalid condition");
+        }
+
+        public bool IsMet(IEffect effect)
+        {
+            throw new NotImplementedException();
         }
     }
 }
