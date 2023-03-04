@@ -1,5 +1,5 @@
 ﻿using System;
-using LamosInteractive.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.UnitTests.Data
 {

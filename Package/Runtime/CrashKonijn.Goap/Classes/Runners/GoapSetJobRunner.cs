@@ -3,7 +3,7 @@ using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
-using LamosInteractive.Goap.Models;
+using CrashKonijn.Goap.Resolver.Models;
 using Unity.Collections;
 using Unity.Mathematics;
 

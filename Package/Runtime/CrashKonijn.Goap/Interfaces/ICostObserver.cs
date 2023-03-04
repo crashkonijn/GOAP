@@ -1,6 +1,6 @@
 ﻿namespace CrashKonijn.Goap.Interfaces
 {
-    public interface ICostObserver : LamosInteractive.Goap.Interfaces.ICostObserver
+    public interface ICostObserver : Resolver.Interfaces.ICostObserver
     {
         void SetWorldData(IWorldData worldData);
     }

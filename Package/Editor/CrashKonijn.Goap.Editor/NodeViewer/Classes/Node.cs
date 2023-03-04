@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Editor.New.NodeViewer.Classes
+namespace CrashKonijn.Goap.Editor.NodeViewer.Classes
 {
     [Serializable]
     public class Node

@@ -1,8 +1,6 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Scriptables;
 
 namespace CrashKonijn.Goap.Editor.Classes
 {

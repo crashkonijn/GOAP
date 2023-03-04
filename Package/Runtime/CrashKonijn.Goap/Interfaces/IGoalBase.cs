@@ -1,5 +1,5 @@
 ﻿using CrashKonijn.Goap.Configs.Interfaces;
-using LamosInteractive.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.Interfaces
 {

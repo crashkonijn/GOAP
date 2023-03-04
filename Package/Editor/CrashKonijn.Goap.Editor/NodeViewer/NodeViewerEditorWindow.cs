@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Editor.Classes;
 using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
 using CrashKonijn.Goap.Interfaces;
-using LamosInteractive.Goap.Debug;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.New.NodeViewer
+namespace CrashKonijn.Goap.Editor.NodeViewer
 {
     public class NodeViewerEditorWindow : EditorWindow
     {

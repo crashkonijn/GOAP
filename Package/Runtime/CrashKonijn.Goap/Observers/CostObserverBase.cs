@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using CrashKonijn.Goap.Interfaces;
-using LamosInteractive.Goap.Interfaces;
-using ICostObserver = CrashKonijn.Goap.Interfaces.ICostObserver;
 
 namespace CrashKonijn.Goap.Observers
 {
-    public abstract class CostObserverBase<TAction> : ICostObserver
-        where TAction : IAction
+    public abstract class CostObserverBase : ICostObserver
     {
         protected IWorldData WorldData { get; private set; }
 
@@ -16,11 +12,11 @@ namespace CrashKonijn.Goap.Observers
             this.WorldData = worldData;
         }
         
-        public float GetCost(IAction current, List<IAction> path)
+        public float GetCost(Resolver.Interfaces.IAction current, Resolver.Interfaces.IAction[] path)
         {
-            return this.GetCost((TAction)current, path.Where(x => x is TAction).Cast<TAction>().ToList());
+            return this.GetCost((IActionBase) current, path.Where(x => x is IActionBase).Cast<IActionBase>().ToArray());
         }
-
-        protected abstract float GetCost(TAction current, List<TAction> path);
+        
+        public abstract float GetCost(IActionBase current, IActionBase[] path);
     }
 }

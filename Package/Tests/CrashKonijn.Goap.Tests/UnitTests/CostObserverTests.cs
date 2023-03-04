@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Observers;
+using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.UnitTests.Support;
 using FluentAssertions;
-using LamosInteractive.Goap.Interfaces;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace CrashKonijn.Goap.UnitTests
 {
@@ -27,7 +23,7 @@ namespace CrashKonijn.Goap.UnitTests
             inputAction.GetCost(Arg.Any<IWorldData>()).Returns(5);
             
             // Act
-            var result = observer.GetCost(inputAction, new List<IAction>());
+            var result = observer.GetCost(inputAction, new IActionBase[] {});
 
             // Assert
             result.Should().Be(5f);
@@ -48,7 +44,7 @@ namespace CrashKonijn.Goap.UnitTests
             lastAction.Config.Returns(lastConfig);
 
             // Act
-            var result = observer.GetCost(inputAction, new List<IAction>() { lastAction });
+            var result = observer.GetCost(inputAction, new [] { lastAction });
 
             // Assert
             result.Should().Be(5f);
@@ -77,7 +73,7 @@ namespace CrashKonijn.Goap.UnitTests
             lastAction.Config.Returns(actionConfig);
 
             // Act
-            var result = observer.GetCost(inputAction, new List<IAction>() { lastAction });
+            var result = observer.GetCost(inputAction, new [] { lastAction });
 
             // Assert
             result.Should().Be(10f);

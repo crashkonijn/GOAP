@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831838a5ef26c5d47969f27b895a59c8, type: 3}
   m_Name: ClosestTreeSensor
   m_EditorClassIdentifier: 
-  classType: Demos.Sensors.Target.ClosestTreeSensor, Assembly-CSharp, Version=0.0.0.0,
+  classType: Demos.Simple.Sensors.Target.ClosestTreeSensor, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
   key: {fileID: 11400000, guid: 7d42444bc4dd1734fad0e940217b6957, type: 2}

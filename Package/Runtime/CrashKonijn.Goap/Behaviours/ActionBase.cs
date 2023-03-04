@@ -5,6 +5,8 @@ using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
+using ICondition = CrashKonijn.Goap.Resolver.Interfaces.ICondition;
+using IEffect = CrashKonijn.Goap.Resolver.Interfaces.IEffect;
 
 namespace CrashKonijn.Goap.Behaviours
 {
@@ -43,8 +45,8 @@ namespace CrashKonijn.Goap.Behaviours
         
         // IAction
         public Guid Guid { get; } = Guid.NewGuid();
-        public List<LamosInteractive.Goap.Interfaces.IEffect> Effects => this.config.Effects.Cast<LamosInteractive.Goap.Interfaces.IEffect>().ToList();
-        public List<LamosInteractive.Goap.Interfaces.ICondition> Conditions => this.config.Conditions.Cast<LamosInteractive.Goap.Interfaces.ICondition>().ToList();
+        public IEffect[] Effects => this.config.Effects.Cast<IEffect>().ToArray();
+        public ICondition[] Conditions => this.config.Conditions.Cast<ICondition>().ToArray();
 
         public void SetConfig(IActionConfig config)
         {

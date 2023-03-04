@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Resolver;
-using LamosInteractive.Goap;
-using LamosInteractive.Goap.Interfaces;
-using LamosInteractive.Goap.Models;
+using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Resolver.Models;
 using Unity.Collections;
 using Unity.Jobs;
-using GraphResolver = CrashKonijn.Goap.Resolver.GraphResolver;
+using IAction = CrashKonijn.Goap.Resolver.Interfaces.IAction;
 
 namespace CrashKonijn.Goap.Resolver
 {
@@ -32,7 +30,7 @@ namespace CrashKonijn.Goap.Resolver
             
             for (var i = 0; i < this.indexList.Count; i++)
             {
-                var connections = indexList[i].Conditions
+                var connections = this.indexList[i].Conditions
                     .SelectMany(x => x.Connections.Select(y => this.indexList.IndexOf(y)));
 
                 foreach (var connection in connections)
@@ -72,44 +70,44 @@ namespace CrashKonijn.Goap.Resolver
             this.map.Dispose();
         }
     }
-}
 
-public class ResolveHandle
-{
-    private readonly GraphResolver graphResolver;
-    private JobHandle handle;
-    private GraphResolverJob job;
-    private RunData runData;
-
-    public ResolveHandle(GraphResolver graphResolver, NativeMultiHashMap<int, int> connections, RunData runData)
+    public class ResolveHandle
     {
-        this.graphResolver = graphResolver;
-        this.job = new GraphResolverJob
-        {
-            Connections = connections,
-            RunData = runData,
-            Result = new NativeList<NodeData>(Allocator.TempJob)
-        };
-        
-        this.handle = this.job.Schedule();
-    }
+        private readonly GraphResolver graphResolver;
+        private JobHandle handle;
+        private GraphResolverJob job;
+        private RunData runData;
 
-    public IAction[] Complete()
-    {
-        this.handle.Complete();
-        
-        var results = new List<IAction>();
-        
-        foreach (var data in this.job.Result)
+        public ResolveHandle(GraphResolver graphResolver, NativeMultiHashMap<int, int> connections, RunData runData)
         {
-            results.Add(this.graphResolver.GetAction(data.Index));
+            this.graphResolver = graphResolver;
+            this.job = new GraphResolverJob
+            {
+                Connections = connections,
+                RunData = runData,
+                Result = new NativeList<NodeData>(Allocator.TempJob)
+            };
+        
+            this.handle = this.job.Schedule();
         }
-        
-        this.job.Result.Dispose();
-        
-        this.job.RunData.IsExecutable.Dispose();
-        this.job.RunData.Positions.Dispose();
 
-        return results.ToArray();
+        public IAction[] Complete()
+        {
+            this.handle.Complete();
+        
+            var results = new List<IAction>();
+        
+            foreach (var data in this.job.Result)
+            {
+                results.Add(this.graphResolver.GetAction(data.Index));
+            }
+        
+            this.job.Result.Dispose();
+        
+            this.job.RunData.IsExecutable.Dispose();
+            this.job.RunData.Positions.Dispose();
+
+            return results.ToArray();
+        }
     }
 }

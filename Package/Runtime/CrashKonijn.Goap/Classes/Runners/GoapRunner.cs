@@ -3,8 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
-using LamosInteractive.Goap.Models;
-using Debug = UnityEngine.Debug;
+using CrashKonijn.Goap.Resolver.Models;
 
 namespace CrashKonijn.Goap.Classes.Runners
 {

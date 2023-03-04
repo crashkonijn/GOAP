@@ -1,11 +1,11 @@
 ﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Serializables;
+using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Observers
 {
-    public class ConditionObserver : ConditionObserverBase<ICondition, IEffect>
+    public class ConditionObserver : ConditionObserverBase
     {
-        protected override bool IsMet(ICondition condition)
+        public override bool IsMet(ICondition condition)
         {
             if (condition.Positive)
                 return this.WorldData.IsTrue(condition.WorldKey);
@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.Observers
             return !this.WorldData.IsTrue(condition.WorldKey);
         }
 
-        protected override bool IsMet(IEffect effect)
+        public override bool IsMet(IEffect effect)
         {
             if (effect.Positive)
                 return this.WorldData.IsTrue(effect.WorldKey);

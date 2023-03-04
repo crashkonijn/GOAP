@@ -10,6 +10,9 @@ namespace Demos.Simple.Behaviours
         private AgentBehaviour agent;
         private static readonly int Walking = Animator.StringToHash("Walking");
 
+        private bool isWalking;
+        private bool isMovingLeft;
+
         private void Awake()
         {
             this.animator = this.GetComponentInChildren<Animator>();
@@ -21,14 +24,35 @@ namespace Demos.Simple.Behaviours
 
         private void Update()
         {
+            this.UpdateAnimation();
+            this.UpdateScale();
+        }
+
+        private void UpdateAnimation()
+        {
             var isWalking = this.agent.State == AgentState.MovingToTarget;
+
+            if (this.isWalking == isWalking)
+                return;
+
+            this.isWalking = isWalking;
             
             this.animator.SetBool(Walking, isWalking);
-            
-            if (!isWalking)
+        }
+
+        private void UpdateScale()
+        {
+            if (!this.isWalking)
                 return;
             
-            this.animator.transform.localScale = new Vector3(this.IsMovingLeft() ? -1 : 1, 1, 1);
+            var isMovingLeft = this.IsMovingLeft();
+
+            if (this.isMovingLeft == isMovingLeft)
+                return;
+
+            this.isMovingLeft = isMovingLeft;
+            
+            this.animator.transform.localScale = new Vector3(isMovingLeft ? -1 : 1, 1, 1);
         }
 
         private bool IsMovingLeft()

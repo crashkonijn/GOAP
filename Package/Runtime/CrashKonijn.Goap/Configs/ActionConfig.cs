@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Scriptables;
 using CrashKonijn.Goap.Serializables;
 using UnityEngine;

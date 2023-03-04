@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202651a6d0e31824c830a8bac571e709, type: 3}
   m_Name: FixHungerGoalConfig
   m_EditorClassIdentifier: 
-  classType: Demos.Goals.FixHungerGoal, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
+  classType: Demos.Simple.Goals.FixHungerGoal, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
   baseCost: 100
   conditions:
   - worldKey: {fileID: 11400000, guid: 1b936068c70b82240b99a05d2be98745, type: 2}

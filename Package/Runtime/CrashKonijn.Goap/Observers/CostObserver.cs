@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Observers
 {
-    public class CostObserver : CostObserverBase<IActionBase>
+    public class CostObserver : CostObserverBase
     {
-        protected override float GetCost(IActionBase current, List<IActionBase> path)
+        public override float GetCost(IActionBase current, IActionBase[] path)
         {
             var cost = current.GetCost(this.WorldData);
             var last = path.LastOrDefault();

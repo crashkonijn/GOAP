@@ -1,5 +1,5 @@
 ﻿using CrashKonijn.Goap.Interfaces;
-using LamosInteractive.Goap.Models;
+using CrashKonijn.Goap.Resolver.Models;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours

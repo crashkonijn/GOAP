@@ -1,17 +1,14 @@
-﻿using CrashKonijn.Goap.Interfaces;
-using LamosInteractive.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Observers
 {
-    public interface IConditionObserver : LamosInteractive.Goap.Interfaces.IConditionObserver
+    public interface IConditionObserver : Resolver.Interfaces.IConditionObserver
     {
         void SetWorldData(IWorldData worldData);
-        bool IsMet(IEffect effect);
     }
     
-    public abstract class ConditionObserverBase<TCondition, TEffect> : IConditionObserver
-        where TCondition : ICondition
-        where TEffect : IEffect
+    public abstract class ConditionObserverBase : IConditionObserver
     {
         protected IWorldData WorldData { get; private set; }
 
@@ -20,17 +17,17 @@ namespace CrashKonijn.Goap.Observers
             this.WorldData = worldData;
         }
         
-        public bool IsMet(ICondition condition)
+        public bool IsMet(Resolver.Interfaces.ICondition condition)
         {
-            return this.IsMet((TCondition) condition);
-        }
-        
-        public bool IsMet(IEffect effect)
-        {
-            return this.IsMet((TEffect) effect);
+            return this.IsMet((ICondition)condition);
         }
 
-        protected abstract bool IsMet(TCondition condition);
-        protected abstract bool IsMet(TEffect effect);
+        public bool IsMet(Resolver.Interfaces.IEffect effect)
+        {
+            return this.IsMet((IEffect) effect);
+        }
+
+        public abstract bool IsMet(ICondition condition);
+        public abstract bool IsMet(IEffect effect);
     }
 }

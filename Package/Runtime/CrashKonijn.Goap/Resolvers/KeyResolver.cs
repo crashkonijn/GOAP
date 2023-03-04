@@ -1,9 +1,8 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Resolvers
 {
-    public class KeyResolver : KeyResolverBase<IActionBase, IGoalBase>
+    public class KeyResolver : KeyResolverBase
     {
         protected override string GetKey(IActionBase action, ICondition condition)
         {

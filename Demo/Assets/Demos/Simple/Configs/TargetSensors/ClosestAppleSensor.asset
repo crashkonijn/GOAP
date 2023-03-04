@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831838a5ef26c5d47969f27b895a59c8, type: 3}
   m_Name: ClosestAppleSensor
   m_EditorClassIdentifier: 
-  classType: Demos.Sensors.Target.ClosestAppleSensor, Assembly-CSharp, Version=0.0.0.0,
+  classType: Demos.Simple.Sensors.Target.ClosestAppleSensor, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
   key: {fileID: 11400000, guid: 225f125307d5a874d8bc597b07cf88b3, type: 2}

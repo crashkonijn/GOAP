@@ -2,10 +2,12 @@
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Enums;
+using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.Interfaces
 {
-    public interface IActionBase : LamosInteractive.Goap.Interfaces.IAction, IHasConfig<IActionConfig>
+
+    public interface IActionBase : IAction, IHasConfig<IActionConfig>
     {
         public IActionConfig Config { get; }
         public float GetDistanceCost(ITarget currentTarget, ITarget otherTarget);

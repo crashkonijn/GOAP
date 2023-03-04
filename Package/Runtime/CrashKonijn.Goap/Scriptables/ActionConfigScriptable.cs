@@ -3,6 +3,7 @@ using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Serializables;
 using UnityEngine;
 

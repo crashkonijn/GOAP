@@ -1,17 +1,10 @@
 ﻿using System;
 using CrashKonijn.Goap.Interfaces;
-using LamosInteractive.Goap.Interfaces;
-using ICondition = CrashKonijn.Goap.Classes.ICondition;
-using IEffect = CrashKonijn.Goap.Classes.IEffect;
-using ILamosAction = LamosInteractive.Goap.Interfaces.IAction;
-using ILamosCondition = LamosInteractive.Goap.Interfaces.ICondition;
-using ILamosEffect = LamosInteractive.Goap.Interfaces.IEffect;
+using IAction = CrashKonijn.Goap.Resolver.Interfaces.IAction;
 
 namespace CrashKonijn.Goap.Resolvers
 {
-    public abstract class KeyResolverBase<TAction, TGoal> : IKeyResolver
-        where TAction : IAction
-        where TGoal : IGoalBase
+    public abstract class KeyResolverBase : IKeyResolver
     {
         protected IWorldData WorldData { get; private set; }
 
@@ -20,23 +13,23 @@ namespace CrashKonijn.Goap.Resolvers
             this.WorldData = globalWorldData;
         }
         
-        public string GetKey(ILamosAction action, ILamosCondition condition)
+        public string GetKey(IAction action, Resolver.Interfaces.ICondition condition)
         {
-            if (action is TAction tAction)
+            if (action is IActionBase tAction)
                 return this.GetKey(tAction, (ICondition) condition);
-            if (action is TGoal tGoal)
+            if (action is IGoalBase tGoal)
                 return this.GetKey(tGoal, (ICondition) condition);
 
             throw new Exception($"Unsupported type {action.GetType()}");
         }
 
-        public string GetKey(ILamosAction action, ILamosEffect effect)
+        public string GetKey(IAction action, Resolver.Interfaces.IEffect effect)
         {
-            return this.GetKey((TAction) action, (IEffect) effect);
+            return this.GetKey((IActionBase) action, (IEffect) effect);
         }
 
-        protected abstract string GetKey(TAction action, ICondition key);
-        protected abstract string GetKey(TAction action, IEffect key);
-        protected abstract string GetKey(TGoal goal, ICondition key);
+        protected abstract string GetKey(IActionBase action, ICondition key);
+        protected abstract string GetKey(IActionBase action, IEffect key);
+        protected abstract string GetKey(IGoalBase goal, ICondition key);
     }
 }

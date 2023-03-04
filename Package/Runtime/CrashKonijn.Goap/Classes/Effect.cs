@@ -1,13 +1,8 @@
 ﻿using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes
 {
-    public interface IEffect : LamosInteractive.Goap.Interfaces.IEffect
-    {
-        public IWorldKey WorldKey { get; }
-        public bool Positive { get; }
-    }
-    
     public class Effect : IEffect
     {
         public IWorldKey WorldKey { get; set; }

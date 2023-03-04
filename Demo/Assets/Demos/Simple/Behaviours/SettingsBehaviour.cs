@@ -1,6 +1,7 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Demos.Simple.Behaviours
@@ -17,6 +18,7 @@ namespace Demos.Simple.Behaviours
         public TextMeshProUGUI appleCountText;
         public TextMeshProUGUI agentCountText;
         public TextMeshProUGUI fpsText;
+        public Toggle debugToggle;
 
         private bool debug = true;
         private GoapRunnerBehaviour goapRunner;
@@ -33,7 +35,7 @@ namespace Demos.Simple.Behaviours
             this.goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
             this.apples = FindObjectOfType<AppleCollection>();
             
-            Screen.SetResolution(1024, 576, false);
+            // Screen.SetResolution(1024, 576, false);
         }
 
         private void Update()
@@ -61,6 +63,9 @@ namespace Demos.Simple.Behaviours
         {
             this.debug = value;
             
+            if (this.debugToggle.isOn != value)
+                this.debugToggle.isOn = value;
+            
             foreach (var textBehaviour in FindObjectsOfType<TextBehaviour>())
             {
                 this.SetDebug(textBehaviour, value);
@@ -70,7 +75,7 @@ namespace Demos.Simple.Behaviours
         private void SetDebug(TextBehaviour textBehaviour, bool value)
         {
             textBehaviour.enabled = value;
-            textBehaviour.GetComponentInChildren<Canvas>().enabled = value;
+            textBehaviour.GetComponentInChildren<Canvas>(true).gameObject.SetActive(value);
         }
 
         public void SpawnApple()

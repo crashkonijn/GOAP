@@ -3,7 +3,7 @@ using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Interfaces;
-using LamosInteractive.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.Classes
 {

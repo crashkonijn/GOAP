@@ -1,8 +1,8 @@
-﻿using CrashKonijn.Goap.Editor.New.NodeViewer.Classes;
+﻿using CrashKonijn.Goap.Editor.NodeViewer.Classes;
 using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.New.NodeViewer
+namespace CrashKonijn.Goap.Editor.NodeViewer
 {
     [CustomEditor(typeof(Node))]
     public class NodeInspector : UnityEditor.Editor

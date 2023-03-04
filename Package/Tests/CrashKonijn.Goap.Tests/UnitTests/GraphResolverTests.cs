@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Resolver;
+using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.UnitTests.Data;
 using FluentAssertions;
-using LamosInteractive.Goap.Interfaces;
 using NUnit.Framework;
 using Unity.Collections;
 using Unity.Mathematics;
@@ -17,8 +17,8 @@ namespace CrashKonijn.Goap.UnitTests
         {
             public string Name { get; }
             public Guid Guid { get; } = Guid.NewGuid();
-            public List<IEffect> Effects { get; set; } = new();
-            public List<ICondition> Conditions { get; set; } = new();
+            public IEffect[] Effects { get; set; } = {};
+            public ICondition[] Conditions { get; set; } = {};
 
             public TestAction(string name)
             {
@@ -57,11 +57,11 @@ namespace CrashKonijn.Goap.UnitTests
             var connection = new TestConnection("connection");
             var goal = new TestAction("goal")
             {
-                Conditions = new List<ICondition>(new [] { connection })
+                Conditions = new ICondition[] { connection }
             };
             var action = new TestAction("action")
             {
-                Effects = new List<IEffect>(new [] { connection })
+                Effects = new IEffect[] { connection }
             };
             
             var actions = new IAction[] { goal, action };
@@ -93,19 +93,19 @@ namespace CrashKonijn.Goap.UnitTests
             
             var goal = new TestAction("goal")
             {
-                Conditions = new List<ICondition>(new [] { connection })
+                Conditions = new ICondition[] { connection }
             };
             var firstAction = new TestAction("action1")
             {
-                Effects = new List<IEffect>(new [] { connection })
+                Effects = new IEffect[] { connection }
             };
             var secondAction = new TestAction("action2")
             {
-                Effects = new List<IEffect>(new [] { connection })
+                Effects = new IEffect[] { connection }
             };
             var thirdAction = new TestAction("action3")
             {
-                Effects = new List<IEffect>(new [] { connection })
+                Effects = new IEffect[] { connection }
             };
             
             var actions = new IAction[] { goal, firstAction, secondAction, thirdAction };
@@ -139,25 +139,25 @@ namespace CrashKonijn.Goap.UnitTests
             
             var goal = new TestAction("goal")
             {
-                Conditions = new List<ICondition>(new [] { connection })
+                Conditions = new ICondition[] { connection }
             };
             var action1 = new TestAction("action1")
             {
-                Effects = new List<IEffect>(new [] { connection }),
-                Conditions = new List<ICondition>(new [] { connection2 })
+                Effects = new IEffect[] { connection },
+                Conditions = new ICondition[] { connection2 }
             };
             var action2 = new TestAction("action2")
             {
-                Effects = new List<IEffect>(new [] { connection }),
-                Conditions = new List<ICondition>(new [] { connection3 })
+                Effects = new IEffect[] { connection },
+                Conditions = new ICondition[] { connection3 }
             };
             var action11 = new TestAction("action11")
             {
-                Effects = new List<IEffect>(new [] { connection2 })
+                Effects = new IEffect[] { connection2 }
             };
             var action22 = new TestAction("action22")
             {
-                Effects = new List<IEffect>(new [] { connection3 })
+                Effects = new IEffect[] { connection3 }
             };
             
             var actions = new IAction[] { goal, action1, action2, action11, action22 };
@@ -195,26 +195,26 @@ namespace CrashKonijn.Goap.UnitTests
             // Act
             var goal = new TestAction("goal")
             {
-                Conditions = new List<ICondition>(new [] { connection })
+                Conditions = new ICondition[] { connection }
             };
             var action1 = new TestAction("action1")
             {
-                Effects = new List<IEffect>(new [] { connection }),
-                Conditions = new List<ICondition>(new [] { connection1 })
+                Effects = new IEffect[] { connection },
+                Conditions = new ICondition[] { connection1 }
             };
             var action11 = new TestAction("action11")
             {
-                Effects = new List<IEffect>(new [] { connection1 }),
-                Conditions = new List<ICondition>(new [] { connection2 })
+                Effects = new IEffect[] { connection1 },
+                Conditions = new ICondition[] { connection2 }
             };
             var action111 = new TestAction("action111")
             {
-                Effects = new List<IEffect>(new [] { connection2 }),
+                Effects = new IEffect[] { connection2 },
             };
             var action2 = new TestAction("action2")
             {
-                Effects = new List<IEffect>(new [] { connection }),
-                Conditions = new List<ICondition>(new [] { connection2 })
+                Effects = new IEffect[] { connection },
+                Conditions = new ICondition[] { connection2 }
             };
             
             var actions = new IAction[] { goal, action1, action2, action11, action111 };

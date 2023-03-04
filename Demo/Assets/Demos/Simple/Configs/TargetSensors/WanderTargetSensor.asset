@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831838a5ef26c5d47969f27b895a59c8, type: 3}
   m_Name: WanderTargetSensor
   m_EditorClassIdentifier: 
-  classType: Demos.Sensors.Target.WanderTargetSensor, Assembly-CSharp, Version=0.0.0.0,
+  classType: Demos.Simple.Sensors.Target.WanderTargetSensor, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
   key: {fileID: 11400000, guid: fe92292ff7b419245959b27e7be8ee83, type: 2}

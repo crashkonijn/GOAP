@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Scriptables;
-using LamosInteractive.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Behaviours
 {
@@ -17,8 +13,8 @@ namespace CrashKonijn.Goap.Behaviours
         
         // IAction
         public Guid Guid { get; } = Guid.NewGuid();
-        public List<IEffect> Effects { get; } = new();
-        public List<ICondition> Conditions => this.config.Conditions.Cast<ICondition>().ToList();
+        public Resolver.Interfaces.IEffect[] Effects { get; } = {};
+        public Resolver.Interfaces.ICondition[] Conditions => this.config.Conditions.Cast<Resolver.Interfaces.ICondition>().ToArray();
 
         public void SetConfig(IGoalConfig config)
         {

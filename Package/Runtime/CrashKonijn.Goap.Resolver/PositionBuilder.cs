@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LamosInteractive.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver.Interfaces;
 using Unity.Mathematics;
 using UnityEngine;
 

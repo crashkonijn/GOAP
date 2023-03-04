@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LamosInteractive.Goap.Debug.Models;
 using UnityEngine;
+using Graph = CrashKonijn.Goap.Editor.Classes.Models.Graph;
+using Node = CrashKonijn.Goap.Editor.Classes.Models.Node;
 
 namespace CrashKonijn.Goap.Editor.Classes
 {
