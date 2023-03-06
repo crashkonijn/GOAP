@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
@@ -8,11 +9,14 @@ namespace CrashKonijn.Goap.Behaviours
         HashSet<IMonoAgent> All();
         void Add(IMonoAgent agent);
         void Remove(IMonoAgent agent);
+        void Enqueue(IMonoAgent agent);
+        IMonoAgent[] GetQueue();
     }
 
     public class AgentCollection : IAgentCollection
     {
         private HashSet<IMonoAgent> agents = new();
+        private HashSet<IMonoAgent> queue = new HashSet<IMonoAgent>();
 
         public HashSet<IMonoAgent> All() => this.agents;
         
@@ -24,6 +28,20 @@ namespace CrashKonijn.Goap.Behaviours
         public void Remove(IMonoAgent agent)
         {
             this.agents.Remove(agent);
+        }
+
+        public void Enqueue(IMonoAgent agent)
+        {
+            this.queue.Add(agent);
+        }
+
+        public IMonoAgent[] GetQueue()
+        {
+            var data = this.queue.ToArray();
+            
+            this.queue.Clear();
+
+            return data;
         }
     }
 }

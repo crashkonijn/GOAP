@@ -118,6 +118,9 @@ namespace CrashKonijn.Goap.Behaviours
             
             this.CurrentGoal = goal;
             
+            if (this.CurrentAction == null)
+                this.GoapSet.Agents.Enqueue(this);
+            
             if (endAction)
                 this.EndAction();
         }
@@ -144,6 +147,8 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentAction?.OnEnd(this, this.CurrentActionData);
             this.CurrentAction = null;
             this.CurrentActionData = null;
+            
+            this.GoapSet.Agents.Enqueue(this);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             
             var globalData = this.goapSet.SensorRunner.SenseGlobal();
 
-            foreach (var agent in this.goapSet.Agents.All())
+            foreach (var agent in this.goapSet.Agents.GetQueue())
             {
                 this.Run(globalData, agent);
             }
