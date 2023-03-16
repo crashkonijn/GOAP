@@ -35,6 +35,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.testMode }} Test Results
           coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport'
+          coveragePath: 'CodeCoverage'
       - uses: actions/upload-artifact@v2
         if: always()
         with:
