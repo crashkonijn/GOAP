@@ -1,8 +1,11 @@
 ﻿using System;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Scriptables;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Serializables
 {
@@ -10,9 +13,13 @@ namespace CrashKonijn.Goap.Serializables
     public class SerializableCondition : ICondition
     {
         public WorldKeyScriptable worldKey;
-        public bool positive = true;
 
         public IWorldKey WorldKey => this.worldKey;
-        public bool Positive => this.positive;
+        
+        [field:SerializeField]
+        public Comparison Comparison { get; set; }
+        
+        [field:SerializeField]
+        public int Amount { get; set; }
     }
 }

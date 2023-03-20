@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Configs.Interfaces;
+﻿using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Sensors
@@ -10,6 +11,6 @@ namespace CrashKonijn.Goap.Sensors
         public IWorldSensorConfig Config { get; private set; }
         public void SetConfig(IWorldSensorConfig config) => this.Config = config;
 
-        public abstract bool Sense();
+        public abstract SenseValue Sense();
     }
 }

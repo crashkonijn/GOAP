@@ -20,6 +20,9 @@ namespace CrashKonijn.Goap.Resolver
         public PositionBuilder SetPosition(IAction action, Vector3 position)
         {
             var index = this.actionIndexList.IndexOf(action);
+
+            if (index == -1)
+                return this;
             
             this.executableList[index] = position;
 

@@ -10,6 +10,9 @@ namespace CrashKonijn.Goap.Editor.Drawers
     {
         public ObjectDrawer(object obj)
         {
+            if (obj is null)
+                return;
+            
             var properties = obj.GetType().GetProperties();
 
             foreach (var property in properties)

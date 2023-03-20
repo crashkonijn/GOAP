@@ -3,6 +3,7 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Scriptables;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Serializables
 {
@@ -10,9 +11,10 @@ namespace CrashKonijn.Goap.Serializables
     public class SerializableEffect : IEffect
     {
         public WorldKeyScriptable worldKey;
-        public bool positive = true;
 
         public IWorldKey WorldKey => this.worldKey;
-        public bool Positive => this.positive;
+        
+        [field:SerializeField]
+        public bool Increase { get; set; }
     }
 }

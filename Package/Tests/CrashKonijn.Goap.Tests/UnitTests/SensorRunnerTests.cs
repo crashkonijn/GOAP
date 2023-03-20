@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
@@ -22,7 +23,7 @@ namespace CrashKonijn.Goap.UnitTests
             var key = new WorldKey("test");
             
             var sensor = Substitute.For<IGlobalWorldSensor>();
-            sensor.Sense().Returns(true);
+            sensor.Sense().Returns((SenseValue) 1);
             sensor.Key.Returns(key);
             
             var worldSensors = new IWorldSensor[] { sensor };
@@ -35,7 +36,7 @@ namespace CrashKonijn.Goap.UnitTests
 
             // Assert
             data.States.Should().ContainKey(key);
-            data.States[key].Should().Be(WorldKeyState.True);
+            data.States[key].Should().Be(1);
         }
         
         [Test]
@@ -45,7 +46,7 @@ namespace CrashKonijn.Goap.UnitTests
             var key = new WorldKey("test");
             
             var sensor = Substitute.For<IGlobalWorldSensor>();
-            sensor.Sense().Returns(false);
+            sensor.Sense().Returns((SenseValue) 0);
             sensor.Key.Returns(key);
             
             var worldSensors = new IWorldSensor[] { sensor };
@@ -58,7 +59,7 @@ namespace CrashKonijn.Goap.UnitTests
 
             // Assert
             data.States.Should().ContainKey(key);
-            data.States[key].Should().Be(WorldKeyState.False);
+            data.States[key].Should().Be(0);
         }
         
         [Test]
@@ -117,7 +118,7 @@ namespace CrashKonijn.Goap.UnitTests
             var key = new WorldKey("test");
             
             var sensor = Substitute.For<ILocalWorldSensor>();
-            sensor.Sense(Arg.Any<IMonoAgent>()).Returns(true);
+            sensor.Sense(Arg.Any<IMonoAgent>()).Returns((SenseValue) 1);
             sensor.Key.Returns(key);
             
             var worldSensors = new IWorldSensor[] { sensor };
@@ -133,7 +134,7 @@ namespace CrashKonijn.Goap.UnitTests
 
             // Assert
             data.States.Should().ContainKey(key);
-            data.States[key].Should().Be(WorldKeyState.True);
+            data.States[key].Should().Be(1);
         }
         
         [Test]
@@ -143,7 +144,7 @@ namespace CrashKonijn.Goap.UnitTests
             var key = new WorldKey("test");
             
             var sensor = Substitute.For<ILocalWorldSensor>();
-            sensor.Sense(Arg.Any<IMonoAgent>()).Returns(false);
+            sensor.Sense(Arg.Any<IMonoAgent>()).Returns((SenseValue) 0);
             sensor.Key.Returns(key);
             
             var worldSensors = new IWorldSensor[] { sensor };
@@ -159,7 +160,7 @@ namespace CrashKonijn.Goap.UnitTests
 
             // Assert
             data.States.Should().ContainKey(key);
-            data.States[key].Should().Be(WorldKeyState.False);
+            data.States[key].Should().Be(0);
         }
         
         [Test]
@@ -253,7 +254,7 @@ namespace CrashKonijn.Goap.UnitTests
             var key = new WorldKey("test");
             
             var sensor = Substitute.For<ILocalWorldSensor>();
-            sensor.Sense(Arg.Any<IMonoAgent>()).Returns(false);
+            sensor.Sense(Arg.Any<IMonoAgent>()).Returns((SenseValue) 0);
             sensor.Key.Returns(key);
             
             var worldSensors = new IWorldSensor[] { };
@@ -265,14 +266,14 @@ namespace CrashKonijn.Goap.UnitTests
             agent.WorldData.Returns(new LocalWorldData());
             
             var globalWorldData = new GlobalWorldData();
-            globalWorldData.States.Add(key, WorldKeyState.True);
+            globalWorldData.States.Add(key, 1);
 
             // Act
             var data = runner.SenseLocal(globalWorldData, agent);
 
             // Assert
             data.States.Should().ContainKey(key);
-            data.States[key].Should().Be(WorldKeyState.True);
+            data.States[key].Should().Be(1);
         }
     }
 }

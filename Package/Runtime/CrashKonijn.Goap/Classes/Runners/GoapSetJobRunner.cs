@@ -91,12 +91,20 @@ namespace CrashKonijn.Goap.Classes.Runners
                 var result = resolveHandle.Handle.Complete().OfType<IActionBase>().ToList();
                 var action = result.FirstOrDefault();
                 
+                if (action is null)
+                    continue;
+                
                 resolveHandle.Agent.SetAction(action, result, resolveHandle.Agent.WorldData.GetTarget(action));
             }
         }
 
         public void Dispose()
         {
+            foreach (var resolveHandle in this.resolveHandles)
+            {
+                resolveHandle.Handle.Complete();
+            }
+            
             this.resolver.Dispose();
         }
 

@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Sensors;
+﻿using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Sensors;
 using Demos.Simple.Behaviours;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Demos.Simple.Sensors.World
             this.apples = GameObject.FindObjectOfType<AppleCollection>();
         }
         
-        public override bool Sense()
+        public override SenseValue Sense()
         {
             return this.apples.Any();
         }

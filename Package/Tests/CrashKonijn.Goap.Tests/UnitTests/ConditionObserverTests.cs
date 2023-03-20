@@ -4,6 +4,7 @@ using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Observers;
+using CrashKonijn.Goap.Resolver;
 using NUnit.Framework;
 
 namespace CrashKonijn.Goap.UnitTests
@@ -16,14 +17,15 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var key = new WorldKey("world-key");
             var worldData = new GlobalWorldData();
-            worldData.SetState(key, WorldKeyState.True);
+            worldData.SetState(key, 1);
             
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
         
             var condition = new Condition
             {
-                Positive = true,
+                Comparison = Comparison.GreaterThanOrEqual,
+                Amount = 1,
                 WorldKey = key
             };
 
@@ -45,7 +47,8 @@ namespace CrashKonijn.Goap.UnitTests
         
             var condition = new Condition
             {
-                Positive = true,
+                Comparison = Comparison.GreaterThanOrEqual,
+                Amount = 1,
                 WorldKey = key
             };
 
@@ -62,14 +65,15 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var key = new WorldKey("world-key");
             var worldData = new GlobalWorldData();
-            worldData.SetState(key, WorldKeyState.True);
+            worldData.SetState(key, 1);
             
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
         
             var condition = new Condition
             {
-                Positive = false,
+                Comparison = Comparison.GreaterThanOrEqual,
+                Amount = 1,
                 WorldKey = key
             };
 
@@ -91,7 +95,8 @@ namespace CrashKonijn.Goap.UnitTests
         
             var condition = new Condition
             {
-                Positive = false,
+                Comparison = Comparison.SmallerThanOrEqual,
+                Amount = 0,
                 WorldKey = key
             };
 

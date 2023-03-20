@@ -11,6 +11,7 @@ namespace CrashKonijn.Goap.Behaviours
         void Remove(IMonoAgent agent);
         void Enqueue(IMonoAgent agent);
         IMonoAgent[] GetQueue();
+        int GetQueueCount();
     }
 
     public class AgentCollection : IAgentCollection
@@ -34,6 +35,8 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.queue.Add(agent);
         }
+        
+        public int GetQueueCount() => this.queue.Count;
 
         public IMonoAgent[] GetQueue()
         {

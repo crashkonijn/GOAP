@@ -14,17 +14,24 @@ namespace CrashKonijn.Goap.Scriptables
     {
         [ActionClass]
         public string actionClass;
-        public int baseCost = 1;
         public TargetKeyScriptable target;
-        public float inRange = 0.1f;
         
         public List<SerializableCondition> conditions;
         public List<SerializableEffect> effects;
         
-        public string ClassType => this.actionClass;
-        public int BaseCost => this.baseCost;
+        public string ClassType
+        {
+            get => this.actionClass;
+            set => this.actionClass = value;
+        }
+        
+        [field:SerializeField]
+        public int BaseCost { get; set; } = 1;
+        
+        [field:SerializeField]
+        public float InRange { get; set; } = 0.1f;
+        
         public ITargetKey Target => this.target;
-        public float InRange => this.inRange;
 
         public ICondition[] Conditions => this.conditions.ToArray();
         public IEffect[] Effects => this.effects.ToArray();

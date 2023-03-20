@@ -3,7 +3,7 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Sensors;
 
-namespace Demos.Simple.Sensors.Target
+namespace Demos.Shared.Sensors.Target
 {
     public class TransformSensor : LocalTargetSensorBase
     {

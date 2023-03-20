@@ -27,6 +27,11 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
             
             this.RunTime = this.GetElapsedMs();
+                        
+            foreach (var agent in this.Agents)
+            {
+                agent.Run();
+            }
         }
 
         public void Complete()
@@ -59,5 +64,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         public Graph GetGraph(IGoapSet set) => this.sets[set].GetGraph();
         public bool Knows(IGoapSet set) => this.sets.ContainsKey(set);
         public IMonoAgent[] Agents => this.sets.Keys.SelectMany(x => x.Agents.All()).ToArray();
+        public IGoapSet[] Sets => this.sets.Keys.ToArray();
+        public int QueueCount => this.sets.Keys.Sum(x => x.Agents.GetQueueCount());
     }
 }

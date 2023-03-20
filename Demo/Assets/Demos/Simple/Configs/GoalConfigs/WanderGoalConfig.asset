@@ -17,4 +17,5 @@ MonoBehaviour:
   baseCost: 100
   conditions:
   - worldKey: {fileID: 11400000, guid: 413a272d7eab992448568e528f7839c6, type: 2}
-    positive: 1
+    <Comparison>k__BackingField: 3
+    <Amount>k__BackingField: 1

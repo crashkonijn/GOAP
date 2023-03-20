@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionClass: Demos.Simple.Actions.EatAppleAction, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
-  baseCost: 1
   target: {fileID: 11400000, guid: 59d5b26a149e88a4ea08994ab801bcd4, type: 2}
-  inRange: 0.1
   conditions:
   - worldKey: {fileID: 11400000, guid: 4cc9aaaf590d3e346947382bd8b9fd0c, type: 2}
-    positive: 1
+    <Comparison>k__BackingField: 3
+    <Amount>k__BackingField: 1
   effects:
   - worldKey: {fileID: 11400000, guid: 1b936068c70b82240b99a05d2be98745, type: 2}
-    positive: 0
+    <Increase>k__BackingField: 0
+  <BaseCost>k__BackingField: 1
+  <InRange>k__BackingField: 0.1

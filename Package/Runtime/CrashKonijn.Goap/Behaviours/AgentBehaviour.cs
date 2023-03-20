@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace CrashKonijn.Goap.Behaviours
         IWorldData WorldData { get; }
         List<IActionBase> CurrentActionPath { get; }
 
+        void Run();
+        
         void SetGoal<TGoal>(bool endAction) where TGoal : IGoalBase;
 
         void SetGoal(IGoalBase goal, bool endAction);
@@ -40,7 +43,7 @@ namespace CrashKonijn.Goap.Behaviours
         public IActionBase CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
         public IWorldData WorldData { get; } = new LocalWorldData();
-        public List<IActionBase> CurrentActionPath { get; private set; }
+        public List<IActionBase> CurrentActionPath { get; private set; } = new List<IActionBase>();
         
 
         private void Awake()
@@ -61,20 +64,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.GoapSet.Unregister(this);
         }
 
-        public void Update()
-        {
-            if (this.CurrentAction == null)
-                return;
-            
-            if (this.GetDistance() <= this.CurrentAction.Config.InRange)
-                return;
-
-            this.State = AgentState.MovingToTarget;
-            
-            this.mover.Move(this.CurrentActionData.Target);
-        }
-
-        public void FixedUpdate()
+        public void Run()
         {
             if (this.CurrentAction == null)
             {
@@ -82,12 +72,30 @@ namespace CrashKonijn.Goap.Behaviours
                 return;
             }
             
-            if (this.GetDistance() > this.CurrentAction.Config.InRange)
+            if (this.GetDistance() <= this.CurrentAction.Config.InRange)
+            {
+                this.PerformAction();
                 return;
+            }
+
+            this.Move();
+        }
+
+        private void Move()
+        {
+            this.State = AgentState.MovingToTarget;
             
+            this.mover.Move(this.CurrentActionData.Target);
+        }
+
+        private void PerformAction()
+        {
             this.State = AgentState.PerformingAction;
 
-            var result = this.CurrentAction.Perform(this, this.CurrentActionData);
+            var result = this.CurrentAction.Perform(this, this.CurrentActionData, new ActionContext
+            {
+                DeltaTime = Time.deltaTime,
+            });
 
             if (result == ActionRunState.Continue)
                 return;

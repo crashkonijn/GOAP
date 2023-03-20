@@ -2,12 +2,14 @@
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver;
+using UnityEngine;
 
 namespace CrashKonijn.Goap
 {
     public abstract class WorldDataBase : IWorldData
     {
-        public Dictionary<IWorldKey, WorldKeyState> States { get; } = new();
+        public Dictionary<IWorldKey, int> States { get; } = new();
         public Dictionary<ITargetKey, ITarget> Targets { get; } = new();
 
         public ITarget GetTarget(IActionBase action)
@@ -18,15 +20,29 @@ namespace CrashKonijn.Goap
             return this.Targets[action.Config.Target];
         }
 
-        public bool IsTrue(IWorldKey worldKey)
+        public bool IsTrue(IWorldKey worldKey, Comparison comparison, int value)
         {
             if (!this.States.ContainsKey(worldKey))
                 return false;
             
-            return this.States[worldKey] == WorldKeyState.True;
+            var state = this.States[worldKey];
+
+            switch (comparison)
+            {
+                case Comparison.GreaterThan:
+                    return state > value;
+                case Comparison.GreaterThanOrEqual:
+                    return state >= value;
+                case Comparison.SmallerThan:
+                    return state < value;
+                case Comparison.SmallerThanOrEqual:
+                    return state <= value;
+            }
+
+            return false;
         }
 
-        public void SetState(IWorldKey key, WorldKeyState state)
+        public void SetState(IWorldKey key, int state)
         {
             if (this.States.ContainsKey(key))
             {

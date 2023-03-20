@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
@@ -28,9 +29,9 @@ namespace CrashKonijn.Goap.Behaviours
         
         public abstract void OnStart(IMonoAgent agent, TActionData data);
 
-        public override ActionRunState Perform(IMonoAgent agent, IActionData data) => this.Perform(agent, (TActionData) data);
+        public override ActionRunState Perform(IMonoAgent agent, IActionData data, ActionContext context) => this.Perform(agent, (TActionData) data, context);
 
-        public abstract ActionRunState Perform(IMonoAgent agent, TActionData data);
+        public abstract ActionRunState Perform(IMonoAgent agent, TActionData data, ActionContext context);
 
         public override void OnEnd(IMonoAgent agent, IActionData data) => this.OnEnd(agent, (TActionData) data);
         
@@ -67,7 +68,7 @@ namespace CrashKonijn.Goap.Behaviours
         }
 
         public abstract IActionData GetData();
-        public abstract ActionRunState Perform(IMonoAgent agent, IActionData data);
+        public abstract ActionRunState Perform(IMonoAgent agent, IActionData data, ActionContext context);
         public abstract void OnStart(IMonoAgent agent, IActionData data);
         public abstract void OnEnd(IMonoAgent agent, IActionData data);
     }

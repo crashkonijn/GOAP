@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 
@@ -11,7 +12,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
         {
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
         {
             return ActionRunState.Stop;
         }

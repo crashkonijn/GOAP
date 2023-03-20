@@ -50,7 +50,7 @@ namespace Demos.Simple.Behaviours
                 this.fpsTimer -= 1;
             }
             
-            this.fpsText.text = $"FPS: {this.fps}\nRunTime: {this.goapRunner.RunTime} (ms)\nCompleteTime: {this.goapRunner.CompleteTime} (ms)";
+            this.fpsText.text = $"FPS: {this.fps}\nResolve count: {this.goapRunner.RunCount}\nRunTime: {this.goapRunner.RunTime} (ms)\nCompleteTime: {this.goapRunner.CompleteTime} (ms)";
         }
 
         private void FixedUpdate()

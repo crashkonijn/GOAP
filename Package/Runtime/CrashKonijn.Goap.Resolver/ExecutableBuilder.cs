@@ -18,6 +18,10 @@ namespace CrashKonijn.Goap.Resolver
         public ExecutableBuilder SetExecutable(IAction action, bool executable)
         {
             var index = this.actionIndexList.IndexOf(action);
+
+            if (index == -1)
+                return this;
+            
             this.executableList[index] = executable;
 
             return this;

@@ -25,11 +25,9 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             this.Add(card);
         }
         
-        private string GetText(IWorldKey worldKey, WorldKeyState state)
+        private string GetText(IWorldKey worldKey, int value)
         {
-            var color = state == WorldKeyState.True ? "green" : "red";
-            
-            return  $"<color={color}>{worldKey.Name} ({state})</color>";
+            return  $"{worldKey.Name} ({value})";
         }
     }
 }

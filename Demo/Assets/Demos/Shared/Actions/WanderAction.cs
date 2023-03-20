@@ -1,9 +1,10 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
 
-namespace Demos.Simple.Actions
+namespace Demos.Shared.Actions
 {
     public class WanderAction : ActionBase<WanderAction.Data>
     {
@@ -20,9 +21,9 @@ namespace Demos.Simple.Actions
             
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
         {
-            data.Timer -= Time.deltaTime;
+            data.Timer -= context.DeltaTime;
             
             if (data.Timer > 0)
                 return ActionRunState.Continue;

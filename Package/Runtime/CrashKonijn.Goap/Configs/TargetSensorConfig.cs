@@ -3,7 +3,7 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Configs
 {
-    public class TargetSensorConfig<TSensor> : ITargetSensorConfig
+    public class TargetSensorConfig<TSensor> : TargetSensorConfig
         where TSensor : ITargetSensor
     {
         public TargetSensorConfig()
@@ -17,9 +17,12 @@ namespace CrashKonijn.Goap.Configs
             this.Name = name;
             this.ClassType = typeof(TSensor).AssemblyQualifiedName;
         }
-        
-        public string Name { get; }
-        public string ClassType { get; }
+    }
+
+    public class TargetSensorConfig : ITargetSensorConfig
+    {
+        public string Name { get; set; }
+        public string ClassType { get; set; }
         public ITargetKey Key { get; set; }
     }
 }

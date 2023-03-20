@@ -8,24 +8,23 @@ using CrashKonijn.Goap.Serializables;
 namespace CrashKonijn.Goap.Configs
 {
     [Serializable]
-    public class GoalConfig<TGoal> : IGoalConfig
-        where TGoal : IGoalBase
+    public class GoalConfig : IGoalConfig
     {
-        public GoalConfig()
+        public GoalConfig(Type type)
         {
-            this.Name = typeof(TGoal).Name;
-            this.ClassType = typeof(TGoal).AssemblyQualifiedName;
+            this.Name = type.Name;
+            this.ClassType = type.AssemblyQualifiedName;
         }
-        
-        public GoalConfig(string name)
-        {
-            this.Name = name;
-            this.ClassType = typeof(TGoal).AssemblyQualifiedName;
-        }
-        
+
         public string Name { get; }
-        public string ClassType { get; }
+        public string ClassType { get; set; }
         public int BaseCost { get; set; }
         public List<ICondition> Conditions { get; set; } = new();
+        
+        public static GoalConfig Create<TGoal>()
+            where TGoal : IGoalBase
+        {
+            return new GoalConfig(typeof(TGoal));
+        }
     }
 }

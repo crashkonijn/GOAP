@@ -1,10 +1,9 @@
-﻿using System;
-using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
 
-namespace Demos
+namespace Demos.Shared.Behaviours
 {
-    public class SimpleAgentMover : MonoBehaviour, IAgentMover
+    public class AgentMoveBehaviour : MonoBehaviour, IAgentMover
     {
         private ITarget target;
         

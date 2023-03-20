@@ -23,12 +23,12 @@ namespace Demos.Simple.Actions
             data.Hunger = agent.GetComponent<HungerBehaviour>();
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
         {
             if (data.Apple == null || data.Hunger == null)
                 return ActionRunState.Stop;
 
-            var eatNutrition = Time.fixedDeltaTime * 20f;
+            var eatNutrition = context.DeltaTime * 20f;
 
             data.Apple.nutritionValue -= eatNutrition;
             data.Hunger.hunger -= eatNutrition;

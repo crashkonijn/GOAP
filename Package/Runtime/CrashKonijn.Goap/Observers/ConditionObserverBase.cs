@@ -22,12 +22,6 @@ namespace CrashKonijn.Goap.Observers
             return this.IsMet((ICondition)condition);
         }
 
-        public bool IsMet(Resolver.Interfaces.IEffect effect)
-        {
-            return this.IsMet((IEffect) effect);
-        }
-
         public abstract bool IsMet(ICondition condition);
-        public abstract bool IsMet(IEffect effect);
     }
 }

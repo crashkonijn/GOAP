@@ -6,6 +6,6 @@ namespace CrashKonijn.Goap.Classes
     public class Effect : IEffect
     {
         public IWorldKey WorldKey { get; set; }
-        public bool Positive { get; set; }
+        public bool Increase { get; set; }
     }
 }

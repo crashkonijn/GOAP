@@ -13,7 +13,7 @@ namespace Demos.Simple.Actions
         {
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
         {
             if (data.Target is not TransformTarget transformTarget)
                 return ActionRunState.Stop;

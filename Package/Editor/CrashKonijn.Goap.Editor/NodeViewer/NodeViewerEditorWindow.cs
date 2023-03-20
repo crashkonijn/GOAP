@@ -63,7 +63,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             this.lastUpdate = Time.timeSinceLevelLoad;
             
             this.runner = FindObjectOfType<GoapRunnerBehaviour>();
-            this.set = FindObjectOfType<GoapSetBehaviour>().Set;
+            // this.set = FindObjectOfType<GoapSetBehaviour>().Set;
             this.agents = FindObjectsOfType<AgentBehaviour>().ToList();
 
             this.RenderAgents();
@@ -139,7 +139,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         private VisualElement GetGraphElement()
         {
             var graph = this.runner.GetGraph(this.set).ToPublic();
-            var rootNode = this.agent == null ? graph.RootNodes.Values.First() : graph.RootNodes.Values.First(x => x.Action == this.agent.CurrentGoal);
+            var rootNode = (this.agent == null || this.agent.CurrentGoal == null) ? graph.RootNodes.Values.First() : graph.RootNodes.Values.First(x => x.Action == this.agent.CurrentGoal);
             
             var nodes = new DebugGraph(graph).GetGraph(rootNode);
 
@@ -163,6 +163,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             list.selectionChanged += _ =>
             {
                 this.agent = this.agents[list.selectedIndex];
+                this.set = this.agent.GoapSet;
                 this.RenderGraph();
             };
 

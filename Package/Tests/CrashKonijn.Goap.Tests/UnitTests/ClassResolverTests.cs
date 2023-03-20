@@ -27,7 +27,7 @@ namespace CrashKonijn.Goap.UnitTests
             var resolver = this.factory.Get<ClassResolver>();
 
             // Act
-            var result = resolver.Load<IGoalBase, IGoalConfig>(new []{ new GoalConfig<Goal>() });
+            var result = resolver.Load<IGoalBase, IGoalConfig>(new []{ GoalConfig.Create<Goal>() });
 
             // Assert
             result.First().Should().BeOfType<Goal>();

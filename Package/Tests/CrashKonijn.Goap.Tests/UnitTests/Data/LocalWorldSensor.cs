@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Sensors;
 
 namespace CrashKonijn.Goap.UnitTests.Data
@@ -9,7 +10,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
         {
         }
 
-        public override bool Sense(IMonoAgent agent)
+        public override SenseValue Sense(IMonoAgent agent)
         {
             return default;
         }

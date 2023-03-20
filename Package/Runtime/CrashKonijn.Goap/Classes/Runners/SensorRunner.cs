@@ -62,7 +62,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         {
             foreach (var globalWorldSensor in this.globalWorldSensors)
             {
-                this.worldData.SetState(globalWorldSensor.Key, globalWorldSensor.Sense() ? WorldKeyState.True : WorldKeyState.False);
+                this.worldData.SetState(globalWorldSensor.Key, globalWorldSensor.Sense());
             }
             
             foreach (var globalTargetSensor in this.globalTargetSensors)
@@ -81,7 +81,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             
             foreach (var localWorldSensor in this.localWorldSensors)
             {
-                this.localWorldData.SetState(localWorldSensor.Key, localWorldSensor.Sense(agent) ? WorldKeyState.True : WorldKeyState.False);
+                this.localWorldData.SetState(localWorldSensor.Key, localWorldSensor.Sense(agent));
             }
             
             foreach (var localTargetSensor in this.localTargetSensors)

@@ -3,7 +3,7 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Configs
 {
-    public class WorldSensorConfig<TSensor> : IWorldSensorConfig
+    public class WorldSensorConfig<TSensor> : WorldSensorConfig
         where TSensor : IWorldSensor
     {
         public WorldSensorConfig()
@@ -19,6 +19,13 @@ namespace CrashKonijn.Goap.Configs
         }
         
         public string Name { get; }
+        public string ClassType { get; set; }
+        public IWorldKey Key { get; set; }
+    }
+    
+    public class WorldSensorConfig : IWorldSensorConfig
+    {
+        public string Name { get; set; }
         public string ClassType { get; set; }
         public IWorldKey Key { get; set; }
     }

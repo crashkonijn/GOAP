@@ -17,12 +17,12 @@ namespace Demos.Simple.Actions
             data.Tree =  transformTarget.Transform.GetComponent<TreeBehaviour>();
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
         {
             if (data.Tree == null)
                 return ActionRunState.Stop;
 
-            data.Progress += Time.fixedDeltaTime * 10f;
+            data.Progress += context.DeltaTime * 10f;
 
             if (data.Progress < 10)
                 return ActionRunState.Continue;

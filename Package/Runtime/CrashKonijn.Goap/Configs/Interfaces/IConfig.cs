@@ -7,6 +7,6 @@
 
     public interface IClassConfig : IConfig
     {
-        public string ClassType { get; }
+        public string ClassType { get; set; }
     }
 }

@@ -61,31 +61,37 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             if (action == null)
                 return;
 
+            if (agent.WorldData == null)
+                return;
+
             var conditionObserver = agent.GoapSet.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
 
             var conditions = action.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));
-            var effects = action.Effects.Select(x => this.GetText(x as IEffect, conditionObserver.IsMet(x)));
+            var effects = action.Effects.Select(x => this.GetText(x as IEffect));
 
-            var text = $"Target:\n    position: {agent.WorldData.GetTarget(action).Position}\n    name: {action.Config.Target.Name}\n\nEffects:\n{string.Join("\n", effects)}\nConditions:\n{string.Join("\n", conditions)}\n";
+            var target = agent.WorldData.GetTarget(action);
+            
+            if (target == null)
+                return;
+
+            var text = $"Target:\n    position: {target.Position}\n    name: {action.Config.Target.Name}\n\nEffects:\n{string.Join("\n", effects)}\nConditions:\n{string.Join("\n", conditions)}\n";
             
             this.Add(new Label(text));
         }
         
         private string GetText(ICondition condition, bool value)
         {
-            var suffix = condition.Positive ? "true" : "false";
             var color = value ? "green" : "red";
 
-            return $"    <color={color}>{condition.WorldKey.Name} ({suffix})</color>";
+            return $"    <color={color}>{condition.WorldKey.Name} ({condition.Comparison}, {condition.Amount})</color>";
         }
 
-        private string GetText(IEffect effect, bool value)
+        private string GetText(IEffect effect)
         {
-            var suffix = effect.Positive ? "true" : "false";
-            var color = value ? "green" : "red";
+            var suffix = effect.Increase ? "increase" : "decrease";
 
-            return $"    <color={color}>{effect.WorldKey.Name} ({suffix})</color>";
+            return $"    {effect.WorldKey.Name} ({suffix})";
         }
     }
 }
