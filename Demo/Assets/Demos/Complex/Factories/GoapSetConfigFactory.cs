@@ -6,6 +6,7 @@ using Demos.Complex.Actions;
 using Demos.Complex.Classes;
 using Demos.Complex.Classes.Items;
 using Demos.Complex.Goals;
+using Demos.Complex.Interfaces;
 using Demos.Complex.Sensors.Target;
 using Demos.Complex.Sensors.World;
 using Demos.Shared.Actions;
@@ -13,7 +14,7 @@ using Demos.Shared.Goals;
 using Demos.Shared.Sensors.Target;
 using Demos.Simple.Sensors.Target;
 
-namespace Demos.Complex.Behaviours
+namespace Demos.Complex.Factories
 {
     public class GoapSetConfigFactory : GoapSetFactoryBase
     {
@@ -22,39 +23,29 @@ namespace Demos.Complex.Behaviours
             var builder = new GoapSetBuilder("ComplexSet");
 
             // Goals
-            builder.AddGoal<WanderGoal>()
-                .AddCondition(WorldKeys.IsWandering, Comparison.GreaterThanOrEqual, 1);
+            builder.AddWanderGoal();
             
-            builder.AddGoal<CreateItemGoal<Axe>>()
-                .AddCondition<Axe>(WorldKeys.CreatedItem, Comparison.GreaterThanOrEqual, 1);
-            
-            builder.AddGoal<CreateItemGoal<Pickaxe>>()
-                .AddCondition<Pickaxe>(WorldKeys.CreatedItem, Comparison.GreaterThanOrEqual, 1);
+            builder.AddCreateItemGoal<Axe>();
+            builder.AddCreateItemGoal<Pickaxe>();
+            builder.AddCleanItemsGoal();
+            builder.AddFixHungerGoal();
             
             // Actions
-            builder.AddAction<WanderAction>()
-                .SetTarget(Targets.WanderTarget)
-                .AddEffect(WorldKeys.IsWandering, true);
+            builder.AddWanderAction();
 
-            builder.AddAction<PickupItemAction<Wood>>()
-                .SetTarget<Wood>(Targets.ClosestTarget)
-                .AddEffect<Wood>(WorldKeys.IsHolding, true);
-
-            builder.AddAction<PickupItemAction<Iron>>()
-                .SetTarget<Iron>(Targets.ClosestTarget)
-                .AddEffect<Iron>(WorldKeys.IsHolding, true);
-
-            builder.AddAction<CreateItemAction<Pickaxe>>()
-                .SetTarget(Targets.TransformTarget)
-                .AddEffect<Pickaxe>(WorldKeys.CreatedItem, true)
-                .AddCondition<Iron>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 1)
-                .AddCondition<Wood>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 2);
+            builder.AddPickupItemAction<Wood>();
+            builder.AddPickupItemAction<Iron>();
+            builder.AddPickupItemAction<IEatable>();
             
-            builder.AddAction<CreateItemAction<Axe>>()
-                .SetTarget(Targets.TransformTarget)
-                .AddEffect<Axe>(WorldKeys.CreatedItem, true)
-                .AddCondition<Iron>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 2)
-                .AddCondition<Wood>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 1);
+            builder.AddGatherItemAction<Wood>();
+            builder.AddGatherItemAction<Iron>();
+
+            builder.AddCreateItemAction<Pickaxe>();
+            builder.AddCreateItemAction<Axe>();
+
+            builder.AddHaulItemAction();
+
+            builder.AddEatAction();
             
             // TargetSensors
             builder.AddTargetSensor<WanderTargetSensor>()
@@ -71,6 +62,14 @@ namespace Demos.Complex.Behaviours
                 .SetTarget<Pickaxe>(Targets.ClosestTarget);
             builder.AddTargetSensor<ClosestItemSensor<Wood>>()
                 .SetTarget<Wood>(Targets.ClosestTarget);
+            builder.AddTargetSensor<ClosestItemSensor<IEatable>>()
+                .SetTarget<IEatable>(Targets.ClosestTarget);
+            
+            builder.AddTargetSensor<ClosestSourceSensor<Iron>>()
+                .SetTarget<Iron>(Targets.ClosestSourceTarget);
+            
+            builder.AddTargetSensor<ClosestSourceSensor<Wood>>()
+                .SetTarget<Wood>(Targets.ClosestSourceTarget);
 
             // WorldSensors
             builder.AddWorldSensor<IsHoldingSensor<Axe>>()
@@ -81,6 +80,12 @@ namespace Demos.Complex.Behaviours
                 .SetKey<Wood>(WorldKeys.IsHolding);
             builder.AddWorldSensor<IsHoldingSensor<Iron>>()
                 .SetKey<Iron>(WorldKeys.IsHolding);
+            
+            builder.AddWorldSensor<IsHoldingSensor<IEatable>>()
+                .SetKey<IEatable>(WorldKeys.IsHolding);
+            
+            builder.AddWorldSensor<ItemOnFloorSensor>()
+                .SetKey<Iron>(WorldKeys.ItemsOnFloor);
             
             // builder.AddWorldSensor<CanCreateSensor<Axe>>();
             // builder.AddWorldSensor<CanCreateSensor<Pickaxe>>();

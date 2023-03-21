@@ -17,10 +17,6 @@ namespace CrashKonijn.Goap.Configs
             this.Name = name;
             this.ClassType = typeof(TSensor).AssemblyQualifiedName;
         }
-        
-        public string Name { get; }
-        public string ClassType { get; set; }
-        public IWorldKey Key { get; set; }
     }
     
     public class WorldSensorConfig : IWorldSensorConfig

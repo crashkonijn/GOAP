@@ -3,6 +3,7 @@ using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Editor.Classes;
 using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
@@ -18,10 +19,13 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             this.AddToClassList(this.GetClass(node, agent));
 
             this.style.width = node.Rect.width;
-            this.style.height = node.Rect.height;
+            // this.style.height = node.Rect.height;
 
             this.transform.position = node.Position;
-            this.Add(new Label(node.Node.Action.GetType().Name));
+            this.Add(new Label(node.Node.Action.GetType().GetGenericTypeName())
+            {
+                name = "node-viewer__node__label"
+            });
             
             this.RenderAction(agent, node.Node.Action as IActionBase);
             this.RenderGoal(agent, node.Node.Action as IGoalBase);
@@ -51,7 +55,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
 
             var conditions = goal.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));
 
-            var text = $"Conditions:\n{string.Join("\n", conditions)}\n";
+            var text = $"<b>Conditions:</b>\n{string.Join("\n", conditions)}";
             
             this.Add(new Label(text));
         }
@@ -71,11 +75,13 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             var effects = action.Effects.Select(x => this.GetText(x as IEffect));
 
             var target = agent.WorldData.GetTarget(action);
-            
-            if (target == null)
-                return;
 
-            var text = $"Target:\n    position: {target.Position}\n    name: {action.Config.Target.Name}\n\nEffects:\n{string.Join("\n", effects)}\nConditions:\n{string.Join("\n", conditions)}\n";
+            var text = "<b>Target:</b>\n";
+            
+            if (target != null)
+                text += $"    position: {target.Position}\n    name: {action.Config.Target.Name}\n";
+
+            text += $"\n<b>Effects</b>:\n{string.Join("\n", effects)}\n<b>Conditions</b>:\n{string.Join("\n", conditions)}";
             
             this.Add(new Label(text));
         }
@@ -84,14 +90,31 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
         {
             var color = value ? "green" : "red";
 
-            return $"    <color={color}>{condition.WorldKey.Name} ({condition.Comparison}, {condition.Amount})</color>";
+            return $"    <color={color}>{condition.WorldKey.Name} {GetText(condition.Comparison)} {condition.Amount}</color>";
         }
 
         private string GetText(IEffect effect)
         {
-            var suffix = effect.Increase ? "increase" : "decrease";
+            var suffix = effect.Increase ? "++" : "--";
 
-            return $"    {effect.WorldKey.Name} ({suffix})";
+            return $"    {effect.WorldKey.Name}{suffix}";
+        }
+
+        private string GetText(Comparison comparison)
+        {
+            switch (comparison)
+            {
+                case Comparison.GreaterThan:
+                    return ">";
+                case Comparison.GreaterThanOrEqual:
+                    return ">=";
+                case Comparison.SmallerThan:
+                    return "<";
+                case Comparison.SmallerThanOrEqual:
+                    return "<=";
+            }
+            
+            return "";
         }
     }
 }

@@ -22,6 +22,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         private float lastUpdate = 0f;
         private DragDrawer dragDrawer;
         private VisualElement nodesDrawer;
+        private VisualElement floatData;
 
 
         [MenuItem("Tools/GOAP/Node Viewer")]
@@ -112,6 +113,13 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss"));
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer.uss"));
+
+            this.floatData = new VisualElement()
+            {
+                name = "float-right"
+            };
+            
+            root.Add(this.floatData);
         }
 
         private (VisualElement RootElement, VisualElement Right) CreatePanels()
@@ -139,6 +147,25 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         private VisualElement GetGraphElement()
         {
             var graph = this.runner.GetGraph(this.set).ToPublic();
+
+            var element = new VisualElement();
+            var widthOffset = 0f;
+
+            foreach (var graphRootNode in graph.RootNodes.Values)
+            {
+                var debugGraph = new DebugGraph(graph).GetGraph(graphRootNode);
+                var drawer = new NodesDrawer(debugGraph, this.agent);
+                
+                drawer.transform.position = new Vector3(widthOffset, 0f);
+                
+                element.Add(drawer);
+
+                widthOffset += (debugGraph.MaxWidth * 250);
+            }
+
+            return element;
+            
+            
             var rootNode = (this.agent == null || this.agent.CurrentGoal == null) ? graph.RootNodes.Values.First() : graph.RootNodes.Values.First(x => x.Action == this.agent.CurrentGoal);
             
             var nodes = new DebugGraph(graph).GetGraph(rootNode);
@@ -178,15 +205,10 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             
             this.rightPanel.Add(this.nodesDrawer);
 
-            var floatData = new VisualElement()
-            {
-                name = "float-right"
-            };
-            
-            floatData.Add(new WorldDataDrawer(this.agent.WorldData));
-            floatData.Add(new AgentDataDrawer(this.agent));
-            
-            this.rightPanel.Add(floatData);
+            this.floatData.Clear();
+
+            this.floatData.Add(new WorldDataDrawer(this.agent.WorldData));
+            this.floatData.Add(new AgentDataDrawer(this.agent));
         }
     }
 }

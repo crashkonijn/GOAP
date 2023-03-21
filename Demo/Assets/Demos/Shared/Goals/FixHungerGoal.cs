@@ -1,6 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 
-namespace Demos.Simple.Goals
+namespace Demos.Shared.Goals
 {
     public class FixHungerGoal : GoalBase
     {

@@ -3,7 +3,8 @@ using Demos.Complex.Interfaces;
 
 namespace Demos.Complex.Classes.Items
 {
-    public class Wood : ItemBase, IGatherable
+    public class Apple : ItemBase, IEatable
     {
+        public float NutritionValue { get; set; } = 200f;
     }
 }

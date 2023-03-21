@@ -21,6 +21,7 @@
     border-width: 1px;
     border-radius: 5px;
     background-color: #2d2d2d;
+    min-height: 150px;
 }
 
 .node-viewer__node--normal {
@@ -33,6 +34,10 @@
 
 .node-viewer__node--path {
     border-color: #009dff;
+}
+
+#node-viewer__node__label {
+    weight: 100;
 }
 
 #agent {

@@ -9,25 +9,19 @@ using UnityEngine;
 
 namespace Demos.Complex.Sensors.Target
 {
-    public class ClosestItemSensor<T> : LocalTargetSensorBase
-        where T : IHoldable
+    public class ClosestSourceSensor<T> : LocalTargetSensorBase
+        where T : IGatherable
     {
-        private readonly ItemCollection collection;
-        private T[] items;
+        private ItemSourceBase<T>[] collection;
 
-        public ClosestItemSensor()
-        {
-            this.collection = GameObject.FindObjectOfType<ItemCollection>();
-        }
-        
         public override void Update()
         {
-            this.items = this.collection.Get<T>();
+            this.collection = GameObject.FindObjectsOfType<ItemSourceBase<T>>();
         }
 
         public override ITarget Sense(IMonoAgent agent)
         {
-            var closest = this.items.Cast<ItemBase>().Closest(agent.transform.position);
+            var closest = this.collection.Closest(agent.transform.position);
             
             if (closest == null)
                 return null;

@@ -1,6 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using Demos.Shared.Goals;
-using Demos.Simple.Goals;
 using UnityEngine;
 
 namespace Demos.Simple.Behaviours

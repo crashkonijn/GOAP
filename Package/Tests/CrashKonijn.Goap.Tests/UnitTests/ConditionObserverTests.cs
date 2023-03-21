@@ -72,7 +72,7 @@ namespace CrashKonijn.Goap.UnitTests
         
             var condition = new Condition
             {
-                Comparison = Comparison.GreaterThanOrEqual,
+                Comparison = Comparison.SmallerThan,
                 Amount = 1,
                 WorldKey = key
             };
@@ -104,7 +104,7 @@ namespace CrashKonijn.Goap.UnitTests
             var result = observer.IsMet(condition);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.IsFalse(result);
         }
     }
 }
