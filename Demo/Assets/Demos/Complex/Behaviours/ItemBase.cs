@@ -9,17 +9,17 @@ namespace Demos.Complex.Behaviours
         private ItemCollection collection;
         public bool IsHeld { get; private set; }
 
-        private void Awake()
+        public void Awake()
         {
             this.collection = FindObjectOfType<ItemCollection>();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             this.collection.Add(this);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             this.collection.Remove(this);
         }

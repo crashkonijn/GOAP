@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using Demos.Shared.Behaviours;
 using Demos.Shared.Goals;
 using UnityEngine;
 

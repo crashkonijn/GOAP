@@ -19,6 +19,11 @@ namespace Demos.Complex.Behaviours
         {
             this.items.Remove(item);
         }
+        
+        public IHoldable[] All()
+        {
+            return this.items.ToArray();
+        }
 
         public T[] Get<T>()
             where T : IHoldable

@@ -1,18 +1,8 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.Builders;
 using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Resolver;
-using Demos.Complex.Actions;
-using Demos.Complex.Classes;
 using Demos.Complex.Classes.Items;
-using Demos.Complex.Goals;
 using Demos.Complex.Interfaces;
-using Demos.Complex.Sensors.Target;
-using Demos.Complex.Sensors.World;
-using Demos.Shared.Actions;
-using Demos.Shared.Goals;
-using Demos.Shared.Sensors.Target;
-using Demos.Simple.Sensors.Target;
 
 namespace Demos.Complex.Factories
 {
@@ -48,47 +38,28 @@ namespace Demos.Complex.Factories
             builder.AddEatAction();
             
             // TargetSensors
-            builder.AddTargetSensor<WanderTargetSensor>()
-                .SetTarget(Targets.WanderTarget);
-
-            builder.AddTargetSensor<TransformSensor>()
-                .SetTarget(Targets.TransformTarget);
-
-            builder.AddTargetSensor<ClosestItemSensor<Axe>>()
-                .SetTarget<Axe>(Targets.ClosestTarget);
-            builder.AddTargetSensor<ClosestItemSensor<Iron>>()
-                .SetTarget<Iron>(Targets.ClosestTarget);
-            builder.AddTargetSensor<ClosestItemSensor<Pickaxe>>()
-                .SetTarget<Pickaxe>(Targets.ClosestTarget);
-            builder.AddTargetSensor<ClosestItemSensor<Wood>>()
-                .SetTarget<Wood>(Targets.ClosestTarget);
-            builder.AddTargetSensor<ClosestItemSensor<IEatable>>()
-                .SetTarget<IEatable>(Targets.ClosestTarget);
+            builder.AddWanderTargetSensor();
+            builder.AddTransformTargetSensor();
             
-            builder.AddTargetSensor<ClosestSourceSensor<Iron>>()
-                .SetTarget<Iron>(Targets.ClosestSourceTarget);
+            builder.AddClosestItemTargetSensor<Axe>();
+            builder.AddClosestItemTargetSensor<Iron>();
+            builder.AddClosestItemTargetSensor<Pickaxe>();
+            builder.AddClosestItemTargetSensor<Wood>();
+            builder.AddClosestItemTargetSensor<IEatable>();
             
-            builder.AddTargetSensor<ClosestSourceSensor<Wood>>()
-                .SetTarget<Wood>(Targets.ClosestSourceTarget);
+            builder.AddClosestSourceTargetSensor<Iron>();
+            builder.AddClosestSourceTargetSensor<Wood>();
 
             // WorldSensors
-            builder.AddWorldSensor<IsHoldingSensor<Axe>>()
-                .SetKey<Axe>(WorldKeys.IsHolding);
-            builder.AddWorldSensor<IsHoldingSensor<Pickaxe>>()
-                .SetKey<Pickaxe>(WorldKeys.IsHolding);
-            builder.AddWorldSensor<IsHoldingSensor<Wood>>()
-                .SetKey<Wood>(WorldKeys.IsHolding);
-            builder.AddWorldSensor<IsHoldingSensor<Iron>>()
-                .SetKey<Iron>(WorldKeys.IsHolding);
+            builder.AddIsHoldingSensor<Axe>();
+            builder.AddIsHoldingSensor<Pickaxe>();
+            builder.AddIsHoldingSensor<Wood>();
+            builder.AddIsHoldingSensor<Iron>();
+            builder.AddIsHoldingSensor<IEatable>();
             
-            builder.AddWorldSensor<IsHoldingSensor<IEatable>>()
-                .SetKey<IEatable>(WorldKeys.IsHolding);
+            builder.AddIsInWorldSensor<IEatable>();
             
-            builder.AddWorldSensor<ItemOnFloorSensor>()
-                .SetKey<Iron>(WorldKeys.ItemsOnFloor);
-            
-            // builder.AddWorldSensor<CanCreateSensor<Axe>>();
-            // builder.AddWorldSensor<CanCreateSensor<Pickaxe>>();
+            builder.AddItemOnFloorSensor();
 
             return builder.Build();
         }

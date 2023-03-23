@@ -2,6 +2,7 @@
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
+using Demos.Shared.Behaviours;
 using Demos.Simple.Behaviours;
 using UnityEngine;
 
