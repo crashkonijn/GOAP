@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
@@ -19,11 +19,11 @@ namespace CrashKonijn.Goap.Classes
         public GoapSet Create(IGoapSetConfig config)
         {
             var sensorRunner = this.CreateSensorRunner(config);
-            
+
             return new GoapSet(
                 config: this.goapConfig,
-                actions: new ClassResolver().Load<IActionBase, IActionConfig>(config.Actions), // Todo, load through class resolver
-                goals: new ClassResolver().Load<IGoalBase, IGoalConfig>(config.Goals),
+                actions: this.GetActions(config),
+                goals: this.GetGoals(config),
                 sensorRunner: sensorRunner
             );
         }
@@ -34,6 +34,26 @@ namespace CrashKonijn.Goap.Classes
             var targetSensors = new ClassResolver().Load<ITargetSensor, ITargetSensorConfig>(config.TargetSensors);
 
             return new SensorRunner(worldSensors, targetSensors);
+        }
+        
+        private List<IActionBase> GetActions(IGoapSetConfig config)
+        {
+            var actions = new ClassResolver().Load<IActionBase, IActionConfig>(config.Actions);
+            var actionInjector = this.goapConfig.GoapInjector;
+            
+            actions.ForEach(x => actionInjector.Inject(x));
+
+            return actions;
+        }
+        
+        private List<IGoalBase> GetGoals(IGoapSetConfig config)
+        {
+            var goals = new ClassResolver().Load<IGoalBase, IGoalConfig>(config.Goals);
+            var goalInjector = this.goapConfig.GoapInjector;
+            
+            goals.ForEach(x => goalInjector.Inject(x));
+
+            return goals;
         }
     }
 }

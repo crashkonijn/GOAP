@@ -11,7 +11,9 @@
       "version": "file:../../Package",
       "depth": 0,
       "source": "local",
-      "dependencies": {}
+      "dependencies": {
+        "com.unity.collections": "1.2.4"
+      }
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",

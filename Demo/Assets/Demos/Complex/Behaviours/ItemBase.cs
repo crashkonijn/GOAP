@@ -28,12 +28,22 @@ namespace Demos.Complex.Behaviours
         {
             this.IsHeld = true;
             this.collection.Remove(this);
+            
+            foreach (var renderer in this.GetComponentsInChildren<SpriteRenderer>())
+            {
+                renderer.enabled = false;
+            }
         }
 
         public void Drop()
         {
             this.IsHeld = false;
             this.collection.Add(this);
+            
+            foreach (var renderer in this.GetComponentsInChildren<SpriteRenderer>())
+            {
+                renderer.enabled = true;
+            }
         }
     }
 }

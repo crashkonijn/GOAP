@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
@@ -45,9 +46,12 @@ namespace CrashKonijn.Goap.Behaviours
         public IWorldData WorldData { get; } = new LocalWorldData();
         public List<IActionBase> CurrentActionPath { get; private set; } = new List<IActionBase>();
         
+        private DataReferenceInjector injector;
+        
 
         private void Awake()
         {
+            this.injector = new DataReferenceInjector(this);
             this.mover = this.GetComponent<IAgentMover>();
             
             if (this.goapSet != null)
@@ -140,9 +144,11 @@ namespace CrashKonijn.Goap.Behaviours
                 this.EndAction();
             }
 
-            // UnityEngine.Debug.Log($"Starting action: {action}");
             this.CurrentAction = action;
-            this.CurrentActionData = action.GetData();
+
+            var data = action.GetData();
+            this.injector.Inject(data);
+            this.CurrentActionData = data;
             this.CurrentActionData.Target = target;
             this.CurrentAction.OnStart(this, this.CurrentActionData);
             this.CurrentActionPath = path;
@@ -151,7 +157,6 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void EndAction()
         {
-            // UnityEngine.Debug.Log($"End action: {this.CurrentAction}");
             this.CurrentAction?.OnEnd(this, this.CurrentActionData);
             this.CurrentAction = null;
             this.CurrentActionData = null;

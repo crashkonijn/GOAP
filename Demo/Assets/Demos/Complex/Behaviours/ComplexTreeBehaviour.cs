@@ -41,7 +41,7 @@ namespace Demos.Complex.Behaviours
         {
             var pos = Random.insideUnitCircle.normalized * Random.Range(1f, 2f);
 
-            return this.transform.position + (Vector3)pos;
+            return this.transform.position + new Vector3(pos.x, 0f, pos.y);
         }
     }
 }

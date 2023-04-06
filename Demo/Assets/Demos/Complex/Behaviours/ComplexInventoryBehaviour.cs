@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Demos.Complex.Interfaces;
 using UnityEngine;
 
@@ -7,20 +8,19 @@ namespace Demos.Complex.Behaviours
 {
     public class ComplexInventoryBehaviour : MonoBehaviour
     {
-        private Dictionary<Type, List<object>> inventory = new();
+        private List<IHoldable> items = new();
         
         public void Add<T>(T item)
             where T : IHoldable
         {
             item.Pickup();
             
-            var type = typeof(T);
-            if (!this.inventory.ContainsKey(type))
-            {
-                this.inventory.Add(type, new List<object>());
-            }
-            
-            this.inventory[type].Add(item);
+            this.items.Add(item);
+        }
+
+        public T[] Get<T>()
+        {
+            return this.items.Where(x => x is T).Cast<T>().ToArray();
         }
         
         public void Remove<T>(T item)
@@ -28,35 +28,18 @@ namespace Demos.Complex.Behaviours
         {
             item.Drop();
             
-            var type = typeof(T);
-            if (!this.inventory.ContainsKey(type))
-            {
-                return;
-            }
-            
-            this.inventory[type].Remove(item);
+            this.items.Remove(item);
         }
         
         public bool Has<T>()
             where T : IHoldable
         {
-            var type = typeof(T);
-            if (!this.inventory.ContainsKey(type))
-            {
-                return false;
-            }
-            
-            return this.inventory[type].Count > 0;
+            return this.items.Any(x => x is T);
         }
         
         public bool Has(Type type, int amount)
         {
-            if (!this.inventory.ContainsKey(type))
-            {
-                return false;
-            }
-            
-            return this.inventory[type].Count >= amount;
+            return this.items.Count(x => x.GetType().IsInstanceOfType(type)) >= amount;
         }
     }
 }

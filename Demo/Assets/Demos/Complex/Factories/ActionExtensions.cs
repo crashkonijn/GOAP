@@ -4,6 +4,7 @@ using System.Reflection;
 using CrashKonijn.Goap.Classes.Builders;
 using CrashKonijn.Goap.Resolver;
 using Demos.Complex.Actions;
+using Demos.Complex.Behaviours;
 using Demos.Complex.Classes;
 using Demos.Complex.Classes.Items;
 using Demos.Complex.Interfaces;
@@ -30,9 +31,9 @@ namespace Demos.Complex.Factories
         }
         
         public static void AddGatherItemAction<T>(this GoapSetBuilder builder)
-            where T : IHoldable
+            where T : ItemBase, IHoldable
         {
-            builder.AddAction<GatherItemAction<T>>()
+            builder.AddAction<GatherItem<T>>()
                 .SetTarget<T>(Targets.ClosestSourceTarget)
                 .AddEffect<T>(WorldKeys.IsInWorld, true);
         }

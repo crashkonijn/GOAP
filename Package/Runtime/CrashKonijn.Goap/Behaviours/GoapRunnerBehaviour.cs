@@ -14,12 +14,20 @@ namespace CrashKonijn.Goap.Behaviours
         public float RunTime => this.runner.RunTime;
         public float CompleteTime => this.runner.CompleteTime;
         public int RunCount { get; private set; }
-        
+
+        public GoapConfigInitializerBase configInitializer;
         public List<GoapSetFactoryBase> setConfigFactories = new();
+
+        private GoapConfig config;
 
         private void Awake()
         {
+            this.config = GoapConfig.Default;
             this.runner = new Classes.Runners.GoapRunner();
+            
+            if (this.configInitializer != null)
+                this.configInitializer.InitConfig(this.config);
+            
             this.CreateSets();
         }
 
@@ -43,7 +51,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void CreateSets()
         {
-            var setFactory = new GoapSetFactory(GoapConfig.Default);
+            var setFactory = new GoapSetFactory(this.config);
             
             this.setConfigFactories.ForEach(factory =>
             {

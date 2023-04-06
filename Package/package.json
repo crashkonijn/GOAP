@@ -8,11 +8,17 @@
   "documentationUrl": "https://github.com/crashkonijn/GOAP",
   "changelogUrl": "https://github.com/crashkonijn/GOAP",
   "licensesUrl": "https://github.com/crashkonijn/GOAP",
-  "dependencies": {},
+  "dependencies": {
+    "com.unity.collections": "1.2.4"
+  },
   "keywords": [
-    "keyword1",
-    "keyword2",
-    "keyword3"
+    "Unity",
+    "GOAP",
+    "CrashKonijn GOAP",
+    "Goal Oriented Action Planner",
+    "AI",
+    "Artificial Inteligence",
+    "Enemies"
   ],
   "author": {
     "name": "CrashKonijn",
