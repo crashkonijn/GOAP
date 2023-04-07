@@ -17,7 +17,7 @@ namespace Demos.Complex.Sensors.World
         
         public override SenseValue Sense()
         {
-            return this.collection.Get<T>().Length;
+            return this.collection.GetFiltered<T>(false, true, false).Length;
         }
     }
 }

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Node Viewer (GOAP)
+  m_Title: Console
   m_RootView: {fileID: 9}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -39,12 +39,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1326
+    x: 1450
     y: 0
-    width: 842
-    height: 951
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+    width: 627
+    height: 680
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 22}
   m_Panes:
   - {fileID: 22}
@@ -65,10 +65,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 411
+    x: 287
     y: 0
-    width: 1757
-    height: 356
+    width: 1790
+    height: 627
   m_MinSize: {x: 102, y: 121}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 23}
@@ -94,13 +94,13 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 951
-    width: 2168
-    height: 356
+    y: 680
+    width: 2077
+    height: 627
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 93
+  controlID: 126
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 169
+  controlID: 162
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -136,23 +136,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: InspectorWindow
+  m_Name: TestRunnerWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 2168
+    x: 2077
     y: 0
-    width: 392
+    width: 483
     height: 1307
-  m_MinSize: {x: 276, y: 121}
+  m_MinSize: {x: 101, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 17}
+  m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -170,8 +170,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 280
-    height: 951
+    width: 287
+    height: 680
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 20}
@@ -196,8 +196,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 411
-    height: 356
+    width: 287
+    height: 627
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 19}
@@ -295,12 +295,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2168
+    width: 2077
     height: 1307
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 67
+  controlID: 125
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -321,12 +321,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2168
-    height: 951
+    width: 2077
+    height: 680
   m_MinSize: {x: 300, y: 50}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 68
+  controlID: 55
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -342,12 +342,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 280
+    x: 287
     y: 0
-    width: 1046
-    height: 951
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
+    width: 1163
+    height: 680
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 21}
@@ -376,10 +376,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2853
+    x: 311
     y: 73
-    width: 782
-    height: 903
+    width: 1252
+    height: 930
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1415,10 +1415,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 280
+    x: 287
     y: 73
-    width: 1044
-    height: 930
+    width: 1161
+    height: 659
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1450,9 +1450,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2168
+    x: 2077
     y: 73
-    width: 391
+    width: 482
     height: 1286
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1497,9 +1497,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: -434
+    x: 2077
     y: 73
-    width: 433
+    width: 482
     height: 1286
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1512,7 +1512,7 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 190
+    ID: 7283
     splitterInitialOffset: 576
     currentActiveSplitter: -1
     realSizes:
@@ -1596,7 +1596,7 @@ MonoBehaviour:
       name: UnityGoap
       fullName: UnityGoap
       resultStatus: 1
-      duration: 0.405945
+      duration: 0.4427024
       messages: 
       output: 
       stacktrace: 
@@ -1612,7 +1612,7 @@ MonoBehaviour:
       name: UnitTests.dll
       fullName: E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/UnitTests.dll
       resultStatus: 1
-      duration: 0.3715527
+      duration: 0.4051408
       messages: 
       output: 
       stacktrace: 
@@ -1628,7 +1628,7 @@ MonoBehaviour:
       name: CrashKonijn
       fullName: CrashKonijn
       resultStatus: 1
-      duration: 0.3678285
+      duration: 0.4029279
       messages: 
       output: 
       stacktrace: 
@@ -1644,7 +1644,7 @@ MonoBehaviour:
       name: Goap
       fullName: CrashKonijn.Goap
       resultStatus: 1
-      duration: 0.3676086
+      duration: 0.4026663
       messages: 
       output: 
       stacktrace: 
@@ -1660,7 +1660,7 @@ MonoBehaviour:
       name: UnitTests
       fullName: CrashKonijn.Goap.UnitTests
       resultStatus: 1
-      duration: 0.3642838
+      duration: 0.4002756
       messages: 
       output: 
       stacktrace: 
@@ -1676,7 +1676,7 @@ MonoBehaviour:
       name: ClassResolverTests
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests
       resultStatus: 1
-      duration: 0.1078219
+      duration: 0.1319948
       messages: 
       output: 
       stacktrace: 
@@ -1692,7 +1692,7 @@ MonoBehaviour:
       name: Load_LoadsGoal
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests.Load_LoadsGoal
       resultStatus: 1
-      duration: 0.0928473
+      duration: 0.1113561
       messages: 
       output: 
       stacktrace: 
@@ -1709,7 +1709,7 @@ MonoBehaviour:
       name: Load_LoadsTargetSensorConfig
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests.Load_LoadsTargetSensorConfig
       resultStatus: 1
-      duration: 0.001215
+      duration: 0.002743
       messages: 
       output: 
       stacktrace: 
@@ -1726,7 +1726,7 @@ MonoBehaviour:
       name: Load_LoadsWorldSensorConfig
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests.Load_LoadsWorldSensorConfig
       resultStatus: 1
-      duration: 0.0009495
+      duration: 0.0025894
       messages: 
       output: 
       stacktrace: 
@@ -1743,7 +1743,7 @@ MonoBehaviour:
       name: ConditionObserverTests
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests
       resultStatus: 1
-      duration: 0.0157827
+      duration: 0.0173785
       messages: 
       output: 
       stacktrace: 
@@ -1759,7 +1759,7 @@ MonoBehaviour:
       name: IsMet_Negative_IsNotPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Negative_IsNotPresent
       resultStatus: 1
-      duration: 0.0054651
+      duration: 0.0055245
       messages: 
       output: 
       stacktrace: 
@@ -1776,7 +1776,7 @@ MonoBehaviour:
       name: IsMet_Negative_IsPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Negative_IsPresent
       resultStatus: 1
-      duration: 0.0010184
+      duration: 0.0011213
       messages: 
       output: 
       stacktrace: 
@@ -1793,7 +1793,7 @@ MonoBehaviour:
       name: IsMet_Positive_IsNotPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Positive_IsNotPresent
       resultStatus: 1
-      duration: 0.000264
+      duration: 0.0001963
       messages: 
       output: 
       stacktrace: 
@@ -1810,7 +1810,7 @@ MonoBehaviour:
       name: IsMet_Positive_IsPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Positive_IsPresent
       resultStatus: 1
-      duration: 0.0003551
+      duration: 0.0003466
       messages: 
       output: 
       stacktrace: 
@@ -1827,7 +1827,7 @@ MonoBehaviour:
       name: CostObserverTests
       fullName: CrashKonijn.Goap.UnitTests.CostObserverTests
       resultStatus: 1
-      duration: 0.0589412
+      duration: 0.0579733
       messages: 
       output: 
       stacktrace: 
@@ -1843,7 +1843,7 @@ MonoBehaviour:
       name: GetCost_WithLastTarget_ReturnsCostAndDistance
       fullName: CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithLastTarget_ReturnsCostAndDistance
       resultStatus: 1
-      duration: 0.0482222
+      duration: 0.0475703
       messages: 
       output: 'CrashKonijn.Goap.Scriptables.TargetKeyScriptable must be instantiated
         using the ScriptableObject.CreateInstance method instead of new TargetKeyScriptable.
@@ -1863,7 +1863,7 @@ MonoBehaviour:
       name: GetCost_WithoutLastTarget_ReturnsCost
       fullName: CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithoutLastTarget_ReturnsCost
       resultStatus: 1
-      duration: 0.0009187
+      duration: 0.0018416
       messages: 
       output: 
       stacktrace: 
@@ -1880,7 +1880,7 @@ MonoBehaviour:
       name: GetCost_WithoutPath_ReturnsCost
       fullName: CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithoutPath_ReturnsCost
       resultStatus: 1
-      duration: 0.0003221
+      duration: 0.0003304
       messages: 
       output: 
       stacktrace: 
@@ -1897,7 +1897,7 @@ MonoBehaviour:
       name: GraphResolverTests
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests
       resultStatus: 1
-      duration: 0.1033518
+      duration: 0.1149016
       messages: 
       output: 
       stacktrace: 
@@ -1913,7 +1913,7 @@ MonoBehaviour:
       name: Resolve_ShouldIncludeLocationHeuristics
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldIncludeLocationHeuristics
       resultStatus: 1
-      duration: 0.0885408
+      duration: 0.095142
       messages: 
       output: 
       stacktrace: 
@@ -1930,7 +1930,7 @@ MonoBehaviour:
       name: Resolve_WithMultipleConnections_ReturnsExecutableAction
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithMultipleConnections_ReturnsExecutableAction
       resultStatus: 1
-      duration: 0.0010938
+      duration: 0.0012566
       messages: 
       output: 
       stacktrace: 
@@ -1947,7 +1947,7 @@ MonoBehaviour:
       name: Resolve_WithNestedConnections_ReturnsExecutableAction
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNestedConnections_ReturnsExecutableAction
       resultStatus: 1
-      duration: 0.0007103
+      duration: 0.000757
       messages: 
       output: 
       stacktrace: 
@@ -1964,7 +1964,7 @@ MonoBehaviour:
       name: Resolve_WithNoActions_ReturnsEmptyList
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNoActions_ReturnsEmptyList
       resultStatus: 1
-      duration: 0.0020731
+      duration: 0.0030587
       messages: 
       output: 
       stacktrace: 
@@ -1981,7 +1981,7 @@ MonoBehaviour:
       name: Resolve_WithOneExecutableConnection_ReturnsAction
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithOneExecutableConnection_ReturnsAction
       resultStatus: 1
-      duration: 0.0004707
+      duration: 0.0005461
       messages: 
       output: 
       stacktrace: 
@@ -1998,7 +1998,7 @@ MonoBehaviour:
       name: SensorRunnerTests
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests
       resultStatus: 1
-      duration: 0.0732026
+      duration: 0.0744649
       messages: 
       output: 
       stacktrace: 
@@ -2014,7 +2014,7 @@ MonoBehaviour:
       name: SenseGlobal_WithNegativeTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithNegativeTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.0090336
+      duration: 0.0096324
       messages: 
       output: 
       stacktrace: 
@@ -2031,7 +2031,7 @@ MonoBehaviour:
       name: SenseGlobal_WithNegativeWorldSense_IsPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithNegativeWorldSense_IsPresentInStates
       resultStatus: 1
-      duration: 0.0065095
+      duration: 0.0060004
       messages: 
       output: 
       stacktrace: 
@@ -2048,7 +2048,7 @@ MonoBehaviour:
       name: SenseGlobal_WithPositiveTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithPositiveTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.0034854
+      duration: 0.0047366
       messages: 
       output: 
       stacktrace: 
@@ -2065,7 +2065,7 @@ MonoBehaviour:
       name: SenseGlobal_WithPositiveWorldSense_IsPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithPositiveWorldSense_IsPresentInStates
       resultStatus: 1
-      duration: 0.0005588
+      duration: 0.0006496
       messages: 
       output: 
       stacktrace: 
@@ -2082,7 +2082,7 @@ MonoBehaviour:
       name: SenseLocal_ContainsGlobalState
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalState
       resultStatus: 1
-      duration: 0.0355055
+      duration: 0.0360373
       messages: 
       output: 
       stacktrace: 
@@ -2099,7 +2099,7 @@ MonoBehaviour:
       name: SenseLocal_ContainsGlobalTarget
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalTarget
       resultStatus: 1
-      duration: 0.0009742
+      duration: 0.001
       messages: 
       output: 
       stacktrace: 
@@ -2116,7 +2116,7 @@ MonoBehaviour:
       name: SenseLocal_WithNegativeTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.0032317
+      duration: 0.0025319
       messages: 
       output: 
       stacktrace: 
@@ -2133,7 +2133,7 @@ MonoBehaviour:
       name: SenseLocal_WithNegativeWorldSense_IsNotPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeWorldSense_IsNotPresentInStates
       resultStatus: 1
-      duration: 0.0011552
+      duration: 0.0008134
       messages: 
       output: 
       stacktrace: 
@@ -2150,7 +2150,7 @@ MonoBehaviour:
       name: SenseLocal_WithPositiveTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.0010811
+      duration: 0.0007745
       messages: 
       output: 
       stacktrace: 
@@ -2167,7 +2167,7 @@ MonoBehaviour:
       name: SenseLocal_WithPositiveWorldSense_IsPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveWorldSense_IsPresentInStates
       resultStatus: 1
-      duration: 0.000816
+      duration: 0.0006754
       messages: 
       output: 
       stacktrace: 
@@ -2179,7 +2179,7 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1024
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests][suite]
-    m_ResultText: UnityGoap (0,406s)
+    m_ResultText: UnityGoap (0,443s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
@@ -2233,9 +2233,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 1024
-    width: 410
-    height: 335
+    y: 753
+    width: 286
+    height: 606
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2259,7 +2259,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Demos/Complex/Prefabs
+    - Assets/Demos/Complex/Prefabs/Items
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -2274,7 +2274,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 88b50000
     m_LastClickedID: 46472
-    m_ExpandedIDs: 00000000046e0000466e0000486e00004a6e00004c6e00004e6e0000506e0000526e0000546e0000566e0000
+    m_ExpandedIDs: 000000000c6e0000466e0000486e00004a6e00004c6e00004e6e0000506e0000526e0000546e0000566e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2299,10 +2299,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 60}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000046e0000466e0000486e00004a6e00004c6e00004e6e0000506e0000526e0000546e0000566e0000
+    m_ExpandedIDs: ffffffff00000000466e0000486e00004a6e00004c6e00004e6e0000506e0000526e0000546e0000566e0000347000003c7100003e710000a4760000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2381,8 +2381,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 73
-    width: 279
-    height: 930
+    width: 286
+    height: 659
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2396,9 +2396,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 64fefcff
-      m_LastClickedID: -197020
-      m_ExpandedIDs: ecfaffff26fbffff
+      m_SelectedIDs: f46d0000d676000086760000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 3205faffaac8faff1ad3faffac4afeff26fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2443,10 +2443,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 276
+    x: 287
     y: 73
-    width: 1025
-    height: 929
+    width: 909
+    height: 659
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2727,9 +2727,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.1686604, y: -1.1385775, z: 1.9488934}
+    m_Target: {x: -0.5862541, y: -0.17821014, z: -0.39561594}
     speed: 2
-    m_Value: {x: -2.1686604, y: -1.1385775, z: 1.9488934}
+    m_Value: {x: -0.5862541, y: -0.17821014, z: -0.39561594}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2775,17 +2775,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.4085538, y: 0.01095215, z: -0.0049027563, w: 0.91266215}
+    m_Target: {x: 0.35462427, y: 0.047109727, z: -0.017885303, w: 0.93365973}
     speed: 2
-    m_Value: {x: 0.40855128, y: 0.010952082, z: -0.004902726, w: 0.9126565}
+    m_Value: {x: 0.35462105, y: 0.0471093, z: -0.017885141, w: 0.93365127}
   m_Size:
-    m_Target: 10.878697
+    m_Target: 7.838204
     speed: 2
-    m_Value: 10.878697
+    m_Value: 7.838204
   m_Ortho:
-    m_Target: 1
+    m_Target: 0
     speed: 2
-    m_Value: 1
+    m_Value: 0
   m_CameraSettings:
     m_Speed: 1
     m_SpeedNormalized: 0.5
@@ -2827,10 +2827,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1326
+    x: 1450
     y: 73
-    width: 840
-    height: 930
+    width: 625
+    height: 659
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2847,7 +2847,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 840, y: 472}
+  m_TargetSize: {x: 625, y: 352}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -2862,10 +2862,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -420
-    m_HBaseRangeMax: 420
-    m_VBaseRangeMin: -236
-    m_VBaseRangeMax: 236
+    m_HBaseRangeMin: -312.5
+    m_HBaseRangeMax: 312.5
+    m_VBaseRangeMin: -176
+    m_VBaseRangeMax: 176
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -2883,23 +2883,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 840
-      height: 909
+      width: 625
+      height: 638
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 420, y: 454.5}
+    m_Translation: {x: 312.5, y: 319}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -420
-      y: -454.5
-      width: 840
-      height: 909
+      x: -312.5
+      y: -319
+      width: 625
+      height: 638
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 840, y: 930}
+  m_LastWindowPixelSize: {x: 625, y: 659}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -2926,10 +2926,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 411
-    y: 1024
-    width: 1755
-    height: 335
+    x: 287
+    y: 753
+    width: 1788
+    height: 606
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0

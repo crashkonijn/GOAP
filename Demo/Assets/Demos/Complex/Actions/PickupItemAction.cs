@@ -1,16 +1,25 @@
-﻿using CrashKonijn.Goap.Behaviours;
+﻿using System.Linq;
+using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using Demos.Complex.Behaviours;
+using Demos.Complex.Goap;
 using Demos.Complex.Interfaces;
 
 namespace Demos.Complex.Actions
 {
-    public class PickupItemAction<THoldable> : ActionBase<PickupItemAction<THoldable>.Data>
+    public class PickupItemAction<THoldable> : ActionBase<PickupItemAction<THoldable>.Data>, IInjectable
         where THoldable : IHoldable
     {
+        private ItemCollection itemCollection;
+
+
+        public void Inject(GoapInjector injector)
+        {
+            this.itemCollection = injector.itemCollection;
+        }
 
         public override void OnStart(IMonoAgent agent, Data data)
         {
@@ -19,11 +28,29 @@ namespace Demos.Complex.Actions
             if (transformTarget == null)
                 return;
             
-            data.Holdable = transformTarget.Transform.GetComponent<THoldable>();
+            var holdable = transformTarget.Transform.GetComponent<THoldable>();
+
+            // If this target is claimed by another agent, find another one
+            if (holdable.IsClaimed)
+            {
+                holdable = this.itemCollection.GetFiltered<THoldable>(false, false, false).FirstOrDefault();
+                
+                if (holdable != null)
+                    data.Target = new TransformTarget(holdable.gameObject.transform);
+            }
+            
+            if (holdable == null)
+                return;
+
+            holdable.Claim();
+            data.Holdable = holdable;
         }
 
         public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
         {
+            if (data.Holdable is null)
+                return ActionRunState.Stop;
+            
             data.Inventory.Add(data.Holdable);
             
             return ActionRunState.Stop;

@@ -17,6 +17,17 @@ namespace Demos.Complex.Behaviours
             
             this.items.Add(item);
         }
+        
+        public void Hold<T>(T item)
+            where T : IHoldable
+        {
+            item.Pickup(true);
+
+            item.gameObject.transform.position = this.transform.position + new Vector3(0f, 0.1f, -0.2f);
+            item.gameObject.transform.parent = this.transform;
+
+            this.items.Add(item);
+        }
 
         public T[] Get<T>()
         {
@@ -26,15 +37,24 @@ namespace Demos.Complex.Behaviours
         public void Remove<T>(T item)
             where T : IHoldable
         {
-            item.Drop();
-            
             this.items.Remove(item);
+            
+            if (item == null || item.gameObject == null)
+                return;
+            
+            item.gameObject.transform.parent = null;
         }
         
         public bool Has<T>()
             where T : IHoldable
         {
             return this.items.Any(x => x is T);
+        }
+        
+        public int Count<T>()
+            where T : IHoldable
+        {
+            return this.items.Count(x => x is T);
         }
         
         public bool Has(Type type, int amount)

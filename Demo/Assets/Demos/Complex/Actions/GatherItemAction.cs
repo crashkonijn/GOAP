@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Demos.Complex.Actions
 {
-    public class GatherItem<TGatherable> : ActionBase<GatherItem<TGatherable>.Data>, IInjectable
+    public class GatherItemAction<TGatherable> : ActionBase<GatherItemAction<TGatherable>.Data>, IInjectable
         where TGatherable : ItemBase
     {
         private ItemFactory itemFactory;
@@ -22,7 +22,10 @@ namespace Demos.Complex.Actions
         
         public override void OnStart(IMonoAgent agent, Data data)
         {
-            data.Timer = 1f;
+            // There is a normal and slow version of this action
+            // based on whether or not the agent is holding an (pick)axe
+            // We use the cost as a timer
+            data.Timer = this.Config.BaseCost;
         }
 
         public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)

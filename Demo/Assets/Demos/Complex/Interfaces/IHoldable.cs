@@ -6,8 +6,11 @@ namespace Demos.Complex.Interfaces
     {
         public GameObject gameObject { get; }
         bool IsHeld { get; }
+        bool IsInBox { get; }
+        bool IsClaimed { get; }
 
-        void Pickup();
-        void Drop();
+        void Claim();
+        void Pickup(bool visible = false);
+        void Drop(bool inBox = false);
     }
 }

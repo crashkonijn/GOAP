@@ -19,6 +19,8 @@ namespace Demos.Complex.Behaviours
             
             // Instantiate the item
             var instance = Instantiate(item);
+            
+            Debug.Log($"Created item of type {typeof(T).Name}");
 
             return instance as T;
         }

@@ -5,7 +5,7 @@ using Demos.Complex.Goals;
 using Demos.Complex.Interfaces;
 using Demos.Shared.Goals;
 
-namespace Demos.Complex.Factories
+namespace Demos.Complex.Factories.Extensions
 {
     public static class GoalExtensions
     {
@@ -32,6 +32,20 @@ namespace Demos.Complex.Factories
         {
             builder.AddGoal<FixHungerGoal>()
                 .AddCondition(WorldKeys.IsHungry, Comparison.SmallerThanOrEqual, 0);
+        }
+        
+        public static void AddGatherItemGoal<T>(this GoapSetBuilder builder)
+            where T : IGatherable
+        {
+            builder.AddGoal<GatherItemGoal<T>>()
+                .AddCondition<T>(WorldKeys.IsInWorld, Comparison.GreaterThanOrEqual, 1);
+        }
+        
+        public static void AddPickupItemGoal<T>(this GoapSetBuilder builder)
+            where T : IHoldable
+        {
+            builder.AddGoal<PickupItemGoal<T>>()
+                .AddCondition<T>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 1);
         }
     }
 }

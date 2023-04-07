@@ -8,15 +8,18 @@ namespace Demos.Complex.Goap
     public class GoapInjector : MonoBehaviour, IGoapInjector
     {
         public ItemFactory itemFactory;
+        public ItemCollection itemCollection;
+        public InstanceHandler instanceHandler;
         
         public void Inject(IActionBase action)
         {
-            if (action is IInjectable injectableAction)
-                injectableAction.Inject(this);
+            if (action is IInjectable injectable)
+                injectable.Inject(this);
         }
 
-        public void Inject(IGoalBase action)
+        public void Inject(IGoalBase goal)
         {
+
         }
     }
 }

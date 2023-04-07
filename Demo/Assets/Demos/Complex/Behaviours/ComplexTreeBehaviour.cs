@@ -1,13 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using Demos.Complex.Classes.Items;
+using Demos.Complex.Interfaces;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Demos.Complex.Behaviours
 {
     public class ComplexTreeBehaviour : MonoBehaviour
     {
-        public GameObject applePrefab;
         private Apple apple;
+        private ItemCollection itemCollection;
+        private ItemFactory itemFactory;
+
+        private void Awake()
+        {
+            this.itemCollection = FindObjectOfType<ItemCollection>();
+            this.itemFactory = FindObjectOfType<ItemFactory>();
+        }
 
         private void Start()
         {
@@ -20,6 +31,11 @@ namespace Demos.Complex.Behaviours
                 return;
             
             if (!this.apple.IsHeld)
+                return;
+
+            var count = this.itemCollection.All().Count(x => x is IEatable);
+
+            if (count > 4)
                 return;
             
             this.apple = null;
@@ -34,7 +50,8 @@ namespace Demos.Complex.Behaviours
 
         private void DropApple()
         {
-            this.apple = Instantiate(this.applePrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<Apple>();
+            this.apple = this.itemFactory.Instantiate<Apple>();
+            this.apple.transform.position = this.GetRandomPosition();
         }
         
         private Vector3 GetRandomPosition()

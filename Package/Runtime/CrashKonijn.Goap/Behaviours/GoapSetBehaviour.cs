@@ -10,6 +10,7 @@ namespace CrashKonijn.Goap.Behaviours
 {
     public interface IGoapSet
     {
+        string Id { get; }
         GoapConfig GoapConfig { get; }
         IAgentCollection Agents { get; }
         SensorRunner SensorRunner { get; }

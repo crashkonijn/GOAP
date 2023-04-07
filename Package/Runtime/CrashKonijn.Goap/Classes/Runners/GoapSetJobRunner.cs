@@ -92,7 +92,10 @@ namespace CrashKonijn.Goap.Classes.Runners
                 var action = result.FirstOrDefault();
                 
                 if (action is null)
+                {
+                    resolveHandle.Agent.FailedResolve();
                     continue;
+                }
                 
                 resolveHandle.Agent.SetAction(action, result, resolveHandle.Agent.WorldData.GetTarget(action));
             }

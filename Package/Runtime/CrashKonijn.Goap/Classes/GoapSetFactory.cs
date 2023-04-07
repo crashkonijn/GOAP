@@ -21,6 +21,7 @@ namespace CrashKonijn.Goap.Classes
             var sensorRunner = this.CreateSensorRunner(config);
 
             return new GoapSet(
+                id: config.Name,
                 config: this.goapConfig,
                 actions: this.GetActions(config),
                 goals: this.GetGoals(config),

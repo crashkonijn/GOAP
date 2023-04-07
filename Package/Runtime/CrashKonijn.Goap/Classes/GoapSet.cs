@@ -9,6 +9,8 @@ namespace CrashKonijn.Goap.Classes
 {
     public class GoapSet : IGoapSet
     {
+
+        public string Id { get; }
         public IAgentCollection Agents { get; } = new AgentCollection();
         public GoapConfig GoapConfig { get; }
         public SensorRunner SensorRunner { get; }
@@ -16,8 +18,9 @@ namespace CrashKonijn.Goap.Classes
         private List<IGoalBase> goals;
         private List<IActionBase> actions;
 
-        public GoapSet(GoapConfig config, List<IGoalBase> goals, List<IActionBase> actions, SensorRunner sensorRunner)
+        public GoapSet(string id, GoapConfig config, List<IGoalBase> goals, List<IActionBase> actions, SensorRunner sensorRunner)
         {
+            this.Id = id;
             this.GoapConfig = config;
             this.SensorRunner = sensorRunner;
             this.goals = goals;

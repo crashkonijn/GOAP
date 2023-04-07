@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
+using Demos.Complex.Classes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,6 +17,11 @@ namespace Demos.Complex.Behaviours
         [SerializeField]
         private GameObject agentPrefab;
 
+        public Color cleanerColor;
+        public Color smithColor;
+        public Color minerColor;
+        public Color woodCutterColor;
+
         private void Awake()
         {
             this.goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
@@ -24,16 +30,29 @@ namespace Demos.Complex.Behaviours
 
         private void Start()
         {
-            var set = this.goapRunner.Sets.First();
+            this.SpawnAgent(SetIds.Cleaner, ComplexAgentBrain.AgentType.Cleaner, this.cleanerColor);
+            this.SpawnAgent(SetIds.Cleaner, ComplexAgentBrain.AgentType.Cleaner, this.cleanerColor);
+            this.SpawnAgent(SetIds.Cleaner, ComplexAgentBrain.AgentType.Cleaner, this.cleanerColor);
             
-            this.SpawnAgent(set);
+            this.SpawnAgent(SetIds.Smith, ComplexAgentBrain.AgentType.Smith, this.smithColor);
+            this.SpawnAgent(SetIds.Miner, ComplexAgentBrain.AgentType.Miner, this.minerColor);
+            this.SpawnAgent(SetIds.WoodCutter, ComplexAgentBrain.AgentType.WoodCutter, this.woodCutterColor);
         }
 
-        private void SpawnAgent(IGoapSet goapSet)
+        private void SpawnAgent(string setId, ComplexAgentBrain.AgentType agentType, Color color)
         {
             var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
-            agent.GoapSet = goapSet;
+            
+            agent.GoapSet = this.goapRunner.Sets.First(x => x.Id == setId);
             agent.gameObject.SetActive(true);
+            
+            agent.gameObject.transform.name = $"{agentType} {agent.GetInstanceID()}";
+
+            var brain = agent.GetComponent<ComplexAgentBrain>();
+            brain.agentType = agentType;
+
+            var spriteRenderer = agent.GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.color = color;
         }
         
         private Vector3 GetRandomPosition()

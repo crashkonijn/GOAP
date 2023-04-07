@@ -3,7 +3,7 @@ using Demos.Complex.Classes;
 using Demos.Complex.Interfaces;
 using Demos.Complex.Sensors.World;
 
-namespace Demos.Complex.Factories
+namespace Demos.Complex.Factories.Extensions
 {
     public static class WorldSensorExtensions
     {

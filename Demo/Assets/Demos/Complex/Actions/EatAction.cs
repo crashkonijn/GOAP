@@ -5,14 +5,21 @@ using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using Demos.Complex.Behaviours;
+using Demos.Complex.Goap;
 using Demos.Complex.Interfaces;
 using Demos.Shared.Behaviours;
 using UnityEngine;
 
 namespace Demos.Complex.Actions
 {
-    public class EatAction : ActionBase<EatAction.Data>
+    public class EatAction : ActionBase<EatAction.Data>, IInjectable
     {
+        private InstanceHandler instanceHandler;
+
+        public void Inject(GoapInjector injector)
+        {
+            this.instanceHandler = injector.instanceHandler;
+        }
 
         public override void OnStart(IMonoAgent agent, Data data)
         {
@@ -28,17 +35,26 @@ namespace Demos.Complex.Actions
             data.Eatable.NutritionValue -= eatNutrition;
             data.Hunger.hunger -= eatNutrition;
 
+            if (data.Hunger.hunger <= 20f)
+                return ActionRunState.Stop;
+
             if (data.Eatable.NutritionValue > 0)
                 return ActionRunState.Continue;
 
-            data.Inventory.Remove(data.Eatable);
-            GameObject.Destroy(data.Eatable.gameObject);
+            if (data.Eatable == null)
+                return ActionRunState.Stop;
+            
+            this.instanceHandler.Destroy(data.Eatable);
             
             return ActionRunState.Stop;
         }
 
         public override void OnEnd(IMonoAgent agent, Data data)
         {
+            if (data.Eatable == null)
+                return;
+            
+            data.Inventory.Add(data.Eatable);
         }
         
         public class Data : IActionData

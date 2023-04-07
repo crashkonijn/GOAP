@@ -20,7 +20,7 @@ namespace Demos.Complex.Sensors.World
             if (inventory == null)
                 return false;
 
-            return inventory.Has<T>();
+            return inventory.Count<T>();
         }
     }
 }

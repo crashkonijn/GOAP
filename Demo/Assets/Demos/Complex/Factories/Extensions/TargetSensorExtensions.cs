@@ -4,8 +4,9 @@ using Demos.Complex.Interfaces;
 using Demos.Complex.Sensors.Target;
 using Demos.Shared.Sensors.Target;
 using Demos.Simple.Sensors.Target;
+using UnityEngine;
 
-namespace Demos.Complex.Factories
+namespace Demos.Complex.Factories.Extensions
 {
     public static class TargetSensorExtensions
     {
@@ -25,6 +26,13 @@ namespace Demos.Complex.Factories
             where T : IHoldable
         {
             builder.AddTargetSensor<ClosestItemSensor<T>>()
+                .SetTarget<T>(Targets.ClosestTarget);
+        }
+        
+        public static void AddClosestObjectTargetSensor<T>(this GoapSetBuilder builder)
+            where T : MonoBehaviour
+        {
+            builder.AddTargetSensor<ClosestObjectSensor<T>>()
                 .SetTarget<T>(Targets.ClosestTarget);
         }
 

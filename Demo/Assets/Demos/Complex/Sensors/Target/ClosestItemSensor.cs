@@ -22,7 +22,7 @@ namespace Demos.Complex.Sensors.Target
         
         public override void Update()
         {
-            this.items = this.collection.Get<T>();
+            this.items = this.collection.GetFiltered<T>(false, true, false);
         }
 
         public override ITarget Sense(IMonoAgent agent)

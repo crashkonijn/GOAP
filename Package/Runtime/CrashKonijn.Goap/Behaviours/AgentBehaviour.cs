@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
 {
+    public delegate void ActionDelegate(IActionBase action);
+    public delegate void GoalDelegate(IGoalBase goal);
+    
     public interface IMonoAgent : IAgent, IMonoBehaviour
     {
         
@@ -14,6 +17,11 @@ namespace CrashKonijn.Goap.Behaviours
     
     public interface IAgent
     {
+        event ActionDelegate OnActionStart;
+        event ActionDelegate OnActionStop;
+        event GoalDelegate OnGoalStart;
+        event GoalDelegate OnNoActionFound;
+        
         AgentState State { get; }
         IGoapSet GoapSet { get; }
         IGoalBase CurrentGoal { get; }
@@ -28,16 +36,22 @@ namespace CrashKonijn.Goap.Behaviours
 
         void SetGoal(IGoalBase goal, bool endAction);
         void SetAction(IActionBase action, List<IActionBase> path, ITarget target);
+        internal void FailedResolve();
     }
 
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
+        public event ActionDelegate OnActionStart;
+        public event ActionDelegate OnActionStop;
+        public event GoalDelegate OnGoalStart;
+        public event GoalDelegate OnNoActionFound;
+        
         private IAgentMover mover;
         
         public GoapSetBehaviour goapSet;
 
         public IAgentMover Mover => this.mover;
-
+        
         public AgentState State { get; private set; } = AgentState.NoAction;
         public IGoapSet GoapSet { get; set; }
         public IGoalBase CurrentGoal { get; private set; }
@@ -47,7 +61,6 @@ namespace CrashKonijn.Goap.Behaviours
         public List<IActionBase> CurrentActionPath { get; private set; } = new List<IActionBase>();
         
         private DataReferenceInjector injector;
-        
 
         private void Awake()
         {
@@ -133,6 +146,8 @@ namespace CrashKonijn.Goap.Behaviours
             if (this.CurrentAction == null)
                 this.GoapSet.Agents.Enqueue(this);
             
+            this.OnGoalStart?.Invoke(goal);
+            
             if (endAction)
                 this.EndAction();
         }
@@ -152,16 +167,24 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentActionData.Target = target;
             this.CurrentAction.OnStart(this, this.CurrentActionData);
             this.CurrentActionPath = path;
+            this.OnActionStart?.Invoke(action);
         }
 
+        void IAgent.FailedResolve()
+        {
+            this.OnNoActionFound?.Invoke(this.CurrentGoal);
+        }
 
         private void EndAction()
         {
+            var action = this.CurrentAction;
+            
             this.CurrentAction?.OnEnd(this, this.CurrentActionData);
             this.CurrentAction = null;
             this.CurrentActionData = null;
             
             this.GoapSet.Agents.Enqueue(this);
+            this.OnActionStop?.Invoke(action);
         }
     }
 }

@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
 using CrashKonijn.Goap.Classes.Builders;
 using CrashKonijn.Goap.Resolver;
 using Demos.Complex.Actions;
 using Demos.Complex.Behaviours;
 using Demos.Complex.Classes;
 using Demos.Complex.Classes.Items;
+using Demos.Complex.Classes.Sources;
 using Demos.Complex.Interfaces;
 using Demos.Shared.Actions;
 
-namespace Demos.Complex.Factories
+namespace Demos.Complex.Factories.Extensions
 {
     public static class ActionExtensions
     {
@@ -30,22 +29,33 @@ namespace Demos.Complex.Factories
                 .AddCondition<T>(WorldKeys.IsInWorld, Comparison.GreaterThanOrEqual, 1);
         }
         
-        public static void AddGatherItemAction<T>(this GoapSetBuilder builder)
-            where T : ItemBase, IHoldable
+        public static void AddGatherItemAction<TGatherable, TRequired>(this GoapSetBuilder builder)
+            where TGatherable : ItemBase, IGatherable
+            where TRequired : IHoldable
         {
-            builder.AddAction<GatherItem<T>>()
-                .SetTarget<T>(Targets.ClosestSourceTarget)
-                .AddEffect<T>(WorldKeys.IsInWorld, true);
+            builder.AddAction<GatherItemAction<TGatherable>>()
+                .SetTarget<TGatherable>(Targets.ClosestSourceTarget)
+                .AddEffect<TGatherable>(WorldKeys.IsInWorld, true)
+                .AddCondition<TRequired>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 1);
+        }
+        
+        public static void AddGatherItemSlowAction<TGatherable>(this GoapSetBuilder builder)
+            where TGatherable : ItemBase, IGatherable
+        {
+            builder.AddAction<GatherItemAction<TGatherable>>()
+                .SetTarget<TGatherable>(Targets.ClosestSourceTarget)
+                .AddEffect<TGatherable>(WorldKeys.IsInWorld, true)
+                .SetBaseCost(3);
         }
         
         public static void AddCreateItemAction<T>(this GoapSetBuilder builder)
-            where T : ICreatable
+            where T : ItemBase, ICreatable
         {
             var action = builder.AddAction<CreateItemAction<T>>()
-                .SetTarget(Targets.TransformTarget)
+                .SetTarget<Anvil>(Targets.ClosestTarget)
                 .AddEffect<T>(WorldKeys.CreatedItem, true);
             
-            if (typeof(T) == typeof(Pickaxe))
+            if (typeof(T) == typeof(Axe))
             {
                 action
                     .AddCondition<Iron>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 1)
@@ -53,7 +63,7 @@ namespace Demos.Complex.Factories
                 return;
             }
             
-            if (typeof(T) == typeof(Axe))
+            if (typeof(T) == typeof(Pickaxe))
             {
                 action
                     .AddCondition<Iron>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 2)

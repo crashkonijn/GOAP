@@ -16,7 +16,7 @@ namespace Demos.Complex.Sensors.World
         
         public override SenseValue Sense()
         {
-            return this.collection.Count();
+            return this.collection.Count(false, false);
         }
     }
 }

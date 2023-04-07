@@ -1,5 +1,4 @@
-﻿using System;
-using Demos.Complex.Interfaces;
+﻿using Demos.Complex.Interfaces;
 using UnityEngine;
 
 namespace Demos.Complex.Behaviours
@@ -7,7 +6,15 @@ namespace Demos.Complex.Behaviours
     public abstract class ItemBase : MonoBehaviour, IHoldable
     {
         private ItemCollection collection;
+        
+        [field: SerializeField]
         public bool IsHeld { get; private set; }
+        
+        [field: SerializeField]
+        public bool IsInBox { get; private set; }
+        
+        [field: SerializeField]
+        public bool IsClaimed { get; private set; }
 
         public void Awake()
         {
@@ -24,10 +31,21 @@ namespace Demos.Complex.Behaviours
             this.collection.Remove(this);
         }
 
-        public void Pickup()
+        public void Claim()
+        {
+            this.IsClaimed = true;
+        }
+
+        public void Pickup(bool visible = false)
         {
             this.IsHeld = true;
-            this.collection.Remove(this);
+            this.IsInBox = false;
+
+            if (visible)
+                return;
+
+            if (this == null || this.gameObject == null)
+                return;
             
             foreach (var renderer in this.GetComponentsInChildren<SpriteRenderer>())
             {
@@ -35,10 +53,11 @@ namespace Demos.Complex.Behaviours
             }
         }
 
-        public void Drop()
+        public void Drop(bool inBox = false)
         {
             this.IsHeld = false;
-            this.collection.Add(this);
+            this.IsInBox = inBox;
+            this.IsClaimed = false;
             
             foreach (var renderer in this.GetComponentsInChildren<SpriteRenderer>())
             {
