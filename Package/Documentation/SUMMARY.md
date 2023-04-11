@@ -1,0 +1,16 @@
+﻿# Summary
+
+* [Introduction](Introduction/README.md)
+  * [Getting Started](Introduction/GettingStarted.md)
+  * [What is Goap?](Introduction/Theory.md)
+* [Config](Config/README.md)
+  * [ScriptableObjects](Config/ScriptableObjects.md)
+  * [Code](Config/Code.md)
+* [Classes](Classes/README.md)
+  * [Goals](Classes/Goals.md)
+  * [Actions](Classes/Actions.md)
+  * [AgentBehaviour](Classes/AgentBehaviour.md)
+  * [GoapSet](Classes/GoapSet.md)
+  * [Sensors](Classes/Sensors.md)
+  * [TargetKeys](Classes/TargetKeys.md)
+  * [WorldKeys](Classes/WorldKeys.md)
