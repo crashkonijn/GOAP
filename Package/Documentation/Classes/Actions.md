@@ -60,6 +60,11 @@ namespace Demos.Actions
 {
     public class WanderAction : ActionBase<WanderAction.Data>
     {
+        // This methods is called when the action is created. It is used to initialize the action.
+        public override void Created()
+        {
+        }
+    
         // This method is called when the action is started. It is used to initialize the action.
         public override void OnStart(IMonoAgent agent, Data data)
         {
@@ -102,6 +107,10 @@ namespace Demos.Simple.Actions
 {
     public class EatAppleAction : ActionBase<EatAppleAction.Data>
     {
+        public override void Created()
+        {
+        }
+    
         public override void OnStart(IMonoAgent agent, Data data)
         {
             if (data.Target is not TransformTarget)

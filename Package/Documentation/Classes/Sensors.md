@@ -25,16 +25,27 @@ To create a new `WorldSensor`, create a new class that inherits from `LocalWorld
 {% code title="IsHungrySensor.cs" lineNumbers="true" %}
 ```csharp
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Sensors;
-using Demos.Behaviours;
+using Demos.Shared.Behaviours;
 
-namespace Demos.Sensors.World
+namespace Demos.Simple.Sensors.World
 {
     public class IsHungrySensor : LocalWorldSensorBase
     {
-        public override bool Sense(IMonoAgent agent)
+        public override void Created()
         {
-            var hungerBehaviour = agent.GetComponent<HungerBehaviour>();
+        }
+
+        public override void Update()
+        {
+        }
+
+        public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
+        {
+            // References are cached by the agent.
+            var hungerBehaviour = references.GetComponent<HungerBehaviour>();
 
             if (hungerBehaviour == null)
                 return false;
@@ -67,21 +78,37 @@ To create a new `TargetSensor`, create a new class that inherits from `LocalTarg
 
 {% code title="ClosestAppleSensor.cs" lineNumbers="true" %}
 ```csharp
-using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Sensors;
-using Demos.Behaviours;
+using Demos.Simple.Behaviours;
 using UnityEngine;
 
-namespace Demos.Sensors.Target
+namespace Demos.Simple.Sensors.Target
 {
     public class ClosestAppleSensor : LocalTargetSensorBase
     {
-        public override ITarget Sense(IMonoAgent agent)
+        private AppleCollection apples;
+
+        public override void Created()
         {
-            return new TransformTarget(GameObject.FindObjectsOfType<AppleBehaviour>().Where(x => x.GetComponent<Renderer>().enabled).Closest(agent.transform.position).transform);
+            this.apples = GameObject.FindObjectOfType<AppleCollection>();
+        }
+
+        public override void Update()
+        {
+        }
+
+        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        {
+            var closestApple = this.apples.Get().Closest(agent.transform.position);
+
+            if (closestApple is null)
+                return null;
+            
+            return new TransformTarget(closestApple.transform);
         }
     }
 }
@@ -92,18 +119,41 @@ namespace Demos.Sensors.Target
 ```csharp
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Sensors;
 using UnityEngine;
 
-namespace Demos.Sensors.Target
+namespace Demos.Simple.Sensors.Target
 {
     public class WanderTargetSensor : LocalTargetSensorBase
     {
-        public override ITarget Sense(IMonoAgent agent)
+        private static readonly Vector2 Bounds = new Vector2(15, 8);
+
+        public override void Created()
         {
-            var random = Random.insideUnitCircle * 10f;
-            return new PositionTarget(agent.transform.position + new Vector3(random.x, 0f, random.y));
+        }
+
+        public override void Update()
+        {
+        }
+
+        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        {
+            var random = this.GetRandomPosition(agent);
+            
+            return new PositionTarget(random);
+        }
+
+        private Vector3 GetRandomPosition(IMonoAgent agent)
+        {
+            var random =  Random.insideUnitCircle * 5f;
+            var position = agent.transform.position + new Vector3(random.x, 0f, random.y);
+            
+            if (position.x > -Bounds.x && position.x < Bounds.x && position.z > -Bounds.y && position.z < Bounds.y)
+                return position;
+
+            return this.GetRandomPosition(agent);
         }
     }
 }
