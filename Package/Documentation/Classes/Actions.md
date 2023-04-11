@@ -68,7 +68,6 @@ namespace Demos.Actions
         // This method is called when the action is started. It is used to initialize the action.
         public override void OnStart(IMonoAgent agent, Data data)
         {
-            
         }
 
         // This method is called every frame while the action is running. It is used to perform the action.
