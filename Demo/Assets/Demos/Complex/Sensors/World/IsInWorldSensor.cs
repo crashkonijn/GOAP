@@ -8,13 +8,13 @@ namespace Demos.Complex.Sensors.World
 {
     public class IsInWorldSensor<T> : GlobalWorldSensorBase where T : IHoldable
     {
-        private readonly ItemCollection collection;
+        private ItemCollection collection;
 
-        public IsInWorldSensor()
+        public override void Created()
         {
             this.collection = GameObject.FindObjectOfType<ItemCollection>();
         }
-        
+
         public override SenseValue Sense()
         {
             return this.collection.GetFiltered<T>(false, true, false).Length;

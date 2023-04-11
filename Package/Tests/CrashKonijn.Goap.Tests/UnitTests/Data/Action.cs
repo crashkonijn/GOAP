@@ -7,6 +7,9 @@ namespace CrashKonijn.Goap.UnitTests.Data
 {
     public class Action : ActionBase<Action.Data>
     {
+        public override void Created()
+        {
+        }
 
         public override void Start(IMonoAgent agent, Data data)
         {

@@ -13,6 +13,7 @@ namespace CrashKonijn.Goap.Sensors
         public ITargetSensorConfig Config { get; private set; }
         public void SetConfig(ITargetSensorConfig config) => this.Config = config;
         
+        public abstract void Created();
         public abstract void Update();
         public abstract ITarget Sense(IMonoAgent agent, IComponentReference references);
     }

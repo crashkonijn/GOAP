@@ -8,6 +8,10 @@ namespace Demos.Shared.Actions
 {
     public class WanderAction : ActionBase<WanderAction.Data>
     {
+        public override void Created()
+        {
+        }
+
         public override void Start(IMonoAgent agent, Data data)
         {
             data.Timer = Random.Range(0.3f, 1f);

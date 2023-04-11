@@ -7,6 +7,11 @@ namespace Demos.Simple.Sensors.World
 {
     public class IsAliveSensor : LocalWorldSensorBase
     {
+        public override void Created()
+        {
+            
+        }
+
         public override void Update()
         {
             

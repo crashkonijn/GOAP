@@ -8,6 +8,11 @@ namespace Demos.Simple.Sensors.World
 {
     public class HasAppleSensor : LocalWorldSensorBase
     {
+        public override void Created()
+        {
+            
+        }
+
         public override void Update()
         {
             

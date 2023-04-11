@@ -24,7 +24,7 @@ namespace CrashKonijn.Goap.Behaviours
             return new TActionData();
         }
 
-        public override void OnStart(IMonoAgent agent, IActionData data) => this.Start(agent, (TActionData) data);
+        public override void Start(IMonoAgent agent, IActionData data) => this.Start(agent, (TActionData) data);
         
         public abstract void Start(IMonoAgent agent, TActionData data);
 
@@ -32,7 +32,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         public abstract ActionRunState Perform(IMonoAgent agent, TActionData data, ActionContext context);
 
-        public override void OnEnd(IMonoAgent agent, IActionData data) => this.End(agent, (TActionData) data);
+        public override void End(IMonoAgent agent, IActionData data) => this.End(agent, (TActionData) data);
         
         public abstract void End(IMonoAgent agent, TActionData data);
     }
@@ -67,8 +67,9 @@ namespace CrashKonijn.Goap.Behaviours
         }
 
         public abstract IActionData GetData();
+        public abstract void Created();
         public abstract ActionRunState Perform(IMonoAgent agent, IActionData data, ActionContext context);
-        public abstract void OnStart(IMonoAgent agent, IActionData data);
-        public abstract void OnEnd(IMonoAgent agent, IActionData data);
+        public abstract void Start(IMonoAgent agent, IActionData data);
+        public abstract void End(IMonoAgent agent, IActionData data);
     }
 }

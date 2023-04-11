@@ -10,13 +10,14 @@ namespace CrashKonijn.Goap.Interfaces
 
     public interface IActionBase : IAction, IHasConfig<IActionConfig>
     {
-        public IActionConfig Config { get; }
-        public float GetDistanceCost(ITarget currentTarget, ITarget otherTarget);
-        public int GetCost(IWorldData data);
+        IActionConfig Config { get; }
+        float GetDistanceCost(ITarget currentTarget, ITarget otherTarget);
+        int GetCost(IWorldData data);
 
-        public IActionData GetData();
+        IActionData GetData();
+        void Created();
         public ActionRunState Perform(IMonoAgent agent, IActionData data, ActionContext context);
-        public void OnStart(IMonoAgent agent, IActionData data);
-        public void OnEnd(IMonoAgent agent, IActionData data);
+        void Start(IMonoAgent agent, IActionData data);
+        void End(IMonoAgent agent, IActionData data);
     }
 }

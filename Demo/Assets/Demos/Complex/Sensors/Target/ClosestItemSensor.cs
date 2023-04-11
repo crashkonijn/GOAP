@@ -13,14 +13,14 @@ namespace Demos.Complex.Sensors.Target
     public class ClosestItemSensor<T> : LocalTargetSensorBase
         where T : IHoldable
     {
-        private readonly ItemCollection collection;
+        private ItemCollection collection;
         private T[] items;
 
-        public ClosestItemSensor()
+        public override void Created()
         {
             this.collection = GameObject.FindObjectOfType<ItemCollection>();
         }
-        
+
         public override void Update()
         {
             this.items = this.collection.GetFiltered<T>(false, true, false);

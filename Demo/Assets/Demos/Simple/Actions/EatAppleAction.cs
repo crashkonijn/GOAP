@@ -10,6 +10,10 @@ namespace Demos.Simple.Actions
 {
     public class EatAppleAction : ActionBase<EatAppleAction.Data>
     {
+        public override void Created()
+        {
+        }
+
         public override void Start(IMonoAgent agent, Data data)
         {
             if (data.Target is not TransformTarget)

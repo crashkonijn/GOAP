@@ -7,6 +7,11 @@ namespace CrashKonijn.Goap.UnitTests.Data
 {
     public class LocalWorldSensor : LocalWorldSensorBase
     {
+        public override void Created()
+        {
+            
+        }
+
         public override void Update()
         {
         }

@@ -12,7 +12,7 @@ namespace Demos.Simple.Sensors.Target
     {
         private AppleCollection apples;
 
-        public ClosestAppleSensor()
+        public override void Created()
         {
             this.apples = GameObject.FindObjectOfType<AppleCollection>();
         }

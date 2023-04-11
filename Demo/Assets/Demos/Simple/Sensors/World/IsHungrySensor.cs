@@ -9,6 +9,11 @@ namespace Demos.Simple.Sensors.World
 {
     public class IsHungrySensor : LocalWorldSensorBase
     {
+        public override void Created()
+        {
+            
+        }
+
         public override void Update()
         {
             

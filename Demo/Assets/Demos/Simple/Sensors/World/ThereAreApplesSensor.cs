@@ -7,13 +7,13 @@ namespace Demos.Simple.Sensors.World
 {
     public class ThereAreApplesSensor : GlobalWorldSensorBase
     {
-        private readonly AppleCollection apples;
-
-        public ThereAreApplesSensor()
+        private AppleCollection apples;
+        
+        public override void Created()
         {
             this.apples = GameObject.FindObjectOfType<AppleCollection>();
         }
-        
+
         public override SenseValue Sense()
         {
             return this.apples.Any();

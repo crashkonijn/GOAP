@@ -20,6 +20,10 @@ namespace Demos.Complex.Actions
         {
             this.itemCollection = injector.itemCollection;
         }
+
+        public override void Created()
+        {
+        }
         
         public override void Start(IMonoAgent agent, Data data)
         {

@@ -12,6 +12,10 @@ namespace Demos.Complex.Sensors.Target
     {
         private T[] items;
 
+        public override void Created()
+        {
+        }
+
         public override void Update()
         {
             this.items = GameObject.FindObjectsOfType<T>();

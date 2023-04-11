@@ -10,6 +10,11 @@ namespace Demos.Complex.Sensors.World
     public class IsHoldingSensor<T> : LocalWorldSensorBase
         where T : IHoldable
     {
+        public override void Created()
+        {
+            
+        }
+
         public override void Update()
         {
         }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
+﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Interfaces;
@@ -15,7 +14,7 @@ namespace Demos.Complex.Sensors.Target
     {
         private ItemSourceBase<T>[] collection;
         
-        public ClosestSourceSensor()
+        public override void Created()
         {
             this.collection = GameObject.FindObjectsOfType<ItemSourceBase<T>>();
         }

@@ -21,6 +21,10 @@ namespace Demos.Complex.Actions
             this.instanceHandler = injector.instanceHandler;
         }
 
+        public override void Created()
+        {
+        }
+
         public override void Start(IMonoAgent agent, Data data)
         {
             data.Eatable = data.Inventory.Get<IEatable>().FirstOrDefault();

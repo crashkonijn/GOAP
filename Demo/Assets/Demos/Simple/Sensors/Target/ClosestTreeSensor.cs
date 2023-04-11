@@ -10,13 +10,13 @@ namespace Demos.Simple.Sensors.Target
 {
     public class ClosestTreeSensor : LocalTargetSensorBase
     {
-        private readonly TreeBehaviour[] trees;
+        private TreeBehaviour[] trees;
 
-        public ClosestTreeSensor()
-        {
+        public override void Created()
+        {            
             this.trees = GameObject.FindObjectsOfType<TreeBehaviour>();
         }
-        
+
         public override void Update()
         {
         }

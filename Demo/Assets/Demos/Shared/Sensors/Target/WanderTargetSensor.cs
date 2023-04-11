@@ -11,6 +11,10 @@ namespace Demos.Simple.Sensors.Target
     {
         private static readonly Vector2 Bounds = new Vector2(15, 8);
 
+        public override void Created()
+        {
+        }
+
         public override void Update()
         {
             

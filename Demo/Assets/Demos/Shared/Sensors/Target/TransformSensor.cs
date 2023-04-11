@@ -8,6 +8,10 @@ namespace Demos.Shared.Sensors.Target
 {
     public class TransformSensor : LocalTargetSensorBase
     {
+        public override void Created()
+        {
+        }
+
         public override void Update()
         {
             

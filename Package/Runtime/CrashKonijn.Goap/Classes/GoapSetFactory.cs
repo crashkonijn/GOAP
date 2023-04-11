@@ -39,7 +39,11 @@ namespace CrashKonijn.Goap.Classes
             var actions = new ClassResolver().Load<IActionBase, IActionConfig>(config.Actions);
             var injector = this.goapConfig.GoapInjector;
             
-            actions.ForEach(x => injector.Inject(x));
+            actions.ForEach(x =>
+            {
+                injector.Inject(x);
+                x.Created();
+            });
 
             return actions;
         }
@@ -49,7 +53,10 @@ namespace CrashKonijn.Goap.Classes
             var goals = new ClassResolver().Load<IGoalBase, IGoalConfig>(config.Goals);
             var injector = this.goapConfig.GoapInjector;
             
-            goals.ForEach(x => injector.Inject(x));
+            goals.ForEach(x =>
+            {
+                injector.Inject(x);
+            });
 
             return goals;
         }
@@ -59,7 +66,11 @@ namespace CrashKonijn.Goap.Classes
             var worldSensors = new ClassResolver().Load<IWorldSensor, IWorldSensorConfig>(config.WorldSensors);
             var injector = this.goapConfig.GoapInjector;
             
-            worldSensors.ForEach(x => injector.Inject(x));
+            worldSensors.ForEach(x =>
+            {
+                injector.Inject(x);
+                x.Created();
+            });
             
             return worldSensors;
         }
@@ -69,7 +80,11 @@ namespace CrashKonijn.Goap.Classes
             var targetSensors = new ClassResolver().Load<ITargetSensor, ITargetSensorConfig>(config.TargetSensors);
             var injector = this.goapConfig.GoapInjector;
             
-            targetSensors.ForEach(x => injector.Inject(x));
+            targetSensors.ForEach(x =>
+            {
+                injector.Inject(x);
+                x.Created();
+            });
             
             return targetSensors;
         }

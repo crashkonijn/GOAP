@@ -15,10 +15,13 @@ namespace Demos.Complex.Actions
     {
         private ItemCollection itemCollection;
 
-
         public void Inject(GoapInjector injector)
         {
             this.itemCollection = injector.itemCollection;
+        }
+
+        public override void Created()
+        {
         }
 
         public override void Start(IMonoAgent agent, Data data)

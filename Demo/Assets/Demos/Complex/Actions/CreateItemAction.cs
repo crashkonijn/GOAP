@@ -18,11 +18,14 @@ namespace Demos.Complex.Actions
         private ItemFactory itemFactory;
         private InstanceHandler instanceHandler;
 
-
         public void Inject(GoapInjector injector)
         {
             this.itemFactory = injector.itemFactory;
             this.instanceHandler = injector.instanceHandler;
+        }
+
+        public override void Created()
+        {
         }
         
         public override void Start(IMonoAgent agent, Data data)

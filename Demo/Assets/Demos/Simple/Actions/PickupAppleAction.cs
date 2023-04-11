@@ -9,6 +9,10 @@ namespace Demos.Simple.Actions
 {
     public class PickupAppleAction : ActionBase<PickupAppleAction.Data>
     {
+        public override void Created()
+        {
+        }
+        
         public override void Start(IMonoAgent agent, Data data)
         {
         }
