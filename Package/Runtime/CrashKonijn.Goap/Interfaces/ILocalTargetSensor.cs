@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes.References;
 
 namespace CrashKonijn.Goap.Interfaces
 {
@@ -6,6 +7,6 @@ namespace CrashKonijn.Goap.Interfaces
     {
         public void Update();
         
-        public ITarget Sense(IMonoAgent agent);
+        public ITarget Sense(IMonoAgent agent, IComponentReference references);
     }
 }

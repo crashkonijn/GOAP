@@ -2,10 +2,22 @@
 using System.Collections.Generic;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes.References
 {
-    public class DataReferenceInjector
+    public interface IComponentReference
+    {
+        T GetComponent<T>()
+            where T : MonoBehaviour;
+    }
+
+    public interface IDataReferenceInjector : IComponentReference
+    {
+        void Inject(IActionData data);
+    }
+
+    public class DataReferenceInjector : IDataReferenceInjector
     {
         private readonly IMonoAgent agent;
         private readonly Dictionary<Type, object> references = new();
@@ -28,24 +40,25 @@ namespace CrashKonijn.Goap.Classes.References
                 if (attributes.Length == 0)
                     continue;
                 
-                // get the type of the property
-                var propertyType = property.PropertyType;
-                
-                // check if we have a reference for this type
-                if (!this.references.ContainsKey(propertyType))
-                    this.GetComponentReference(propertyType);
-                
-                // get the reference
-                var reference = this.references[propertyType];
-                
                 // set the reference
-                property.SetValue(data, reference);
+                property.SetValue(data, this.GetComponentReference(property.PropertyType));
             }
         }
 
-        private void GetComponentReference(Type type)
+        private object GetComponentReference(Type type)
         {
-            this.references.Add(type, this.agent.GetComponent(type));
+            // check if we have a reference for this type
+            if (!this.references.ContainsKey(type))
+                this.references.Add(type, this.agent.GetComponent(type));
+                
+            // get the reference
+            return this.references[type];
+        }
+
+        public T GetComponent<T>()
+            where T : MonoBehaviour
+        {
+            return (T) this.GetComponentReference(typeof(T));
         }
     }
 }

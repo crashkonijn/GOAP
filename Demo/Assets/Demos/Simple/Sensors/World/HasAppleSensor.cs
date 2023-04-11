@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Sensors;
 using Demos.Simple.Behaviours;
 
@@ -12,9 +13,9 @@ namespace Demos.Simple.Sensors.World
             
         }
 
-        public override SenseValue Sense(IMonoAgent agent)
+        public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
-            var inventory = agent.GetComponent<InventoryBehaviour>();
+            var inventory = references.GetComponent<InventoryBehaviour>();
 
             if (inventory == null)
                 return false;

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Sensors;
 using Demos.Complex.Behaviours;
@@ -25,7 +26,7 @@ namespace Demos.Complex.Sensors.Target
             this.items = this.collection.GetFiltered<T>(false, true, false);
         }
 
-        public override ITarget Sense(IMonoAgent agent)
+        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
         {
             var closest = this.items.Cast<ItemBase>().Closest(agent.transform.position);
             

@@ -25,6 +25,7 @@ namespace CrashKonijn.Goap.Behaviours
         IWorldData WorldData { get; }
         List<IActionBase> CurrentActionPath { get; }
         IAgentEvents Events { get; }
+        IDataReferenceInjector Injector { get; }
 
         void Run();
         
@@ -78,8 +79,6 @@ namespace CrashKonijn.Goap.Behaviours
 
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
-
-        
         private IAgentMover mover;
         
         public GoapSetBehaviour goapSet;
@@ -94,12 +93,11 @@ namespace CrashKonijn.Goap.Behaviours
         public IWorldData WorldData { get; } = new LocalWorldData();
         public List<IActionBase> CurrentActionPath { get; private set; } = new List<IActionBase>();
         public IAgentEvents Events { get; } = new AgentEvents();
-        
-        private DataReferenceInjector injector;
+        public IDataReferenceInjector Injector { get; private set; }
 
         private void Awake()
         {
-            this.injector = new DataReferenceInjector(this);
+            this.Injector = new DataReferenceInjector(this);
             this.mover = this.GetComponent<IAgentMover>();
             
             if (this.goapSet != null)
@@ -197,7 +195,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentAction = action;
 
             var data = action.GetData();
-            this.injector.Inject(data);
+            this.Injector.Inject(data);
             this.CurrentActionData = data;
             this.CurrentActionData.Target = target;
             this.CurrentAction.OnStart(this, this.CurrentActionData);

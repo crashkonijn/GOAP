@@ -81,12 +81,12 @@ namespace CrashKonijn.Goap.Classes.Runners
             
             foreach (var localWorldSensor in this.localWorldSensors)
             {
-                this.localWorldData.SetState(localWorldSensor.Key, localWorldSensor.Sense(agent));
+                this.localWorldData.SetState(localWorldSensor.Key, localWorldSensor.Sense(agent, agent.Injector));
             }
             
             foreach (var localTargetSensor in this.localTargetSensors)
             {
-                this.localWorldData.SetTarget(localTargetSensor.Key, localTargetSensor.Sense(agent));
+                this.localWorldData.SetTarget(localTargetSensor.Key, localTargetSensor.Sense(agent, agent.Injector));
             }
             
             return this.localWorldData;

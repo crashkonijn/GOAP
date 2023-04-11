@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 
@@ -13,6 +14,6 @@ namespace CrashKonijn.Goap.Sensors
         public void SetConfig(IWorldSensorConfig config) => this.Config = config;
 
         public abstract void Update();
-        public abstract SenseValue Sense(IMonoAgent agent);
+        public abstract SenseValue Sense(IMonoAgent agent, IComponentReference references);
     }
 }

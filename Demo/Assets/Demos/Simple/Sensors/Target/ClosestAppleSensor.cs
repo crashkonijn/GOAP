@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Sensors;
 using Demos.Simple.Behaviours;
@@ -21,7 +22,7 @@ namespace Demos.Simple.Sensors.Target
             
         }
 
-        public override ITarget Sense(IMonoAgent agent)
+        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
         {
             var closestApple = this.apples.Get().Closest(agent.transform.position);
 

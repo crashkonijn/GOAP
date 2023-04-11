@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
@@ -13,6 +14,6 @@ namespace CrashKonijn.Goap.Sensors
         public void SetConfig(ITargetSensorConfig config) => this.Config = config;
         
         public abstract void Update();
-        public abstract ITarget Sense(IMonoAgent agent);
+        public abstract ITarget Sense(IMonoAgent agent, IComponentReference references);
     }
 }
