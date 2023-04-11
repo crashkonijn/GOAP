@@ -27,12 +27,12 @@ namespace Demos.Complex.Behaviours
 
         private void OnEnable()
         {
-            this.agent.OnNoActionFound += this.OnNoActionFound;
+            this.agent.Events.OnNoActionFound += this.OnNoActionFound;
         }
 
         private void OnDisable()
         {
-            this.agent.OnNoActionFound -= this.OnNoActionFound;
+            this.agent.Events.OnNoActionFound -= this.OnNoActionFound;
         }
 
         private void Start()

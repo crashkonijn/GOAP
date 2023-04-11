@@ -17,11 +17,6 @@ namespace CrashKonijn.Goap.Behaviours
     
     public interface IAgent
     {
-        event ActionDelegate OnActionStart;
-        event ActionDelegate OnActionStop;
-        event GoalDelegate OnGoalStart;
-        event GoalDelegate OnNoActionFound;
-        
         AgentState State { get; }
         IGoapSet GoapSet { get; }
         IGoalBase CurrentGoal { get; }
@@ -29,6 +24,7 @@ namespace CrashKonijn.Goap.Behaviours
         IActionData CurrentActionData { get; }
         IWorldData WorldData { get; }
         List<IActionBase> CurrentActionPath { get; }
+        IAgentEvents Events { get; }
 
         void Run();
         
@@ -36,15 +32,53 @@ namespace CrashKonijn.Goap.Behaviours
 
         void SetGoal(IGoalBase goal, bool endAction);
         void SetAction(IActionBase action, List<IActionBase> path, ITarget target);
-        internal void FailedResolve();
+    }
+
+    public interface IAgentEvents
+    {
+        event ActionDelegate OnActionStart;
+        void ActionStart(IActionBase action);
+        
+        event ActionDelegate OnActionStop;
+        void ActionStop(IActionBase action);
+        
+        event GoalDelegate OnGoalStart;
+        void GoalStart(IGoalBase goal);
+        
+        event GoalDelegate OnNoActionFound;
+        void NoActionFound(IGoalBase goal);
+    }
+    
+    public class AgentEvents : IAgentEvents
+    {
+        public event ActionDelegate OnActionStart;
+        public void ActionStart(IActionBase action)
+        {
+            this.OnActionStart?.Invoke(action);
+        }
+        
+        public event ActionDelegate OnActionStop;
+        public void ActionStop(IActionBase action)
+        {
+            this.OnActionStop?.Invoke(action);
+        }
+        
+        public event GoalDelegate OnGoalStart;
+        public void GoalStart(IGoalBase goal)
+        {
+            this.OnGoalStart?.Invoke(goal);
+        }
+        
+        public event GoalDelegate OnNoActionFound;
+        public void NoActionFound(IGoalBase goal)
+        {
+            this.OnNoActionFound?.Invoke(goal);
+        }
     }
 
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
-        public event ActionDelegate OnActionStart;
-        public event ActionDelegate OnActionStop;
-        public event GoalDelegate OnGoalStart;
-        public event GoalDelegate OnNoActionFound;
+
         
         private IAgentMover mover;
         
@@ -59,6 +93,7 @@ namespace CrashKonijn.Goap.Behaviours
         public IActionData CurrentActionData { get; private set; }
         public IWorldData WorldData { get; } = new LocalWorldData();
         public List<IActionBase> CurrentActionPath { get; private set; } = new List<IActionBase>();
+        public IAgentEvents Events { get; } = new AgentEvents();
         
         private DataReferenceInjector injector;
 
@@ -146,7 +181,7 @@ namespace CrashKonijn.Goap.Behaviours
             if (this.CurrentAction == null)
                 this.GoapSet.Agents.Enqueue(this);
             
-            this.OnGoalStart?.Invoke(goal);
+            this.Events.GoalStart(goal);
             
             if (endAction)
                 this.EndAction();
@@ -167,14 +202,9 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentActionData.Target = target;
             this.CurrentAction.OnStart(this, this.CurrentActionData);
             this.CurrentActionPath = path;
-            this.OnActionStart?.Invoke(action);
+            this.Events.ActionStart(action);
         }
-
-        void IAgent.FailedResolve()
-        {
-            this.OnNoActionFound?.Invoke(this.CurrentGoal);
-        }
-
+        
         private void EndAction()
         {
             var action = this.CurrentAction;
@@ -184,7 +214,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentActionData = null;
             
             this.GoapSet.Agents.Enqueue(this);
-            this.OnActionStop?.Invoke(action);
+            this.Events.ActionStop(action);
         }
     }
 }

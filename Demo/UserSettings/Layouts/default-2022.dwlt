@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Test Runner
   m_RootView: {fileID: 9}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -39,15 +39,15 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1450
+    x: 790
     y: 0
-    width: 627
-    height: 680
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 22}
+    width: 704
+    height: 719
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 23}
   m_Panes:
-  - {fileID: 22}
+  - {fileID: 23}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &3
@@ -65,15 +65,15 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 287
+    x: 199
     y: 0
-    width: 1790
-    height: 627
+    width: 1295
+    height: 588
   m_MinSize: {x: 102, y: 121}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 23}
+  m_ActualView: {fileID: 24}
   m_Panes:
-  - {fileID: 23}
+  - {fileID: 24}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &4
@@ -94,13 +94,13 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 680
-    width: 2077
-    height: 627
+    y: 719
+    width: 1494
+    height: 588
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 126
+  controlID: 147
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 162
+  controlID: 181
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,16 +141,16 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 2077
+    x: 1494
     y: 0
-    width: 483
+    width: 1066
     height: 1307
   m_MinSize: {x: 101, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 18}
+  m_ActualView: {fileID: 19}
   m_Panes:
-  - {fileID: 17}
   - {fileID: 18}
+  - {fileID: 19}
   m_Selected: 1
   m_LastSelected: 0
 --- !u!114 &7
@@ -170,13 +170,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 287
-    height: 680
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 20}
+    width: 189
+    height: 719
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 21}
   m_Panes:
-  - {fileID: 20}
+  - {fileID: 21}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &8
@@ -196,13 +196,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 287
-    height: 627
+    width: 199
+    height: 588
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 19}
+  m_ActualView: {fileID: 20}
   m_Panes:
-  - {fileID: 19}
+  - {fileID: 20}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &9
@@ -295,12 +295,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2077
+    width: 1494
     height: 1307
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 125
+  controlID: 68
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -321,12 +321,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2077
-    height: 680
+    width: 1494
+    height: 719
   m_MinSize: {x: 300, y: 50}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 55
+  controlID: 69
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -337,25 +337,133 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: NodeViewerEditorWindow
+  m_Name: SceneView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 287
+    x: 189
     y: 0
-    width: 1163
-    height: 680
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 16}
+    width: 601
+    height: 719
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 22}
   m_Panes:
-  - {fileID: 21}
+  - {fileID: 22}
+  - {fileID: 17}
   - {fileID: 16}
   - {fileID: 15}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &15
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12914, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Animator
+    m_Image: {fileID: -1673928668082335149, guid: 0000000000000000d000000000000000,
+      type: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 286
+    y: 73
+    width: 715
+    height: 698
+  m_SerializedDataModeController:
+    m_DataMode: 0
+    m_PreferredDataMode: 0
+    m_SupportedDataModes: 
+    isAutomatic: 1
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+    m_OverlaysVisible: 1
+  m_ViewTransforms:
+    m_KeySerializationHelper:
+    - {fileID: -9104339983449354374, guid: 6b5474218fde99a44ac01ae72b1d79ad, type: 2}
+    - {fileID: 3725527252063715629, guid: a0bdf39881cdaf84ca4b96e95314be87, type: 2}
+    - {fileID: 826818582054014824, guid: 3c312c88566b80346b8c94396678473a, type: 2}
+    m_ValueSerializationHelper:
+    - e00: 0.6547368
+      e01: 0
+      e02: 0
+      e03: -17.73677
+      e10: 0
+      e11: 0.6547368
+      e12: 0
+      e13: 198.5527
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0.6547368
+      e01: 0
+      e02: 0
+      e03: -17.736816
+      e10: 0
+      e11: 0.6547368
+      e12: 0
+      e13: 273.84738
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0.6547368
+      e01: 0
+      e02: 0
+      e03: -17.736816
+      e10: 0
+      e11: 0.6547368
+      e12: 0
+      e13: 270.57367
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+  m_PreviewAnimator: {fileID: 0}
+  m_AnimatorController: {fileID: 9100000, guid: 6b5474218fde99a44ac01ae72b1d79ad,
+    type: 2}
+  m_BreadCrumbs:
+  - m_Target: {fileID: -9104339983449354374, guid: 6b5474218fde99a44ac01ae72b1d79ad,
+      type: 2}
+    m_ScrollPosition: {x: 0, y: 0}
+  stateMachineGraph: {fileID: 0}
+  stateMachineGraphGUI: {fileID: 0}
+  blendTreeGraph: {fileID: 0}
+  blendTreeGraphGUI: {fileID: 0}
+  m_AutoLiveLink: 1
+  m_MiniTool: 0
+  m_LockTracker:
+    m_IsLocked: 0
+  m_CurrentEditor: 0
+  m_LayerEditor:
+    m_SelectedLayerIndex: 0
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -376,10 +484,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 311
+    x: 286
     y: 73
-    width: 1252
-    height: 930
+    width: 1052
+    height: 698
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -426,7 +534,7 @@ MonoBehaviour:
         m_FrameDataHierarchyView:
           m_Serialized: 1
           m_TreeViewState:
-            scrollPos: {x: 0, y: 64}
+            scrollPos: {x: 0, y: 26}
             m_SelectedIDs: e7000000
             m_LastClickedID: 0
             m_ExpandedIDs: 010000000300000030000000340000003d0000004200000049000000540000008c0000008e0000008f000000e7000000d3040000d1120000
@@ -575,12 +683,12 @@ MonoBehaviour:
           m_ThreadIndexInThreadNames: 0
           m_DetailedViewType: 1
           m_DetailedViewSpliterState:
-            ID: 17697
+            ID: 12728
             splitterInitialOffset: 579
             currentActiveSplitter: -1
             realSizes:
-            - 561
-            - 221
+            - 755
+            - 297
             relativeSizes:
             - 0.71801245
             - 0.28198755
@@ -590,7 +698,7 @@ MonoBehaviour:
             maxSizes:
             - 0
             - 0
-            lastTotalSize: 782
+            lastTotalSize: 1052
             splitSize: 6
             xOffset: 0
             m_Version: 1
@@ -687,12 +795,12 @@ MonoBehaviour:
               m_VisibleColumns: 00000000010000000200000003000000
               m_SortedColumns: 03000000
             m_VertSplit:
-              ID: 17778
+              ID: 12787
               splitterInitialOffset: 0
               currentActiveSplitter: -1
               realSizes:
-              - 293
-              - 125
+              - 50
+              - 50
               relativeSizes:
               - 0.7
               - 0.3
@@ -702,7 +810,7 @@ MonoBehaviour:
               maxSizes:
               - 0
               - 0
-              lastTotalSize: 418
+              lastTotalSize: 60
               splitSize: 6
               xOffset: 0
               m_Version: 1
@@ -1395,7 +1503,7 @@ MonoBehaviour:
       data:
         m_SortAscending: 0
         m_SortedColumn: -1
---- !u!114 &16
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1415,10 +1523,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 287
+    x: 286
     y: 73
-    width: 1161
-    height: 659
+    width: 847
+    height: 698
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1429,7 +1537,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
     m_OverlaysVisible: 1
---- !u!114 &17
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1450,9 +1558,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2077
+    x: 2116
     y: 73
-    width: 482
+    width: 443
     height: 1286
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1477,7 +1585,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &18
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1497,9 +1605,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2077
+    x: 1494
     y: 73
-    width: 482
+    width: 1065
     height: 1286
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1512,7 +1620,7 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 7283
+    ID: 223
     splitterInitialOffset: 576
     currentActiveSplitter: -1
     realSizes:
@@ -1537,7 +1645,7 @@ MonoBehaviour:
     oldSplitSize: 0
   m_TestTypeToolbarIndex: 1
   m_PlayModeTestListGUI:
-    m_Window: {fileID: 18}
+    m_Window: {fileID: 19}
     m_NewResultList:
     - id: 1025
       uniqueId: '[UnityGoap][suite]'
@@ -1589,15 +1697,15 @@ MonoBehaviour:
       - Uncategorized
     m_SelectedOption: 0
   m_EditModeTestListGUI:
-    m_Window: {fileID: 18}
+    m_Window: {fileID: 19}
     m_NewResultList:
     - id: 1000
       uniqueId: '[UnityGoap][suite]'
       name: UnityGoap
       fullName: UnityGoap
-      resultStatus: 1
-      duration: 0.4427024
-      messages: 
+      resultStatus: 2
+      duration: 0.0989742
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -1611,9 +1719,9 @@ MonoBehaviour:
       uniqueId: '[UnitTests.dll][suite]'
       name: UnitTests.dll
       fullName: E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/UnitTests.dll
-      resultStatus: 1
-      duration: 0.4051408
-      messages: 
+      resultStatus: 2
+      duration: 0.0709625
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -1627,9 +1735,9 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/[CrashKonijn][suite]
       name: CrashKonijn
       fullName: CrashKonijn
-      resultStatus: 1
-      duration: 0.4029279
-      messages: 
+      resultStatus: 2
+      duration: 0.0639773
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -1643,9 +1751,9 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/[Goap][suite]
       name: Goap
       fullName: CrashKonijn.Goap
-      resultStatus: 1
-      duration: 0.4026663
-      messages: 
+      resultStatus: 2
+      duration: 0.0634563
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -1659,9 +1767,9 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/Goap/[UnitTests][suite]
       name: UnitTests
       fullName: CrashKonijn.Goap.UnitTests
-      resultStatus: 1
-      duration: 0.4002756
-      messages: 
+      resultStatus: 2
+      duration: 0.059406
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -1676,7 +1784,7 @@ MonoBehaviour:
       name: ClassResolverTests
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests
       resultStatus: 1
-      duration: 0.1319948
+      duration: 0.0054325
       messages: 
       output: 
       stacktrace: 
@@ -1692,7 +1800,7 @@ MonoBehaviour:
       name: Load_LoadsGoal
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests.Load_LoadsGoal
       resultStatus: 1
-      duration: 0.1113561
+      duration: 0.0003644
       messages: 
       output: 
       stacktrace: 
@@ -1709,7 +1817,7 @@ MonoBehaviour:
       name: Load_LoadsTargetSensorConfig
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests.Load_LoadsTargetSensorConfig
       resultStatus: 1
-      duration: 0.002743
+      duration: 0.0001596
       messages: 
       output: 
       stacktrace: 
@@ -1726,7 +1834,7 @@ MonoBehaviour:
       name: Load_LoadsWorldSensorConfig
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests.Load_LoadsWorldSensorConfig
       resultStatus: 1
-      duration: 0.0025894
+      duration: 0.0002672
       messages: 
       output: 
       stacktrace: 
@@ -1743,7 +1851,7 @@ MonoBehaviour:
       name: ConditionObserverTests
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests
       resultStatus: 1
-      duration: 0.0173785
+      duration: 0.0114961
       messages: 
       output: 
       stacktrace: 
@@ -1759,7 +1867,7 @@ MonoBehaviour:
       name: IsMet_Negative_IsNotPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Negative_IsNotPresent
       resultStatus: 1
-      duration: 0.0055245
+      duration: 0.0001263
       messages: 
       output: 
       stacktrace: 
@@ -1776,7 +1884,7 @@ MonoBehaviour:
       name: IsMet_Negative_IsPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Negative_IsPresent
       resultStatus: 1
-      duration: 0.0011213
+      duration: 0.0000791
       messages: 
       output: 
       stacktrace: 
@@ -1793,7 +1901,7 @@ MonoBehaviour:
       name: IsMet_Positive_IsNotPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Positive_IsNotPresent
       resultStatus: 1
-      duration: 0.0001963
+      duration: 0.0000759
       messages: 
       output: 
       stacktrace: 
@@ -1810,7 +1918,7 @@ MonoBehaviour:
       name: IsMet_Positive_IsPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Positive_IsPresent
       resultStatus: 1
-      duration: 0.0003466
+      duration: 0.0000726
       messages: 
       output: 
       stacktrace: 
@@ -1827,7 +1935,7 @@ MonoBehaviour:
       name: CostObserverTests
       fullName: CrashKonijn.Goap.UnitTests.CostObserverTests
       resultStatus: 1
-      duration: 0.0579733
+      duration: 0.0130536
       messages: 
       output: 
       stacktrace: 
@@ -1843,7 +1951,7 @@ MonoBehaviour:
       name: GetCost_WithLastTarget_ReturnsCostAndDistance
       fullName: CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithLastTarget_ReturnsCostAndDistance
       resultStatus: 1
-      duration: 0.0475703
+      duration: 0.0013581
       messages: 
       output: 'CrashKonijn.Goap.Scriptables.TargetKeyScriptable must be instantiated
         using the ScriptableObject.CreateInstance method instead of new TargetKeyScriptable.
@@ -1863,7 +1971,7 @@ MonoBehaviour:
       name: GetCost_WithoutLastTarget_ReturnsCost
       fullName: CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithoutLastTarget_ReturnsCost
       resultStatus: 1
-      duration: 0.0018416
+      duration: 0.0004598
       messages: 
       output: 
       stacktrace: 
@@ -1880,7 +1988,7 @@ MonoBehaviour:
       name: GetCost_WithoutPath_ReturnsCost
       fullName: CrashKonijn.Goap.UnitTests.CostObserverTests.GetCost_WithoutPath_ReturnsCost
       resultStatus: 1
-      duration: 0.0003304
+      duration: 0.000188
       messages: 
       output: 
       stacktrace: 
@@ -1897,7 +2005,7 @@ MonoBehaviour:
       name: GraphResolverTests
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests
       resultStatus: 1
-      duration: 0.1149016
+      duration: 0.0129483
       messages: 
       output: 
       stacktrace: 
@@ -1913,7 +2021,7 @@ MonoBehaviour:
       name: Resolve_ShouldIncludeLocationHeuristics
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldIncludeLocationHeuristics
       resultStatus: 1
-      duration: 0.095142
+      duration: 0.0003512
       messages: 
       output: 
       stacktrace: 
@@ -1930,7 +2038,7 @@ MonoBehaviour:
       name: Resolve_WithMultipleConnections_ReturnsExecutableAction
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithMultipleConnections_ReturnsExecutableAction
       resultStatus: 1
-      duration: 0.0012566
+      duration: 0.0002003
       messages: 
       output: 
       stacktrace: 
@@ -1947,7 +2055,7 @@ MonoBehaviour:
       name: Resolve_WithNestedConnections_ReturnsExecutableAction
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNestedConnections_ReturnsExecutableAction
       resultStatus: 1
-      duration: 0.000757
+      duration: 0.0002225
       messages: 
       output: 
       stacktrace: 
@@ -1964,7 +2072,7 @@ MonoBehaviour:
       name: Resolve_WithNoActions_ReturnsEmptyList
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNoActions_ReturnsEmptyList
       resultStatus: 1
-      duration: 0.0030587
+      duration: 0.0001548
       messages: 
       output: 
       stacktrace: 
@@ -1981,7 +2089,7 @@ MonoBehaviour:
       name: Resolve_WithOneExecutableConnection_ReturnsAction
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithOneExecutableConnection_ReturnsAction
       resultStatus: 1
-      duration: 0.0005461
+      duration: 0.0001763
       messages: 
       output: 
       stacktrace: 
@@ -1997,9 +2105,9 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests][suite]
       name: SensorRunnerTests
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests
-      resultStatus: 1
-      duration: 0.0744649
-      messages: 
+      resultStatus: 2
+      duration: 0.0561426
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -2014,7 +2122,7 @@ MonoBehaviour:
       name: SenseGlobal_WithNegativeTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithNegativeTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.0096324
+      duration: 0.0004984
       messages: 
       output: 
       stacktrace: 
@@ -2031,7 +2139,7 @@ MonoBehaviour:
       name: SenseGlobal_WithNegativeWorldSense_IsPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithNegativeWorldSense_IsPresentInStates
       resultStatus: 1
-      duration: 0.0060004
+      duration: 0.0003039
       messages: 
       output: 
       stacktrace: 
@@ -2048,7 +2156,7 @@ MonoBehaviour:
       name: SenseGlobal_WithPositiveTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithPositiveTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.0047366
+      duration: 0.0003573
       messages: 
       output: 
       stacktrace: 
@@ -2065,7 +2173,7 @@ MonoBehaviour:
       name: SenseGlobal_WithPositiveWorldSense_IsPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithPositiveWorldSense_IsPresentInStates
       resultStatus: 1
-      duration: 0.0006496
+      duration: 0.000278
       messages: 
       output: 
       stacktrace: 
@@ -2081,11 +2189,65 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/SensorRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalState]
       name: SenseLocal_ContainsGlobalState
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalState
-      resultStatus: 1
-      duration: 0.0360373
-      messages: 
+      resultStatus: 2
+      duration: 0.0087032
+      messages: 'System.TypeLoadException : VTable setup of type Castle.Proxies.ObjectProxy_22
+        failed'
       output: 
-      stacktrace: 
+      stacktrace: "  at (wrapper managed-to-native) System.Reflection.RuntimeFieldInfo.SetValueInternal(System.Reflection.FieldInfo,object,object)\r\n 
+        at System.Reflection.RuntimeFieldInfo.SetValue (System.Object obj, System.Object
+        val, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder
+        binder, System.Globalization.CultureInfo culture) [0x0008f] in <83161767e3f34f4a9c1453ea3e22d1f1>:0
+        \r\n  at System.Reflection.FieldInfo.SetValue (System.Object obj, System.Object
+        value) [0x00009] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 \r\n  at Castle.DynamicProxy.Internal.TypeUtil.SetStaticField
+        (System.Type type, System.String fieldName, System.Reflection.BindingFlags
+        additionalFlags, System.Object value) [0x0002c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.InitializeStaticFields
+        (System.Type builtType) [0x0000e] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateType
+        (System.String name, System.Type[] interfaces, Castle.DynamicProxy.Generators.INamingScope
+        namingScope) [0x00155] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator+<>c__DisplayClass1_0.<GenerateCode>b__0
+        (System.String n, Castle.DynamicProxy.Generators.INamingScope s) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator+<>c__DisplayClass34_0.<ObtainProxyType>b__0
+        (Castle.DynamicProxy.Generators.CacheKey _) [0x0009c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.Core.Internal.SynchronizedDictionary`2[TKey,TValue].GetOrAdd
+        (TKey key, System.Func`2[T,TResult] valueFactory) [0x0005b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.ObtainProxyType
+        (Castle.DynamicProxy.Generators.CacheKey cacheKey, System.Func`3[T1,T2,TResult]
+        factory) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateCode
+        (System.Type[] interfaces, Castle.DynamicProxy.ProxyGenerationOptions options)
+        [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00006] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options, System.Object[] constructorArguments, Castle.DynamicProxy.IInterceptor[]
+        interceptors) [0x00060] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at
+        NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.CreateProxyUsingCastleProxyGenerator
+        (System.Type typeToProxy, System.Type[] additionalInterfaces, System.Object[]
+        constructorArguments, Castle.DynamicProxy.IInterceptor[] interceptors, Castle.DynamicProxy.ProxyGenerationOptions
+        proxyGenerationOptions) [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateTypeProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0001d] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0000b] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Core.SubstituteFactory.Create
+        (System.Type[] typesToProxy, System.Object[] constructorArguments, System.Boolean
+        callBaseByDefault) [0x0006a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Core.SubstituteFactory.Create (System.Type[] typesToProxy,
+        System.Object[] constructorArguments) [0x00000] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Substitute.For (System.Type[] typesToProxy, System.Object[]
+        constructorArguments) [0x0000a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Substitute.For[T] (System.Object[] constructorArguments) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalState
+        () [0x0005d] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\SensorRunnerTests.cs:265
+        \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+        at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+        invokeAttr, System.Reflection.Binder binder, System.Object[] parameters,
+        System.Globalization.CultureInfo culture) [0x0006a] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 "
       notRunnable: 0
       ignoredOrSkipped: 0
       description: 
@@ -2098,11 +2260,65 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/SensorRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalTarget]
       name: SenseLocal_ContainsGlobalTarget
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalTarget
-      resultStatus: 1
-      duration: 0.001
-      messages: 
+      resultStatus: 2
+      duration: 0.0081636
+      messages: 'System.TypeLoadException : VTable setup of type Castle.Proxies.ObjectProxy_23
+        failed'
       output: 
-      stacktrace: 
+      stacktrace: "  at (wrapper managed-to-native) System.Reflection.RuntimeFieldInfo.SetValueInternal(System.Reflection.FieldInfo,object,object)\r\n 
+        at System.Reflection.RuntimeFieldInfo.SetValue (System.Object obj, System.Object
+        val, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder
+        binder, System.Globalization.CultureInfo culture) [0x0008f] in <83161767e3f34f4a9c1453ea3e22d1f1>:0
+        \r\n  at System.Reflection.FieldInfo.SetValue (System.Object obj, System.Object
+        value) [0x00009] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 \r\n  at Castle.DynamicProxy.Internal.TypeUtil.SetStaticField
+        (System.Type type, System.String fieldName, System.Reflection.BindingFlags
+        additionalFlags, System.Object value) [0x0002c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.InitializeStaticFields
+        (System.Type builtType) [0x0000e] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateType
+        (System.String name, System.Type[] interfaces, Castle.DynamicProxy.Generators.INamingScope
+        namingScope) [0x00155] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator+<>c__DisplayClass1_0.<GenerateCode>b__0
+        (System.String n, Castle.DynamicProxy.Generators.INamingScope s) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator+<>c__DisplayClass34_0.<ObtainProxyType>b__0
+        (Castle.DynamicProxy.Generators.CacheKey _) [0x0009c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.Core.Internal.SynchronizedDictionary`2[TKey,TValue].GetOrAdd
+        (TKey key, System.Func`2[T,TResult] valueFactory) [0x0005b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.ObtainProxyType
+        (Castle.DynamicProxy.Generators.CacheKey cacheKey, System.Func`3[T1,T2,TResult]
+        factory) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateCode
+        (System.Type[] interfaces, Castle.DynamicProxy.ProxyGenerationOptions options)
+        [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00006] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options, System.Object[] constructorArguments, Castle.DynamicProxy.IInterceptor[]
+        interceptors) [0x00060] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at
+        NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.CreateProxyUsingCastleProxyGenerator
+        (System.Type typeToProxy, System.Type[] additionalInterfaces, System.Object[]
+        constructorArguments, Castle.DynamicProxy.IInterceptor[] interceptors, Castle.DynamicProxy.ProxyGenerationOptions
+        proxyGenerationOptions) [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateTypeProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0001d] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0000b] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Core.SubstituteFactory.Create
+        (System.Type[] typesToProxy, System.Object[] constructorArguments, System.Boolean
+        callBaseByDefault) [0x0006a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Core.SubstituteFactory.Create (System.Type[] typesToProxy,
+        System.Object[] constructorArguments) [0x00000] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Substitute.For (System.Type[] typesToProxy, System.Object[]
+        constructorArguments) [0x0000a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Substitute.For[T] (System.Object[] constructorArguments) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalTarget
+        () [0x00063] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\SensorRunnerTests.cs:236
+        \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+        at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+        invokeAttr, System.Reflection.Binder binder, System.Object[] parameters,
+        System.Globalization.CultureInfo culture) [0x0006a] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 "
       notRunnable: 0
       ignoredOrSkipped: 0
       description: 
@@ -2115,11 +2331,65 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/SensorRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeTargetSense_IsPresentInTargets]
       name: SenseLocal_WithNegativeTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeTargetSense_IsPresentInTargets
-      resultStatus: 1
-      duration: 0.0025319
-      messages: 
+      resultStatus: 2
+      duration: 0.0081263
+      messages: 'System.TypeLoadException : VTable setup of type Castle.Proxies.ObjectProxy_24
+        failed'
       output: 
-      stacktrace: 
+      stacktrace: "  at (wrapper managed-to-native) System.Reflection.RuntimeFieldInfo.SetValueInternal(System.Reflection.FieldInfo,object,object)\r\n 
+        at System.Reflection.RuntimeFieldInfo.SetValue (System.Object obj, System.Object
+        val, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder
+        binder, System.Globalization.CultureInfo culture) [0x0008f] in <83161767e3f34f4a9c1453ea3e22d1f1>:0
+        \r\n  at System.Reflection.FieldInfo.SetValue (System.Object obj, System.Object
+        value) [0x00009] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 \r\n  at Castle.DynamicProxy.Internal.TypeUtil.SetStaticField
+        (System.Type type, System.String fieldName, System.Reflection.BindingFlags
+        additionalFlags, System.Object value) [0x0002c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.InitializeStaticFields
+        (System.Type builtType) [0x0000e] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateType
+        (System.String name, System.Type[] interfaces, Castle.DynamicProxy.Generators.INamingScope
+        namingScope) [0x00155] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator+<>c__DisplayClass1_0.<GenerateCode>b__0
+        (System.String n, Castle.DynamicProxy.Generators.INamingScope s) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator+<>c__DisplayClass34_0.<ObtainProxyType>b__0
+        (Castle.DynamicProxy.Generators.CacheKey _) [0x0009c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.Core.Internal.SynchronizedDictionary`2[TKey,TValue].GetOrAdd
+        (TKey key, System.Func`2[T,TResult] valueFactory) [0x0005b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.ObtainProxyType
+        (Castle.DynamicProxy.Generators.CacheKey cacheKey, System.Func`3[T1,T2,TResult]
+        factory) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateCode
+        (System.Type[] interfaces, Castle.DynamicProxy.ProxyGenerationOptions options)
+        [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00006] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options, System.Object[] constructorArguments, Castle.DynamicProxy.IInterceptor[]
+        interceptors) [0x00060] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at
+        NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.CreateProxyUsingCastleProxyGenerator
+        (System.Type typeToProxy, System.Type[] additionalInterfaces, System.Object[]
+        constructorArguments, Castle.DynamicProxy.IInterceptor[] interceptors, Castle.DynamicProxy.ProxyGenerationOptions
+        proxyGenerationOptions) [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateTypeProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0001d] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0000b] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Core.SubstituteFactory.Create
+        (System.Type[] typesToProxy, System.Object[] constructorArguments, System.Boolean
+        callBaseByDefault) [0x0006a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Core.SubstituteFactory.Create (System.Type[] typesToProxy,
+        System.Object[] constructorArguments) [0x00000] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Substitute.For (System.Type[] typesToProxy, System.Object[]
+        constructorArguments) [0x0000a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Substitute.For[T] (System.Object[] constructorArguments) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeTargetSense_IsPresentInTargets
+        () [0x00063] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\SensorRunnerTests.cs:209
+        \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+        at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+        invokeAttr, System.Reflection.Binder binder, System.Object[] parameters,
+        System.Globalization.CultureInfo culture) [0x0006a] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 "
       notRunnable: 0
       ignoredOrSkipped: 0
       description: 
@@ -2132,11 +2402,65 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/SensorRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeWorldSense_IsNotPresentInStates]
       name: SenseLocal_WithNegativeWorldSense_IsNotPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeWorldSense_IsNotPresentInStates
-      resultStatus: 1
-      duration: 0.0008134
-      messages: 
+      resultStatus: 2
+      duration: 0.0079701
+      messages: 'System.TypeLoadException : VTable setup of type Castle.Proxies.ObjectProxy_25
+        failed'
       output: 
-      stacktrace: 
+      stacktrace: "  at (wrapper managed-to-native) System.Reflection.RuntimeFieldInfo.SetValueInternal(System.Reflection.FieldInfo,object,object)\r\n 
+        at System.Reflection.RuntimeFieldInfo.SetValue (System.Object obj, System.Object
+        val, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder
+        binder, System.Globalization.CultureInfo culture) [0x0008f] in <83161767e3f34f4a9c1453ea3e22d1f1>:0
+        \r\n  at System.Reflection.FieldInfo.SetValue (System.Object obj, System.Object
+        value) [0x00009] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 \r\n  at Castle.DynamicProxy.Internal.TypeUtil.SetStaticField
+        (System.Type type, System.String fieldName, System.Reflection.BindingFlags
+        additionalFlags, System.Object value) [0x0002c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.InitializeStaticFields
+        (System.Type builtType) [0x0000e] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateType
+        (System.String name, System.Type[] interfaces, Castle.DynamicProxy.Generators.INamingScope
+        namingScope) [0x00155] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator+<>c__DisplayClass1_0.<GenerateCode>b__0
+        (System.String n, Castle.DynamicProxy.Generators.INamingScope s) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator+<>c__DisplayClass34_0.<ObtainProxyType>b__0
+        (Castle.DynamicProxy.Generators.CacheKey _) [0x0009c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.Core.Internal.SynchronizedDictionary`2[TKey,TValue].GetOrAdd
+        (TKey key, System.Func`2[T,TResult] valueFactory) [0x0005b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.ObtainProxyType
+        (Castle.DynamicProxy.Generators.CacheKey cacheKey, System.Func`3[T1,T2,TResult]
+        factory) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateCode
+        (System.Type[] interfaces, Castle.DynamicProxy.ProxyGenerationOptions options)
+        [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00006] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options, System.Object[] constructorArguments, Castle.DynamicProxy.IInterceptor[]
+        interceptors) [0x00060] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at
+        NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.CreateProxyUsingCastleProxyGenerator
+        (System.Type typeToProxy, System.Type[] additionalInterfaces, System.Object[]
+        constructorArguments, Castle.DynamicProxy.IInterceptor[] interceptors, Castle.DynamicProxy.ProxyGenerationOptions
+        proxyGenerationOptions) [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateTypeProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0001d] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0000b] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Core.SubstituteFactory.Create
+        (System.Type[] typesToProxy, System.Object[] constructorArguments, System.Boolean
+        callBaseByDefault) [0x0006a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Core.SubstituteFactory.Create (System.Type[] typesToProxy,
+        System.Object[] constructorArguments) [0x00000] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Substitute.For (System.Type[] typesToProxy, System.Object[]
+        constructorArguments) [0x0000a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Substitute.For[T] (System.Object[] constructorArguments) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeWorldSense_IsNotPresentInStates
+        () [0x00061] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\SensorRunnerTests.cs:155
+        \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+        at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+        invokeAttr, System.Reflection.Binder binder, System.Object[] parameters,
+        System.Globalization.CultureInfo culture) [0x0006a] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 "
       notRunnable: 0
       ignoredOrSkipped: 0
       description: 
@@ -2149,11 +2473,65 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/SensorRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveTargetSense_IsPresentInTargets]
       name: SenseLocal_WithPositiveTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveTargetSense_IsPresentInTargets
-      resultStatus: 1
-      duration: 0.0007745
-      messages: 
+      resultStatus: 2
+      duration: 0.0080859
+      messages: 'System.TypeLoadException : VTable setup of type Castle.Proxies.ObjectProxy_26
+        failed'
       output: 
-      stacktrace: 
+      stacktrace: "  at (wrapper managed-to-native) System.Reflection.RuntimeFieldInfo.SetValueInternal(System.Reflection.FieldInfo,object,object)\r\n 
+        at System.Reflection.RuntimeFieldInfo.SetValue (System.Object obj, System.Object
+        val, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder
+        binder, System.Globalization.CultureInfo culture) [0x0008f] in <83161767e3f34f4a9c1453ea3e22d1f1>:0
+        \r\n  at System.Reflection.FieldInfo.SetValue (System.Object obj, System.Object
+        value) [0x00009] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 \r\n  at Castle.DynamicProxy.Internal.TypeUtil.SetStaticField
+        (System.Type type, System.String fieldName, System.Reflection.BindingFlags
+        additionalFlags, System.Object value) [0x0002c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.InitializeStaticFields
+        (System.Type builtType) [0x0000e] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateType
+        (System.String name, System.Type[] interfaces, Castle.DynamicProxy.Generators.INamingScope
+        namingScope) [0x00155] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator+<>c__DisplayClass1_0.<GenerateCode>b__0
+        (System.String n, Castle.DynamicProxy.Generators.INamingScope s) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator+<>c__DisplayClass34_0.<ObtainProxyType>b__0
+        (Castle.DynamicProxy.Generators.CacheKey _) [0x0009c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.Core.Internal.SynchronizedDictionary`2[TKey,TValue].GetOrAdd
+        (TKey key, System.Func`2[T,TResult] valueFactory) [0x0005b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.ObtainProxyType
+        (Castle.DynamicProxy.Generators.CacheKey cacheKey, System.Func`3[T1,T2,TResult]
+        factory) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateCode
+        (System.Type[] interfaces, Castle.DynamicProxy.ProxyGenerationOptions options)
+        [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00006] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options, System.Object[] constructorArguments, Castle.DynamicProxy.IInterceptor[]
+        interceptors) [0x00060] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at
+        NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.CreateProxyUsingCastleProxyGenerator
+        (System.Type typeToProxy, System.Type[] additionalInterfaces, System.Object[]
+        constructorArguments, Castle.DynamicProxy.IInterceptor[] interceptors, Castle.DynamicProxy.ProxyGenerationOptions
+        proxyGenerationOptions) [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateTypeProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0001d] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0000b] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Core.SubstituteFactory.Create
+        (System.Type[] typesToProxy, System.Object[] constructorArguments, System.Boolean
+        callBaseByDefault) [0x0006a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Core.SubstituteFactory.Create (System.Type[] typesToProxy,
+        System.Object[] constructorArguments) [0x00000] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Substitute.For (System.Type[] typesToProxy, System.Object[]
+        constructorArguments) [0x0000a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Substitute.For[T] (System.Object[] constructorArguments) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveTargetSense_IsPresentInTargets
+        () [0x00069] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\SensorRunnerTests.cs:182
+        \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+        at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+        invokeAttr, System.Reflection.Binder binder, System.Object[] parameters,
+        System.Globalization.CultureInfo culture) [0x0006a] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 "
       notRunnable: 0
       ignoredOrSkipped: 0
       description: 
@@ -2166,11 +2544,65 @@ MonoBehaviour:
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/SensorRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveWorldSense_IsPresentInStates]
       name: SenseLocal_WithPositiveWorldSense_IsPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveWorldSense_IsPresentInStates
-      resultStatus: 1
-      duration: 0.0006754
-      messages: 
+      resultStatus: 2
+      duration: 0.0085105
+      messages: 'System.TypeLoadException : VTable setup of type Castle.Proxies.ObjectProxy_27
+        failed'
       output: 
-      stacktrace: 
+      stacktrace: "  at (wrapper managed-to-native) System.Reflection.RuntimeFieldInfo.SetValueInternal(System.Reflection.FieldInfo,object,object)\r\n 
+        at System.Reflection.RuntimeFieldInfo.SetValue (System.Object obj, System.Object
+        val, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder
+        binder, System.Globalization.CultureInfo culture) [0x0008f] in <83161767e3f34f4a9c1453ea3e22d1f1>:0
+        \r\n  at System.Reflection.FieldInfo.SetValue (System.Object obj, System.Object
+        value) [0x00009] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 \r\n  at Castle.DynamicProxy.Internal.TypeUtil.SetStaticField
+        (System.Type type, System.String fieldName, System.Reflection.BindingFlags
+        additionalFlags, System.Object value) [0x0002c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.InitializeStaticFields
+        (System.Type builtType) [0x0000e] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateType
+        (System.String name, System.Type[] interfaces, Castle.DynamicProxy.Generators.INamingScope
+        namingScope) [0x00155] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator+<>c__DisplayClass1_0.<GenerateCode>b__0
+        (System.String n, Castle.DynamicProxy.Generators.INamingScope s) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator+<>c__DisplayClass34_0.<ObtainProxyType>b__0
+        (Castle.DynamicProxy.Generators.CacheKey _) [0x0009c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.Core.Internal.SynchronizedDictionary`2[TKey,TValue].GetOrAdd
+        (TKey key, System.Func`2[T,TResult] valueFactory) [0x0005b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.ObtainProxyType
+        (Castle.DynamicProxy.Generators.CacheKey cacheKey, System.Func`3[T1,T2,TResult]
+        factory) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateCode
+        (System.Type[] interfaces, Castle.DynamicProxy.ProxyGenerationOptions options)
+        [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyType
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options) [0x00006] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy
+        (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+        options, System.Object[] constructorArguments, Castle.DynamicProxy.IInterceptor[]
+        interceptors) [0x00060] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at
+        NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.CreateProxyUsingCastleProxyGenerator
+        (System.Type typeToProxy, System.Type[] additionalInterfaces, System.Object[]
+        constructorArguments, Castle.DynamicProxy.IInterceptor[] interceptors, Castle.DynamicProxy.ProxyGenerationOptions
+        proxyGenerationOptions) [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateTypeProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0001d] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateProxy
+        (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+        additionalInterfaces, System.Object[] constructorArguments) [0x0000b] in
+        <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Core.SubstituteFactory.Create
+        (System.Type[] typesToProxy, System.Object[] constructorArguments, System.Boolean
+        callBaseByDefault) [0x0006a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Core.SubstituteFactory.Create (System.Type[] typesToProxy,
+        System.Object[] constructorArguments) [0x00000] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+        \r\n  at NSubstitute.Substitute.For (System.Type[] typesToProxy, System.Object[]
+        constructorArguments) [0x0000a] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+        at NSubstitute.Substitute.For[T] (System.Object[] constructorArguments) [0x00000]
+        in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveWorldSense_IsPresentInStates
+        () [0x00061] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\SensorRunnerTests.cs:129
+        \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+        at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+        invokeAttr, System.Reflection.Binder binder, System.Object[] parameters,
+        System.Globalization.CultureInfo culture) [0x0006a] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 "
       notRunnable: 0
       ignoredOrSkipped: 0
       description: 
@@ -2179,12 +2611,118 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1024
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests][suite]
-    m_ResultText: UnityGoap (0,443s)
-    m_ResultStacktrace: 
+    m_ResultText: "SenseLocal_ContainsGlobalState (0,009s)\n---\nSystem.TypeLoadException
+      : VTable setup of type Castle.Proxies.ObjectProxy_22 failed\n---\nat (wrapper
+      managed-to-native) System.Reflection.RuntimeFieldInfo.SetValueInternal(System.Reflection.FieldInfo,object,object)\r\n 
+      at System.Reflection.RuntimeFieldInfo.SetValue (System.Object obj, System.Object
+      val, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder,
+      System.Globalization.CultureInfo culture) [0x0008f] in <83161767e3f34f4a9c1453ea3e22d1f1>:0
+      \r\n  at System.Reflection.FieldInfo.SetValue (System.Object obj, System.Object
+      value) [0x00009] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 \r\n  at Castle.DynamicProxy.Internal.TypeUtil.SetStaticField
+      (System.Type type, System.String fieldName, System.Reflection.BindingFlags
+      additionalFlags, System.Object value) [0x0002c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.InitializeStaticFields
+      (System.Type builtType) [0x0000e] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+      at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateType (System.String
+      name, System.Type[] interfaces, Castle.DynamicProxy.Generators.INamingScope
+      namingScope) [0x00155] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator+<>c__DisplayClass1_0.<GenerateCode>b__0
+      (System.String n, Castle.DynamicProxy.Generators.INamingScope s) [0x00000]
+      in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator+<>c__DisplayClass34_0.<ObtainProxyType>b__0
+      (Castle.DynamicProxy.Generators.CacheKey _) [0x0009c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at Castle.Core.Internal.SynchronizedDictionary`2[TKey,TValue].GetOrAdd
+      (TKey key, System.Func`2[T,TResult] valueFactory) [0x0005b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.ObtainProxyType
+      (Castle.DynamicProxy.Generators.CacheKey cacheKey, System.Func`3[T1,T2,TResult]
+      factory) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateCode
+      (System.Type[] interfaces, Castle.DynamicProxy.ProxyGenerationOptions options)
+      [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType
+      (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+      options) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyType
+      (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+      options) [0x00006] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy
+      (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+      options, System.Object[] constructorArguments, Castle.DynamicProxy.IInterceptor[]
+      interceptors) [0x00060] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.CreateProxyUsingCastleProxyGenerator
+      (System.Type typeToProxy, System.Type[] additionalInterfaces, System.Object[]
+      constructorArguments, Castle.DynamicProxy.IInterceptor[] interceptors, Castle.DynamicProxy.ProxyGenerationOptions
+      proxyGenerationOptions) [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+      at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateTypeProxy
+      (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+      additionalInterfaces, System.Object[] constructorArguments) [0x0001d] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateProxy
+      (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+      additionalInterfaces, System.Object[] constructorArguments) [0x0000b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at NSubstitute.Core.SubstituteFactory.Create (System.Type[] typesToProxy,
+      System.Object[] constructorArguments, System.Boolean callBaseByDefault) [0x0006a]
+      in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Core.SubstituteFactory.Create
+      (System.Type[] typesToProxy, System.Object[] constructorArguments) [0x00000]
+      in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Substitute.For
+      (System.Type[] typesToProxy, System.Object[] constructorArguments) [0x0000a]
+      in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Substitute.For[T]
+      (System.Object[] constructorArguments) [0x00000] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalState
+      () [0x0005d] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\SensorRunnerTests.cs:265
+      \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+      at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+      invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo
+      culture) [0x0006a] in <83161767e3f34f4a9c1453ea3e22d1f1>:0"
+    m_ResultStacktrace: "  at (wrapper managed-to-native) System.Reflection.RuntimeFieldInfo.SetValueInternal(System.Reflection.FieldInfo,object,object)\r\n 
+      at System.Reflection.RuntimeFieldInfo.SetValue (System.Object obj, System.Object
+      val, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder,
+      System.Globalization.CultureInfo culture) [0x0008f] in <83161767e3f34f4a9c1453ea3e22d1f1>:0
+      \r\n  at System.Reflection.FieldInfo.SetValue (System.Object obj, System.Object
+      value) [0x00009] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 \r\n  at Castle.DynamicProxy.Internal.TypeUtil.SetStaticField
+      (System.Type type, System.String fieldName, System.Reflection.BindingFlags
+      additionalFlags, System.Object value) [0x0002c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.InitializeStaticFields
+      (System.Type builtType) [0x0000e] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+      at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateType (System.String
+      name, System.Type[] interfaces, Castle.DynamicProxy.Generators.INamingScope
+      namingScope) [0x00155] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator+<>c__DisplayClass1_0.<GenerateCode>b__0
+      (System.String n, Castle.DynamicProxy.Generators.INamingScope s) [0x00000]
+      in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator+<>c__DisplayClass34_0.<ObtainProxyType>b__0
+      (Castle.DynamicProxy.Generators.CacheKey _) [0x0009c] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at Castle.Core.Internal.SynchronizedDictionary`2[TKey,TValue].GetOrAdd
+      (TKey key, System.Func`2[T,TResult] valueFactory) [0x0005b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at Castle.DynamicProxy.Generators.BaseProxyGenerator.ObtainProxyType
+      (Castle.DynamicProxy.Generators.CacheKey cacheKey, System.Func`3[T1,T2,TResult]
+      factory) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateCode
+      (System.Type[] interfaces, Castle.DynamicProxy.ProxyGenerationOptions options)
+      [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType
+      (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+      options) [0x00026] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyType
+      (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+      options) [0x00006] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy
+      (System.Type classToProxy, System.Type[] additionalInterfacesToProxy, Castle.DynamicProxy.ProxyGenerationOptions
+      options, System.Object[] constructorArguments, Castle.DynamicProxy.IInterceptor[]
+      interceptors) [0x00060] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.CreateProxyUsingCastleProxyGenerator
+      (System.Type typeToProxy, System.Type[] additionalInterfaces, System.Object[]
+      constructorArguments, Castle.DynamicProxy.IInterceptor[] interceptors, Castle.DynamicProxy.ProxyGenerationOptions
+      proxyGenerationOptions) [0x00056] in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n 
+      at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateTypeProxy
+      (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+      additionalInterfaces, System.Object[] constructorArguments) [0x0001d] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateProxy
+      (NSubstitute.Core.ICallRouter callRouter, System.Type typeToProxy, System.Type[]
+      additionalInterfaces, System.Object[] constructorArguments) [0x0000b] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at NSubstitute.Core.SubstituteFactory.Create (System.Type[] typesToProxy,
+      System.Object[] constructorArguments, System.Boolean callBaseByDefault) [0x0006a]
+      in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Core.SubstituteFactory.Create
+      (System.Type[] typesToProxy, System.Object[] constructorArguments) [0x00000]
+      in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Substitute.For
+      (System.Type[] typesToProxy, System.Object[] constructorArguments) [0x0000a]
+      in <7ff0af78f8aa482982751bf18b1ec5d2>:0 \r\n  at NSubstitute.Substitute.For[T]
+      (System.Object[] constructorArguments) [0x00000] in <7ff0af78f8aa482982751bf18b1ec5d2>:0
+      \r\n  at CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalState
+      () [0x0005d] in E:\\Development\\CrashKonijn\\GOAP\\Package\\Tests\\CrashKonijn.Goap.Tests\\UnitTests\\SensorRunnerTests.cs:265
+      \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+      at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+      invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo
+      culture) [0x0006a] in <83161767e3f34f4a9c1453ea3e22d1f1>:0 "
     m_TestListState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: f887fc56
-      m_LastClickedID: 1459390456
+      scrollPos: {x: 0, y: 56}
+      m_SelectedIDs: f4b3ed6e
+      m_LastClickedID: 1861071860
       m_ExpandedIDs: 4fed6d8c15567b9961a474a52b132daad8fe75b6ddcc12bb3e889fcae7e66fcdb8db52d43e20cce253d1dcec12104beed63c3df801dd1d00cc9e32109561f618b3f8a51c4e720d1ed03d582fe3a8223c0bb0ea3c50f8ee46a35cd151c2b227521a516b56f887fc5610cb8d5b02b060631f4b66649b83b6668cc8747a9c98587b2d8f377dffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -2211,7 +2749,7 @@ MonoBehaviour:
       selectedCategoryMask: 0
       availableCategories:
       - Uncategorized
---- !u!114 &19
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2233,9 +2771,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 753
-    width: 286
-    height: 606
+    y: 792
+    width: 198
+    height: 567
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2258,8 +2796,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/Demos/Complex/Prefabs/Items
+    m_Folders: []
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -2274,7 +2811,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 88b50000
     m_LastClickedID: 46472
-    m_ExpandedIDs: 000000000c6e0000466e0000486e00004a6e00004c6e00004e6e0000506e0000526e0000546e0000566e0000
+    m_ExpandedIDs: 00000000506e00005a6e0000ac6e0000ae6e0000b06e0000b26e0000b46e0000b66e0000b86e0000ba6e0000bc6e0000be6e0000c06e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2299,10 +2836,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 223}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000466e0000486e00004a6e00004c6e00004e6e0000506e0000526e0000546e0000566e0000347000003c7100003e710000a4760000
+    m_ExpandedIDs: ffffffff00000000506e00005a6e0000ac6e0000ae6e0000b26e0000b46e0000b66e0000b86e0000ba6e0000bc6e0000be6e0000c06e00006e700000b8700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2358,7 +2895,7 @@ MonoBehaviour:
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 207
---- !u!114 &20
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2381,8 +2918,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 73
-    width: 286
-    height: 659
+    width: 188
+    height: 698
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2396,9 +2933,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: f46d0000d676000086760000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 3205faffaac8faff1ad3faffac4afeff26fbffff
+      m_SelectedIDs: a0bfd2ff
+      m_LastClickedID: -2965600
+      m_ExpandedIDs: 9a08c8ffd40bc8ff4614c8ff1e18c8ffb0c0d9fff6efdbffa828dcff9840f8ff8c68f8ff96e6fdff0c75feff26fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2422,7 +2959,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: 4c969a2b90040154d917609493e03593
---- !u!114 &21
+--- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2443,10 +2980,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 287
+    x: 189
     y: 73
-    width: 909
-    height: 659
+    width: 599
+    height: 698
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2727,9 +3264,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.5862541, y: -0.17821014, z: -0.39561594}
+    m_Target: {x: -0.10230249, y: -0.32842755, z: 0.0004287958}
     speed: 2
-    m_Value: {x: -0.5862541, y: -0.17821014, z: -0.39561594}
+    m_Value: {x: -0.10230249, y: -0.32842755, z: 0.0004287958}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2775,13 +3312,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.35462427, y: 0.047109727, z: -0.017885303, w: 0.93365973}
+    m_Target: {x: 0.6816378, y: -0.0026156555, z: 0.00245582, w: 0.73170096}
     speed: 2
-    m_Value: {x: 0.35462105, y: 0.0471093, z: -0.017885141, w: 0.93365127}
+    m_Value: {x: 0.6816278, y: -0.0026156171, z: 0.002455784, w: 0.7316902}
   m_Size:
-    m_Target: 7.838204
+    m_Target: 9.296086
     speed: 2
-    m_Value: 7.838204
+    m_Value: 9.296086
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -2806,7 +3343,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &22
+--- !u!114 &23
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2827,10 +3364,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1450
+    x: 790
     y: 73
-    width: 625
-    height: 659
+    width: 702
+    height: 698
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2847,7 +3384,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 625, y: 352}
+  m_TargetSize: {x: 702, y: 395}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -2862,10 +3399,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -312.5
-    m_HBaseRangeMax: 312.5
-    m_VBaseRangeMin: -176
-    m_VBaseRangeMax: 176
+    m_HBaseRangeMin: -351
+    m_HBaseRangeMax: 351
+    m_VBaseRangeMin: -197.5
+    m_VBaseRangeMax: 197.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -2883,29 +3420,29 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 625
-      height: 638
+      width: 702
+      height: 677
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 312.5, y: 319}
+    m_Translation: {x: 351, y: 338.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -312.5
-      y: -319
-      width: 625
-      height: 638
+      x: -351
+      y: -338.5
+      width: 702
+      height: 677
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 625, y: 659}
+  m_LastWindowPixelSize: {x: 702, y: 698}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &23
+--- !u!114 &24
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2926,10 +3463,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 287
-    y: 753
-    width: 1788
-    height: 606
+    x: 199
+    y: 792
+    width: 1293
+    height: 567
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0

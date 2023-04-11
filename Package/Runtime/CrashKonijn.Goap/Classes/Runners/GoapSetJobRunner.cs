@@ -93,7 +93,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                 
                 if (action is null)
                 {
-                    resolveHandle.Agent.FailedResolve();
+                    resolveHandle.Agent.Events.NoActionFound(resolveHandle.Agent.CurrentGoal);
                     continue;
                 }
                 
