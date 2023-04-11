@@ -6,23 +6,41 @@ namespace Demos.Complex.Behaviours
 {
     public class InstanceHandler : MonoBehaviour
     {
-        private Queue<IHoldable> queue = new();
+        private List<GameObject> queue = new();
 
         private void LateUpdate()
         {
-            while (this.queue.Count > 0)
+            foreach (var item in this.queue)
             {
-                var item = this.queue.Dequeue();
                 Destroy(item.gameObject);
             }
+            
+            this.queue.Clear();
         }
 
-        public void Destroy(IHoldable item)
+        public void QueueForDestroy(IHoldable item)
         {
             if (item == null)
                 return;
+
+            if (item.gameObject == null)
+                return;
             
-            this.queue.Enqueue(item);
+            this.QueueForDestroy(item.gameObject);
+        }
+
+        public void QueueForDestroy(GameObject item)
+        {
+            if (this.queue.Contains(item))
+            {
+                Debug.LogError("Item already queued for destruction");
+                return;
+            }
+            
+            if (item == null)
+                return;
+            
+            this.queue.Add(item);
             item.gameObject.SetActive(false);
         }
     }

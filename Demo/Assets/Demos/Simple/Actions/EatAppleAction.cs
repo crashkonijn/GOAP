@@ -2,24 +2,14 @@
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
 using Demos.Shared.Behaviours;
 using Demos.Simple.Behaviours;
 using UnityEngine;
 
 namespace Demos.Simple.Actions
 {
-    public class EatAppleAction : ActionBase<EatAppleAction.Data>, IInjectable
+    public class EatAppleAction : ActionBase<EatAppleAction.Data>
     {
-        private InstanceHandler instanceHandler;
-
-        public void Inject(GoapInjector injector)
-        {
-            this.instanceHandler = injector.instanceHandler;
-        }
-
         public override void OnStart(IMonoAgent agent, Data data)
         {
             if (data.Target is not TransformTarget)
@@ -45,7 +35,7 @@ namespace Demos.Simple.Actions
             data.Hunger.hunger -= eatNutrition;
             
             if (data.Apple.nutritionValue <= 0)
-                this.instanceHandler.Destroy(data.Apple as IHoldable);
+                GameObject.Destroy(data.Apple.gameObject);
             
             return ActionRunState.Continue;
         }

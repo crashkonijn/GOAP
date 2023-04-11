@@ -24,6 +24,7 @@ namespace Demos.Complex.Actions
         public override void OnStart(IMonoAgent agent, Data data)
         {
             data.Eatable = data.Inventory.Get<IEatable>().FirstOrDefault();
+            data.Inventory.Hold(data.Eatable);
         }
 
         public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
@@ -44,7 +45,8 @@ namespace Demos.Complex.Actions
             if (data.Eatable == null)
                 return ActionRunState.Stop;
             
-            this.instanceHandler.Destroy(data.Eatable);
+            data.Inventory.Remove(data.Eatable);
+            this.instanceHandler.QueueForDestroy(data.Eatable);
             
             return ActionRunState.Stop;
         }
@@ -54,7 +56,8 @@ namespace Demos.Complex.Actions
             if (data.Eatable == null)
                 return;
             
-            data.Inventory.Add(data.Eatable);
+            if (data.Eatable.NutritionValue > 0)
+                data.Inventory.Add(data.Eatable);
         }
         
         public class Data : IActionData

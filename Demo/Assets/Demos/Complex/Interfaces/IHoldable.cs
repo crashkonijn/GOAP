@@ -4,7 +4,8 @@ namespace Demos.Complex.Interfaces
 {
     public interface IHoldable
     {
-        public GameObject gameObject { get; }
+        string DebugName { get; set; }
+        GameObject gameObject { get; }
         bool IsHeld { get; }
         bool IsInBox { get; }
         bool IsClaimed { get; }

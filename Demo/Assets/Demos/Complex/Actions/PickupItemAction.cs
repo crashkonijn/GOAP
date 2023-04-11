@@ -23,6 +23,8 @@ namespace Demos.Complex.Actions
 
         public override void OnStart(IMonoAgent agent, Data data)
         {
+            data.Timer = 0.5f;
+            
             var transformTarget = data.Target as TransformTarget;
             
             if (transformTarget == null)
@@ -50,6 +52,11 @@ namespace Demos.Complex.Actions
         {
             if (data.Holdable is null)
                 return ActionRunState.Stop;
+         
+            data.Timer -= context.DeltaTime;
+            
+            if (data.Timer > 0)
+                return ActionRunState.Continue;
             
             data.Inventory.Add(data.Holdable);
             
@@ -65,6 +72,7 @@ namespace Demos.Complex.Actions
             public ITarget Target { get; set; }
             
             public IHoldable Holdable { get; set; }
+            public float Timer { get; set; }
             
             [GetComponent]
             public ComplexInventoryBehaviour Inventory { get; set; }

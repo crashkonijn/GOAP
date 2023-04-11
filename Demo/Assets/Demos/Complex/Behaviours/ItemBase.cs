@@ -16,6 +16,8 @@ namespace Demos.Complex.Behaviours
         [field: SerializeField]
         public bool IsClaimed { get; private set; }
 
+        public string DebugName { get; set; }
+
         public void Awake()
         {
             this.collection = FindObjectOfType<ItemCollection>();
@@ -40,16 +42,14 @@ namespace Demos.Complex.Behaviours
         {
             this.IsHeld = true;
             this.IsInBox = false;
-
-            if (visible)
-                return;
+            this.IsClaimed = true;
 
             if (this == null || this.gameObject == null)
                 return;
             
             foreach (var renderer in this.GetComponentsInChildren<SpriteRenderer>())
             {
-                renderer.enabled = false;
+                renderer.enabled = visible;
             }
         }
 

@@ -13,10 +13,14 @@ namespace Demos.Complex.Sensors.Target
         where T : IGatherable
     {
         private ItemSourceBase<T>[] collection;
+        
+        public ClosestSourceSensor()
+        {
+            this.collection = GameObject.FindObjectsOfType<ItemSourceBase<T>>();
+        }
 
         public override void Update()
         {
-            this.collection = GameObject.FindObjectsOfType<ItemSourceBase<T>>();
         }
 
         public override ITarget Sense(IMonoAgent agent)

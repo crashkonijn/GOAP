@@ -6,6 +6,8 @@ namespace Demos.Complex.Behaviours
 {
     public class ItemFactory : MonoBehaviour
     {
+        private int count;
+        
         public List<ItemBase> items = new();
 
         public T Instantiate<T>()
@@ -19,9 +21,13 @@ namespace Demos.Complex.Behaviours
             
             // Instantiate the item
             var instance = Instantiate(item);
-            
-            Debug.Log($"Created item of type {typeof(T).Name}");
 
+            var name = $"{typeof(T).Name} - {this.count}";
+            instance.transform.name = name;
+            instance.DebugName = name;
+
+            this.count++;
+            
             return instance as T;
         }
     }

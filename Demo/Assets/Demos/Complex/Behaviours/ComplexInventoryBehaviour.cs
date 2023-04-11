@@ -15,7 +15,8 @@ namespace Demos.Complex.Behaviours
         {
             item.Pickup();
             
-            this.items.Add(item);
+            if (!this.items.Contains(item))
+                this.items.Add(item);
         }
         
         public void Hold<T>(T item)
@@ -26,7 +27,8 @@ namespace Demos.Complex.Behaviours
             item.gameObject.transform.position = this.transform.position + new Vector3(0f, 0.1f, -0.2f);
             item.gameObject.transform.parent = this.transform;
 
-            this.items.Add(item);
+            if (!this.items.Contains(item))
+                this.items.Add(item);
         }
 
         public T[] Get<T>()

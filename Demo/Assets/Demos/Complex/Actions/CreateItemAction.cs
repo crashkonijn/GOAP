@@ -61,13 +61,14 @@ namespace Demos.Complex.Actions
             {
                 var iron = data.Inventory.Get<Iron>().FirstOrDefault();
                 data.Inventory.Remove(iron);
-                this.instanceHandler.Destroy(iron);
+                this.instanceHandler.QueueForDestroy(iron);
             }
-            for (var i = 0; i < data.RequiredWood; i++)
+            
+            for (var j = 0; j < data.RequiredWood; j++)
             {
                 var wood = data.Inventory.Get<Wood>().FirstOrDefault();
                 data.Inventory.Remove(wood);
-                this.instanceHandler.Destroy(wood);
+                this.instanceHandler.QueueForDestroy(wood);
             }
         }
 
