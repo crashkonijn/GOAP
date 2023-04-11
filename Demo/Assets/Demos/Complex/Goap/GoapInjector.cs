@@ -19,7 +19,14 @@ namespace Demos.Complex.Goap
 
         public void Inject(IGoalBase goal)
         {
+        }
 
+        public void Inject(IWorldSensor worldSensor)
+        {
+        }
+
+        public void Inject(ITargetSensor targetSensor)
+        {
         }
     }
 }

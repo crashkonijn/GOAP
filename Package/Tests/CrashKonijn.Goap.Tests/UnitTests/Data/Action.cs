@@ -8,7 +8,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
     public class Action : ActionBase<Action.Data>
     {
 
-        public override void OnStart(IMonoAgent agent, Data data)
+        public override void Start(IMonoAgent agent, Data data)
         {
         }
 
@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
             return ActionRunState.Stop;
         }
 
-        public override void OnEnd(IMonoAgent agent, Data data)
+        public override void End(IMonoAgent agent, Data data)
         {
         }
         public class Data : IActionData

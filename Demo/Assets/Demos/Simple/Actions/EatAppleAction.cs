@@ -10,7 +10,7 @@ namespace Demos.Simple.Actions
 {
     public class EatAppleAction : ActionBase<EatAppleAction.Data>
     {
-        public override void OnStart(IMonoAgent agent, Data data)
+        public override void Start(IMonoAgent agent, Data data)
         {
             if (data.Target is not TransformTarget)
                 return;
@@ -40,7 +40,7 @@ namespace Demos.Simple.Actions
             return ActionRunState.Continue;
         }
         
-        public override void OnEnd(IMonoAgent agent, Data data)
+        public override void End(IMonoAgent agent, Data data)
         {
             if (data.Apple == null)
                 return;

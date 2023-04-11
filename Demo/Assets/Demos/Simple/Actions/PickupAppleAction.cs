@@ -9,7 +9,7 @@ namespace Demos.Simple.Actions
 {
     public class PickupAppleAction : ActionBase<PickupAppleAction.Data>
     {
-        public override void OnStart(IMonoAgent agent, Data data)
+        public override void Start(IMonoAgent agent, Data data)
         {
         }
 
@@ -40,7 +40,7 @@ namespace Demos.Simple.Actions
             return ActionRunState.Stop;
         }
         
-        public override void OnEnd(IMonoAgent agent, Data data)
+        public override void End(IMonoAgent agent, Data data)
         {
         }
         

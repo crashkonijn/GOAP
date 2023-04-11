@@ -21,7 +21,7 @@ namespace Demos.Complex.Actions
             this.itemCollection = injector.itemCollection;
         }
 
-        public override void OnStart(IMonoAgent agent, Data data)
+        public override void Start(IMonoAgent agent, Data data)
         {
             data.Timer = 0.5f;
             
@@ -63,7 +63,7 @@ namespace Demos.Complex.Actions
             return ActionRunState.Stop;
         }
 
-        public override void OnEnd(IMonoAgent agent, Data data)
+        public override void End(IMonoAgent agent, Data data)
         {
         }
         

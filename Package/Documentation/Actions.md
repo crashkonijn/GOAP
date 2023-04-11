@@ -25,8 +25,22 @@ Each action has a target position. An agent will first move towards this positio
 ### InRange
 If the agent is not in range of the target position, it will move towards it. This value determines how close the agent needs to be to the target position before performing the action.
 
-## Action data
+## Action Data
 The action data is used to store the state of the action for a single agent. This data is not persistent between agents or between multiple runs of the same action.
+
+### Action Data Injection
+Often you need a reference to other classes on the agent. To do this you can use the `GetComponent` attribute. This will provide you with a cached instance of the component. This is useful for performance reasons, since the `GetComponent` method is quite expensive.
+
+{% code lineNumbers="true" %}
+```csharp
+public class Data : IActionData
+{
+    public ITarget Target { get; set; }
+    
+    [GetComponent]
+    public ComplexInventoryBehaviour Inventory { get; set; }
+}
+```
 
 ## Action class
 An action always inherits from the `ActionBase<TData>` class. The generic type is the action data class. The action data class is used to store the state of the action. The action class itself should be stateless, since only one instance is used to perform the same action on multiple agents.
@@ -44,15 +58,8 @@ using UnityEngine;
 
 namespace Demos.Actions
 {
-    [CreateAssetMenu(menuName = "Goap/Actions/WanderAction")]
     public class WanderAction : ActionBase<WanderAction.Data>
     {
-        // This method is called before the action is performed. It is used to initialize the action data.
-        public override Data CreateData()
-        {
-            return new Data();
-        }
-
         // This method is called when the action is started. It is used to initialize the action.
         public override void OnStart(IMonoAgent agent, Data data)
         {
@@ -60,7 +67,7 @@ namespace Demos.Actions
         }
 
         // This method is called every frame while the action is running. It is used to perform the action.
-        public override ActionRunState Perform(IMonoAgent agent, Data data)
+        public override ActionRunState OnPerform(IMonoAgent agent, Data data, ActionContext context)
         {
             return ActionRunState.Stop;
         }
@@ -87,12 +94,12 @@ using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
-using Demos.Behaviours;
+using Demos.Shared.Behaviours;
+using Demos.Simple.Behaviours;
 using UnityEngine;
 
-namespace Demos.Actions
+namespace Demos.Simple.Actions
 {
-    [CreateAssetMenu(menuName = "Goap/Actions/EatAppleAction")]
     public class EatAppleAction : ActionBase<EatAppleAction.Data>
     {
         public override void OnStart(IMonoAgent agent, Data data)
@@ -109,12 +116,12 @@ namespace Demos.Actions
             data.Hunger = agent.GetComponent<HungerBehaviour>();
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data)
+        public override ActionRunState OnPerform(IMonoAgent agent, Data data, ActionContext context)
         {
             if (data.Apple == null || data.Hunger == null)
                 return ActionRunState.Stop;
 
-            var eatNutrition = Time.fixedDeltaTime * 10f;
+            var eatNutrition = context.DeltaTime * 20f;
 
             data.Apple.nutritionValue -= eatNutrition;
             data.Hunger.hunger -= eatNutrition;

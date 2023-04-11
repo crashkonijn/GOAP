@@ -21,7 +21,7 @@ namespace Demos.Complex.Actions
             this.itemCollection = injector.itemCollection;
         }
         
-        public override void OnStart(IMonoAgent agent, Data data)
+        public override void Start(IMonoAgent agent, Data data)
         {
             var item = this.itemCollection.Closest(agent.transform.position, false, false, false);
 
@@ -107,7 +107,7 @@ namespace Demos.Complex.Actions
             return box;
         }
 
-        public override void OnEnd(IMonoAgent agent, Data data)
+        public override void End(IMonoAgent agent, Data data)
         {
         }
         

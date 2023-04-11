@@ -20,7 +20,7 @@ namespace Demos.Complex.Actions
             this.itemFactory = injector.itemFactory;
         }
         
-        public override void OnStart(IMonoAgent agent, Data data)
+        public override void Start(IMonoAgent agent, Data data)
         {
             // There is a normal and slow version of this action
             // based on whether or not the agent is holding an (pick)axe
@@ -41,7 +41,7 @@ namespace Demos.Complex.Actions
             return ActionRunState.Stop;
         }
 
-        public override void OnEnd(IMonoAgent agent, Data data)
+        public override void End(IMonoAgent agent, Data data)
         {
         }
         

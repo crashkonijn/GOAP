@@ -7,12 +7,18 @@ namespace CrashKonijn.Goap.Classes.Injectors
         
         public void Inject(IActionBase action)
         {
-            
         }
 
-        public void Inject(IGoalBase action)
+        public void Inject(IGoalBase goal)
         {
-            
+        }
+
+        public void Inject(IWorldSensor worldSensor)
+        {
+        }
+
+        public void Inject(ITargetSensor targetSensor)
+        {
         }
     }
 }

@@ -31,18 +31,15 @@ namespace CrashKonijn.Goap.Classes
         
         private SensorRunner CreateSensorRunner(IGoapSetConfig config)
         {
-            var worldSensors = new ClassResolver().Load<IWorldSensor, IWorldSensorConfig>(config.WorldSensors);
-            var targetSensors = new ClassResolver().Load<ITargetSensor, ITargetSensorConfig>(config.TargetSensors);
-
-            return new SensorRunner(worldSensors, targetSensors);
+            return new SensorRunner(this.GetWorldSensors(config), this.GetTargetSensors(config));
         }
         
         private List<IActionBase> GetActions(IGoapSetConfig config)
         {
             var actions = new ClassResolver().Load<IActionBase, IActionConfig>(config.Actions);
-            var actionInjector = this.goapConfig.GoapInjector;
+            var injector = this.goapConfig.GoapInjector;
             
-            actions.ForEach(x => actionInjector.Inject(x));
+            actions.ForEach(x => injector.Inject(x));
 
             return actions;
         }
@@ -50,11 +47,31 @@ namespace CrashKonijn.Goap.Classes
         private List<IGoalBase> GetGoals(IGoapSetConfig config)
         {
             var goals = new ClassResolver().Load<IGoalBase, IGoalConfig>(config.Goals);
-            var goalInjector = this.goapConfig.GoapInjector;
+            var injector = this.goapConfig.GoapInjector;
             
-            goals.ForEach(x => goalInjector.Inject(x));
+            goals.ForEach(x => injector.Inject(x));
 
             return goals;
+        }
+        
+        private List<IWorldSensor> GetWorldSensors(IGoapSetConfig config)
+        {
+            var worldSensors = new ClassResolver().Load<IWorldSensor, IWorldSensorConfig>(config.WorldSensors);
+            var injector = this.goapConfig.GoapInjector;
+            
+            worldSensors.ForEach(x => injector.Inject(x));
+            
+            return worldSensors;
+        }
+        
+        private List<ITargetSensor> GetTargetSensors(IGoapSetConfig config)
+        {
+            var targetSensors = new ClassResolver().Load<ITargetSensor, ITargetSensorConfig>(config.TargetSensors);
+            var injector = this.goapConfig.GoapInjector;
+            
+            targetSensors.ForEach(x => injector.Inject(x));
+            
+            return targetSensors;
         }
     }
 }

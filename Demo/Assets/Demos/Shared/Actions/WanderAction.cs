@@ -8,7 +8,7 @@ namespace Demos.Shared.Actions
 {
     public class WanderAction : ActionBase<WanderAction.Data>
     {
-        public override void OnStart(IMonoAgent agent, Data data)
+        public override void Start(IMonoAgent agent, Data data)
         {
             data.Timer = Random.Range(0.3f, 1f);
         }
@@ -23,7 +23,7 @@ namespace Demos.Shared.Actions
             return ActionRunState.Stop;
         }
 
-        public override void OnEnd(IMonoAgent agent, Data data)
+        public override void End(IMonoAgent agent, Data data)
         {
         }
 

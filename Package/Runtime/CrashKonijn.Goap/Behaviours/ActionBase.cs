@@ -24,17 +24,17 @@ namespace CrashKonijn.Goap.Behaviours
             return new TActionData();
         }
 
-        public override void OnStart(IMonoAgent agent, IActionData data) => this.OnStart(agent, (TActionData) data);
+        public override void OnStart(IMonoAgent agent, IActionData data) => this.Start(agent, (TActionData) data);
         
-        public abstract void OnStart(IMonoAgent agent, TActionData data);
+        public abstract void Start(IMonoAgent agent, TActionData data);
 
         public override ActionRunState Perform(IMonoAgent agent, IActionData data, ActionContext context) => this.Perform(agent, (TActionData) data, context);
 
         public abstract ActionRunState Perform(IMonoAgent agent, TActionData data, ActionContext context);
 
-        public override void OnEnd(IMonoAgent agent, IActionData data) => this.OnEnd(agent, (TActionData) data);
+        public override void OnEnd(IMonoAgent agent, IActionData data) => this.End(agent, (TActionData) data);
         
-        public abstract void OnEnd(IMonoAgent agent, TActionData data);
+        public abstract void End(IMonoAgent agent, TActionData data);
     }
 
     public abstract class ActionBase : IActionBase
