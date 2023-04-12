@@ -43,7 +43,7 @@ namespace Demos.Complex.Behaviours
         {
             var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
             
-            agent.GoapSet = this.goapRunner.Sets.First(x => x.Id == setId);
+            agent.GoapSet = this.goapRunner.GetSet(setId);
             agent.gameObject.SetActive(true);
             
             agent.gameObject.transform.name = $"{agentType} {agent.GetInstanceID()}";

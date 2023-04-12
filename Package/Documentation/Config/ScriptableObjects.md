@@ -1,4 +1,4 @@
-# ScriptableObjects
+# Config > ScriptableObjects
 
 The ScriptableObjects are the main way to configure the GOAP system. They are used to define the goals, actions, sensors, world keys and target keys. This method of configuration is the most simple way to configure the GOAP system and is done by creating scriptable objects through the Unity Editor. 
 

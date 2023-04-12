@@ -65,6 +65,8 @@ namespace CrashKonijn.Goap.Classes.Runners
         public bool Knows(IGoapSet set) => this.sets.ContainsKey(set);
         public IMonoAgent[] Agents => this.sets.Keys.SelectMany(x => x.Agents.All()).ToArray();
         public IGoapSet[] Sets => this.sets.Keys.ToArray();
+        public IGoapSet GetSet(string id) => this.Sets.FirstOrDefault(x => x.Id == id);
+
         public int QueueCount => this.sets.Keys.Sum(x => x.Agents.GetQueueCount());
     }
 }

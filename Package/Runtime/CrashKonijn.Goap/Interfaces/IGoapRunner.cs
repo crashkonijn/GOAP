@@ -10,5 +10,6 @@ namespace CrashKonijn.Goap.Interfaces
         bool Knows(IGoapSet set);
         IMonoAgent[] Agents { get; }
         IGoapSet[] Sets { get; }
+        IGoapSet GetSet(string id);
     }
 }
