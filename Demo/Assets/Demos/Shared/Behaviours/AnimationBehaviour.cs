@@ -2,7 +2,7 @@
 using CrashKonijn.Goap.Enums;
 using UnityEngine;
 
-namespace Demos.Simple.Behaviours
+namespace Demos.Shared.Behaviours
 {
     public class AnimationBehaviour : MonoBehaviour
     {
