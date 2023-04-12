@@ -10,7 +10,6 @@ namespace CrashKonijn.Goap.Interfaces
 
     public interface IActionBase : IAction, IHasConfig<IActionConfig>
     {
-        IActionConfig Config { get; }
         float GetDistanceCost(ITarget currentTarget, ITarget otherTarget);
         int GetCost(IWorldData data);
 

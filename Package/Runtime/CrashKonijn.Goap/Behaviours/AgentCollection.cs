@@ -23,6 +23,9 @@ namespace CrashKonijn.Goap.Behaviours
         
         public void Add(IMonoAgent agent)
         {
+            if (this.agents.Contains(agent))
+                return;
+            
             this.agents.Add(agent);
         }
 

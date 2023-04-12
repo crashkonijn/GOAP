@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
         {
             var root = new VisualElement();
             
-            root.Add(new PropertyField(this.serializedObject.FindProperty("goapSet")));
+            root.Add(new PropertyField(this.serializedObject.FindProperty("goapSetBehaviour")));
             
             if (!Application.isPlaying)
                 return root;

@@ -3,7 +3,9 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Behaviours
 {
@@ -81,12 +83,23 @@ namespace CrashKonijn.Goap.Behaviours
     {
         private IAgentMover mover;
         
-        public GoapSetBehaviour goapSet;
+        public GoapSetBehaviour goapSetBehaviour;
 
         public IAgentMover Mover => this.mover;
         
         public AgentState State { get; private set; } = AgentState.NoAction;
-        public IGoapSet GoapSet { get; set; }
+
+        private IGoapSet goapSet;
+        public IGoapSet GoapSet
+        {
+            get => this.goapSet;
+            set
+            {
+                this.goapSet = value;
+                value.Register(this);
+            }
+        }
+
         public IGoalBase CurrentGoal { get; private set; }
         public IActionBase CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
@@ -100,18 +113,20 @@ namespace CrashKonijn.Goap.Behaviours
             this.Injector = new DataReferenceInjector(this);
             this.mover = this.GetComponent<IAgentMover>();
             
-            if (this.goapSet != null)
-                this.GoapSet = this.goapSet.Set;
+            if (this.goapSetBehaviour != null)
+                this.GoapSet = this.goapSetBehaviour.Set;
         }
 
         private void OnEnable()
         {
-            this.GoapSet.Register(this);
+            if (this.GoapSet != null)
+                this.GoapSet.Register(this);
         }
 
         private void OnDisable()
         {
-            this.GoapSet.Unregister(this);
+            if (this.GoapSet != null)
+                this.GoapSet.Unregister(this);
         }
 
         public void Run()
