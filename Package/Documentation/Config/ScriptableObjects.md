@@ -20,12 +20,12 @@ To create a set, right click in the project window and select `Create > Goap > G
 ## Goals
 To create a goal, right click in the project window and select `Create > Goap > Goal Config`. This will create a new goal config.
 
-![goal-config.jpg](/images/scriptable_goal.png)
+![goal-config.jpg](../images/scriptable_goal.png)
 
 ## Actions
 To create an action, right click in the project window and select `Create > Goap > Action Config`. This will create a new action config.
 
-![action-config.jpg](images/scriptable_action.png)
+![action-config.jpg](../images/scriptable_action.png)
 
 ## World Keys
 To create an world key, right click in the project window and select `Create > Goap > World Key`. This will create a new world key.
@@ -33,7 +33,7 @@ To create an world key, right click in the project window and select `Create > G
 ## World Sensors
 To create an world sensor, right click in the project window and select `Create > Goap > World Sensor Config`. This will create a new world sensor config.
 
-![world-sensor-config.jpg](images/scriptable_world_sensor.png)
+![world-sensor-config.jpg](../images/scriptable_world_sensor.png)
 
 ## Target Keys
 To create an action, right click in the project window and select `Create > Goap > Target Key`. This will create a new world key.
@@ -41,4 +41,4 @@ To create an action, right click in the project window and select `Create > Goap
 ## Target Sensors
 To create a target sensor, right click in the project window and select `Create > Goap > Target Sensor Config`. This will create a new world sensor config.
 
-![target-sensor-config.jpg](images/scriptable_target_sensor.png)
+![target-sensor-config.jpg](../images/scriptable_target_sensor.png)
