@@ -79,6 +79,7 @@ public class WanderTargetSensor : LocalTargetSensorBase
     }
 }
 ```
+{% endcode %}
 
 4. Create a class called `AgentMoveBehaviour`. This class will be called by the `AgentBehaviour` to move the agent to a target.
 
