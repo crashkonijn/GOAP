@@ -1,8 +1,8 @@
 ﻿# Summary
 
 * [Introduction](Introduction/README.md)
-  * [Getting Started](Introduction/GettingStarted.md)
   * [What is Goap?](Introduction/Theory.md)
+  * [Getting Started](Introduction/GettingStarted.md)
 * [Config](Config/README.md)
   * [ScriptableObjects](Config/ScriptableObjects.md)
   * [Code](Config/Code.md)
