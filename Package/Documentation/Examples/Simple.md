@@ -16,3 +16,5 @@ Actions:
 
 ## Rules
 If the agent has a `hunger > 80`, it will switch to the `FixHungerGoal`. If the agent has a `hunger < 20`, it will switch to the `WanderGoal`.
+
+![Simple Demo Graph](../images/demo_simple_graph.png)
