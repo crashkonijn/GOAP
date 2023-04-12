@@ -60,3 +60,67 @@ namespace Demos.Behaviours
 }
 ```
 {% endcode %}
+
+## Events
+The `AgentBehaviour` contains a few events that can be used to get notified when the agent changes it's goal or action.
+
+### Example
+
+{% code title="EventExample.cs" lineNumbers="true" %}
+```csharp
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Interfaces;
+using UnityEngine;
+
+namespace Demos.Complex.Behaviours
+{
+    public class EventExample : MonoBehaviour
+    {
+        private AgentBehaviour agent;
+
+        private void Awake()
+        {
+            this.agent = this.GetComponent<AgentBehaviour>();
+        }
+
+        private void OnEnable()
+        {
+            this.agent.Events.OnActionStart += this.OnActionStart;
+            this.agent.Events.OnActionStop += this.OnActionStop;
+            this.agent.Events.OnGoalStart += this.OnGoalStart;
+            this.agent.Events.OnNoActionFound += this.OnNoActionFound;
+        }
+
+        private void OnDisable()
+        {
+            this.agent.Events.OnActionStart -= this.OnActionStart;
+            this.agent.Events.OnActionStop -= this.OnActionStop;
+            this.agent.Events.OnGoalStart -= this.OnGoalStart;
+            this.agent.Events.OnNoActionFound -= this.OnNoActionFound;
+        }
+
+        private void OnActionStart(IActionBase action)
+        {
+            // Gets called when an action is started
+        }
+
+        private void OnActionStop(IActionBase action)
+        {
+            // Gets called when an action is stopped
+            // This can be used to check for a new goal
+        }
+
+        private void OnGoalStart(IGoalBase goal)
+        {
+            // Gets called when a goal is started
+        }
+
+        private void OnNoActionFound(IGoalBase goal)
+        {
+            // Gets called when no action is found for a goal
+            // This can be used to add a backup goal for example
+        }
+    }
+}
+```
+{% endcode %}
