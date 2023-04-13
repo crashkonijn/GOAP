@@ -75,7 +75,7 @@ public class WanderTargetSensor : LocalTargetSensorBase
         var random =  Random.insideUnitCircle * 5f;
         var position = agent.transform.position + new Vector3(random.x, 0f, random.y);
 
-        return this.GetRandomPosition(agent);
+        return position;
     }
 }
 ```
