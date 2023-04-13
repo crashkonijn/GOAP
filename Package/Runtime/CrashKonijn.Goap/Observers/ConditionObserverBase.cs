@@ -1,5 +1,4 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Observers
 {

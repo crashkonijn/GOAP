@@ -3,16 +3,6 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Configs
 {
-    public interface IActionConfig : IClassConfig
-    {
-        int BaseCost { get; }
-        ITargetKey Target { get; }
-        float InRange { get; }
-        
-        ICondition[] Conditions { get; }
-        IEffect[] Effects { get; }
-    }
-
     public class ActionConfig : IActionConfig
     {
         public string Name { get; set; }

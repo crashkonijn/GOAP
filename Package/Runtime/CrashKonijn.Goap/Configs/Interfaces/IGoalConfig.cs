@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Configs.Interfaces

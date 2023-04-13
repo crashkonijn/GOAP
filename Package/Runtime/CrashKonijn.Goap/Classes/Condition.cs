@@ -1,5 +1,4 @@
 ﻿using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
 

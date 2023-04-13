@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Editor.Classes;
+using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
 using UnityEngine.UIElements;
 

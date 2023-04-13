@@ -1,7 +1,5 @@
 ﻿using System;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Scriptables;

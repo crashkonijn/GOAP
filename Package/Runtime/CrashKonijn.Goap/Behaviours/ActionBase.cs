@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
+using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
@@ -43,7 +44,6 @@ namespace CrashKonijn.Goap.Behaviours
         
         public IActionConfig Config => this.config;
         
-        // IAction
         public Guid Guid { get; } = Guid.NewGuid();
         public IEffect[] Effects => this.config.Effects.Cast<IEffect>().ToArray();
         public ICondition[] Conditions => this.config.Conditions.Cast<ICondition>().ToArray();

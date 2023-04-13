@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Serializables;
 
 namespace CrashKonijn.Goap.Configs
 {

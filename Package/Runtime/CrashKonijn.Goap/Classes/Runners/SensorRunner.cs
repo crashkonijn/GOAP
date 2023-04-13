@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Runners

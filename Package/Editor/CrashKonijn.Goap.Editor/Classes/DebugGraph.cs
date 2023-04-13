@@ -38,11 +38,6 @@ namespace CrashKonijn.Goap.Editor.Classes
         private Node GetNode(Guid guid)
         {
             return this.graph.AllNodes.Values.First(x => x.Guid == guid);
-            
-            if (this.graph.AllNodes.TryGetValue(guid, out var value))
-                return value;
-
-            return null;
         }
     }
 

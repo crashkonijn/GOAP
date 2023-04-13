@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
 

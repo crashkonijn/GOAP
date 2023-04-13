@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Serializables;

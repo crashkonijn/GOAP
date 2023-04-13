@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
-using UnityEngine;
 
 namespace CrashKonijn.Goap
 {

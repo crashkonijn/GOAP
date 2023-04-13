@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Editor.Classes
 {

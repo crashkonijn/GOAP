@@ -3,82 +3,10 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Behaviours
 {
-    public delegate void ActionDelegate(IActionBase action);
-    public delegate void GoalDelegate(IGoalBase goal);
-    
-    public interface IMonoAgent : IAgent, IMonoBehaviour
-    {
-        
-    }
-    
-    public interface IAgent
-    {
-        AgentState State { get; }
-        IGoapSet GoapSet { get; }
-        IGoalBase CurrentGoal { get; }
-        IActionBase CurrentAction { get; }
-        IActionData CurrentActionData { get; }
-        IWorldData WorldData { get; }
-        List<IActionBase> CurrentActionPath { get; }
-        IAgentEvents Events { get; }
-        IDataReferenceInjector Injector { get; }
-
-        void Run();
-        
-        void SetGoal<TGoal>(bool endAction) where TGoal : IGoalBase;
-
-        void SetGoal(IGoalBase goal, bool endAction);
-        void SetAction(IActionBase action, List<IActionBase> path, ITarget target);
-    }
-
-    public interface IAgentEvents
-    {
-        event ActionDelegate OnActionStart;
-        void ActionStart(IActionBase action);
-        
-        event ActionDelegate OnActionStop;
-        void ActionStop(IActionBase action);
-        
-        event GoalDelegate OnGoalStart;
-        void GoalStart(IGoalBase goal);
-        
-        event GoalDelegate OnNoActionFound;
-        void NoActionFound(IGoalBase goal);
-    }
-    
-    public class AgentEvents : IAgentEvents
-    {
-        public event ActionDelegate OnActionStart;
-        public void ActionStart(IActionBase action)
-        {
-            this.OnActionStart?.Invoke(action);
-        }
-        
-        public event ActionDelegate OnActionStop;
-        public void ActionStop(IActionBase action)
-        {
-            this.OnActionStop?.Invoke(action);
-        }
-        
-        public event GoalDelegate OnGoalStart;
-        public void GoalStart(IGoalBase goal)
-        {
-            this.OnGoalStart?.Invoke(goal);
-        }
-        
-        public event GoalDelegate OnNoActionFound;
-        public void NoActionFound(IGoalBase goal)
-        {
-            this.OnNoActionFound?.Invoke(goal);
-        }
-    }
-
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
         private IAgentMover mover;

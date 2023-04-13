@@ -8,10 +8,8 @@ namespace CrashKonijn.Goap.Behaviours
     public abstract class GoalBase : IGoalBase
     {
         private IGoalConfig config;
-        
         public IGoalConfig Config => this.config;
         
-        // IAction
         public Guid Guid { get; } = Guid.NewGuid();
         public Resolver.Interfaces.IEffect[] Effects { get; } = {};
         public Resolver.Interfaces.ICondition[] Conditions => this.config.Conditions.Cast<Resolver.Interfaces.ICondition>().ToArray();
