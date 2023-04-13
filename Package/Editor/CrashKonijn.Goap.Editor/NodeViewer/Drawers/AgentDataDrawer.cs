@@ -1,5 +1,4 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Editor.Drawers;
+﻿using CrashKonijn.Goap.Editor.Drawers;
 using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine.UIElements;

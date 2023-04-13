@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Editor.Classes;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
