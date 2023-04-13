@@ -146,7 +146,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Events.ActionStart(action);
         }
         
-        private void EndAction()
+        public void EndAction()
         {
             var action = this.CurrentAction;
             

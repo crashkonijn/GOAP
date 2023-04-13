@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
+﻿using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Observers;
-using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.Scriptables;
 using FluentAssertions;
 using NSubstitute;

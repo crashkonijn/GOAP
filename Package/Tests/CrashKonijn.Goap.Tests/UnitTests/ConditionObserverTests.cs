@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes;
+﻿using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Observers;
 using CrashKonijn.Goap.Resolver;
 using NUnit.Framework;
