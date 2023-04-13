@@ -9,7 +9,6 @@ namespace CrashKonijn.Goap.Classes
 {
     public class GoapSet : IGoapSet
     {
-
         public string Id { get; }
         public IAgentCollection Agents { get; } = new AgentCollection();
         public GoapConfig GoapConfig { get; }
