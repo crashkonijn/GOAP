@@ -1,0 +1,18 @@
+{
+    "name": "CrashKonijn.Goap",
+    "rootNamespace": "CrashKonijn.Goap",
+    "references": [
+        "GUID:9a4f4f993c75b2341aa3b2b1b03e407f",
+        "GUID:e52adf591423434e8c16eeb452c84a82",
+        "GUID:d8b63aba1907145bea998dd612889d6b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

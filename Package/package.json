@@ -1,0 +1,28 @@
+{
+  "name": "com.crashkonijn.goap",
+  "version": "2.0.0",
+  "displayName": "Unity GOAP",
+  "description": "An open source GOAP implementation for unity",
+  "unity": "2019.1",
+  "unityRelease": "0b5",
+  "documentationUrl": "https://github.com/crashkonijn/GOAP",
+  "changelogUrl": "https://github.com/crashkonijn/GOAP",
+  "licensesUrl": "https://github.com/crashkonijn/GOAP",
+  "dependencies": {
+    "com.unity.collections": "1.2.4"
+  },
+  "keywords": [
+    "Unity",
+    "GOAP",
+    "CrashKonijn GOAP",
+    "Goal Oriented Action Planner",
+    "AI",
+    "Artificial Inteligence",
+    "Enemies"
+  ],
+  "author": {
+    "name": "CrashKonijn",
+    "email": "crashkonijn@gmail.com",
+    "url": "https://crashkonijn.com"
+  }
+}

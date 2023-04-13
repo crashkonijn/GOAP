@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dc95c722d24e5db52864cbbff874fb, type: 3}
+  m_Name: PickupAppleAction
+  m_EditorClassIdentifier: 
+  actionClass: Demos.Simple.Actions.PickupAppleAction, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  target: {fileID: 11400000, guid: 225f125307d5a874d8bc597b07cf88b3, type: 2}
+  conditions:
+  - worldKey: {fileID: 11400000, guid: 7e7ac88264081b047be14454aa8e56bf, type: 2}
+    <Comparison>k__BackingField: 3
+    <Amount>k__BackingField: 1
+  effects:
+  - worldKey: {fileID: 11400000, guid: 4cc9aaaf590d3e346947382bd8b9fd0c, type: 2}
+    <Increase>k__BackingField: 1
+  <BaseCost>k__BackingField: 1
+  <InRange>k__BackingField: 0.1

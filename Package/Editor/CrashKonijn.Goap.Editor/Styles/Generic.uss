@@ -1,0 +1,44 @@
+#header {
+    font-size: 20px;
+    border-bottom-width: 1px;
+    border-bottom-color: #1e1e1e;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.unity-property-field {
+    margin-bottom: 10px;
+}
+
+#card {
+    background-color: var(--unity-colors-box-background);
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: var(--unity-colors-default-border);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.card {
+    background-color: var(--unity-colors-highlight-background-inactive);
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: var(--unity-colors-default-border);
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.unity-foldout__content {
+    margin-left: 0;
+}
+
+.unity-help-box {
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.unity-help-box__label {
+    font-size: 15px;
+}

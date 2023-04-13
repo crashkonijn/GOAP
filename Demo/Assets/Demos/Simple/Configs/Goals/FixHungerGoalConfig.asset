@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202651a6d0e31824c830a8bac571e709, type: 3}
+  m_Name: FixHungerGoalConfig
+  m_EditorClassIdentifier: 
+  classType: Demos.Shared.Goals.FixHungerGoal, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  baseCost: 100
+  conditions:
+  - worldKey: {fileID: 11400000, guid: 1b936068c70b82240b99a05d2be98745, type: 2}
+    <Comparison>k__BackingField: 0
+    <Amount>k__BackingField: 1
