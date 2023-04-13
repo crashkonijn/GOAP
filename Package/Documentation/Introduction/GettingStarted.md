@@ -3,7 +3,7 @@
 ## Installation
 Add the package to your project using the package manager. Add the following URL to the package manager:
 ```
-https://github.com/crashkonijn/GOAP.git?path=/Package#feature/version-2
+https://github.com/crashkonijn/GOAP.git?path=/Package
 ```
 
 ## Setup in Unity
