@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
-using CrashKonijn.Goap.Editor.Classes;
+using CrashKonijn.Goap.Classes.Validators;
 using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Scriptables;
 using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.TypeDrawers
@@ -36,7 +37,6 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                 {
                     label.text = key.Name;
                 }));
-                this.ValidateWorldKeys(card);
             }));
             
             root.Add(this.Group("Targets", card =>
@@ -46,8 +46,30 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                 {
                     label.text = key.Name;
                 }));
-                this.ValidateTargetKeys(card);
             }));
+            
+            var validateButton = new Button(() =>
+            {
+                var validator = new GoapSetConfigValidatorRunner();
+                var results = validator.Validate(this.config);
+                
+                foreach (var error in results.GetErrors())
+                {
+                    Debug.LogError(error);
+                }
+            
+                foreach (var warning in results.GetWarnings())
+                {
+                    Debug.LogWarning(warning);
+                }
+                
+                if (!results.HasErrors() && !results.HasWarnings())
+                    Debug.Log("No errors or warnings found!");
+            });
+            
+            validateButton.Add(new Label("Validate"));
+
+            root.Add(validateButton);
 
             return root;
         }
@@ -78,36 +100,6 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             foldout.Add(listView);
 
             return foldout;
-        }
-
-        private void ValidateWorldKeys(VisualElement root)
-        {
-            var required = this.config.GetWorldKeys();
-            var provided = this.config.WorldSensors.Select(x => x.Key);
-
-            var missing = required.Except(provided).ToHashSet();
-            
-            if (!missing.Any())
-                return;
-
-            var helpBox = new HelpBox("World keys missing sensors:", HelpBoxMessageType.Error);
-            helpBox.Add(new Label(string.Join(", ", missing.Select(x => x.Name))));
-            root.Add(helpBox);
-        }
-
-        private void ValidateTargetKeys(VisualElement root)
-        {
-            var required = this.config.GetTargetKeys();
-            var provided = this.config.TargetSensors.Select(x => x.Key);
-
-            var missing = required.Except(provided).ToHashSet();
-
-            if (!missing.Any())
-                return;
-
-            var helpBox = new HelpBox("World keys missing sensors:", HelpBoxMessageType.Error);
-            helpBox.Add(new Label(string.Join(", ", missing.Select(x => x.Name))));
-            root.Add(helpBox);
         }
     }
 }

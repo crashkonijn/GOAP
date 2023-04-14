@@ -1,0 +1,41 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace CrashKonijn.Goap.Classes.Validators
+{
+    public class ValidationResults
+    {
+        private readonly List<string> errors = new();
+        private readonly List<string> warnings = new();
+        
+        public void AddError(string error)
+        {
+            this.errors.Add(error);
+        }
+        
+        public void AddWarning(string warning)
+        {
+            this.warnings.Add(warning);
+        }
+        
+        public List<string> GetErrors()
+        {
+            return this.errors;
+        }
+        
+        public List<string> GetWarnings()
+        {
+            return this.warnings;
+        }
+        
+        public bool HasErrors()
+        {
+            return this.errors.Any();
+        }
+        
+        public bool HasWarnings()
+        {
+            return this.warnings.Any();
+        }
+    }
+}
