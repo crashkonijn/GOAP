@@ -21,6 +21,5 @@ namespace CrashKonijn.Goap.Scriptables
         }
 
         public IWorldKey Key => this.key;
-
     }
 }

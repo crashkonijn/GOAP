@@ -6,6 +6,5 @@ namespace Demos.Complex.Goals
     public class CreateItemGoal<THoldable> : GoalBase
         where THoldable : ICreatable
     {
-        
     }
 }

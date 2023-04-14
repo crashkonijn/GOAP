@@ -22,7 +22,6 @@ namespace Demos.Goals
 {
     public class FixHungerGoal : GoalBase
     {
-        
     }
 }
 ```

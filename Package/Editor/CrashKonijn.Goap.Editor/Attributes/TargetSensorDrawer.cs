@@ -7,6 +7,5 @@ namespace CrashKonijn.Goap.Editor.Attributes
     [CustomPropertyDrawer(typeof(TargetSensorAttribute))]
     public class TargetSensorDrawer : ClassDrawerBase<ITargetSensor>
     {
-
     }
 }

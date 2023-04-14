@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 
 namespace Demos.Simple.Behaviours
 {
-    
     public class SettingsBehaviour : MonoBehaviour
     {
         private static readonly Vector2 Bounds = new Vector2(15, 8);
@@ -34,8 +33,6 @@ namespace Demos.Simple.Behaviours
             this.agentPrefab.SetActive(false);
             this.goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
             this.apples = FindObjectOfType<AppleCollection>();
-            
-            // Screen.SetResolution(1024, 576, false);
         }
 
         private void Update()

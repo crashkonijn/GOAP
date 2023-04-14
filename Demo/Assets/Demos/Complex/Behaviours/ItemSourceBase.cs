@@ -6,6 +6,5 @@ namespace Demos.Complex.Behaviours
     public class ItemSourceBase<T> : MonoBehaviour, ISource<T>
         where T : IGatherable
     {
-        
     }
 }
