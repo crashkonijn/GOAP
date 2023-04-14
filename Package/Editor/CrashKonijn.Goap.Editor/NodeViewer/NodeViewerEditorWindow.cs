@@ -24,7 +24,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         private VisualElement nodesDrawer;
         private VisualElement floatData;
 
-
         [MenuItem("Tools/GOAP/Node Viewer")]
         private static void ShowWindow()
         {

@@ -12,7 +12,6 @@ namespace CrashKonijn.Goap.Classes
 
         public Condition()
         {
-            
         }
 
         public Condition(IWorldKey worldKey, Comparison comparison, int amount)
