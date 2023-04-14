@@ -1,5 +1,6 @@
 ![Discord](https://img.shields.io/discord/1093598557480685578?label=Discord)
 [![Documentation](https://img.shields.io/badge/GitBook-Docu-lightblue)](https://goap.crashkonijn.com/)
+[![CodeFactor](https://www.codefactor.io/repository/github/crashkonijn/goap/badge)](https://www.codefactor.io/repository/github/crashkonijn/goap)
 ![test-status](https://github.com/crashkonijn/GOAP/actions/workflows/main.yml/badge.svg?branch=feature/version-2)
 ![GitHub](https://img.shields.io/github/license/crashkonijn/GOAP)
 ![GitHub Repo stars](https://img.shields.io/github/stars/crashkonijn/GOAP?style=social)
