@@ -1,8 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.Builders;
-using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
 using Demos.Complex.Classes;
 using Demos.Complex.Classes.Items;
 using Demos.Complex.Factories.Extensions;

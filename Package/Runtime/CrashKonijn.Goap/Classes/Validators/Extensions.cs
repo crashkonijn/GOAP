@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
-using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
 
-namespace CrashKonijn.Goap.Editor.Classes
+namespace CrashKonijn.Goap.Classes.Validators
 {
     public static class Extensions
     {
@@ -13,10 +11,7 @@ namespace CrashKonijn.Goap.Editor.Classes
             return config.Actions
                 .SelectMany((action) =>
                 {
-                    var conditions = action.Conditions.Select(y => y.WorldKey);
-                    var effects = action.Effects.Select(z => z.WorldKey);
-                    
-                    return conditions.Concat(effects);
+                    return action.Conditions.Select(y => y.WorldKey);
                 })
                 .Distinct()
                 .ToArray();

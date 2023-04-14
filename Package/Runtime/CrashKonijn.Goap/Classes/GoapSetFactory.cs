@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes.Runners;
+using CrashKonijn.Goap.Classes.Validators;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Exceptions;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolvers;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes
 {
     public class GoapSetFactory
     {
         private readonly GoapConfig goapConfig;
+        private IGoapSetConfigValidatorRunner goapSetConfigValidatorRunner = new GoapSetConfigValidatorRunner();
 
         public GoapSetFactory(GoapConfig goapConfig)
         {
@@ -18,6 +22,8 @@ namespace CrashKonijn.Goap.Classes
         
         public GoapSet Create(IGoapSetConfig config)
         {
+            this.Validate(config);
+            
             var sensorRunner = this.CreateSensorRunner(config);
 
             return new GoapSet(
@@ -27,6 +33,24 @@ namespace CrashKonijn.Goap.Classes
                 goals: this.GetGoals(config),
                 sensorRunner: sensorRunner
             );
+        }
+        
+        private void Validate(IGoapSetConfig config)
+        {
+            var results = this.goapSetConfigValidatorRunner.Validate(config);
+
+            foreach (var error in results.GetErrors())
+            {
+                Debug.LogError(error);
+            }
+            
+            foreach (var warning in results.GetWarnings())
+            {
+                Debug.LogWarning(warning);
+            }
+            
+            if (results.HasErrors())
+                throw new GoapException($"GoapSetConfig has errors: {config.Name}");
         }
         
         private SensorRunner CreateSensorRunner(IGoapSetConfig config)

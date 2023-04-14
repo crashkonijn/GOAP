@@ -10,7 +10,6 @@ using IEffect = CrashKonijn.Goap.Resolver.Interfaces.IEffect;
 
 namespace CrashKonijn.Goap.Behaviours
 {
-
     public abstract class ActionBase<TActionData> : ActionBase
         where TActionData : IActionData, new()
     {
