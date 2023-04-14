@@ -4,6 +4,5 @@ namespace CrashKonijn.Goap.UnitTests.Classes
 {
     public class TestGoal : GoalBase
     {
-        
     }
 }

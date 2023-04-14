@@ -6,6 +6,5 @@ namespace Demos.Complex.Goals
     public class PickupItemGoal<THoldable> : GoalBase
         where THoldable : IHoldable
     {
-        
     }
 }

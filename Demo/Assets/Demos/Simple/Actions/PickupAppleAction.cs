@@ -3,7 +3,6 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using Demos.Simple.Behaviours;
-using UnityEngine;
 
 namespace Demos.Simple.Actions
 {
@@ -54,4 +53,3 @@ namespace Demos.Simple.Actions
         }
     }
 }
-

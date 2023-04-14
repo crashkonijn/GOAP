@@ -164,13 +164,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             }
 
             return element;
-            
-            
-            var rootNode = (this.agent == null || this.agent.CurrentGoal == null) ? graph.RootNodes.Values.First() : graph.RootNodes.Values.First(x => x.Action == this.agent.CurrentGoal);
-            
-            var nodes = new DebugGraph(graph).GetGraph(rootNode);
-
-            return new NodesDrawer(nodes, this.agent);
         }
 
         private void RenderAgents()

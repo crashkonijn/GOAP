@@ -4,6 +4,5 @@ namespace Demos.Shared.Goals
 {
     public class FixHungerGoal : GoalBase
     {
-        
     }
 }

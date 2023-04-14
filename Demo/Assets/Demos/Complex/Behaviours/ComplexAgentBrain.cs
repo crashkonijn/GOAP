@@ -126,7 +126,6 @@ namespace Demos.Complex.Behaviours
         
         private void DetermineSmithGoals()
         {
-            
             if (this.itemCollection.Get<Axe>().Length <= 1)
             {
                 this.agent.SetGoal<CreateItemGoal<Axe>>(false);

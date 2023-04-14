@@ -3,6 +3,5 @@
     public interface ISource<T>
         where T : IGatherable
     {
-        
     }
 }

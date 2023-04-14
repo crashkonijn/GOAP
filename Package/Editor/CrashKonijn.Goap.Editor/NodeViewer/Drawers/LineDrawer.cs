@@ -32,7 +32,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             paint.Stroke();
             paint.ClosePath();
             paint.Fill();
-
         }
     }
 }

@@ -5,6 +5,5 @@ namespace Demos.Complex.Classes.Sources
 {
     public class Tree : ItemSourceBase<Wood>
     {
-        
     }
 }
