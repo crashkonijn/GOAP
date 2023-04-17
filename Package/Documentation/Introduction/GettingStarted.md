@@ -6,6 +6,10 @@ Add the package to your project using the package manager. Add the following URL
 https://github.com/crashkonijn/GOAP.git?path=/Package
 ```
 
+{% hint style="info" %}
+**Version** This package was build using unity 2022.2
+{% endhint %}
+
 ## Setup in Unity
 
 1. Create a class called `WanderGoal` that extends `GoalBase`.

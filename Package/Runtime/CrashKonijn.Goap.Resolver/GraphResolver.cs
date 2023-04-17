@@ -42,7 +42,7 @@ namespace CrashKonijn.Goap.Resolver
             this.map = map;
         }
 
-        public ResolveHandle StartResolve(RunData runData)
+        public IResolveHandle StartResolve(RunData runData)
         {
             return new ResolveHandle(this, this.map, runData);
         }
@@ -55,6 +55,11 @@ namespace CrashKonijn.Goap.Resolver
         public PositionBuilder GetPositionBuilder()
         {
             return new PositionBuilder(this.actionIndexList);
+        }
+
+        public CostBuilder GetCostBuilder()
+        {
+            return new CostBuilder(this.actionIndexList);
         }
         
         public Graph GetGraph()

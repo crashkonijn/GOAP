@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
@@ -51,15 +52,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.config = config;
         }
 
-        public virtual float GetDistanceCost(ITarget currentTarget, ITarget otherTarget)
-        {
-            if (currentTarget == null || otherTarget == null)
-                return 0;
-            
-            return Vector3.Distance(currentTarget.Position, otherTarget.Position);
-        }
-        
-        public virtual int GetCost(IWorldData data)
+        public virtual float GetCost(IMonoAgent agent, IComponentReference references)
         {
             return this.config.BaseCost;
         }

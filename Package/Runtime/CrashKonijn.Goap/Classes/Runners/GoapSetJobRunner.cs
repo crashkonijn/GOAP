@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
+using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
 using Unity.Collections;
 using Unity.Mathematics;
@@ -16,6 +17,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         private List<JobRunHandle> resolveHandles = new();
         private readonly ExecutableBuilder executableBuilder;
         private readonly PositionBuilder positionBuilder;
+        private readonly CostBuilder costBuilder;
 
         public GoapSetJobRunner(IGoapSet goapSet)
         {
@@ -24,11 +26,12 @@ namespace CrashKonijn.Goap.Classes.Runners
             
             this.executableBuilder = this.resolver.GetExecutableBuilder();
             this.positionBuilder = this.resolver.GetPositionBuilder();
+            this.costBuilder = this.resolver.GetCostBuilder();
         }
 
         public void Run()
         {
-            this.resolveHandles = new();
+            this.resolveHandles.Clear();
             
             this.goapSet.SensorRunner.Update();
             
@@ -50,7 +53,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             
             var localData = this.goapSet.SensorRunner.SenseLocal(globalData, agent);
 
-            this.FillBuilders(localData);
+            this.FillBuilders(localData, agent);
             
             this.resolveHandles.Add(new JobRunHandle(agent)
             {
@@ -58,12 +61,13 @@ namespace CrashKonijn.Goap.Classes.Runners
                 {
                     StartIndex = this.resolver.GetIndex(agent.CurrentGoal),
                     IsExecutable = new NativeArray<bool>(this.executableBuilder.Build(), Allocator.TempJob),
-                    Positions = new NativeArray<float3>(this.positionBuilder.Build(), Allocator.TempJob)
+                    Positions = new NativeArray<float3>(this.positionBuilder.Build(), Allocator.TempJob),
+                    Costs = new NativeArray<float>(this.costBuilder.Build(), Allocator.TempJob)
                 })
             });
         }
 
-        private void FillBuilders(LocalWorldData localData)
+        private void FillBuilders(LocalWorldData localData, IMonoAgent agent)
         {
             var conditionObserver = this.goapSet.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(localData);
@@ -78,6 +82,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                 var target = localData.GetTarget(node);
 
                 this.executableBuilder.SetExecutable(node, allMet);
+                this.costBuilder.SetCost(node, node.GetCost(agent, agent.Injector));
                 
                 if (target is not null) this.positionBuilder.SetPosition(node, target.Position);
             }
@@ -113,7 +118,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         private class JobRunHandle
         {
             public IMonoAgent Agent { get; }
-            public ResolveHandle Handle { get; set; }
+            public IResolveHandle Handle { get; set; }
             
             public JobRunHandle(IMonoAgent agent)
             {

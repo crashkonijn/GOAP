@@ -32,8 +32,6 @@ namespace Demos.Complex.Factories
             builder.AddGatherItemAction<Wood, Axe>();
             builder.AddGatherItemSlowAction<Wood>();
 
-            builder.AddCreateItemAction<Axe>();
-
             builder.AddEatAction();
             
             // TargetSensors
