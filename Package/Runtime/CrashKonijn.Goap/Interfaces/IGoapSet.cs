@@ -11,7 +11,7 @@ namespace CrashKonijn.Goap.Interfaces
         string Id { get; }
         GoapConfig GoapConfig { get; }
         IAgentCollection Agents { get; }
-        SensorRunner SensorRunner { get; }
+        ISensorRunner SensorRunner { get; }
         void Register(AgentBehaviour agent);
         void Unregister(AgentBehaviour agent);
         List<IAction> GetAllNodes();

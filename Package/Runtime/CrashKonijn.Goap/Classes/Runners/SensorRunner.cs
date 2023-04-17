@@ -3,7 +3,7 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Runners
 {
-    public class SensorRunner
+    public class SensorRunner : ISensorRunner
     {
         private HashSet<ILocalWorldSensor> localWorldSensors = new();
         private HashSet<IGlobalWorldSensor> globalWorldSensors = new();

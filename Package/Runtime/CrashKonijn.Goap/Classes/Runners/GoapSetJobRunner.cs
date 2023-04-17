@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
+using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
 using Unity.Collections;
 using Unity.Mathematics;
@@ -30,7 +31,7 @@ namespace CrashKonijn.Goap.Classes.Runners
 
         public void Run()
         {
-            this.resolveHandles = new();
+            this.resolveHandles.Clear();
             
             this.goapSet.SensorRunner.Update();
             
@@ -117,7 +118,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         private class JobRunHandle
         {
             public IMonoAgent Agent { get; }
-            public ResolveHandle Handle { get; set; }
+            public IResolveHandle Handle { get; set; }
             
             public JobRunHandle(IMonoAgent agent)
             {

@@ -5,7 +5,7 @@ using Unity.Jobs;
 
 namespace CrashKonijn.Goap.Resolver
 {
-    public class ResolveHandle
+    public class ResolveHandle : IResolveHandle
     {
         private readonly GraphResolver graphResolver;
         private JobHandle handle;

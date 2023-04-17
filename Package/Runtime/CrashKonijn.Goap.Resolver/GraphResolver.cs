@@ -42,7 +42,7 @@ namespace CrashKonijn.Goap.Resolver
             this.map = map;
         }
 
-        public ResolveHandle StartResolve(RunData runData)
+        public IResolveHandle StartResolve(RunData runData)
         {
             return new ResolveHandle(this, this.map, runData);
         }
