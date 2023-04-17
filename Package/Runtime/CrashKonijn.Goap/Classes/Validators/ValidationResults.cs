@@ -5,17 +5,23 @@ namespace CrashKonijn.Goap.Classes.Validators
 {
     public class ValidationResults
     {
+        private readonly string name;
         private readonly List<string> errors = new();
         private readonly List<string> warnings = new();
+
+        public ValidationResults(string name)
+        {
+            this.name = name;
+        }
         
         public void AddError(string error)
         {
-            this.errors.Add(error);
+            this.errors.Add($"[{this.name}] {error}");
         }
         
         public void AddWarning(string warning)
         {
-            this.warnings.Add(warning);
+            this.warnings.Add($"[{this.name}] {warning}");
         }
         
         public List<string> GetErrors()

@@ -24,7 +24,7 @@ namespace CrashKonijn.Goap.Classes.Validators
         
         public ValidationResults Validate(IGoapSetConfig config)
         {
-            var results = new ValidationResults();
+            var results = new ValidationResults(config.Name);
             
             foreach (var validator in this.validators)
             {
