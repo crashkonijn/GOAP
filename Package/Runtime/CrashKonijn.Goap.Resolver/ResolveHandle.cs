@@ -40,6 +40,7 @@ namespace CrashKonijn.Goap.Resolver
         
             this.job.RunData.IsExecutable.Dispose();
             this.job.RunData.Positions.Dispose();
+            this.job.RunData.Costs.Dispose();
 
             return results.ToArray();
         }

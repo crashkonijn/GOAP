@@ -10,11 +10,11 @@ namespace CrashKonijn.Goap.Resolver
     public struct NodeData
     {
         public int Index;
-        public int G;
-        public int H;
+        public float G;
+        public float H;
         public int ParentIndex;
     
-        public int F => this.G + this.H;
+        public float F => this.G + this.H;
     }
 
     [BurstCompile]
@@ -23,6 +23,7 @@ namespace CrashKonijn.Goap.Resolver
         public int StartIndex;
         public NativeArray<bool> IsExecutable;
         public NativeArray<float3> Positions;
+        public NativeArray<float> Costs;
     }
 
     [BurstCompile]
@@ -89,7 +90,7 @@ namespace CrashKonijn.Goap.Resolver
                         continue;
                     }
                 
-                    var newG = currentNode.G + 1;
+                    var newG = currentNode.G + this.RunData.Costs[neighborIndex];
                     NodeData neighbor;
                 
                     if (!openSet.TryGetValue(neighborIndex, out neighbor))
@@ -122,17 +123,17 @@ namespace CrashKonijn.Goap.Resolver
             closedSet.Dispose();
         }
 
-        private int Heuristic(int currentIndex, int previousIndex)
+        private float Heuristic(int currentIndex, int previousIndex)
         {
             var previousPosition = this.RunData.Positions[previousIndex];
             var currentPosition = this.RunData.Positions[currentIndex];
 
             if (previousPosition.Equals(InvalidPosition) || currentPosition.Equals(InvalidPosition))
             {
-                return 0;
+                return 0f;
             }
 
-            return (int) math.ceil(math.distance(previousPosition, currentPosition));
+            return math.distance(previousPosition, currentPosition);
         }
 
         private void RetracePath(NodeData startNode, NativeHashMap<int, NodeData> closedSet, NativeList<NodeData> path)

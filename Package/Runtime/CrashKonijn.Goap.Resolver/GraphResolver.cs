@@ -56,6 +56,11 @@ namespace CrashKonijn.Goap.Resolver
         {
             return new PositionBuilder(this.actionIndexList);
         }
+
+        public CostBuilder GetCostBuilder()
+        {
+            return new CostBuilder(this.actionIndexList);
+        }
         
         public Graph GetGraph()
         {
