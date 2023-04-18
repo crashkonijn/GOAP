@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes.Validators;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
@@ -14,8 +15,8 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
         {
             this.Clear();
             this.Add(new Label(agent.name));
-            this.Add(new Label("Goal: " + agent.CurrentGoal?.GetType().Name));
-            this.Add(new Label("Action: " + agent.CurrentAction?.GetType().Name));
+            this.Add(new Label("Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName()));
+            this.Add(new Label("Action: " + agent.CurrentAction?.GetType().GetGenericTypeName()));
             this.Add(new Label("State: " + agent.State));
         }
     }

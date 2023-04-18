@@ -73,12 +73,14 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             var conditions = action.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));
             var effects = action.Effects.Select(x => this.GetText(x as IEffect));
 
+            var cost = action.GetCost(agent as IMonoAgent, agent.Injector);
+            
             var target = agent.WorldData.GetTarget(action);
 
-            var text = "<b>Target:</b>\n";
+            var text = $"<b>Cost:</b> {cost}\n<b>Target:</b>\n";
             
             if (target != null)
-                text += $"    position: {target.Position}\n    name: {action.Config.Target.Name}\n";
+                text += $"    {action.Config.Target.Name}\n    {target.Position}\n";
 
             text += $"\n<b>Effects</b>:\n{string.Join("\n", effects)}\n<b>Conditions</b>:\n{string.Join("\n", conditions)}";
             
