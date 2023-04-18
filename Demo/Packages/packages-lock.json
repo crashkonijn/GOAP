@@ -64,7 +64,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.18",
+      "version": "3.0.20",
       "depth": 0,
       "source": "registry",
       "dependencies": {
