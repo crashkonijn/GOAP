@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes.Validators;
 using Demos.Shared.Behaviours;
 using TMPro;
 using UnityEngine;
@@ -28,7 +29,7 @@ namespace Demos.Simple.Behaviours
             if (this.agent.CurrentAction is null)
                 return "Idle";
 
-            return $"{this.agent.CurrentGoal.GetType().Name}\n{this.agent.CurrentAction.GetType().Name}\n{this.agent.State}\nhunger: {this.hunger.hunger:0.00}";
+            return $"{this.agent.CurrentGoal.GetType().GetGenericTypeName()}\n{this.agent.CurrentAction.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.hunger.hunger:0.00}";
         }
     }
 }
