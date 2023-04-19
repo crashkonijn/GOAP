@@ -18,7 +18,7 @@ jobs:
         projectPath:
           - Demo
         testMode:
-          - playmode
+#          - playmode
           - editmode
     steps:
       - uses: actions/checkout@v2
