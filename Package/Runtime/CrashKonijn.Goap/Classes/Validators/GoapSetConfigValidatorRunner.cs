@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
@@ -19,7 +20,9 @@ namespace CrashKonijn.Goap.Classes.Validators
             new ActionEffectKeyValidator(),
             new ActionConditionKeyValidator(),
             new GoalConditionsValidator(),
-            new GoalConditionKeyValidator()
+            new GoalConditionKeyValidator(),
+            new WorldSensorKeyValidator(),
+            new TargetSensorKeyValidator()
         };
         
         public ValidationResults Validate(IGoapSetConfig config)

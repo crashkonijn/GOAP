@@ -1,4 +1,6 @@
-﻿namespace CrashKonijn.Goap.Classes.Validators
+﻿using CrashKonijn.Goap.Classes.Validators;
+
+namespace CrashKonijn.Goap.Interfaces
 {
     public interface IValidator<T>
     {

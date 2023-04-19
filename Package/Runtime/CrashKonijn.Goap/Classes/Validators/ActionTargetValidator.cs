@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
@@ -12,7 +13,7 @@ namespace CrashKonijn.Goap.Classes.Validators
             if (!missing.Any())
                 return;
             
-            results.AddError($"Actions without Target: {string.Join(", ", missing.Select(x => x.Name))}");
+            results.AddWarning($"Actions without Target: {string.Join(", ", missing.Select(x => x.Name))}");
         }
     }
 }

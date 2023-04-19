@@ -75,6 +75,8 @@ namespace CrashKonijn.Goap.Classes.Runners
             this.executableBuilder.Clear();
             this.positionBuilder.Clear();
 
+            var transformTarget = new TransformTarget(agent.transform);
+
             foreach (var node in this.goapSet.GetActions())
             {
                 var allMet = node.Conditions.All(x => conditionObserver.IsMet(x));
@@ -84,8 +86,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                 this.executableBuilder.SetExecutable(node, allMet);
                 this.costBuilder.SetCost(node, node.GetCost(agent, agent.Injector));
                 
-                if (target is not null)
-                    this.positionBuilder.SetPosition(node, target.Position);
+                this.positionBuilder.SetPosition(node, target?.Position ?? transformTarget.Position);
             }
         }
 
