@@ -64,27 +64,56 @@ namespace CrashKonijn.Goap.Behaviours
                 this.State = AgentState.NoAction;
                 return;
             }
+
+            switch (this.CurrentAction.Config.MoveMode)
+            {
+                case ActionMoveMode.MoveBeforePerforming:
+                    this.RunMoveBeforePerforming();
+                    break;
+                case ActionMoveMode.PerformWhileMoving:
+                    this.RunPerformWhileMoving();
+                    break;
+            }
+        }
+
+        private void RunPerformWhileMoving()
+        {
+            if (this.GetDistance() > this.CurrentAction.Config.InRange)
+            {
+                this.State = AgentState.MovingWhilePerformingAction;
+
+                this.Move();
+                this.PerformAction();
+                return;
+            }
             
+            this.State = AgentState.PerformingAction;
+            this.PerformAction();
+        }
+
+        private void RunMoveBeforePerforming()
+        {
             if (this.GetDistance() <= this.CurrentAction.Config.InRange)
             {
+                this.State = AgentState.PerformingAction;
                 this.PerformAction();
                 return;
             }
 
+            this.State = AgentState.MovingToTarget;
             this.Move();
         }
 
         private void Move()
         {
-            this.State = AgentState.MovingToTarget;
+            if (this.Mover == null)
+                return;
             
-            this.mover.Move(this.CurrentActionData.Target);
+            this.Mover.Move(this.CurrentActionData.Target);
         }
 
         private void PerformAction()
         {
-            this.State = AgentState.PerformingAction;
-
             var result = this.CurrentAction.Perform(this, this.CurrentActionData, new ActionContext
             {
                 DeltaTime = Time.deltaTime,
@@ -132,7 +161,7 @@ namespace CrashKonijn.Goap.Behaviours
         {
             if (this.CurrentAction != null)
             {
-                this.EndAction();
+                this.EndAction(false);
             }
 
             this.CurrentAction = action;
@@ -141,12 +170,12 @@ namespace CrashKonijn.Goap.Behaviours
             this.Injector.Inject(data);
             this.CurrentActionData = data;
             this.CurrentActionData.Target = target;
-            this.CurrentAction.Start(this, this.CurrentActionData);
             this.CurrentActionPath = path;
+            this.CurrentAction.Start(this, this.CurrentActionData);
             this.Events.ActionStart(action);
         }
         
-        public void EndAction()
+        public void EndAction(bool enqueue = true)
         {
             var action = this.CurrentAction;
             
@@ -154,8 +183,10 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentAction = null;
             this.CurrentActionData = null;
             
-            this.GoapSet.Agents.Enqueue(this);
             this.Events.ActionStop(action);
+            
+            if (enqueue)
+                this.GoapSet.Agents.Enqueue(this);
         }
     }
 }

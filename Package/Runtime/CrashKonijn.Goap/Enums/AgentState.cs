@@ -5,5 +5,6 @@
         NoAction,
         PerformingAction,
         MovingToTarget,
+        MovingWhilePerformingAction,
     }
 }

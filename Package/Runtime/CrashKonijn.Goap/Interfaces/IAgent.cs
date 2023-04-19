@@ -22,6 +22,6 @@ namespace CrashKonijn.Goap.Interfaces
 
         void SetGoal(IGoalBase goal, bool endAction);
         void SetAction(IActionBase action, List<IActionBase> path, ITarget target);
-        void EndAction();
+        void EndAction(bool enqueue = true);
     }
 }
