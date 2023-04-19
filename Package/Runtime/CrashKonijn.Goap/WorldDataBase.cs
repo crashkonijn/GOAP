@@ -12,6 +12,9 @@ namespace CrashKonijn.Goap
 
         public ITarget GetTarget(IActionBase action)
         {
+            if (action.Config.Target == null)
+                return null;
+            
             if (!this.Targets.ContainsKey(action.Config.Target))
                 return null;
             
@@ -42,6 +45,9 @@ namespace CrashKonijn.Goap
 
         public void SetState(IWorldKey key, int state)
         {
+            if (key == null)
+                return;
+            
             if (this.States.ContainsKey(key))
             {
                 this.States[key] = state;
@@ -53,6 +59,9 @@ namespace CrashKonijn.Goap
         
         public void SetTarget(ITargetKey key, ITarget target)
         {
+            if (key == null)
+                return;
+            
             if (this.Targets.ContainsKey(key))
             {
                 this.Targets[key] = target;
