@@ -170,8 +170,8 @@ namespace CrashKonijn.Goap.Behaviours
             this.Injector.Inject(data);
             this.CurrentActionData = data;
             this.CurrentActionData.Target = target;
-            this.CurrentAction.Start(this, this.CurrentActionData);
             this.CurrentActionPath = path;
+            this.CurrentAction.Start(this, this.CurrentActionData);
             this.Events.ActionStart(action);
         }
         
