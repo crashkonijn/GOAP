@@ -20,7 +20,7 @@ Effects is a list of world states that will be true (or false) after performing 
 The base cost of this action. This is the cost of the action itself, without any additional costs added by the planner (distance for example).
 
 ### Target
-Each action has a target position. An agent will first move towards this position before performing the action. A position is represented by a TargetKey. For example `ClosestApple` or `ClosestEnemy`.
+Each action has a target position. An agent will first move towards this position before performing the action (based on the `MoveMode`). A position is represented by a TargetKey. For example `ClosestApple` or `ClosestEnemy`.
 
 ### InRange
 If the agent is not in range of the target position, it will move towards it. This value determines how close the agent needs to be to the target position before performing the action.
