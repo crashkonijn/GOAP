@@ -161,7 +161,7 @@ namespace CrashKonijn.Goap.Behaviours
         {
             if (this.CurrentAction != null)
             {
-                this.EndAction();
+                this.EndAction(false);
             }
 
             this.CurrentAction = action;
@@ -175,7 +175,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Events.ActionStart(action);
         }
         
-        public void EndAction()
+        public void EndAction(bool enqueue = true)
         {
             var action = this.CurrentAction;
             
@@ -183,8 +183,10 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentAction = null;
             this.CurrentActionData = null;
             
-            this.GoapSet.Agents.Enqueue(this);
             this.Events.ActionStop(action);
+            
+            if (enqueue)
+                this.GoapSet.Agents.Enqueue(this);
         }
     }
 }
