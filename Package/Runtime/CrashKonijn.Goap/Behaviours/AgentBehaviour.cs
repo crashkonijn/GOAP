@@ -106,7 +106,10 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void Move()
         {
-            this.mover.Move(this.CurrentActionData.Target);
+            if (this.Mover == null)
+                return;
+            
+            this.Mover.Move(this.CurrentActionData.Target);
         }
 
         private void PerformAction()
