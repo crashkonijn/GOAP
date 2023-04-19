@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionClass: Demos.Simple.Actions.EatAppleAction, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
-  target: {fileID: 0}
+  target: {fileID: 11400000, guid: 59d5b26a149e88a4ea08994ab801bcd4, type: 2}
   <BaseCost>k__BackingField: 1
   <InRange>k__BackingField: 0.1
   <MoveMode>k__BackingField: 0
