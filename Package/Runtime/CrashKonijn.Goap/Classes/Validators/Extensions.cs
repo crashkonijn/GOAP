@@ -11,7 +11,9 @@ namespace CrashKonijn.Goap.Classes.Validators
             return config.Actions
                 .SelectMany((action) =>
                 {
-                    return action.Conditions.Select(y => y.WorldKey);
+                    return action.Conditions
+                        .Where(x => x.WorldKey != null)
+                        .Select(y => y.WorldKey);
                 })
                 .Distinct()
                 .ToArray();
@@ -19,7 +21,11 @@ namespace CrashKonijn.Goap.Classes.Validators
         
         public static ITargetKey[] GetTargetKeys(this IGoapSetConfig config)
         {
-            return config.Actions.Select(x => x.Target).Distinct().ToArray();
+            return config.Actions
+                .Where(x => x.Target != null)
+                .Select(x => x.Target)
+                .Distinct()
+                .ToArray();
         }
         
         public static string GetGenericTypeName(this Type type)

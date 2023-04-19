@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
@@ -8,7 +9,10 @@ namespace CrashKonijn.Goap.Classes.Validators
         public void Validate(IGoapSetConfig config, ValidationResults results)
         {
             var required = config.GetWorldKeys();
-            var provided = config.WorldSensors.Select(x => x.Key).ToArray();
+            var provided = config.WorldSensors
+                .Where(x => x.Key != null)
+                .Select(x => x.Key)
+                .ToArray();
             
             var missing = required.Except(provided).ToHashSet();
 

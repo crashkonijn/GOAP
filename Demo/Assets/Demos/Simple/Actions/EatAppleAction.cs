@@ -16,9 +16,6 @@ namespace Demos.Simple.Actions
 
         public override void Start(IMonoAgent agent, Data data)
         {
-            if (data.Target is not TransformTarget)
-                return;
-
             var inventory = agent.GetComponent<InventoryBehaviour>();
 
             if (inventory == null)

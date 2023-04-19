@@ -4,16 +4,16 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class ActionEffectsValidator : IValidator<IGoapSetConfig>
+    public class WorldSensorKeyValidator : IValidator<IGoapSetConfig>
     {
         public void Validate(IGoapSetConfig config, ValidationResults results)
         {
-            var missing = config.Actions.Where(x => !x.Effects.Any()).ToArray();
+            var missing = config.WorldSensors.Where(x => x.Key == null).ToArray();
             
             if (!missing.Any())
                 return;
             
-            results.AddWarning($"Actions without Effects: {string.Join(", ", missing.Select(x => x.Name))}");
+            results.AddError($"WorldSensors without Key: {string.Join(", ", missing.Select(x => x.Name))}");
         }
     }
 }
