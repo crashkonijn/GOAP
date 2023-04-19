@@ -25,6 +25,11 @@ Each action has a target position. An agent will first move towards this positio
 ### InRange
 If the agent is not in range of the target position, it will move towards it. This value determines how close the agent needs to be to the target position before performing the action.
 
+## MoveMode
+The move mode determines how the agent handles movement in combination with the action. There are 2 different modes:
+- `MoveBeforePerforming`: The agent will move towards the target position before performing the action.
+- `PerformWhileMoving`: The agent will move towards the target position and perform the action at the same time.
+
 ## Action Data
 The action data is used to store the state of the action for a single agent. This data is not persistent between agents or between multiple runs of the same action.
 

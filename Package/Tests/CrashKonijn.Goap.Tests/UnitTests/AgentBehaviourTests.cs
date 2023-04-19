@@ -73,7 +73,7 @@ namespace CrashKonijn.Goap.UnitTests
         }
 
         [Test]
-        public void Run_WithActionAndTooMuchDistance_SetsStateToMovingToTarget()
+        public void Run_MoveBeforePerforming_WithActionAndTooMuchDistance_SetsStateToMovingToTarget()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
@@ -86,6 +86,7 @@ namespace CrashKonijn.Goap.UnitTests
                 .SetValue(agent, mover);
             
             var action = Substitute.For<IActionBase>();
+            action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
             
             // Act
@@ -96,7 +97,7 @@ namespace CrashKonijn.Goap.UnitTests
         }
 
         [Test]
-        public void Run_WithActionAndTooMuchDistance_CallsMover()
+        public void Run_MoveBeforePerforming_WithActionAndTooMuchDistance_CallsMover()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
@@ -109,6 +110,7 @@ namespace CrashKonijn.Goap.UnitTests
                 .SetValue(agent, mover);
             
             var action = Substitute.For<IActionBase>();
+            action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
             
             // Act
@@ -116,16 +118,24 @@ namespace CrashKonijn.Goap.UnitTests
             
             // Assert
             mover.Received(1).Move(Arg.Any<ITarget>());
+            action.Received(0).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
         }
 
         [Test]
-        public void Run_WithCloseAction_CallsActionPerform()
+        public void Run_MoveBeforePerforming_WithCloseAction_CallsActionPerform()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
             
+            // Set mover on agent through reflection
+            var mover = Substitute.For<IAgentMover>();
+            typeof(AgentBehaviour)
+                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                .SetValue(agent, mover);
+            
             var action = Substitute.For<IActionBase>();
+            action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Continue);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
             
@@ -133,6 +143,83 @@ namespace CrashKonijn.Goap.UnitTests
             agent.Run();
             
             // Assert
+            mover.Received(0).Move(Arg.Any<ITarget>());
+            action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
+            action.Received(0).End(agent, Arg.Any<IActionData>());
+        }
+
+        [Test]
+        public void Run_PerformWhileMoving_WithActionAndTooMuchDistance_SetsStateToMovingWhilePerformingAction()
+        {
+            // Arrange
+            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            agent.CallAwake();
+            
+            // Set mover on agent through reflection
+            var mover = Substitute.For<IAgentMover>();
+            typeof(AgentBehaviour)
+                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                .SetValue(agent, mover);
+            
+            var action = Substitute.For<IActionBase>();
+            action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
+            
+            // Act
+            agent.Run();
+            
+            // Assert
+            agent.State.Should().Be(AgentState.MovingWhilePerformingAction);
+        }
+
+        [Test]
+        public void Run_PerformWhileMoving_WithActionAndTooMuchDistance_CallsMoverAndAction()
+        {
+            // Arrange
+            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            agent.CallAwake();
+            
+            // Set mover on agent through reflection
+            var mover = Substitute.For<IAgentMover>();
+            typeof(AgentBehaviour)
+                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                .SetValue(agent, mover);
+            
+            var action = Substitute.For<IActionBase>();
+            action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
+            
+            // Act
+            agent.Run();
+            
+            // Assert
+            mover.Received(1).Move(Arg.Any<ITarget>());
+            action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
+        }
+
+        [Test]
+        public void Run_PerformWhileMoving_WithCloseAction_CallsActionPerform()
+        {
+            // Arrange
+            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            agent.CallAwake();
+            
+            // Set mover on agent through reflection
+            var mover = Substitute.For<IAgentMover>();
+            typeof(AgentBehaviour)
+                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                .SetValue(agent, mover);
+            
+            var action = Substitute.For<IActionBase>();
+            action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Continue);
+            agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
+            
+            // Act
+            agent.Run();
+            
+            // Assert
+            mover.Received(0).Move(Arg.Any<ITarget>());
             action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
             action.Received(0).End(agent, Arg.Any<IActionData>());
         }

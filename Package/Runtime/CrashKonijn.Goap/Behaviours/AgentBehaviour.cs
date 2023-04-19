@@ -64,27 +64,53 @@ namespace CrashKonijn.Goap.Behaviours
                 this.State = AgentState.NoAction;
                 return;
             }
+
+            switch (this.CurrentAction.Config.MoveMode)
+            {
+                case ActionMoveMode.MoveBeforePerforming:
+                    this.RunMoveBeforePerforming();
+                    break;
+                case ActionMoveMode.PerformWhileMoving:
+                    this.RunPerformWhileMoving();
+                    break;
+            }
+        }
+
+        private void RunPerformWhileMoving()
+        {
+            if (this.GetDistance() > this.CurrentAction.Config.InRange)
+            {
+                this.State = AgentState.MovingWhilePerformingAction;
+
+                this.Move();
+                this.PerformAction();
+                return;
+            }
             
+            this.State = AgentState.PerformingAction;
+            this.PerformAction();
+        }
+
+        private void RunMoveBeforePerforming()
+        {
             if (this.GetDistance() <= this.CurrentAction.Config.InRange)
             {
+                this.State = AgentState.PerformingAction;
                 this.PerformAction();
                 return;
             }
 
+            this.State = AgentState.MovingToTarget;
             this.Move();
         }
 
         private void Move()
         {
-            this.State = AgentState.MovingToTarget;
-            
             this.mover.Move(this.CurrentActionData.Target);
         }
 
         private void PerformAction()
         {
-            this.State = AgentState.PerformingAction;
-
             var result = this.CurrentAction.Perform(this, this.CurrentActionData, new ActionContext
             {
                 DeltaTime = Time.deltaTime,

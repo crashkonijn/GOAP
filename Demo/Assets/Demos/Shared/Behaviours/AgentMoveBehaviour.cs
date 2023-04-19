@@ -10,6 +10,10 @@ namespace Demos.Shared.Behaviours
         public void Move(ITarget target)
         {
             this.target = target;
+            
+            if (this.target == null)
+                return;
+            
             this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(this.target.Position.x, this.transform.position.y, this.target.Position.z), Time.deltaTime);
         }
 

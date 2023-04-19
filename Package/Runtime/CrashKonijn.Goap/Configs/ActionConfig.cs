@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Configs
@@ -12,5 +13,6 @@ namespace CrashKonijn.Goap.Configs
         public float InRange { get; set; }
         public ICondition[] Conditions { get; set; }
         public IEffect[] Effects { get; set; }
+        public ActionMoveMode MoveMode { get; set; } = ActionMoveMode.MoveBeforePerforming;
     }
 }

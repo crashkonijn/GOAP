@@ -84,7 +84,8 @@ namespace CrashKonijn.Goap.Classes.Runners
                 this.executableBuilder.SetExecutable(node, allMet);
                 this.costBuilder.SetCost(node, node.GetCost(agent, agent.Injector));
                 
-                if (target is not null) this.positionBuilder.SetPosition(node, target.Position);
+                if (target is not null)
+                    this.positionBuilder.SetPosition(node, target.Position);
             }
         }
 
