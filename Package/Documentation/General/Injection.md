@@ -59,6 +59,48 @@ namespace Demos.Complex.Actions
 ```
 {% endcode %}
 
+### Zenject
+It's very easy to use Zenject with the GOAP. The GOAP has a built in injector that can be used to inject Zenject dependencies into the GOAP classes.
+
+{% code title="ZenjectGoapInjector.cs" lang="csharp" %}
+```csharp
+using CrashKonijn.Goap.Interfaces;
+using UnityEngine;
+using Zenject;
+
+public class ZenjectGoapInjector : MonoBehaviour, IGoapInjector
+{
+    private DiContainer container;
+
+    [Inject]
+    private void Construct(DiContainer container)
+    {
+        this.container = container;
+    }
+    
+    public void Inject(IActionBase action)
+    {
+        this.container.Inject(action);
+    }
+
+    public void Inject(IGoalBase goal)
+    {
+        this.container.Inject(goal);
+    }
+
+    public void Inject(IWorldSensor worldSensor)
+    {
+        this.container.Inject(worldSensor);
+    }
+
+    public void Inject(ITargetSensor targetSensor)
+    {
+        this.container.Inject(targetSensor);
+    }
+}
+```
+{% endcode %}
+
 ## Connecting the injector
 In order to let the GOAP know you'd like to overwrite one of it's core settings, the `IGoapInjector` in this case you need to create a class that extends `GoapConfigInitializerBase`.
 
