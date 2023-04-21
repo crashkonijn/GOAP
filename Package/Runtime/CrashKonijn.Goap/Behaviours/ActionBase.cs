@@ -56,6 +56,11 @@ namespace CrashKonijn.Goap.Behaviours
         {
             return this.config.BaseCost;
         }
+        
+        public virtual float GetInRange(IMonoAgent agent, IActionData data)
+        {
+            return this.config.InRange;
+        }
 
         public abstract IActionData GetData();
         public abstract void Created();

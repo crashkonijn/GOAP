@@ -31,8 +31,9 @@ namespace CrashKonijn.Goap.Behaviours
         public IGoalBase CurrentGoal { get; private set; }
         public IActionBase CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
-        public IWorldData WorldData { get; } = new LocalWorldData();
+        public float CurrentActionInRange { get; set; }
         public List<IActionBase> CurrentActionPath { get; private set; } = new List<IActionBase>();
+        public IWorldData WorldData { get; } = new LocalWorldData();
         public IAgentEvents Events { get; } = new AgentEvents();
         public IDataReferenceInjector Injector { get; private set; }
 
@@ -78,7 +79,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void RunPerformWhileMoving()
         {
-            if (this.GetDistance() > this.CurrentAction.Config.InRange)
+            if (this.GetDistance() > this.CurrentActionInRange)
             {
                 this.State = AgentState.MovingWhilePerformingAction;
 
@@ -93,7 +94,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void RunMoveBeforePerforming()
         {
-            if (this.GetDistance() <= this.CurrentAction.Config.InRange)
+            if (this.GetDistance() <= this.CurrentActionInRange)
             {
                 this.State = AgentState.PerformingAction;
                 this.PerformAction();
@@ -172,6 +173,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentActionData.Target = target;
             this.CurrentActionPath = path;
             this.CurrentAction.Start(this, this.CurrentActionData);
+            this.CurrentActionInRange = this.CurrentAction.GetInRange(this, this.CurrentActionData);
             this.Events.ActionStart(action);
         }
         

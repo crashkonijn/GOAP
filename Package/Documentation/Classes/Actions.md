@@ -52,7 +52,7 @@ public class Data : IActionData
 An action always inherits from the `ActionBase<TData>` class. The generic type is the action data class. The action data class is used to store the state of the action. The action class itself should be stateless, since only one instance is used to perform the same action on multiple agents.
 
 ### ActionRunState
-The `ActionRunState` is an enum that determines the state of the action. It can be one of the following values: `Continue` or `Stop`.
+The `ActionRunState` is an enum that determines the state of the action. It can be one of the following values: `Continue` or `Stop`. Stop will stop the action and return to the planner. Continue will continue the action and perform it again next frame.
 
 ### Examples
 {% code title="WanderAction.cs" lineNumbers="true" %}
@@ -66,13 +66,26 @@ namespace Demos.Actions
 {
     public class WanderAction : ActionBase<WanderAction.Data>
     {
+        // You can implement a custom cost function. This is useful if you want to add dynamic costs to the action.
+        public override float GetCost(IMonoAgent agent, IComponentReference references)
+        {
+            return 5f;
+        }
+        
+        // You can implement a custom in range function. This is useful if you want to add dynamic in range values to the action.
+        // This method is called right after Start
+        public override float GetInRange(IMonoAgent agent, IActionData data)
+        {
+            return 2f;
+        }
+    
         // This methods is called when the action is created. It is used to initialize the action.
         public override void Created()
         {
         }
     
         // This method is called when the action is started. It is used to initialize the action.
-        public override void OnStart(IMonoAgent agent, Data data)
+        public override void Start(IMonoAgent agent, Data data)
         {
         }
 
@@ -83,7 +96,7 @@ namespace Demos.Actions
         }
 
         // This method is called when the action is stopped. It is used to clean up the action.
-        public override void OnEnd(IMonoAgent agent, Data data)
+        public override void End(IMonoAgent agent, Data data)
         {
         }
 
