@@ -45,6 +45,9 @@ namespace CrashKonijn.Goap.Classes.Runners
 
         private void Run(GlobalWorldData globalData, IMonoAgent agent)
         {
+            if (agent.IsNull())
+                return;
+            
             if (agent.CurrentGoal == null)
                 return;
 
