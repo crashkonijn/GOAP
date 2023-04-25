@@ -22,8 +22,9 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
 
         private void OnGenerateVisualContent(MeshGenerationContext ctx)
         {
+#if UNITY_2022_1_OR_NEWER
             var paint = ctx.painter2D;
-
+            
             paint.BeginPath();
             paint.MoveTo(this.startPos);
             paint.LineTo(this.endPos);
@@ -32,6 +33,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             paint.Stroke();
             paint.ClosePath();
             paint.Fill();
+#endif
         }
     }
 }

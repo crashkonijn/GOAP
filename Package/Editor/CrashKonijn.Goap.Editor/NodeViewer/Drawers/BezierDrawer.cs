@@ -26,23 +26,25 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
 
         private void OnGenerateVisualContent(MeshGenerationContext ctx)
         {
-            var paint = ctx.painter2D;
-
-            paint.BeginPath();
-            paint.MoveTo(this.startPos);
-
-            const int count = 15;
-            const float stepSize = 1f / count;
-
-            for (var i = 0; i <= count; i++)
-            {
-                paint.LineTo(this.BezierPoint(stepSize * i));
-            }
-            
-            paint.strokeColor = this.strokeColor;
-            paint.lineWidth = this.thickness;
-            paint.Stroke();
-            paint.ClosePath();
+#if UNITY_2022_1_OR_NEWER
+            // var paint = ctx.painter2D;
+            //
+            // paint.BeginPath();
+            // paint.MoveTo(this.startPos);
+            //
+            // const int count = 15;
+            // const float stepSize = 1f / count;
+            //
+            // for (var i = 0; i <= count; i++)
+            // {
+            //     paint.LineTo(this.BezierPoint(stepSize * i));
+            // }
+            //
+            // paint.strokeColor = this.strokeColor;
+            // paint.lineWidth = this.thickness;
+            // paint.Stroke();
+            // paint.ClosePath();
+#endif
         }
 
         private Vector3 BezierPoint(float t)
