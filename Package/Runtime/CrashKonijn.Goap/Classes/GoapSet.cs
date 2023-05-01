@@ -26,8 +26,8 @@ namespace CrashKonijn.Goap.Classes
             this.actions = actions;
         }
 
-        public void Register(AgentBehaviour agent) => this.Agents.Add(agent);
-        public void Unregister(AgentBehaviour agent) => this.Agents.Remove(agent);
+        public void Register(IMonoAgent agent) => this.Agents.Add(agent);
+        public void Unregister(IMonoAgent agent) => this.Agents.Remove(agent);
 
         public TAction ResolveAction<TAction>()
             where TAction : ActionBase
