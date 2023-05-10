@@ -94,7 +94,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             right.Add(dragParent);
             this.rightPanel = dragParent;
             
-            
             var root = this.rootVisualElement;
             root.name = "node-viewer-editor";
             

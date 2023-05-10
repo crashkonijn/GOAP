@@ -40,11 +40,12 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             var direction = (this.endPos - this.startPos).normalized;
             var perpDirection = new Vector3(-direction.y, direction.x, 0f);
             var halfThickness = this.thickness * 0.5f;
-
-            var p1 = this.startPos + perpDirection * halfThickness;
-            var p2 = this.startPos - perpDirection * halfThickness;
-            var p3 = this.endPos + perpDirection * halfThickness;
-            var p4 = this.endPos - perpDirection * halfThickness;
+            perpDirection *= halfThickness;
+            
+            var p1 = this.startPos + perpDirection;
+            var p2 = this.startPos - perpDirection;
+            var p3 = this.endPos + perpDirection;
+            var p4 = this.endPos - perpDirection;
 
             var writeData = ctx.Allocate(4, 6);
             if (writeData.vertexCount == 0)

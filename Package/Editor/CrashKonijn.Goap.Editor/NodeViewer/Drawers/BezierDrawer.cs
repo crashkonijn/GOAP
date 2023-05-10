@@ -70,11 +70,12 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
                 var direction = (points[i + 1] - points[i]).normalized;
                 var perpDirection = new Vector3(-direction.y, direction.x, 0f);
                 var halfThickness = this.thickness * 0.5f;
+                perpDirection *= halfThickness;
 
-                var p1 = points[i] + perpDirection * halfThickness;
-                var p2 = points[i] - perpDirection * halfThickness;
-                var p3 = points[i + 1] + perpDirection * halfThickness;
-                var p4 = points[i + 1] - perpDirection * halfThickness;
+                var p1 = points[i] + perpDirection;
+                var p2 = points[i] - perpDirection;
+                var p3 = points[i + 1] + perpDirection;
+                var p4 = points[i + 1] - perpDirection;
 
                 writeData.SetNextVertex(new Vertex() { position = new Vector3(p1.x, p1.y, Vertex.nearZ), tint = this.strokeColor });
                 writeData.SetNextVertex(new Vertex() { position = new Vector3(p2.x, p2.y, Vertex.nearZ), tint = this.strokeColor });
