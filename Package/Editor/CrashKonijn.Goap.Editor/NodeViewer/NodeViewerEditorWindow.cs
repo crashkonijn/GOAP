@@ -94,7 +94,15 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             right.Add(dragParent);
             this.rightPanel = dragParent;
             
+            
+            var root = this.rootVisualElement;
+            root.name = "node-viewer-editor";
+            
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss"));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer.uss"));
+            
 #if UNITY_2022_1_OR_NEWER
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer_2022.uss"));
             this.dragDrawer = new DragDrawer(right, (offset) =>
             {
                 dragParent.transform.position = offset;
@@ -108,12 +116,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 right.style.backgroundPositionY = posY;
             });
 #endif
-                
-            var root = this.rootVisualElement;
-            root.name = "node-viewer-editor";
-            
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss"));
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer.uss"));
 
             this.floatData = new VisualElement()
             {

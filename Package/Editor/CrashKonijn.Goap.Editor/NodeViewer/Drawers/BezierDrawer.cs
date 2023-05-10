@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
@@ -27,23 +28,67 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
         private void OnGenerateVisualContent(MeshGenerationContext ctx)
         {
 #if UNITY_2022_1_OR_NEWER
-            // var paint = ctx.painter2D;
-            //
-            // paint.BeginPath();
-            // paint.MoveTo(this.startPos);
-            //
-            // const int count = 15;
-            // const float stepSize = 1f / count;
-            //
-            // for (var i = 0; i <= count; i++)
-            // {
-            //     paint.LineTo(this.BezierPoint(stepSize * i));
-            // }
-            //
-            // paint.strokeColor = this.strokeColor;
-            // paint.lineWidth = this.thickness;
-            // paint.Stroke();
-            // paint.ClosePath();
+            var paint = ctx.painter2D;
+            
+            paint.BeginPath();
+            paint.MoveTo(this.startPos);
+            
+            const int count = 15;
+            const float stepSize = 1f / count;
+            
+            for (var i = 0; i <= count; i++)
+            {
+                paint.LineTo(this.BezierPoint(stepSize * i));
+            }
+            
+            paint.strokeColor = this.strokeColor;
+            paint.lineWidth = this.thickness;
+            paint.Stroke();
+            paint.ClosePath();
+#else
+            if (this.thickness <= 0f)
+                return;
+
+            var segments = Mathf.Max(1, Mathf.CeilToInt(Vector3.Distance(this.startPos, this.endPos) / 2f));
+            var points = new List<Vector3>();
+
+            for (var i = 0; i <= segments; i++)
+            {
+                var t = (float)i / (float)segments;
+                points.Add(this.BezierPoint(t));
+            }
+
+            var vertexCount = segments * 4;
+            var indexCount = segments * 6;
+
+            var writeData = ctx.Allocate(vertexCount, indexCount);
+            if (writeData.vertexCount == 0)
+                return;
+
+            for (var i = 0; i < segments; i++)
+            {
+                var direction = (points[i + 1] - points[i]).normalized;
+                var perpDirection = new Vector3(-direction.y, direction.x, 0f);
+                var halfThickness = this.thickness * 0.5f;
+
+                var p1 = points[i] + perpDirection * halfThickness;
+                var p2 = points[i] - perpDirection * halfThickness;
+                var p3 = points[i + 1] + perpDirection * halfThickness;
+                var p4 = points[i + 1] - perpDirection * halfThickness;
+
+                writeData.SetNextVertex(new Vertex() { position = new Vector3(p1.x, p1.y, Vertex.nearZ), tint = this.strokeColor });
+                writeData.SetNextVertex(new Vertex() { position = new Vector3(p2.x, p2.y, Vertex.nearZ), tint = this.strokeColor });
+                writeData.SetNextVertex(new Vertex() { position = new Vector3(p3.x, p3.y, Vertex.nearZ), tint = this.strokeColor });
+                writeData.SetNextVertex(new Vertex() { position = new Vector3(p4.x, p4.y, Vertex.nearZ), tint = this.strokeColor });
+
+                var indexStart = i * 4;
+                writeData.SetNextIndex((ushort)indexStart);
+                writeData.SetNextIndex((ushort)(indexStart + 1));
+                writeData.SetNextIndex((ushort)(indexStart + 2));
+                writeData.SetNextIndex((ushort)(indexStart + 2));
+                writeData.SetNextIndex((ushort)(indexStart + 1));
+                writeData.SetNextIndex((ushort)(indexStart + 3));
+            }
 #endif
         }
 
