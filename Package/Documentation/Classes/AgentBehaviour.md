@@ -89,6 +89,7 @@ namespace Demos.Complex.Behaviours
             this.agent.Events.OnActionStop += this.OnActionStop;
             this.agent.Events.OnGoalStart += this.OnGoalStart;
             this.agent.Events.OnNoActionFound += this.OnNoActionFound;
+            this.agent.Events.OnGoalCompleted += this.OnGoalCompleted;
         }
 
         private void OnDisable()
@@ -97,6 +98,7 @@ namespace Demos.Complex.Behaviours
             this.agent.Events.OnActionStop -= this.OnActionStop;
             this.agent.Events.OnGoalStart -= this.OnGoalStart;
             this.agent.Events.OnNoActionFound -= this.OnNoActionFound;
+            this.agent.Events.OnGoalCompleted -= this.OnGoalCompleted;
         }
 
         private void OnActionStart(IActionBase action)
@@ -113,6 +115,11 @@ namespace Demos.Complex.Behaviours
         private void OnGoalStart(IGoalBase goal)
         {
             // Gets called when a goal is started
+        }
+
+        private void OnGoalCompleted(IGoalBase goal)
+        {
+            // Gets called when a goal is completed
         }
 
         private void OnNoActionFound(IGoalBase goal)
