@@ -21,7 +21,13 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.OnGoalStart?.Invoke(goal);
         }
-        
+
+        public event GoalDelegate OnGoalCompleted;
+        public void GoalCompleted(IGoalBase goal)
+        {
+            this.OnGoalCompleted?.Invoke(goal);
+        }
+
         public event GoalDelegate OnNoActionFound;
         public void NoActionFound(IGoalBase goal)
         {

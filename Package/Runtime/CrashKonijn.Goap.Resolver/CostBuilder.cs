@@ -4,7 +4,7 @@ using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.Resolver
 {
-    public class CostBuilder
+    public class CostBuilder : ICostBuilder
     {
         private readonly List<IAction> actionIndexList;
         private float[] costList;

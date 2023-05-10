@@ -2,10 +2,12 @@
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Resolver.Interfaces;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
+using ICondition = CrashKonijn.Goap.Interfaces.ICondition;
 
 namespace CrashKonijn.Goap.UnitTests
 {
@@ -20,8 +22,10 @@ namespace CrashKonijn.Goap.UnitTests
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction>());
             goapSet.GoapConfig.Returns(GoapConfig.Default);
+
+            var resolver = Substitute.For<IGraphResolver>();
             
-            var runner = new GoapSetJobRunner(goapSet);
+            var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
             runner.Run();
@@ -41,7 +45,9 @@ namespace CrashKonijn.Goap.UnitTests
             goapSet.GetAllNodes().Returns(new List<IAction>());
             goapSet.GoapConfig.Returns(GoapConfig.Default);
             
-            var runner = new GoapSetJobRunner(goapSet);
+            var resolver = Substitute.For<IGraphResolver>();
+            
+            var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
             runner.Run();
@@ -67,7 +73,9 @@ namespace CrashKonijn.Goap.UnitTests
             goapSet.GetAllNodes().Returns(new List<IAction> { });
             goapSet.GoapConfig.Returns(GoapConfig.Default);
             
-            var runner = new GoapSetJobRunner(goapSet);
+            var resolver = Substitute.For<IGraphResolver>();
+            
+            var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
             runner.Run();
@@ -75,28 +83,31 @@ namespace CrashKonijn.Goap.UnitTests
             
             // Assert
             sensorRunner.Received(0).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            resolver.Received(0).StartResolve(Arg.Any<RunData>());
         }
 
         [Test]
         public void Run_AgentHasCurrentGoalAndNoAction_Runs()
         {
             // Arrange
-            var agent = Substitute.For<IMonoAgent>();
             var goal = Substitute.For<IGoalBase>();
+            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            
+            var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
             agent.CurrentAction.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
-            sensorRunner.SenseGlobal().Returns(new GlobalWorldData());
             
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
-            goapSet.GoapConfig.Returns(GoapConfig.Default);
             goapSet.Agents.GetQueue().Returns(new []{ agent });
             goapSet.GetActions().Returns(new List<IActionBase>());
             
-            var runner = new GoapSetJobRunner(goapSet);
+            var resolver = Substitute.For<IGraphResolver>();
+            
+            var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
             runner.Run();
@@ -104,6 +115,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             // Assert
             sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
 
         [Test]
@@ -123,7 +135,9 @@ namespace CrashKonijn.Goap.UnitTests
             goapSet.GoapConfig.Returns(GoapConfig.Default);
             goapSet.Agents.GetQueue().Returns(new []{ agent });
             
-            var runner = new GoapSetJobRunner(goapSet);
+            var resolver = Substitute.For<IGraphResolver>();
+            
+            var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
             runner.Run();
@@ -131,6 +145,77 @@ namespace CrashKonijn.Goap.UnitTests
             
             // Assert
             sensorRunner.Received(0).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            resolver.Received(0).StartResolve(Arg.Any<RunData>());
+        }
+
+        [Test]
+        public void Run_AgentHasCompletedGoal_CallsGoalCompleteEvent()
+        {
+            // Arrange
+            var goal = Substitute.For<IGoalBase>();
+            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            
+            var agent = Substitute.For<IMonoAgent>();
+            agent.CurrentGoal.Returns(goal);
+            agent.CurrentAction.ReturnsNull();
+            
+            var sensorRunner = Substitute.For<ISensorRunner>();
+            
+            var goapSet = Substitute.For<IGoapSet>();
+            goapSet.SensorRunner.Returns(sensorRunner);
+            goapSet.GetAllNodes().Returns(new List<IAction> { goal });
+            goapSet.Agents.GetQueue().Returns(new []{ agent });
+            goapSet.GetActions().Returns(new List<IActionBase>());
+
+            goapSet.GoapConfig.ConditionObserver.IsMet(Arg.Any<ICondition>()).Returns(true);
+            
+            var resolver = Substitute.For<IGraphResolver>();
+            
+            var runner = new GoapSetJobRunner(goapSet, resolver);
+            
+            // Act
+            runner.Run();
+            runner.Dispose();
+            
+            // Assert
+            sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            resolver.Received(0).StartResolve(Arg.Any<RunData>());
+            agent.Events.Received(1).GoalCompleted(agent.CurrentGoal);
+        }
+
+        [Test]
+        public void Run_AgentHasNotCompletedGoal_DoesntCallGoalCompleteEvent()
+        {
+            // Arrange
+            var goal = Substitute.For<IGoalBase>();
+            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            
+            var agent = Substitute.For<IMonoAgent>();
+            agent.CurrentGoal.Returns(goal);
+            agent.CurrentAction.ReturnsNull();
+            
+            var sensorRunner = Substitute.For<ISensorRunner>();
+            
+            var goapSet = Substitute.For<IGoapSet>();
+            goapSet.SensorRunner.Returns(sensorRunner);
+            goapSet.GetAllNodes().Returns(new List<IAction> { goal });
+            goapSet.Agents.GetQueue().Returns(new []{ agent });
+            goapSet.GetActions().Returns(new List<IActionBase>());
+
+            goapSet.GoapConfig.ConditionObserver.IsMet(Arg.Any<ICondition>()).Returns(false);
+            
+            var resolver = Substitute.For<IGraphResolver>();
+            
+            var runner = new GoapSetJobRunner(goapSet, resolver);
+            
+            // Act
+            runner.Run();
+            runner.Dispose();
+            
+            // Assert
+            sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            resolver.Received(1).StartResolve(Arg.Any<RunData>());
+            agent.Events.Received(0).GoalCompleted(agent.CurrentGoal);
         }
     }
 }

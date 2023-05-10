@@ -8,7 +8,7 @@ using IAction = CrashKonijn.Goap.Resolver.Interfaces.IAction;
 
 namespace CrashKonijn.Goap.Resolver
 {
-    public class GraphResolver
+    public class GraphResolver : IGraphResolver
     {
         private readonly List<Node> indexList;
         private readonly List<IAction> actionIndexList;
@@ -47,17 +47,17 @@ namespace CrashKonijn.Goap.Resolver
             return new ResolveHandle(this, this.map, runData);
         }
         
-        public ExecutableBuilder GetExecutableBuilder()
+        public IExecutableBuilder GetExecutableBuilder()
         {
             return new ExecutableBuilder(this.actionIndexList);
         }
         
-        public PositionBuilder GetPositionBuilder()
+        public IPositionBuilder GetPositionBuilder()
         {
             return new PositionBuilder(this.actionIndexList);
         }
 
-        public CostBuilder GetCostBuilder()
+        public ICostBuilder GetCostBuilder()
         {
             return new CostBuilder(this.actionIndexList);
         }

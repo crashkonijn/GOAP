@@ -12,17 +12,17 @@ namespace CrashKonijn.Goap.Classes.Runners
     public class GoapSetJobRunner
     {
         private readonly IGoapSet goapSet;
-        private readonly GraphResolver resolver;
+        private readonly IGraphResolver resolver;
         
         private List<JobRunHandle> resolveHandles = new();
-        private readonly ExecutableBuilder executableBuilder;
-        private readonly PositionBuilder positionBuilder;
-        private readonly CostBuilder costBuilder;
+        private readonly IExecutableBuilder executableBuilder;
+        private readonly IPositionBuilder positionBuilder;
+        private readonly ICostBuilder costBuilder;
 
-        public GoapSetJobRunner(IGoapSet goapSet)
+        public GoapSetJobRunner(IGoapSet goapSet, IGraphResolver graphResolver)
         {
             this.goapSet = goapSet;
-            this.resolver = new GraphResolver(goapSet.GetAllNodes().ToArray(), goapSet.GoapConfig.KeyResolver);
+            this.resolver = graphResolver;
             
             this.executableBuilder = this.resolver.GetExecutableBuilder();
             this.positionBuilder = this.resolver.GetPositionBuilder();
@@ -55,6 +55,12 @@ namespace CrashKonijn.Goap.Classes.Runners
                 return;
             
             var localData = this.goapSet.SensorRunner.SenseLocal(globalData, agent);
+
+            if (this.IsGoalCompleted(localData, agent))
+            {
+                agent.Events.GoalCompleted(agent.CurrentGoal);
+                return;
+            }
 
             this.FillBuilders(localData, agent);
             
@@ -91,6 +97,14 @@ namespace CrashKonijn.Goap.Classes.Runners
                 
                 this.positionBuilder.SetPosition(node, target?.Position ?? transformTarget.Position);
             }
+        }
+
+        private bool IsGoalCompleted(LocalWorldData localData, IMonoAgent agent)
+        {
+            var conditionObserver = this.goapSet.GoapConfig.ConditionObserver;
+            conditionObserver.SetWorldData(localData);
+            
+            return agent.CurrentGoal.Conditions.All(x => conditionObserver.IsMet(x));
         }
 
         public void Complete()
