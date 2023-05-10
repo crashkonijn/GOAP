@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Resolver.Models;
 
 namespace CrashKonijn.Goap.Classes.Runners
@@ -14,7 +15,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         public float RunTime { get; private set; }
         public float CompleteTime { get; private set; }
 
-        public void Register(IGoapSet set) => this.sets.Add(set, new GoapSetJobRunner(set));
+        public void Register(IGoapSet set) => this.sets.Add(set, new GoapSetJobRunner(set, new GraphResolver(set.GetAllNodes().ToArray(), set.GoapConfig.KeyResolver)));
 
         public void Run()
         {

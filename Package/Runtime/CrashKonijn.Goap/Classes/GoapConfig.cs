@@ -5,7 +5,7 @@ using CrashKonijn.Goap.Resolvers;
 
 namespace CrashKonijn.Goap.Classes
 {
-    public class GoapConfig
+    public class GoapConfig : IGoapConfig
     {
         public IConditionObserver ConditionObserver { get; set; }
         public IKeyResolver KeyResolver { get; set; }

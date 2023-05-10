@@ -8,7 +8,7 @@ namespace CrashKonijn.Goap.Interfaces
     public interface IGoapSet
     {
         string Id { get; }
-        GoapConfig GoapConfig { get; }
+        IGoapConfig GoapConfig { get; }
         IAgentCollection Agents { get; }
         ISensorRunner SensorRunner { get; }
         void Register(IMonoAgent agent);
