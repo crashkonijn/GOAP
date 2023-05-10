@@ -4,7 +4,7 @@ using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.Resolver
 {
-    public class ExecutableBuilder
+    public class ExecutableBuilder : IExecutableBuilder
     {
         private readonly List<IAction> actionIndexList;
         private bool[] executableList;

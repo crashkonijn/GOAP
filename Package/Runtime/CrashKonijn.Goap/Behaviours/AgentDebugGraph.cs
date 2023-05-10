@@ -8,6 +8,6 @@ namespace CrashKonijn.Goap.Behaviours
     {
         public List<IGoalBase> Goals { get; set; }
         public List<IActionBase> Actions { get; set; }
-        public GoapConfig Config { get; set; }
+        public IGoapConfig Config { get; set; }
     }
 }

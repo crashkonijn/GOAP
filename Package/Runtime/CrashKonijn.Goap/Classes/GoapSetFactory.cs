@@ -12,10 +12,10 @@ namespace CrashKonijn.Goap.Classes
 {
     public class GoapSetFactory
     {
-        private readonly GoapConfig goapConfig;
+        private readonly IGoapConfig goapConfig;
         private IGoapSetConfigValidatorRunner goapSetConfigValidatorRunner = new GoapSetConfigValidatorRunner();
 
-        public GoapSetFactory(GoapConfig goapConfig)
+        public GoapSetFactory(IGoapConfig goapConfig)
         {
             this.goapConfig = goapConfig;
         }

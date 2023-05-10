@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {
-    public class PositionBuilder
+    public class PositionBuilder : IPositionBuilder
     {
         private readonly List<IAction> actionIndexList;
         private float3[] executableList;

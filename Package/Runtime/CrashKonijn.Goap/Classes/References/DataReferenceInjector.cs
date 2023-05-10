@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes.References
 {
-    public interface IComponentReference
-    {
-        T GetComponent<T>()
-            where T : MonoBehaviour;
-    }
-
-    public interface IDataReferenceInjector : IComponentReference
-    {
-        void Inject(IActionData data);
-    }
-
     public class DataReferenceInjector : IDataReferenceInjector
     {
         private readonly IMonoAgent agent;
@@ -34,14 +25,25 @@ namespace CrashKonijn.Goap.Classes.References
             var properties = type.GetProperties();
             foreach (var property in properties)
             {
-                var attributes = property.GetCustomAttributes(typeof(GetComponentAttribute), true);
+                var value = this.GetPropertyValue(property);
                 
-                if (attributes.Length == 0)
+                if (value == null)
                     continue;
-                
+
                 // set the reference
-                property.SetValue(data, this.GetComponentReference(property.PropertyType));
+                property.SetValue(data, value);
             }
+        }
+
+        private object GetPropertyValue(PropertyInfo property)
+        {
+            if (property.GetCustomAttributes(typeof(GetComponentAttribute), true).Any())
+                return this.GetComponentReference(property.PropertyType);
+            
+            if (property.GetCustomAttributes(typeof(GetComponentInChildrenAttribute), true).Any())
+                return this.GetComponentInChildrenReference(property.PropertyType);
+            
+            return null;
         }
 
         private object GetComponentReference(Type type)
@@ -58,6 +60,22 @@ namespace CrashKonijn.Goap.Classes.References
             where T : MonoBehaviour
         {
             return (T) this.GetComponentReference(typeof(T));
+        }
+
+        private object GetComponentInChildrenReference(Type type)
+        {
+            // check if we have a reference for this type
+            if (!this.references.ContainsKey(type))
+                this.references.Add(type, this.agent.GetComponentInChildren(type));
+                
+            // get the reference
+            return this.references[type];
+        }
+
+        public T GetComponentInChildren<T>()
+            where T : MonoBehaviour
+        {
+            return (T) this.GetComponentInChildrenReference(typeof(T));
         }
     }
 }
