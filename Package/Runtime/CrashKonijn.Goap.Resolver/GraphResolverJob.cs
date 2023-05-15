@@ -39,7 +39,11 @@ namespace CrashKonijn.Goap.Resolver
     public struct GraphResolverJob : IJob
     {
         // Graph specific
+#if UNITY_COLLECTIONS_2_1
+        [ReadOnly] public NativeParallelMultiHashMap<int, int> Connections;
+#else
         [ReadOnly] public NativeMultiHashMap<int, int> Connections;
+#endif
 
         // Resolve specific
         [ReadOnly] public RunData RunData;
