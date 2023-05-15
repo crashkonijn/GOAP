@@ -78,13 +78,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
-            // Set mover on agent through reflection
-            var mover = Substitute.For<IAgentMover>();
-            typeof(AgentBehaviour)
-                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, mover);
-            
+
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
@@ -102,22 +96,17 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
-            // Set mover on agent through reflection
-            var mover = Substitute.For<IAgentMover>();
-            typeof(AgentBehaviour)
-                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, mover);
-            
+
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
+            agent.MockEvents();
             
             // Act
             agent.Run();
             
             // Assert
-            mover.Received(1).Move(Arg.Any<ITarget>());
+            agent.Events.Received(1).Move(Arg.Any<ITarget>());
             action.Received(0).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
         }
 
@@ -128,22 +117,17 @@ namespace CrashKonijn.Goap.UnitTests
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
             
-            // Set mover on agent through reflection
-            var mover = Substitute.For<IAgentMover>();
-            typeof(AgentBehaviour)
-                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, mover);
-            
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Continue);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
+            agent.MockEvents();
             
             // Act
             agent.Run();
             
             // Assert
-            mover.Received(0).Move(Arg.Any<ITarget>());
+            agent.Events.Received(0).Move(Arg.Any<ITarget>());
             action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
             action.Received(0).End(agent, Arg.Any<IActionData>());
         }
@@ -154,12 +138,6 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
-            // Set mover on agent through reflection
-            var mover = Substitute.For<IAgentMover>();
-            typeof(AgentBehaviour)
-                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, mover);
             
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
@@ -178,22 +156,17 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
-            // Set mover on agent through reflection
-            var mover = Substitute.For<IAgentMover>();
-            typeof(AgentBehaviour)
-                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, mover);
-            
+
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
+            agent.MockEvents();
             
             // Act
             agent.Run();
             
             // Assert
-            mover.Received(1).Move(Arg.Any<ITarget>());
+            agent.Events.Received(1).Move(Arg.Any<ITarget>());
             action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
         }
 
@@ -203,23 +176,18 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
-            // Set mover on agent through reflection
-            var mover = Substitute.For<IAgentMover>();
-            typeof(AgentBehaviour)
-                .GetField("mover", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, mover);
-            
+
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Continue);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
+            agent.MockEvents();
             
             // Act
             agent.Run();
             
             // Assert
-            mover.Received(0).Move(Arg.Any<ITarget>());
+            agent.Events.Received(0).Move(Arg.Any<ITarget>());
             action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
             action.Received(0).End(agent, Arg.Any<IActionData>());
         }
@@ -288,12 +256,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.GoapSet = goapSet;
-            
-            var events = Substitute.For<IAgentEvents>();
-            // Set Events property through reflection
-            typeof(AgentBehaviour)
-                .GetField("<Events>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, events);
+            agent.MockEvents();
             
             // Act
             agent.SetGoal<TestGoal>(false);
@@ -314,9 +277,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             // Set Action property through reflection
             var action = Substitute.For<IActionBase>();
-            typeof(AgentBehaviour)
-                .GetField("<CurrentAction>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, action);
+            agent.InsertAction(action);
             
             // Act
             agent.SetGoal<TestGoal>(false);
@@ -337,9 +298,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             // Set Action property through reflection
             var action = Substitute.For<IActionBase>();
-            typeof(AgentBehaviour)
-                .GetField("<CurrentAction>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, action);
+            agent.InsertAction(action);
             
             // Act
             agent.SetGoal<TestGoal>(true);
@@ -377,9 +336,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             // Set Action property through reflection
             var oldAction = Substitute.For<IActionBase>();
-            typeof(AgentBehaviour)
-                .GetField("<CurrentAction>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, oldAction);
+            agent.InsertAction(oldAction);
             
             // Act
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
@@ -484,20 +441,15 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
+            agent.MockEvents();
 
             var action = Substitute.For<IActionBase>();
             
-            var events = Substitute.For<IAgentEvents>();
-            // Set Events property through reflection
-            typeof(AgentBehaviour)
-                .GetField("<Events>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, events);
-
             // Act
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
             
             // Assert
-            events.Received(1).ActionStart(action);
+            agent.Events.Received(1).ActionStart(action);
         }
         
         [Test]
@@ -510,11 +462,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.GoapSet = set;
             
             var action = Substitute.For<IActionBase>();
-            
-            // Set Action property through reflection
-            typeof(AgentBehaviour)
-                .GetField("<CurrentAction>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, action);
+            agent.InsertAction(action);
             
             // Act
             agent.EndAction();
@@ -581,21 +529,16 @@ namespace CrashKonijn.Goap.UnitTests
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
             agent.GoapSet = set;
+            agent.MockEvents();
 
             var action = Substitute.For<IActionBase>();
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
-            
-            var events = Substitute.For<IAgentEvents>();
-            // Set Events property through reflection
-            typeof(AgentBehaviour)
-                .GetField("<Events>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, events);
 
             // Act
             agent.EndAction();
             
             // Assert
-            events.Received(1).ActionStop(action);
+            agent.Events.Received(1).ActionStop(action);
         }
     }
 }
