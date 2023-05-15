@@ -12,6 +12,20 @@ namespace CrashKonijn.Goap.Resolver
         private GraphResolverJob job;
         private RunData runData;
 
+#if UNITY_COLLECTIONS_2_1
+        public ResolveHandle(GraphResolver graphResolver, NativeParallelMultiHashMap<int, int> connections, RunData runData)
+        {
+            this.graphResolver = graphResolver;
+            this.job = new GraphResolverJob
+            {
+                Connections = connections,
+                RunData = runData,
+                Result = new NativeList<NodeData>(Allocator.TempJob)
+            };
+        
+            this.handle = this.job.Schedule();
+        }
+#else
         public ResolveHandle(GraphResolver graphResolver, NativeMultiHashMap<int, int> connections, RunData runData)
         {
             this.graphResolver = graphResolver;
@@ -24,6 +38,7 @@ namespace CrashKonijn.Goap.Resolver
         
             this.handle = this.job.Schedule();
         }
+#endif
 
         public IAction[] Complete()
         {

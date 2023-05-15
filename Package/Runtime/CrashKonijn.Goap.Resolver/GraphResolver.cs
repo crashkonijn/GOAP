@@ -12,7 +12,12 @@ namespace CrashKonijn.Goap.Resolver
     {
         private readonly List<Node> indexList;
         private readonly List<IAction> actionIndexList;
+        
+#if UNITY_COLLECTIONS_2_1
+        private NativeParallelMultiHashMap<int, int> map;
+#else
         private NativeMultiHashMap<int, int> map;
+#endif
         
         private GraphResolverJob job;
         private JobHandle handle;
@@ -25,8 +30,12 @@ namespace CrashKonijn.Goap.Resolver
             
             this.indexList = this.graph.AllNodes.ToList();
             this.actionIndexList = this.indexList.Select(x => x.Action).ToList();
-
+            
+#if UNITY_COLLECTIONS_2_1
+            var map = new NativeParallelMultiHashMap<int, int>(this.indexList.Count, Allocator.Persistent);
+#else
             var map = new NativeMultiHashMap<int, int>(this.indexList.Count, Allocator.Persistent);
+#endif
             
             for (var i = 0; i < this.indexList.Count; i++)
             {
