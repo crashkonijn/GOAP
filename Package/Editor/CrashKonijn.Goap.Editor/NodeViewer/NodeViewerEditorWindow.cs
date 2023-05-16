@@ -93,11 +93,19 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 
             right.Add(dragParent);
             this.rightPanel = dragParent;
-                
+            
+            var root = this.rootVisualElement;
+            root.name = "node-viewer-editor";
+            
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss"));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer.uss"));
+            
+#if UNITY_2022_1_OR_NEWER
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer_2022.uss"));
             this.dragDrawer = new DragDrawer(right, (offset) =>
             {
                 dragParent.transform.position = offset;
-                    
+                
                 var posX = right.style.backgroundPositionX;
                 posX.value = new BackgroundPosition(BackgroundPositionKeyword.Left, offset.x);
                 right.style.backgroundPositionX = posX;
@@ -106,12 +114,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 posY.value = new BackgroundPosition(BackgroundPositionKeyword.Top, offset.y);
                 right.style.backgroundPositionY = posY;
             });
-                
-            var root = this.rootVisualElement;
-            root.name = "node-viewer-editor";
-            
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss"));
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer.uss"));
+#endif
 
             this.floatData = new VisualElement()
             {
@@ -179,13 +182,31 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
             list.SetSelectionWithoutNotify(new []{ this.agents.IndexOf(this.agent) });
 
+#if UNITY_2021_1 || UNITY_2021_2 || UNITY_2021_3
+            list.schedule.Execute(() =>
+            {
+                var index = list.selectedIndex;
+                
+                if (index < 0)
+                    return;
+
+                var agent = this.agents[index];
+
+                if (agent == null)
+                    return;
+                
+                this.agent = agent;
+                this.set = this.agent.GoapSet;
+                this.RenderGraph();
+            }).Every(33);
+#elif UNITY_2022_1_OR_NEWER
             list.selectionChanged += _ =>
             {
                 this.agent = this.agents[list.selectedIndex];
                 this.set = this.agent.GoapSet;
                 this.RenderGraph();
             };
-
+#endif
             this.leftPanel.Add(list);
         }
         
