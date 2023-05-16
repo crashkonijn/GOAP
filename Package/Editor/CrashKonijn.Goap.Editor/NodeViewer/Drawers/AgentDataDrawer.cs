@@ -13,8 +13,12 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             
             var card = new Card((card) =>
             {
-                card.Add(new Header("Agent Data"));
-                card.Add(new ObjectDrawer(agent.CurrentActionData));
+                card.schedule.Execute(() =>
+                {
+                    card.Clear();
+                    card.Add(new Header("Agent Data"));
+                    card.Add(new ObjectDrawer(agent.CurrentActionData));
+                }).Every(500);
             });
             
             this.Add(card);

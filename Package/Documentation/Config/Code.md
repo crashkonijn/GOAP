@@ -24,38 +24,38 @@ public class GoapSetConfigFactory : GoapSetFactoryBase
         
         // Goals
         builder.AddGoal<WanderGoal>()
-            .AddCondition("IsWandering", Comparison.GreaterThanOrEqual, 1);
+            .AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
 
         builder.AddGoal<FixHungerGoal>()
-            .AddCondition("IsHungry", Comparison.SmallerThanOrEqual, 0);
+            .AddCondition<IsHungry>(Comparison.SmallerThanOrEqual, 0);
 
         // Actions
         builder.AddAction<WanderAction>()
-            .SetTarget("WanderTarget")
-            .AddEffect("IsWandering", true)
+            .SetTarget<WanderTarget>()
+            .AddEffect<IsWandering>(true)
             .SetBaseCost(1f)
             .SetInRange(0.3f);
 
         builder.AddAction<PickupItemAction<IEatable>>()
-            .SetTarget<IEatable>("ClosestTarget") // This results in: ClosestTarget<IEatable>
-            .AddEffect<IEatable>("IsHolding", true)
-            .AddCondition<IEatable>("IsInWorld", Comparison.GreaterThanOrEqual, 1)
+            .SetTarget<ClosestTarget<IEatable>>()
+            .AddEffect<IsHolding<IEatable>>(true)
+            .AddCondition<IsInWorld<IEatable>>(Comparison.GreaterThanOrEqual, 1)
             .SetBaseCost(1f)
             .SetInRange(0.3f);
 
         // Target Sensors
         builder.AddTargetSensor<WanderTargetSensor>()
-            .SetTarget("WanderTarget");
+            .SetTarget<WanderTarget>();
 
         builder.AddTargetSensor<ClosestItemSensor<IEatable>>()
-            .SetTarget<IEatable>("ClosestTarget");
+            .SetTarget<ClosestTarget<IEatable>>();
 
         // World Sensors
         builder.AddWorldSensor<IsHoldingSensor<IEatable>>()
-            .SetKey<IEatable>("IsHolding"));
+            .SetKey<IsHolding<IEatable>>());
 
         builder.AddWorldSensor<IsInWorldSensor<IEatable>>()
-            .SetKey<IEatable>("IsInWorld");
+            .SetKey<IsInWorld<IEatable>>();
 
         return builder.Build();
     }

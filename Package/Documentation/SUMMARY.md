@@ -6,6 +6,7 @@
     * [Code](Introduction/Code.md)
     * [ScriptableObjects](Introduction/ScriptableObjects.md)
   * [FAQ](Introduction/FAQ.md)
+  * [Upgrading](Introduction/Upgrading.md)
 * [Config](Config/README.md)
   * [Through ScriptableObjects](Config/ScriptableObjects.md)
   * [Through Code](Config/Code.md)

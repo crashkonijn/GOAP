@@ -21,7 +21,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             var root = new VisualElement();
             
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss");
             root.styleSheets.Add(styleSheet);
 
             root.Add(this.Group("Goals and Actions", card =>

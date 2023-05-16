@@ -15,10 +15,19 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             {
                 card.Add(new Header("Conditions"));
                 
-                foreach (var (key, state) in worldData.States)
+                var root = new VisualElement();
+                
+                card.schedule.Execute(() =>
                 {
-                    card.Add(new Label(this.GetText(key, state)));
-                }
+                    root.Clear();
+                    
+                    foreach (var (key, state) in worldData.States)
+                    {
+                        root.Add(new Label(this.GetText(key, state)));
+                    }
+                }).Every(500);
+                
+                card.Add(root);
             });
             
             this.Add(card);

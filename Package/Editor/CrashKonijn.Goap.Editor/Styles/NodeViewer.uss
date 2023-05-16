@@ -4,10 +4,6 @@
 
 #right-panel {
     overflow: hidden;
-    background-image: url('project://database/Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Textures/background_grid.png');
-    background-position: 0 0;
-    background-repeat: repeat;
-    background-size: 100px 100px;
     height: 100%;
 }
 

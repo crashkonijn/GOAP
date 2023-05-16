@@ -20,27 +20,14 @@ namespace CrashKonijn.Goap.Classes.Builders
             };
         }
         
-        public WorldSensorBuilder SetKey(string key)
+        public WorldSensorBuilder SetKey<TWorldKey>()
+            where TWorldKey : IWorldKey
         {
-            this.config.Key = this.worldKeyBuilder.GetKey(key);
+            this.config.Key = this.worldKeyBuilder.GetKey<TWorldKey>();
             
-            return this;
+            return this; 
         }
-        
-        public WorldSensorBuilder SetKey<T1>(string key)
-        {
-            this.config.Key = this.worldKeyBuilder.GetKey<T1>(key);
-            
-            return this;
-        }
-        
-        public WorldSensorBuilder SetKey<T1, T2>(string key)
-        {
-            this.config.Key = this.worldKeyBuilder.GetKey<T1, T2>(key);
-            
-            return this;
-        }
-        
+
         public IWorldSensorConfig Build()
         {
             return this.config;

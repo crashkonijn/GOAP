@@ -34,46 +34,24 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
         private void OnFocus()
         {
-            if (this.lastUpdate > Time.realtimeSinceStartup)
-                this.lastUpdate = 0f;
-        }
-
-        public void OnEnable()
-        {
-            this.Render();
-        }
-
-        private void Update()
-        {
             this.Render();
         }
 
         private void Render()
         {
             this.Init();
-            
-            if (!Application.isPlaying)
-                return;
 
-            if (Time.timeSinceLevelLoad - this.lastUpdate <= 0.5f)
+            this.rootVisualElement.schedule.Execute(() =>
             {
-                return;
-            }
-
-            this.lastUpdate = Time.timeSinceLevelLoad;
+                if (!Application.isPlaying)
+                    return;
             
-            this.runner = FindObjectOfType<GoapRunnerBehaviour>();
-            // this.set = FindObjectOfType<GoapSetBehaviour>().Set;
-            this.agents = FindObjectsOfType<AgentBehaviour>().ToList();
+                this.runner = FindObjectOfType<GoapRunnerBehaviour>();
+                this.agents = FindObjectsOfType<AgentBehaviour>().ToList();
 
-            this.RenderAgents();
+                this.RenderAgents();
+            }).Every(1000);
             
-            if (this.agent == null)
-                return;
-            
-            if (!this.runner.Knows(this.set))
-                return;
-
             this.RenderGraph();
         }
 
@@ -93,11 +71,19 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 
             right.Add(dragParent);
             this.rightPanel = dragParent;
-                
+            
+            var root = this.rootVisualElement;
+            root.name = "node-viewer-editor";
+            
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/NodeViewer.uss"));
+            
+#if UNITY_2022_1_OR_NEWER
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/NodeViewer_2022.uss"));
             this.dragDrawer = new DragDrawer(right, (offset) =>
             {
                 dragParent.transform.position = offset;
-                    
+                
                 var posX = right.style.backgroundPositionX;
                 posX.value = new BackgroundPosition(BackgroundPositionKeyword.Left, offset.x);
                 right.style.backgroundPositionX = posX;
@@ -106,12 +92,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 posY.value = new BackgroundPosition(BackgroundPositionKeyword.Top, offset.y);
                 right.style.backgroundPositionY = posY;
             });
-                
-            var root = this.rootVisualElement;
-            root.name = "node-viewer-editor";
-            
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss"));
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer.uss"));
+#endif
 
             this.floatData = new VisualElement()
             {
@@ -179,19 +160,46 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
             list.SetSelectionWithoutNotify(new []{ this.agents.IndexOf(this.agent) });
 
+#if UNITY_2021_1 || UNITY_2021_2 || UNITY_2021_3
+            list.schedule.Execute(() =>
+            {
+                var index = list.selectedIndex;
+                
+                if (index < 0)
+                    return;
+
+                var agent = this.agents[index];
+
+                if (agent == null)
+                    return;
+                
+                this.agent = agent;
+                this.set = this.agent.GoapSet;
+                this.RenderGraph();
+            }).Every(33);
+#elif UNITY_2022_1_OR_NEWER
             list.selectionChanged += _ =>
             {
                 this.agent = this.agents[list.selectedIndex];
                 this.set = this.agent.GoapSet;
                 this.RenderGraph();
             };
-
+#endif
             this.leftPanel.Add(list);
         }
         
         private void RenderGraph()
         {
             this.rightPanel.Clear();
+
+            if (this.runner == null)
+                return;
+            
+            if (this.agent == null)
+                return;
+            
+            if (!this.runner.Knows(this.set))
+                return;
 
             this.nodesDrawer = this.GetGraphElement();
             

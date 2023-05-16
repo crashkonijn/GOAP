@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Classes.Builders;
-using Demos.Complex.Classes;
 using Demos.Complex.Interfaces;
 using Demos.Complex.Sensors.World;
+using Demos.Complex.WorldKeys;
 
 namespace Demos.Complex.Factories.Extensions
 {
@@ -11,20 +11,20 @@ namespace Demos.Complex.Factories.Extensions
             where THoldable : IHoldable
         {
             builder.AddWorldSensor<IsHoldingSensor<THoldable>>()
-                .SetKey<THoldable>(WorldKeys.IsHolding);
+                .SetKey<IsHolding<THoldable>>();
         }
         
         public static void AddIsInWorldSensor<THoldable>(this GoapSetBuilder builder)
             where THoldable : IHoldable
         {
             builder.AddWorldSensor<IsInWorldSensor<THoldable>>()
-                .SetKey<THoldable>(WorldKeys.IsInWorld);
+                .SetKey<IsInWorld<THoldable>>();
         }
         
         public static void AddItemOnFloorSensor(this GoapSetBuilder builder)
         {
             builder.AddWorldSensor<ItemOnFloorSensor>()
-                .SetKey(WorldKeys.ItemsOnFloor);
+                .SetKey<ItemsOnFloor>();
         }
     }
 }

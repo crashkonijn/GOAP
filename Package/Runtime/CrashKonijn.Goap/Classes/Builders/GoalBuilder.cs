@@ -29,15 +29,10 @@ namespace CrashKonijn.Goap.Classes.Builders
             return this;
         }
         
-        public GoalBuilder AddCondition(string key, Comparison comparison, int amount)
+        public GoalBuilder AddCondition<TWorldKey>(Comparison comparison, int amount)
+            where TWorldKey : IWorldKey
         {
-            this.conditions.Add(new Condition(this.worldKeyBuilder.GetKey(key), comparison, amount));
-            return this;
-        }
-        
-        public GoalBuilder AddCondition<T>(string key, Comparison comparison, int amount)
-        {
-            this.conditions.Add(new Condition(this.worldKeyBuilder.GetKey<T>(key), comparison, amount));
+            this.conditions.Add(new Condition(this.worldKeyBuilder.GetKey<TWorldKey>(), comparison, amount));
             return this;
         }
         
