@@ -28,7 +28,6 @@ namespace CrashKonijn.Goap.Classes.Builders
             return this;
         }
         
-        
         public ITargetSensorConfig Build()
         {
             return this.config;

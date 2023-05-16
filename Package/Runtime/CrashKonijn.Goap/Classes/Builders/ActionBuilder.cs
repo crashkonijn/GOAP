@@ -67,8 +67,7 @@ namespace CrashKonijn.Goap.Classes.Builders
             
             return this;
         }
-        
-        
+
         public ActionBuilder AddEffect<TWorldKey>(bool increase)
             where TWorldKey : IWorldKey
         {
