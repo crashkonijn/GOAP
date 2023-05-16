@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes.Validators;
 using CrashKonijn.Goap.Editor.Drawers;
 using CrashKonijn.Goap.Editor.Elements;
 using UnityEditor;
@@ -29,8 +30,10 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                 card.schedule.Execute(() =>
                 {
                     card.Clear();
-                    card.Add(new Label("Goal: " + agent.CurrentGoal?.GetType().Name));
-                    card.Add(new Label("Action: " + agent.CurrentAction?.GetType().Name));
+                    card.Add(new Label("Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName()));
+                    card.Add(new Label("Action: " + agent.CurrentAction?.GetType().GetGenericTypeName()));
+                    card.Add(new Label("State: " + agent.State));
+                    card.Add(new Label("MoveState: " + agent.MoveState));
                 }).Every(33);
             }));
             
