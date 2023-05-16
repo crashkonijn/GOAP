@@ -43,7 +43,6 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                 }).Every(33);
             }));
 
-
             return root;
         }
     }
