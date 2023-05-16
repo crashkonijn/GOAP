@@ -15,7 +15,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
         {
             var root = new VisualElement();
             
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss"));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
             
             root.Add(new PropertyField(this.serializedObject.FindProperty("goapSetBehaviour")));
             

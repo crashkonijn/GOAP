@@ -40,24 +40,18 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         private void Render()
         {
             this.Init();
-            
-            if (!Application.isPlaying)
-                return;
-            
-            this.runner = FindObjectOfType<GoapRunnerBehaviour>();
-            this.agents = FindObjectsOfType<AgentBehaviour>().ToList();
 
-            this.leftPanel.schedule.Execute(() =>
+            this.rootVisualElement.schedule.Execute(() =>
             {
+                if (!Application.isPlaying)
+                    return;
+            
+                this.runner = FindObjectOfType<GoapRunnerBehaviour>();
+                this.agents = FindObjectsOfType<AgentBehaviour>().ToList();
+
                 this.RenderAgents();
             }).Every(1000);
             
-            if (this.agent == null)
-                return;
-            
-            if (!this.runner.Knows(this.set))
-                return;
-
             this.RenderGraph();
         }
 
@@ -81,11 +75,11 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             var root = this.rootVisualElement;
             root.name = "node-viewer-editor";
             
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/Generic.uss"));
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer.uss"));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/NodeViewer.uss"));
             
 #if UNITY_2022_1_OR_NEWER
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/com.crashkonijn.goap/Editor/CrashKonijn.Goap.Editor/Styles/NodeViewer_2022.uss"));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/NodeViewer_2022.uss"));
             this.dragDrawer = new DragDrawer(right, (offset) =>
             {
                 dragParent.transform.position = offset;
@@ -197,6 +191,15 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         private void RenderGraph()
         {
             this.rightPanel.Clear();
+
+            if (this.runner == null)
+                return;
+            
+            if (this.agent == null)
+                return;
+            
+            if (!this.runner.Knows(this.set))
+                return;
 
             this.nodesDrawer = this.GetGraphElement();
             
