@@ -25,20 +25,29 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
                 this.SetPositions(depth, renderNodes, nodes.MaxWidth);
             }
 
-            foreach (var (key, start) in nodes.AllNodes)
+            var paths = new VisualElement();
+
+            this.schedule.Execute(() =>
             {
-                foreach (var guid in start.Node.Conditions.SelectMany(x => x.Connections))
+                paths.Clear();
+
+                foreach (var (key, start) in nodes.AllNodes)
                 {
-                    var end = nodes.Get(guid);
-                    var startPos = new Vector3(start.Rect.x + (start.Rect.width / 2f), start.Rect.y + start.Rect.height, 0);
-                    var endPos = new Vector3(end.Rect.x + (start.Rect.width / 2f), end.Rect.y, 0);
+                    foreach (var guid in start.Node.Conditions.SelectMany(x => x.Connections))
+                    {
+                        var end = nodes.Get(guid);
+                        var startPos = new Vector3(start.Rect.x + (start.Rect.width / 2f), start.Rect.y + start.Rect.height, 0);
+                        var endPos = new Vector3(end.Rect.x + (start.Rect.width / 2f), end.Rect.y, 0);
                     
-                    var startTan = startPos + (Vector3.up * 40);
-                    var endTan = endPos + (Vector3.down * 40);
+                        var startTan = startPos + (Vector3.up * 40);
+                        var endTan = endPos + (Vector3.down * 40);
                     
-                    this.Add(new BezierDrawer(startPos, endPos, startTan, endTan, 2f, this.GetLineColor(end, agent)));
+                        paths.Add(new BezierDrawer(startPos, endPos, startTan, endTan, 2f, this.GetLineColor(end, agent)));
+                    }
                 }
-            }
+            }).Every(500);
+            
+            this.Add(paths);
             
             foreach (var node in nodes.AllNodes.Values)
             {

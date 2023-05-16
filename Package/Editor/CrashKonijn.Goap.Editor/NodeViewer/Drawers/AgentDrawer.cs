@@ -14,6 +14,10 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
         public void Update(AgentBehaviour agent)
         {
             this.Clear();
+
+            if (agent == null)
+                return;
+            
             this.Add(new Label(agent.name));
             this.Add(new Label("Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName()));
             this.Add(new Label("Action: " + agent.CurrentAction?.GetType().GetGenericTypeName()));

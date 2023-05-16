@@ -14,8 +14,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             this.Clear();
             
             this.name = "node-viewer__node";
-            
-            this.AddToClassList(this.GetClass(node, agent));
 
             this.style.width = node.Rect.width;
             // this.style.height = node.Rect.height;
@@ -25,9 +23,20 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             {
                 name = "node-viewer__node__label"
             });
+
+            var root = new VisualElement();
             
-            this.RenderAction(agent, node.Node.Action as IActionBase);
-            this.RenderGoal(agent, node.Node.Action as IGoalBase);
+            this.Add(root);
+
+            this.schedule.Execute(() =>
+            {
+                this.ClearClassList();
+                this.AddToClassList(this.GetClass(node, agent));
+                
+                root.Clear();
+                this.RenderAction(root, agent, node.Node.Action as IActionBase);
+                this.RenderGoal(root, agent, node.Node.Action as IGoalBase);
+            }).Every(500);
         }
 
         private string GetClass(RenderNode node, IAgent agent)
@@ -44,7 +53,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             return "node-viewer__node--normal";
         }
 
-        private void RenderGoal(IAgent agent, IGoalBase goal)
+        private void RenderGoal(VisualElement root, IAgent agent, IGoalBase goal)
         {
             if (goal == null)
                 return;
@@ -56,10 +65,10 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
 
             var text = $"<b>Conditions:</b>\n{string.Join("\n", conditions)}";
             
-            this.Add(new Label(text));
+            root.Add(new Label(text));
         }
 
-        private void RenderAction(IAgent agent, IActionBase action)
+        private void RenderAction(VisualElement root, IAgent agent, IActionBase action)
         {
             if (action == null)
                 return;
@@ -84,7 +93,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
 
             text += $"\n<b>Effects</b>:\n{string.Join("\n", effects)}\n<b>Conditions</b>:\n{string.Join("\n", conditions)}";
             
-            this.Add(new Label(text));
+            root.Add(new Label(text));
         }
         
         private string GetText(ICondition condition, bool value)

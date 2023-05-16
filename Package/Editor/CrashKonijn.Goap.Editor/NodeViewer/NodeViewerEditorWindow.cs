@@ -34,17 +34,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
         private void OnFocus()
         {
-            if (this.lastUpdate > Time.realtimeSinceStartup)
-                this.lastUpdate = 0f;
-        }
-
-        public void OnEnable()
-        {
-            this.Render();
-        }
-
-        private void Update()
-        {
             this.Render();
         }
 
@@ -54,19 +43,14 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             
             if (!Application.isPlaying)
                 return;
-
-            if (Time.timeSinceLevelLoad - this.lastUpdate <= 0.5f)
-            {
-                return;
-            }
-
-            this.lastUpdate = Time.timeSinceLevelLoad;
             
             this.runner = FindObjectOfType<GoapRunnerBehaviour>();
-            // this.set = FindObjectOfType<GoapSetBehaviour>().Set;
             this.agents = FindObjectsOfType<AgentBehaviour>().ToList();
 
-            this.RenderAgents();
+            this.leftPanel.schedule.Execute(() =>
+            {
+                this.RenderAgents();
+            }).Every(1000);
             
             if (this.agent == null)
                 return;
