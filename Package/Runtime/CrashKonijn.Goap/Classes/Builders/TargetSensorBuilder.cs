@@ -19,27 +19,15 @@ namespace CrashKonijn.Goap.Classes.Builders
                 ClassType = type.AssemblyQualifiedName
             };
         }
-        
-        public TargetSensorBuilder SetTarget(string key)
+
+        public TargetSensorBuilder SetTarget<TTarget>()
+            where TTarget : ITargetKey
         {
-            this.config.Key = this.targetKeyBuilder.GetKey(key);
+            this.config.Key = this.targetKeyBuilder.GetKey<TTarget>();
             
             return this;
         }
         
-        public TargetSensorBuilder SetTarget<T1>(string key)
-        {
-            this.config.Key = this.targetKeyBuilder.GetKey<T1>(key);
-            
-            return this;
-        }
-        
-        public TargetSensorBuilder SetTarget<T1, T2>(string key)
-        {
-            this.config.Key = this.targetKeyBuilder.GetKey<T1, T2>(key);
-            
-            return this;
-        }
         
         public ITargetSensorConfig Build()
         {

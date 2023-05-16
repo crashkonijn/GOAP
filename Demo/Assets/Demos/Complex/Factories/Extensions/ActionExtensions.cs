@@ -3,10 +3,11 @@ using CrashKonijn.Goap.Classes.Builders;
 using CrashKonijn.Goap.Resolver;
 using Demos.Complex.Actions;
 using Demos.Complex.Behaviours;
-using Demos.Complex.Classes;
 using Demos.Complex.Classes.Items;
 using Demos.Complex.Classes.Sources;
 using Demos.Complex.Interfaces;
+using Demos.Complex.Targets;
+using Demos.Complex.WorldKeys;
 using Demos.Shared.Actions;
 
 namespace Demos.Complex.Factories.Extensions
@@ -16,17 +17,17 @@ namespace Demos.Complex.Factories.Extensions
         public static void AddWanderAction(this GoapSetBuilder builder)
         {
             builder.AddAction<WanderAction>()
-                .SetTarget(Targets.WanderTarget)
-                .AddEffect(WorldKeys.IsWandering, true);
+                .SetTarget<WanderTarget>()
+                .AddEffect<IsWandering>(true);
         }
         
         public static void AddPickupItemAction<T>(this GoapSetBuilder builder)
-            where T : IHoldable
+            where T : class, IHoldable
         {
             builder.AddAction<PickupItemAction<T>>()
-                .SetTarget<T>(Targets.ClosestTarget)
-                .AddEffect<T>(WorldKeys.IsHolding, true)
-                .AddCondition<T>(WorldKeys.IsInWorld, Comparison.GreaterThanOrEqual, 1);
+                .SetTarget<ClosestTarget<T>>()
+                .AddEffect<IsHolding<T>>(true)
+                .AddCondition<IsInWorld<T>>(Comparison.GreaterThanOrEqual, 1);
         }
         
         public static void AddGatherItemAction<TGatherable, TRequired>(this GoapSetBuilder builder)
@@ -34,17 +35,17 @@ namespace Demos.Complex.Factories.Extensions
             where TRequired : IHoldable
         {
             builder.AddAction<GatherItemAction<TGatherable>>()
-                .SetTarget<TGatherable>(Targets.ClosestSourceTarget)
-                .AddEffect<TGatherable>(WorldKeys.IsInWorld, true)
-                .AddCondition<TRequired>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 1);
+                .SetTarget<ClosestSourceTarget<TGatherable>>()
+                .AddEffect<IsInWorld<TGatherable>>(true)
+                .AddCondition<IsHolding<TRequired>>(Comparison.GreaterThanOrEqual, 1);
         }
         
         public static void AddGatherItemSlowAction<TGatherable>(this GoapSetBuilder builder)
             where TGatherable : ItemBase, IGatherable
         {
             builder.AddAction<GatherItemAction<TGatherable>>()
-                .SetTarget<TGatherable>(Targets.ClosestSourceTarget)
-                .AddEffect<TGatherable>(WorldKeys.IsInWorld, true)
+                .SetTarget<ClosestSourceTarget<TGatherable>>()
+                .AddEffect<IsInWorld<TGatherable>>(true)
                 .SetBaseCost(3);
         }
         
@@ -52,22 +53,22 @@ namespace Demos.Complex.Factories.Extensions
             where T : ItemBase, ICreatable
         {
             var action = builder.AddAction<CreateItemAction<T>>()
-                .SetTarget<Anvil>(Targets.ClosestTarget)
-                .AddEffect<T>(WorldKeys.CreatedItem, true);
+                .SetTarget<ClosestTarget<Anvil>>()
+                .AddEffect<CreatedItem<T>>(true);
             
             if (typeof(T) == typeof(Axe))
             {
                 action
-                    .AddCondition<Iron>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 1)
-                    .AddCondition<Wood>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 2);
+                    .AddCondition<IsHolding<Iron>>(Comparison.GreaterThanOrEqual, 1)
+                    .AddCondition<IsHolding<Wood>>(Comparison.GreaterThanOrEqual, 2);
                 return;
             }
             
             if (typeof(T) == typeof(Pickaxe))
             {
                 action
-                    .AddCondition<Iron>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 2)
-                    .AddCondition<Wood>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 1);
+                    .AddCondition<IsHolding<Iron>>(Comparison.GreaterThanOrEqual, 2)
+                    .AddCondition<IsHolding<Wood>>(Comparison.GreaterThanOrEqual, 1);
                 return;
             }
 
@@ -77,17 +78,17 @@ namespace Demos.Complex.Factories.Extensions
         public static void AddHaulItemAction(this GoapSetBuilder builder)
         {
             builder.AddAction<HaulItemAction>()
-                .SetTarget(Targets.TransformTarget)
-                .AddEffect(WorldKeys.ItemsOnFloor, false)
-                .AddCondition(WorldKeys.ItemsOnFloor, Comparison.GreaterThanOrEqual, 1);
+                .SetTarget<TransformTarget>()
+                .AddEffect<ItemsOnFloor>(false)
+                .AddCondition<ItemsOnFloor>(Comparison.GreaterThanOrEqual, 1);
         }
         
         public static void AddEatAction(this GoapSetBuilder builder)
         {
             builder.AddAction<EatAction>()
-                .SetTarget(Targets.TransformTarget)
-                .AddEffect(WorldKeys.IsHungry, false)
-                .AddCondition<IEatable>(WorldKeys.IsHolding, Comparison.GreaterThanOrEqual, 1);
+                .SetTarget<TransformTarget>()
+                .AddEffect<IsHungry>(false)
+                .AddCondition<IsHolding<IEatable>>(Comparison.GreaterThanOrEqual, 1);
         }
     }
 }

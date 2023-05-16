@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
 using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
-using UnityEngine;
 using ICondition = CrashKonijn.Goap.Resolver.Interfaces.ICondition;
 using IEffect = CrashKonijn.Goap.Resolver.Interfaces.IEffect;
 

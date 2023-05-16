@@ -29,25 +29,14 @@ namespace CrashKonijn.Goap.Classes.Builders
                 InRange = 0.5f
             };
         }
-        
-        public ActionBuilder SetTarget(string target)
+
+        public ActionBuilder SetTarget<TTargetKey>()
+            where TTargetKey : ITargetKey
         {
-            this.config.Target = this.targetKeyBuilder.GetKey(target);
+            this.config.Target = this.targetKeyBuilder.GetKey<TTargetKey>();
             return this;
         }
-        
-        public ActionBuilder SetTarget<T1>(string target)
-        {
-            this.config.Target = this.targetKeyBuilder.GetKey<T1>(target);
-            return this;
-        }
-        
-        public ActionBuilder SetTarget<T1, T2>(string target)
-        {
-            this.config.Target = this.targetKeyBuilder.GetKey<T1, T2>(target);
-            return this;
-        }
-        
+
         public ActionBuilder SetBaseCost(int baseCost)
         {
             this.config.BaseCost = baseCost;
@@ -65,12 +54,13 @@ namespace CrashKonijn.Goap.Classes.Builders
             this.config.MoveMode = moveMode;
             return this;
         }
-        
-        public ActionBuilder AddCondition(string key, Comparison comparison, int amount)
+
+        public ActionBuilder AddCondition<TWorldKey>(Comparison comparison, int amount)
+            where TWorldKey : IWorldKey
         {
             this.conditions.Add(new Condition
             {
-                WorldKey = this.worldKeyBuilder.GetKey(key),
+                WorldKey = this.worldKeyBuilder.GetKey<TWorldKey>(),
                 Comparison = comparison,
                 Amount = amount,
             });
@@ -78,34 +68,13 @@ namespace CrashKonijn.Goap.Classes.Builders
             return this;
         }
         
-        public ActionBuilder AddCondition<T>(string key, Comparison comparison, int amount)
-        {
-            this.conditions.Add(new Condition
-            {
-                WorldKey = this.worldKeyBuilder.GetKey<T>(key),
-                Comparison = comparison,
-                Amount = amount,
-            });
-            
-            return this;
-        }
         
-        public ActionBuilder AddEffect(string key, bool increase)
+        public ActionBuilder AddEffect<TWorldKey>(bool increase)
+            where TWorldKey : IWorldKey
         {
             this.effects.Add(new Effect
             {
-                WorldKey = this.worldKeyBuilder.GetKey(key),
-                Increase = increase
-            });
-            
-            return this;
-        }
-        
-        public ActionBuilder AddEffect<T>(string key, bool increase)
-        {
-            this.effects.Add(new Effect
-            {
-                WorldKey = this.worldKeyBuilder.GetKey<T>(key),
+                WorldKey = this.worldKeyBuilder.GetKey<TWorldKey>(),
                 Increase = increase
             });
             
