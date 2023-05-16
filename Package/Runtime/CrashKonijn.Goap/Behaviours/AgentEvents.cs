@@ -4,6 +4,7 @@ namespace CrashKonijn.Goap.Behaviours
 {
     public class AgentEvents : IAgentEvents
     {
+        // Actions
         public event ActionDelegate OnActionStart;
         public void ActionStart(IActionBase action)
         {
@@ -15,7 +16,14 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.OnActionStop?.Invoke(action);
         }
+
+        public event GoalDelegate OnNoActionFound;
+        public void NoActionFound(IGoalBase goal)
+        {
+            this.OnNoActionFound?.Invoke(goal);
+        }
         
+        // Goals
         public event GoalDelegate OnGoalStart;
         public void GoalStart(IGoalBase goal)
         {
@@ -28,10 +36,29 @@ namespace CrashKonijn.Goap.Behaviours
             this.OnGoalCompleted?.Invoke(goal);
         }
 
-        public event GoalDelegate OnNoActionFound;
-        public void NoActionFound(IGoalBase goal)
+        // Targets
+        public event TargetDelegate OnTargetInRange;
+        public void TargetInRange(ITarget target)
         {
-            this.OnNoActionFound?.Invoke(goal);
+            this.OnTargetInRange?.Invoke(target);
+        }
+
+        public event TargetDelegate OnTargetOutOfRange;
+        public void TargetOutOfRange(ITarget target)
+        {
+            this.OnTargetOutOfRange?.Invoke(target);
+        }
+
+        public event TargetRangeDelegate OnTargetChanged;
+        public void TargetChanged(ITarget target, bool inRange)
+        {
+            this.OnTargetChanged?.Invoke(target, inRange);
+        }
+
+        public event TargetDelegate OnMove;
+        public void Move(ITarget target)
+        {
+            this.OnMove?.Invoke(target);
         }
     }
 }
