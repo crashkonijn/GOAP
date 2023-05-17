@@ -19,7 +19,7 @@ namespace Demos.Complex.Factories.Extensions
             where T : ICreatable
         {
             builder.AddGoal<CreateItemGoal<T>>()
-                .AddCondition<CreatedItem<T>>(Comparison.GreaterThanOrEqual, 1);
+                .AddCondition<CreatedItem<T>>(Comparison.GreaterThanOrEqual, 999);
         }
 
         public static void AddCleanItemsGoal(this GoapSetBuilder builder)
@@ -38,7 +38,7 @@ namespace Demos.Complex.Factories.Extensions
             where T : IGatherable
         {
             builder.AddGoal<GatherItemGoal<T>>()
-                .AddCondition<IsInWorld<T>>(Comparison.GreaterThanOrEqual, 1);
+                .AddCondition<IsInWorld<T>>(Comparison.GreaterThanOrEqual, 999);
         }
         
         public static void AddPickupItemGoal<T>(this GoapSetBuilder builder)
