@@ -28,12 +28,14 @@ namespace Demos.Complex.Behaviours
         {
             this.agent.Events.OnActionStop += this.OnActionStop;
             this.agent.Events.OnNoActionFound += this.OnNoActionFound;
+            this.agent.Events.OnGoalCompleted += this.OnGoalCompleted;
         }
 
         private void OnDisable()
         {
             this.agent.Events.OnActionStop -= this.OnActionStop;
             this.agent.Events.OnNoActionFound -= this.OnNoActionFound;
+            this.agent.Events.OnGoalCompleted -= this.OnGoalCompleted;
         }
 
         private void Start()
@@ -42,6 +44,11 @@ namespace Demos.Complex.Behaviours
         }
         
         private void OnNoActionFound(IGoalBase goal)
+        {
+            this.agent.SetGoal<WanderGoal>(false);
+        }
+
+        private void OnGoalCompleted(IGoalBase goal)
         {
             this.agent.SetGoal<WanderGoal>(false);
         }
