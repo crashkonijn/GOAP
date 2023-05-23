@@ -18,7 +18,7 @@ namespace Demos.Simple.Sensors.World
 
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
-            var inventory = references.GetComponent<InventoryBehaviour>();
+            var inventory = references.GetCachedComponent<InventoryBehaviour>();
 
             if (inventory == null)
                 return false;
