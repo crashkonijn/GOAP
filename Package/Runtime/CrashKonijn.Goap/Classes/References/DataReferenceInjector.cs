@@ -38,15 +38,15 @@ namespace CrashKonijn.Goap.Classes.References
         private object GetPropertyValue(PropertyInfo property)
         {
             if (property.GetCustomAttributes(typeof(GetComponentAttribute), true).Any())
-                return this.GetComponentReference(property.PropertyType);
+                return this.GetCachedComponentReference(property.PropertyType);
             
             if (property.GetCustomAttributes(typeof(GetComponentInChildrenAttribute), true).Any())
-                return this.GetComponentInChildrenReference(property.PropertyType);
+                return this.GetCachedComponentInChildrenReference(property.PropertyType);
             
             return null;
         }
 
-        private object GetComponentReference(Type type)
+        private object GetCachedComponentReference(Type type)
         {
             // check if we have a reference for this type
             if (!this.references.ContainsKey(type))
@@ -56,13 +56,21 @@ namespace CrashKonijn.Goap.Classes.References
             return this.references[type];
         }
 
+        [System.Obsolete("'GetComponent<T>' is deprecated, please use 'GetCachedComponent<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
         public T GetComponent<T>()
             where T : MonoBehaviour
         {
-            return (T) this.GetComponentReference(typeof(T));
+            return (T) this.GetCachedComponentReference(typeof(T));
         }
 
-        private object GetComponentInChildrenReference(Type type)
+        
+        public T GetCachedComponent<T>()
+            where T : MonoBehaviour
+        {
+            return (T)this.GetCachedComponentReference(typeof(T));
+        }
+
+        private object GetCachedComponentInChildrenReference(Type type)
         {
             // check if we have a reference for this type
             if (!this.references.ContainsKey(type))
@@ -72,10 +80,17 @@ namespace CrashKonijn.Goap.Classes.References
             return this.references[type];
         }
 
+        [System.Obsolete("'GetComponentInChildren<T>' is deprecated, please use 'GetCachedComponentInChildren<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
         public T GetComponentInChildren<T>()
             where T : MonoBehaviour
         {
-            return (T) this.GetComponentInChildrenReference(typeof(T));
+            return (T) this.GetCachedComponentInChildrenReference(typeof(T));
+        }
+
+        public T GetCachedComponentInChildren<T>()
+            where T : MonoBehaviour
+        {
+            return (T)this.GetCachedComponentInChildrenReference(typeof(T));
         }
     }
 }

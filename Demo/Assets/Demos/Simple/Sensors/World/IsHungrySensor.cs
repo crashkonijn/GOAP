@@ -18,7 +18,7 @@ namespace Demos.Simple.Sensors.World
 
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
-            var hungerBehaviour = references.GetComponent<HungerBehaviour>();
+            var hungerBehaviour = references.GetCachedComponent<HungerBehaviour>();
 
             if (hungerBehaviour == null)
                 return false;
