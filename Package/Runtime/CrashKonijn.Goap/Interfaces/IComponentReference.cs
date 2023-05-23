@@ -11,7 +11,6 @@ namespace CrashKonijn.Goap.Interfaces
         T GetCachedComponent<T>()
             where T : MonoBehaviour;
 
-
         [System.Obsolete("'GetComponentInChildren<T>' is deprecated, please use 'GetCachedComponentInChildren<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
         T GetComponentInChildren<T>()
             where T : MonoBehaviour;

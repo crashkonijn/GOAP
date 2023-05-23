@@ -62,7 +62,6 @@ namespace CrashKonijn.Goap.Classes.References
         {
             return (T) this.GetCachedComponentReference(typeof(T));
         }
-
         
         public T GetCachedComponent<T>()
             where T : MonoBehaviour
@@ -86,7 +85,6 @@ namespace CrashKonijn.Goap.Classes.References
         {
             return (T) this.GetCachedComponentInChildrenReference(typeof(T));
         }
-
         public T GetCachedComponentInChildren<T>()
             where T : MonoBehaviour
         {
