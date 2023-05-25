@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
     public class NodeViewerEditorWindow : EditorWindow
     {
         private IGoapRunner runner;
-        private IGoapSet set;
+        private IGoapSet goapSet;
         private AgentBehaviour agent;
         private List<AgentBehaviour> agents;
         private VisualElement leftPanel;
@@ -126,7 +126,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
         private VisualElement GetGraphElement()
         {
-            var graph = this.runner.GetGraph(this.set).ToPublic();
+            var graph = this.runner.GetGraph(this.goapSet).ToPublic();
 
             var element = new VisualElement();
             var widthOffset = 0f;
@@ -181,7 +181,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             list.selectionChanged += _ =>
             {
                 this.agent = this.agents[list.selectedIndex];
-                this.set = this.agent.GoapSet;
+                this.goapSet = this.agent.GoapSet;
                 this.RenderGraph();
             };
 #endif
@@ -198,7 +198,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             if (this.agent == null)
                 return;
             
-            if (!this.runner.Knows(this.set))
+            if (!this.runner.Knows(this.goapSet))
                 return;
 
             this.nodesDrawer = this.GetGraphElement();

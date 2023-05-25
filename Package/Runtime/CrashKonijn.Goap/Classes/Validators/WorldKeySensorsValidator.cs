@@ -6,10 +6,10 @@ namespace CrashKonijn.Goap.Classes.Validators
 {
     public class WorldKeySensorsValidator : IValidator<IGoapSetConfig>
     {
-        public void Validate(IGoapSetConfig config, ValidationResults results)
+        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
         {
-            var required = config.GetWorldKeys();
-            var provided = config.WorldSensors
+            var required = goapSetConfig.GetWorldKeys();
+            var provided = goapSetConfig.WorldSensors
                 .Where(x => x.Key != null)
                 .Select(x => x.Key)
                 .ToArray();

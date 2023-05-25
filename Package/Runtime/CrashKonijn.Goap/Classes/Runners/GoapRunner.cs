@@ -9,19 +9,19 @@ namespace CrashKonijn.Goap.Classes.Runners
 {
     public class GoapRunner : IGoapRunner
     {
-        private Dictionary<IGoapSet, GoapSetJobRunner> sets = new();
+        private Dictionary<IGoapSet, GoapSetJobRunner> goapSets = new();
         private Stopwatch stopwatch = new();
 
         public float RunTime { get; private set; }
         public float CompleteTime { get; private set; }
 
-        public void Register(IGoapSet set) => this.sets.Add(set, new GoapSetJobRunner(set, new GraphResolver(set.GetAllNodes().ToArray(), set.GoapConfig.KeyResolver)));
+        public void Register(IGoapSet goapSet) => this.goapSets.Add(goapSet, new GoapSetJobRunner(goapSet, new GraphResolver(goapSet.GetAllNodes().ToArray(), goapSet.GoapConfig.KeyResolver)));
 
         public void Run()
         {
             this.stopwatch.Restart();
             
-            foreach (var runner in this.sets.Values)
+            foreach (var runner in this.goapSets.Values)
             {
                 runner.Run();
             }
@@ -38,7 +38,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         {
             this.stopwatch.Restart();
             
-            foreach (var runner in this.sets.Values)
+            foreach (var runner in this.goapSets.Values)
             {
                 runner.Complete();
             }
@@ -48,7 +48,7 @@ namespace CrashKonijn.Goap.Classes.Runners
 
         public void Dispose()
         {
-            foreach (var runner in this.sets.Values)
+            foreach (var runner in this.goapSets.Values)
             {
                 runner.Dispose();
             }
@@ -61,11 +61,16 @@ namespace CrashKonijn.Goap.Classes.Runners
             return (float) ((double)this.stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000);
         }
 
-        public Graph GetGraph(IGoapSet set) => this.sets[set].GetGraph();
-        public bool Knows(IGoapSet set) => this.sets.ContainsKey(set);
-        public IMonoAgent[] Agents => this.sets.Keys.SelectMany(x => x.Agents.All()).ToArray();
-        public IGoapSet[] Sets => this.sets.Keys.ToArray();
+        public Graph GetGraph(IGoapSet goapSet) => this.goapSets[goapSet].GetGraph();
+        public bool Knows(IGoapSet goapSet) => this.goapSets.ContainsKey(goapSet);
+        public IMonoAgent[] Agents => this.goapSets.Keys.SelectMany(x => x.Agents.All()).ToArray();
+        
+        [System.Obsolete("'Sets' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
+        public IGoapSet[] Sets => this.goapSets.Keys.ToArray();
 
+        public IGoapSet[] GoapSets => this.goapSets.Keys.ToArray();
+
+        [System.Obsolete("'GetSet' is deprecated, please use 'GetGoapSet' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
         public IGoapSet GetSet(string id)
         {
             var set = this.Sets.FirstOrDefault(x => x.Id == id);
@@ -76,6 +81,16 @@ namespace CrashKonijn.Goap.Classes.Runners
             return set;
         }
 
-        public int QueueCount => this.sets.Keys.Sum(x => x.Agents.GetQueueCount());
+        public IGoapSet GetGoapSet(string id)
+        {
+            var goapSet = this.GoapSets.FirstOrDefault(x => x.Id == id);
+
+            if (goapSet == null)
+                throw new KeyNotFoundException($"No goapSet with id {id} found");
+
+            return goapSet;
+        }
+
+        public int QueueCount => this.goapSets.Keys.Sum(x => x.Agents.GetQueueCount());
     }
 }

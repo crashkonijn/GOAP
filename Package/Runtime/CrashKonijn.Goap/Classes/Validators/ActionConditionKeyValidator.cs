@@ -6,9 +6,9 @@ namespace CrashKonijn.Goap.Classes.Validators
 {
     public class ActionConditionKeyValidator : IValidator<IGoapSetConfig>
     {
-        public void Validate(IGoapSetConfig config, ValidationResults results)
+        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
         {
-            foreach (var configAction in config.Actions)
+            foreach (var configAction in goapSetConfig.Actions)
             {
                 var missing = configAction.Conditions.Where(x => x.WorldKey == null).ToArray();
                 

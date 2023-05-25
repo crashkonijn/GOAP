@@ -6,9 +6,9 @@ namespace CrashKonijn.Goap.Classes.Validators
 {
     public class GoalConditionsValidator : IValidator<IGoapSetConfig>
     {
-        public void Validate(IGoapSetConfig config, ValidationResults results)
+        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
         {
-            var missing = config.Goals.Where(x => !x.Conditions.Any()).ToArray();
+            var missing = goapSetConfig.Goals.Where(x => !x.Conditions.Any()).ToArray();
             
             if (!missing.Any())
                 return;

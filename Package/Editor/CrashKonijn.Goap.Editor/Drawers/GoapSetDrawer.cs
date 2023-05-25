@@ -6,20 +6,20 @@ namespace CrashKonijn.Goap.Editor.Drawers
 {
     public class GoapSetDrawer : VisualElement
     {
-        public  GoapSetDrawer(IGoapSet set)
+        public  GoapSetDrawer(IGoapSet goapSet)
         {
             this.name = "goap-set";
             
             var card = new Card((card) =>
             {
-                card.Add(new Header(set.Id));
+                card.Add(new Header(goapSet.Id));
 
                 var root = new VisualElement();
 
                 card.schedule.Execute(() =>
                 {
                     root.Clear();
-                    root.Add(new Label($"Count: {set.Agents.All().Count}"));
+                    root.Add(new Label($"Count: {goapSet.Agents.All().Count}"));
                 }).Every(1000);
                 
                 card.Add(root);

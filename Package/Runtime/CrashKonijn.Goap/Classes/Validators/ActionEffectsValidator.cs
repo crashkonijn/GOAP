@@ -6,9 +6,9 @@ namespace CrashKonijn.Goap.Classes.Validators
 {
     public class ActionEffectsValidator : IValidator<IGoapSetConfig>
     {
-        public void Validate(IGoapSetConfig config, ValidationResults results)
+        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
         {
-            var missing = config.Actions.Where(x => !x.Effects.Any()).ToArray();
+            var missing = goapSetConfig.Actions.Where(x => !x.Effects.Any()).ToArray();
             
             if (!missing.Any())
                 return;

@@ -14,15 +14,18 @@ namespace CrashKonijn.Goap.Behaviours
         [SerializeField]
         private GoapRunnerBehaviour runner;
 
+        [System.Obsolete("'Set' is deprecated, please use 'GoapSet' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
         public IGoapSet Set { get; private set; }
+
+        public IGoapSet GoapSet { get; private set; }
 
         private void Awake()
         {
-            var set = new GoapSetFactory(GoapConfig.Default).Create(this.config);
+            var goapSet = new GoapSetFactory(GoapConfig.Default).Create(this.config);
 
-            this.runner.Register(set);
+            this.runner.Register(goapSet);
             
-            this.Set = set;
+            this.GoapSet = goapSet;
         }
     }
 }

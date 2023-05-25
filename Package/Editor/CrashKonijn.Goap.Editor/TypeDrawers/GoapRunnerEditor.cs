@@ -22,10 +22,10 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             if (Application.isPlaying)
             {
-                root.Add(new Header("Sets"));
-                foreach (var set in runner.Sets)
+                root.Add(new Header("Goap-Sets"));
+                foreach (var goapSet in runner.GoapSets)
                 {
-                    root.Add(new GoapSetDrawer(set));
+                    root.Add(new GoapSetDrawer(goapSet));
                 }
             }
             

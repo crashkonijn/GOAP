@@ -6,9 +6,9 @@ namespace CrashKonijn.Goap.Classes.Validators
 {
     public class GoalClassTypeValidator : IValidator<IGoapSetConfig>
     {
-        public void Validate(IGoapSetConfig config, ValidationResults results)
+        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
         {
-            var empty = config.Goals.Where(x => string.IsNullOrEmpty(x.ClassType)).ToArray();
+            var empty = goapSetConfig.Goals.Where(x => string.IsNullOrEmpty(x.ClassType)).ToArray();
             
             if (!empty.Any())
                 return;

@@ -5,6 +5,6 @@ namespace CrashKonijn.Goap.Interfaces
 {
     public interface IGoapSetConfigValidatorRunner
     {
-        ValidationResults Validate(IGoapSetConfig config);
+        ValidationResults Validate(IGoapSetConfig goapSetConfig);
     }
 }
