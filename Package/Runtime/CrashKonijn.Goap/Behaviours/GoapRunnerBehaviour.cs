@@ -78,7 +78,6 @@ namespace CrashKonijn.Goap.Behaviours
             });
         }
 
-
         public Graph GetGraph(IGoapSet goapSet) => this.runner.GetGraph(goapSet);
         public bool Knows(IGoapSet goapSet) => this.runner.Knows(goapSet);
         public IMonoAgent[] Agents => this.runner.Agents;
