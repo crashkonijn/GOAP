@@ -15,6 +15,7 @@ namespace CrashKonijn.Goap.Interfaces
         void Unregister(IMonoAgent agent);
         List<IAction> GetAllNodes();
         List<IActionBase> GetActions();
+        List<IGoalBase> GetGoals();
 
         TAction ResolveAction<TAction>()
             where TAction : ActionBase;
