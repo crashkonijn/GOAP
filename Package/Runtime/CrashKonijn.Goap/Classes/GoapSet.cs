@@ -13,6 +13,7 @@ namespace CrashKonijn.Goap.Classes
         public IAgentCollection Agents { get; } = new AgentCollection();
         public IGoapConfig GoapConfig { get; }
         public ISensorRunner SensorRunner { get; }
+        public List<IGoalBase> Goals => goals;
         
         private List<IGoalBase> goals;
         private List<IActionBase> actions;
