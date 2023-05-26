@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.Classes
         public IAgentCollection Agents { get; } = new AgentCollection();
         public IGoapConfig GoapConfig { get; }
         public ISensorRunner SensorRunner { get; }
-        
+                
         private List<IGoalBase> goals;
         private List<IActionBase> actions;
 
@@ -53,6 +53,7 @@ namespace CrashKonijn.Goap.Classes
 
         public List<IAction> GetAllNodes() => this.actions.Cast<IAction>().Concat(this.goals).ToList();
         public List<IActionBase> GetActions() => this.actions;
+        public List<IGoalBase> GetGoals() => this.goals;
 
         public AgentDebugGraph GetDebugGraph()
         {
