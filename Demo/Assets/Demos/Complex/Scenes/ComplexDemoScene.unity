@@ -569,7 +569,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configInitializer: {fileID: 395702497}
-  setConfigFactories:
+  setConfigFactories: []
+  goapSetConfigFactories:
   - {fileID: 395702498}
   - {fileID: 395702500}
   - {fileID: 395702499}

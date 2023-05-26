@@ -6,9 +6,9 @@ namespace CrashKonijn.Goap.Classes.Validators
 {
     public class TargetSensorKeyValidator : IValidator<IGoapSetConfig>
     {
-        public void Validate(IGoapSetConfig config, ValidationResults results)
+        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
         {
-            var missing = config.TargetSensors.Where(x => x.Key == null).ToArray();
+            var missing = goapSetConfig.TargetSensors.Where(x => x.Key == null).ToArray();
             
             if (!missing.Any())
                 return;

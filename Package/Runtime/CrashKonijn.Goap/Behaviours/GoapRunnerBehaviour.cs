@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
@@ -16,7 +18,12 @@ namespace CrashKonijn.Goap.Behaviours
         public int RunCount { get; private set; }
 
         public GoapConfigInitializerBase configInitializer;
+
+        [Obsolete("'setConfigFactories' is deprecated, please use 'goapSetConfigFactories' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
+        [Header("Obsolete: please use 'GoapSetConfigFactories'")]
         public List<GoapSetFactoryBase> setConfigFactories = new();
+
+        public List<GoapSetFactoryBase> goapSetConfigFactories = new();
 
         private GoapConfig config;
 
@@ -28,10 +35,10 @@ namespace CrashKonijn.Goap.Behaviours
             if (this.configInitializer != null)
                 this.configInitializer.InitConfig(this.config);
             
-            this.CreateSets();
+            this.CreateGoapSets();
         }
 
-        public void Register(IGoapSet set) => this.runner.Register(set);
+        public void Register(IGoapSet goapSet) => this.runner.Register(goapSet);
 
         private void Update()
         {
@@ -49,20 +56,36 @@ namespace CrashKonijn.Goap.Behaviours
             this.runner.Dispose();
         }
 
-        private void CreateSets()
+        private void CreateGoapSets()
         {
-            var setFactory = new GoapSetFactory(this.config);
-            
-            this.setConfigFactories.ForEach(factory =>
+#pragma warning disable CS0618
+            if (this.setConfigFactories.Any())
             {
-                this.Register(setFactory.Create(factory.Create()));
+                Debug.LogError("setConfigFactory is obsolete. Please move its data to the goapSetConfigFactories using the editor.");
+                this.goapSetConfigFactories.AddRange(this.setConfigFactories);
+            }
+#pragma warning restore CS0618
+            
+            var goapSetFactory = new GoapSetFactory(this.config);
+
+            this.goapSetConfigFactories.ForEach(factory =>
+            {
+                this.Register(goapSetFactory.Create(factory.Create()));
             });
         }
 
-        public Graph GetGraph(IGoapSet set) => this.runner.GetGraph(set);
-        public bool Knows(IGoapSet set) => this.runner.Knows(set);
+        public Graph GetGraph(IGoapSet goapSet) => this.runner.GetGraph(goapSet);
+        public bool Knows(IGoapSet goapSet) => this.runner.Knows(goapSet);
         public IMonoAgent[] Agents => this.runner.Agents;
+
+        [Obsolete("'Sets' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
         public IGoapSet[] Sets => this.runner.Sets;
+
+        public IGoapSet[] GoapSets => this.runner.GoapSets;
+
+        [Obsolete("'GetSet' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
         public IGoapSet GetSet(string id) => this.runner.GetSet(id);
+
+        public IGoapSet GetGoapSet(string id) => this.runner.GetGoapSet(id);
     }
 }

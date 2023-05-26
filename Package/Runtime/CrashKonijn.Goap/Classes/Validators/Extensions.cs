@@ -6,9 +6,9 @@ namespace CrashKonijn.Goap.Classes.Validators
 {
     public static class Extensions
     {
-        public static IWorldKey[] GetWorldKeys(this IGoapSetConfig config)
+        public static IWorldKey[] GetWorldKeys(this IGoapSetConfig goapSetConfig)
         {
-            return config.Actions
+            return goapSetConfig.Actions
                 .SelectMany((action) =>
                 {
                     return action.Conditions
@@ -19,9 +19,9 @@ namespace CrashKonijn.Goap.Classes.Validators
                 .ToArray();
         }
         
-        public static ITargetKey[] GetTargetKeys(this IGoapSetConfig config)
+        public static ITargetKey[] GetTargetKeys(this IGoapSetConfig goapSetConfig)
         {
-            return config.Actions
+            return goapSetConfig.Actions
                 .Where(x => x.Target != null)
                 .Select(x => x.Target)
                 .Distinct()

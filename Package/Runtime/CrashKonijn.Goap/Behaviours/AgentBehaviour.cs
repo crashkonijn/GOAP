@@ -41,7 +41,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Injector = new DataReferenceInjector(this);
             
             if (this.goapSetBehaviour != null)
-                this.GoapSet = this.goapSetBehaviour.Set;
+                this.GoapSet = this.goapSetBehaviour.GoapSet;
         }
 
         private void OnEnable()

@@ -25,13 +25,13 @@ namespace CrashKonijn.Goap.Classes.Validators
             new TargetSensorKeyValidator()
         };
         
-        public ValidationResults Validate(IGoapSetConfig config)
+        public ValidationResults Validate(IGoapSetConfig goapSetConfig)
         {
-            var results = new ValidationResults(config.Name);
+            var results = new ValidationResults(goapSetConfig.Name);
             
             foreach (var validator in this.validators)
             {
-                validator.Validate(config, results);
+                validator.Validate(goapSetConfig, results);
             }
 
             return results;

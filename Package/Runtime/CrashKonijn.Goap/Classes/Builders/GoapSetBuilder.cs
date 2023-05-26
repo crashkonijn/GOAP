@@ -7,7 +7,7 @@ namespace CrashKonijn.Goap.Classes.Builders
 {
     public class GoapSetBuilder
     {
-        private readonly GoapSetConfig set;
+        private readonly GoapSetConfig goapSetConfig;
 
         private readonly List<ActionBuilder> actionBuilders = new();
         private readonly List<GoalBuilder> goalBuilders = new();
@@ -18,7 +18,7 @@ namespace CrashKonijn.Goap.Classes.Builders
 
         public GoapSetBuilder(string name)
         {
-            this.set = new GoapSetConfig(name);
+            this.goapSetConfig = new GoapSetConfig(name);
         }
         
         public ActionBuilder AddAction<TAction>()
@@ -68,12 +68,12 @@ namespace CrashKonijn.Goap.Classes.Builders
         
         public GoapSetConfig Build()
         {
-            this.set.Actions = this.actionBuilders.Select(x => x.Build()).ToList();
-            this.set.Goals = this.goalBuilders.Select(x => x.Build()).ToList();
-            this.set.TargetSensors = this.targetSensorBuilders.Select(x => x.Build()).ToList();
-            this.set.WorldSensors = this.worldSensorBuilders.Select(x => x.Build()).ToList();
+            this.goapSetConfig.Actions = this.actionBuilders.Select(x => x.Build()).ToList();
+            this.goapSetConfig.Goals = this.goalBuilders.Select(x => x.Build()).ToList();
+            this.goapSetConfig.TargetSensors = this.targetSensorBuilders.Select(x => x.Build()).ToList();
+            this.goapSetConfig.WorldSensors = this.worldSensorBuilders.Select(x => x.Build()).ToList();
             
-            return this.set;
+            return this.goapSetConfig;
         }
     }
 }
