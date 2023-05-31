@@ -83,8 +83,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             var effects = action.Effects.Select(x => this.GetText(x as IEffect));
 
             var cost = action.GetCost(agent as IMonoAgent, agent.Injector);
-
-
             
             var target = agent.WorldData.GetTarget(action);
 

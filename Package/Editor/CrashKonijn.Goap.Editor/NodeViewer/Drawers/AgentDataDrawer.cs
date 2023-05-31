@@ -24,7 +24,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
                         card.Add(new Label("\n<b>Freeform Debug Data:</b>"));
                         card.Add(new Label(agent.NodeViewerFreeformDebugOutput));
                     }
-
                 }).Every(500);
             });
             
