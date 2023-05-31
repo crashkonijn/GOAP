@@ -21,7 +21,10 @@ namespace CrashKonijn.Goap.Resolver
     public struct RunData
     {
         public int StartIndex;
+        // Index = NodeIndex
         public NativeArray<bool> IsExecutable;
+        // Index = ConditionIndex
+        public NativeArray<bool> ConditionsMet;
         public NativeArray<float3> Positions;
         public NativeArray<float> Costs;
     }
@@ -40,9 +43,15 @@ namespace CrashKonijn.Goap.Resolver
     {
         // Graph specific
 #if UNITY_COLLECTIONS_2_1
-        [ReadOnly] public NativeParallelMultiHashMap<int, int> Connections;
+        // Dictionary<ActionIndex, ConditionIndex[]>
+        [ReadOnly] public NativeParallelMultiHashMap<int, int> NodeConditions;
+        // Dictionary<ConditionIndex, NodeIndex[]>
+        [ReadOnly] public NativeParallelMultiHashMap<int, int> ConditionConnections;
 #else
-        [ReadOnly] public NativeMultiHashMap<int, int> Connections;
+        // Dictionary<ActionIndex, ConditionIndex[]>
+        [ReadOnly] public NativeMultiHashMap<int, int> NodeConditions;
+        // Dictionary<ConditionIndex, NodeIndex[]>
+        [ReadOnly] public NativeMultiHashMap<int, int> ConditionConnections;
 #endif
 
         // Resolve specific
@@ -56,7 +65,7 @@ namespace CrashKonijn.Goap.Resolver
         [BurstCompile]
         public void Execute()
         {
-            var nodeCount = this.Connections.Count();
+            var nodeCount = this.NodeConditions.Count();
             var runData = this.RunData;
         
             var openSet = new NativeHashMap<int, NodeData>(nodeCount, Allocator.Temp);
@@ -86,37 +95,45 @@ namespace CrashKonijn.Goap.Resolver
 
                 closedSet.TryAdd(currentNode.Index, currentNode);
                 openSet.Remove(currentNode.Index);
-            
-                foreach (var neighborIndex in this.Connections.GetValuesForKey(currentNode.Index))
+                
+                foreach (var conditionIndex in this.NodeConditions.GetValuesForKey(currentNode.Index))
                 {
-                    if (closedSet.ContainsKey(neighborIndex))
+                    if (runData.ConditionsMet[conditionIndex])
                     {
                         continue;
                     }
-                
-                    var newG = currentNode.G + this.RunData.Costs[neighborIndex];
-                    NodeData neighbor;
-                
-                    if (!openSet.TryGetValue(neighborIndex, out neighbor))
-                    {
-                        neighbor = new NodeData
-                        {
-                            Index = neighborIndex,
-                            G = newG,
-                            H = this.Heuristic(neighborIndex, currentNode.Index),
-                            ParentIndex = currentNode.Index
-                        };
-                        openSet.Add(neighborIndex, neighbor);
-                        continue;
-                    }
-                
-                    if (newG < neighbor.G)
-                    {
-                        neighbor.G = newG;
-                        neighbor.ParentIndex = currentNode.Index;
                     
-                        openSet.Remove(neighborIndex);
-                        openSet.Add(neighborIndex, neighbor);
+                    foreach (var neighborIndex in this.ConditionConnections.GetValuesForKey(conditionIndex))
+                    {
+                        if (closedSet.ContainsKey(neighborIndex))
+                        {
+                            continue;
+                        }
+                
+                        var newG = currentNode.G + this.RunData.Costs[neighborIndex];
+                        NodeData neighbor;
+                
+                        if (!openSet.TryGetValue(neighborIndex, out neighbor))
+                        {
+                            neighbor = new NodeData
+                            {
+                                Index = neighborIndex,
+                                G = newG,
+                                H = this.Heuristic(neighborIndex, currentNode.Index),
+                                ParentIndex = currentNode.Index
+                            };
+                            openSet.Add(neighborIndex, neighbor);
+                            continue;
+                        }
+                
+                        if (newG < neighbor.G)
+                        {
+                            neighbor.G = newG;
+                            neighbor.ParentIndex = currentNode.Index;
+                    
+                            openSet.Remove(neighborIndex);
+                            openSet.Add(neighborIndex, neighbor);
+                        }
                     }
                 }
 

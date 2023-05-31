@@ -15,7 +15,7 @@ namespace CrashKonijn.Goap.Resolver
             this.executableList = this.actionIndexList.Select(x => false).ToArray();
         }
         
-        public ExecutableBuilder SetExecutable(IAction action, bool executable)
+        public IExecutableBuilder SetExecutable(IAction action, bool executable)
         {
             var index = this.actionIndexList.IndexOf(action);
 

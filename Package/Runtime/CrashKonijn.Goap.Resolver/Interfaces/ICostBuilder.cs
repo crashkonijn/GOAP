@@ -2,7 +2,7 @@
 {
     public interface ICostBuilder
     {
-        CostBuilder SetCost(IAction action, float cost);
+        ICostBuilder SetCost(IAction action, float cost);
         float[] Build();
         void Clear();
     }
