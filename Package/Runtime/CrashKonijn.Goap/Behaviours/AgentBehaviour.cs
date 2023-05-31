@@ -9,6 +9,8 @@ namespace CrashKonijn.Goap.Behaviours
 {
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
+        public string NodeViewerFreeformDebugOutput { get; set; }
+
         public GoapSetBehaviour goapSetBehaviour;
 
         public AgentState State { get; private set; } = AgentState.NoAction;

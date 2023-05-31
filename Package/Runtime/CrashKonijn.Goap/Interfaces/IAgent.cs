@@ -6,6 +6,8 @@ namespace CrashKonijn.Goap.Interfaces
 {
     public interface IAgent
     {
+        string NodeViewerFreeformDebugOutput { get; set; }
+
         AgentState State { get; }
         IGoapSet GoapSet { get; }
         IGoalBase CurrentGoal { get; }

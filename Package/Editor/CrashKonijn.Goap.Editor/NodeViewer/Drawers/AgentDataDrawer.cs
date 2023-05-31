@@ -18,6 +18,13 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
                     card.Clear();
                     card.Add(new Header("Agent Data"));
                     card.Add(new ObjectDrawer(agent.CurrentActionData));
+
+                    if (!string.IsNullOrEmpty(agent.NodeViewerFreeformDebugOutput))
+                    {
+                        card.Add(new Label("\n<b>Freeform Debug Data:</b>"));
+                        card.Add(new Label(agent.NodeViewerFreeformDebugOutput));
+                    }
+
                 }).Every(500);
             });
             

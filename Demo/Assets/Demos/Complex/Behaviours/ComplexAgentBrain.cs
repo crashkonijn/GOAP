@@ -4,6 +4,7 @@ using Demos.Complex.Classes.Items;
 using Demos.Complex.Goals;
 using Demos.Shared.Behaviours;
 using Demos.Shared.Goals;
+using System.Collections;
 using UnityEngine;
 
 namespace Demos.Complex.Behaviours
@@ -15,6 +16,7 @@ namespace Demos.Complex.Behaviours
         private HungerBehaviour hunger;
         private ItemCollection itemCollection;
         private ComplexInventoryBehaviour inventory;
+        private float fastTickSeconds = 0.2f; //refresh frequency of Debug Information
 
         private void Awake()
         {
@@ -22,6 +24,8 @@ namespace Demos.Complex.Behaviours
             this.hunger = this.GetComponent<HungerBehaviour>();
             this.inventory = this.GetComponent<ComplexInventoryBehaviour>();
             this.itemCollection = FindObjectOfType<ItemCollection>();
+
+            StartCoroutine(TriggerFastTick());
         }
 
         private void OnEnable()
@@ -157,6 +161,37 @@ namespace Demos.Complex.Behaviours
             }
             
             this.agent.SetGoal<WanderGoal>(false);
+        }
+        private void GenerateNodeViewerGenericDebugOutput()
+        {
+            string nodeViewerFreeformDebugOutput = string.Empty;
+
+            switch (this.agentType)
+            {
+                case AgentType.Miner:
+                    nodeViewerFreeformDebugOutput = $" - Hunger: {this.hunger.hunger}\n - Define any Miner info here\n";
+                    break;
+                case AgentType.WoodCutter:
+                    nodeViewerFreeformDebugOutput = $" - Hunger: {this.hunger.hunger}\n - Define any WoodCutter info here\n";
+                    break;
+                case AgentType.Smith:
+                    nodeViewerFreeformDebugOutput = $" - Hunger: {this.hunger.hunger}\n - Define any Smith info here\n";
+                    break;
+                case AgentType.Cleaner:
+                    nodeViewerFreeformDebugOutput = $" - Hunger: {this.hunger.hunger}\n - Define any Cleaner info here\n";
+                    break;
+            }
+
+            this.agent.NodeViewerFreeformDebugOutput = nodeViewerFreeformDebugOutput;
+        }
+
+        IEnumerator TriggerFastTick()
+        {
+            while (true)
+            {
+                GenerateNodeViewerGenericDebugOutput();
+                yield return new WaitForSeconds(this.fastTickSeconds);
+            }
         }
 
         public enum AgentType
