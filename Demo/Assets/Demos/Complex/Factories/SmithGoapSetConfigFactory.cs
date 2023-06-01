@@ -38,7 +38,7 @@ namespace Demos.Complex.Factories
             builder.AddWanderTargetSensor();
             builder.AddTransformTargetSensor();
             
-            builder.AddClosestObjectTargetSensor<Anvil>();
+            builder.AddClosestObjectTargetSensor<AnvilSource>();
             
             builder.AddClosestItemTargetSensor<Iron>();
             builder.AddClosestItemTargetSensor<Wood>();

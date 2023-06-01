@@ -3,7 +3,7 @@ using Demos.Complex.Classes.Items;
 
 namespace Demos.Complex.Classes.Sources
 {
-    public class IronMine : ItemSourceBase<Iron>
+    public class TreeSource : ItemSourceBase<Wood>
     {
     }
 }
