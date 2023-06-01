@@ -19,7 +19,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         private VisualElement leftPanel;
         private VisualElement rightPanel;
 
-        private float lastUpdate = 0f;
         private DragDrawer dragDrawer;
         private VisualElement nodesDrawer;
         private VisualElement floatData;

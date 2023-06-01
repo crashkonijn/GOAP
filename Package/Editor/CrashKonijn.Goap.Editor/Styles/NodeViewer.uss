@@ -33,7 +33,7 @@
 }
 
 #node-viewer__node__label {
-    weight: 100;
+    
 }
 
 #agent {

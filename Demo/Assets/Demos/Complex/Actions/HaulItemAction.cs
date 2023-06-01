@@ -97,9 +97,9 @@ namespace Demos.Complex.Actions
             return ActionRunState.Stop;
         }
         
-        private Box GetClosestBox(IMonoAgent agent, Data data)
+        private BoxSource GetClosestBox(IMonoAgent agent, Data data)
         {
-            var boxes = GameObject.FindObjectsOfType<Box>();
+            var boxes = GameObject.FindObjectsOfType<BoxSource>();
             var typeBox = boxes.FirstOrDefault(x => x.ItemType != null && x.ItemType == data.Item.GetType());
             
             if (typeBox != null)
@@ -119,7 +119,7 @@ namespace Demos.Complex.Actions
         {
             public ITarget Target { get; set; }
             public IHoldable Item { get; set; }
-            public Box Box { get; set; }
+            public BoxSource Box { get; set; }
             public State State { get; set; } = State.MovingToItem;
             public float Timer { get; set; }
             

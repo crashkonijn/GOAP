@@ -53,7 +53,7 @@ namespace Demos.Complex.Factories.Extensions
             where T : ItemBase, ICreatable
         {
             var action = builder.AddAction<CreateItemAction<T>>()
-                .SetTarget<ClosestTarget<Anvil>>()
+                .SetTarget<ClosestTarget<AnvilSource>>()
                 .AddEffect<CreatedItem<T>>(true);
             
             if (typeof(T) == typeof(Axe))
