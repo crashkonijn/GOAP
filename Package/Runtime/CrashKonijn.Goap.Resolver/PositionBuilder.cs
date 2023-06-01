@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Resolver
             this.executableList = this.actionIndexList.Select(x => GraphResolverJob.InvalidPosition).ToArray();
         }
         
-        public PositionBuilder SetPosition(IAction action, Vector3 position)
+        public IPositionBuilder SetPosition(IAction action, Vector3 position)
         {
             var index = this.actionIndexList.IndexOf(action);
 

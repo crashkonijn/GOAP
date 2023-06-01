@@ -12,5 +12,6 @@ namespace CrashKonijn.Goap.Resolver.Interfaces
         int GetIndex(IAction action);
         IAction GetAction(int index);
         void Dispose();
+        IConditionBuilder GetConditionBuilder();
     }
 }

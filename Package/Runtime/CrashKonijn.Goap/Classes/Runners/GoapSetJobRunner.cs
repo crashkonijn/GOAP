@@ -18,6 +18,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         private readonly IExecutableBuilder executableBuilder;
         private readonly IPositionBuilder positionBuilder;
         private readonly ICostBuilder costBuilder;
+        private readonly IConditionBuilder conditionBuilder;
 
         public GoapSetJobRunner(IGoapSet goapSet, IGraphResolver graphResolver)
         {
@@ -27,6 +28,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             this.executableBuilder = this.resolver.GetExecutableBuilder();
             this.positionBuilder = this.resolver.GetPositionBuilder();
             this.costBuilder = this.resolver.GetCostBuilder();
+            this.conditionBuilder = this.resolver.GetConditionBuilder();
         }
 
         public void Run()
@@ -71,7 +73,8 @@ namespace CrashKonijn.Goap.Classes.Runners
                     StartIndex = this.resolver.GetIndex(agent.CurrentGoal),
                     IsExecutable = new NativeArray<bool>(this.executableBuilder.Build(), Allocator.TempJob),
                     Positions = new NativeArray<float3>(this.positionBuilder.Build(), Allocator.TempJob),
-                    Costs = new NativeArray<float>(this.costBuilder.Build(), Allocator.TempJob)
+                    Costs = new NativeArray<float>(this.costBuilder.Build(), Allocator.TempJob),
+                    ConditionsMet = new NativeArray<bool>(this.conditionBuilder.Build(), Allocator.TempJob)
                 })
             });
         }
@@ -83,13 +86,25 @@ namespace CrashKonijn.Goap.Classes.Runners
 
             this.executableBuilder.Clear();
             this.positionBuilder.Clear();
+            this.conditionBuilder.Clear();
 
             var transformTarget = new TransformTarget(agent.transform);
 
             foreach (var node in this.goapSet.GetActions())
             {
-                var allMet = node.Conditions.All(x => conditionObserver.IsMet(x));
+                var allMet = true;
+                
+                foreach (var condition in node.Conditions)
+                {
+                    if (!conditionObserver.IsMet(condition))
+                    {
+                        allMet = false;
+                        continue;
+                    }
 
+                    this.conditionBuilder.SetConditionMet(condition, true);
+                }
+                
                 var target = localData.GetTarget(node);
 
                 this.executableBuilder.SetExecutable(node, allMet);

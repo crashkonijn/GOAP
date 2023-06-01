@@ -15,7 +15,7 @@ namespace CrashKonijn.Goap.Resolver
             this.costList = this.actionIndexList.Select(x => 1f).ToArray();
         }
         
-        public CostBuilder SetCost(IAction action, float cost)
+        public ICostBuilder SetCost(IAction action, float cost)
         {
             var index = this.actionIndexList.IndexOf(action);
 

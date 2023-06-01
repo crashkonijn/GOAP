@@ -38,7 +38,8 @@ namespace CrashKonijn.Goap.UnitTests
                 StartIndex = 0,
                 IsExecutable = new NativeArray<bool>(new [] { false }, Allocator.TempJob),
                 Positions = new NativeArray<float3>(new [] { float3.zero }, Allocator.TempJob),
-                Costs = new NativeArray<float>(new []{ 1f }, Allocator.TempJob)
+                Costs = new NativeArray<float>(new []{ 1f }, Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(new [] { false }, Allocator.TempJob),
             });
 
             var result = handle.Complete();
@@ -74,6 +75,7 @@ namespace CrashKonijn.Goap.UnitTests
                 IsExecutable = new NativeArray<bool>(new [] { false, true }, Allocator.TempJob),
                 Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero }, Allocator.TempJob),
                 Costs = new NativeArray<float>(new []{ 1f, 1f }, Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(new [] { false }, Allocator.TempJob),
             });
 
             var result = handle.Complete();
@@ -119,6 +121,7 @@ namespace CrashKonijn.Goap.UnitTests
                 IsExecutable = new NativeArray<bool>(new [] { false, false, false, true }, Allocator.TempJob),
                 Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero, float3.zero, float3.zero }, Allocator.TempJob),
                 Costs = new NativeArray<float>(new []{ 1f, 1f, 1f, 1f }, Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(new []{ false }, Allocator.TempJob),
             });
 
             var result = handle.Complete();
@@ -165,6 +168,7 @@ namespace CrashKonijn.Goap.UnitTests
             var actions = new IAction[] { goal, action1, action2, action11, action22 };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             var executableBuilder = resolver.GetExecutableBuilder();
+            var conditionBuilder = resolver.GetConditionBuilder();
 
             executableBuilder.SetExecutable(action11, true);
             
@@ -175,6 +179,7 @@ namespace CrashKonijn.Goap.UnitTests
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero, float3.zero, float3.zero, float3.zero }, Allocator.TempJob),
                 Costs = new NativeArray<float>(new []{ 1f, 1f, 1f, 1f, 1f }, Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(conditionBuilder.Build(), Allocator.TempJob),
             });
 
             var result = handle.Complete();
@@ -239,6 +244,7 @@ namespace CrashKonijn.Goap.UnitTests
                 .SetPosition(action2, new float3(10, 0, 0)); // far away from goal
             
             var costBuilder = resolver.GetCostBuilder();
+            var conditionBuilder = resolver.GetConditionBuilder();
             
             // Act
             var handle = resolver.StartResolve(new RunData
@@ -247,6 +253,7 @@ namespace CrashKonijn.Goap.UnitTests
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
                 Costs = new NativeArray<float>(costBuilder.Build(), Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(conditionBuilder.Build(), Allocator.TempJob),
             });
 
             var result = handle.Complete();
@@ -308,6 +315,8 @@ namespace CrashKonijn.Goap.UnitTests
             // Action 2 will be very expensive, other actions default to a cost of 1
             costBuilder.SetCost(action2, 100f);
             
+            var conditionBuilder = resolver.GetConditionBuilder();
+            
             // Act
             var handle = resolver.StartResolve(new RunData
             {
@@ -315,6 +324,7 @@ namespace CrashKonijn.Goap.UnitTests
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
                 Costs = new NativeArray<float>(costBuilder.Build(), Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(conditionBuilder.Build(), Allocator.TempJob),
             });
 
             var result = handle.Complete();
@@ -325,6 +335,66 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             result.Should().HaveCount(3);
             result.Should().Equal(action111, action11, action1);
+        }
+        
+        [Test]
+        public void Resolve_ShouldNotResolve_CompletedCondition()
+        {
+            var rootConnection = new TestConnection("Root");
+            var completedConnection = new TestConnection("Completed");
+            var incompleteConnection = new TestConnection("Incomplete");
+            
+            var goal = new TestAction("goal")
+            {
+                Conditions = new ICondition[] { rootConnection }
+            };
+            
+            var rootAction = new TestAction("action")
+            {
+                Effects = new IEffect[] { rootConnection },
+                Conditions = new ICondition[] { completedConnection, incompleteConnection }
+            };
+            var completedAction = new TestAction("completedAction")
+            {
+                Effects = new IEffect[] { completedConnection },
+            };
+            var incompleteAction = new TestAction("incompleteAction")
+            {
+                Effects = new IEffect[] { incompleteConnection },
+            };
+            
+            var actions = new IAction[] { goal, rootAction, completedAction, incompleteAction };
+            var resolver = new GraphResolver(actions, new TestKeyResolver());
+            
+            var executableBuilder = resolver.GetExecutableBuilder();
+            executableBuilder
+                .SetExecutable(completedAction, true)
+                .SetExecutable(incompleteAction, true);
+            
+            var positionBuilder = resolver.GetPositionBuilder();
+            var costBuilder = resolver.GetCostBuilder();
+            var conditionBuilder = resolver.GetConditionBuilder();
+
+            conditionBuilder.SetConditionMet(completedConnection, true);
+            
+            // Act
+            var handle = resolver.StartResolve(new RunData
+            {
+                StartIndex = 0,
+                IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
+                Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
+                Costs = new NativeArray<float>(costBuilder.Build(), Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(conditionBuilder.Build(), Allocator.TempJob),
+            });
+
+            var result = handle.Complete();
+            
+            // Cleanup
+            resolver.Dispose();
+
+            // Assert
+            result.Should().HaveCount(2);
+            result.Should().Equal(incompleteAction, rootAction);
         }
     }
 }

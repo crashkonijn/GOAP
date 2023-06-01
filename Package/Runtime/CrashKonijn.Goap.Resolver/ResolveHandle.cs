@@ -13,12 +13,13 @@ namespace CrashKonijn.Goap.Resolver
         private RunData runData;
 
 #if UNITY_COLLECTIONS_2_1
-        public ResolveHandle(GraphResolver graphResolver, NativeParallelMultiHashMap<int, int> connections, RunData runData)
+        public ResolveHandle(GraphResolver graphResolver, NativeParallelMultiHashMap<int, int> nodeConditions, NativeParallelMultiHashMap<int, int> conditionConnections, RunData runData)
         {
             this.graphResolver = graphResolver;
             this.job = new GraphResolverJob
             {
-                Connections = connections,
+                NodeConditions = nodeConditions,
+                ConditionConnections = conditionConnections,
                 RunData = runData,
                 Result = new NativeList<NodeData>(Allocator.TempJob)
             };
@@ -26,12 +27,13 @@ namespace CrashKonijn.Goap.Resolver
             this.handle = this.job.Schedule();
         }
 #else
-        public ResolveHandle(GraphResolver graphResolver, NativeMultiHashMap<int, int> connections, RunData runData)
+        public ResolveHandle(GraphResolver graphResolver, NativeMultiHashMap<int, int> nodeConditions, NativeMultiHashMap<int, int> conditionConnections, RunData runData)
         {
             this.graphResolver = graphResolver;
             this.job = new GraphResolverJob
             {
-                Connections = connections,
+                NodeConditions = nodeConditions,
+                ConditionConnections = conditionConnections,
                 RunData = runData,
                 Result = new NativeList<NodeData>(Allocator.TempJob)
             };
@@ -56,6 +58,7 @@ namespace CrashKonijn.Goap.Resolver
             this.job.RunData.IsExecutable.Dispose();
             this.job.RunData.Positions.Dispose();
             this.job.RunData.Costs.Dispose();
+            this.job.RunData.ConditionsMet.Dispose();
 
             return results.ToArray();
         }
