@@ -43,7 +43,11 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             this.rootVisualElement.schedule.Execute(() =>
             {
                 if (!Application.isPlaying)
+                {
+                    this.agents.Clear();
+                    this.agent = null;
                     return;
+                }
             
                 this.runner = FindObjectOfType<GoapRunnerBehaviour>();
                 this.agents = FindObjectsOfType<AgentBehaviour>().ToList();
