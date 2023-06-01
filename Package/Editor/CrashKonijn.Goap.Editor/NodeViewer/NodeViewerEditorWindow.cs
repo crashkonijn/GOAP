@@ -174,7 +174,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                     return;
                 
                 this.agent = agent;
-                this.set = this.agent.GoapSet;
+                this.goapSet = this.agent.GoapSet;
                 this.RenderGraph();
             }).Every(33);
 #elif UNITY_2022_1_OR_NEWER
