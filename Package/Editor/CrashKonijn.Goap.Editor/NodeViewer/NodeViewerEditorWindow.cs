@@ -15,7 +15,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         private IGoapRunner runner;
         private IGoapSet goapSet;
         private AgentBehaviour agent;
-        private List<AgentBehaviour> agents;
+        private List<AgentBehaviour> agents = new();
         private VisualElement leftPanel;
         private VisualElement rightPanel;
 
