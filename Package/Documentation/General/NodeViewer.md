@@ -3,4 +3,4 @@ The `node viewer` is a tool that can be used to visualize the `Planner`'s graph.
 
 The `node viewer` can be accessed through `Tools/GOAP/Node Viewer`.
 
-![Screenshot of NodeViewer](../images/goap-viewer.jpg)
+![Screenshot of NodeViewer](../images/goap-viewer.png)
