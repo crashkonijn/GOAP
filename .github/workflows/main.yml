@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  pull_request:
+  pull_request_target:
     branches:
       - master
 
@@ -21,9 +21,11 @@ jobs:
 #          - playmode
           - editmode
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout PR
+        uses: actions/checkout@v2
         with:
-          lfs: false
+          # Fetch PR head to be tested
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
       - uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
