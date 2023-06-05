@@ -5,6 +5,11 @@ on:
     branches:
       - master
   pull_request_target:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   authorize:
