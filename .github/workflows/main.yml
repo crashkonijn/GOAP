@@ -29,8 +29,7 @@ jobs:
 #          - playmode
           - editmode
     steps:
-      - name: Checkout PR
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           lfs: false
           # Fetch PR head to be tested
