@@ -11,6 +11,10 @@ on:
 jobs:
   testAllModes:
     name: Test in ${{ matrix.testMode }}
+    environment:
+      ${{ github.event_name == 'pull_request_target' &&
+      github.event.pull_request.head.repo.full_name != github.repository &&
+      'external' || 'internal' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -24,8 +28,9 @@ jobs:
       - name: Checkout PR
         uses: actions/checkout@v2
         with:
+          lfs: false
           # Fetch PR head to be tested
-          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
       - uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
