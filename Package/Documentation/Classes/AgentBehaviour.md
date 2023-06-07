@@ -6,6 +6,8 @@ The AgentBehaviour contains it's current `Goal` and it's currently active `Actio
 ## Movement
 Each action has a target. This target provides a position that the agent should move to before performing the action. Movement is very game specific and therefore not implemented in this package. The agent events contain a couple of events that can be used to determine when an agent should be moved.
 
+It is also possible to make an action perform while moving, see the `MoveMode` on the `ActionConfig`.
+
 ## Methods
 
 ### SetGoal
