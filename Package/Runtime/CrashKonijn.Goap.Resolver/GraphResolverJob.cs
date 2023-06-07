@@ -27,6 +27,7 @@ namespace CrashKonijn.Goap.Resolver
         public NativeArray<bool> ConditionsMet;
         public NativeArray<float3> Positions;
         public NativeArray<float> Costs;
+        public float DistanceMultiplier;
     }
 
     [BurstCompile]
@@ -154,7 +155,7 @@ namespace CrashKonijn.Goap.Resolver
                 return 0f;
             }
 
-            return math.distance(previousPosition, currentPosition);
+            return math.distance(previousPosition, currentPosition) * this.RunData.DistanceMultiplier;
         }
 
         private void RetracePath(NodeData startNode, NativeHashMap<int, NodeData> closedSet, NativeList<NodeData> path)

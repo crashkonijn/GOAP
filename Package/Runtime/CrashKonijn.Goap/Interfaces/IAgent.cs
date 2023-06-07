@@ -6,6 +6,7 @@ namespace CrashKonijn.Goap.Interfaces
 {
     public interface IAgent
     {
+        float DistanceMultiplier { get; }
         AgentState State { get; }
         IGoapSet GoapSet { get; }
         IGoalBase CurrentGoal { get; }
@@ -23,5 +24,6 @@ namespace CrashKonijn.Goap.Interfaces
         void SetGoal(IGoalBase goal, bool endAction);
         void SetAction(IActionBase action, List<IActionBase> path, ITarget target);
         void EndAction(bool enqueue = true);
+        void SetDistanceMultiplierSpeed(float speed);
     }
 }

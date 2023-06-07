@@ -74,7 +74,8 @@ namespace CrashKonijn.Goap.Classes.Runners
                     IsExecutable = new NativeArray<bool>(this.executableBuilder.Build(), Allocator.TempJob),
                     Positions = new NativeArray<float3>(this.positionBuilder.Build(), Allocator.TempJob),
                     Costs = new NativeArray<float>(this.costBuilder.Build(), Allocator.TempJob),
-                    ConditionsMet = new NativeArray<bool>(this.conditionBuilder.Build(), Allocator.TempJob)
+                    ConditionsMet = new NativeArray<bool>(this.conditionBuilder.Build(), Allocator.TempJob),
+                    DistanceMultiplier = agent.DistanceMultiplier
                 })
             });
         }
