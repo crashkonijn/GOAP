@@ -119,6 +119,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
+            action.IsInRange(agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Continue);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
             agent.MockEvents();
@@ -179,6 +180,7 @@ namespace CrashKonijn.Goap.UnitTests
 
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            action.IsInRange(agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Continue);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
             agent.MockEvents();
@@ -202,6 +204,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.CallAwake();
             
             var action = Substitute.For<IActionBase>();
+            action.IsInRange(agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Stop);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
             

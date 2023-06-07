@@ -3,6 +3,7 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Observers;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
@@ -28,11 +29,11 @@ namespace CrashKonijn.Goap.Behaviours
         public IGoalBase CurrentGoal { get; private set; }
         public IActionBase CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
-        public float CurrentActionInRange { get; set; }
         public List<IActionBase> CurrentActionPath { get; private set; } = new List<IActionBase>();
         public IWorldData WorldData { get; } = new LocalWorldData();
         public IAgentEvents Events { get; } = new AgentEvents();
         public IDataReferenceInjector Injector { get; private set; }
+        public IAgentDistanceObserver DistanceObserver { get; set; } = new VectorDistanceObserver();
 
         private ITarget currentTarget;
 
@@ -145,11 +146,6 @@ namespace CrashKonijn.Goap.Behaviours
             this.Events.Move(this.currentTarget);
         }
 
-        private bool IsInRange()
-        {
-            return this.GetDistance() <= this.CurrentActionInRange;
-        }
-
         private void PerformAction()
         {
             var result = this.CurrentAction.Perform(this, this.CurrentActionData, new ActionContext
@@ -163,14 +159,11 @@ namespace CrashKonijn.Goap.Behaviours
             this.EndAction();
         }
 
-        private float GetDistance()
+        private bool IsInRange()
         {
-            if (this.CurrentActionData?.Target == null)
-            {
-                return 0f;
-            }
-
-            return Vector3.Distance(this.transform.position, this.CurrentActionData.Target.Position);
+            var distance = this.DistanceObserver.GetDistance(this, this.CurrentActionData?.Target, this.Injector);
+            
+            return this.CurrentAction.IsInRange(this, distance, this.CurrentActionData, this.Injector);
         }
 
         public void SetGoal<TGoal>(bool endAction)
@@ -210,7 +203,6 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentActionData.Target = target;
             this.CurrentActionPath = path;
             this.CurrentAction.Start(this, this.CurrentActionData);
-            this.CurrentActionInRange = this.CurrentAction.GetInRange(this, this.CurrentActionData);
             this.Events.ActionStart(action);
         }
         
