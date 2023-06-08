@@ -72,11 +72,11 @@ namespace Demos.Actions
             return 5f;
         }
         
-        // You can implement a custom in range function. This is useful if you want to add dynamic in range values to the action.
-        // This method is called right after Start
-        public override float GetInRange(IMonoAgent agent, IActionData data)
+        // This method is called to determine if the agent is in range for the action. It is called every frame while the action is running.
+        // This could be used to perform a physics check to actually guarantee line of sight for example.
+        public virtual bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references)
         {
-            return 2f;
+            return distance <= this.config.InRange;
         }
     
         // This methods is called when the action is created. It is used to initialize the action.

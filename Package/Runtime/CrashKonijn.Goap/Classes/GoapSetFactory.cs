@@ -13,6 +13,7 @@ namespace CrashKonijn.Goap.Classes
     public class GoapSetFactory
     {
         private readonly IGoapConfig goapConfig;
+        private readonly ClassResolver classResolver = new();
         private IGoapSetConfigValidatorRunner goapSetConfigValidatorRunner = new GoapSetConfigValidatorRunner();
 
         public GoapSetFactory(IGoapConfig goapConfig)
@@ -31,7 +32,8 @@ namespace CrashKonijn.Goap.Classes
                 config: this.goapConfig,
                 actions: this.GetActions(config),
                 goals: this.GetGoals(config),
-                sensorRunner: sensorRunner
+                sensorRunner: sensorRunner,
+                debugger: this.GetDebugger(config)
             );
         }
         
@@ -60,7 +62,7 @@ namespace CrashKonijn.Goap.Classes
         
         private List<IActionBase> GetActions(IGoapSetConfig config)
         {
-            var actions = new ClassResolver().Load<IActionBase, IActionConfig>(config.Actions);
+            var actions = this.classResolver.Load<IActionBase, IActionConfig>(config.Actions);
             var injector = this.goapConfig.GoapInjector;
             
             actions.ForEach(x =>
@@ -74,7 +76,7 @@ namespace CrashKonijn.Goap.Classes
         
         private List<IGoalBase> GetGoals(IGoapSetConfig config)
         {
-            var goals = new ClassResolver().Load<IGoalBase, IGoalConfig>(config.Goals);
+            var goals = this.classResolver.Load<IGoalBase, IGoalConfig>(config.Goals);
             var injector = this.goapConfig.GoapInjector;
             
             goals.ForEach(x =>
@@ -87,7 +89,7 @@ namespace CrashKonijn.Goap.Classes
         
         private List<IWorldSensor> GetWorldSensors(IGoapSetConfig config)
         {
-            var worldSensors = new ClassResolver().Load<IWorldSensor, IWorldSensorConfig>(config.WorldSensors);
+            var worldSensors = this.classResolver.Load<IWorldSensor, IWorldSensorConfig>(config.WorldSensors);
             var injector = this.goapConfig.GoapInjector;
             
             worldSensors.ForEach(x =>
@@ -101,7 +103,7 @@ namespace CrashKonijn.Goap.Classes
         
         private List<ITargetSensor> GetTargetSensors(IGoapSetConfig config)
         {
-            var targetSensors = new ClassResolver().Load<ITargetSensor, ITargetSensorConfig>(config.TargetSensors);
+            var targetSensors = this.classResolver.Load<ITargetSensor, ITargetSensorConfig>(config.TargetSensors);
             var injector = this.goapConfig.GoapInjector;
             
             targetSensors.ForEach(x =>
@@ -111,6 +113,11 @@ namespace CrashKonijn.Goap.Classes
             });
             
             return targetSensors;
+        }
+
+        private IAgentDebugger GetDebugger(IGoapSetConfig config)
+        {
+            return this.classResolver.Load<IAgentDebugger>(config.DebuggerClass);
         }
     }
 }

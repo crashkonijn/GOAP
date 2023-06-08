@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Configs
 {
@@ -17,5 +16,6 @@ namespace CrashKonijn.Goap.Configs
         public List<IGoalConfig> Goals { get; set; }
         public List<ITargetSensorConfig> TargetSensors { get; set; }
         public List<IWorldSensorConfig> WorldSensors { get; set; }
+        public string DebuggerClass { get; set; }
     }
 }

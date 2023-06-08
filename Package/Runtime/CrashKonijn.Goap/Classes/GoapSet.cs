@@ -13,17 +13,19 @@ namespace CrashKonijn.Goap.Classes
         public IAgentCollection Agents { get; } = new AgentCollection();
         public IGoapConfig GoapConfig { get; }
         public ISensorRunner SensorRunner { get; }
-                
+        public IAgentDebugger Debugger { get; }
+
         private List<IGoalBase> goals;
         private List<IActionBase> actions;
 
-        public GoapSet(string id, IGoapConfig config, List<IGoalBase> goals, List<IActionBase> actions, SensorRunner sensorRunner)
+        public GoapSet(string id, IGoapConfig config, List<IGoalBase> goals, List<IActionBase> actions, ISensorRunner sensorRunner, IAgentDebugger debugger)
         {
             this.Id = id;
             this.GoapConfig = config;
             this.SensorRunner = sensorRunner;
             this.goals = goals;
             this.actions = actions;
+            this.Debugger = debugger;
         }
 
         public void Register(IMonoAgent agent) => this.Agents.Add(agent);
