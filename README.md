@@ -1,5 +1,6 @@
-![Discord](https://img.shields.io/discord/1093598557480685578?label=Discord)
+[![Discord](https://img.shields.io/discord/1093598557480685578?label=Discord)](https://discord.gg/dCPnHaYNrm)
 [![Documentation](https://img.shields.io/badge/GitBook-Docu-lightblue)](https://goap.crashkonijn.com/)
+[![Asset Store](https://img.shields.io/badge/Asset%20Store-%20-green)](https://assetstore.unity.com/packages/slug/252687 )
 [![CodeFactor](https://www.codefactor.io/repository/github/crashkonijn/goap/badge)](https://www.codefactor.io/repository/github/crashkonijn/goap)
 ![test-status](https://github.com/crashkonijn/GOAP/actions/workflows/main.yml/badge.svg?branch=master)
 ![GitHub](https://img.shields.io/github/license/crashkonijn/GOAP)
