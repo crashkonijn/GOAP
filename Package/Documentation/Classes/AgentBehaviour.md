@@ -8,6 +8,37 @@ Each action has a target. This target provides a position that the agent should 
 
 It is also possible to make an action perform while moving, see the `MoveMode` on the `ActionConfig`.
 
+## Distance
+By default the agent will use the `Vector3.Distance` between the agent and the target as it's distance. You can overwrite this distance by assigning your own implementation of `IAgentDistanceObserver` to the `agent.DistanceObserver` variable. This is useful if you want to use the `navMeshAgent.remainingDistance` for example.
+
+### Example
+
+{% code title="NavMeshDistanceObserver.cs" lineNumbers="true" %}
+```csharp
+public class NavMeshDistanceObserver : MonoBehaviour, IAgentDistanceObserver
+{
+    private NavMeshAgent navMeshAgent;
+    
+    private void Awake()
+    {
+        this.navMeshAgent = this.GetComponent<NavMeshAgent>();
+        this.GetComponent<AgentBehaviour>.DistanceObserver = this;
+    }
+    
+    public float GetDistance(IMonoAgent agent, ITarget target, IComponentReference reference)
+    {
+        var distance = this.navMeshAgent.remainingDistance;
+        
+        // No path
+        if (float.IsInfinite(distance))
+            return 0f;
+        
+        return distance;
+    }
+}
+```
+{% endcode %}
+
 ## Methods
 
 ### SetGoal

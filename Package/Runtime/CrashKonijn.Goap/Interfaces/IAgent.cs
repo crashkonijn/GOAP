@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Enums;
 
 namespace CrashKonijn.Goap.Interfaces
@@ -15,6 +14,7 @@ namespace CrashKonijn.Goap.Interfaces
         List<IActionBase> CurrentActionPath { get; }
         IAgentEvents Events { get; }
         IDataReferenceInjector Injector { get; }
+        IAgentDistanceObserver DistanceObserver { get; }
 
         void Run();
         
