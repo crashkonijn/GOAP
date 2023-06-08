@@ -19,6 +19,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
             
             root.Add(new PropertyField(this.serializedObject.FindProperty("goapSetBehaviour")));
+            root.Add(new PropertyField(this.serializedObject.FindProperty("<DistanceMultiplier>k__BackingField")));
             
             if (!Application.isPlaying)
                 return root;

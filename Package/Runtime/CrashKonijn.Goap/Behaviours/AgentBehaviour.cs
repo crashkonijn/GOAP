@@ -12,6 +12,8 @@ namespace CrashKonijn.Goap.Behaviours
     {
         public GoapSetBehaviour goapSetBehaviour;
 
+        [field: SerializeField]
+        public float DistanceMultiplier { get; set; } = 1f;
         public AgentState State { get; private set; } = AgentState.NoAction;
         public AgentMoveState MoveState { get; set; } = AgentMoveState.Idle;
 
@@ -220,6 +222,11 @@ namespace CrashKonijn.Goap.Behaviours
             
             if (enqueue)
                 this.GoapSet.Agents.Enqueue(this);
+        }
+
+        public void SetDistanceMultiplierSpeed(float speed)
+        {
+            this.DistanceMultiplier = 1f / speed;
         }
     }
 }

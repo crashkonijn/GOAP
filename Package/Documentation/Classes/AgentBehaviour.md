@@ -8,6 +8,11 @@ Each action has a target. This target provides a position that the agent should 
 
 It is also possible to make an action perform while moving, see the `MoveMode` on the `ActionConfig`.
 
+### Distance multiplier
+In general the best actions to perform are the fastest way to reach a goal. In that case the cost of an action is probably equal to the time for it to complete. If that's the case than the distance value used in the heuristics should be divided by the move speed of an agent as well.
+
+If you use `SetDistanceMultiplierSpeed(float speed)` to set the (max / average) speed of an agent, the planner will more accurately determine the best action to perform.
+
 ## Distance
 By default the agent will use the `Vector3.Distance` between the agent and the target as it's distance. You can overwrite this distance by assigning your own implementation of `IAgentDistanceObserver` to the `agent.DistanceObserver` variable. This is useful if you want to use the `navMeshAgent.remainingDistance` for example.
 
