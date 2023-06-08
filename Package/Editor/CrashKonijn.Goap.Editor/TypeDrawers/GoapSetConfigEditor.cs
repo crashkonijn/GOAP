@@ -23,6 +23,11 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss");
             root.styleSheets.Add(styleSheet);
+            
+            root.Add(this.Group("Debugger", card =>
+            {
+                card.Add(new PropertyField(this.serializedObject.FindProperty("debuggerClass")));
+            }));
 
             root.Add(this.Group("Goals and Actions", card =>
             {

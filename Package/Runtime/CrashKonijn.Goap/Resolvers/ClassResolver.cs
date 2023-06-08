@@ -20,6 +20,15 @@ namespace CrashKonijn.Goap.Resolvers
                 return action;
             }).ToList();
         }
+
+        public TType Load<TType>(string type)
+            where TType : class
+        {
+            if (string.IsNullOrEmpty(type))
+                return null;
+            
+            return Activator.CreateInstance(Type.GetType(type)) as TType;
+        }
         
         public HashSet<T> LoadTypes<T>(IEnumerable<string> list)
         {

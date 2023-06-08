@@ -75,5 +75,13 @@ namespace CrashKonijn.Goap.Classes.Builders
             
             return this.goapSetConfig;
         }
+
+        public GoapSetBuilder SetAgentDebugger<TDebugger>()
+            where TDebugger : IAgentDebugger
+        {
+            this.goapSetConfig.DebuggerClass = typeof(TDebugger).AssemblyQualifiedName;
+
+            return this;
+        }
     }
 }

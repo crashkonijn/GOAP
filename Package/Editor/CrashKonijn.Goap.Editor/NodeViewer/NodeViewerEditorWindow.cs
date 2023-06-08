@@ -211,7 +211,8 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             this.floatData.Clear();
 
             this.floatData.Add(new WorldDataDrawer(this.agent.WorldData));
-            this.floatData.Add(new AgentDataDrawer(this.agent));
+            this.floatData.Add(new ActionDataDrawer(this.agent));
+            this.floatData.Add(new AgentDataDrawer(this.agent, this.goapSet.Debugger));
         }
     }
 }

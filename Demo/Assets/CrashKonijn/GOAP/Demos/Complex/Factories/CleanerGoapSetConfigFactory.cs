@@ -4,6 +4,7 @@ using CrashKonijn.Goap.Configs.Interfaces;
 using Demos.Complex.Classes;
 using Demos.Complex.Factories.Extensions;
 using Demos.Complex.Interfaces;
+using Demos.Shared;
 
 namespace Demos.Complex.Factories
 {
@@ -12,6 +13,9 @@ namespace Demos.Complex.Factories
         public override IGoapSetConfig Create()
         {
             var builder = new GoapSetBuilder(SetIds.Cleaner);
+            
+            // Debugger
+            builder.SetAgentDebugger<AgentDebugger>();
 
             // Goals
             builder.AddWanderGoal();

@@ -54,6 +54,10 @@
     margin-top:10px;
 }
 
+#action-data {
+    margin-top:10px;
+}
+
 #card {
     background-color: #2d2d2d;
 }
