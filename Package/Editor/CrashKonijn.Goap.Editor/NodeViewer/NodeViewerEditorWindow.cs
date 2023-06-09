@@ -171,9 +171,15 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 if (index < 0)
                     return;
 
+                if (!Application.isPlaying)
+                    return;
+
                 var agent = this.agents[index];
 
                 if (agent == null)
+                    return;
+
+                if (agent == this.agent)
                     return;
                 
                 this.agent = agent;
