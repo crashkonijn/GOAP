@@ -24,7 +24,7 @@ The previous version of this library was used to create the AI in the game [Bash
 * Two demo scenes included
 * Tested
 * Well [documented](https://goap.crashkonijn.com/)
-* Build using unity 2022.2
+* Build using unity 2022.2 (also confirmed to be working with 2021.3)
 
 ## Installation
 Add the package to your project using the package manager. Add the following URL to the package manager:
