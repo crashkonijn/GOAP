@@ -1,6 +1,7 @@
 [![Discord](https://img.shields.io/discord/1093598557480685578?label=Discord)](https://discord.gg/dCPnHaYNrm)
 [![Documentation](https://img.shields.io/badge/GitBook-Docu-lightblue)](https://goap.crashkonijn.com/)
-[![Asset Store](https://img.shields.io/badge/Asset%20Store-%20-green)](https://assetstore.unity.com/packages/slug/252687 )
+[![openupm](https://img.shields.io/npm/v/com.crashkonijn.goap?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.crashkonijn.goap/)
+[![Asset Store](https://img.shields.io/badge/Asset%20Store-v2.1.5-blue)](https://assetstore.unity.com/packages/slug/252687)
 [![CodeFactor](https://www.codefactor.io/repository/github/crashkonijn/goap/badge)](https://www.codefactor.io/repository/github/crashkonijn/goap)
 ![test-status](https://github.com/crashkonijn/GOAP/actions/workflows/main.yml/badge.svg?branch=master)
 ![GitHub](https://img.shields.io/github/license/crashkonijn/GOAP)
@@ -30,6 +31,7 @@ Add the package to your project using the package manager. Add the following URL
 ```
 https://github.com/crashkonijn/GOAP.git?path=/Package
 ```
+Alternatively install through [OpenUPM](https://openupm.com/packages/com.crashkonijn.goap/) or the [Unity Asset Store](https://assetstore.unity.com/packages/slug/252687).
 
 ## Node viewer
 ![Screenshot of NodeViewer](Package/Documentation/images/goap-viewer.png)

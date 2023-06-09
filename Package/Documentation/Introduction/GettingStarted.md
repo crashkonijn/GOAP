@@ -6,6 +6,8 @@ Add the package to your project using the package manager. Add the following URL
 https://github.com/crashkonijn/GOAP.git?path=/Package
 ```
 
+Alternatively install through [OpenUPM](https://openupm.com/packages/com.crashkonijn.goap/) or the [Unity Asset Store](https://assetstore.unity.com/packages/slug/252687).
+
 {% hint style="info" %}
 **Version** This package was build using unity 2022.2
 {% endhint %}
