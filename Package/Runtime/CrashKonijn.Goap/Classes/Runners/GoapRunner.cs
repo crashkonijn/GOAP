@@ -30,6 +30,9 @@ namespace CrashKonijn.Goap.Classes.Runners
                         
             foreach (var agent in this.Agents)
             {
+                if (agent.IsNull())
+                    continue;
+                
                 agent.Run();
             }
         }
