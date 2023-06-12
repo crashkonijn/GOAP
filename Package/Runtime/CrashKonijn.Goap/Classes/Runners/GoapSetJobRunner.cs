@@ -128,6 +128,10 @@ namespace CrashKonijn.Goap.Classes.Runners
             foreach (var resolveHandle in this.resolveHandles)
             {
                 var result = resolveHandle.Handle.Complete().OfType<IActionBase>().ToList();
+
+                if (resolveHandle.Agent.IsNull())
+                    continue;
+                
                 var action = result.FirstOrDefault();
                 
                 if (action is null)
@@ -138,6 +142,8 @@ namespace CrashKonijn.Goap.Classes.Runners
                 
                 resolveHandle.Agent.SetAction(action, result, resolveHandle.Agent.WorldData.GetTarget(action));
             }
+            
+            this.resolveHandles.Clear();
         }
 
         public void Dispose()

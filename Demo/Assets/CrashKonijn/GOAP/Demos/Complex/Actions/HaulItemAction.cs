@@ -28,6 +28,9 @@ namespace Demos.Complex.Actions
         public override void Start(IMonoAgent agent, Data data)
         {
             var item = this.itemCollection.Closest(agent.transform.position, false, false, false);
+            
+            if (item is null)
+                return;
 
             item.Claim();
             
@@ -38,6 +41,9 @@ namespace Demos.Complex.Actions
 
         public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
         {
+            if (data.Item is null)
+                return ActionRunState.Stop;
+            
             switch (data.State)
             {
                 case State.MovingToItem:
