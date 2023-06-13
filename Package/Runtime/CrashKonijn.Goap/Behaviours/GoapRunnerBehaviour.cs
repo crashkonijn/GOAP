@@ -26,16 +26,11 @@ namespace CrashKonijn.Goap.Behaviours
         public List<GoapSetFactoryBase> goapSetConfigFactories = new();
 
         private GoapConfig config;
+        private bool isInitialized = false;
 
         private void Awake()
         {
-            this.config = GoapConfig.Default;
-            this.runner = new Classes.Runners.GoapRunner();
-            
-            if (this.configInitializer != null)
-                this.configInitializer.InitConfig(this.config);
-            
-            this.CreateGoapSets();
+            this.Initialize();
         }
 
         public void Register(IGoapSet goapSet) => this.runner.Register(goapSet);
@@ -54,6 +49,22 @@ namespace CrashKonijn.Goap.Behaviours
         private void OnDestroy()
         {
             this.runner.Dispose();
+        }
+
+        private void Initialize()
+        {
+            if (this.isInitialized)
+                return;
+            
+            this.config = GoapConfig.Default;
+            this.runner = new Classes.Runners.GoapRunner();
+            
+            if (this.configInitializer != null)
+                this.configInitializer.InitConfig(this.config);
+            
+            this.CreateGoapSets();
+            
+            this.isInitialized = true;
         }
 
         private void CreateGoapSets()
@@ -84,8 +95,18 @@ namespace CrashKonijn.Goap.Behaviours
         public IGoapSet[] GoapSets => this.runner.GoapSets;
 
         [Obsolete("'GetSet' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet GetSet(string id) => this.runner.GetSet(id);
+        public IGoapSet GetSet(string id)
+        {
+            this.Initialize();
+            
+            return this.runner.GetSet(id);
+        }
 
-        public IGoapSet GetGoapSet(string id) => this.runner.GetGoapSet(id);
+        public IGoapSet GetGoapSet(string id)
+        {
+            this.Initialize();
+            
+            return this.runner.GetGoapSet(id);
+        }
     }
 }
