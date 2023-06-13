@@ -7,6 +7,10 @@
 
 {% code title="AgentMoveBehaviour.cs" lineNumbers="true" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Interfaces;
+using UnityEngine;
+
 public class AgentMoveBehaviour : MonoBehaviour
 {
     private AgentBehaviour agent;
@@ -66,9 +70,9 @@ public class AgentMoveBehaviour : MonoBehaviour
 
 {% code lineNumbers="true" %}
 ```csharp
- public class WanderTarget : TargetKeyBase
- {
- }
+public class WanderTarget : TargetKeyBase
+{
+}
 
 public class IsWandering : WorldKeyBase
 {

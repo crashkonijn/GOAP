@@ -13,8 +13,10 @@ To create a new `WorldKey`, create a new class that inherits from the `WorldKeyB
 
 {% code title="IsHungry.cs" lineNumbers="true" %}
 ```csharp
- public class IsHungry : WorldKeyBase
- {
- }
+using CrashKonijn.Goap.Behaviours;
+
+public class IsHungry : WorldKeyBase
+{
+}
 ```
 {% endcode %}

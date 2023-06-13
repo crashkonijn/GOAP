@@ -23,6 +23,9 @@ By defining an agent debugger class you can customize the data show in the node 
 
 {% code title="AgentDebugger.cs" lineNumbers="true" %}
 ```csharp
+using CrashKonijn.Goap.Interfaces;
+using Demos.Shared.Behaviours;
+
 public class AgentDebugger : IAgentDebugger
 {
     public string GetInfo(IMonoAgent agent, IComponentReference references)
