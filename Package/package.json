@@ -1,6 +1,6 @@
 {
   "name": "com.crashkonijn.goap",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "displayName": "Unity GOAP",
   "description": "An open source GOAP implementation for unity",
   "unity": "2022.2",
