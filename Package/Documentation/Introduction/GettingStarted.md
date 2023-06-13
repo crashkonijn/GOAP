@@ -18,6 +18,8 @@ Alternatively install through [OpenUPM](https://openupm.com/packages/com.crashko
 
 {% code title="WanderGoal.cs" lang="csharp" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+
 public class WanderGoal : GoalBase
 {
 }
@@ -28,6 +30,12 @@ public class WanderGoal : GoalBase
 
 {% code title="WanderAction.cs" lang="csharp" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Enums;
+using CrashKonijn.Goap.Interfaces;
+using UnityEngine;
+
 public class WanderAction : ActionBase<WanderAction.Data>
 {
     // Called when the class is created.
@@ -74,6 +82,10 @@ public class WanderAction : ActionBase<WanderAction.Data>
 
 {% code title="WanderTargetSensor.cs" lang="csharp" %}
 ```csharp
+using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Sensors;
+
 public class WanderTargetSensor : LocalTargetSensorBase
 {
     // Called when the class is created.
@@ -110,6 +122,10 @@ public class WanderTargetSensor : LocalTargetSensorBase
 
 {% code title="AgentMoveBehaviour.cs" lang="csharp" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Interfaces;
+using UnityEngine;
+
 public class AgentMoveBehaviour : MonoBehaviour
 {
     private AgentBehaviour agent;
@@ -169,6 +185,9 @@ public class AgentMoveBehaviour : MonoBehaviour
 
 {% code title="AgentBrain.cs" lang="csharp" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using UnityEngine;
+
 public class AgentBrain : MonoBehaviour
 {
     private AgentBehaviour agent;

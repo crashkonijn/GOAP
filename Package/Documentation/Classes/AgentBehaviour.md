@@ -20,6 +20,11 @@ By default the agent will use the `Vector3.Distance` between the agent and the t
 
 {% code title="NavMeshDistanceObserver.cs" lineNumbers="true" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Interfaces;
+using UnityEngine;
+using UnityEngine.AI;
+
 public class NavMeshDistanceObserver : MonoBehaviour, IAgentDistanceObserver
 {
     private NavMeshAgent navMeshAgent;
@@ -172,6 +177,10 @@ namespace Demos.Complex.Behaviours
 
 {% code title="AgentMoveBehaviour.cs" lineNumbers="true" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Interfaces;
+using UnityEngine;
+
 public class AgentMoveBehaviour : MonoBehaviour
 {
     private AgentBehaviour agent;

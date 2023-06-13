@@ -9,9 +9,11 @@
 
 {% code title="WanderTarget.cs" lineNumbers="true" %}
 ```csharp
- public class WanderTarget : TargetKeyBase
- {
- }
+using CrashKonijn.Goap.Behaviours;
+
+public class WanderTarget : TargetKeyBase
+{
+}
 ```
 {% endcode %}
 
@@ -19,6 +21,8 @@
 
 {% code title="IsWandering.cs" lineNumbers="true" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+
 public class IsWandering : WorldKeyBase
 {
 }
@@ -29,6 +33,11 @@ public class IsWandering : WorldKeyBase
 
 {% code title="GoapSetConfigFactory.cs" lineNumbers="true" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes.Builders;
+using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Resolver;
+
 public class GoapSetConfigFactory : GoapSetFactoryBase
 {
     public override IGoapSetConfig Create()
@@ -67,8 +76,11 @@ public class GoapSetConfigFactory : GoapSetFactoryBase
 
 {% code title="GoapSetBinder.cs" lineNumbers="true" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using UnityEngine;
+
 public class GoapSetBinder : MonoBehaviour {
-    public void Start() {
+    public void Awake() {
         var runner = FindObjectOfType<GoapRunnerBehaviour>();
         var agent = GetComponent<AgentBehaviour>();
         agent.GoapSet = runner.GetSet("GettingStartedSet");

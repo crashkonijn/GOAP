@@ -2,6 +2,7 @@
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Enums;
+using CrashKonijn.Goap.Exceptions;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Observers;
 using UnityEngine;
@@ -45,6 +46,12 @@ namespace CrashKonijn.Goap.Behaviours
             
             if (this.goapSetBehaviour != null)
                 this.GoapSet = this.goapSetBehaviour.GoapSet;
+        }
+
+        private void Start()
+        {
+            if (this.GoapSet == null)
+                throw new GoapException($"There is no GoapSet assigned to the agent '{this.name}'! Please assign one in the inspector or through code in the Awake method.");
         }
 
         private void OnEnable()

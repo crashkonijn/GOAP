@@ -16,6 +16,15 @@ To create a set, you must create a class that inherits from `GoapSetFactoryBase`
 
 {% code title="GoapSetConfigFactory.cs" lineNumbers="true" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes.Builders;
+using CrashKonijn.Goap.Configs.Interfaces;
+using Demos.Complex.Classes;
+using Demos.Complex.Classes.Items;
+using Demos.Complex.Factories.Extensions;
+using Demos.Complex.Interfaces;
+using Demos.Shared;
+
 public class GoapSetConfigFactory : GoapSetFactoryBase
 {
     public override IGoapSetConfig Create()

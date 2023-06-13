@@ -10,6 +10,8 @@ This is a simple example of an injector that is used in the complex example scen
 
 {% code title="GoapInjector.cs" lang="csharp" %}
 ```csharp
+using CrashKonijn.Goap.Interfaces;
+
 public class GoapInjector : MonoBehaviour, IGoapInjector
 {
     public ItemFactory itemFactory;
@@ -112,6 +114,9 @@ Add the script to the scene and bind it to the `GoapConfigInitializer` property 
 
 {% code title="GoapConfigInitializer.cs" lang="csharp" %}
 ```csharp
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes;
+
 namespace Demos.Complex.Goap
 {
     public class GoapConfigInitializer : GoapConfigInitializerBase

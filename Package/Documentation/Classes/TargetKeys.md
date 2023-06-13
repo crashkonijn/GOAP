@@ -13,8 +13,10 @@ To create a new `TargetKey`, create a new class that inherits from the `TargetKe
 
 {% code title="WanderTarget.cs" lineNumbers="true" %}
 ```csharp
- public class WanderTarget : TargetKeyBase
- {
- }
+using CrashKonijn.Goap.Behaviours;
+
+public class WanderTarget : TargetKeyBase
+{
+}
 ```
 {% endcode %}
