@@ -31,7 +31,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             this.conditionBuilder = this.resolver.GetConditionBuilder();
         }
 
-        public void Run()
+        public void Run(IMonoAgent[] queue)
         {
             this.resolveHandles.Clear();
             
@@ -39,7 +39,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             
             var globalData = this.goapSet.SensorRunner.SenseGlobal();
 
-            foreach (var agent in this.goapSet.Agents.GetQueue())
+            foreach (var agent in queue)
             {
                 this.Run(globalData, agent);
             }

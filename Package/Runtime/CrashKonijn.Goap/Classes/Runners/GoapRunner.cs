@@ -21,11 +21,11 @@ namespace CrashKonijn.Goap.Classes.Runners
         {
             this.stopwatch.Restart();
             
-            foreach (var runner in this.goapSets.Values)
+            foreach (var (set, runner) in this.goapSets)
             {
-                runner.Run();
+                runner.Run(set.Agents.GetQueue());
             }
-            
+
             this.RunTime = this.GetElapsedMs();
                         
             foreach (var agent in this.Agents)

@@ -8,30 +8,6 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 12004, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PixelRect:
-    serializedVersion: 2
-    x: 3027
-    y: 170
-    width: 1710
-    height: 834
-  m_ShowMode: 0
-  m_Title: UI Toolkit Debugger
-  m_RootView: {fileID: 4}
-  m_MinSize: {x: 100, y: 121}
-  m_MaxSize: {x: 4000, y: 4021}
-  m_Maximized: 0
---- !u!114 &2
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12004, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -44,11 +20,11 @@ MonoBehaviour:
     height: 1357
   m_ShowMode: 4
   m_Title: Console
-  m_RootView: {fileID: 5}
+  m_RootView: {fileID: 3}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
---- !u!114 &3
+--- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,47 +34,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: UIElementsDebugger
+  m_Name: GameView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 0
+    x: 1315
     y: 0
-    width: 1710
-    height: 834
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 17}
+    width: 738
+    height: 684
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 19}
   m_Panes:
-  - {fileID: 17}
+  - {fileID: 19}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &4
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Children:
-  - {fileID: 3}
-  m_Position:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1710
-    height: 834
-  m_MinSize: {x: 100, y: 121}
-  m_MaxSize: {x: 4000, y: 4021}
-  vertical: 0
-  controlID: 18
---- !u!114 &5
+--- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,9 +63,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
+  - {fileID: 4}
   - {fileID: 6}
-  - {fileID: 8}
-  - {fileID: 7}
+  - {fileID: 5}
   m_Position:
     serializedVersion: 2
     x: 0
@@ -126,7 +78,7 @@ MonoBehaviour:
   m_TopViewHeight: 30
   m_UseBottomView: 1
   m_BottomViewHeight: 20
---- !u!114 &6
+--- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
   m_LastLoadedLayoutName: 
---- !u!114 &7
+--- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,6 +121,56 @@ MonoBehaviour:
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
+--- !u!114 &6
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 7}
+  - {fileID: 14}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 30
+    width: 2560
+    height: 1307
+  m_MinSize: {x: 400, y: 100}
+  m_MaxSize: {x: 32384, y: 16192}
+  vertical: 0
+  controlID: 159
+--- !u!114 &7
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 8}
+  - {fileID: 11}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 2053
+    height: 1307
+  m_MinSize: {x: 300, y: 100}
+  m_MaxSize: {x: 24288, y: 16192}
+  vertical: 1
+  controlID: 51
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -183,68 +185,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Children:
   - {fileID: 9}
-  - {fileID: 16}
-  m_Position:
-    serializedVersion: 2
-    x: 0
-    y: 30
-    width: 2560
-    height: 1307
-  m_MinSize: {x: 300, y: 100}
-  m_MaxSize: {x: 24288, y: 16192}
-  vertical: 0
-  controlID: 140
---- !u!114 &9
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Children:
   - {fileID: 10}
-  - {fileID: 13}
-  m_Position:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 2053
-    height: 1307
-  m_MinSize: {x: 200, y: 100}
-  m_MaxSize: {x: 16192, y: 16192}
-  vertical: 1
-  controlID: 141
---- !u!114 &10
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Children:
-  - {fileID: 11}
-  - {fileID: 12}
+  - {fileID: 2}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
     width: 2053
     height: 684
-  m_MinSize: {x: 200, y: 50}
-  m_MaxSize: {x: 16192, y: 8096}
+  m_MinSize: {x: 300, y: 50}
+  m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 82
---- !u!114 &11
+  controlID: 52
+--- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,16 +214,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 255
+    width: 318
     height: 684
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 18}
+  m_ActualView: {fileID: 15}
   m_Panes:
-  - {fileID: 18}
+  - {fileID: 15}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &12
+--- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,21 +238,20 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 255
+    x: 318
     y: 0
-    width: 1798
+    width: 997
     height: 684
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 19}
+  m_ActualView: {fileID: 16}
   m_Panes:
-  - {fileID: 19}
-  - {fileID: 20}
-  - {fileID: 21}
-  - {fileID: 22}
+  - {fileID: 16}
+  - {fileID: 17}
+  - {fileID: 18}
   m_Selected: 0
-  m_LastSelected: 3
---- !u!114 &13
+  m_LastSelected: 0
+--- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -312,8 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 14}
-  - {fileID: 15}
+  - {fileID: 12}
+  - {fileID: 13}
   m_Position:
     serializedVersion: 2
     x: 0
@@ -323,8 +275,8 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 142
---- !u!114 &14
+  controlID: 123
+--- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -345,12 +297,12 @@ MonoBehaviour:
     height: 623
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 23}
+  m_ActualView: {fileID: 20}
   m_Panes:
-  - {fileID: 23}
+  - {fileID: 20}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &15
+--- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -371,12 +323,12 @@ MonoBehaviour:
     height: 623
   m_MinSize: {x: 102, y: 121}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 24}
+  m_ActualView: {fileID: 21}
   m_Panes:
-  - {fileID: 24}
+  - {fileID: 21}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &16
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -397,56 +349,13 @@ MonoBehaviour:
     height: 1307
   m_MinSize: {x: 276, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 25}
+  m_ActualView: {fileID: 22}
   m_Panes:
-  - {fileID: 25}
-  - {fileID: 26}
+  - {fileID: 22}
+  - {fileID: 23}
   m_Selected: 0
   m_LastSelected: 1
---- !u!114 &17
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 13956, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_TitleContent:
-    m_Text: UI Toolkit Debugger
-    m_Image: {fileID: 0}
-    m_Tooltip: 
-  m_Pos:
-    serializedVersion: 2
-    x: 3027
-    y: 170
-    width: 1710
-    height: 813
-  m_SerializedDataModeController:
-    m_DataMode: 0
-    m_PreferredDataMode: 0
-    m_SupportedDataModes: 
-    isAutomatic: 1
-  m_ViewDataDictionary: {fileID: 0}
-  m_OverlayCanvas:
-    m_LastAppliedPresetName: Default
-    m_SaveData: []
-    m_OverlaysVisible: 1
-  m_DebuggerImpl:
-    m_LastVisualTreeName: 
-  m_DebuggerContext:
-    m_SelectedElementIndex: 77
-    m_ShowLayoutBound: 0
-    m_ShowRepaintOverlay: 0
-    m_ShowDrawStats: 0
-    m_BreakBatches: 0
-    m_ShowWireframe: 0
---- !u!114 &18
+--- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -469,7 +378,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 73
-    width: 254
+    width: 317
     height: 663
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -484,9 +393,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 1cb80000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 263cfeff4a3dfeff8a3efeff1c46feffee59feffd660feff4a64feff
+      m_ExpandedIDs: 2afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -502,7 +411,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 11}
+        m_ClientGUIView: {fileID: 0}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -510,7 +419,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: 4c969a2b90040154d917609493e03593
---- !u!114 &19
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -531,9 +440,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 255
+    x: 318
     y: 73
-    width: 1796
+    width: 995
     height: 663
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -575,7 +484,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-scene-view-toolbar
@@ -601,7 +510,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -815,9 +724,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.046380915, y: -0.6150807, z: -0.7636738}
+    m_Target: {x: 4.3358855, y: 0.03327751, z: 4.4824986}
     speed: 2
-    m_Value: {x: 0.046380915, y: -0.6150807, z: -0.7636738}
+    m_Value: {x: 4.3358855, y: 0.03327751, z: 4.4824986}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -863,13 +772,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.6659084, y: -0.002490147, z: 0.0022317704, w: -0.746084}
+    m_Target: {x: -0.7083974, y: 0.00074279273, z: -0.00089189707, w: -0.70588213}
     speed: 2
-    m_Value: {x: -0.66587967, y: -0.0024900394, z: 0.002231674, w: -0.7460518}
+    m_Value: {x: -0.7083973, y: 0.00074279273, z: -0.00089189707, w: -0.7058821}
   m_Size:
-    m_Target: 8.952688
+    m_Target: 4.722444
     speed: 2
-    m_Value: 8.952688
+    m_Value: 4.722444
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -894,7 +803,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &20
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -957,7 +866,7 @@ MonoBehaviour:
         m_Identifier: UnityEditorInternal.Profiling.CPUProfilerModule, UnityEditor.CoreModule,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
         m_PaneScroll: {x: 0, y: 0}
-        m_ViewType: 1
+        m_ViewType: 0
         updateViewLive: 0
         m_CurrentFrameIndex: -1
         m_HierarchyOverruledThreadFromSelection: 0
@@ -1934,7 +1843,7 @@ MonoBehaviour:
       data:
         m_SortAscending: 0
         m_SortedColumn: -1
---- !u!114 &21
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2041,7 +1950,7 @@ MonoBehaviour:
   m_CurrentEditor: 0
   m_LayerEditor:
     m_SelectedLayerIndex: 0
---- !u!114 &22
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2062,9 +1971,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 255
+    x: 1315
     y: 73
-    width: 1796
+    width: 736
     height: 663
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -2082,7 +1991,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1141, y: 642}
+  m_TargetSize: {x: 736, y: 414}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -2090,17 +1999,17 @@ MonoBehaviour:
   m_UseMipMap: 0
   m_VSyncEnabled: 0
   m_Gizmos: 0
-  m_Stats: 1
+  m_Stats: 0
   m_SelectedSizes: 01000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -570.5
-    m_HBaseRangeMax: 570.5
-    m_VBaseRangeMin: -321
-    m_VBaseRangeMax: 321
+    m_HBaseRangeMin: -368
+    m_HBaseRangeMax: 368
+    m_VBaseRangeMin: -207
+    m_VBaseRangeMax: 207
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -2109,7 +2018,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -2118,29 +2027,29 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1796
+      width: 736
       height: 642
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 898, y: 321}
+    m_Translation: {x: 368, y: 321}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -898
+      x: -368
       y: -321
-      width: 1796
+      width: 736
       height: 642
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 1796, y: 663}
+  m_LastWindowPixelSize: {x: 736, y: 663}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &23
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2188,7 +2097,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/CrashKonijn/GOAP/Demos/Simple/Configs/Sets
+    - Assets/CrashKonijn/GOAP/Demos/TurnBased/Prefabs
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -2203,7 +2112,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 88b50000
     m_LastClickedID: 46472
-    m_ExpandedIDs: 00000000da060000260700005a070000060800004a0800008a080000920800005a0900009e090000ea0e00001e1000006a11000052120000a21200007e13000076150000861500009e150000b2150000e6150000121600004a160000521600007a160000e8ba000048be00000ad200005ed5000060d5000062d5000064d5000066d5000068d500006ad500006cd500006ed50000
+    m_ExpandedIDs: 000000004e6f0000506f0000526f0000546f0000566f0000586f00005a6f00005c6f00005e6f0000606f0000626f0000646f0000666f0000686f00006a6f00006c6f00006e6f0000706f0000726f0000746f0000766f0000786f00007a6f00007c6f00007e6f0000806f0000826f0000846f0000866f0000886f00008a6f00008c6f00008e6f0000906f0000926f0000946f0000966f0000986f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2228,26 +2137,26 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 456}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000da0600000e070000260700005a070000ce070000060800004a0800008a080000920800005a0900009e090000ea0e00001e1000006a11000052120000a21200007e130000d214000076150000861500009e150000b2150000e6150000121600004a160000521600007a160000e8ba000048be00000ad200005ed5000060d5000062d5000064d5000066d5000068d500006ad500006cd500006ed50000
+    m_ExpandedIDs: ffffffff000000004e6f0000506f0000526f0000546f0000566f0000586f00005a6f00005c6f00005e6f0000606f0000626f0000646f0000666f0000686f00006a6f00006c6f00006e6f0000706f0000726f0000746f0000766f0000786f00007a6f00007c6f00007e6f0000806f0000826f0000846f0000866f0000886f00008a6f00008c6f00008e6f0000906f0000926f0000946f0000966f0000986f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: README
-      m_OriginalName: README
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 57230
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 14}
+      m_ClientGUIView: {fileID: 12}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -2287,7 +2196,7 @@ MonoBehaviour:
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 207
---- !u!114 &24
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2322,7 +2231,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
     m_OverlaysVisible: 1
---- !u!114 &25
+--- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2370,7 +2279,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &26
+--- !u!114 &23
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2390,9 +2299,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 4173
+    x: 2053
     y: 73
-    width: 946
+    width: 506
     height: 1286
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -2405,7 +2314,7 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 3747
+    ID: 199
     splitterInitialOffset: 576
     currentActiveSplitter: -1
     realSizes:
@@ -2428,9 +2337,9 @@ MonoBehaviour:
     oldMinSizes: 
     oldMaxSizes: 
     oldSplitSize: 0
-  m_TestTypeToolbarIndex: 0
+  m_TestTypeToolbarIndex: 1
   m_PlayModeTestListGUI:
-    m_Window: {fileID: 26}
+    m_Window: {fileID: 23}
     m_NewResultList:
     - id: 1025
       uniqueId: '[UnityGoap][suite]'
@@ -2596,14 +2505,14 @@ MonoBehaviour:
       - Uncategorized
     m_SelectedOption: 0
   m_EditModeTestListGUI:
-    m_Window: {fileID: 26}
+    m_Window: {fileID: 23}
     m_NewResultList:
     - id: 1000
       uniqueId: '[UnityGoap][suite]'
       name: UnityGoap
       fullName: UnityGoap
       resultStatus: 1
-      duration: 0.5470988
+      duration: 0.7566355
       messages: 
       output: 
       stacktrace: 
@@ -2619,7 +2528,7 @@ MonoBehaviour:
       name: UnitTests.dll
       fullName: E:/Development/CrashKonijn/GOAP/Demo/Library/ScriptAssemblies/UnitTests.dll
       resultStatus: 1
-      duration: 0.5113342
+      duration: 0.7028849
       messages: 
       output: 
       stacktrace: 
@@ -2635,7 +2544,7 @@ MonoBehaviour:
       name: CrashKonijn
       fullName: CrashKonijn
       resultStatus: 1
-      duration: 0.5108406
+      duration: 0.7024512
       messages: 
       output: 
       stacktrace: 
@@ -2651,7 +2560,7 @@ MonoBehaviour:
       name: Goap
       fullName: CrashKonijn.Goap
       resultStatus: 1
-      duration: 0.5106253
+      duration: 0.7023375
       messages: 
       output: 
       stacktrace: 
@@ -2667,7 +2576,7 @@ MonoBehaviour:
       name: UnitTests
       fullName: CrashKonijn.Goap.UnitTests
       resultStatus: 1
-      duration: 0.5080247
+      duration: 0.6993793
       messages: 
       output: 
       stacktrace: 
@@ -2683,7 +2592,7 @@ MonoBehaviour:
       name: AgentBehaviourTests
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests
       resultStatus: 1
-      duration: 0.2265496
+      duration: 0.2670334
       messages: 
       output: 
       stacktrace: 
@@ -2699,7 +2608,7 @@ MonoBehaviour:
       name: ActionPerform_WithRunStateStop_CallsEnd
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.ActionPerform_WithRunStateStop_CallsEnd
       resultStatus: 1
-      duration: 0.1516988
+      duration: 0.1922775
       messages: 
       output: 
       stacktrace: 
@@ -2716,7 +2625,7 @@ MonoBehaviour:
       name: EndAction_CallsActionEndEvent
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.EndAction_CallsActionEndEvent
       resultStatus: 1
-      duration: 0.0071621
+      duration: 0.0067372
       messages: 
       output: 
       stacktrace: 
@@ -2733,7 +2642,7 @@ MonoBehaviour:
       name: EndAction_CallsEndOnAction
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.EndAction_CallsEndOnAction
       resultStatus: 1
-      duration: 0.0101377
+      duration: 0.0005875
       messages: 
       output: 
       stacktrace: 
@@ -2750,7 +2659,7 @@ MonoBehaviour:
       name: EndAction_ClearsAction
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.EndAction_ClearsAction
       resultStatus: 1
-      duration: 0.0104628
+      duration: 0.0158548
       messages: 
       output: 
       stacktrace: 
@@ -2767,7 +2676,7 @@ MonoBehaviour:
       name: EndAction_ClearsActionData
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.EndAction_ClearsActionData
       resultStatus: 1
-      duration: 0.0006871
+      duration: 0.0006646
       messages: 
       output: 
       stacktrace: 
@@ -2784,7 +2693,7 @@ MonoBehaviour:
       name: EndAction_ShouldEnqueueAgent
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.EndAction_ShouldEnqueueAgent
       resultStatus: 1
-      duration: 0.0005458
+      duration: 0.0004439
       messages: 
       output: 
       stacktrace: 
@@ -2801,7 +2710,7 @@ MonoBehaviour:
       name: OnDisable_CallsUnregister
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.OnDisable_CallsUnregister
       resultStatus: 1
-      duration: 0.0012304
+      duration: 0.0009501
       messages: 
       output: 
       stacktrace: 
@@ -2818,7 +2727,7 @@ MonoBehaviour:
       name: OnEnable_CallsRegister
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.OnEnable_CallsRegister
       resultStatus: 1
-      duration: 0.0005916
+      duration: 0.0004686
       messages: 
       output: 
       stacktrace: 
@@ -2830,12 +2739,12 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1001
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests][suite]
-    - id: 1006
-      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_WithActionAndTooMuchDistance_CallsMover]
-      name: Run_WithActionAndTooMuchDistance_CallsMover
-      fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_WithActionAndTooMuchDistance_CallsMover
+    - id: 1015
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_MoveBeforePerforming_WithActionAndTooMuchDistance_CallsMover]
+      name: Run_MoveBeforePerforming_WithActionAndTooMuchDistance_CallsMover
+      fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_MoveBeforePerforming_WithActionAndTooMuchDistance_CallsMover
       resultStatus: 1
-      duration: 0.0020314
+      duration: 0.0015242
       messages: 
       output: 
       stacktrace: 
@@ -2845,14 +2754,14 @@ MonoBehaviour:
       isSuite: 0
       categories:
       - Uncategorized
-      parentId: 1001
+      parentId: 1010
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests][suite]
-    - id: 1005
-      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_WithActionAndTooMuchDistance_SetsStateToMovingToTarget]
-      name: Run_WithActionAndTooMuchDistance_SetsStateToMovingToTarget
-      fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_WithActionAndTooMuchDistance_SetsStateToMovingToTarget
+    - id: 1014
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_MoveBeforePerforming_WithActionAndTooMuchDistance_SetsStateToMovingToTarget]
+      name: Run_MoveBeforePerforming_WithActionAndTooMuchDistance_SetsStateToMovingToTarget
+      fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_MoveBeforePerforming_WithActionAndTooMuchDistance_SetsStateToMovingToTarget
       resultStatus: 1
-      duration: 0.0013268
+      duration: 0.0011544
       messages: 
       output: 
       stacktrace: 
@@ -2862,14 +2771,14 @@ MonoBehaviour:
       isSuite: 0
       categories:
       - Uncategorized
-      parentId: 1001
+      parentId: 1010
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests][suite]
-    - id: 1007
-      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_WithCloseAction_CallsActionPerform]
-      name: Run_WithCloseAction_CallsActionPerform
-      fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_WithCloseAction_CallsActionPerform
+    - id: 1016
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_MoveBeforePerforming_WithCloseAction_CallsActionPerform]
+      name: Run_MoveBeforePerforming_WithCloseAction_CallsActionPerform
+      fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_MoveBeforePerforming_WithCloseAction_CallsActionPerform
       resultStatus: 1
-      duration: 0.0007587
+      duration: 0.0008176
       messages: 
       output: 
       stacktrace: 
@@ -2879,14 +2788,65 @@ MonoBehaviour:
       isSuite: 0
       categories:
       - Uncategorized
-      parentId: 1001
+      parentId: 1010
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests][suite]
+    - id: 1018
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_PerformWhileMoving_WithActionAndTooMuchDistance_CallsMoverAndAction]
+      name: Run_PerformWhileMoving_WithActionAndTooMuchDistance_CallsMoverAndAction
+      fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_PerformWhileMoving_WithActionAndTooMuchDistance_CallsMoverAndAction
+      resultStatus: 1
+      duration: 0.0006418
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1010
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests][suite]
+    - id: 1017
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_PerformWhileMoving_WithActionAndTooMuchDistance_SetsStateToMovingWhilePerformingAction]
+      name: Run_PerformWhileMoving_WithActionAndTooMuchDistance_SetsStateToMovingWhilePerformingAction
+      fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_PerformWhileMoving_WithActionAndTooMuchDistance_SetsStateToMovingWhilePerformingAction
+      resultStatus: 1
+      duration: 0.0005157
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1010
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests][suite]
+    - id: 1019
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_PerformWhileMoving_WithCloseAction_CallsActionPerform]
+      name: Run_PerformWhileMoving_WithCloseAction_CallsActionPerform
+      fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_PerformWhileMoving_WithCloseAction_CallsActionPerform
+      resultStatus: 1
+      duration: 0.0006974
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1010
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests][suite]
     - id: 1004
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/AgentBehaviourTests/[UnitTests][CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_WithoutAction_SetsStateToNoAction]
       name: Run_WithoutAction_SetsStateToNoAction
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.Run_WithoutAction_SetsStateToNoAction
       resultStatus: 1
-      duration: 0.0002125
+      duration: 0.0003096
       messages: 
       output: 
       stacktrace: 
@@ -2903,7 +2863,7 @@ MonoBehaviour:
       name: SetAction_CallsActionStartEvent
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetAction_CallsActionStartEvent
       resultStatus: 1
-      duration: 0.0006887
+      duration: 0.0004083
       messages: 
       output: 
       stacktrace: 
@@ -2920,7 +2880,7 @@ MonoBehaviour:
       name: SetAction_CallsEndOnOldAction
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetAction_CallsEndOnOldAction
       resultStatus: 1
-      duration: 0.0007427
+      duration: 0.0005063
       messages: 
       output: 
       stacktrace: 
@@ -2937,7 +2897,7 @@ MonoBehaviour:
       name: SetAction_CallsGetData
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetAction_CallsGetData
       resultStatus: 1
-      duration: 0.0004732
+      duration: 0.0003559
       messages: 
       output: 
       stacktrace: 
@@ -2954,7 +2914,7 @@ MonoBehaviour:
       name: SetAction_CallsStartOnAction
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetAction_CallsStartOnAction
       resultStatus: 1
-      duration: 0.0004763
+      duration: 0.000363
       messages: 
       output: 
       stacktrace: 
@@ -2971,7 +2931,7 @@ MonoBehaviour:
       name: SetAction_SetsAction
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetAction_SetsAction
       resultStatus: 1
-      duration: 0.0048143
+      duration: 0.0072181
       messages: 
       output: 
       stacktrace: 
@@ -2988,7 +2948,7 @@ MonoBehaviour:
       name: SetAction_SetsDataTarget
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetAction_SetsDataTarget
       resultStatus: 1
-      duration: 0.0011992
+      duration: 0.0007064
       messages: 
       output: 
       stacktrace: 
@@ -3005,7 +2965,7 @@ MonoBehaviour:
       name: SetAction_StoresData
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetAction_StoresData
       resultStatus: 1
-      duration: 0.0005818
+      duration: 0.0004716
       messages: 
       output: 
       stacktrace: 
@@ -3022,7 +2982,7 @@ MonoBehaviour:
       name: SetAction_StoresPath
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetAction_StoresPath
       resultStatus: 1
-      duration: 0.0029705
+      duration: 0.000974
       messages: 
       output: 
       stacktrace: 
@@ -3039,7 +2999,7 @@ MonoBehaviour:
       name: SetGoal_CallsGoalStartEvent
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetGoal_CallsGoalStartEvent
       resultStatus: 1
-      duration: 0.0043976
+      duration: 0.0055565
       messages: 
       output: 
       stacktrace: 
@@ -3056,7 +3016,7 @@ MonoBehaviour:
       name: SetGoal_EndActionFalse_DoesntCallEnd
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetGoal_EndActionFalse_DoesntCallEnd
       resultStatus: 1
-      duration: 0.0006383
+      duration: 0.0005805
       messages: 
       output: 
       stacktrace: 
@@ -3073,7 +3033,7 @@ MonoBehaviour:
       name: SetGoal_EndActionTrue_DoesCallEnd
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetGoal_EndActionTrue_DoesCallEnd
       resultStatus: 1
-      duration: 0.0006017
+      duration: 0.0004259
       messages: 
       output: 
       stacktrace: 
@@ -3090,7 +3050,7 @@ MonoBehaviour:
       name: SetGoal_EnqueuesAgent
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetGoal_EnqueuesAgent
       resultStatus: 1
-      duration: 0.000493
+      duration: 0.0003749
       messages: 
       output: 
       stacktrace: 
@@ -3107,7 +3067,7 @@ MonoBehaviour:
       name: SetGoal_SetsGoal
       fullName: CrashKonijn.Goap.UnitTests.AgentBehaviourTests.SetGoal_SetsGoal
       resultStatus: 1
-      duration: 0.0033422
+      duration: 0.004354
       messages: 
       output: 
       stacktrace: 
@@ -3124,7 +3084,7 @@ MonoBehaviour:
       name: ClassResolverTests
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests
       resultStatus: 1
-      duration: 0.0365529
+      duration: 0.0438618
       messages: 
       output: 
       stacktrace: 
@@ -3140,7 +3100,7 @@ MonoBehaviour:
       name: Load_LoadsGoal
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests.Load_LoadsGoal
       resultStatus: 1
-      duration: 0.0146989
+      duration: 0.0203829
       messages: 
       output: 
       stacktrace: 
@@ -3157,7 +3117,7 @@ MonoBehaviour:
       name: Load_LoadsTargetSensorConfig
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests.Load_LoadsTargetSensorConfig
       resultStatus: 1
-      duration: 0.0031192
+      duration: 0.0046378
       messages: 
       output: 
       stacktrace: 
@@ -3174,7 +3134,7 @@ MonoBehaviour:
       name: Load_LoadsWorldSensorConfig
       fullName: CrashKonijn.Goap.UnitTests.ClassResolverTests.Load_LoadsWorldSensorConfig
       resultStatus: 1
-      duration: 0.0030469
+      duration: 0.0041606
       messages: 
       output: 
       stacktrace: 
@@ -3191,7 +3151,7 @@ MonoBehaviour:
       name: ConditionObserverTests
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests
       resultStatus: 1
-      duration: 0.0189395
+      duration: 0.0168142
       messages: 
       output: 
       stacktrace: 
@@ -3207,7 +3167,7 @@ MonoBehaviour:
       name: IsMet_Negative_IsNotPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Negative_IsNotPresent
       resultStatus: 1
-      duration: 0.0068562
+      duration: 0.0056726
       messages: 
       output: 
       stacktrace: 
@@ -3224,7 +3184,7 @@ MonoBehaviour:
       name: IsMet_Negative_IsPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Negative_IsPresent
       resultStatus: 1
-      duration: 0.0011009
+      duration: 0.0011105
       messages: 
       output: 
       stacktrace: 
@@ -3241,7 +3201,7 @@ MonoBehaviour:
       name: IsMet_Positive_IsNotPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Positive_IsNotPresent
       resultStatus: 1
-      duration: 0.000197
+      duration: 0.0001705
       messages: 
       output: 
       stacktrace: 
@@ -3258,7 +3218,7 @@ MonoBehaviour:
       name: IsMet_Positive_IsPresent
       fullName: CrashKonijn.Goap.UnitTests.ConditionObserverTests.IsMet_Positive_IsPresent
       resultStatus: 1
-      duration: 0.0003376
+      duration: 0.0003165
       messages: 
       output: 
       stacktrace: 
@@ -3275,7 +3235,7 @@ MonoBehaviour:
       name: GoapSetJobRunnerTests
       fullName: CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests
       resultStatus: 1
-      duration: 0.12178
+      duration: 0.0612957
       messages: 
       output: 
       stacktrace: 
@@ -3286,12 +3246,29 @@ MonoBehaviour:
       categories: []
       parentId: 1062
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/[UnitTests][suite]
+    - id: 1054
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GoapSetJobRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_AgentHasCompletedGoal_CallsGoalCompleteEvent]
+      name: Run_AgentHasCompletedGoal_CallsGoalCompleteEvent
+      fullName: CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_AgentHasCompletedGoal_CallsGoalCompleteEvent
+      resultStatus: 1
+      duration: 0.0386179
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests][suite]
     - id: 1040
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GoapSetJobRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_AgentHasCurrentGoalAndAction_DoesNotRun]
       name: Run_AgentHasCurrentGoalAndAction_DoesNotRun
       fullName: CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_AgentHasCurrentGoalAndAction_DoesNotRun
       resultStatus: 1
-      duration: 0.0450766
+      duration: 0.0013153
       messages: 
       output: 
       stacktrace: 
@@ -3308,7 +3285,7 @@ MonoBehaviour:
       name: Run_AgentHasCurrentGoalAndNoAction_Runs
       fullName: CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_AgentHasCurrentGoalAndNoAction_Runs
       resultStatus: 1
-      duration: 0.0665784
+      duration: 0.0059825
       messages: 
       output: 
       stacktrace: 
@@ -3325,7 +3302,7 @@ MonoBehaviour:
       name: Run_AgentHasNoCurrentGoal_DoesNotRun
       fullName: CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_AgentHasNoCurrentGoal_DoesNotRun
       resultStatus: 1
-      duration: 0.0011965
+      duration: 0.0009202
       messages: 
       output: 
       stacktrace: 
@@ -3337,12 +3314,29 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1036
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests][suite]
+    - id: 1055
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GoapSetJobRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_AgentHasNotCompletedGoal_DoesntCallGoalCompleteEvent]
+      name: Run_AgentHasNotCompletedGoal_DoesntCallGoalCompleteEvent
+      fullName: CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_AgentHasNotCompletedGoal_DoesntCallGoalCompleteEvent
+      resultStatus: 1
+      duration: 0.001258
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1048
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests][suite]
     - id: 1038
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GoapSetJobRunnerTests/[UnitTests][CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_SensesGlobalSensors]
       name: Run_SensesGlobalSensors
       fullName: CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_SensesGlobalSensors
       resultStatus: 1
-      duration: 0.0006567
+      duration: 0.0005314
       messages: 
       output: 
       stacktrace: 
@@ -3359,7 +3353,7 @@ MonoBehaviour:
       name: Run_UpdatesSensorRunner
       fullName: CrashKonijn.Goap.UnitTests.GoapSetJobRunnerTests.Run_UpdatesSensorRunner
       resultStatus: 1
-      duration: 0.0006459
+      duration: 0.0004848
       messages: 
       output: 
       stacktrace: 
@@ -3376,7 +3370,7 @@ MonoBehaviour:
       name: GraphResolverTests
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests
       resultStatus: 1
-      duration: 0.0536453
+      duration: 0.1658641
       messages: 
       output: 
       stacktrace: 
@@ -3392,7 +3386,7 @@ MonoBehaviour:
       name: Resolve_ShouldIncludeCostHeuristics
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldIncludeCostHeuristics
       resultStatus: 1
-      duration: 0.0367554
+      duration: 0.1210453
       messages: 
       output: 
       stacktrace: 
@@ -3409,7 +3403,7 @@ MonoBehaviour:
       name: Resolve_ShouldIncludeLocationHeuristics
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldIncludeLocationHeuristics
       resultStatus: 1
-      duration: 0.001475
+      duration: 0.001331
       messages: 
       output: 
       stacktrace: 
@@ -3421,12 +3415,79 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1014
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests][suite]
+    - id: 1066
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldNotResolve_CompletedCondition]
+      name: Resolve_ShouldNotResolve_CompletedCondition
+      fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldNotResolve_CompletedCondition
+      resultStatus: 1
+      duration: 0.000764
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1056
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests][suite]
+    - id: 1065
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldUseDistanceMultiplier][suite]
+      name: Resolve_ShouldUseDistanceMultiplier
+      fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldUseDistanceMultiplier
+      resultStatus: 1
+      duration: 0.0242625
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1056
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests][suite]
+    - id: 1063
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/Resolve_ShouldUseDistanceMultiplier/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldUseDistanceMultiplier(True)]
+      name: Resolve_ShouldUseDistanceMultiplier(True)
+      fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldUseDistanceMultiplier(True)
+      resultStatus: 1
+      duration: 0.0011714
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1065
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldUseDistanceMultiplier][suite]
+    - id: 1064
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/Resolve_ShouldUseDistanceMultiplier/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldUseDistanceMultiplier(False)]
+      name: Resolve_ShouldUseDistanceMultiplier(False)
+      fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldUseDistanceMultiplier(False)
+      resultStatus: 1
+      duration: 0.0001528
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1065
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_ShouldUseDistanceMultiplier][suite]
     - id: 1017
       uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/GraphResolverTests/[UnitTests][CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithMultipleConnections_ReturnsExecutableAction]
       name: Resolve_WithMultipleConnections_ReturnsExecutableAction
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithMultipleConnections_ReturnsExecutableAction
       resultStatus: 1
-      duration: 0.000685
+      duration: 0.0007817
       messages: 
       output: 
       stacktrace: 
@@ -3443,7 +3504,7 @@ MonoBehaviour:
       name: Resolve_WithNestedConnections_ReturnsExecutableAction
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNestedConnections_ReturnsExecutableAction
       resultStatus: 1
-      duration: 0.0007092
+      duration: 0.0007374
       messages: 
       output: 
       stacktrace: 
@@ -3460,7 +3521,7 @@ MonoBehaviour:
       name: Resolve_WithNoActions_ReturnsEmptyList
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithNoActions_ReturnsEmptyList
       resultStatus: 1
-      duration: 0.0034459
+      duration: 0.0050504
       messages: 
       output: 
       stacktrace: 
@@ -3477,7 +3538,7 @@ MonoBehaviour:
       name: Resolve_WithOneExecutableConnection_ReturnsAction
       fullName: CrashKonijn.Goap.UnitTests.GraphResolverTests.Resolve_WithOneExecutableConnection_ReturnsAction
       resultStatus: 1
-      duration: 0.0004723
+      duration: 0.0007147
       messages: 
       output: 
       stacktrace: 
@@ -3494,7 +3555,7 @@ MonoBehaviour:
       name: SensorRunnerTests
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests
       resultStatus: 1
-      duration: 0.0446801
+      duration: 0.0568864
       messages: 
       output: 
       stacktrace: 
@@ -3510,7 +3571,7 @@ MonoBehaviour:
       name: SenseGlobal_WithNegativeTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithNegativeTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.0116679
+      duration: 0.0117476
       messages: 
       output: 
       stacktrace: 
@@ -3527,7 +3588,7 @@ MonoBehaviour:
       name: SenseGlobal_WithNegativeWorldSense_IsPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithNegativeWorldSense_IsPresentInStates
       resultStatus: 1
-      duration: 0.0067515
+      duration: 0.005166
       messages: 
       output: 
       stacktrace: 
@@ -3544,7 +3605,7 @@ MonoBehaviour:
       name: SenseGlobal_WithPositiveTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithPositiveTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.002971
+      duration: 0.0030173
       messages: 
       output: 
       stacktrace: 
@@ -3561,7 +3622,7 @@ MonoBehaviour:
       name: SenseGlobal_WithPositiveWorldSense_IsPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseGlobal_WithPositiveWorldSense_IsPresentInStates
       resultStatus: 1
-      duration: 0.0005061
+      duration: 0.0005456
       messages: 
       output: 
       stacktrace: 
@@ -3578,7 +3639,7 @@ MonoBehaviour:
       name: SenseLocal_ContainsGlobalState
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalState
       resultStatus: 1
-      duration: 0.0055158
+      duration: 0.0039679
       messages: 
       output: 
       stacktrace: 
@@ -3595,7 +3656,7 @@ MonoBehaviour:
       name: SenseLocal_ContainsGlobalTarget
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_ContainsGlobalTarget
       resultStatus: 1
-      duration: 0.0008623
+      duration: 0.0008001
       messages: 
       output: 
       stacktrace: 
@@ -3612,7 +3673,7 @@ MonoBehaviour:
       name: SenseLocal_WithNegativeTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.0050006
+      duration: 0.005444
       messages: 
       output: 
       stacktrace: 
@@ -3629,7 +3690,7 @@ MonoBehaviour:
       name: SenseLocal_WithNegativeWorldSense_IsNotPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithNegativeWorldSense_IsNotPresentInStates
       resultStatus: 1
-      duration: 0.000876
+      duration: 0.0010771
       messages: 
       output: 
       stacktrace: 
@@ -3646,7 +3707,7 @@ MonoBehaviour:
       name: SenseLocal_WithPositiveTargetSense_IsPresentInTargets
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveTargetSense_IsPresentInTargets
       resultStatus: 1
-      duration: 0.0008241
+      duration: 0.0006679
       messages: 
       output: 
       stacktrace: 
@@ -3663,7 +3724,7 @@ MonoBehaviour:
       name: SenseLocal_WithPositiveWorldSense_IsPresentInStates
       fullName: CrashKonijn.Goap.UnitTests.SensorRunnerTests.SenseLocal_WithPositiveWorldSense_IsPresentInStates
       resultStatus: 1
-      duration: 0.000714
+      duration: 0.0006205
       messages: 
       output: 
       stacktrace: 
@@ -3675,13 +3736,197 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1024
       parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.SensorRunnerTests][suite]
-    m_ResultText: UnityGoap (0.547s)
+    - id: 1092
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators][suite]
+      name: Validators
+      fullName: CrashKonijn.Goap.UnitTests.Validators
+      resultStatus: 1
+      duration: 0.0826852
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1091
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/[UnitTests][suite]
+    - id: 1078
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests][suite]
+      name: TargetKeySensorsValidatorTests
+      fullName: CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests
+      resultStatus: 1
+      duration: 0.0367443
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1092
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators][suite]
+    - id: 1079
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/TargetKeySensorsValidatorTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests.Validate_MissingSensor_ShouldReturnWarning]
+      name: Validate_MissingSensor_ShouldReturnWarning
+      fullName: CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests.Validate_MissingSensor_ShouldReturnWarning
+      resultStatus: 1
+      duration: 0.010069
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1078
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests][suite]
+    - id: 1080
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/TargetKeySensorsValidatorTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests.Validate_NoMissingSensor_ShouldReturnNoWarning]
+      name: Validate_NoMissingSensor_ShouldReturnNoWarning
+      fullName: CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests.Validate_NoMissingSensor_ShouldReturnNoWarning
+      resultStatus: 1
+      duration: 0.0024493
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1078
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests][suite]
+    - id: 1082
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/TargetKeySensorsValidatorTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests.Validate_WithNullSensorWorldKey_ShouldReturnNoWarnings]
+      name: Validate_WithNullSensorWorldKey_ShouldReturnNoWarnings
+      fullName: CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests.Validate_WithNullSensorWorldKey_ShouldReturnNoWarnings
+      resultStatus: 1
+      duration: 0.0007265
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1078
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests][suite]
+    - id: 1081
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/TargetKeySensorsValidatorTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests.Validate_WithNullWorldKey_ShouldReturnNoWarnings]
+      name: Validate_WithNullWorldKey_ShouldReturnNoWarnings
+      fullName: CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests.Validate_WithNullWorldKey_ShouldReturnNoWarnings
+      resultStatus: 1
+      duration: 0.0005873
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1078
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.TargetKeySensorsValidatorTests][suite]
+    - id: 1083
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests][suite]
+      name: WorldKeySensorsValidatorTests
+      fullName: CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests
+      resultStatus: 1
+      duration: 0.0399035
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1092
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators][suite]
+    - id: 1084
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/WorldKeySensorsValidatorTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests.Validate_MissingSensor_ShouldReturnWarning]
+      name: Validate_MissingSensor_ShouldReturnWarning
+      fullName: CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests.Validate_MissingSensor_ShouldReturnWarning
+      resultStatus: 1
+      duration: 0.0037461
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1083
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests][suite]
+    - id: 1085
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/WorldKeySensorsValidatorTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests.Validate_NoMissingSensor_ShouldReturnNoWarning]
+      name: Validate_NoMissingSensor_ShouldReturnNoWarning
+      fullName: CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests.Validate_NoMissingSensor_ShouldReturnNoWarning
+      resultStatus: 1
+      duration: 0.002263
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1083
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests][suite]
+    - id: 1087
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/WorldKeySensorsValidatorTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests.Validate_WithNullSensorWorldKey_ShouldReturnNoWarnings]
+      name: Validate_WithNullSensorWorldKey_ShouldReturnNoWarnings
+      fullName: CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests.Validate_WithNullSensorWorldKey_ShouldReturnNoWarnings
+      resultStatus: 1
+      duration: 0.0006487
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1083
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests][suite]
+    - id: 1086
+      uniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/WorldKeySensorsValidatorTests/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests.Validate_WithNullWorldKey_ShouldReturnNoWarnings]
+      name: Validate_WithNullWorldKey_ShouldReturnNoWarnings
+      fullName: CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests.Validate_WithNullWorldKey_ShouldReturnNoWarnings
+      resultStatus: 1
+      duration: 0.0006335
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1083
+      parentUniqueId: UnitTests.dll/CrashKonijn/Goap/UnitTests/Validators/[UnitTests][CrashKonijn.Goap.UnitTests.Validators.WorldKeySensorsValidatorTests][suite]
+    m_ResultText: UnitTests.dll (0.703s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: f887fc56
-      m_LastClickedID: 1459390456
-      m_ExpandedIDs: 4fed6d8c15567b9961a474a52b132daad8fe75b6ddcc12bb3e889fcae7e66fcdb8db52d43e20cce253d1dcec12104beed63c3df801dd1d0085e9450bcc9e32109561f618b3f8a51c4e720d1ed03d582fe3a8223c0bb0ea3c50f8ee46a35cd151c2b227521a516b56f887fc5610cb8d5b02b060631f4b66649b83b6668cc8747a9c98587b2d8f377dffffff7f
+      m_SelectedIDs: 1f4b6664
+      m_LastClickedID: 1684425503
+      m_ExpandedIDs: 4fed6d8c15567b992b132daaddcc12bb3e889fcae7e66fcdb8db52d43e20cce253d1dcec12104beed63c3df801dd1d00cc9e32109561f618b3f8a51c4e720d1ed03d582f0bb0ea3c50f8ee46c2b227521a516b56f887fc5610cb8d5b02b060631f4b66649b83b6668cc8747a9c98587b2d8f377dffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

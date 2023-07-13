@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Interfaces;
@@ -28,7 +29,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
-            runner.Run();
+            runner.Run(Array.Empty<IMonoAgent>());
             runner.Dispose();
             
             // Assert
@@ -50,7 +51,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
-            runner.Run();
+            runner.Run(Array.Empty<IMonoAgent>());
             runner.Dispose();
             
             // Assert
@@ -78,7 +79,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
-            runner.Run();
+            runner.Run(new []{ agent });
             runner.Dispose();
             
             // Assert
@@ -102,7 +103,6 @@ namespace CrashKonijn.Goap.UnitTests
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
-            goapSet.Agents.GetQueue().Returns(new []{ agent });
             goapSet.GetActions().Returns(new List<IActionBase>());
             
             var resolver = Substitute.For<IGraphResolver>();
@@ -110,7 +110,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
-            runner.Run();
+            runner.Run(new []{ agent });
             runner.Dispose();
             
             // Assert
@@ -133,14 +133,13 @@ namespace CrashKonijn.Goap.UnitTests
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { });
             goapSet.GoapConfig.Returns(GoapConfig.Default);
-            goapSet.Agents.GetQueue().Returns(new []{ agent });
             
             var resolver = Substitute.For<IGraphResolver>();
             
             var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
-            runner.Run();
+            runner.Run(new []{ agent });
             runner.Dispose();
             
             // Assert
@@ -164,7 +163,6 @@ namespace CrashKonijn.Goap.UnitTests
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
-            goapSet.Agents.GetQueue().Returns(new []{ agent });
             goapSet.GetActions().Returns(new List<IActionBase>());
 
             goapSet.GoapConfig.ConditionObserver.IsMet(Arg.Any<ICondition>()).Returns(true);
@@ -174,7 +172,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
-            runner.Run();
+            runner.Run(new []{ agent });
             runner.Dispose();
             
             // Assert
@@ -199,7 +197,6 @@ namespace CrashKonijn.Goap.UnitTests
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
-            goapSet.Agents.GetQueue().Returns(new []{ agent });
             goapSet.GetActions().Returns(new List<IActionBase>());
 
             goapSet.GoapConfig.ConditionObserver.IsMet(Arg.Any<ICondition>()).Returns(false);
@@ -209,7 +206,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new GoapSetJobRunner(goapSet, resolver);
             
             // Act
-            runner.Run();
+            runner.Run(new []{ agent });
             runner.Dispose();
             
             // Assert
