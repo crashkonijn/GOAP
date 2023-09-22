@@ -37,6 +37,7 @@ using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.Builders;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Resolver;
+using CrashKonijn.Goap.Enums;
 
 public class GoapSetConfigFactory : GoapSetFactoryBase
 {
@@ -51,7 +52,7 @@ public class GoapSetConfigFactory : GoapSetFactoryBase
         // Actions
         builder.AddAction<WanderAction>()
             .SetTarget<WanderTarget>()
-            .AddEffect<IsWandering>(true)
+            .AddEffect<IsWandering>(EffectType.Increase)
             .SetBaseCost(1)
             .SetInRange(0.3f);
 

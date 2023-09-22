@@ -13,7 +13,7 @@ Effects are used to determine what game states (WorldKey) are changed by an `Act
 
 An effect exists of 2 values:
 * `key` - The `WorldKey` that is being changed.
-* `increase` - Whether the value is increased or decreased.
+* `type` - Whether the value is increased or decreased.
 
 ## Matching Conditions and Effects
 
