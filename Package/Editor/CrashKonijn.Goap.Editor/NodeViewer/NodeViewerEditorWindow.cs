@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Editor.Classes;
+using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
 using CrashKonijn.Goap.Interfaces;
 using UnityEditor;
@@ -77,8 +78,17 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             
             var root = this.rootVisualElement;
             root.name = "node-viewer-editor";
+
+            var styleSheet =
+                AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss");
+
+            if (styleSheet == null)
+            {
+                this.leftPanel.Add(new Label("ERROR:\nCould not load stylesheet! \nThis usually means you've moved the GOAP folder to a different location. \nPlease move it back to the original location or update the path in GoapEditorSettings.cs"));
+                return;
+            }
             
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
+            root.styleSheets.Add(styleSheet);
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/NodeViewer.uss"));
             
 #if UNITY_2022_1_OR_NEWER
