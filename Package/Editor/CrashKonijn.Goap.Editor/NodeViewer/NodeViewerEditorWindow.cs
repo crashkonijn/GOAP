@@ -83,10 +83,12 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             
 #if UNITY_2022_1_OR_NEWER
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/NodeViewer_2022.uss"));
+#endif
             this.dragDrawer = new DragDrawer(right, (offset) =>
             {
                 dragParent.transform.position = offset;
                 
+#if UNITY_2022_1_OR_NEWER
                 var posX = right.style.backgroundPositionX;
                 posX.value = new BackgroundPosition(BackgroundPositionKeyword.Left, offset.x);
                 right.style.backgroundPositionX = posX;
@@ -94,8 +96,8 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 var posY = right.style.backgroundPositionY;
                 posY.value = new BackgroundPosition(BackgroundPositionKeyword.Top, offset.y);
                 right.style.backgroundPositionY = posY;
-            });
 #endif
+            });
 
             this.floatData = new VisualElement()
             {
