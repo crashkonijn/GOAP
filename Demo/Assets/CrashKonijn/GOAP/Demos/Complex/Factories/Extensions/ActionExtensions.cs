@@ -1,5 +1,6 @@
 ﻿using System;
 using CrashKonijn.Goap.Classes.Builders;
+using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Resolver;
 using Demos.Complex.Actions;
 using Demos.Complex.Behaviours;
@@ -18,7 +19,7 @@ namespace Demos.Complex.Factories.Extensions
         {
             builder.AddAction<WanderAction>()
                 .SetTarget<WanderTarget>()
-                .AddEffect<IsWandering>(true);
+                .AddEffect<IsWandering>(EffectType.Increase);
         }
         
         public static void AddPickupItemAction<T>(this GoapSetBuilder builder)
@@ -26,7 +27,7 @@ namespace Demos.Complex.Factories.Extensions
         {
             builder.AddAction<PickupItemAction<T>>()
                 .SetTarget<ClosestTarget<T>>()
-                .AddEffect<IsHolding<T>>(true)
+                .AddEffect<IsHolding<T>>(EffectType.Increase)
                 .AddCondition<IsInWorld<T>>(Comparison.GreaterThanOrEqual, 1);
         }
         
@@ -36,7 +37,7 @@ namespace Demos.Complex.Factories.Extensions
         {
             builder.AddAction<GatherItemAction<TGatherable>>()
                 .SetTarget<ClosestSourceTarget<TGatherable>>()
-                .AddEffect<IsInWorld<TGatherable>>(true)
+                .AddEffect<IsInWorld<TGatherable>>(EffectType.Increase)
                 .AddCondition<IsHolding<TRequired>>(Comparison.GreaterThanOrEqual, 1);
         }
         
@@ -45,7 +46,7 @@ namespace Demos.Complex.Factories.Extensions
         {
             builder.AddAction<GatherItemAction<TGatherable>>()
                 .SetTarget<ClosestSourceTarget<TGatherable>>()
-                .AddEffect<IsInWorld<TGatherable>>(true)
+                .AddEffect<IsInWorld<TGatherable>>(EffectType.Increase)
                 .SetBaseCost(3);
         }
         
@@ -54,7 +55,7 @@ namespace Demos.Complex.Factories.Extensions
         {
             var action = builder.AddAction<CreateItemAction<T>>()
                 .SetTarget<ClosestTarget<AnvilSource>>()
-                .AddEffect<CreatedItem<T>>(true);
+                .AddEffect<CreatedItem<T>>(EffectType.Increase);
             
             if (typeof(T) == typeof(Axe))
             {
@@ -79,7 +80,7 @@ namespace Demos.Complex.Factories.Extensions
         {
             builder.AddAction<HaulItemAction>()
                 .SetTarget<TransformTarget>()
-                .AddEffect<ItemsOnFloor>(false)
+                .AddEffect<ItemsOnFloor>(EffectType.Decrease)
                 .AddCondition<ItemsOnFloor>(Comparison.GreaterThanOrEqual, 1);
         }
         
@@ -87,7 +88,7 @@ namespace Demos.Complex.Factories.Extensions
         {
             builder.AddAction<EatAction>()
                 .SetTarget<TransformTarget>()
-                .AddEffect<IsHungry>(false)
+                .AddEffect<IsHungry>(EffectType.Decrease)
                 .AddCondition<IsHolding<IEatable>>(Comparison.GreaterThanOrEqual, 1);
         }
     }

@@ -68,6 +68,7 @@ namespace CrashKonijn.Goap.Classes.Builders
             return this;
         }
 
+        [Obsolete("Use `AddEffect<TWorldKey>(EffectType type)` instead.")]
         public ActionBuilder AddEffect<TWorldKey>(bool increase)
             where TWorldKey : IWorldKey
         {
@@ -75,6 +76,18 @@ namespace CrashKonijn.Goap.Classes.Builders
             {
                 WorldKey = this.worldKeyBuilder.GetKey<TWorldKey>(),
                 Increase = increase
+            });
+            
+            return this;
+        }
+
+        public ActionBuilder AddEffect<TWorldKey>(EffectType type)
+            where TWorldKey : IWorldKey
+        {
+            this.effects.Add(new Effect
+            {
+                WorldKey = this.worldKeyBuilder.GetKey<TWorldKey>(),
+                Increase = type == EffectType.Increase
             });
             
             return this;
