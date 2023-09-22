@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
 using UnityEngine;
@@ -34,6 +35,8 @@ namespace CrashKonijn.Goap.Behaviours
         }
 
         public void Register(IGoapSet goapSet) => this.runner.Register(goapSet);
+        
+        public void Register(IGoapSetConfig goapSetConfig) => this.runner.Register(new GoapSetFactory(this.config).Create(goapSetConfig));
 
         private void Update()
         {
