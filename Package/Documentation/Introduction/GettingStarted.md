@@ -12,6 +12,11 @@ Alternatively install through [OpenUPM](https://openupm.com/packages/com.crashko
 **Version** This package was build using unity 2022.2, but also confirmed to be working with 2021.3.
 {% endhint %}
 
+## Overview
+Below is a quick overview of the different components of classes and how they are connected to an Action.
+
+![Class overview](../images/class_overview.png)
+
 ## Setup in Unity
 
 1. Create a class called `WanderGoal` that extends `GoalBase`.
