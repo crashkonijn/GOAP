@@ -529,7 +529,6 @@ namespace CrashKonijn.Goap.UnitTests
             
             var conditionBuilder = resolver.GetConditionBuilder();
 
-            
             // Act
             var handle = resolver.StartResolve(new RunData
             {
