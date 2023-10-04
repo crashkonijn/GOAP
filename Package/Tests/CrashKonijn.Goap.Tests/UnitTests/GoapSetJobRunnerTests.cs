@@ -117,23 +117,25 @@ namespace CrashKonijn.Goap.UnitTests
             sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
-
+        
         [Test]
-        public void Run_AgentHasCurrentGoalAndAction_DoesNotRun()
+        public void Run_AgentHasCurrentGoalAndDoesHaveAction_Runs()
         {
             // Arrange
+            var goal = Substitute.For<IGoalBase>();
+            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            
             var agent = Substitute.For<IMonoAgent>();
-            agent.CurrentGoal.Returns(Substitute.For<IGoalBase>());
+            agent.CurrentGoal.Returns(goal);
             agent.CurrentAction.Returns(Substitute.For<IActionBase>());
             
             var sensorRunner = Substitute.For<ISensorRunner>();
-            sensorRunner.SenseGlobal().Returns(new GlobalWorldData());
             
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.SensorRunner.Returns(sensorRunner);
-            goapSet.GetAllNodes().Returns(new List<IAction> { });
-            goapSet.GoapConfig.Returns(GoapConfig.Default);
+            goapSet.GetAllNodes().Returns(new List<IAction> { goal });
             goapSet.Agents.GetQueue().Returns(new []{ agent });
+            goapSet.GetActions().Returns(new List<IActionBase>());
             
             var resolver = Substitute.For<IGraphResolver>();
             
@@ -144,8 +146,8 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(0).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
-            resolver.Received(0).StartResolve(Arg.Any<RunData>());
+            sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
 
         [Test]
@@ -216,6 +218,80 @@ namespace CrashKonijn.Goap.UnitTests
             sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
             agent.Events.Received(0).GoalCompleted(agent.CurrentGoal);
+        }
+        
+        [Test]
+        public void Run_AgentHasCurrentGoalAndNoAction_SetsTheActionOnAgent()
+        {
+            // Arrange
+            var goal = Substitute.For<IGoalBase>();
+            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+
+            var action = Substitute.For<IActionBase>();
+            
+            var agent = Substitute.For<IMonoAgent>();
+            agent.CurrentGoal.Returns(goal);
+            agent.CurrentAction.ReturnsNull();
+            
+            var sensorRunner = Substitute.For<ISensorRunner>();
+            
+            var goapSet = Substitute.For<IGoapSet>();
+            goapSet.SensorRunner.Returns(sensorRunner);
+            goapSet.GetAllNodes().Returns(new List<IAction> { goal });
+            goapSet.Agents.GetQueue().Returns(new []{ agent });
+            goapSet.GetActions().Returns(new List<IActionBase>());
+
+            var handle = Substitute.For<IResolveHandle>();
+            handle.Complete().Returns(new IAction[] { action });
+            
+            var resolver = Substitute.For<IGraphResolver>();
+            resolver.StartResolve(Arg.Any<RunData>()).Returns(handle);
+            
+            var runner = new GoapSetJobRunner(goapSet, resolver);
+            
+            // Act
+            runner.Run();
+            runner.Complete();
+            
+            // Assert
+            agent.Received(1).SetAction(action, Arg.Any<List<IActionBase>>(), Arg.Any<ITarget>());
+        }
+        
+        [Test]
+        public void Run_AgentHasCurrentGoalAndAction_ResolvingSameActionDoesntCallSet()
+        {
+            // Arrange
+            var goal = Substitute.For<IGoalBase>();
+            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+
+            var action = Substitute.For<IActionBase>();
+            
+            var agent = Substitute.For<IMonoAgent>();
+            agent.CurrentGoal.Returns(goal);
+            agent.CurrentAction.Returns(action);
+            
+            var sensorRunner = Substitute.For<ISensorRunner>();
+            
+            var goapSet = Substitute.For<IGoapSet>();
+            goapSet.SensorRunner.Returns(sensorRunner);
+            goapSet.GetAllNodes().Returns(new List<IAction> { goal });
+            goapSet.Agents.GetQueue().Returns(new []{ agent });
+            goapSet.GetActions().Returns(new List<IActionBase>());
+
+            var handle = Substitute.For<IResolveHandle>();
+            handle.Complete().Returns(new IAction[] { action });
+            
+            var resolver = Substitute.For<IGraphResolver>();
+            resolver.StartResolve(Arg.Any<RunData>()).Returns(handle);
+            
+            var runner = new GoapSetJobRunner(goapSet, resolver);
+            
+            // Act
+            runner.Run();
+            runner.Complete();
+            
+            // Assert
+            agent.Received(0).SetAction(Arg.Any<IActionBase>(), Arg.Any<List<IActionBase>>(), Arg.Any<ITarget>());
         }
     }
 }

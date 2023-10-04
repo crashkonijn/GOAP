@@ -53,9 +53,6 @@ namespace CrashKonijn.Goap.Classes.Runners
             if (agent.CurrentGoal == null)
                 return;
 
-            if (agent.CurrentAction != null)
-                return;
-            
             var localData = this.goapSet.SensorRunner.SenseLocal(globalData, agent);
 
             if (this.IsGoalCompleted(localData, agent))
@@ -139,8 +136,11 @@ namespace CrashKonijn.Goap.Classes.Runners
                     resolveHandle.Agent.Events.NoActionFound(resolveHandle.Agent.CurrentGoal);
                     continue;
                 }
-                
-                resolveHandle.Agent.SetAction(action, result, resolveHandle.Agent.WorldData.GetTarget(action));
+
+                if (action != resolveHandle.Agent.CurrentAction)
+                {
+                    resolveHandle.Agent.SetAction(action, result, resolveHandle.Agent.WorldData.GetTarget(action));
+                }
             }
             
             this.resolveHandles.Clear();
