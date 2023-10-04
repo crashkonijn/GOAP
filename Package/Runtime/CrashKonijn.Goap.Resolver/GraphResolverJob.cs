@@ -97,6 +97,12 @@ namespace CrashKonijn.Goap.Resolver
                 closedSet.TryAdd(currentNode.Index, currentNode);
                 openSet.Remove(currentNode.Index);
                 
+                // If this node has a condition that is false and has no connections, it is unresolvable
+                if (this.HasUnresolvableCondition(currentNode.Index))
+                {
+                    continue;
+                }
+
                 foreach (var conditionIndex in this.NodeConditions.GetValuesForKey(currentNode.Index))
                 {
                     if (runData.ConditionsMet[conditionIndex])
@@ -114,6 +120,7 @@ namespace CrashKonijn.Goap.Resolver
                         var newG = currentNode.G + this.RunData.Costs[neighborIndex];
                         NodeData neighbor;
                 
+                        // Current neighbour is not in the open set
                         if (!openSet.TryGetValue(neighborIndex, out neighbor))
                         {
                             neighbor = new NodeData
@@ -127,6 +134,7 @@ namespace CrashKonijn.Goap.Resolver
                             continue;
                         }
                 
+                        // This neighbour has a lower cost
                         if (newG < neighbor.G)
                         {
                             neighbor.G = newG;
@@ -166,6 +174,24 @@ namespace CrashKonijn.Goap.Resolver
                 path.Add(currentNode);
                 currentNode = closedSet[currentNode.ParentIndex];
             }
+        }
+
+        private bool HasUnresolvableCondition(int currentIndex)
+        {
+            foreach (var conditionIndex in this.NodeConditions.GetValuesForKey(currentIndex))
+            {
+                if (this.RunData.ConditionsMet[conditionIndex])
+                {
+                    continue;
+                }
+                    
+                if (!this.ConditionConnections.GetValuesForKey(conditionIndex).MoveNext())
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
