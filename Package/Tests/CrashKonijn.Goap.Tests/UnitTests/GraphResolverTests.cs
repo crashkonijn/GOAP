@@ -485,5 +485,70 @@ namespace CrashKonijn.Goap.UnitTests
             result.Should().HaveCount(2);
             result.Should().Equal(incompleteAction, rootAction);
         }
+        
+        [Test]
+        public void Resolve_ShouldNotResolve_ActionWithFalseConditionWithoutConnections()
+        {
+            var rootConnection = new TestConnection("Root");
+            var availableConnection = new TestConnection("Available");
+            var unavailableConnection = new TestConnection("Unavailable");
+            
+            var goal = new TestAction("goal")
+            {
+                Conditions = new ICondition[] { rootConnection }
+            };
+            
+            var expensiveAction = new TestAction("expensiveAction")
+            {
+                Effects = new IEffect[] { rootConnection },
+            };
+            
+            var unavailableAction = new TestAction("subAction")
+            {
+                Effects = new IEffect[] { rootConnection },
+                Conditions = new ICondition[] { unavailableConnection, availableConnection }
+            };
+            
+            var shouldNotResolveAction = new TestAction("shouldNotResolveAction")
+            {
+                Effects = new IEffect[] { availableConnection },
+            };
+            
+            var actions = new IAction[] { goal, expensiveAction, unavailableAction, shouldNotResolveAction };
+            var resolver = new GraphResolver(actions, new TestKeyResolver());
+            
+            var executableBuilder = resolver.GetExecutableBuilder();
+            executableBuilder
+                .SetExecutable(expensiveAction, true)
+                .SetExecutable(unavailableAction, false)
+                .SetExecutable(shouldNotResolveAction, true);
+            
+            var positionBuilder = resolver.GetPositionBuilder();
+            var costBuilder = resolver.GetCostBuilder();
+            costBuilder.SetCost(expensiveAction, 100f);
+            
+            var conditionBuilder = resolver.GetConditionBuilder();
+
+            
+            // Act
+            var handle = resolver.StartResolve(new RunData
+            {
+                StartIndex = 0,
+                IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
+                Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
+                Costs = new NativeArray<float>(costBuilder.Build(), Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(conditionBuilder.Build(), Allocator.TempJob),
+                DistanceMultiplier = 1f
+            });
+
+            var result = handle.Complete();
+            
+            // Cleanup
+            resolver.Dispose();
+
+            // Assert
+            result.Should().HaveCount(1);
+            result.Should().Equal(expensiveAction);
+        }
     }
 }
