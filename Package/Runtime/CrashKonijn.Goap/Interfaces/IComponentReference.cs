@@ -17,5 +17,8 @@ namespace CrashKonijn.Goap.Interfaces
 
         T GetCachedComponentInChildren<T>()
             where T : MonoBehaviour;
+
+        T GetCachedComponentInParent<T>()
+            where T : MonoBehaviour;
     }
 }

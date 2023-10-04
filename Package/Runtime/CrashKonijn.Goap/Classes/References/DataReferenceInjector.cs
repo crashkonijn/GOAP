@@ -43,6 +43,9 @@ namespace CrashKonijn.Goap.Classes.References
             if (property.GetCustomAttributes(typeof(GetComponentInChildrenAttribute), true).Any())
                 return this.GetCachedComponentInChildrenReference(property.PropertyType);
             
+            if (property.GetCustomAttributes(typeof(GetComponentInParentAttribute), true).Any())
+                return this.GetCachedComponentInParentReference(property.PropertyType);
+            
             return null;
         }
 
@@ -89,6 +92,21 @@ namespace CrashKonijn.Goap.Classes.References
             where T : MonoBehaviour
         {
             return (T)this.GetCachedComponentInChildrenReference(typeof(T));
+        }
+
+        private object GetCachedComponentInParentReference(Type type)
+        {
+            // check if we have a reference for this type
+            if (!this.references.ContainsKey(type))
+                this.references.Add(type, this.agent.GetComponentInParent(type));
+                
+            // get the reference
+            return this.references[type];
+        }
+
+        public T GetCachedComponentInParent<T>() where T : MonoBehaviour
+        {
+            return (T)this.GetCachedComponentInParentReference(typeof(T));
         }
     }
 }
