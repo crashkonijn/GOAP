@@ -1,20 +1,28 @@
 ﻿# AgentBehaviour
-The `AgentBehaviour` needs to be present on every agent that uses GOAP to determine it's next action. An agent belongs to a `GoapSet`. This set contains the config of all available `Goals` and `Actions`.
 
-The AgentBehaviour contains it's current `Goal` and it's currently active `Action`. The action is determined by the planner based on the current goal and the gamestate (`WorldData`).
+The `AgentBehaviour` is a crucial component that must be attached to every agent leveraging the GOAP system to decide its subsequent actions. It links an agent to a specific `GoapSet`, which encompasses the configuration of all potential `Goals` and `Actions` the agent can undertake.
+
+## Overview
+
+- **Current Goal**: The objective the agent is currently trying to achieve.
+- **Active Action**: The action the agent is currently executing to meet its goal.
+- **WorldData**: Represents the game's current state, which the planner uses to decide the best action for the agent.
 
 ## Movement
-Each action has a target. This target provides a position that the agent should move to before performing the action. Movement is very game specific and therefore not implemented in this package. The agent events contain a couple of events that can be used to determine when an agent should be moved.
 
-It is also possible to make an action perform while moving, see the `MoveMode` on the `ActionConfig`.
+Actions often have associated targets, indicating a position the agent should reach before executing the action. Since movement mechanics can vary based on the game's design, this package doesn't prescribe a specific movement implementation. However, it provides events to help developers determine when an agent should move.
 
-### Distance multiplier
-In general the best actions to perform are the fastest way to reach a goal. In that case the cost of an action is probably equal to the time for it to complete. If that's the case than the distance value used in the heuristics should be divided by the move speed of an agent as well.
+### MoveMode
 
-If you use `SetDistanceMultiplierSpeed(float speed)` to set the (max / average) speed of an agent, the planner will more accurately determine the best action to perform.
+Some actions might need the agent to perform tasks while moving. The `MoveMode` in the `ActionConfig` allows for such configurations.
 
-## Distance
-By default the agent will use the `Vector3.Distance` between the agent and the target as it's distance. You can overwrite this distance by assigning your own implementation of `IAgentDistanceObserver` to the `agent.DistanceObserver` variable. This is useful if you want to use the `navMeshAgent.remainingDistance` for example.
+### Distance Multiplier
+
+The primary objective of actions is to achieve goals swiftly. If the action's cost equates to its completion time, then the heuristic's distance value should be divided by the agent's movement speed. Using `SetDistanceMultiplierSpeed(float speed)` sets the agent's (max/average) speed, enabling the planner to more precisely ascertain the optimal action.
+
+### Custom Distance Calculation
+
+By default, the agent calculates distance using `Vector3.Distance`. However, for more complex scenarios, like using a nav mesh, you can override this by assigning your custom `IAgentDistanceObserver` to the `agent.DistanceObserver`.
 
 ### Example
 
@@ -52,7 +60,8 @@ public class NavMeshDistanceObserver : MonoBehaviour, IAgentDistanceObserver
 ## Methods
 
 ### SetGoal
-This method can be used to change the current goal of the agent. The `endAction` parameter determines if the current action should be ended before the new goal is set. If this is set to `false` the current action will be continued until it is finished.
+This method allows for the modification of the agent's current goal. The `endAction` parameter decides if the ongoing action should terminate before setting the new goal.
+
 {% code lineNumbers="true" %}
 ```csharp
 public void SetGoal<TGoal>(bool endAction) where TGoal : IGoalBase;
@@ -61,7 +70,7 @@ public void SetGoal(IGoalBase goal, bool endAction);
 {% endcode %}
 
 ## Determining the Goal
-Determining the best `Goal` is very game specific. As such this package does not provide a way to determine the best goal.
+Choosing the best `Goal` is game-specific, and this package doesn't dictate a method. However, an example is provided below to illustrate how one might determine a goal based on an agent's hunger level.
 
 ### Example
 This is an example of how to determine the best goal. In this example the agent will wander around until it's hunger is above 80. When it's hunger is above 80 it will try to fix it's hunger. When it's hunger is below 20 it will wander around again.
@@ -105,7 +114,7 @@ namespace Demos.Behaviours
 {% endcode %}
 
 ## Events
-The `AgentBehaviour` contains a few events that can be used to get notified when the agent changes it's goal or action.
+`AgentBehaviour` offers several events that notify developers when the agent alters its goal or action. These events can be instrumental in managing agent behaviors and responses.
 
 ### Example
 
