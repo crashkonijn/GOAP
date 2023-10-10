@@ -1,40 +1,53 @@
 ﻿# Actions
 
-An action is a single step an agent can take to reach a goal. An action has requirements and effects based on which actions are chained together.
+In the GOAP system, an action represents a discrete step an agent can undertake to achieve a specific goal. Actions are defined by their requirements and effects, which guide the chaining of actions to form a plan.
 
-An action consists of 3 parts:
-- Config
-- Action class
-- Action data
+## Components of an Action
 
-## Action config
-A config needs to be created. This config consists of a couple settings needed to run the action and connect it in the GOAP graph.
+Actions are composed of three primary parts:
+
+1. **Config**: Configuration settings for the action.
+2. **Action Class**: The logic and behavior of the action.
+3. **Action Data**: Temporary data storage for the action's state.
+
+## Action Config
+
+The configuration provides essential settings for the action, enabling its integration into the GOAP graph.
 
 ### Conditions
-Conditions is a list of world states that need to be true in order to perform this action. Each condition references a world key, and whether the value should be true or false.
+
+Conditions are a set of world states that must be met for the action to be executable. Each condition references a `WorldKey` and specifies whether its value should be true or false.
 
 ### Effects
-Effects is a list of world states that will be true (or false) after performing this action. Each effect references a world key, and whether the resulting value will be true or false.
+
+Effects describe the changes in world states that result from performing the action. Each effect references a `WorldKey` and indicates the expected outcome (true or false).
 
 ### BaseCost
-The base cost of this action. This is the cost of the action itself, without any additional costs added by the planner (distance for example).
+
+This represents the inherent cost of executing the action, excluding any additional costs (like distance) that the planner might add.
 
 ### Target
-Each action has a target position. An agent will first move towards this position before performing the action (based on the `MoveMode`). A position is represented by a TargetKey. For example `ClosestApple` or `ClosestEnemy`.
+
+Every action has an associated target position. Before executing the action, the agent will move towards this target, depending on the `MoveMode`. Targets are identified using `TargetKey`, such as `ClosestApple` or `ClosestEnemy`.
 
 ### InRange
-If the agent is not in range of the target position, it will move towards it. This value determines how close the agent needs to be to the target position before performing the action.
+
+This value specifies the proximity required between the agent and the target position before the action can commence.
 
 ## MoveMode
-The move mode determines how the agent handles movement in combination with the action. There are 2 different modes:
-- `MoveBeforePerforming`: The agent will move towards the target position before performing the action.
-- `PerformWhileMoving`: The agent will move towards the target position and perform the action at the same time.
+
+`MoveMode` determines how the action and movement are coordinated:
+
+- **MoveBeforePerforming**: The agent moves to the target position before initiating the action.
+- **PerformWhileMoving**: The agent concurrently moves to the target and executes the action.
 
 ## Action Data
-The action data is used to store the state of the action for a single agent. This data is not persistent between agents or between multiple runs of the same action.
+
+Action data provides temporary storage for the action's state for an individual agent. This data is not shared across agents or across multiple invocations of the same action.
 
 ### Action Data Injection
-Often you need a reference to other classes on the agent. To do this you can use the `GetComponent` attribute. This will provide you with a cached instance of the component. This is useful for performance reasons, since the `GetComponent` method is quite expensive.
+
+To reference other classes on the agent, use the `GetComponent` attribute. This provides a cached component instance, optimizing performance by avoiding frequent `GetComponent` calls.
 
 {% code lineNumbers="true" %}
 ```csharp
@@ -48,11 +61,20 @@ public class Data : IActionData
 ```
 {% endcode %}
 
-## Action class
-An action always inherits from the `ActionBase<TData>` class. The generic type is the action data class. The action data class is used to store the state of the action. The action class itself should be stateless, since only one instance is used to perform the same action on multiple agents.
+## Action Class
+
+The action class defines the behavior of the action. It should be stateless since a single instance might be used to execute the same action on different agents. The class inherits from `ActionBase<TData>`, where `TData` is the action data class.
 
 ### ActionRunState
-The `ActionRunState` is an enum that determines the state of the action. It can be one of the following values: `Continue` or `Stop`. Stop will stop the action and return to the planner. Continue will continue the action and perform it again next frame.
+
+This enum indicates the action's current state:
+
+- **Continue**: The action will persist and be re-evaluated in the next frame.
+- **Stop**: The action will terminate, and control will revert to the planner.
+
+### Examples
+
+The provided examples illustrate how to implement specific functionalities within the action class and action data. They've been retained in their original form for clarity.
 
 ### Examples
 {% code title="WanderAction.cs" lineNumbers="true" %}

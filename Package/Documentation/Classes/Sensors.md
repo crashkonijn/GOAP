@@ -1,23 +1,23 @@
 ﻿# Sensors
-Sensors are classes that can determine the state that your game is in.
 
-There are two types of sensors: `WorldSensor` and `TargetSensor`.
+Sensors help the GOAP system understand the current game situation.
 
-## Global vs Local
-Each sensor operates either in `Local` or `Global` mode.
+There are two main types of sensors: `WorldSensor` and `TargetSensor`.
 
-### Global
-Global sensors are run each frame. They are used to determine a state for all agents. For example, the `IsDaytimeSensor` determines whether it is daytime or not. This state is shared between all agents.
+## Global vs. Local Sensors
 
-### Local
-Local sensors are run before the `Planner` is run. They are used to determine a state for a single agent. For example, the `ClosestAppleSensor` determines the position of the closest apple to a specific `Agent`.
+Sensors can work in two modes: `Global` or `Local`.
+
+- **Global**: These sensors give information for all agents. For instance, `IsDaytimeSensor` checks if it's day or night for everyone.
+- **Local**: These sensors check only when the `Planner` runs. They give information for just one agent. For example, `ClosestAppleSensor` finds the nearest apple for a specific agent.
 
 ## WorldSensor
-A `WorldSensor` is used to determine the state of the world for an `Agent`. Each state is represented by a `WorldKey`. The WorldState is used by the `Planner` to determine the best `Action` for the current `Goal`.
 
-For example:
-- The `IsHungrySensor` determines the `IsHungry` state of the `Agent`.
-- The `HasAppleSensor` determines the `HasApple` state of the `Agent`.
+`WorldSensor` checks the game's situation for an agent. It uses `WorldKey` to show each situation. The `Planner` uses this to pick the best action.
+
+Examples:
+- `IsHungrySensor` checks if the agent is hungry.
+- `HasAppleSensor` checks if the agent has an apple.
 
 ### Example
 To create a new `WorldSensor`, create a new class that inherits from `LocalWorldSensorBase` or `GlobalWorldSensorBase` and implement its `Sense` method.
@@ -58,20 +58,13 @@ namespace Demos.Simple.Sensors.World
 {% endcode %}
 
 ## TargetSensor
-A `TargetSensor` is used to determine the position for a given `TargetKey`. The TargetState is used by the `Planner` to determine distance between `Actions`.
 
-For example:
-- The `ClosestAppleSensor` determines the position of the closest apple.
-- The `ClosestTreeSensor` determines the position of the closest tree.
+`TargetSensor` finds a position for a `TargetKey`. The `Planner` uses this to know how far actions are.
 
-### TransformTarget vs PositionTarget
-There are two types of `Target`: `TransformTarget` and `PositionTarget`.
+There are two kinds of `Target`: `TransformTarget` and `PositionTarget`.
 
-#### TransformTarget
-`TransformTarget` is used when you want to move to a specific `Transform` that may change position over time. For example, the `ClosestEnemySensor` returns a `TransformTarget` because the enemy may move.
-
-#### PositionTarget
-`PositionTarget` is used when you want to move to a specific position that will not change. For example, the `WanderTargetSensor` returns a `PositionTarget` because the position is randomly generated and doesn't change.
+- **TransformTarget**: Use this when the target can move. For example, `ClosestEnemySensor` finds a moving enemy.
+- **PositionTarget**: Use this for a fixed spot. Like, `WanderTargetSensor` finds a random spot that doesn't move.
 
 ### Example
 To create a new `TargetSensor`, create a new class that inherits from `LocalTargetSensorBase` or `GlobalTargetSensorBase` and implement its `Sense` method.
