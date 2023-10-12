@@ -1,0 +1,8 @@
+﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Attributes.Ids;
+
+namespace {{namespace}}
+{
+    [WorldKeyId("{{id}}")]
+    public class {{name}} : WorldKeyBase {}
+}
