@@ -38,7 +38,7 @@ namespace CrashKonijn.Goap.Editor.Classes
 
         public void Add(int depth, Node node)
         {
-            if (this.AllNodes.Values.Any(x => x.Node == node))
+            if (this.Contains(node))
                 return;
 
             var newNode = new RenderNode(node);
@@ -46,6 +46,11 @@ namespace CrashKonijn.Goap.Editor.Classes
             this.AllNodes.Add(newNode.Node.Guid, newNode);
 
             this.MaxWidth = this.GetMaxWidth();
+        }
+
+        public bool Contains(Node node)
+        {
+            return this.AllNodes.Values.Any(x => x.Node == node);
         }
     }
 }
