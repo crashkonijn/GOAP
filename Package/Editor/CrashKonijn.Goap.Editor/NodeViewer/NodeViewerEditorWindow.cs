@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Editor.Classes;
@@ -173,7 +174,11 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 itemsSource = this.agents
             };
 
-            list.SetSelectionWithoutNotify(new []{ this.agents.IndexOf(this.agent) });
+            if (this.agent != null)
+            {
+                list.SetSelectionWithoutNotify(new []{ this.agents.IndexOf(this.agent) });
+                this.AgentChanged(this.agent);
+            }
 
 #if UNITY_2021_1 || UNITY_2021_2 || UNITY_2021_3
             list.schedule.Execute(() =>
@@ -188,25 +193,28 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
                 var agent = this.agents[index];
 
-                if (agent == null)
-                    return;
-
-                if (agent == this.agent)
-                    return;
-                
-                this.agent = agent;
-                this.goapSet = this.agent.GoapSet;
-                this.RenderGraph();
+                this.AgentChanged(agent);
             }).Every(33);
 #elif UNITY_2022_1_OR_NEWER
             list.selectionChanged += _ =>
             {
-                this.agent = this.agents[list.selectedIndex];
-                this.goapSet = this.agent.GoapSet;
-                this.RenderGraph();
+                this.AgentChanged(this.agents[list.selectedIndex]);
             };
 #endif
             this.leftPanel.Add(list);
+        }
+
+        private void AgentChanged(AgentBehaviour agent)
+        {
+            if (agent == null)
+                return;
+
+            if (agent == this.agent)
+                return;
+                
+            this.agent = agent;
+            this.goapSet = this.agent.GoapSet;
+            this.RenderGraph();
         }
         
         private void RenderGraph()
