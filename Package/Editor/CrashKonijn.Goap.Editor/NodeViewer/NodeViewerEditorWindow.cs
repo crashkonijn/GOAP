@@ -174,6 +174,12 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 itemsSource = this.agents
             };
 
+            if (this.agent == null && this.agents.Count > 0)
+            {
+                list.SetSelectionWithoutNotify(new[] { 0 });
+                this.AgentChanged(this.agents[0]);
+            }
+
             if (this.agent != null)
             {
                 list.SetSelectionWithoutNotify(new []{ this.agents.IndexOf(this.agent) });
