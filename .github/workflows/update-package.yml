@@ -18,6 +18,9 @@ jobs:
         with:
           ref: 'master'
           fetch-depth: 0 # ensure you have the full history for branch creation
+          
+      - name: Create new branch
+        run: git checkout -b update-version-${{ github.event.inputs.version }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
