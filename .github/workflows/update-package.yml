@@ -71,7 +71,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: update-version-${{ needs.update_versions.outputs.branch }} # Use the output from the previous job
+          ref: update-version-${{ github.event.inputs.version }} # Use the output from the previous job
       
       - run: |
           cd Demo
