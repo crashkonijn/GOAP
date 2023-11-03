@@ -99,7 +99,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add Package/Samples~/default/demo.unitypackage
+          git add Package/Samples~/default/demo.unitypackage -f
           git commit -m "Updated demo"
 
       - name: Push demo files
