@@ -8,9 +8,7 @@ on:
 
 jobs:
   update_versions:
-    permissions:
-      # write permission is required to create a github release
-      contents: write
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
