@@ -24,5 +24,12 @@
     "name": "CrashKonijn",
     "email": "crashkonijn@gmail.com",
     "url": "https://crashkonijn.com"
-  }
+  },
+   "samples": [
+	   {
+		 "displayName": "Goap demo's",
+		 "description": "This contains the Simple and complex demo's.",
+		 "path": "default"
+	   }
+   ]
 }
