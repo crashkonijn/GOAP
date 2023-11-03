@@ -1,6 +1,6 @@
 {
   "name": "com.crashkonijn.goap",
-  "version": "2.1.11",
+  "version": "2.1.13",
   "displayName": "Unity GOAP",
   "description": "An open source GOAP implementation for unity",
   "unity": "2022.2",
@@ -25,11 +25,11 @@
     "email": "crashkonijn@gmail.com",
     "url": "https://crashkonijn.com"
   },
-   "samples": [
-	   {
-		 "displayName": "Goap demo's",
-		 "description": "This contains the Simple and complex demo's.",
-		 "path": "default"
-	   }
-   ]
+  "samples": [
+    {
+      "displayName": "Goap demo's",
+      "description": "This contains the Simple and complex demo's.",
+      "path": "default"
+    }
+  ]
 }
