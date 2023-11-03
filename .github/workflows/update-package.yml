@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: 'master'
+          fetch-depth: 0 # ensure you have the full history for branch creation
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -44,13 +45,21 @@ jobs:
           git add Package/package.json
           git add README.md
           git add Package/Documentation/Introduction/GettingStarted.md
-          # Check if there are any changes to commit
-          if git diff --staged --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "Update version to ${{ github.event.inputs.version }}"
-            git push
-          fi
+
+      - name: Push changes
+        run: git push origin update-version-${{ github.event.inputs.version }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update version to ${{ github.event.inputs.version }}
+          title: "Update package version to ${{ github.event.inputs.version }}"
+          body: |
+            Update package version to `${{ github.event.inputs.version }}`.
+          base: master # branch to create the PR against
+          branch: update-version-${{ github.event.inputs.version }} # branch with your changes
+          
   build_demo_files:
     needs:
       - update_versions
@@ -60,6 +69,9 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: update-version-${{ needs.update_versions.outputs.branch }} # Use the output from the previous job
+      
       - run: |
           cd Demo
           echo "Assets/CrashKonijn.meta" > metaList
@@ -88,4 +100,7 @@ jobs:
           git config user.email "actions@github.com"
           git add Package/Samples~/default/demo.unitypackage
           git commit -m "Updated demo"
-          git push
+
+      - name: Push demo files
+        if: steps.filter.outputs.workflows == 'true'
+        run: git push origin update-version-${{ github.event.inputs.version }}
