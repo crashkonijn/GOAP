@@ -41,8 +41,8 @@ jobs:
 
       - name: Commit and push if there are changes
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          git config user.name "crashkonijn"
+          git config user.email "crashkonijn@gmai.com"
           git add Package/package.json
           git add README.md
           git add Package/Documentation/Introduction/GettingStarted.md
@@ -97,8 +97,8 @@ jobs:
       - name: Commit and push
         if: steps.filter.outputs.workflows == 'true'
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          git config user.name "crashkonijn"
+          git config user.email "crashkonijn@gmail.com"
           git add Package/Samples~/default/demo.unitypackage -f
           git commit -m "Updated demo"
 
