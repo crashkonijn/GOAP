@@ -90,7 +90,7 @@ jobs:
       - uses: crashkonijn/create-unitypackage@master
         if: steps.filter.outputs.workflows == 'true'
         with:
-          package-path: 'Package/Samples~/test/demo.unitypackage'
+          package-path: 'Package/Samples~/default/demo.unitypackage'
           include-files: Demo/metaList
           project-folder: 'Demo/'
 
@@ -99,6 +99,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add Package/Samples~/test/demo.unitypackage
+          git add Package/Samples~/default/demo.unitypackage
           git commit -m "Updated demo"
           git push
