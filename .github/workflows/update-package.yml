@@ -1,6 +1,10 @@
 name: Update package
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number to check for draft release'
+        required: true
 
 jobs:
   update_versions:
@@ -18,36 +22,19 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-          
-      # Release Drafter step should come after the package.json update
-      - name: Fetch releases
-        id: fetch_releases
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/${{ github.repository }}/releases
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Get draft release version
-        id: draft_version
-        run: |
-          DRAFT_RELEASE=$(echo '${{ steps.fetch_releases.outputs.data }}' | jq '[.[] | select(.draft == true)][0]')
-          VERSION=$(echo "$DRAFT_RELEASE" | jq -r '.tag_name')
-          echo "Draft release version is $VERSION"
-          echo "::set-output name=version::$VERSION"
 
       - name: Update version in package.json
         run: |
-          jq '.version = "${{ steps.draft_version.outputs.version }}"' Package/package.json > temp.json && mv temp.json Package/package.json
+          jq '.version = "${{ github.event.inputs.version }}"' Package/package.json > temp.json && mv temp.json Package/package.json
 
       - name: Replace specific line in readme.md
         run: |
-          awk '{ if ($0 ~ /^https:\/\/github\.com\/crashkonijn\/GOAP\.git\?path=\/Package/) print "https://github.com/crashkonijn/GOAP.git?path=/Package#${{ steps.draft_version.outputs.version }}"; else print $0; }' readme.md > readme.tmp && mv readme.tmp readme.md
+          awk '{ if ($0 ~ /^https:\/\/github\.com\/crashkonijn\/GOAP\.git\?path=\/Package/) print "https://github.com/crashkonijn/GOAP.git?path=/Package#${{ github.event.inputs.version }}"; else print $0; }' readme.md > readme.tmp && mv readme.tmp readme.md
         shell: bash
         
       - name: Replace specific line in Package/Documentation/Introduction/GettingStarted.md
         run: |
-          awk '{ if ($0 ~ /^https:\/\/github\.com\/crashkonijn\/GOAP\.git\?path=\/Package/) print "https://github.com/crashkonijn/GOAP.git?path=/Package#${{ steps.draft_version.outputs.version }}"; else print $0; }' Package/Documentation/Introduction/GettingStarted.md > readme.tmp && mv readme.tmp Package/Documentation/Introduction/GettingStarted.md
+          awk '{ if ($0 ~ /^https:\/\/github\.com\/crashkonijn\/GOAP\.git\?path=\/Package/) print "https://github.com/crashkonijn/GOAP.git?path=/Package#${{ github.event.inputs.version }}"; else print $0; }' Package/Documentation/Introduction/GettingStarted.md > readme.tmp && mv readme.tmp Package/Documentation/Introduction/GettingStarted.md
         shell: bash
 
       - name: Commit and push if there are changes
@@ -61,7 +48,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Update version to ${{ steps.draft_version.outputs.version }}"
+            git commit -m "Update version to ${{ github.event.inputs.version }}"
             git push
           fi
   build_demo_files:
