@@ -19,6 +19,7 @@
   * [TargetKeys](Classes/TargetKeys.md)
   * [WorldKeys](Classes/WorldKeys.md)
 * [General](General/README.md)
+  * [WorldState](General/WorldState.md)
   * [Conditions & Effects](General/ConditionsAndEffects.md)
   * [Data Injection](General/Injection.md)
   * [Life Cycles](General/LifeCycle.md)

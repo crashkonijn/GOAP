@@ -1,0 +1,107 @@
+name: Update package
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number to check for draft release'
+        required: true
+
+jobs:
+  update_versions:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          ref: 'master'
+          fetch-depth: 0 # ensure you have the full history for branch creation
+          
+      - name: Create new branch
+        run: git checkout -b update-version-${{ github.event.inputs.version }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Update version in package.json
+        run: |
+          jq '.version = "${{ github.event.inputs.version }}"' Package/package.json > temp.json && mv temp.json Package/package.json
+
+      - name: Replace specific line in readme.md
+        run: |
+          awk '{ if ($0 ~ /^https:\/\/github\.com\/crashkonijn\/GOAP\.git\?path=\/Package/) print "https://github.com/crashkonijn/GOAP.git?path=/Package#${{ github.event.inputs.version }}"; else print $0; }' README.md > readme.tmp && mv readme.tmp README.md
+        shell: bash
+        
+      - name: Replace specific line in Package/Documentation/Introduction/GettingStarted.md
+        run: |
+          awk '{ if ($0 ~ /^https:\/\/github\.com\/crashkonijn\/GOAP\.git\?path=\/Package/) print "https://github.com/crashkonijn/GOAP.git?path=/Package#${{ github.event.inputs.version }}"; else print $0; }' Package/Documentation/Introduction/GettingStarted.md > readme.tmp && mv readme.tmp Package/Documentation/Introduction/GettingStarted.md
+        shell: bash
+
+      - name: Commit and push if there are changes
+        run: |
+          git config user.name "crashkonijn"
+          git config user.email "crashkonijn@gmai.com"
+          git add Package/package.json
+          git add README.md
+          git add Package/Documentation/Introduction/GettingStarted.md
+
+      - name: Push changes
+        run: git push origin update-version-${{ github.event.inputs.version }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update version to ${{ github.event.inputs.version }}
+          title: "Update package version to ${{ github.event.inputs.version }}"
+          body: |
+            Update package version to `${{ github.event.inputs.version }}`.
+          base: master # branch to create the PR against
+          branch: update-version-${{ github.event.inputs.version }} # branch with your changes
+          
+  build_demo_files:
+    needs:
+      - update_versions
+    runs-on: ubuntu-latest
+    permissions:
+      # write permission is required to create a github release
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: update-version-${{ github.event.inputs.version }} # Use the output from the previous job
+      
+      - run: |
+          cd Demo
+          echo "Assets/CrashKonijn.meta" > metaList
+          find Assets/CrashKonijn/ -name \*.meta >> metaList
+          echo "Contents of metaList:"
+          cat metaList
+          
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            workflows:
+              - 'Demo/Assets/CrashKonijn/**'
+
+      - uses: crashkonijn/create-unitypackage@master
+        if: steps.filter.outputs.workflows == 'true'
+        with:
+          package-path: 'Package/Samples~/default/demo.unitypackage'
+          include-files: Demo/metaList
+          project-folder: 'Demo/'
+
+      - name: Commit and push
+        if: steps.filter.outputs.workflows == 'true'
+        run: |
+          git config user.name "crashkonijn"
+          git config user.email "crashkonijn@gmail.com"
+          git add Package/Samples~/default/demo.unitypackage -f
+          git commit -m "Updated demo"
+
+      - name: Push demo files
+        if: steps.filter.outputs.workflows == 'true'
+        run: git push origin update-version-${{ github.event.inputs.version }}
