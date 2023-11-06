@@ -9,13 +9,13 @@ namespace CrashKonijn.Goap.Classes.Runners
 {
     public class GoapRunner : IGoapRunner
     {
-        private Dictionary<IGoapSet, GoapSetJobRunner> goapSets = new();
+        private Dictionary<IAgentType, GoapSetJobRunner> goapSets = new();
         private Stopwatch stopwatch = new();
 
         public float RunTime { get; private set; }
         public float CompleteTime { get; private set; }
 
-        public void Register(IGoapSet goapSet) => this.goapSets.Add(goapSet, new GoapSetJobRunner(goapSet, new GraphResolver(goapSet.GetAllNodes().ToArray(), goapSet.GoapConfig.KeyResolver)));
+        public void Register(IAgentType agentType) => this.goapSets.Add(agentType, new GoapSetJobRunner(agentType, new GraphResolver(agentType.GetAllNodes().ToArray(), agentType.GoapConfig.KeyResolver)));
 
         public void Run()
         {
@@ -64,17 +64,17 @@ namespace CrashKonijn.Goap.Classes.Runners
             return (float) ((double)this.stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000);
         }
 
-        public Graph GetGraph(IGoapSet goapSet) => this.goapSets[goapSet].GetGraph();
-        public bool Knows(IGoapSet goapSet) => this.goapSets.ContainsKey(goapSet);
+        public Graph GetGraph(IAgentType agentType) => this.goapSets[agentType].GetGraph();
+        public bool Knows(IAgentType agentType) => this.goapSets.ContainsKey(agentType);
         public IMonoAgent[] Agents => this.goapSets.Keys.SelectMany(x => x.Agents.All()).ToArray();
         
         [System.Obsolete("'Sets' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet[] Sets => this.goapSets.Keys.ToArray();
+        public IAgentType[] Sets => this.goapSets.Keys.ToArray();
 
-        public IGoapSet[] GoapSets => this.goapSets.Keys.ToArray();
+        public IAgentType[] GoapSets => this.goapSets.Keys.ToArray();
 
         [System.Obsolete("'GetSet' is deprecated, please use 'GetGoapSet' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet GetSet(string id)
+        public IAgentType GetSet(string id)
         {
             var set = this.Sets.FirstOrDefault(x => x.Id == id);
 
@@ -84,7 +84,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             return set;
         }
 
-        public IGoapSet GetGoapSet(string id)
+        public IAgentType GetGoapSet(string id)
         {
             var goapSet = this.GoapSets.FirstOrDefault(x => x.Id == id);
 

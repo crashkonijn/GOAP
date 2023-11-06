@@ -58,7 +58,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             if (goal == null)
                 return;
 
-            var conditionObserver = agent.GoapSet.GoapConfig.ConditionObserver;
+            var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
 
             var conditions = goal.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));
@@ -76,7 +76,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             if (agent.WorldData == null)
                 return;
 
-            var conditionObserver = agent.GoapSet.GoapConfig.ConditionObserver;
+            var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
 
             var conditions = action.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));

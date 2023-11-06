@@ -21,13 +21,13 @@ namespace CrashKonijn.Goap.Classes
             this.goapConfig = goapConfig;
         }
         
-        public GoapSet Create(IGoapSetConfig config)
+        public AgentType Create(IGoapSetConfig config)
         {
             this.Validate(config);
             
             var sensorRunner = this.CreateSensorRunner(config);
 
-            return new GoapSet(
+            return new AgentType(
                 id: config.Name,
                 config: this.goapConfig,
                 actions: this.GetActions(config),

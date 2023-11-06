@@ -25,10 +25,10 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             if (Application.isPlaying)
             {
-                root.Add(new Header("Goap-Sets"));
+                root.Add(new Header("Agent Types"));
                 foreach (var goapSet in runner.GoapSets)
                 {
-                    root.Add(new GoapSetDrawer(goapSet));
+                    root.Add(new AgentTypeDrawer(goapSet));
                 }
             }
             

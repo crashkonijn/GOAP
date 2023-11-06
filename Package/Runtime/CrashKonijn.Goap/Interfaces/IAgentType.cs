@@ -4,7 +4,7 @@ using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.Interfaces
 {
-    public interface IGoapSet
+    public interface IAgentType
     {
         string Id { get; }
         IGoapConfig GoapConfig { get; }

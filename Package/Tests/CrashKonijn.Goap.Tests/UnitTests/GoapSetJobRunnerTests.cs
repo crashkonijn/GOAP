@@ -18,7 +18,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var sensorRunner = Substitute.For<ISensorRunner>();
-            var goapSet = Substitute.For<IGoapSet>();
+            var goapSet = Substitute.For<IAgentType>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction>());
             goapSet.GoapConfig.Returns(GoapConfig.Default);
@@ -40,7 +40,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var sensorRunner = Substitute.For<ISensorRunner>();
-            var goapSet = Substitute.For<IGoapSet>();
+            var goapSet = Substitute.For<IAgentType>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction>());
             goapSet.GoapConfig.Returns(GoapConfig.Default);
@@ -68,7 +68,7 @@ namespace CrashKonijn.Goap.UnitTests
             var sensorRunner = Substitute.For<ISensorRunner>();
             sensorRunner.SenseGlobal().Returns(new GlobalWorldData());
             
-            var goapSet = Substitute.For<IGoapSet>();
+            var goapSet = Substitute.For<IAgentType>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { });
             goapSet.GoapConfig.Returns(GoapConfig.Default);
@@ -99,7 +99,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
-            var goapSet = Substitute.For<IGoapSet>();
+            var goapSet = Substitute.For<IAgentType>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
             goapSet.Agents.GetQueue().Returns(new []{ agent });
@@ -131,7 +131,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
-            var goapSet = Substitute.For<IGoapSet>();
+            var goapSet = Substitute.For<IAgentType>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
             goapSet.Agents.GetQueue().Returns(new []{ agent });
@@ -163,7 +163,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
-            var goapSet = Substitute.For<IGoapSet>();
+            var goapSet = Substitute.For<IAgentType>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
             goapSet.Agents.GetQueue().Returns(new []{ agent });
@@ -198,7 +198,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
-            var goapSet = Substitute.For<IGoapSet>();
+            var goapSet = Substitute.For<IAgentType>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
             goapSet.Agents.GetQueue().Returns(new []{ agent });
@@ -235,7 +235,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
-            var goapSet = Substitute.For<IGoapSet>();
+            var goapSet = Substitute.For<IAgentType>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
             goapSet.Agents.GetQueue().Returns(new []{ agent });
@@ -272,7 +272,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
-            var goapSet = Substitute.For<IGoapSet>();
+            var goapSet = Substitute.For<IAgentType>();
             goapSet.SensorRunner.Returns(sensorRunner);
             goapSet.GetAllNodes().Returns(new List<IAction> { goal });
             goapSet.Agents.GetQueue().Returns(new []{ agent });

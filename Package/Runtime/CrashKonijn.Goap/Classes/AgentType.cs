@@ -7,7 +7,7 @@ using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.Classes
 {
-    public class GoapSet : IGoapSet
+    public class AgentType : IAgentType
     {
         public string Id { get; }
         public IAgentCollection Agents { get; } = new AgentCollection();
@@ -18,7 +18,7 @@ namespace CrashKonijn.Goap.Classes
         private List<IGoalBase> goals;
         private List<IActionBase> actions;
 
-        public GoapSet(string id, IGoapConfig config, List<IGoalBase> goals, List<IActionBase> actions, ISensorRunner sensorRunner, IAgentDebugger debugger)
+        public AgentType(string id, IGoapConfig config, List<IGoalBase> goals, List<IActionBase> actions, ISensorRunner sensorRunner, IAgentDebugger debugger)
         {
             this.Id = id;
             this.GoapConfig = config;

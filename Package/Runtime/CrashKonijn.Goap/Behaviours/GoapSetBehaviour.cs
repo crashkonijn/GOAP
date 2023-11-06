@@ -15,9 +15,9 @@ namespace CrashKonijn.Goap.Behaviours
         private GoapRunnerBehaviour runner;
 
         [System.Obsolete("'Set' is deprecated, please use 'GoapSet' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet Set { get; private set; }
+        public IAgentType Set { get; private set; }
 
-        public IGoapSet GoapSet { get; private set; }
+        public IAgentType AgentType { get; private set; }
 
         private void Awake()
         {
@@ -25,7 +25,7 @@ namespace CrashKonijn.Goap.Behaviours
 
             this.runner.Register(goapSet);
             
-            this.GoapSet = goapSet;
+            this.AgentType = goapSet;
         }
     }
 }

@@ -93,7 +93,7 @@ namespace Demos.Simple.Behaviours
             for (var i = 0; i < count; i++)
             {
                 var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
-                agent.GoapSet = this.goapSet.GoapSet;
+                agent.AgentType = this.goapSet.AgentType;
             
                 this.SetDebug(agent.GetComponentInChildren<TextBehaviour>(), this.debug);
             

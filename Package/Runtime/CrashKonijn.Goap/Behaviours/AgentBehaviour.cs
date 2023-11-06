@@ -18,13 +18,13 @@ namespace CrashKonijn.Goap.Behaviours
         public AgentState State { get; private set; } = AgentState.NoAction;
         public AgentMoveState MoveState { get; set; } = AgentMoveState.Idle;
 
-        private IGoapSet goapSet;
-        public IGoapSet GoapSet
+        private IAgentType agentType;
+        public IAgentType AgentType
         {
-            get => this.goapSet;
+            get => this.agentType;
             set
             {
-                this.goapSet = value;
+                this.agentType = value;
                 value.Register(this);
             }
         }
@@ -45,27 +45,27 @@ namespace CrashKonijn.Goap.Behaviours
             this.Injector = new DataReferenceInjector(this);
             
             if (this.goapSetBehaviour != null)
-                this.GoapSet = this.goapSetBehaviour.GoapSet;
+                this.AgentType = this.goapSetBehaviour.AgentType;
         }
 
         private void Start()
         {
-            if (this.GoapSet == null)
+            if (this.AgentType == null)
                 throw new GoapException($"There is no GoapSet assigned to the agent '{this.name}'! Please assign one in the inspector or through code in the Awake method.");
         }
 
         private void OnEnable()
         {
-            if (this.GoapSet != null)
-                this.GoapSet.Register(this);
+            if (this.AgentType != null)
+                this.AgentType.Register(this);
         }
 
         private void OnDisable()
         {
             this.EndAction(false);
             
-            if (this.GoapSet != null)
-                this.GoapSet.Unregister(this);
+            if (this.AgentType != null)
+                this.AgentType.Unregister(this);
         }
 
         public void Run()
@@ -178,7 +178,7 @@ namespace CrashKonijn.Goap.Behaviours
         public void SetGoal<TGoal>(bool endAction)
             where TGoal : IGoalBase
         {
-            this.SetGoal(this.GoapSet.ResolveGoal<TGoal>(), endAction);
+            this.SetGoal(this.AgentType.ResolveGoal<TGoal>(), endAction);
         }
 
         public void SetGoal(IGoalBase goal, bool endAction)
@@ -189,7 +189,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentGoal = goal;
             
             if (this.CurrentAction == null)
-                this.GoapSet.Agents.Enqueue(this);
+                this.AgentType.Agents.Enqueue(this);
             
             this.Events.GoalStart(goal);
             
@@ -228,7 +228,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Events.ActionStop(action);
             
             if (enqueue)
-                this.GoapSet.Agents.Enqueue(this);
+                this.AgentType.Agents.Enqueue(this);
         }
 
         public void SetDistanceMultiplierSpeed(float speed)

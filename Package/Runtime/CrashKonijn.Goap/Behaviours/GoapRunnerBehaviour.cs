@@ -34,7 +34,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Initialize();
         }
 
-        public void Register(IGoapSet goapSet) => this.runner.Register(goapSet);
+        public void Register(IAgentType agentType) => this.runner.Register(agentType);
         
         public void Register(IGoapSetConfig goapSetConfig) => this.runner.Register(new GoapSetFactory(this.config).Create(goapSetConfig));
 
@@ -88,24 +88,24 @@ namespace CrashKonijn.Goap.Behaviours
             });
         }
 
-        public Graph GetGraph(IGoapSet goapSet) => this.runner.GetGraph(goapSet);
-        public bool Knows(IGoapSet goapSet) => this.runner.Knows(goapSet);
+        public Graph GetGraph(IAgentType agentType) => this.runner.GetGraph(agentType);
+        public bool Knows(IAgentType agentType) => this.runner.Knows(agentType);
         public IMonoAgent[] Agents => this.runner.Agents;
 
         [Obsolete("'Sets' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet[] Sets => this.runner.Sets;
+        public IAgentType[] Sets => this.runner.Sets;
 
-        public IGoapSet[] GoapSets => this.runner.GoapSets;
+        public IAgentType[] GoapSets => this.runner.GoapSets;
 
         [Obsolete("'GetSet' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet GetSet(string id)
+        public IAgentType GetSet(string id)
         {
             this.Initialize();
             
             return this.runner.GetSet(id);
         }
 
-        public IGoapSet GetGoapSet(string id)
+        public IAgentType GetGoapSet(string id)
         {
             this.Initialize();
             

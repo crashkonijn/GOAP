@@ -5,19 +5,19 @@ namespace CrashKonijn.Goap.Interfaces
 {
     public interface IGoapRunner
     {
-        void Register(IGoapSet goapSet);
-        Graph GetGraph(IGoapSet goapSet);
-        bool Knows(IGoapSet goapSet);
+        void Register(IAgentType agentType);
+        Graph GetGraph(IAgentType agentType);
+        bool Knows(IAgentType agentType);
         IMonoAgent[] Agents { get; }
 
         [System.Obsolete("'Sets' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        IGoapSet[] Sets { get; }
+        IAgentType[] Sets { get; }
 
-        IGoapSet[] GoapSets { get; }
+        IAgentType[] GoapSets { get; }
 
         [System.Obsolete("'GetSet' is deprecated, please use 'GetGoapSet' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        IGoapSet GetSet(string id);
+        IAgentType GetSet(string id);
 
-        IGoapSet GetGoapSet(string id);
+        IAgentType GetGoapSet(string id);
     }
 }

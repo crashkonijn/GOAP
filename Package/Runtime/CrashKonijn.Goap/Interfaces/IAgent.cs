@@ -7,7 +7,7 @@ namespace CrashKonijn.Goap.Interfaces
     {
         float DistanceMultiplier { get; }
         AgentState State { get; }
-        IGoapSet GoapSet { get; }
+        IAgentType AgentType { get; }
         IGoalBase CurrentGoal { get; }
         IActionBase CurrentAction { get; }
         IActionData CurrentActionData { get; }

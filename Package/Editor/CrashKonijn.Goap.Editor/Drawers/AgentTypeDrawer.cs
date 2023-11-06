@@ -4,22 +4,22 @@ using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.Drawers
 {
-    public class GoapSetDrawer : VisualElement
+    public class AgentTypeDrawer : VisualElement
     {
-        public  GoapSetDrawer(IGoapSet goapSet)
+        public  AgentTypeDrawer(IAgentType agentType)
         {
-            this.name = "goap-set";
+            this.name = "agent-type";
             
             var card = new Card((card) =>
             {
-                card.Add(new Header(goapSet.Id));
+                card.Add(new Header(agentType.Id));
 
                 var root = new VisualElement();
 
                 card.schedule.Execute(() =>
                 {
                     root.Clear();
-                    root.Add(new Label($"Count: {goapSet.Agents.All().Count}"));
+                    root.Add(new Label($"Count: {agentType.Agents.All().Count}"));
                 }).Every(1000);
                 
                 card.Add(root);
