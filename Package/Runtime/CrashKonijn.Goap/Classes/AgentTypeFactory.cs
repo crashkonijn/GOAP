@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Configs.Interfaces;
 using CrashKonijn.Goap.Exceptions;
 using CrashKonijn.Goap.Interfaces;
@@ -10,18 +9,18 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes
 {
-    public class GoapSetFactory
+    public class AgentTypeFactory
     {
         private readonly IGoapConfig goapConfig;
         private readonly ClassResolver classResolver = new();
-        private IGoapSetConfigValidatorRunner goapSetConfigValidatorRunner = new GoapSetConfigValidatorRunner();
+        private IAgentTypeConfigValidatorRunner agentTypeConfigValidatorRunner = new AgentTypeConfigValidatorRunner();
 
-        public GoapSetFactory(IGoapConfig goapConfig)
+        public AgentTypeFactory(IGoapConfig goapConfig)
         {
             this.goapConfig = goapConfig;
         }
         
-        public AgentType Create(IGoapSetConfig config)
+        public AgentType Create(IAgentTypeConfig config)
         {
             this.Validate(config);
             
@@ -37,9 +36,9 @@ namespace CrashKonijn.Goap.Classes
             );
         }
         
-        private void Validate(IGoapSetConfig config)
+        private void Validate(IAgentTypeConfig config)
         {
-            var results = this.goapSetConfigValidatorRunner.Validate(config);
+            var results = this.agentTypeConfigValidatorRunner.Validate(config);
 
             foreach (var error in results.GetErrors())
             {
@@ -52,15 +51,15 @@ namespace CrashKonijn.Goap.Classes
             }
             
             if (results.HasErrors())
-                throw new GoapException($"GoapSetConfig has errors: {config.Name}");
+                throw new GoapException($"AgentTypeConfig has errors: {config.Name}");
         }
         
-        private SensorRunner CreateSensorRunner(IGoapSetConfig config)
+        private SensorRunner CreateSensorRunner(IAgentTypeConfig config)
         {
             return new SensorRunner(this.GetWorldSensors(config), this.GetTargetSensors(config));
         }
         
-        private List<IActionBase> GetActions(IGoapSetConfig config)
+        private List<IActionBase> GetActions(IAgentTypeConfig config)
         {
             var actions = this.classResolver.Load<IActionBase, IActionConfig>(config.Actions);
             var injector = this.goapConfig.GoapInjector;
@@ -74,7 +73,7 @@ namespace CrashKonijn.Goap.Classes
             return actions;
         }
         
-        private List<IGoalBase> GetGoals(IGoapSetConfig config)
+        private List<IGoalBase> GetGoals(IAgentTypeConfig config)
         {
             var goals = this.classResolver.Load<IGoalBase, IGoalConfig>(config.Goals);
             var injector = this.goapConfig.GoapInjector;
@@ -87,7 +86,7 @@ namespace CrashKonijn.Goap.Classes
             return goals;
         }
         
-        private List<IWorldSensor> GetWorldSensors(IGoapSetConfig config)
+        private List<IWorldSensor> GetWorldSensors(IAgentTypeConfig config)
         {
             var worldSensors = this.classResolver.Load<IWorldSensor, IWorldSensorConfig>(config.WorldSensors);
             var injector = this.goapConfig.GoapInjector;
@@ -101,7 +100,7 @@ namespace CrashKonijn.Goap.Classes
             return worldSensors;
         }
         
-        private List<ITargetSensor> GetTargetSensors(IGoapSetConfig config)
+        private List<ITargetSensor> GetTargetSensors(IAgentTypeConfig config)
         {
             var targetSensors = this.classResolver.Load<ITargetSensor, ITargetSensorConfig>(config.TargetSensors);
             var injector = this.goapConfig.GoapInjector;
@@ -115,7 +114,7 @@ namespace CrashKonijn.Goap.Classes
             return targetSensors;
         }
 
-        private IAgentDebugger GetDebugger(IGoapSetConfig config)
+        private IAgentDebugger GetDebugger(IAgentTypeConfig config)
         {
             return this.classResolver.Load<IAgentDebugger>(config.DebuggerClass);
         }

@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 namespace CrashKonijn.Goap.Editor.TypeDrawers
 {
     [CustomEditor(typeof(GoapSetConfigScriptable))]
-    public class GoapSetConfigEditor : UnityEditor.Editor
+    public class AgentTypeConfigEditor : UnityEditor.Editor
     {
         private GoapSetConfigScriptable config;
         
@@ -55,7 +55,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             var validateButton = new Button(() =>
             {
-                var validator = new GoapSetConfigValidatorRunner();
+                var validator = new AgentTypeConfigValidatorRunner();
                 var results = validator.Validate(this.config);
                 
                 foreach (var error in results.GetErrors())

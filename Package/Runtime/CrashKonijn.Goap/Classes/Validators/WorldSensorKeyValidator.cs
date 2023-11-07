@@ -4,11 +4,11 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class WorldSensorKeyValidator : IValidator<IGoapSetConfig>
+    public class WorldSensorKeyValidator : IValidator<IAgentTypeConfig>
     {
-        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
+        public void Validate(IAgentTypeConfig agentTypeConfig, ValidationResults results)
         {
-            var missing = goapSetConfig.WorldSensors.Where(x => x.Key == null).ToArray();
+            var missing = agentTypeConfig.WorldSensors.Where(x => x.Key == null).ToArray();
             
             if (!missing.Any())
                 return;

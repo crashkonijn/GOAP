@@ -3,7 +3,7 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Configs.Interfaces
 {
-    public interface IGoapSetConfig : IConfig
+    public interface IAgentTypeConfig : IConfig
     {
         public List<IActionConfig> Actions { get; }
         public List<IGoalConfig> Goals { get; }

@@ -6,18 +6,18 @@ using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.TypeDrawers
 {
-    [CustomEditor(typeof(GoapSetFactoryBase), true)]
-    public class GoapSetFactoryBaseEditor : UnityEditor.Editor
+    [CustomEditor(typeof(AgentTypeFactoryBase), true)]
+    public class AgentTypeFactoryBaseEditor : UnityEditor.Editor
     {
         public override VisualElement CreateInspectorGUI()
         {
-            var factory = (GoapSetFactoryBase) this.target;
+            var factory = (AgentTypeFactoryBase) this.target;
             
             var root = new VisualElement();
 
             var validateButton = new Button(() =>
             {
-                var validator = new GoapSetConfigValidatorRunner();
+                var validator = new AgentTypeConfigValidatorRunner();
                 var results = validator.Validate(factory.Create());
                 
                 foreach (var error in results.GetErrors())

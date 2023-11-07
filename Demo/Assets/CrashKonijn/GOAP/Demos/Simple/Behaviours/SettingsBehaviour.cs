@@ -1,6 +1,7 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -12,7 +13,7 @@ namespace Demos.Simple.Behaviours
         
         public GameObject applePrefab;
         public GameObject agentPrefab;
-        public GoapSetBehaviour goapSet;
+        [FormerlySerializedAs("agentType")] public GoapSetBehaviour goapSet;
         
         public TextMeshProUGUI appleCountText;
         public TextMeshProUGUI agentCountText;

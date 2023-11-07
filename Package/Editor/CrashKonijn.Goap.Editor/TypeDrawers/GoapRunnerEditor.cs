@@ -26,9 +26,9 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             if (Application.isPlaying)
             {
                 root.Add(new Header("Agent Types"));
-                foreach (var goapSet in runner.GoapSets)
+                foreach (var agentTypes in runner.AgentTypes)
                 {
-                    root.Add(new AgentTypeDrawer(goapSet));
+                    root.Add(new AgentTypeDrawer(agentTypes));
                 }
             }
             
@@ -37,33 +37,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
 
         private void RenderConfigFactories(VisualElement root, GoapRunnerBehaviour runner)
         {
-            // TODO: Remove at a later date
-#pragma warning disable CS0618
-            if (runner.setConfigFactories.Any())
-            {
-                var oldDataRoot = new VisualElement();
-                
-                oldDataRoot.Add(new PropertyField(this.serializedObject.FindProperty("setConfigFactories")));
-             
-                var button = new Button(() =>
-                {
-                    runner.goapSetConfigFactories.AddRange(runner.setConfigFactories);
-                    runner.setConfigFactories.Clear();
-                    EditorUtility.SetDirty(runner);
-                    oldDataRoot.Clear();
-                });
-                button.Add(new Label("Migrate data to goapSetConfigFactories"));
-
-                var helpBox = new HelpBox("", HelpBoxMessageType.Error);
-                helpBox.Add(button);
-                
-                oldDataRoot.Add(helpBox);
-
-                root.Add(oldDataRoot);
-            }
-#pragma warning restore CS0618
-            
-            root.Add(new PropertyField(this.serializedObject.FindProperty("goapSetConfigFactories")));
+            root.Add(new PropertyField(this.serializedObject.FindProperty("agentTypeConfigFactories")));
         }
     }
 }

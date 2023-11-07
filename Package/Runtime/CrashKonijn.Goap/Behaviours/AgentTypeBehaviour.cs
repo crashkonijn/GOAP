@@ -6,10 +6,10 @@ using UnityEngine;
 namespace CrashKonijn.Goap.Behaviours
 {
     [DefaultExecutionOrder(-99)]
-    public class GoapSetBehaviour : MonoBehaviour
+    public class AgentTypeBehaviour : MonoBehaviour
     {
         [SerializeField]
-        private GoapSetConfigScriptable config;
+        private AgentTypeScriptable config;
 
         [SerializeField]
         private GoapRunnerBehaviour runner;

@@ -9,7 +9,7 @@ using Unity.Mathematics;
 
 namespace CrashKonijn.Goap.Classes.Runners
 {
-    public class GoapSetJobRunner
+    public class AgentTypeJobRunner
     {
         private readonly IAgentType agentType;
         private readonly IGraphResolver resolver;
@@ -20,7 +20,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         private readonly ICostBuilder costBuilder;
         private readonly IConditionBuilder conditionBuilder;
 
-        public GoapSetJobRunner(IAgentType agentType, IGraphResolver graphResolver)
+        public AgentTypeJobRunner(IAgentType agentType, IGraphResolver graphResolver)
         {
             this.agentType = agentType;
             this.resolver = graphResolver;

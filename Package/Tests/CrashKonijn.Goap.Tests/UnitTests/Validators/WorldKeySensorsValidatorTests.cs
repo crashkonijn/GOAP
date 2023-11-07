@@ -23,7 +23,7 @@ namespace CrashKonijn.Goap.UnitTests.Validators
             var action = Substitute.For<IActionConfig>();
             action.Conditions.Returns(new[] { condition });
             
-            var config = Substitute.For<IGoapSetConfig>();
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>
             {
                 action
@@ -57,7 +57,7 @@ namespace CrashKonijn.Goap.UnitTests.Validators
             var action = Substitute.For<IActionConfig>();
             action.Conditions.Returns(new[] { condition });
             
-            var config = Substitute.For<IGoapSetConfig>();
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>
             {
                 action
@@ -87,7 +87,7 @@ namespace CrashKonijn.Goap.UnitTests.Validators
             var action = Substitute.For<IActionConfig>();
             action.Conditions.Returns(new[] { condition });
             
-            var config = Substitute.For<IGoapSetConfig>();
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>
             {
                 action
@@ -113,7 +113,7 @@ namespace CrashKonijn.Goap.UnitTests.Validators
             var sensor = Substitute.For<IWorldSensorConfig>();
             sensor.Key.ReturnsNull();
             
-            var config = Substitute.For<IGoapSetConfig>();
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>());
             config.WorldSensors.Returns(new List<IWorldSensorConfig>{ sensor });
             

@@ -4,9 +4,9 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class GoapSetConfigValidatorRunner : IGoapSetConfigValidatorRunner
+    public class AgentTypeConfigValidatorRunner : IAgentTypeConfigValidatorRunner
     {
-        private readonly List<IValidator<IGoapSetConfig>> validators = new ()
+        private readonly List<IValidator<IAgentTypeConfig>> validators = new ()
         {
             new WorldKeySensorsValidator(),
             new TargetKeySensorsValidator(),
@@ -25,13 +25,13 @@ namespace CrashKonijn.Goap.Classes.Validators
             new TargetSensorKeyValidator()
         };
         
-        public ValidationResults Validate(IGoapSetConfig goapSetConfig)
+        public ValidationResults Validate(IAgentTypeConfig agentTypeConfig)
         {
-            var results = new ValidationResults(goapSetConfig.Name);
+            var results = new ValidationResults(agentTypeConfig.Name);
             
             foreach (var validator in this.validators)
             {
-                validator.Validate(goapSetConfig, results);
+                validator.Validate(agentTypeConfig, results);
             }
 
             return results;

@@ -3,8 +3,8 @@ using CrashKonijn.Goap.Configs.Interfaces;
 
 namespace CrashKonijn.Goap.Interfaces
 {
-    public interface IGoapSetConfigValidatorRunner
+    public interface IAgentTypeConfigValidatorRunner
     {
-        ValidationResults Validate(IGoapSetConfig goapSetConfig);
+        ValidationResults Validate(IAgentTypeConfig agentTypeConfig);
     }
 }

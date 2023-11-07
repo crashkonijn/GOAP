@@ -4,11 +4,11 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class ActionTargetValidator : IValidator<IGoapSetConfig>
+    public class ActionTargetValidator : IValidator<IAgentTypeConfig>
     {
-        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
+        public void Validate(IAgentTypeConfig agentTypeConfig, ValidationResults results)
         {
-            var missing = goapSetConfig.Actions.Where(x => x.Target == null).ToArray();
+            var missing = agentTypeConfig.Actions.Where(x => x.Target == null).ToArray();
             
             if (!missing.Any())
                 return;

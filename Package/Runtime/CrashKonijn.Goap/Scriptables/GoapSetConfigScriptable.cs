@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CrashKonijn.Goap.Scriptables
 {
     [CreateAssetMenu(menuName = "Goap/GoapSetConfig")]
-    public class GoapSetConfigScriptable : ScriptableObject, IGoapSetConfig
+    public class GoapSetConfigScriptable : ScriptableObject, IAgentTypeConfig
     {
         public List<ActionConfigScriptable> actions = new List<ActionConfigScriptable>();
         public List<GoalConfigScriptable> goals = new List<GoalConfigScriptable>();

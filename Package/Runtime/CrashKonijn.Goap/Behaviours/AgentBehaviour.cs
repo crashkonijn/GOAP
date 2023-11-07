@@ -6,12 +6,13 @@ using CrashKonijn.Goap.Exceptions;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Observers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Behaviours
 {
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
-        public GoapSetBehaviour goapSetBehaviour;
+        [FormerlySerializedAs("goapSetBehaviour")] public AgentTypeBehaviour agentTypeBehaviour;
 
         [field: SerializeField]
         public float DistanceMultiplier { get; set; } = 1f;
@@ -44,14 +45,14 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.Injector = new DataReferenceInjector(this);
             
-            if (this.goapSetBehaviour != null)
-                this.AgentType = this.goapSetBehaviour.AgentType;
+            if (this.agentTypeBehaviour != null)
+                this.AgentType = this.agentTypeBehaviour.AgentType;
         }
 
         private void Start()
         {
             if (this.AgentType == null)
-                throw new GoapException($"There is no GoapSet assigned to the agent '{this.name}'! Please assign one in the inspector or through code in the Awake method.");
+                throw new GoapException($"There is no AgentType assigned to the agent '{this.name}'! Please assign one in the inspector or through code in the Awake method.");
         }
 
         private void OnEnable()

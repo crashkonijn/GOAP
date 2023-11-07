@@ -211,6 +211,11 @@ PrefabInstance:
       propertyPath: goapSetBehaviour
       value: 
       objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1164,6 +1169,11 @@ PrefabInstance:
       propertyPath: goapSetBehaviour
       value: 
       objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1260,6 +1270,11 @@ PrefabInstance:
     - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: goapSetBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
       value: 
       objectReference: {fileID: 845821374}
     m_RemovedComponents:
@@ -1361,6 +1376,11 @@ PrefabInstance:
       propertyPath: goapSetBehaviour
       value: 
       objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
     m_RemovedComponents:
     - {fileID: 6203825911902128265, guid: f2233afe6b5d3734dbb94bce7789238e, type: 3}
     m_RemovedGameObjects: []
@@ -1378,7 +1398,7 @@ GameObject:
   - component: {fileID: 845821373}
   - component: {fileID: 845821374}
   m_Layer: 0
-  m_Name: GoapSet
+  m_Name: AgentType
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1504,6 +1524,11 @@ PrefabInstance:
     - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: goapSetBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
       value: 
       objectReference: {fileID: 845821374}
     m_RemovedComponents:
@@ -1694,7 +1719,7 @@ MonoBehaviour:
     type: 3}
   agentPrefab: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
     type: 3}
-  goapSet: {fileID: 845821374}
+  agentType: {fileID: 845821374}
   appleCountText: {fileID: 1837200405}
   agentCountText: {fileID: 1621916495}
   fpsText: {fileID: 1911885706}
@@ -1876,6 +1901,11 @@ PrefabInstance:
     - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: goapSetBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
       value: 
       objectReference: {fileID: 845821374}
     m_RemovedComponents:
@@ -2074,6 +2104,11 @@ PrefabInstance:
     - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: goapSetBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
       value: 
       objectReference: {fileID: 845821374}
     m_RemovedComponents: []
@@ -2786,6 +2821,11 @@ PrefabInstance:
       propertyPath: goapSetBehaviour
       value: 
       objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2877,6 +2917,11 @@ PrefabInstance:
     - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: goapSetBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
       value: 
       objectReference: {fileID: 845821374}
     m_RemovedComponents: []
@@ -3464,6 +3509,11 @@ PrefabInstance:
     - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: goapSetBehaviour
+      value: 
+      objectReference: {fileID: 845821374}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
       value: 
       objectReference: {fileID: 845821374}
     m_RemovedComponents:

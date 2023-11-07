@@ -26,7 +26,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
         private string GetText(IAgent agent, IAgentDebugger debugger)
         {
             if (debugger == null)
-                return "Define an agent debugger\nin the GoapSetConfig to \ncustomize this view.";
+                return "Define an agent debugger\nin the AgentTypeConfig to \ncustomize this view.";
             
             if (agent == null)
                 return "";

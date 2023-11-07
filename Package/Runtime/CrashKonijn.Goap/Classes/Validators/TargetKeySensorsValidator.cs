@@ -4,12 +4,12 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class TargetKeySensorsValidator : IValidator<IGoapSetConfig>
+    public class TargetKeySensorsValidator : IValidator<IAgentTypeConfig>
     {
-        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
+        public void Validate(IAgentTypeConfig agentTypeConfig, ValidationResults results)
         {
-            var required = goapSetConfig.GetTargetKeys();
-            var provided = goapSetConfig.TargetSensors
+            var required = agentTypeConfig.GetTargetKeys();
+            var provided = agentTypeConfig.TargetSensors
                 .Where(x => x.Key != null)
                 .Select(x => x.Key)
                 .ToArray();

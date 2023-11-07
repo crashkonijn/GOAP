@@ -4,11 +4,11 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class TargetSensorClassTypeValidator : IValidator<IGoapSetConfig>
+    public class TargetSensorClassTypeValidator : IValidator<IAgentTypeConfig>
     {
-        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
+        public void Validate(IAgentTypeConfig agentTypeConfig, ValidationResults results)
         {
-            var empty = goapSetConfig.TargetSensors.Where(x => string.IsNullOrEmpty(x.ClassType)).ToArray();
+            var empty = agentTypeConfig.TargetSensors.Where(x => string.IsNullOrEmpty(x.ClassType)).ToArray();
             
             if (!empty.Any())
                 return;

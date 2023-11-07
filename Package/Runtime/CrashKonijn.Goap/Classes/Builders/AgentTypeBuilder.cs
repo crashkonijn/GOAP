@@ -5,9 +5,9 @@ using CrashKonijn.Goap.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Builders
 {
-    public class GoapSetBuilder
+    public class AgentTypeBuilder
     {
-        private readonly GoapSetConfig goapSetConfig;
+        private readonly AgentTypeConfig agentTypeConfig;
 
         private readonly List<ActionBuilder> actionBuilders = new();
         private readonly List<GoalBuilder> goalBuilders = new();
@@ -16,9 +16,9 @@ namespace CrashKonijn.Goap.Classes.Builders
         private readonly WorldKeyBuilder worldKeyBuilder = new();
         private readonly TargetKeyBuilder targetKeyBuilder = new();
 
-        public GoapSetBuilder(string name)
+        public AgentTypeBuilder(string name)
         {
-            this.goapSetConfig = new GoapSetConfig(name);
+            this.agentTypeConfig = new AgentTypeConfig(name);
         }
         
         public ActionBuilder AddAction<TAction>()
@@ -66,20 +66,20 @@ namespace CrashKonijn.Goap.Classes.Builders
             return this.worldKeyBuilder;
         }
         
-        public GoapSetConfig Build()
+        public AgentTypeConfig Build()
         {
-            this.goapSetConfig.Actions = this.actionBuilders.Select(x => x.Build()).ToList();
-            this.goapSetConfig.Goals = this.goalBuilders.Select(x => x.Build()).ToList();
-            this.goapSetConfig.TargetSensors = this.targetSensorBuilders.Select(x => x.Build()).ToList();
-            this.goapSetConfig.WorldSensors = this.worldSensorBuilders.Select(x => x.Build()).ToList();
+            this.agentTypeConfig.Actions = this.actionBuilders.Select(x => x.Build()).ToList();
+            this.agentTypeConfig.Goals = this.goalBuilders.Select(x => x.Build()).ToList();
+            this.agentTypeConfig.TargetSensors = this.targetSensorBuilders.Select(x => x.Build()).ToList();
+            this.agentTypeConfig.WorldSensors = this.worldSensorBuilders.Select(x => x.Build()).ToList();
             
-            return this.goapSetConfig;
+            return this.agentTypeConfig;
         }
 
-        public GoapSetBuilder SetAgentDebugger<TDebugger>()
+        public AgentTypeBuilder SetAgentDebugger<TDebugger>()
             where TDebugger : IAgentDebugger
         {
-            this.goapSetConfig.DebuggerClass = typeof(TDebugger).AssemblyQualifiedName;
+            this.agentTypeConfig.DebuggerClass = typeof(TDebugger).AssemblyQualifiedName;
 
             return this;
         }

@@ -3,9 +3,9 @@ using CrashKonijn.Goap.Configs.Interfaces;
 
 namespace CrashKonijn.Goap.Configs
 {
-    public class GoapSetConfig : IGoapSetConfig
+    public class AgentTypeConfig : IAgentTypeConfig
     {
-        public GoapSetConfig(string name)
+        public AgentTypeConfig(string name)
         {
             this.Name = name;
         }
