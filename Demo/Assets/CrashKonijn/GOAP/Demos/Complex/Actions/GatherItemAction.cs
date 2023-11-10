@@ -1,8 +1,8 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using Demos.Complex.Behaviours;
 using Demos.Complex.Goap;
 using Demos.Complex.Interfaces;
@@ -32,7 +32,7 @@ namespace Demos.Complex.Actions
             data.Timer = this.Config.BaseCost;
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             data.Timer -= context.DeltaTime;
             

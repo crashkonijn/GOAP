@@ -1,6 +1,6 @@
 ﻿using System;
 using CrashKonijn.Goap.Classes.Builders;
-using CrashKonijn.Goap.Enums;
+using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Resolver;
 using Demos.Complex.Actions;
 using Demos.Complex.Behaviours;

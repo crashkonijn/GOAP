@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Configs
 {
@@ -20,7 +19,7 @@ namespace CrashKonijn.Goap.Configs
         public List<ICondition> Conditions { get; set; } = new();
         
         public static GoalConfig Create<TGoal>()
-            where TGoal : IGoalBase
+            where TGoal : IGoal
         {
             return new GoalConfig(typeof(TGoal));
         }

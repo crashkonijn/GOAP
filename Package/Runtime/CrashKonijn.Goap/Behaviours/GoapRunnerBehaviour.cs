@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -79,7 +78,7 @@ namespace CrashKonijn.Goap.Behaviours
             });
         }
 
-        public Graph GetGraph(IAgentType agentType) => this.runner.GetGraph(agentType);
+        public IGraph GetGraph(IAgentType agentType) => this.runner.GetGraph(agentType);
         public bool Knows(IAgentType agentType) => this.runner.Knows(agentType);
         public IMonoAgent[] Agents => this.runner.Agents;
         public IAgentType[] AgentTypes => this.runner.AgentTypes;

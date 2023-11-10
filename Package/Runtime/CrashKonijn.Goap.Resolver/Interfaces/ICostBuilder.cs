@@ -1,8 +1,10 @@
-﻿namespace CrashKonijn.Goap.Resolver.Interfaces
+﻿using CrashKonijn.Goap.Core.Interfaces;
+
+namespace CrashKonijn.Goap.Resolver.Interfaces
 {
     public interface ICostBuilder
     {
-        ICostBuilder SetCost(IAction action, float cost);
+        ICostBuilder SetCost(IConnectable action, float cost);
         float[] Build();
         void Clear();
     }

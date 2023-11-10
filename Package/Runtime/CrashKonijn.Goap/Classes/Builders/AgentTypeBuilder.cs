@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Builders
 {
@@ -22,7 +22,7 @@ namespace CrashKonijn.Goap.Classes.Builders
         }
         
         public ActionBuilder AddAction<TAction>()
-            where TAction : IActionBase
+            where TAction : IAction
         {
             var actionBuilder = ActionBuilder.Create<TAction>(this.worldKeyBuilder, this.targetKeyBuilder);
             
@@ -32,7 +32,7 @@ namespace CrashKonijn.Goap.Classes.Builders
         }
         
         public GoalBuilder AddGoal<TGoal>()
-            where TGoal : IGoalBase
+            where TGoal : IGoal
         {
             var goalBuilder = GoalBuilder.Create<TGoal>(this.worldKeyBuilder);
 

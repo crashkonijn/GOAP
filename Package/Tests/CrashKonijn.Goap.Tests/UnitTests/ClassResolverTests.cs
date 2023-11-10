@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolvers;
 using CrashKonijn.Goap.UnitTests.Data;
 using CrashKonijn.Goap.UnitTests.Support;
@@ -27,7 +26,7 @@ namespace CrashKonijn.Goap.UnitTests
             var resolver = this.factory.Get<ClassResolver>();
 
             // Act
-            var result = resolver.Load<IGoalBase, IGoalConfig>(new []{ GoalConfig.Create<Goal>() });
+            var result = resolver.Load<IGoal, IGoalConfig>(new []{ GoalConfig.Create<Goal>() });
 
             // Assert
             result.First().Should().BeOfType<Goal>();

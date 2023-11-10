@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
@@ -25,7 +24,7 @@ namespace CrashKonijn.Goap.Classes.Validators
             new TargetSensorKeyValidator()
         };
         
-        public ValidationResults Validate(IAgentTypeConfig agentTypeConfig)
+        public IValidationResults Validate(IAgentTypeConfig agentTypeConfig)
         {
             var results = new ValidationResults(agentTypeConfig.Name);
             

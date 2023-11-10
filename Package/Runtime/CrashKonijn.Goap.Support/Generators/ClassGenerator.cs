@@ -9,9 +9,9 @@ namespace CrashKonijn.Goap.Generators
     {
         private void EnsureDirectoryExists(string path)
         {
-            if (!System.IO.Directory.Exists(path))
+            if (!Directory.Exists(path))
             {
-                System.IO.Directory.CreateDirectory(path);
+                Directory.CreateDirectory(path);
             }
         }
 
@@ -71,14 +71,14 @@ namespace CrashKonijn.Goap.Generators
         {
             this.EnsureDirectoryExists(Path.GetDirectoryName(path));
             
-            System.IO.File.WriteAllText(path, content);
+            File.WriteAllText(path, content);
         }
 
         private string LoadTemplate(string name)
         {
             var path = this.GetTemplatePath(name);
             
-            return System.IO.File.ReadAllText(path);
+            return File.ReadAllText(path);
         }
         
         private string GetTemplatePath(string name)

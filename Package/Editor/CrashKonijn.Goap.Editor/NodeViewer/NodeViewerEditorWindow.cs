@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Editor.Classes;
 using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
-using CrashKonijn.Goap.Interfaces;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;

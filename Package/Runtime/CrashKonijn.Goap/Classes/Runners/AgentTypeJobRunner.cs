@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
@@ -45,7 +45,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        private void Run(GlobalWorldData globalData, IMonoAgent agent)
+        private void Run(IGlobalWorldData globalData, IMonoAgent agent)
         {
             if (agent.IsNull())
                 return;
@@ -77,7 +77,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             });
         }
 
-        private void FillBuilders(LocalWorldData localData, IMonoAgent agent)
+        private void FillBuilders(ILocalWorldData localData, IMonoAgent agent)
         {
             var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(localData);
@@ -112,7 +112,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        private bool IsGoalCompleted(LocalWorldData localData, IMonoAgent agent)
+        private bool IsGoalCompleted(ILocalWorldData localData, IMonoAgent agent)
         {
             var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(localData);
@@ -124,7 +124,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         {
             foreach (var resolveHandle in this.resolveHandles)
             {
-                var result = resolveHandle.Handle.Complete().OfType<IActionBase>().ToList();
+                var result = resolveHandle.Handle.Complete().OfType<IAction>().ToList();
 
                 if (resolveHandle.Agent.IsNull())
                     continue;
@@ -167,6 +167,6 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        public Graph GetGraph() => this.resolver.GetGraph();
+        public IGraph GetGraph() => this.resolver.GetGraph();
     }
 }

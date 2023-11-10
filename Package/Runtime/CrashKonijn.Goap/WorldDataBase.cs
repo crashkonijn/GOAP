@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 
 namespace CrashKonijn.Goap
@@ -10,7 +10,7 @@ namespace CrashKonijn.Goap
         public Dictionary<IWorldKey, int> States { get; } = new();
         public Dictionary<ITargetKey, ITarget> Targets { get; } = new();
 
-        public ITarget GetTarget(IActionBase action)
+        public ITarget GetTarget(IAction action)
         {
             if (action.Config.Target == null)
                 return null;
@@ -69,6 +69,19 @@ namespace CrashKonijn.Goap
             }
             
             this.Targets.Add(key, target);
+        }
+        
+        public void Apply(IWorldData worldData)
+        {
+            foreach (var (key, value) in worldData.States)
+            {
+                this.SetState(key, value);
+            }
+            
+            foreach (var (key, value) in worldData.Targets)
+            {
+                this.SetTarget(key, value);
+            }
         }
     }
 }

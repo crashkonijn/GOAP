@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Sensors;
 using Demos.Complex.Behaviours;
 using Demos.Complex.Interfaces;
@@ -12,7 +13,7 @@ namespace Demos.Complex.Sensors.World
 
         public override void Created()
         {
-            this.collection = GameObject.FindObjectOfType<ItemCollection>();
+            this.collection = Object.FindObjectOfType<ItemCollection>();
         }
 
         public override SenseValue Sense()

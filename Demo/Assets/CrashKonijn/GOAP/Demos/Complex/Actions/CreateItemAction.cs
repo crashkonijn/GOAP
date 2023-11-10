@@ -2,8 +2,8 @@
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using Demos.Complex.Behaviours;
 using Demos.Complex.Classes.Items;
 using Demos.Complex.Goap;
@@ -35,7 +35,7 @@ namespace Demos.Complex.Actions
             data.RequiredIron = this.GetRequiredIron();
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.State == State.NotStarted)
             {

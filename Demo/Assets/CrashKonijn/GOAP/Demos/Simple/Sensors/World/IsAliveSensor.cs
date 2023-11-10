@@ -1,6 +1,7 @@
 ﻿using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Sensors;
 
 namespace Demos.Simple.Sensors.World

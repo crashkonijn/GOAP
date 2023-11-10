@@ -1,5 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using Demos.Complex.Classes.Items;
 using Demos.Complex.Goals;
 using Demos.Shared.Behaviours;
@@ -43,17 +43,17 @@ namespace Demos.Complex.Behaviours
             this.agent.SetGoal<WanderGoal>(false);
         }
         
-        private void OnNoActionFound(IGoalBase goal)
+        private void OnNoActionFound(IGoal goal)
         {
             this.agent.SetGoal<WanderGoal>(false);
         }
 
-        private void OnGoalCompleted(IGoalBase goal)
+        private void OnGoalCompleted(IGoal goal)
         {
             this.agent.SetGoal<WanderGoal>(false);
         }
 
-        private void OnActionStop(IActionBase action)
+        private void OnActionStop(IAction action)
         {
             this.UpdateHunger();
             

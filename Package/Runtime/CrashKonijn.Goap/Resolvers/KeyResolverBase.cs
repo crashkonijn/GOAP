@@ -1,6 +1,5 @@
 ﻿using System;
-using CrashKonijn.Goap.Interfaces;
-using IAction = CrashKonijn.Goap.Resolver.Interfaces.IAction;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Resolvers
 {
@@ -13,23 +12,23 @@ namespace CrashKonijn.Goap.Resolvers
             this.WorldData = globalWorldData;
         }
         
-        public string GetKey(IAction action, Resolver.Interfaces.ICondition condition)
+        public string GetKey(IConnectable action, ICondition condition)
         {
-            if (action is IActionBase tAction)
+            if (action is IAction tAction)
                 return this.GetKey(tAction, (ICondition) condition);
-            if (action is IGoalBase tGoal)
+            if (action is IGoal tGoal)
                 return this.GetKey(tGoal, (ICondition) condition);
 
             throw new Exception($"Unsupported type {action.GetType()}");
         }
 
-        public string GetKey(IAction action, Resolver.Interfaces.IEffect effect)
+        public string GetKey(IConnectable action, IEffect effect)
         {
-            return this.GetKey((IActionBase) action, (IEffect) effect);
+            return this.GetKey((IAction) action, (IEffect) effect);
         }
 
-        protected abstract string GetKey(IActionBase action, ICondition key);
-        protected abstract string GetKey(IActionBase action, IEffect key);
-        protected abstract string GetKey(IGoalBase goal, ICondition key);
+        protected abstract string GetKey(IAction action, ICondition key);
+        protected abstract string GetKey(IAction action, IEffect key);
+        protected abstract string GetKey(IGoal goal, ICondition key);
     }
 }

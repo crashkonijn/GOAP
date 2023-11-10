@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver.Interfaces;
 using Unity.Collections;
 using Unity.Jobs;
@@ -42,11 +43,11 @@ namespace CrashKonijn.Goap.Resolver
         }
 #endif
 
-        public IAction[] Complete()
+        public IConnectable[] Complete()
         {
             this.handle.Complete();
         
-            var results = new List<IAction>();
+            var results = new List<IConnectable>();
         
             foreach (var data in this.job.Result)
             {

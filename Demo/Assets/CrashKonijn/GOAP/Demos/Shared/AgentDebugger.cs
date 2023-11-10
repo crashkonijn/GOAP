@@ -1,4 +1,4 @@
-﻿using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Core.Interfaces;
 using Demos.Shared.Behaviours;
 
 namespace Demos.Shared

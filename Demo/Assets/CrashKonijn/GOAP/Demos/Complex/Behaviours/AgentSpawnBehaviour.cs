@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using Demos.Complex.Classes;
 using UnityEngine;
 using Random = UnityEngine.Random;

@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Configs;
+using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Observers;
 using CrashKonijn.Goap.Resolver;
 using NUnit.Framework;

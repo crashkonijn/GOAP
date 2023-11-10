@@ -1,11 +1,11 @@
 ﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using UnityEditor;
 
 namespace CrashKonijn.Goap.Editor.Attributes
 {
     [CustomPropertyDrawer(typeof(ActionClassAttribute))]
-    public class ActionClassDrawer : ClassDrawerBase<IActionBase>
+    public class ActionClassDrawer : ClassDrawerBase<IAction>
     {
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Enums;
+using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Resolver;
 using UnityEngine;
 

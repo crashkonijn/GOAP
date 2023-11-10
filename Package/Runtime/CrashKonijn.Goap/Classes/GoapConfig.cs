@@ -1,5 +1,5 @@
 ﻿using CrashKonijn.Goap.Classes.Injectors;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Observers;
 using CrashKonijn.Goap.Resolvers;
 

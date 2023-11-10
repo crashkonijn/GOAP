@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Exceptions;
-using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolvers;
 using UnityEngine;
 
@@ -59,9 +58,9 @@ namespace CrashKonijn.Goap.Classes
             return new SensorRunner(this.GetWorldSensors(config), this.GetTargetSensors(config));
         }
         
-        private List<IActionBase> GetActions(IAgentTypeConfig config)
+        private List<IAction> GetActions(IAgentTypeConfig config)
         {
-            var actions = this.classResolver.Load<IActionBase, IActionConfig>(config.Actions);
+            var actions = this.classResolver.Load<IAction, IActionConfig>(config.Actions);
             var injector = this.goapConfig.GoapInjector;
             
             actions.ForEach(x =>
@@ -73,9 +72,9 @@ namespace CrashKonijn.Goap.Classes
             return actions;
         }
         
-        private List<IGoalBase> GetGoals(IAgentTypeConfig config)
+        private List<IGoal> GetGoals(IAgentTypeConfig config)
         {
-            var goals = this.classResolver.Load<IGoalBase, IGoalConfig>(config.Goals);
+            var goals = this.classResolver.Load<IGoal, IGoalConfig>(config.Goals);
             var injector = this.goapConfig.GoapInjector;
             
             goals.ForEach(x =>

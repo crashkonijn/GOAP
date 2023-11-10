@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.Runners;
-using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes
 {
@@ -15,10 +13,10 @@ namespace CrashKonijn.Goap.Classes
         public ISensorRunner SensorRunner { get; }
         public IAgentDebugger Debugger { get; }
 
-        private List<IGoalBase> goals;
-        private List<IActionBase> actions;
+        private List<IGoal> goals;
+        private List<IAction> actions;
 
-        public AgentType(string id, IGoapConfig config, List<IGoalBase> goals, List<IActionBase> actions, ISensorRunner sensorRunner, IAgentDebugger debugger)
+        public AgentType(string id, IGoapConfig config, List<IGoal> goals, List<IAction> actions, ISensorRunner sensorRunner, IAgentDebugger debugger)
         {
             this.Id = id;
             this.GoapConfig = config;
@@ -32,7 +30,7 @@ namespace CrashKonijn.Goap.Classes
         public void Unregister(IMonoAgent agent) => this.Agents.Remove(agent);
 
         public TAction ResolveAction<TAction>()
-            where TAction : ActionBase
+            where TAction : IAction
         {
             var result = this.actions.FirstOrDefault(x => x.GetType() == typeof(TAction));
 
@@ -43,7 +41,7 @@ namespace CrashKonijn.Goap.Classes
         }
 
         public TGoal ResolveGoal<TGoal>()
-            where TGoal : IGoalBase
+            where TGoal : IGoal
         {
             var result = this.goals.FirstOrDefault(x => x.GetType() == typeof(TGoal));
 
@@ -53,11 +51,11 @@ namespace CrashKonijn.Goap.Classes
             throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");
         }
 
-        public List<IAction> GetAllNodes() => this.actions.Cast<IAction>().Concat(this.goals).ToList();
-        public List<IActionBase> GetActions() => this.actions;
-        public List<IGoalBase> GetGoals() => this.goals;
+        public List<IConnectable> GetAllNodes() => this.actions.Cast<IConnectable>().Concat(this.goals).ToList();
+        public List<IAction> GetActions() => this.actions;
+        public List<IGoal> GetGoals() => this.goals;
 
-        public AgentDebugGraph GetDebugGraph()
+        public IAgentDebugGraph GetDebugGraph()
         {
             return new AgentDebugGraph
             {

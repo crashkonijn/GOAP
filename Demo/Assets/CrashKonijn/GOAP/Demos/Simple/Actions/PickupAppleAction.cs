@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using Demos.Simple.Behaviours;
 
 namespace Demos.Simple.Actions
@@ -16,7 +16,7 @@ namespace Demos.Simple.Actions
         {
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.Target is not TransformTarget transformTarget)
                 return ActionRunState.Stop;

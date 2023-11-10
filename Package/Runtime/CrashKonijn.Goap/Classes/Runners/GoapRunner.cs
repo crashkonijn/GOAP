@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Resolver.Models;
 
@@ -64,7 +64,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             return (float) ((double)this.stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000);
         }
 
-        public Graph GetGraph(IAgentType agentType) => this.agentTypes[agentType].GetGraph();
+        public IGraph GetGraph(IAgentType agentType) => this.agentTypes[agentType].GetGraph();
         public bool Knows(IAgentType agentType) => this.agentTypes.ContainsKey(agentType);
         public IMonoAgent[] Agents => this.agentTypes.Keys.SelectMany(x => x.Agents.All()).ToArray();
 

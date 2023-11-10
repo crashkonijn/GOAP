@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,12 +13,12 @@ namespace CrashKonijn.Goap.Support.Loaders
     {
         public static Classes GetClasses(string nameSpace, string folder)
         {
-            var scripts = ClassScanner.GetDerivedClassNames(nameSpace, folder);
+            var scripts = GetDerivedClassNames(nameSpace, folder);
 
             return new Classes
             {
-                goals = scripts.Where(x => typeof(IGoalBase).IsAssignableFrom(x.type)).ToArray(),
-                actions = scripts.Where(x => typeof(IActionBase).IsAssignableFrom(x.type)).ToArray(),
+                goals = scripts.Where(x => typeof(IGoal).IsAssignableFrom(x.type)).ToArray(),
+                actions = scripts.Where(x => typeof(IAction).IsAssignableFrom(x.type)).ToArray(),
                 targetSensors = scripts.Where(x => typeof(ITargetSensor).IsAssignableFrom(x.type)).ToArray(),
                 worldSensors = scripts.Where(x => typeof(IWorldSensor).IsAssignableFrom(x.type)).ToArray(),
                 worldKeys = scripts.Where(x => typeof(ITargetKey).IsAssignableFrom(x.type)).ToArray(),

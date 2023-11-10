@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Linq;
 using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using ICondition = CrashKonijn.Goap.Resolver.Interfaces.ICondition;
-using IEffect = CrashKonijn.Goap.Resolver.Interfaces.IEffect;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Behaviours
 {
@@ -26,24 +23,24 @@ namespace CrashKonijn.Goap.Behaviours
         
         public abstract void Start(IMonoAgent agent, TActionData data);
 
-        public override ActionRunState Perform(IMonoAgent agent, IActionData data, ActionContext context) => this.Perform(agent, (TActionData) data, context);
+        public override ActionRunState Perform(IMonoAgent agent, IActionData data, IActionContext context) => this.Perform(agent, (TActionData) data, context);
 
-        public abstract ActionRunState Perform(IMonoAgent agent, TActionData data, ActionContext context);
+        public abstract ActionRunState Perform(IMonoAgent agent, TActionData data, IActionContext context);
 
         public override void End(IMonoAgent agent, IActionData data) => this.End(agent, (TActionData) data);
         
         public abstract void End(IMonoAgent agent, TActionData data);
     }
 
-    public abstract class ActionBase : IActionBase
+    public abstract class ActionBase : IAction
     {
         private IActionConfig config;
         
         public IActionConfig Config => this.config;
         
         public Guid Guid { get; } = Guid.NewGuid();
-        public IEffect[] Effects => this.config.Effects.Cast<IEffect>().ToArray();
-        public ICondition[] Conditions => this.config.Conditions.Cast<ICondition>().ToArray();
+        public IEffect[] Effects => this.config.Effects.ToArray();
+        public ICondition[] Conditions => this.config.Conditions.ToArray();
 
         public void SetConfig(IActionConfig config)
         {
@@ -70,7 +67,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         public abstract IActionData GetData();
         public abstract void Created();
-        public abstract ActionRunState Perform(IMonoAgent agent, IActionData data, ActionContext context);
+        public abstract ActionRunState Perform(IMonoAgent agent, IActionData data, IActionContext context);
         public abstract void Start(IMonoAgent agent, IActionData data);
         public abstract void End(IMonoAgent agent, IActionData data);
     }

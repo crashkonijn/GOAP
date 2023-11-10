@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Runners
 {
@@ -56,7 +56,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        public GlobalWorldData SenseGlobal()
+        public IGlobalWorldData SenseGlobal()
         {
             foreach (var globalWorldSensor in this.globalWorldSensors)
             {
@@ -71,7 +71,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             return this.worldData;
         }
 
-        public LocalWorldData SenseLocal(GlobalWorldData worldData, IMonoAgent agent)
+        public ILocalWorldData SenseLocal(IGlobalWorldData worldData, IMonoAgent agent)
         {
             this.localWorldData = (LocalWorldData) agent.WorldData;
 

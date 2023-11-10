@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;

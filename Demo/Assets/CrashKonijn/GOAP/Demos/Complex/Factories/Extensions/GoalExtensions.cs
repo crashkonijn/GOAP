@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Classes.Builders;
+using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Resolver;
 using Demos.Complex.Goals;
 using Demos.Complex.Interfaces;

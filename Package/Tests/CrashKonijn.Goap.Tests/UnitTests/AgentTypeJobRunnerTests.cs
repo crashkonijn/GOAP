@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.Runners;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Resolver.Interfaces;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
-using ICondition = CrashKonijn.Goap.Interfaces.ICondition;
+using ICondition = CrashKonijn.Goap.Core.Interfaces.ICondition;
 
 namespace CrashKonijn.Goap.UnitTests
 {
@@ -20,7 +20,7 @@ namespace CrashKonijn.Goap.UnitTests
             var sensorRunner = Substitute.For<ISensorRunner>();
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
-            agentType.GetAllNodes().Returns(new List<IAction>());
+            agentType.GetAllNodes().Returns(new List<IConnectable>());
             agentType.GoapConfig.Returns(GoapConfig.Default);
 
             var resolver = Substitute.For<IGraphResolver>();
@@ -42,7 +42,7 @@ namespace CrashKonijn.Goap.UnitTests
             var sensorRunner = Substitute.For<ISensorRunner>();
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
-            agentType.GetAllNodes().Returns(new List<IAction>());
+            agentType.GetAllNodes().Returns(new List<IConnectable>());
             agentType.GoapConfig.Returns(GoapConfig.Default);
             
             var resolver = Substitute.For<IGraphResolver>();
@@ -70,7 +70,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
-            agentType.GetAllNodes().Returns(new List<IAction> { });
+            agentType.GetAllNodes().Returns(new List<IConnectable> { });
             agentType.GoapConfig.Returns(GoapConfig.Default);
             
             var resolver = Substitute.For<IGraphResolver>();
@@ -90,8 +90,8 @@ namespace CrashKonijn.Goap.UnitTests
         public void Run_AgentHasCurrentGoalAndNoAction_Runs()
         {
             // Arrange
-            var goal = Substitute.For<IGoalBase>();
-            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            var goal = Substitute.For<IGoal>();
+            goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
@@ -101,9 +101,9 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
-            agentType.GetAllNodes().Returns(new List<IAction> { goal });
+            agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
             agentType.Agents.GetQueue().Returns(new []{ agent });
-            agentType.GetActions().Returns(new List<IActionBase>());
+            agentType.GetActions().Returns(new List<IAction>());
             
             var resolver = Substitute.For<IGraphResolver>();
             
@@ -122,20 +122,20 @@ namespace CrashKonijn.Goap.UnitTests
         public void Run_AgentHasCurrentGoalAndDoesHaveAction_Runs()
         {
             // Arrange
-            var goal = Substitute.For<IGoalBase>();
-            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            var goal = Substitute.For<IGoal>();
+            goal.Conditions.Returns(new []{ Substitute.For<ICondition>() });
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
-            agent.CurrentAction.Returns(Substitute.For<IActionBase>());
+            agent.CurrentAction.Returns(Substitute.For<IAction>());
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
-            agentType.GetAllNodes().Returns(new List<IAction> { goal });
+            agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
             agentType.Agents.GetQueue().Returns(new []{ agent });
-            agentType.GetActions().Returns(new List<IActionBase>());
+            agentType.GetActions().Returns(new List<IAction>());
             
             var resolver = Substitute.For<IGraphResolver>();
             
@@ -154,8 +154,8 @@ namespace CrashKonijn.Goap.UnitTests
         public void Run_AgentHasCompletedGoal_CallsGoalCompleteEvent()
         {
             // Arrange
-            var goal = Substitute.For<IGoalBase>();
-            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            var goal = Substitute.For<IGoal>();
+            goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
@@ -165,9 +165,9 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
-            agentType.GetAllNodes().Returns(new List<IAction> { goal });
+            agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
             agentType.Agents.GetQueue().Returns(new []{ agent });
-            agentType.GetActions().Returns(new List<IActionBase>());
+            agentType.GetActions().Returns(new List<IAction>());
 
             agentType.GoapConfig.ConditionObserver.IsMet(Arg.Any<ICondition>()).Returns(true);
             
@@ -189,8 +189,8 @@ namespace CrashKonijn.Goap.UnitTests
         public void Run_AgentHasNotCompletedGoal_DoesntCallGoalCompleteEvent()
         {
             // Arrange
-            var goal = Substitute.For<IGoalBase>();
-            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            var goal = Substitute.For<IGoal>();
+            goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
@@ -200,9 +200,9 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
-            agentType.GetAllNodes().Returns(new List<IAction> { goal });
+            agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
             agentType.Agents.GetQueue().Returns(new []{ agent });
-            agentType.GetActions().Returns(new List<IActionBase>());
+            agentType.GetActions().Returns(new List<IAction>());
 
             agentType.GoapConfig.ConditionObserver.IsMet(Arg.Any<ICondition>()).Returns(false);
             
@@ -224,10 +224,10 @@ namespace CrashKonijn.Goap.UnitTests
         public void Run_AgentHasCurrentGoalAndNoAction_SetsTheActionOnAgent()
         {
             // Arrange
-            var goal = Substitute.For<IGoalBase>();
-            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            var goal = Substitute.For<IGoal>();
+            goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
 
-            var action = Substitute.For<IActionBase>();
+            var action = Substitute.For<IAction>();
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
@@ -237,12 +237,12 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
-            agentType.GetAllNodes().Returns(new List<IAction> { goal });
+            agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
             agentType.Agents.GetQueue().Returns(new []{ agent });
-            agentType.GetActions().Returns(new List<IActionBase>());
+            agentType.GetActions().Returns(new List<IAction>());
 
             var handle = Substitute.For<IResolveHandle>();
-            handle.Complete().Returns(new IAction[] { action });
+            handle.Complete().Returns(new IConnectable[] { action });
             
             var resolver = Substitute.For<IGraphResolver>();
             resolver.StartResolve(Arg.Any<RunData>()).Returns(handle);
@@ -254,17 +254,17 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Complete();
             
             // Assert
-            agent.Received(1).SetAction(action, Arg.Any<List<IActionBase>>(), Arg.Any<ITarget>());
+            agent.Received(1).SetAction(action, Arg.Any<List<IAction>>(), Arg.Any<ITarget>());
         }
         
         [Test]
         public void Run_AgentHasCurrentGoalAndAction_ResolvingSameActionDoesntCallSet()
         {
             // Arrange
-            var goal = Substitute.For<IGoalBase>();
-            goal.Conditions.Returns(new CrashKonijn.Goap.Resolver.Interfaces.ICondition[] { Substitute.For<ICondition>() });
+            var goal = Substitute.For<IGoal>();
+            goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
 
-            var action = Substitute.For<IActionBase>();
+            var action = Substitute.For<IAction>();
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
@@ -274,12 +274,12 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
-            agentType.GetAllNodes().Returns(new List<IAction> { goal });
+            agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
             agentType.Agents.GetQueue().Returns(new []{ agent });
-            agentType.GetActions().Returns(new List<IActionBase>());
+            agentType.GetActions().Returns(new List<IAction>());
 
             var handle = Substitute.For<IResolveHandle>();
-            handle.Complete().Returns(new IAction[] { action });
+            handle.Complete().Returns(new IConnectable[] { action });
             
             var resolver = Substitute.For<IGraphResolver>();
             resolver.StartResolve(Arg.Any<RunData>()).Returns(handle);
@@ -291,7 +291,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Complete();
             
             // Assert
-            agent.Received(0).SetAction(Arg.Any<IActionBase>(), Arg.Any<List<IActionBase>>(), Arg.Any<ITarget>());
+            agent.Received(0).SetAction(Arg.Any<IAction>(), Arg.Any<List<IAction>>(), Arg.Any<ITarget>());
         }
     }
 }

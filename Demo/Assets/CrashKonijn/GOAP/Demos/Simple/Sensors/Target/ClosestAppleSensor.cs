@@ -1,6 +1,6 @@
 ﻿using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Sensors;
 using Demos.Simple.Behaviours;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace Demos.Simple.Sensors.Target
 
         public override void Created()
         {
-            this.apples = GameObject.FindObjectOfType<AppleCollection>();
+            this.apples = Object.FindObjectOfType<AppleCollection>();
         }
 
         public override void Update()

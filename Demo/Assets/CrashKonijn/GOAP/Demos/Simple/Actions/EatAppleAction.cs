@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using Demos.Shared.Behaviours;
 using Demos.Simple.Behaviours;
 using UnityEngine;
@@ -25,7 +25,7 @@ namespace Demos.Simple.Actions
             data.Hunger = agent.GetComponent<HungerBehaviour>();
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.Apple == null || data.Hunger == null)
                 return ActionRunState.Stop;
@@ -36,7 +36,7 @@ namespace Demos.Simple.Actions
             data.Hunger.hunger -= eatNutrition;
             
             if (data.Apple.nutritionValue <= 0)
-                GameObject.Destroy(data.Apple.gameObject);
+                Object.Destroy(data.Apple.gameObject);
             
             return ActionRunState.Continue;
         }

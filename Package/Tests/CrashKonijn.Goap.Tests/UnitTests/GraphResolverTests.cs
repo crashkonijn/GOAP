@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.UnitTests.Data;
@@ -13,7 +14,7 @@ namespace CrashKonijn.Goap.UnitTests
 {
     public class GraphResolverTests
     {
-        private class TestAction : IAction
+        private class TestAction : IConnectable
         {
             public string Name { get; }
             public Guid Guid { get; } = Guid.NewGuid();
@@ -67,7 +68,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Effects = new IEffect[] { connection }
             };
             
-            var actions = new IAction[] { goal, action };
+            var actions = new IConnectable[] { goal, action };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             // Act
@@ -114,7 +115,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Effects = new IEffect[] { connection }
             };
             
-            var actions = new IAction[] { goal, firstAction, secondAction, thirdAction };
+            var actions = new IConnectable[] { goal, firstAction, secondAction, thirdAction };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             // Act
@@ -169,7 +170,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Effects = new IEffect[] { connection3 }
             };
             
-            var actions = new IAction[] { goal, action1, action2, action11, action22 };
+            var actions = new IConnectable[] { goal, action1, action2, action11, action22 };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             var executableBuilder = resolver.GetExecutableBuilder();
             var conditionBuilder = resolver.GetConditionBuilder();
@@ -230,7 +231,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Conditions = new ICondition[] { connection2 }
             };
             
-            var actions = new IAction[] { goal, action1, action2, action11, action111 };
+            var actions = new IConnectable[] { goal, action1, action2, action11, action111 };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             var executableBuilder = resolver.GetExecutableBuilder();
@@ -305,7 +306,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Conditions = new ICondition[] { connection2 }
             };
             
-            var actions = new IAction[] { goal, action1, action2, action11, action111 };
+            var actions = new IConnectable[] { goal, action1, action2, action11, action111 };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             var executableBuilder = resolver.GetExecutableBuilder();
@@ -373,7 +374,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Effects = new IEffect[] { longConnection },
             };
             
-            var actions = new IAction[] { goal, rootAction, closeAction, farAction };
+            var actions = new IConnectable[] { goal, rootAction, closeAction, farAction };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             // Far action: cost 1, distance 2 (10 * 0.2f) = 3
@@ -451,7 +452,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Effects = new IEffect[] { incompleteConnection },
             };
             
-            var actions = new IAction[] { goal, rootAction, completedAction, incompleteAction };
+            var actions = new IConnectable[] { goal, rootAction, completedAction, incompleteAction };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             var executableBuilder = resolver.GetExecutableBuilder();
@@ -514,7 +515,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Effects = new IEffect[] { availableConnection },
             };
             
-            var actions = new IAction[] { goal, expensiveAction, unavailableAction, shouldNotResolveAction };
+            var actions = new IConnectable[] { goal, expensiveAction, unavailableAction, shouldNotResolveAction };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             var executableBuilder = resolver.GetExecutableBuilder();

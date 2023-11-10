@@ -1,9 +1,7 @@
 {
     "name": "CrashKonijn.Goap.Core",
     "rootNamespace": "CrashKonijn.Goap.Core",
-    "references": [
-        "GUID:6eb7f39de256eea4bb8708df2c32e1ba"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -1,4 +1,4 @@
-﻿using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Core.Interfaces;
 using Demos.Complex.Behaviours;
 using Demos.Complex.Interfaces;
 using UnityEngine;
@@ -11,13 +11,13 @@ namespace Demos.Complex.Goap
         public ItemCollection itemCollection;
         public InstanceHandler instanceHandler;
         
-        public void Inject(IActionBase action)
+        public void Inject(IAction action)
         {
             if (action is IInjectable injectable)
                 injectable.Inject(this);
         }
 
-        public void Inject(IGoalBase goal)
+        public void Inject(IGoal goal)
         {
         }
 

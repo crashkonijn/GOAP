@@ -2,7 +2,7 @@
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Sensors;
 using Demos.Complex.Behaviours;
 using Demos.Complex.Interfaces;
@@ -18,7 +18,7 @@ namespace Demos.Complex.Sensors.Target
 
         public override void Created()
         {
-            this.collection = GameObject.FindObjectOfType<ItemCollection>();
+            this.collection = Object.FindObjectOfType<ItemCollection>();
         }
 
         public override void Update()
