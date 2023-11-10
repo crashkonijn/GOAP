@@ -1,8 +1,8 @@
 {
   "MonoBehaviour": {
     "Version": 4,
-    "EnableBurstCompilation": false,
-    "EnableOptimisations": false,
+    "EnableBurstCompilation": true,
+    "EnableOptimisations": true,
     "EnableSafetyChecks": false,
     "EnableDebugInAllBuilds": false,
     "EnableArmv9SecurityFeatures": false,
