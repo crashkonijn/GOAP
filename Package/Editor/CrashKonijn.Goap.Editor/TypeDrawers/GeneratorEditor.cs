@@ -1,5 +1,8 @@
 ﻿using System;
 using CrashKonijn.Goap.Generators;
+using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Support.Generators;
+using CrashKonijn.Goap.Support.Loaders;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -42,6 +45,50 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             });
             button.Add(new Label($"Generate"));
             root.Add(button);
+
+
+            var check = new Button(() =>
+            {
+                var classes = ClassScanner.GetClasses("CrashKonijn.Goap.GenTest", "Assets/GenTests");
+
+                Debug.Log("---Goals---");
+                foreach (var script in classes.goals)
+                {
+                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                }
+
+                Debug.Log("---Actions---");
+                foreach (var script in classes.actions)
+                {
+                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                }
+
+                Debug.Log("---WorldKeys---");
+                foreach (var script in classes.worldKeys)
+                {
+                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                }
+
+                Debug.Log("---WorldSensors---");
+                foreach (var script in classes.worldSensors)
+                {
+                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                }
+
+                Debug.Log("---TargetKeys---");
+                foreach (var script in classes.targetKeys)
+                {
+                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                }
+
+                Debug.Log("---TargetSensors---");
+                foreach (var script in classes.targetSensors)
+                {
+                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                }
+            });
+            check.Add(new Label("Check"));
+            root.Add(check);
 
             return root;
         }

@@ -2,12 +2,12 @@
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Attributes.Ids;
+using CrashKonijn.Goap.Attributes;
 using UnityEngine;
 
 namespace {{namespace}}
 {
-    [ActionId("{{id}}")]
+    [GoapId("{{id}}")]
     public class {{name}}Action : ActionBase<{{name}}Action.Data>
     {
         public override void Created()

@@ -1,7 +1,8 @@
 ﻿using System.IO;
+using CrashKonijn.Goap.Generators;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Generators
+namespace CrashKonijn.Goap.Support.Generators
 {
     [CreateAssetMenu(menuName = "Goap/Generator")]
     public class GeneratorScriptable : ScriptableObject

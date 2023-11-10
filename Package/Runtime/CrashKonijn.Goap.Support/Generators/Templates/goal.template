@@ -1,9 +1,9 @@
 ﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Attributes.Ids;
+using CrashKonijn.Goap.Attributes;
 
 namespace {{namespace}}
 {
-    [GoalId("{{id}}")]
+    [GoapId("{{id}}")]
     public class {{name}}Goal : GoalBase
     {
     }
