@@ -51,14 +51,14 @@ jobs:
           artifactsPath: ${{ matrix.testMode }}-artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.testMode }} Test Results
-          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport'
+#          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport'
       - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: Coverage results for ${{ matrix.testMode }}
-          path: ${{ steps.tests.outputs.coveragePath }}
+#      - uses: actions/upload-artifact@v3
+#        if: always()
+#        with:
+#          name: Coverage results for ${{ matrix.testMode }}
+#          path: ${{ steps.tests.outputs.coveragePath }}
