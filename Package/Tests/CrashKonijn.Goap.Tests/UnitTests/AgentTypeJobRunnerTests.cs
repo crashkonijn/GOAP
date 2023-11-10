@@ -82,7 +82,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(0).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            sensorRunner.Received(0).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
             resolver.Received(0).StartResolve(Arg.Any<RunData>());
         }
 
@@ -114,7 +114,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            sensorRunner.Received(1).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
         
@@ -146,7 +146,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            sensorRunner.Received(1).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
 
@@ -180,7 +180,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            sensorRunner.Received(1).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
             resolver.Received(0).StartResolve(Arg.Any<RunData>());
             agent.Events.Received(1).GoalCompleted(agent.CurrentGoal);
         }
@@ -215,7 +215,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(Arg.Any<GlobalWorldData>(), agent);
+            sensorRunner.Received(1).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
             agent.Events.Received(0).GoalCompleted(agent.CurrentGoal);
         }
