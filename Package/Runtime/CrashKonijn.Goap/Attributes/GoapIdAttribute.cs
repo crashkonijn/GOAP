@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace CrashKonijn.Goap.Attributes.Ids
+namespace CrashKonijn.Goap.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
-    public class SensorIdAttribute : Attribute
+    public class GoapIdAttribute : Attribute
     {
         public readonly string Id;
         
-        public SensorIdAttribute(string id)
+        public GoapIdAttribute(string id)
         {
             this.Id = id;
         }

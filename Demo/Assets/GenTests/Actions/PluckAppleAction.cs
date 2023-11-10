@@ -1,13 +1,13 @@
+using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Attributes.Ids;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.GenTest
 {
-    [ActionId("PluckApple-918c6789-79ee-4198-a6d8-dab401447fd7")]
+    [GoapId("PluckApple-918c6789-79ee-4198-a6d8-dab401447fd7")]
     public class PluckAppleAction : ActionBase<PluckAppleAction.Data>
     {
         public override void Created()
