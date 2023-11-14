@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
-using CrashKonijn.Goap.Behaviours;
+﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Core.Interfaces;
-using Demos.Complex.Classes;
+using CrashKonijn.Goap.Demos.Complex.Classes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class AgentSpawnBehaviour : MonoBehaviour
     {

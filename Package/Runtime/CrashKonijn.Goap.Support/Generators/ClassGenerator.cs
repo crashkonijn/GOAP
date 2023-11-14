@@ -17,6 +17,9 @@ namespace CrashKonijn.Goap.Generators
 
         public void CreateTargetKey(string basePath, string name, string namespaceName)
         {
+            if (name == String.Empty)
+                return;
+            
             var template = this.LoadTemplate("target-key");
             var id = this.GetId(name);
             
@@ -26,6 +29,9 @@ namespace CrashKonijn.Goap.Generators
 
         public void CreateWorldKey(string basePath, string name, string namespaceName)
         {
+            if (name == String.Empty)
+                return;
+
             var template = this.LoadTemplate("world-key");
             var id = this.GetId(name);
             
@@ -37,6 +43,10 @@ namespace CrashKonijn.Goap.Generators
         {
             var template = this.LoadTemplate("goal");
             name = name.Replace("Goal", "");
+
+            if (name == String.Empty)
+                return;
+            
             var id = this.GetId(name);
             
             var result = this.Replace(template, id, name, namespaceName);
@@ -47,6 +57,10 @@ namespace CrashKonijn.Goap.Generators
         {
             var template = this.LoadTemplate("action");
             name = name.Replace("Action", "");
+
+            if (name == String.Empty)
+                return;
+            
             var id = this.GetId(name);
             
             var result = this.Replace(template, id, name, namespaceName);
@@ -70,6 +84,9 @@ namespace CrashKonijn.Goap.Generators
         private void StoreAtPath(string content, string path)
         {
             this.EnsureDirectoryExists(Path.GetDirectoryName(path));
+
+            if (File.Exists(path))
+                return;
             
             File.WriteAllText(path, content);
         }

@@ -1,9 +1,9 @@
 ﻿using CrashKonijn.Goap.Core.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Goap
+namespace CrashKonijn.Goap.Demos.Complex.Goap
 {
     public class GoapInjector : MonoBehaviour, IGoapInjector
     {

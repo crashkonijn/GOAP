@@ -1,10 +1,9 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core;
+﻿using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Sensors;
-using Demos.Complex.Behaviours;
 using UnityEngine;
 
-namespace Demos.Complex.Sensors.World
+namespace CrashKonijn.Goap.Demos.Complex.Sensors.World
 {
     public class ItemOnFloorSensor : GlobalWorldSensorBase
     {

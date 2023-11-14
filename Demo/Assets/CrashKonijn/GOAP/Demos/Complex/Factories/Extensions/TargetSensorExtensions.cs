@@ -1,13 +1,10 @@
 ﻿using CrashKonijn.Goap.Classes.Builders;
-using Demos.Complex.Classes;
-using Demos.Complex.Interfaces;
-using Demos.Complex.Sensors.Target;
-using Demos.Complex.Targets;
-using Demos.Shared.Sensors.Target;
-using Demos.Simple.Sensors.Target;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Sensors.Target;
+using CrashKonijn.Goap.Demos.Complex.Targets;
 using UnityEngine;
 
-namespace Demos.Complex.Factories.Extensions
+namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
 {
     public static class TargetSensorExtensions
     {

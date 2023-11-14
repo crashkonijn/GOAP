@@ -12,7 +12,7 @@ namespace CrashKonijn.Goap.Scriptables
         [ActionDebuggerClass]
         public string debuggerClass;
         
-        public List<BehaviourConfigScriptable> behaviours = new();
+        public List<CapabilityConfigScriptable> behaviours = new();
 
         public string Name => this.name;
         public List<IActionConfig> Actions => new();

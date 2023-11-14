@@ -1,9 +1,9 @@
 ﻿using CrashKonijn.Goap.Classes.Builders;
-using Demos.Complex.Interfaces;
-using Demos.Complex.Sensors.World;
-using Demos.Complex.WorldKeys;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Sensors.World;
+using CrashKonijn.Goap.Demos.Complex.WorldKeys;
 
-namespace Demos.Complex.Factories.Extensions
+namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
 {
     public static class WorldSensorExtensions
     {

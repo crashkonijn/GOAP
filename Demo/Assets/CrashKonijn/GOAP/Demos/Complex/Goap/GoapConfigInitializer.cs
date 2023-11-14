@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 
-namespace Demos.Complex.Goap
+namespace CrashKonijn.Goap.Demos.Complex.Goap
 {
     public class GoapConfigInitializer : GoapConfigInitializerBase
     {

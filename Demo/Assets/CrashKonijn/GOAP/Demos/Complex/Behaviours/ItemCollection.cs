@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class ItemCollection : MonoBehaviour
     {

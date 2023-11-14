@@ -1,14 +1,13 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.Builders;
 using CrashKonijn.Goap.Core.Interfaces;
-using Demos.Complex.Classes;
-using Demos.Complex.Classes.Items;
-using Demos.Complex.Classes.Sources;
-using Demos.Complex.Factories.Extensions;
-using Demos.Complex.Interfaces;
-using Demos.Shared;
+using CrashKonijn.Goap.Demos.Complex.Classes;
+using CrashKonijn.Goap.Demos.Complex.Classes.Items;
+using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
+using CrashKonijn.Goap.Demos.Complex.Factories.Extensions;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
-namespace Demos.Complex.Factories
+namespace CrashKonijn.Goap.Demos.Complex.Factories
 {
     public class SmithAgentTypeConfigFactory : AgentTypeFactoryBase
     {

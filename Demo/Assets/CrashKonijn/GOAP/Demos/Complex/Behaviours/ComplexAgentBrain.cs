@@ -1,12 +1,10 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Core.Interfaces;
-using Demos.Complex.Classes.Items;
-using Demos.Complex.Goals;
-using Demos.Shared.Behaviours;
-using Demos.Shared.Goals;
+using CrashKonijn.Goap.Demos.Complex.Classes.Items;
+using CrashKonijn.Goap.Demos.Complex.Goals;
 using UnityEngine;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class ComplexAgentBrain : MonoBehaviour
     {

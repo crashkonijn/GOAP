@@ -1,17 +1,15 @@
 ﻿using System;
 using CrashKonijn.Goap.Classes.Builders;
 using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Resolver;
-using Demos.Complex.Actions;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Classes.Items;
-using Demos.Complex.Classes.Sources;
-using Demos.Complex.Interfaces;
-using Demos.Complex.Targets;
-using Demos.Complex.WorldKeys;
-using Demos.Shared.Actions;
+using CrashKonijn.Goap.Demos.Complex.Actions;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Classes.Items;
+using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Targets;
+using CrashKonijn.Goap.Demos.Complex.WorldKeys;
 
-namespace Demos.Complex.Factories.Extensions
+namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
 {
     public static class ActionExtensions
     {

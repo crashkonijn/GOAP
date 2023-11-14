@@ -4,13 +4,13 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Classes.Sources;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
+using CrashKonijn.Goap.Demos.Complex.Goap;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
     public class HaulItemAction : ActionBase<HaulItemAction.Data>, IInjectable
     {

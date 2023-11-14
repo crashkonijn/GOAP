@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Demos.Complex.Classes.Sources
+namespace CrashKonijn.Goap.Demos.Complex.Classes.Sources
 {
     public class AnvilSource : MonoBehaviour
     {

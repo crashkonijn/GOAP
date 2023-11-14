@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace Demos.Simple.Behaviours
+namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class SettingsBehaviour : MonoBehaviour
     {

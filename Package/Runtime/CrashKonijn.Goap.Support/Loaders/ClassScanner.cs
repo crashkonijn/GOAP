@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Support.Generators;
 using UnityEditor;
 using UnityEngine;
 
@@ -64,6 +65,20 @@ namespace CrashKonijn.Goap.Support.Loaders
             }
 
             return classNames;
+        }
+
+        public static GeneratorScriptable GetGenerator(string nameSpace)
+        {
+            return GetGenerators().First(x => x.nameSpace == nameSpace);
+        }
+
+        public static GeneratorScriptable[] GetGenerators()
+        {
+            var assets = AssetDatabase.FindAssets($"t:{nameof(GeneratorScriptable)}");
+
+            var generators = assets.Select(AssetDatabase.LoadAssetAtPath<GeneratorScriptable>);
+
+            return generators.ToArray();
         }
     }
 

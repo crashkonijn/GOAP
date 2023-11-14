@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Demos.Simple.Behaviours
+namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class InventoryBehaviour : MonoBehaviour
     {

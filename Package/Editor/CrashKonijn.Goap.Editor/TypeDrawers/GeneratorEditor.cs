@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO;
 using CrashKonijn.Goap.Generators;
 using CrashKonijn.Goap.Scriptables;
 using CrashKonijn.Goap.Support.Generators;
 using CrashKonijn.Goap.Support.Loaders;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,6 +19,8 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             var scriptable = (GeneratorScriptable) this.target;
             
             var root = new VisualElement();
+
+            root.Add(new PropertyField(this.serializedObject.FindProperty("nameSpace")));
             
             var goals = this.CreateTextField(root, "Goals");
             var actions = this.CreateTextField(root, "Actions");
@@ -49,7 +53,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
 
             var check = new Button(() =>
             {
-                var classes = ClassScanner.GetClasses("CrashKonijn.Goap.GenTest", "Assets/GenTests");
+                var classes = ClassScanner.GetClasses(scriptable.nameSpace, Path.GetDirectoryName(AssetDatabase.GetAssetPath(scriptable)));
 
                 Debug.Log("---Goals---");
                 foreach (var script in classes.goals)

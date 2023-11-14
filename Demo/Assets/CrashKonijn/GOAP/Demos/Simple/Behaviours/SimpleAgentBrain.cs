@@ -1,9 +1,8 @@
 ﻿using CrashKonijn.Goap.Behaviours;
-using Demos.Shared.Behaviours;
-using Demos.Shared.Goals;
+using CrashKonijn.Goap.Demos.Simple.Goap.Goals;
 using UnityEngine;
 
-namespace Demos.Simple.Behaviours
+namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class SimpleAgentBrain : MonoBehaviour
     {

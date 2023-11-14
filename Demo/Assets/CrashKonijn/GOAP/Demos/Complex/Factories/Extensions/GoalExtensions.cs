@@ -1,12 +1,10 @@
 ﻿using CrashKonijn.Goap.Classes.Builders;
 using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Resolver;
-using Demos.Complex.Goals;
-using Demos.Complex.Interfaces;
-using Demos.Complex.WorldKeys;
-using Demos.Shared.Goals;
+using CrashKonijn.Goap.Demos.Complex.Goals;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.WorldKeys;
 
-namespace Demos.Complex.Factories.Extensions
+namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
 {
     public static class GoalExtensions
     {
