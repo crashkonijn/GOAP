@@ -1,9 +1,7 @@
 ﻿
 namespace CrashKonijn.Goap.Core.Interfaces
 {
-    public interface ILocalWorldSensor : IWorldSensor
+    public interface ILocalWorldSensor : IWorldSensor, ILocalSensor
     {
-        public void Update();
-        public SenseValue Sense(IMonoAgent agent, IComponentReference references);
     }
 }

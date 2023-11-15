@@ -8,6 +8,11 @@ namespace CrashKonijn.Goap.Support.Generators
     {
         public static ClassRefStatus GetStatus(this ClassRef classRef, Script[] scripts)
         {
+            if (classRef.name == "" && classRef.id == "")
+            {
+                return ClassRefStatus.None;
+            }
+            
             // Full match
             if (scripts.Any(x => x.id == classRef.id && x.type.Name == classRef.name))
             {

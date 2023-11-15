@@ -55,5 +55,6 @@ namespace CrashKonijn.Goap.Support.Generators
         public Script[] GetWorldKeys() => this.GetClasses().worldKeys;
         public Script[] GetTargetSensors() => this.GetClasses().targetSensors;
         public Script[] GetWorldSensors() => this.GetClasses().worldSensors;
+        public Script[] GetMultiSensors() => this.GetClasses().multiSensors;
     }
 }

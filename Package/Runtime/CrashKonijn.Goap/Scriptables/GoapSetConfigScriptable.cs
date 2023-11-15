@@ -23,6 +23,7 @@ namespace CrashKonijn.Goap.Scriptables
         public List<IGoalConfig> Goals => this.goals.Cast<IGoalConfig>().ToList();
         public List<ITargetSensorConfig> TargetSensors => this.targetSensors.Cast<ITargetSensorConfig>().ToList();
         public List<IWorldSensorConfig> WorldSensors => this.worldSensors.Cast<IWorldSensorConfig>().ToList();
+        public List<IMultiSensorConfig> MultiSensors { get; set; }
         public string DebuggerClass => this.debuggerClass;
     }
 }

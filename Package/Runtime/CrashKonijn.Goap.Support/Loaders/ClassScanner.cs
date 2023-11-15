@@ -23,6 +23,7 @@ namespace CrashKonijn.Goap.Support.Loaders
                 actions = scripts.Where(x => typeof(IAction).IsAssignableFrom(x.type)).ToArray(),
                 targetSensors = scripts.Where(x => typeof(ITargetSensor).IsAssignableFrom(x.type)).ToArray(),
                 worldSensors = scripts.Where(x => typeof(IWorldSensor).IsAssignableFrom(x.type)).ToArray(),
+                multiSensors = scripts.Where(x => typeof(IMultiSensor).IsAssignableFrom(x.type)).ToArray(),
                 worldKeys = scripts.Where(x => typeof(IWorldKey).IsAssignableFrom(x.type)).ToArray(),
                 targetKeys = scripts.Where(x => typeof(ITargetKey).IsAssignableFrom(x.type)).ToArray(),
             };
@@ -114,5 +115,6 @@ namespace CrashKonijn.Goap.Support.Loaders
         public Script[] worldKeys;
         public Script[] targetSensors;
         public Script[] targetKeys;
+        public Script[] multiSensors;
     }
 }

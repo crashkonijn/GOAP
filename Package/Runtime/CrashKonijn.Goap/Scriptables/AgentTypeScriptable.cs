@@ -19,6 +19,7 @@ namespace CrashKonijn.Goap.Scriptables
         public List<IGoalConfig> Goals => new();
         public List<ITargetSensorConfig> TargetSensors => new();
         public List<IWorldSensorConfig> WorldSensors => new();
+        public List<IMultiSensorConfig> MultiSensors { get; set; }
         public string DebuggerClass => this.debuggerClass;
     }
 }
