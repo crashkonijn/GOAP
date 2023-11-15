@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using CrashKonijn.Goap.Attributes;
@@ -22,8 +23,8 @@ namespace CrashKonijn.Goap.Support.Loaders
                 actions = scripts.Where(x => typeof(IAction).IsAssignableFrom(x.type)).ToArray(),
                 targetSensors = scripts.Where(x => typeof(ITargetSensor).IsAssignableFrom(x.type)).ToArray(),
                 worldSensors = scripts.Where(x => typeof(IWorldSensor).IsAssignableFrom(x.type)).ToArray(),
-                worldKeys = scripts.Where(x => typeof(ITargetKey).IsAssignableFrom(x.type)).ToArray(),
-                targetKeys = scripts.Where(x => typeof(IWorldKey).IsAssignableFrom(x.type)).ToArray(),
+                worldKeys = scripts.Where(x => typeof(IWorldKey).IsAssignableFrom(x.type)).ToArray(),
+                targetKeys = scripts.Where(x => typeof(ITargetKey).IsAssignableFrom(x.type)).ToArray(),
             };
         }
         
@@ -67,6 +68,22 @@ namespace CrashKonijn.Goap.Support.Loaders
             return classNames;
         }
 
+        public static GeneratorScriptable GetGenerator(ScriptableObject scriptable)
+        {
+            var path = Path.GetDirectoryName(AssetDatabase.GetAssetPath(scriptable));
+            var generators = GetGenerators();
+            
+            foreach (var generator in generators)
+            {
+                if (path.StartsWith(Path.GetDirectoryName(AssetDatabase.GetAssetPath(generator))))
+                {
+                    return generator;
+                }
+            }
+
+            return null;
+        }
+
         public static GeneratorScriptable GetGenerator(string nameSpace)
         {
             return GetGenerators().First(x => x.nameSpace == nameSpace);
@@ -75,8 +92,8 @@ namespace CrashKonijn.Goap.Support.Loaders
         public static GeneratorScriptable[] GetGenerators()
         {
             var assets = AssetDatabase.FindAssets($"t:{nameof(GeneratorScriptable)}");
-
-            var generators = assets.Select(AssetDatabase.LoadAssetAtPath<GeneratorScriptable>);
+            
+            var generators = assets.Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<GeneratorScriptable>);
 
             return generators.ToArray();
         }

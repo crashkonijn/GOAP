@@ -8,8 +8,6 @@ namespace CrashKonijn.Goap.Scriptables
     [CreateAssetMenu(menuName = "Goap/CapabilityConfig")]
     public class CapabilityConfigScriptable : ScriptableObject
     {
-        public List<ClassRef> ids = new();
-        
         public List<BehaviourGoal> goals = new();
         public List<BehaviourAction> actions = new();
         public List<BehaviourWorldSensorConfig> worldSensors = new();
@@ -19,7 +17,7 @@ namespace CrashKonijn.Goap.Scriptables
     [Serializable]
     public class BehaviourGoal
     {
-        public string name;
+        public ClassRef goal = new();
         
         public List<BehaviourCondition> conditions = new();
     }
@@ -27,13 +25,13 @@ namespace CrashKonijn.Goap.Scriptables
     [Serializable]
     public class BehaviourAction
     {
-        public string name;
+        public ClassRef action = new();
         public int baseCost = 1;
-        public string target;
+        public ClassRef target = new();
         public float inRange = 0.1f;
         public ActionMoveMode moveMode;
-        public List<BehaviourCondition> conditions;
-        public List<BehaviourEffect> effects;
+        public List<BehaviourCondition> conditions = new();
+        public List<BehaviourEffect> effects = new();
     }
     
     [Serializable]
@@ -41,19 +39,24 @@ namespace CrashKonijn.Goap.Scriptables
     {
         // public string name => this.ToString();
         
-        public string worldKey;
+        public ClassRef worldKey = new();
         public Comparison comparison;
         public int amount;
+
+        public BehaviourCondition()
+        {
+            
+        }
         
         public BehaviourCondition(string data)
         {
             var split = data.Split(' ');
-            this.worldKey = split[0];
+            this.worldKey.name = split[0];
             this.comparison = split[1].FromName();
             this.amount = int.Parse(split[2]);
         }
 
-        public override string ToString() => $"{this.worldKey} {this.comparison.ToName()} {this.amount}";
+        public override string ToString() => $"{this.worldKey.name} {this.comparison.ToName()} {this.amount}";
     }
     
     [Serializable]
@@ -61,10 +64,10 @@ namespace CrashKonijn.Goap.Scriptables
     {
         // public string name => this.ToString();
         
-        public string worldKey;
+        public ClassRef worldKey = new();
         public EffectType effect;
 
-        public override string ToString() => $"{this.worldKey}{this.effect.ToName()}";
+        public override string ToString() => $"{this.worldKey.name}{this.effect.ToName()}";
     }
 
     [Serializable]
@@ -86,5 +89,15 @@ namespace CrashKonijn.Goap.Scriptables
     {
         public string name;
         public string id;
+        
+
+    }
+    
+    public enum ClassRefStatus
+    {
+        None,
+        Name,
+        Id,
+        Full
     }
 }

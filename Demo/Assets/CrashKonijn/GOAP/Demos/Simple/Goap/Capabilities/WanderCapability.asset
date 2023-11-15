@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
   m_Name: WanderCapability
   m_EditorClassIdentifier: 
-  goals:
-  - name: WanderCapability
-    conditions: []
+  goals: []
   actions: []
-  worldSensors:
-  - name: 
-    worldKey: 
-  targetSensors:
-  - name: 
-    targetKey: 
+  worldSensors: []
+  targetSensors: []

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using CrashKonijn.Goap.Generators;
+using CrashKonijn.Goap.Support.Loaders;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Support.Generators
@@ -44,5 +45,15 @@ namespace CrashKonijn.Goap.Support.Generators
             
             generator.CreateWorldKey(assetPath, name, this.nameSpace);
         }
+
+        public Loaders.Classes GetClasses() => ClassScanner.GetClasses(this.nameSpace,
+            Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this)));
+
+        public Script[] GetActions() => this.GetClasses().actions;
+        public Script[] GetGoals() => this.GetClasses().goals;
+        public Script[] GetTargetKeys() => this.GetClasses().targetKeys;
+        public Script[] GetWorldKeys() => this.GetClasses().worldKeys;
+        public Script[] GetTargetSensors() => this.GetClasses().targetSensors;
+        public Script[] GetWorldSensors() => this.GetClasses().worldSensors;
     }
 }
