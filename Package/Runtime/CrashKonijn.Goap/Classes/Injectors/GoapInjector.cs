@@ -1,14 +1,14 @@
-﻿using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Injectors
 {
     public class GoapInjector : IGoapInjector
     {
-        public void Inject(IActionBase action)
+        public void Inject(IAction action)
         {
         }
 
-        public void Inject(IGoalBase goal)
+        public void Inject(IGoal goal)
         {
         }
 

@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Classes.Validators;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Editor.Classes;
-using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using UnityEngine.UIElements;
 
@@ -34,8 +35,8 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
                 this.AddToClassList(this.GetClass(node, agent));
                 
                 root.Clear();
-                this.RenderAction(root, agent, node.Node.Action as IActionBase);
-                this.RenderGoal(root, agent, node.Node.Action as IGoalBase);
+                this.RenderAction(root, agent, node.Node.Action as IAction);
+                this.RenderGoal(root, agent, node.Node.Action as IGoal);
             }).Every(500);
         }
 
@@ -53,12 +54,12 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             return "node-viewer__node--normal";
         }
 
-        private void RenderGoal(VisualElement root, IAgent agent, IGoalBase goal)
+        private void RenderGoal(VisualElement root, IAgent agent, IGoal goal)
         {
             if (goal == null)
                 return;
 
-            var conditionObserver = agent.GoapSet.GoapConfig.ConditionObserver;
+            var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
 
             var conditions = goal.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));
@@ -68,7 +69,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             root.Add(new Label(text));
         }
 
-        private void RenderAction(VisualElement root, IAgent agent, IActionBase action)
+        private void RenderAction(VisualElement root, IAgent agent, IAction action)
         {
             if (action == null)
                 return;
@@ -76,7 +77,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             if (agent.WorldData == null)
                 return;
 
-            var conditionObserver = agent.GoapSet.GoapConfig.ConditionObserver;
+            var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
 
             var conditions = action.Conditions.Select(x => this.GetText(x as ICondition, conditionObserver.IsMet(x)));
@@ -100,7 +101,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
         {
             var color = value ? "green" : "red";
 
-            return $"    <color={color}>{condition.WorldKey.Name} {GetText(condition.Comparison)} {condition.Amount}</color>";
+            return $"    <color={color}>{condition.WorldKey.Name} {this.GetText(condition.Comparison)} {condition.Amount}</color>";
         }
 
         private string GetText(IEffect effect)

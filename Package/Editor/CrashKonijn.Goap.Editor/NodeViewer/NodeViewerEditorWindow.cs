@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Editor.Classes;
 using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
-using CrashKonijn.Goap.Interfaces;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -15,7 +15,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
     public class NodeViewerEditorWindow : EditorWindow
     {
         private IGoapRunner runner;
-        private IGoapSet goapSet;
+        private IAgentType agentType;
         private AgentBehaviour agent;
         private List<AgentBehaviour> agents = new();
         private VisualElement leftPanel;
@@ -142,7 +142,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
         private VisualElement GetGraphElement()
         {
-            var graph = this.runner.GetGraph(this.goapSet).ToPublic();
+            var graph = this.runner.GetGraph(this.agentType).ToPublic();
 
             var element = new VisualElement();
             var widthOffset = 0f;
@@ -219,7 +219,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 return;
                 
             this.agent = agent;
-            this.goapSet = this.agent.GoapSet;
+            this.agentType = this.agent.AgentType;
             this.RenderGraph();
         }
         
@@ -233,7 +233,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             if (this.agent == null)
                 return;
             
-            if (!this.runner.Knows(this.goapSet))
+            if (!this.runner.Knows(this.agentType))
                 return;
 
             this.nodesDrawer = this.GetGraphElement();
@@ -244,7 +244,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
             this.floatData.Add(new WorldDataDrawer(this.agent.WorldData));
             this.floatData.Add(new ActionDataDrawer(this.agent));
-            this.floatData.Add(new AgentDataDrawer(this.agent, this.goapSet.Debugger));
+            this.floatData.Add(new AgentDataDrawer(this.agent, this.agentType.Debugger));
         }
     }
 }

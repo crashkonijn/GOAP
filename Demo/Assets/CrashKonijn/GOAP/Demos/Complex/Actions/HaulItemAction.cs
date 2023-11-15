@@ -2,15 +2,15 @@
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Classes.Sources;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
+using CrashKonijn.Goap.Demos.Complex.Goap;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
     public class HaulItemAction : ActionBase<HaulItemAction.Data>, IInjectable
     {
@@ -39,7 +39,7 @@ namespace Demos.Complex.Actions
             data.Timer = 0.5f;
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.Item is null)
                 return ActionRunState.Stop;
@@ -105,7 +105,7 @@ namespace Demos.Complex.Actions
         
         private BoxSource GetClosestBox(IMonoAgent agent, Data data)
         {
-            var boxes = GameObject.FindObjectsOfType<BoxSource>();
+            var boxes = Object.FindObjectsOfType<BoxSource>();
             var typeBox = boxes.FirstOrDefault(x => x.ItemType != null && x.ItemType == data.Item.GetType());
             
             if (typeBox != null)

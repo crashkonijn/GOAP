@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Behaviours;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
-namespace Demos.Complex.Goals
+namespace CrashKonijn.Goap.Demos.Complex.Goals
 {
     public class CreateItemGoal<THoldable> : GoalBase
         where THoldable : ICreatable

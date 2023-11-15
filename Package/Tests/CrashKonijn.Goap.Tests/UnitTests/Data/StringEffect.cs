@@ -1,4 +1,5 @@
 ﻿
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.UnitTests.Data
@@ -16,5 +17,8 @@ namespace CrashKonijn.Goap.UnitTests.Data
         {
             return this.key;
         }
+
+        public IWorldKey WorldKey { get; }
+        public bool Increase { get; }
     }
 }

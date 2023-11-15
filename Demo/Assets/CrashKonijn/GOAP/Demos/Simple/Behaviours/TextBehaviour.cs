@@ -1,10 +1,9 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.Validators;
-using Demos.Shared.Behaviours;
 using TMPro;
 using UnityEngine;
 
-namespace Demos.Simple.Behaviours
+namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class TextBehaviour : MonoBehaviour
     {

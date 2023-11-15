@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Classes;
+﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Classes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class AgentSpawnBehaviour : MonoBehaviour
     {
@@ -43,7 +41,7 @@ namespace Demos.Complex.Behaviours
         {
             var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
             
-            agent.GoapSet = this.goapRunner.GetGoapSet(setId);
+            agent.AgentType = this.goapRunner.GetAgentType(setId);
             agent.gameObject.SetActive(true);
             
             agent.gameObject.transform.name = $"{agentType} {agent.GetInstanceID()}";

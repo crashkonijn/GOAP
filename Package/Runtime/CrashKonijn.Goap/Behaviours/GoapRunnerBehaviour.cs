@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Behaviours
 {
@@ -19,12 +19,10 @@ namespace CrashKonijn.Goap.Behaviours
         public int RunCount { get; private set; }
 
         public GoapConfigInitializerBase configInitializer;
+        
 
-        [Obsolete("'setConfigFactories' is deprecated, please use 'goapSetConfigFactories' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        [Header("Obsolete: please use 'GoapSetConfigFactories'")]
-        public List<GoapSetFactoryBase> setConfigFactories = new();
-
-        public List<GoapSetFactoryBase> goapSetConfigFactories = new();
+        [FormerlySerializedAs("goapSetConfigFactories")]
+        public List<AgentTypeFactoryBase> agentTypeConfigFactories = new();
 
         private GoapConfig config;
         private bool isInitialized = false;
@@ -34,9 +32,9 @@ namespace CrashKonijn.Goap.Behaviours
             this.Initialize();
         }
 
-        public void Register(IGoapSet goapSet) => this.runner.Register(goapSet);
+        public void Register(IAgentType agentType) => this.runner.Register(agentType);
         
-        public void Register(IGoapSetConfig goapSetConfig) => this.runner.Register(new GoapSetFactory(this.config).Create(goapSetConfig));
+        public void Register(IAgentTypeConfig agentTypeConfig) => this.runner.Register(new AgentTypeFactory(this.config).Create(agentTypeConfig));
 
         private void Update()
         {
@@ -65,51 +63,31 @@ namespace CrashKonijn.Goap.Behaviours
             if (this.configInitializer != null)
                 this.configInitializer.InitConfig(this.config);
             
-            this.CreateGoapSets();
+            this.CreateAgentTypes();
             
             this.isInitialized = true;
         }
 
-        private void CreateGoapSets()
+        private void CreateAgentTypes()
         {
-#pragma warning disable CS0618
-            if (this.setConfigFactories.Any())
-            {
-                Debug.LogError("setConfigFactory is obsolete. Please move its data to the goapSetConfigFactories using the editor.");
-                this.goapSetConfigFactories.AddRange(this.setConfigFactories);
-            }
-#pragma warning restore CS0618
-            
-            var goapSetFactory = new GoapSetFactory(this.config);
+            var agentTypeFactory = new AgentTypeFactory(this.config);
 
-            this.goapSetConfigFactories.ForEach(factory =>
+            this.agentTypeConfigFactories.ForEach(factory =>
             {
-                this.Register(goapSetFactory.Create(factory.Create()));
+                this.Register(agentTypeFactory.Create(factory.Create()));
             });
         }
 
-        public Graph GetGraph(IGoapSet goapSet) => this.runner.GetGraph(goapSet);
-        public bool Knows(IGoapSet goapSet) => this.runner.Knows(goapSet);
+        public IGraph GetGraph(IAgentType agentType) => this.runner.GetGraph(agentType);
+        public bool Knows(IAgentType agentType) => this.runner.Knows(agentType);
         public IMonoAgent[] Agents => this.runner.Agents;
+        public IAgentType[] AgentTypes => this.runner.AgentTypes;
 
-        [Obsolete("'Sets' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet[] Sets => this.runner.Sets;
-
-        public IGoapSet[] GoapSets => this.runner.GoapSets;
-
-        [Obsolete("'GetSet' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet GetSet(string id)
+        public IAgentType GetAgentType(string id)
         {
             this.Initialize();
             
-            return this.runner.GetSet(id);
-        }
-
-        public IGoapSet GetGoapSet(string id)
-        {
-            this.Initialize();
-            
-            return this.runner.GetGoapSet(id);
+            return this.runner.GetAgentType(id);
         }
     }
 }

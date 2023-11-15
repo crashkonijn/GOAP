@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Behaviours
 {
@@ -6,32 +7,32 @@ namespace CrashKonijn.Goap.Behaviours
     {
         // Actions
         public event ActionDelegate OnActionStart;
-        public void ActionStart(IActionBase action)
+        public void ActionStart(IAction action)
         {
             this.OnActionStart?.Invoke(action);
         }
         
         public event ActionDelegate OnActionStop;
-        public void ActionStop(IActionBase action)
+        public void ActionStop(IAction action)
         {
             this.OnActionStop?.Invoke(action);
         }
 
         public event GoalDelegate OnNoActionFound;
-        public void NoActionFound(IGoalBase goal)
+        public void NoActionFound(IGoal goal)
         {
             this.OnNoActionFound?.Invoke(goal);
         }
         
         // Goals
         public event GoalDelegate OnGoalStart;
-        public void GoalStart(IGoalBase goal)
+        public void GoalStart(IGoal goal)
         {
             this.OnGoalStart?.Invoke(goal);
         }
 
         public event GoalDelegate OnGoalCompleted;
-        public void GoalCompleted(IGoalBase goal)
+        public void GoalCompleted(IGoal goal)
         {
             this.OnGoalCompleted?.Invoke(goal);
         }

@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Behaviours;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
-namespace Demos.Complex.WorldKeys
+namespace CrashKonijn.Goap.Demos.Complex.WorldKeys
 {
     public class IsInWorld<THoldable> : WorldKeyBase
         where THoldable : IHoldable

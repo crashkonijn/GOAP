@@ -1,15 +1,13 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
-using Demos.Shared.Behaviours;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Goap;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
-namespace Demos.Complex.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
     public class EatAction : ActionBase<EatAction.Data>, IInjectable
     {
@@ -30,7 +28,7 @@ namespace Demos.Complex.Actions
             data.Inventory.Hold(data.Eatable);
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.Eatable == null)
                 return ActionRunState.Stop;

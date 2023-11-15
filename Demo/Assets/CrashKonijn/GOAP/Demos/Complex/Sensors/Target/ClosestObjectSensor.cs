@@ -1,11 +1,9 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Sensors;
 using UnityEngine;
 
-namespace Demos.Complex.Sensors.Target
+namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
 {
     public class ClosestObjectSensor<T> : LocalTargetSensorBase
         where T : MonoBehaviour
@@ -18,7 +16,7 @@ namespace Demos.Complex.Sensors.Target
 
         public override void Update()
         {
-            this.items = GameObject.FindObjectsOfType<T>();
+            this.items = Object.FindObjectsOfType<T>();
         }
 
         public override ITarget Sense(IMonoAgent agent, IComponentReference references)

@@ -2,7 +2,8 @@
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Core.Interfaces;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;

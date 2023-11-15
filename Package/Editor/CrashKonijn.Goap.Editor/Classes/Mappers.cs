@@ -1,11 +1,12 @@
 using System.Linq;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Editor.Classes.Models;
 
 namespace CrashKonijn.Goap.Editor.Classes
 {
     public static class Mappers
     {
-        public static Graph ToPublic(this Resolver.Models.Graph original)
+        public static Graph ToPublic(this IGraph original)
         {
             return new Graph
             {
@@ -14,7 +15,7 @@ namespace CrashKonijn.Goap.Editor.Classes
             };
         }
 
-        public static Node ToPublic(this Resolver.Models.Node original)
+        public static Node ToPublic(this INode original)
         {
             return new Node
             {
@@ -24,7 +25,7 @@ namespace CrashKonijn.Goap.Editor.Classes
             };
         }
 
-        public static NodeCondition ToPublic(this Resolver.Models.NodeCondition original)
+        public static NodeCondition ToPublic(this INodeCondition original)
         {
             return new NodeCondition
             {
@@ -33,7 +34,7 @@ namespace CrashKonijn.Goap.Editor.Classes
             };
         }
 
-        public static NodeEffect ToPublic(this Resolver.Models.NodeEffect original)
+        public static NodeEffect ToPublic(this INodeEffect original)
         {
             return new NodeEffect
             {

@@ -1,38 +1,39 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Exceptions;
-using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Observers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Behaviours
 {
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
-        public GoapSetBehaviour goapSetBehaviour;
+        [FormerlySerializedAs("goapSetBehaviour")] public AgentTypeBehaviour agentTypeBehaviour;
 
         [field: SerializeField]
         public float DistanceMultiplier { get; set; } = 1f;
         public AgentState State { get; private set; } = AgentState.NoAction;
         public AgentMoveState MoveState { get; set; } = AgentMoveState.Idle;
 
-        private IGoapSet goapSet;
-        public IGoapSet GoapSet
+        private IAgentType agentType;
+        public IAgentType AgentType
         {
-            get => this.goapSet;
+            get => this.agentType;
             set
             {
-                this.goapSet = value;
+                this.agentType = value;
                 value.Register(this);
             }
         }
 
-        public IGoalBase CurrentGoal { get; private set; }
-        public IActionBase CurrentAction  { get;  private set;}
+        public IGoal CurrentGoal { get; private set; }
+        public IAction CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
-        public List<IActionBase> CurrentActionPath { get; private set; } = new List<IActionBase>();
+        public List<IAction> CurrentActionPath { get; private set; } = new List<IAction>();
         public IWorldData WorldData { get; } = new LocalWorldData();
         public IAgentEvents Events { get; } = new AgentEvents();
         public IDataReferenceInjector Injector { get; private set; }
@@ -44,28 +45,28 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.Injector = new DataReferenceInjector(this);
             
-            if (this.goapSetBehaviour != null)
-                this.GoapSet = this.goapSetBehaviour.GoapSet;
+            if (this.agentTypeBehaviour != null)
+                this.AgentType = this.agentTypeBehaviour.AgentType;
         }
 
         private void Start()
         {
-            if (this.GoapSet == null)
-                throw new GoapException($"There is no GoapSet assigned to the agent '{this.name}'! Please assign one in the inspector or through code in the Awake method.");
+            if (this.AgentType == null)
+                throw new GoapException($"There is no AgentType assigned to the agent '{this.name}'! Please assign one in the inspector or through code in the Awake method.");
         }
 
         private void OnEnable()
         {
-            if (this.GoapSet != null)
-                this.GoapSet.Register(this);
+            if (this.AgentType != null)
+                this.AgentType.Register(this);
         }
 
         private void OnDisable()
         {
             this.EndAction(false);
             
-            if (this.GoapSet != null)
-                this.GoapSet.Unregister(this);
+            if (this.AgentType != null)
+                this.AgentType.Unregister(this);
         }
 
         public void Run()
@@ -176,12 +177,12 @@ namespace CrashKonijn.Goap.Behaviours
         }
 
         public void SetGoal<TGoal>(bool endAction)
-            where TGoal : IGoalBase
+            where TGoal : IGoal
         {
-            this.SetGoal(this.GoapSet.ResolveGoal<TGoal>(), endAction);
+            this.SetGoal(this.AgentType.ResolveGoal<TGoal>(), endAction);
         }
 
-        public void SetGoal(IGoalBase goal, bool endAction)
+        public void SetGoal(IGoal goal, bool endAction)
         {
             if (goal == this.CurrentGoal)
                 return;
@@ -189,7 +190,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentGoal = goal;
             
             if (this.CurrentAction == null)
-                this.GoapSet.Agents.Enqueue(this);
+                this.AgentType.Agents.Enqueue(this);
             
             this.Events.GoalStart(goal);
             
@@ -197,7 +198,7 @@ namespace CrashKonijn.Goap.Behaviours
                 this.EndAction();
         }
 
-        public void SetAction(IActionBase action, List<IActionBase> path, ITarget target)
+        public void SetAction(IAction action, List<IAction> path, ITarget target)
         {
             if (this.CurrentAction != null)
             {
@@ -228,7 +229,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Events.ActionStop(action);
             
             if (enqueue)
-                this.GoapSet.Agents.Enqueue(this);
+                this.AgentType.Agents.Enqueue(this);
         }
 
         public void SetDistanceMultiplierSpeed(float speed)

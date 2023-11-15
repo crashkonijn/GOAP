@@ -1,14 +1,13 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class WorldSensorClassTypeValidator : IValidator<IGoapSetConfig>
+    public class WorldSensorClassTypeValidator : IValidator<IAgentTypeConfig>
     {
-        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
+        public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
-            var empty = goapSetConfig.WorldSensors.Where(x => string.IsNullOrEmpty(x.ClassType)).ToArray();
+            var empty = agentTypeConfig.WorldSensors.Where(x => string.IsNullOrEmpty(x.ClassType)).ToArray();
             
             if (!empty.Any())
                 return;

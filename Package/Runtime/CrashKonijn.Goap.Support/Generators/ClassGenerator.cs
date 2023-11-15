@@ -9,14 +9,17 @@ namespace CrashKonijn.Goap.Generators
     {
         private void EnsureDirectoryExists(string path)
         {
-            if (!System.IO.Directory.Exists(path))
+            if (!Directory.Exists(path))
             {
-                System.IO.Directory.CreateDirectory(path);
+                Directory.CreateDirectory(path);
             }
         }
 
         public void CreateTargetKey(string basePath, string name, string namespaceName)
         {
+            if (name == String.Empty)
+                return;
+            
             var template = this.LoadTemplate("target-key");
             var id = this.GetId(name);
             
@@ -26,6 +29,9 @@ namespace CrashKonijn.Goap.Generators
 
         public void CreateWorldKey(string basePath, string name, string namespaceName)
         {
+            if (name == String.Empty)
+                return;
+
             var template = this.LoadTemplate("world-key");
             var id = this.GetId(name);
             
@@ -37,6 +43,10 @@ namespace CrashKonijn.Goap.Generators
         {
             var template = this.LoadTemplate("goal");
             name = name.Replace("Goal", "");
+
+            if (name == String.Empty)
+                return;
+            
             var id = this.GetId(name);
             
             var result = this.Replace(template, id, name, namespaceName);
@@ -47,6 +57,10 @@ namespace CrashKonijn.Goap.Generators
         {
             var template = this.LoadTemplate("action");
             name = name.Replace("Action", "");
+
+            if (name == String.Empty)
+                return;
+            
             var id = this.GetId(name);
             
             var result = this.Replace(template, id, name, namespaceName);
@@ -70,15 +84,18 @@ namespace CrashKonijn.Goap.Generators
         private void StoreAtPath(string content, string path)
         {
             this.EnsureDirectoryExists(Path.GetDirectoryName(path));
+
+            if (File.Exists(path))
+                return;
             
-            System.IO.File.WriteAllText(path, content);
+            File.WriteAllText(path, content);
         }
 
         private string LoadTemplate(string name)
         {
             var path = this.GetTemplatePath(name);
             
-            return System.IO.File.ReadAllText(path);
+            return File.ReadAllText(path);
         }
         
         private string GetTemplatePath(string name)

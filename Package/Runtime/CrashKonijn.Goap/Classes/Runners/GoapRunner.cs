@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Resolver.Models;
 
@@ -9,19 +9,19 @@ namespace CrashKonijn.Goap.Classes.Runners
 {
     public class GoapRunner : IGoapRunner
     {
-        private Dictionary<IGoapSet, GoapSetJobRunner> goapSets = new();
+        private Dictionary<IAgentType, AgentTypeJobRunner> agentTypes = new();
         private Stopwatch stopwatch = new();
 
         public float RunTime { get; private set; }
         public float CompleteTime { get; private set; }
 
-        public void Register(IGoapSet goapSet) => this.goapSets.Add(goapSet, new GoapSetJobRunner(goapSet, new GraphResolver(goapSet.GetAllNodes().ToArray(), goapSet.GoapConfig.KeyResolver)));
+        public void Register(IAgentType agentType) => this.agentTypes.Add(agentType, new AgentTypeJobRunner(agentType, new GraphResolver(agentType.GetAllNodes().ToArray(), agentType.GoapConfig.KeyResolver)));
 
         public void Run()
         {
             this.stopwatch.Restart();
             
-            foreach (var runner in this.goapSets.Values)
+            foreach (var runner in this.agentTypes.Values)
             {
                 runner.Run();
             }
@@ -41,7 +41,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         {
             this.stopwatch.Restart();
             
-            foreach (var runner in this.goapSets.Values)
+            foreach (var runner in this.agentTypes.Values)
             {
                 runner.Complete();
             }
@@ -51,7 +51,7 @@ namespace CrashKonijn.Goap.Classes.Runners
 
         public void Dispose()
         {
-            foreach (var runner in this.goapSets.Values)
+            foreach (var runner in this.agentTypes.Values)
             {
                 runner.Dispose();
             }
@@ -64,36 +64,22 @@ namespace CrashKonijn.Goap.Classes.Runners
             return (float) ((double)this.stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000);
         }
 
-        public Graph GetGraph(IGoapSet goapSet) => this.goapSets[goapSet].GetGraph();
-        public bool Knows(IGoapSet goapSet) => this.goapSets.ContainsKey(goapSet);
-        public IMonoAgent[] Agents => this.goapSets.Keys.SelectMany(x => x.Agents.All()).ToArray();
+        public IGraph GetGraph(IAgentType agentType) => this.agentTypes[agentType].GetGraph();
+        public bool Knows(IAgentType agentType) => this.agentTypes.ContainsKey(agentType);
+        public IMonoAgent[] Agents => this.agentTypes.Keys.SelectMany(x => x.Agents.All()).ToArray();
+
+        public IAgentType[] AgentTypes => this.agentTypes.Keys.ToArray();
         
-        [System.Obsolete("'Sets' is deprecated, please use 'GoapSets' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet[] Sets => this.goapSets.Keys.ToArray();
-
-        public IGoapSet[] GoapSets => this.goapSets.Keys.ToArray();
-
-        [System.Obsolete("'GetSet' is deprecated, please use 'GetGoapSet' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet GetSet(string id)
+        public IAgentType GetAgentType(string id)
         {
-            var set = this.Sets.FirstOrDefault(x => x.Id == id);
+            var agentTypes = this.AgentTypes.FirstOrDefault(x => x.Id == id);
 
-            if (set == null)
-                throw new KeyNotFoundException($"No set with id {id} found");
-            
-            return set;
+            if (agentTypes == null)
+                throw new KeyNotFoundException($"No agentType with id {id} found");
+
+            return agentTypes;
         }
 
-        public IGoapSet GetGoapSet(string id)
-        {
-            var goapSet = this.GoapSets.FirstOrDefault(x => x.Id == id);
-
-            if (goapSet == null)
-                throw new KeyNotFoundException($"No goapSet with id {id} found");
-
-            return goapSet;
-        }
-
-        public int QueueCount => this.goapSets.Keys.Sum(x => x.Agents.GetQueueCount());
+        public int QueueCount => this.agentTypes.Keys.Sum(x => x.Agents.GetQueueCount());
     }
 }

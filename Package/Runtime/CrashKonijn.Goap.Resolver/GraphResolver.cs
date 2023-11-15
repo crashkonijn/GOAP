@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
 using Unity.Collections;
 using Unity.Jobs;
-using IAction = CrashKonijn.Goap.Resolver.Interfaces.IAction;
 
 namespace CrashKonijn.Goap.Resolver
 {
     public class GraphResolver : IGraphResolver
     {
-        private readonly List<Node> indexList;
-        private readonly List<IAction> actionIndexList;
+        private readonly List<INode> indexList;
+        private readonly List<IConnectable> actionIndexList;
 
-        private readonly List<NodeCondition> conditionList;
+        private readonly List<INodeCondition> conditionList;
         private readonly List<ICondition> conditionIndexList;
 
 #if UNITY_COLLECTIONS_2_1
@@ -31,7 +31,7 @@ namespace CrashKonijn.Goap.Resolver
 
         private Graph graph;
 
-        public GraphResolver(IAction[] actions, IActionKeyResolver keyResolver)
+        public GraphResolver(IConnectable[] actions, IKeyResolver keyResolver)
         {
             this.graph = new GraphBuilder(keyResolver).Build(actions);
             
@@ -114,13 +114,13 @@ namespace CrashKonijn.Goap.Resolver
             return new ConditionBuilder(this.conditionIndexList);
         }
         
-        public Graph GetGraph()
+        public IGraph GetGraph()
         {
             return this.graph;
         }
         
-        public int GetIndex(IAction action) => this.actionIndexList.IndexOf(action);
-        public IAction GetAction(int index) => this.actionIndexList[index];
+        public int GetIndex(IConnectable action) => this.actionIndexList.IndexOf(action);
+        public IAction GetAction(int index) => this.actionIndexList[index] as IAction;
         
         public void Dispose()
         {
