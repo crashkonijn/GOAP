@@ -2,6 +2,7 @@
 {
     public interface IMultiSensor : IHasConfig<IMultiSensorConfig>, ILocalSensor, IGlobalSensor
     {
+        string[] GetSensors();
     }
 
     public interface ISensor

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Scriptables;
 using CrashKonijn.Goap.Support.Generators;
+using CrashKonijn.Goap.Support.Loaders;
 
 namespace CrashKonijn.Goap.Editor.Elements
 {
@@ -26,7 +28,7 @@ namespace CrashKonijn.Goap.Editor.Elements
 
         protected override void BindListItem(CapabilitySensorElement element, TSensorType item, int index)
         {
-            element.Foldout.text = item.ToString();
+            element.Foldout.text = this.GetName(item);
             
             this.Bind(element, item);
         }
@@ -51,7 +53,7 @@ namespace CrashKonijn.Goap.Editor.Elements
         {
             element.SensorField.Bind(this.scriptable, item.sensor, this.generator.GetWorldSensors(), classRef =>
             {
-                element.Foldout.text = item.ToString();
+                element.Foldout.text = this.GetName(item);
             });
             
             element.KeyField.Bind(this.scriptable, item.worldKey, this.generator.GetWorldKeys(), classRef =>
@@ -63,7 +65,7 @@ namespace CrashKonijn.Goap.Editor.Elements
         {
             element.SensorField.Bind(this.scriptable, item.sensor, this.generator.GetTargetSensors(), classRef =>
             {
-                element.Foldout.text = item.ToString();
+                element.Foldout.text = this.GetName(item);
             });
             
             element.KeyField.Bind(this.scriptable, item.targetKey, this.generator.GetTargetKeys(), classRef =>
@@ -75,8 +77,71 @@ namespace CrashKonijn.Goap.Editor.Elements
         {
             element.SensorField.Bind(this.scriptable, item.sensor, this.generator.GetMultiSensors(), classRef =>
             {
-                element.Foldout.text = item.ToString();
+                element.Foldout.text = this.GetName(item);
             });
+            
+            var sensors  = this.GetMultiSensors(item.sensor, this.generator.GetMultiSensors());
+
+            element.LabelField.text = "- " + string.Join("\n- ", sensors);
+            
+            element.Foldout.text = $"{item} ({sensors.Length})";
+        }
+
+        public string[] GetMultiSensors(ClassRef classRef, Script[] scripts)
+        {
+            var match = classRef.GetMatch(scripts);
+            
+            if (match.status == ClassRefStatus.None)
+                return Array.Empty<string>();
+            
+            // Create instance of type
+            var instance = (IMultiSensor) Activator.CreateInstance(match.script.type);
+            
+            return instance.GetSensors();
+        }
+
+        public string GetName(BehaviourSensor item)
+        {
+            if (item is BehaviourMultiSensor multiSensor)
+            {
+                return multiSensor.ToString();
+            }
+
+            if (item is BehaviourWorldSensor worldSensor)
+            {
+                var scopes = new List<string>(){ worldSensor.worldKey.name };
+                scopes.AddRange(this.GetScopes(worldSensor.sensor, this.generator.GetWorldSensors()));
+
+                return $"{worldSensor.sensor.name} ({string.Join(", ", scopes)})";
+            }
+
+            if (item is BehaviourTargetSensor targetSensor)
+            {
+                var scopes = new List<string>(){ targetSensor.targetKey.name };
+                scopes.AddRange(this.GetScopes(targetSensor.sensor, this.generator.GetTargetSensors()));
+
+                return $"{targetSensor.sensor.name} ({string.Join(", ", scopes)})";
+            }
+
+            return "";
+        }
+
+        private string[] GetScopes(ClassRef classRef, Script[] scripts)
+        {
+            var (status, match) = classRef.GetMatch(scripts);
+
+            if (status == ClassRefStatus.None)
+                return Array.Empty<string>();
+            
+            var scopes = new List<string>();
+            
+            if (typeof(ILocalSensor).IsAssignableFrom(match.type))
+                scopes.Add("local");
+            
+            if (typeof(IGlobalSensor).IsAssignableFrom(match.type))
+                scopes.Add("global");
+
+            return scopes.ToArray();
         }
     }
 }

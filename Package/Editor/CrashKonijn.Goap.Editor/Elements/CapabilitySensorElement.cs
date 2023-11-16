@@ -10,6 +10,8 @@ namespace CrashKonijn.Goap.Editor.Elements
         public Foldout Foldout { get; set; }
         public ClassRefField SensorField { get; set; }
         public ClassRefField KeyField { get; set; }
+
+        public Label LabelField { get; set; }
         
         public CapabilitySensorElement(CapabilityConfigScriptable scriptable, GeneratorScriptable generator, BehaviourSensor sensor)
         {
@@ -18,15 +20,25 @@ namespace CrashKonijn.Goap.Editor.Elements
                 value = false,
             };
             this.Add(this.Foldout);
-
-            this.SensorField = new ClassRefField();
-            this.Foldout.Add(this.SensorField);
-
-            if (sensor is BehaviourMultiSensor)
-                return;
             
-            this.KeyField = new ClassRefField();
-            this.Foldout.Add(this.KeyField);
+            this.Foldout.Add(new Card((card) =>
+            {
+                var sensorLabel = new LabeledField<ClassRefField>("Sensor");
+                this.SensorField = sensorLabel.Field;
+                card.Add(sensorLabel);
+
+                if (sensor is BehaviourMultiSensor)
+                {
+                    var sensorsLabel = new LabeledField<Label>("Keys");
+                    this.LabelField = sensorsLabel.Field;
+                    card.Add(sensorsLabel);
+                    return;
+                }
+            
+                var keyLabel = new LabeledField<ClassRefField>("Key");
+                this.KeyField = keyLabel.Field;
+                card.Add(keyLabel);
+            }));
         }
     }
 }
