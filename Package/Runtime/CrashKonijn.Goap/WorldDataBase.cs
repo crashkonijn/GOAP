@@ -1,32 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver;
 
 namespace CrashKonijn.Goap
 {
     public abstract class WorldDataBase : IWorldData
     {
-        public Dictionary<IWorldKey, int> States { get; } = new();
-        public Dictionary<ITargetKey, ITarget> Targets { get; } = new();
+        public Dictionary<Type, int> States { get; } = new();
+        public Dictionary<Type, ITarget> Targets { get; } = new();
 
         public ITarget GetTarget(IAction action)
         {
             if (action.Config.Target == null)
                 return null;
             
-            if (!this.Targets.ContainsKey(action.Config.Target))
+            if (!this.Targets.ContainsKey(action.Config.Target.GetType()))
                 return null;
             
-            return this.Targets[action.Config.Target];
+            return this.Targets[action.Config.Target.GetType()];
         }
 
         public bool IsTrue(IWorldKey worldKey, Comparison comparison, int value)
         {
-            if (!this.States.ContainsKey(worldKey))
+            if (!this.States.ContainsKey(worldKey.GetType()))
                 return false;
             
-            var state = this.States[worldKey];
+            var state = this.States[worldKey.GetType()];
 
             switch (comparison)
             {
@@ -45,9 +45,19 @@ namespace CrashKonijn.Goap
 
         public void SetState(IWorldKey key, int state)
         {
+            this.SetState(key.GetType(), state);
+        }
+
+        public void SetState<TKey>(int state) where TKey : IWorldKey
+        {
+            this.SetState(typeof(TKey), state);
+        }
+
+        public void SetState(Type key, int state)
+        {
             if (key == null)
                 return;
-            
+
             if (this.States.ContainsKey(key))
             {
                 this.States[key] = state;
@@ -59,9 +69,19 @@ namespace CrashKonijn.Goap
         
         public void SetTarget(ITargetKey key, ITarget target)
         {
+            this.SetTarget(key.GetType(), target);
+        }
+
+        public void SetTarget<TKey>(ITarget target) where TKey : ITargetKey
+        {
+            this.SetTarget(typeof(TKey), target);
+        }
+        
+        public void SetTarget(Type key, ITarget target)
+        {
             if (key == null)
                 return;
-            
+
             if (this.Targets.ContainsKey(key))
             {
                 this.Targets[key] = target;
