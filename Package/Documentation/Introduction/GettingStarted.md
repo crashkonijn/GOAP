@@ -90,6 +90,7 @@ public class WanderAction : ActionBase<WanderAction.Data>
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Sensors;
+using UnityEngine;
 
 public class WanderTargetSensor : LocalTargetSensorBase
 {
