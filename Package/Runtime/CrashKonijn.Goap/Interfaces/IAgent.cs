@@ -18,9 +18,9 @@ namespace CrashKonijn.Goap.Interfaces
         IAgentDistanceObserver DistanceObserver { get; }
 
         void Run();
-        
-        void SetGoal<TGoal>(bool endAction) where TGoal : IGoalBase;
 
+        void ClearGoal();
+        void SetGoal<TGoal>(bool endAction) where TGoal : IGoalBase;
         void SetGoal(IGoalBase goal, bool endAction);
         void SetAction(IActionBase action, List<IActionBase> path, ITarget target);
         void EndAction(bool enqueue = true);
