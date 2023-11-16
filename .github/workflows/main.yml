@@ -31,18 +31,17 @@ jobs:
 #          - playmode
           - editmode
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           lfs: false
-          # Fetch PR head to be tested
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
-      - uses: actions/cache@v2
-        with:
-          path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}
-          restore-keys: |
-            Library-
-      - uses: game-ci/unity-test-runner@v2
+#      - uses: actions/cache@v3
+#        with:
+#          path: ${{ matrix.projectPath }}/Library
+#          key: Library-${{ matrix.projectPath }}
+#          restore-keys: |
+#            Library-
+      - uses: game-ci/unity-test-runner@v3
         id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -52,14 +51,14 @@ jobs:
           artifactsPath: ${{ matrix.testMode }}-artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.testMode }} Test Results
-          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport'
-      - uses: actions/upload-artifact@v2
+#          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport'
+      - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
-      - uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: Coverage results for ${{ matrix.testMode }}
-          path: ${{ steps.tests.outputs.coveragePath }}
+#      - uses: actions/upload-artifact@v3
+#        if: always()
+#        with:
+#          name: Coverage results for ${{ matrix.testMode }}
+#          path: ${{ steps.tests.outputs.coveragePath }}
