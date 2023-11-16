@@ -57,7 +57,9 @@ namespace CrashKonijn.Goap.Classes.Runners
 
             if (this.IsGoalCompleted(localData, agent))
             {
-                agent.Events.GoalCompleted(agent.CurrentGoal);
+                var goal = agent.CurrentGoal;
+                agent.ClearGoal();
+                agent.Events.GoalCompleted(goal);
                 return;
             }
 
