@@ -1,4 +1,6 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
+﻿using System;
+using CrashKonijn.Goap.Classes.Validators;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Editor.Elements;
 using UnityEngine.UIElements;
 
@@ -32,9 +34,9 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             this.Add(card);
         }
         
-        private string GetText(IWorldKey worldKey, int value)
+        private string GetText(Type worldKey, int value)
         {
-            return  $"{worldKey.Name} ({value})";
+            return  $"{worldKey.GetGenericTypeName()} ({value})";
         }
     }
 }

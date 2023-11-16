@@ -34,6 +34,15 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             root.Add(new Header("Actions"));
             root.Add(new ActionList(this.scriptable, generator));
 
+            root.Add(new Header("WorldSensors"));
+            root.Add(new SensorList<BehaviourWorldSensor>(this.scriptable, generator, this.scriptable.worldSensors));
+
+            root.Add(new Header("TargetSensors"));
+            root.Add(new SensorList<BehaviourTargetSensor>(this.scriptable, generator, this.scriptable.targetSensors));
+
+            root.Add(new Header("MultiSensors"));
+            root.Add(new SensorList<BehaviourMultiSensor>(this.scriptable, generator, this.scriptable.multiSensors));
+
             return root;
         }
         

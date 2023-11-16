@@ -16,6 +16,7 @@ namespace CrashKonijn.Goap.Configs
         public List<IGoalConfig> Goals { get; set; }
         public List<ITargetSensorConfig> TargetSensors { get; set; }
         public List<IWorldSensorConfig> WorldSensors { get; set; }
+        public List<IMultiSensorConfig> MultiSensors { get; set; }
         public string DebuggerClass { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace CrashKonijn.Goap.Editor.Elements
             var row = new VisualElement();
             row.style.flexDirection = FlexDirection.Row;
             
-            this.Status = new Circle(Color.green, 10);
+            this.Status = new Circle(Color.black, 10);
             this.Status.style.marginLeft = new StyleLength(new Length(5, LengthUnit.Pixel));
             this.Status.style.marginRight = new StyleLength(new Length(2, LengthUnit.Pixel));
             this.Status.style.marginTop = new StyleLength(new Length(5, LengthUnit.Pixel));
@@ -63,6 +63,8 @@ namespace CrashKonijn.Goap.Editor.Elements
                 this.UpdateStatus(classRef, scripts);
                 EditorUtility.SetDirty(scriptable); // Mark the scriptable object as dirty
             });
+            
+            this.UpdateStatus(classRef, scripts);
         }
 
         private void UpdateStatus(ClassRef classRef, Script[] scripts)

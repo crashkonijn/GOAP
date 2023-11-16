@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Scriptables
@@ -10,8 +11,9 @@ namespace CrashKonijn.Goap.Scriptables
     {
         public List<BehaviourGoal> goals = new();
         public List<BehaviourAction> actions = new();
-        public List<BehaviourWorldSensorConfig> worldSensors = new();
-        public List<BehaviourTargetSensorConfig> targetSensors = new();
+        public List<BehaviourWorldSensor> worldSensors = new();
+        public List<BehaviourTargetSensor> targetSensors = new();
+        public List<BehaviourMultiSensor> multiSensors = new();
     }
 
     [Serializable]
@@ -71,17 +73,31 @@ namespace CrashKonijn.Goap.Scriptables
     }
 
     [Serializable]
-    public class BehaviourWorldSensorConfig
+    public class BehaviourWorldSensor : BehaviourSensor
     {
-        public string name;
-        public string worldKey;
+        public ClassRef worldKey = new();
+
+        public override string ToString() => $"{this.sensor.name} ({this.worldKey.name})";
     }
 
     [Serializable]
-    public class BehaviourTargetSensorConfig
+    public class BehaviourTargetSensor : BehaviourSensor
     {
-        public string name;
-        public string targetKey;
+        public ClassRef targetKey = new();
+
+        public override string ToString() => $"{this.sensor.name} ({this.targetKey.name})";
+    }
+
+    [Serializable]
+    public class BehaviourMultiSensor : BehaviourSensor
+    {
+        public override string ToString() => this.sensor.name;
+    }
+
+    [Serializable]
+    public abstract class BehaviourSensor
+    {
+        public ClassRef sensor = new();
     }
 
     [Serializable]
@@ -89,8 +105,6 @@ namespace CrashKonijn.Goap.Scriptables
     {
         public string name;
         public string id;
-        
-
     }
     
     public enum ClassRefStatus

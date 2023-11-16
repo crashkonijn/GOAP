@@ -12,6 +12,12 @@ namespace CrashKonijn.Goap.Sensors
         public void SetConfig(IWorldSensorConfig config) => this.Config = config;
 
         public abstract void Created();
+        
+        public void Sense(IWorldData data)
+        {
+            data.SetState(this.Key, this.Sense());
+        }
+        
         public abstract SenseValue Sense();
     }
 }

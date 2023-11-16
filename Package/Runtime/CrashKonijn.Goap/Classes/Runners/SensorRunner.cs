@@ -5,26 +5,24 @@ namespace CrashKonijn.Goap.Classes.Runners
 {
     public class SensorRunner : ISensorRunner
     {
-        private HashSet<ILocalWorldSensor> localWorldSensors = new();
-        private HashSet<IGlobalWorldSensor> globalWorldSensors = new();
-        private HashSet<ILocalTargetSensor> localTargetSensors = new();
-        private HashSet<IGlobalTargetSensor> globalTargetSensors = new();
+        private HashSet<ILocalSensor> localSensors = new();
+        private HashSet<IGlobalSensor> globalSensors = new();
         
         // GC caches
         private LocalWorldData localWorldData;
         private readonly GlobalWorldData worldData = new();
 
-        public SensorRunner(IEnumerable<IWorldSensor> worldSensors, IEnumerable<ITargetSensor> targetSensors)
+        public SensorRunner(IEnumerable<IWorldSensor> worldSensors, IEnumerable<ITargetSensor> targetSensors, IEnumerable<IMultiSensor> multiSensors)
         {
             foreach (var worldSensor in worldSensors)
             {
                 switch (worldSensor)
                 {
                     case ILocalWorldSensor localSensor:
-                        this.localWorldSensors.Add(localSensor);
+                        this.localSensors.Add(localSensor);
                         break;
                     case IGlobalWorldSensor globalSensor:
-                        this.globalWorldSensors.Add(globalSensor);
+                        this.globalSensors.Add(globalSensor);
                         break;
                 }
             }
@@ -34,38 +32,34 @@ namespace CrashKonijn.Goap.Classes.Runners
                 switch (targetSensor)
                 {
                     case ILocalTargetSensor localSensor:
-                        this.localTargetSensors.Add(localSensor);
+                        this.localSensors.Add(localSensor);
                         break;
                     case IGlobalTargetSensor globalSensor:
-                        this.globalTargetSensors.Add(globalSensor);
+                        this.globalSensors.Add(globalSensor);
                         break;
                 }
+            }
+            
+            foreach (var multiSensor in multiSensors)
+            {
+                this.localSensors.Add(multiSensor);
+                this.globalSensors.Add(multiSensor);
             }
         }
 
         public void Update()
         {
-            foreach (var localWorldSensor in this.localWorldSensors)
+            foreach (var localSensor in this.localSensors)
             {
-                localWorldSensor.Update();
-            }
-
-            foreach (var localTargetSensor in this.localTargetSensors)
-            {
-                localTargetSensor.Update();
+                localSensor.Update();
             }
         }
 
         public IGlobalWorldData SenseGlobal()
         {
-            foreach (var globalWorldSensor in this.globalWorldSensors)
+            foreach (var globalSensor in this.globalSensors)
             {
-                this.worldData.SetState(globalWorldSensor.Key, globalWorldSensor.Sense());
-            }
-            
-            foreach (var globalTargetSensor in this.globalTargetSensors)
-            {
-                this.worldData.SetTarget(globalTargetSensor.Key, globalTargetSensor.Sense());
+                globalSensor.Sense(this.worldData);
             }
 
             return this.worldData;
@@ -74,17 +68,11 @@ namespace CrashKonijn.Goap.Classes.Runners
         public ILocalWorldData SenseLocal(IGlobalWorldData worldData, IMonoAgent agent)
         {
             this.localWorldData = (LocalWorldData) agent.WorldData;
-
             this.localWorldData.Apply(worldData);
             
-            foreach (var localWorldSensor in this.localWorldSensors)
+            foreach (var localSensor in this.localSensors)
             {
-                this.localWorldData.SetState(localWorldSensor.Key, localWorldSensor.Sense(agent, agent.Injector));
-            }
-            
-            foreach (var localTargetSensor in this.localTargetSensors)
-            {
-                this.localWorldData.SetTarget(localTargetSensor.Key, localTargetSensor.Sense(agent, agent.Injector));
+                localSensor.Sense(this.localWorldData, agent, agent.Injector);
             }
             
             return this.localWorldData;

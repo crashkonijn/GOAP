@@ -12,11 +12,7 @@ namespace CrashKonijn.Goap.Classes.Injectors
         {
         }
 
-        public void Inject(IWorldSensor worldSensor)
-        {
-        }
-
-        public void Inject(ITargetSensor targetSensor)
+        public void Inject(ISensor sensor)
         {
         }
     }

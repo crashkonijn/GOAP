@@ -11,6 +11,12 @@ namespace CrashKonijn.Goap.Sensors
         
         public abstract void Created();
         public abstract void Update();
+
+        public void Sense(IWorldData worldData, IMonoAgent agent, IComponentReference references)
+        {
+            worldData.SetTarget(this.Key, this.Sense(agent, references));
+        }
+        
         public abstract ITarget Sense(IMonoAgent agent, IComponentReference references);
     }
 }

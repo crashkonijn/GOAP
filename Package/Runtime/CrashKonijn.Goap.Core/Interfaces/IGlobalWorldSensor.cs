@@ -1,8 +1,7 @@
 ﻿
 namespace CrashKonijn.Goap.Core.Interfaces
 {
-    public interface IGlobalWorldSensor : IWorldSensor
+    public interface IGlobalWorldSensor : IWorldSensor, IGlobalSensor
     {
-        public SenseValue Sense();
     }
 }

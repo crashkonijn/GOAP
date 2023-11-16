@@ -21,11 +21,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Goap
         {
         }
 
-        public void Inject(IWorldSensor worldSensor)
-        {
-        }
-
-        public void Inject(ITargetSensor targetSensor)
+        public void Inject(ISensor sensor)
         {
         }
     }

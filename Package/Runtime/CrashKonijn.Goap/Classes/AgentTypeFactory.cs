@@ -55,7 +55,7 @@ namespace CrashKonijn.Goap.Classes
         
         private SensorRunner CreateSensorRunner(IAgentTypeConfig config)
         {
-            return new SensorRunner(this.GetWorldSensors(config), this.GetTargetSensors(config));
+            return new SensorRunner(this.GetWorldSensors(config), this.GetTargetSensors(config), this.GetMultiSensors(config));
         }
         
         private List<IAction> GetActions(IAgentTypeConfig config)
@@ -102,6 +102,20 @@ namespace CrashKonijn.Goap.Classes
         private List<ITargetSensor> GetTargetSensors(IAgentTypeConfig config)
         {
             var targetSensors = this.classResolver.Load<ITargetSensor, ITargetSensorConfig>(config.TargetSensors);
+            var injector = this.goapConfig.GoapInjector;
+            
+            targetSensors.ForEach(x =>
+            {
+                injector.Inject(x);
+                x.Created();
+            });
+            
+            return targetSensors;
+        }
+        
+        private List<IMultiSensor> GetMultiSensors(IAgentTypeConfig config)
+        {
+            var targetSensors = this.classResolver.Load<IMultiSensor, IMultiSensorConfig>(config.MultiSensors);
             var injector = this.goapConfig.GoapInjector;
             
             targetSensors.ForEach(x =>
