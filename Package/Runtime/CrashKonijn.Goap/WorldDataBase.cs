@@ -21,12 +21,22 @@ namespace CrashKonijn.Goap
             return this.Targets[action.Config.Target.GetType()];
         }
 
+        public bool IsTrue<TWorldKey>(Comparison comparison, int value)
+        {
+            return this.IsTrue(typeof(TWorldKey), comparison, value);
+        }
+
         public bool IsTrue(IWorldKey worldKey, Comparison comparison, int value)
         {
-            if (!this.States.ContainsKey(worldKey.GetType()))
+            return this.IsTrue(worldKey.GetType(), comparison, value);
+        }
+        
+        public bool IsTrue(Type worldKey, Comparison comparison, int value)
+        {
+            if (!this.States.ContainsKey(worldKey))
                 return false;
             
-            var state = this.States[worldKey.GetType()];
+            var state = this.States[worldKey];
 
             switch (comparison)
             {
