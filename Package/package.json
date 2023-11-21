@@ -1,24 +1,26 @@
 {
   "name": "com.crashkonijn.goap",
   "version": "2.1.14",
-  "displayName": "Unity GOAP",
-  "description": "An open source GOAP implementation for unity",
+  "displayName": "Unity GOAP Framework",
+  "description": "A comprehensive, multi-threaded Goal Oriented Action Planning (GOAP) system for Unity, designed to facilitate complex AI behaviors in games.",
   "unity": "2022.2",
   "unityRelease": "8f1",
-  "documentationUrl": "https://github.com/crashkonijn/GOAP",
+  "documentationUrl": "https://goap.crashkonijn.com",
   "changelogUrl": "https://github.com/crashkonijn/GOAP",
-  "licensesUrl": "https://github.com/crashkonijn/GOAP",
+  "licensesUrl": "https://github.com/crashkonijn/GOAP/blob/master/LICENSE",
   "dependencies": {
     "com.unity.collections": "1.2.4"
   },
   "keywords": [
     "Unity",
     "GOAP",
-    "CrashKonijn GOAP",
     "Goal Oriented Action Planner",
     "AI",
-    "Artificial Inteligence",
-    "Enemies"
+    "Game Development",
+    "Artificial Intelligence",
+    "Behavior Planning",
+    "Game AI",
+    "NPC",
   ],
   "author": {
     "name": "CrashKonijn",
@@ -27,8 +29,8 @@
   },
   "samples": [
     {
-      "displayName": "Goap demo's",
-      "description": "This contains the Simple and complex demo's.",
+      "displayName": "GOAP Demonstrations",
+      "description": "Explore the capabilities of GOAP with Simple and Complex demos, showcasing practical implementations and usage.",
       "path": "Samples~/default"
     }
   ]
