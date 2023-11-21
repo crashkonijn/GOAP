@@ -8,36 +8,42 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/crashkonijn/GOAP?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/crashkonijn/GOAP?style=social)
 
-# GOAP
-A multi-threaded GOAP (Goal Oriented Action Planning) system for Unity.
+# GOAP for Unity
+A robust, multi-threaded Goal Oriented Action Planning (GOAP) system designed for Unity, empowering developers to create complex AI behaviors with ease.
 
-The previous version of this library was used to create the AI in the game [Basher Beatdown](https://youtu.be/x653mVuNP0A?t=12s).
+This library, a successor to the one used in [Basher Beatdown](https://youtu.be/x653mVuNP0A?t=12s), brings enhanced performance and flexibility to game AI development.
 
 ![Screenshot of Demo](Package/Documentation/images/2k_agents_short.gif)
 
-## Functions
-* Fast
-* Simple
-* Multi-Threaded (Using the job system)
-* GOAP Visualizer
-* Setup using `ScriptableObjects` or through `code`
-* Two demo scenes included
-* Tested
-* Well [documented](https://goap.crashkonijn.com/)
-* Build using unity 2022.2 (also confirmed to be working with 2021.3)
+## Key Features
+- **High Performance**: Optimized for speed, leveraging Unity's job system for multi-threaded operations.
+- **User-Friendly**: Simple setup process, with options for both `ScriptableObjects` and code-based configurations.
+- **Visualization Tools**: Includes a GOAP Visualizer for easy debugging and understanding AI decisions.
+- **Demo Scenes**: Comes with two illustrative demo scenes showcasing the system's capabilities.
+- **Comprehensive Documentation**: Detailed [documentation](https://goap.crashkonijn.com/) for ease of use and integration.
+- **Compatibility**: Built using Unity 2022.2, also confirmed to work seamlessly with Unity 2021.3.
+- **Tested and Proven**: Rigorously tested to ensure reliability and performance.
 
 ## Installation
-Add the package to your project using the package manager. Add the following URL to the package manager:
+Integrate GOAP into your Unity project using one of the following methods:
+
+- **Unity Package Manager**:
+Add the package via the package manager using this URL:
 ```
 https://github.com/crashkonijn/GOAP.git?path=/Package#2.1.14
 ```
-Alternatively install through [OpenUPM](https://openupm.com/packages/com.crashkonijn.goap/) or the [Unity Asset Store](https://assetstore.unity.com/packages/slug/252687).
 
-## Node viewer
+- **OpenUPM**:
+Install through [OpenUPM](https://openupm.com/packages/com.crashkonijn.goap/).
+
+- **Unity Asset Store**:
+Available on the [Unity Asset Store](https://assetstore.unity.com/packages/slug/252687).
+
+## Node Viewer
+Visualize your GOAP nodes and their interactions with our intuitive Node Viewer.
+
 ![Screenshot of NodeViewer](Package/Documentation/images/goap-viewer.png)
 
-## Documentation
-The documentation can be found in the `Package/Documentation` folder, or at [goap.crashkonijn.com](https://goap.crashkonijn.com/).
-
-## Demo
-Tow example's implementing this project can be found in the Demo folder. Clone this repository and open the Demo project in Unity.
+## Documentation and Examples
+- **Documentation**: Access comprehensive guides and API references in the `Package/Documentation` folder or visit [goap.crashkonijn.com](https://goap.crashkonijn.com/).
+- **Demos**: Explore practical implementations in the Demo folder. Simply clone this repository and open the Demo project in Unity to get started.
