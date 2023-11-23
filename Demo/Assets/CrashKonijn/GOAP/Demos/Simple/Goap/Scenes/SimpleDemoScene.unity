@@ -1710,6 +1710,7 @@ MonoBehaviour:
   agentPrefab: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
     type: 3}
   goapSet: {fileID: 0}
+  agentType: {fileID: 845821375}
   appleCountText: {fileID: 1837200405}
   agentCountText: {fileID: 1621916495}
   fpsText: {fileID: 1911885706}
