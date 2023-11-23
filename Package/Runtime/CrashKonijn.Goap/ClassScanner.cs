@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Support.Generators;
+using CrashKonijn.Goap.Scriptables;
 using UnityEditor;
 using UnityEngine;
 

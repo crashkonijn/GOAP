@@ -14,10 +14,12 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
     public class AppleSensor : MultiSensorBase
     {
         private AppleCollection apples;
+        private TreeBehaviour[] trees;
 
         public override void Created()
         {
             this.apples = Object.FindObjectOfType<AppleCollection>();
+            this.trees = Object.FindObjectsOfType<TreeBehaviour>();
         }
 
         public override void Update()
@@ -37,6 +39,11 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
                 return new TransformTarget(closestApple.transform);
             });
             
+            this.AddLocalTargetSensor<ClosestTree>((agent, references) =>
+            {
+                return new TransformTarget(this.trees.Closest(agent.transform.position).transform);
+            });
+            
             this.AddLocalWorldSensor<HasApple>((agent, references) =>
             {
                 var inventory = references.GetCachedComponent<InventoryBehaviour>();
@@ -45,6 +52,11 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
                     return false;
 
                 return inventory.Apples.Count > 0;
+            });
+            
+            this.AddGlobalWorldSensor<ThereAreApples>(() =>
+            {
+                return this.apples.Any();
             });
         }
     }

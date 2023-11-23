@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Generators;
 using CrashKonijn.Goap.Support.Loaders;
 using UnityEditor;
 using UnityEngine;
@@ -41,11 +41,11 @@ namespace CrashKonijn.Goap.Editor.Elements
 
         public void Bind(ScriptableObject scriptable, ClassRef classRef, Script[] scripts, Action<ClassRef> onValueChanged)
         {
-            this.NameField.value = classRef.name; // Replace with the actual property
+            this.NameField.value = classRef.Name; // Replace with the actual property
             this.NameField.RegisterValueChangedCallback(evt =>
             {
-                classRef.name = evt.newValue;
-                classRef.id = "";
+                classRef.Name = evt.newValue;
+                classRef.Id = "";
                 onValueChanged(classRef);
                 this.UpdateStatus(classRef, scripts);
                 EditorUtility.SetDirty(scriptable); // Mark the scriptable object as dirty
@@ -56,8 +56,8 @@ namespace CrashKonijn.Goap.Editor.Elements
             this.SelectField.RegisterValueChangedCallback(evt =>
             {
                 this.NameField.SetValueWithoutNotify(evt.newValue.type.Name);
-                classRef.name = evt.newValue.type.Name;
-                classRef.id = evt.newValue.id;
+                classRef.Name = evt.newValue.type.Name;
+                classRef.Id = evt.newValue.id;
                 this.SelectField.SetValueWithoutNotify(null);
                 onValueChanged(classRef);
                 this.UpdateStatus(classRef, scripts);

@@ -3,7 +3,7 @@ using CrashKonijn.Goap.Generators;
 using CrashKonijn.Goap.Support.Loaders;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Support.Generators
+namespace CrashKonijn.Goap.Scriptables
 {
     [CreateAssetMenu(menuName = "Goap/Generator")]
     public class GeneratorScriptable : ScriptableObject
@@ -46,7 +46,7 @@ namespace CrashKonijn.Goap.Support.Generators
             generator.CreateWorldKey(assetPath, name, this.nameSpace);
         }
 
-        public Loaders.Classes GetClasses() => ClassScanner.GetClasses(this.nameSpace,
+        public Support.Loaders.Classes GetClasses() => ClassScanner.GetClasses(this.nameSpace,
             Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this)));
 
         public Script[] GetActions() => this.GetClasses().actions;

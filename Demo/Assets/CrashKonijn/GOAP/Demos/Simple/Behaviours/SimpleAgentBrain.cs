@@ -7,12 +7,12 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
     public class SimpleAgentBrain : MonoBehaviour
     {
         private AgentBehaviour agent;
-        private HungerBehaviour hunger;
+        private SimpleHungerBehaviour hunger;
 
         private void Awake()
         {
             this.agent = this.GetComponent<AgentBehaviour>();
-            this.hunger = this.GetComponent<HungerBehaviour>();
+            this.hunger = this.GetComponent<SimpleHungerBehaviour>();
         }
 
         private void Start()

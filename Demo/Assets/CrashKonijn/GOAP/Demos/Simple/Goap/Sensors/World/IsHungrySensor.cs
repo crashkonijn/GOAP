@@ -19,7 +19,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.World
 
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
-            var hungerBehaviour = references.GetCachedComponent<HungerBehaviour>();
+            var hungerBehaviour = references.GetCachedComponent<SimpleHungerBehaviour>();
 
             if (hungerBehaviour == null)
                 return false;

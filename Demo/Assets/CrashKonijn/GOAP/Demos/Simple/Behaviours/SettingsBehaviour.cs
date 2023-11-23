@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Configs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -14,6 +15,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
         public GameObject applePrefab;
         public GameObject agentPrefab;
         [FormerlySerializedAs("agentType")] public GoapSetBehaviour goapSet;
+        public AgentTypeBehaviour agentType;
         
         public TextMeshProUGUI appleCountText;
         public TextMeshProUGUI agentCountText;
@@ -94,7 +96,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
             for (var i = 0; i < count; i++)
             {
                 var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
-                agent.AgentType = this.goapSet.AgentType;
+                agent.AgentType = this.agentType.AgentType;
             
                 this.SetDebug(agent.GetComponentInChildren<TextBehaviour>(), this.debug);
             

@@ -2,7 +2,6 @@
 using System.Linq;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Generators;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -28,15 +27,15 @@ namespace CrashKonijn.Goap.Editor.Elements
 
         protected override void BindListItem(CapabilityActionElement element, BehaviourAction item, int index)
         {
-            element.Foldout.text = item.action.name;
+            element.Foldout.text = item.action.Name;
             
             element.Action.Bind(this.scriptable, item.action, this.generator.GetActions().ToArray(), classRef =>
             {
-                element.Foldout.text = item.action.name;
+                element.Foldout.text = item.action.Name;
             });
             element.Target.Bind(this.scriptable, item.target, this.generator.GetTargetKeys().ToArray(), classRef =>
             {
-                element.Foldout.text = item.action.name;
+                element.Foldout.text = item.action.Name;
             });
             
             element.BaseCostField.value = item.baseCost;

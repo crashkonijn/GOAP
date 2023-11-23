@@ -14,65 +14,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goals:
   - goal:
-      name: WanderGoal
-      id: Simple-WanderGoal
+      <Name>k__BackingField: WanderGoal
+      <Id>k__BackingField: Simple-WanderGoal
     conditions:
     - worldKey:
-        name: IsWandering
-        id: 
-      comparison: 1
-      amount: 0
+        <Name>k__BackingField: IsWandering
+        <Id>k__BackingField: IsWandering-b0925b8a-5c98-4777-a174-8f8ad1655f20
+      comparison: 3
+      amount: 1
   actions:
   - action:
-      name: WanderAction
-      id: Simple-WanderAction
+      <Name>k__BackingField: WanderAction
+      <Id>k__BackingField: Simple-WanderAction
     baseCost: 1
     target:
-      name: NonExistingTarget
-      id: 
+      <Name>k__BackingField: WanderTarget
+      <Id>k__BackingField: WanderTarget-ae7344be-5223-4260-acac-f33c9eb260f5
     inRange: 0.1
     moveMode: 0
     conditions: []
     effects:
     - worldKey:
-        name: IsWandering
-        id: 
+        <Name>k__BackingField: IsWandering
+        <Id>k__BackingField: IsWandering-b0925b8a-5c98-4777-a174-8f8ad1655f20
       effect: 1
-  - action:
-      name: PickupAppleAction
-      id: Simple-PickupAppleAction
-    baseCost: 1
-    target:
-      name: ClosestApple
-      id: ClosestApple-db0ac42c-0b6a-4039-94e8-85379a627188
-    inRange: 0.1
-    moveMode: 0
-    conditions:
-    - worldKey:
-        name: ThereAreApples
-        id: ThereAreApples-ceaefcd0-d32f-4a3c-aafe-0ff1ac343717
-      comparison: 2
-      amount: 1
-    effects:
-    - worldKey:
-        name: HasApple
-        id: HasApple-60e317a0-75e4-419c-8439-45873af983a2
-      effect: 1
-  worldSensors:
-  - sensor:
-      name: HasAppleSensor
-      id: Simple-HasAppleSensor
-    worldKey:
-      name: HasApple
-      id: HasApple-60e317a0-75e4-419c-8439-45873af983a2
+  worldSensors: []
   targetSensors:
   - sensor:
-      name: AgentSensor
-      id: Simple-TransformSensor
+      <Name>k__BackingField: WanderTargetSensor
+      <Id>k__BackingField: Simple-WanderTargetSensor
     targetKey:
-      name: AgentTarget
-      id: AgentTarget-425903d7-8429-4cb6-b3ce-76d1a541a2b6
-  multiSensors:
-  - sensor:
-      name: AppleSensor
-      id: Simple-AppleSensor
+      <Name>k__BackingField: WanderTarget
+      <Id>k__BackingField: WanderTarget-ae7344be-5223-4260-acac-f33c9eb260f5
+  multiSensors: []

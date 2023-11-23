@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Generators;
 using CrashKonijn.Goap.Support.Loaders;
 
 namespace CrashKonijn.Goap.Editor.Elements
@@ -109,18 +109,18 @@ namespace CrashKonijn.Goap.Editor.Elements
 
             if (item is BehaviourWorldSensor worldSensor)
             {
-                var scopes = new List<string>(){ worldSensor.worldKey.name };
+                var scopes = new List<string>(){ worldSensor.worldKey.Name };
                 scopes.AddRange(this.GetScopes(worldSensor.sensor, this.generator.GetWorldSensors()));
 
-                return $"{worldSensor.sensor.name} ({string.Join(", ", scopes)})";
+                return $"{worldSensor.sensor.Name} ({string.Join(", ", scopes)})";
             }
 
             if (item is BehaviourTargetSensor targetSensor)
             {
-                var scopes = new List<string>(){ targetSensor.targetKey.name };
+                var scopes = new List<string>(){ targetSensor.targetKey.Name };
                 scopes.AddRange(this.GetScopes(targetSensor.sensor, this.generator.GetTargetSensors()));
 
-                return $"{targetSensor.sensor.name} ({string.Join(", ", scopes)})";
+                return $"{targetSensor.sensor.Name} ({string.Join(", ", scopes)})";
             }
 
             return "";
