@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Scriptables
 {
@@ -14,6 +18,99 @@ namespace CrashKonijn.Goap.Scriptables
         public List<BehaviourWorldSensor> worldSensors = new();
         public List<BehaviourTargetSensor> targetSensors = new();
         public List<BehaviourMultiSensor> multiSensors = new();
+
+        public IAgentTypeConfig GetConfig()
+        {
+            var generator = this.GetGenerator();
+
+            return new AgentTypeConfig(this.name)
+            {
+                Goals = this.GetGoals(generator),
+                Actions = this.GetActions(generator),
+                WorldSensors = this.GetWorldSensors(generator),
+                TargetSensors = this.GetTargetSensors(generator),
+                MultiSensors = this.GetMultiSensors(generator),
+            };
+        }
+
+        public List<IActionConfig> GetActions(GeneratorScriptable generator)
+        {
+            var actionClasses = generator.GetActions();
+            var targetClasses = generator.GetTargetKeys();
+            
+            return this.actions.Select(x => new ActionConfig
+            {
+                Name = x.action.Name,
+                ClassType = x.action.GetScript(actionClasses).GetFullName(),
+                BaseCost = x.baseCost,
+                Target = x.target.GetScript(targetClasses).GetInstance<ITargetKey>(),
+                InRange = x.inRange,
+                Conditions = x.conditions.Select(y => new Condition
+                {
+                    WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
+                    Comparison = y.comparison,
+                    Amount = y.amount
+                }).Cast<ICondition>().ToArray(),
+                Effects = x.effects.Select(y => new Effect
+                {
+                    WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
+                    Increase = y.effect == EffectType.Increase,
+                }).Cast<IEffect>().ToArray(),
+                MoveMode = x.moveMode
+            }).Cast<IActionConfig>().ToList();
+        }
+
+        public List<IGoalConfig> GetGoals(GeneratorScriptable generator)
+        {
+            var goalClasses = generator.GetGoals();
+            
+            return this.goals.Select(x => new GoalConfig
+            {
+                Name = x.goal.Name,
+                ClassType = x.goal.GetScript(goalClasses).GetFullName(),
+                Conditions = x.conditions.Select(y => new Condition
+                {
+                    WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
+                    Comparison = y.comparison,
+                    Amount = y.amount
+                }).Cast<ICondition>().ToList()
+            }).Cast<IGoalConfig>().ToList();
+        }
+
+        public List<IWorldSensorConfig> GetWorldSensors(GeneratorScriptable generator)
+        {
+            var sensorClasses = generator.GetWorldSensors();
+            
+            return this.worldSensors.Select(x => new WorldSensorConfig
+            {
+                Name = x.sensor.Name,
+                ClassType = x.sensor.GetScript(sensorClasses).GetFullName(),
+                Key = x.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>()
+            }).Cast<IWorldSensorConfig>().ToList();
+        }
+        
+        public List<ITargetSensorConfig> GetTargetSensors(GeneratorScriptable generator)
+        {
+            var sensorClasses = generator.GetTargetSensors();
+            
+            return this.targetSensors.Select(x => new TargetSensorConfig
+            {
+                Name = x.sensor.Name,
+                ClassType = x.sensor.GetScript(sensorClasses).GetFullName(),
+                Key = x.targetKey.GetScript(generator.GetTargetKeys()).GetInstance<ITargetKey>()
+            }).Cast<ITargetSensorConfig>().ToList();
+        }
+        
+        public List<IMultiSensorConfig> GetMultiSensors(GeneratorScriptable generator)
+        {
+            var sensorClasses = generator.GetMultiSensors();
+            
+            return this.multiSensors.Select(x => new MultiSensorConfig
+            {
+                Name = x.sensor.Name,
+                ClassType = x.sensor.GetScript(sensorClasses).GetFullName()
+            }).Cast<IMultiSensorConfig>().ToList();
+        }
     }
 
     [Serializable]
@@ -53,12 +150,12 @@ namespace CrashKonijn.Goap.Scriptables
         public BehaviourCondition(string data)
         {
             var split = data.Split(' ');
-            this.worldKey.name = split[0];
+            this.worldKey.Name = split[0];
             this.comparison = split[1].FromName();
             this.amount = int.Parse(split[2]);
         }
 
-        public override string ToString() => $"{this.worldKey.name} {this.comparison.ToName()} {this.amount}";
+        public override string ToString() => $"{this.worldKey.Name} {this.comparison.ToName()} {this.amount}";
     }
     
     [Serializable]
@@ -69,7 +166,7 @@ namespace CrashKonijn.Goap.Scriptables
         public ClassRef worldKey = new();
         public EffectType effect;
 
-        public override string ToString() => $"{this.worldKey.name}{this.effect.ToName()}";
+        public override string ToString() => $"{this.worldKey.Name}{this.effect.ToName()}";
     }
 
     [Serializable]
@@ -77,7 +174,7 @@ namespace CrashKonijn.Goap.Scriptables
     {
         public ClassRef worldKey = new();
 
-        public override string ToString() => $"{this.sensor.name} ({this.worldKey.name})";
+        public override string ToString() => $"{this.sensor.Name} ({this.worldKey.Name})";
     }
 
     [Serializable]
@@ -85,13 +182,13 @@ namespace CrashKonijn.Goap.Scriptables
     {
         public ClassRef targetKey = new();
 
-        public override string ToString() => $"{this.sensor.name} ({this.targetKey.name})";
+        public override string ToString() => $"{this.sensor.Name} ({this.targetKey.Name})";
     }
 
     [Serializable]
     public class BehaviourMultiSensor : BehaviourSensor
     {
-        public override string ToString() => this.sensor.name;
+        public override string ToString() => this.sensor.Name;
     }
 
     [Serializable]
@@ -101,17 +198,11 @@ namespace CrashKonijn.Goap.Scriptables
     }
 
     [Serializable]
-    public class ClassRef
+    public class ClassRef : IClassRef
     {
-        public string name;
-        public string id;
-    }
-    
-    public enum ClassRefStatus
-    {
-        None,
-        Name,
-        Id,
-        Full
+        [field: SerializeField]
+        public string Name { get; set; }
+        [field: SerializeField]
+        public string Id  { get; set; }
     }
 }

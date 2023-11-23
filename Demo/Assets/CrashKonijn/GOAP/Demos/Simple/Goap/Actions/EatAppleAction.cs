@@ -22,18 +22,18 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
                 return;
             
             data.Apple =  inventory.Get();
-            data.Hunger = agent.GetComponent<HungerBehaviour>();
+            data.SimpleHunger = agent.GetComponent<SimpleHungerBehaviour>();
         }
 
         public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            if (data.Apple == null || data.Hunger == null)
+            if (data.Apple == null || data.SimpleHunger == null)
                 return ActionRunState.Stop;
 
             var eatNutrition = context.DeltaTime * 20f;
 
             data.Apple.nutritionValue -= eatNutrition;
-            data.Hunger.hunger -= eatNutrition;
+            data.SimpleHunger.hunger -= eatNutrition;
             
             if (data.Apple.nutritionValue <= 0)
                 Object.Destroy(data.Apple.gameObject);
@@ -58,7 +58,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
         {
             public ITarget Target { get; set; }
             public AppleBehaviour Apple { get; set; }
-            public HungerBehaviour Hunger { get; set; }
+            public SimpleHungerBehaviour SimpleHunger { get; set; }
         }
     }
 }

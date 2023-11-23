@@ -7,13 +7,18 @@ namespace CrashKonijn.Goap.Configs
     [Serializable]
     public class GoalConfig : IGoalConfig
     {
+        public GoalConfig()
+        {
+            
+        }
+        
         public GoalConfig(Type type)
         {
             this.Name = type.Name;
             this.ClassType = type.AssemblyQualifiedName;
         }
 
-        public string Name { get; }
+        public string Name { get; set; }
         public string ClassType { get; set; }
         public int BaseCost { get; set; }
         public List<ICondition> Conditions { get; set; } = new();

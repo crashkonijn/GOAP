@@ -2,7 +2,7 @@
 
 namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
-    public class HungerBehaviour : MonoBehaviour
+    public class SimpleHungerBehaviour : MonoBehaviour
     {
         public float hunger = 50;
 

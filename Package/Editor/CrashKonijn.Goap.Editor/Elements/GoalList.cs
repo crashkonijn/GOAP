@@ -2,7 +2,6 @@
 using System.Linq;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Generators;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -28,11 +27,11 @@ namespace CrashKonijn.Goap.Editor.Elements
 
         protected override void BindListItem(CapabilityGoalElement element, BehaviourGoal item, int index)
         {
-            element.Foldout.text = item.goal.name;
+            element.Foldout.text = item.goal.Name;
             
             element.Goal.Bind(this.scriptable, item.goal, this.generator.GetGoals().ToArray(), classRef =>
             {
-                element.Foldout.text = item.goal.name;
+                element.Foldout.text = item.goal.Name;
             });
         }
     }

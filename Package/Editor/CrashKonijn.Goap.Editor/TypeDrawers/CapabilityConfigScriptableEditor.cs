@@ -1,6 +1,5 @@
 ﻿using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Generators;
 using CrashKonijn.Goap.Support.Loaders;
 using UnityEditor;
 using UnityEngine;

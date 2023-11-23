@@ -9,13 +9,13 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
     {
         private TextMeshProUGUI text;
         private AgentBehaviour agent;
-        private HungerBehaviour hunger;
+        private SimpleHungerBehaviour simpleHunger;
 
         private void Awake()
         {
             this.text = this.GetComponentInChildren<TextMeshProUGUI>();
             this.agent = this.GetComponent<AgentBehaviour>();
-            this.hunger = this.GetComponent<HungerBehaviour>();
+            this.simpleHunger = this.GetComponent<SimpleHungerBehaviour>();
         }
 
         private void Update()
@@ -28,7 +28,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
             if (this.agent.CurrentAction is null)
                 return "Idle";
 
-            return $"{this.agent.CurrentGoal.GetType().GetGenericTypeName()}\n{this.agent.CurrentAction.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.hunger.hunger:0.00}";
+            return $"{this.agent.CurrentGoal.GetType().GetGenericTypeName()}\n{this.agent.CurrentAction.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleHunger.hunger:0.00}";
         }
     }
 }

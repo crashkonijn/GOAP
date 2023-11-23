@@ -2,7 +2,6 @@
 using System.IO;
 using CrashKonijn.Goap.Generators;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Generators;
 using CrashKonijn.Goap.Support.Loaders;
 using UnityEditor;
 using UnityEditor.UIElements;
