@@ -12,7 +12,7 @@ namespace CrashKonijn.Goap.Behaviours
         private GoapSetConfigScriptable config;
 
         [SerializeField]
-        private GoapRunnerBehaviour runner;
+        private GoapBehaviour runner;
 
         public IAgentType AgentType { get; private set; }
 

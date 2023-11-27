@@ -7,8 +7,5 @@ namespace CrashKonijn.Goap.Core.Interfaces
         HashSet<IMonoAgent> All();
         void Add(IMonoAgent agent);
         void Remove(IMonoAgent agent);
-        void Enqueue(IMonoAgent agent);
-        IMonoAgent[] GetQueue();
-        int GetQueueCount();
     }
 }

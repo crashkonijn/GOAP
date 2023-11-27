@@ -2,6 +2,8 @@
 {
     public interface IAgentEvents
     {
+        void Bind(IAgent agent, IAgentTypeEvents valueEvents);
+        
         // Actions
         event ActionDelegate OnActionStart;
         void ActionStart(IAction action);
@@ -31,5 +33,9 @@
 
         event TargetDelegate OnMove;
         void Move(ITarget target);
+        
+        // General
+        event EmptyDelegate OnResolve;
+        void Resolve();
     }
 }

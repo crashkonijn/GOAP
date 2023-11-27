@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Core.Interfaces;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Sensors
 {

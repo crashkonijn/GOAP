@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver.Models;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Behaviours
 {
     [DefaultExecutionOrder(-100)]
-    public class GoapRunnerBehaviour : MonoBehaviour, IGoapRunner
+    public class GoapBehaviour : MonoBehaviour, IGoap
     {
-        private Classes.Runners.GoapRunner runner;
+        private Classes.Runners.Goap goap;
 
-        public float RunTime => this.runner.RunTime;
-        public float CompleteTime => this.runner.CompleteTime;
+        public float RunTime => this.goap.RunTime;
+        public float CompleteTime => this.goap.CompleteTime;
         public int RunCount { get; private set; }
 
         public GoapConfigInitializerBase configInitializer;
-        
 
         [FormerlySerializedAs("goapSetConfigFactories")]
         public List<AgentTypeFactoryBase> agentTypeConfigFactories = new();
@@ -31,25 +27,24 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.Initialize();
         }
-
-        public void Register(IAgentType agentType) => this.runner.Register(agentType);
         
-        public void Register(IAgentTypeConfig agentTypeConfig) => this.runner.Register(new AgentTypeFactory(this.config).Create(agentTypeConfig));
+        public void Register(IAgentType agentType) => this.goap.Register(agentType);
+        
+        public void Register(IAgentTypeConfig agentTypeConfig) => this.goap.Register(new AgentTypeFactory(this.config).Create(agentTypeConfig));
 
         private void Update()
         {
-            this.RunCount = this.runner.QueueCount;
-            this.runner.Run();
+            this.goap.OnUpdate();
         }
 
         private void LateUpdate()
         {
-            this.runner.Complete();
+            this.goap.OnLateUpdate();
         }
         
         private void OnDestroy()
         {
-            this.runner.Dispose();
+            this.goap.Dispose();
         }
 
         private void Initialize()
@@ -58,10 +53,15 @@ namespace CrashKonijn.Goap.Behaviours
                 return;
             
             this.config = GoapConfig.Default;
-            this.runner = new Classes.Runners.GoapRunner();
             
             if (this.configInitializer != null)
                 this.configInitializer.InitConfig(this.config);
+
+            var controller = this.GetComponent<IGoapController>();
+            
+            this.goap = new Classes.Runners.Goap(controller);
+            
+            controller.Initialize(this.goap);
             
             this.CreateAgentTypes();
             
@@ -78,16 +78,19 @@ namespace CrashKonijn.Goap.Behaviours
             });
         }
 
-        public IGraph GetGraph(IAgentType agentType) => this.runner.GetGraph(agentType);
-        public bool Knows(IAgentType agentType) => this.runner.Knows(agentType);
-        public IMonoAgent[] Agents => this.runner.Agents;
-        public IAgentType[] AgentTypes => this.runner.AgentTypes;
+        public IGoapEvents Events => this.goap.Events;
+        public Dictionary<IAgentType, IAgentTypeJobRunner> AgentTypeRunners => this.goap.AgentTypeRunners;
+        public IGoapController Controller => this.goap.Controller;
+        public IGraph GetGraph(IAgentType agentType) => this.goap.GetGraph(agentType);
+        public bool Knows(IAgentType agentType) => this.goap.Knows(agentType);
+        public IMonoAgent[] Agents => this.goap.Agents;
+        public IAgentType[] AgentTypes => this.goap.AgentTypes;
 
         public IAgentType GetAgentType(string id)
         {
             this.Initialize();
             
-            return this.runner.GetAgentType(id);
+            return this.goap.GetAgentType(id);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         IAgentEvents Events { get; }
         IDataReferenceInjector Injector { get; }
         IAgentDistanceObserver DistanceObserver { get; }
+        IAgentTimers Timers { get; }
 
         void Run();
         
@@ -23,7 +24,8 @@ namespace CrashKonijn.Goap.Core.Interfaces
 
         void SetGoal(IGoal goal, bool endAction);
         void SetAction(IAction action, List<IAction> path, ITarget target);
-        void EndAction(bool enqueue = true);
+        void EndAction(bool resolveAction = true);
         void SetDistanceMultiplierSpeed(float speed);
+        void ResolveAction();
     }
 }
