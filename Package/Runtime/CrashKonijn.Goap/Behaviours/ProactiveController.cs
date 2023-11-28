@@ -33,7 +33,6 @@ namespace CrashKonijn.Goap.Behaviours
 
                 if (agent.Timers.Resolve.IsExpired(this.resolveTime))
                 {
-                    Debug.Log($"Re-resolve action: {agent.name}");
                     agent.ResolveAction();
                 }
             }
