@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Core.Interfaces;
-using UnityEngine;
 
-namespace CrashKonijn.Goap.Behaviours
+namespace CrashKonijn.Goap.Classes.Controllers
 {
-    public class ProactiveController : MonoBehaviour, IGoapController
+    public class ProactiveController : IGoapController
     {
         private IGoap goap;
         private Dictionary<IAgentType, HashSet<IMonoAgent>> agents = new();
-
-        [SerializeField]
-        private float resolveTime;
+        
+        public float ResolveTime { get; set; } = 1f;
 
         public void Initialize(IGoap goap)
         {
@@ -19,7 +16,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.goap.Events.OnAgentResolve += this.OnAgentResolve;
         }
 
-        private void OnDisable()
+        public void Disable()
         {
             this.goap.Events.OnAgentResolve -= this.OnAgentResolve;
         }
@@ -31,7 +28,7 @@ namespace CrashKonijn.Goap.Behaviours
                 if (agent.IsNull())
                     continue;
 
-                if (agent.Timers.Resolve.IsExpired(this.resolveTime))
+                if (agent.Timers.Resolve.IsExpired(this.ResolveTime))
                 {
                     agent.ResolveAction();
                 }

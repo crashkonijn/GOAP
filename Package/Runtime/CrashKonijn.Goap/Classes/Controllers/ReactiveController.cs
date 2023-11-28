@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Core.Interfaces;
-using UnityEngine;
 
-namespace CrashKonijn.Goap.Behaviours
+namespace CrashKonijn.Goap.Classes.Controllers
 {
-    public class ReactiveController : MonoBehaviour, IGoapController
+    public class ReactiveController : IGoapController
     {
         private IGoap goap;
         private Dictionary<IAgentType, HashSet<IMonoAgent>> agents = new();
@@ -16,7 +14,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.goap.Events.OnAgentResolve += this.OnAgentResolve;
         }
 
-        private void OnDisable()
+        public void Disable()
         {
             this.goap.Events.OnAgentResolve -= this.OnAgentResolve;
         }
