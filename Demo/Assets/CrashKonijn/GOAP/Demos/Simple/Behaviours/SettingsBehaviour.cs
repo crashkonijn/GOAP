@@ -23,7 +23,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
         public Toggle debugToggle;
 
         private bool debug = true;
-        private GoapRunnerBehaviour goapRunner;
+        private GoapBehaviour goap;
 
         private int frameCount;
         private float fps;
@@ -34,7 +34,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
         private void Awake()
         {
             this.agentPrefab.SetActive(false);
-            this.goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
+            this.goap = FindObjectOfType<GoapBehaviour>();
             this.apples = FindObjectOfType<AppleCollection>();
         }
 
@@ -50,13 +50,13 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
                 this.fpsTimer -= 1;
             }
             
-            this.fpsText.text = $"FPS: {this.fps}\nResolve count: {this.goapRunner.RunCount}\nRunTime: {this.goapRunner.RunTime} (ms)\nCompleteTime: {this.goapRunner.CompleteTime} (ms)";
+            this.fpsText.text = $"FPS: {this.fps}\nResolve count: {this.goap.RunCount}\nRunTime: {this.goap.RunTime} (ms)\nCompleteTime: {this.goap.CompleteTime} (ms)";
         }
 
         private void FixedUpdate()
         {
             this.appleCountText.text = $"+ Apple ({this.apples.Get().Length})";
-            this.agentCountText.text = $"+ Agent ({this.goapRunner.Agents.Length})";
+            this.agentCountText.text = $"+ Agent ({this.goap.Agents.Length})";
         }
 
         public void SetDebug(bool value)
@@ -90,7 +90,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
         {
             this.SetDebug(false);
             
-            var agentCount = this.goapRunner.Agents.Length;
+            var agentCount = this.goap.Agents.Length;
             var count = agentCount < 50 ? 50 - agentCount : 50;
             
             for (var i = 0; i < count; i++)

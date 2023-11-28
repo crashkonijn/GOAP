@@ -9,12 +9,12 @@ using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.TypeDrawers
 {
-    [CustomEditor(typeof(GoapRunnerBehaviour))]
+    [CustomEditor(typeof(GoapBehaviour))]
     public class GoapRunnerEditor : UnityEditor.Editor
     {
         public override VisualElement CreateInspectorGUI()
         {
-            var runner = (GoapRunnerBehaviour) this.target;
+            var runner = (GoapBehaviour) this.target;
             var root = new VisualElement();
             
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
@@ -35,7 +35,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             return root;
         }
 
-        private void RenderConfigFactories(VisualElement root, GoapRunnerBehaviour runner)
+        private void RenderConfigFactories(VisualElement root, GoapBehaviour runner)
         {
             root.Add(new PropertyField(this.serializedObject.FindProperty("agentTypeConfigFactories")));
         }

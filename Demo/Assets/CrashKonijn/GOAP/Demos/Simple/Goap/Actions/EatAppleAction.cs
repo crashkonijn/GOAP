@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
@@ -21,7 +22,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
             if (inventory == null)
                 return;
             
-            data.Apple =  inventory.Get();
+            data.Apple =  inventory.Hold();
             data.SimpleHunger = agent.GetComponent<SimpleHungerBehaviour>();
         }
 
@@ -34,9 +35,12 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 
             data.Apple.nutritionValue -= eatNutrition;
             data.SimpleHunger.hunger -= eatNutrition;
-            
+
             if (data.Apple.nutritionValue <= 0)
+            {
+                data.Inventory.Drop(data.Apple);
                 Object.Destroy(data.Apple.gameObject);
+            }
             
             return ActionRunState.Continue;
         }
@@ -58,7 +62,12 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
         {
             public ITarget Target { get; set; }
             public AppleBehaviour Apple { get; set; }
+            
+            [GetComponent]
             public SimpleHungerBehaviour SimpleHunger { get; set; }
+            
+            [GetComponent]
+            public InventoryBehaviour Inventory { get; set; }
         }
     }
 }

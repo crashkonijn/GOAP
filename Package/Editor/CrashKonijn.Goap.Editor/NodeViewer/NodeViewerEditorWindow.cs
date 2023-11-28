@@ -14,7 +14,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 {
     public class NodeViewerEditorWindow : EditorWindow
     {
-        private IGoapRunner runner;
+        private IGoap runner;
         private IAgentType agentType;
         private AgentBehaviour agent;
         private List<AgentBehaviour> agents = new();
@@ -51,7 +51,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                     return;
                 }
             
-                this.runner = FindObjectOfType<GoapRunnerBehaviour>();
+                this.runner = FindObjectOfType<GoapBehaviour>();
                 this.agents = FindObjectsOfType<AgentBehaviour>().ToList();
 
                 this.RenderAgents();

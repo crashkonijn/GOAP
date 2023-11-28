@@ -50,7 +50,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
 
                 if (inventory == null)
                     return false;
-
+                
                 return inventory.Apples.Count > 0;
             });
             

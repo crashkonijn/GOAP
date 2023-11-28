@@ -2,16 +2,18 @@
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Core.Interfaces;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes
 {
     public class AgentType : IAgentType
     {
         public string Id { get; }
-        public IAgentCollection Agents { get; } = new AgentCollection();
+        public IAgentCollection Agents { get; }
         public IGoapConfig GoapConfig { get; }
         public ISensorRunner SensorRunner { get; }
         public IAgentDebugger Debugger { get; }
+        public IAgentTypeEvents Events { get; } = new AgentTypeEvents();
 
         private List<IGoal> goals;
         private List<IAction> actions;
@@ -24,10 +26,19 @@ namespace CrashKonijn.Goap.Classes
             this.goals = goals;
             this.actions = actions;
             this.Debugger = debugger;
+            
+            this.Agents = new AgentCollection(this);
         }
 
-        public void Register(IMonoAgent agent) => this.Agents.Add(agent);
-        public void Unregister(IMonoAgent agent) => this.Agents.Remove(agent);
+        public void Register(IMonoAgent agent)
+        {
+            this.Agents.Add(agent);
+        }
+
+        public void Unregister(IMonoAgent agent)
+        {
+            this.Agents.Remove(agent);
+        }
 
         public TAction ResolveAction<TAction>()
             where TAction : IAction

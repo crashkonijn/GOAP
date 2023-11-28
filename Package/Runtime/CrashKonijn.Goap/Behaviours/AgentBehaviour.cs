@@ -27,6 +27,7 @@ namespace CrashKonijn.Goap.Behaviours
             {
                 this.agentType = value;
                 value.Register(this);
+                this.Events.Bind(this, value.Events);
             }
         }
 
@@ -38,6 +39,8 @@ namespace CrashKonijn.Goap.Behaviours
         public IAgentEvents Events { get; } = new AgentEvents();
         public IDataReferenceInjector Injector { get; private set; }
         public IAgentDistanceObserver DistanceObserver { get; set; } = new VectorDistanceObserver();
+        
+        public IAgentTimers Timers { get; } = new AgentTimers();
 
         private ITarget currentTarget;
 
@@ -188,9 +191,10 @@ namespace CrashKonijn.Goap.Behaviours
                 return;
             
             this.CurrentGoal = goal;
+            this.Timers.Goal.Touch();
             
             if (this.CurrentAction == null)
-                this.AgentType.Agents.Enqueue(this);
+                this.ResolveAction();
             
             this.Events.GoalStart(goal);
             
@@ -206,6 +210,7 @@ namespace CrashKonijn.Goap.Behaviours
             }
 
             this.CurrentAction = action;
+            this.Timers.Action.Touch();
 
             var data = action.GetData();
             this.Injector.Inject(data);
@@ -216,7 +221,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Events.ActionStart(action);
         }
         
-        public void EndAction(bool enqueue = true)
+        public void EndAction(bool resolveAction = true)
         {
             var action = this.CurrentAction;
             
@@ -228,13 +233,19 @@ namespace CrashKonijn.Goap.Behaviours
             
             this.Events.ActionStop(action);
             
-            if (enqueue)
-                this.AgentType.Agents.Enqueue(this);
+            if (resolveAction)
+                this.ResolveAction();
         }
 
         public void SetDistanceMultiplierSpeed(float speed)
         {
             this.DistanceMultiplier = 1f / speed;
+        }
+
+        public void ResolveAction()
+        {
+            this.Events.Resolve();
+            this.Timers.Resolve.Touch();
         }
     }
 }

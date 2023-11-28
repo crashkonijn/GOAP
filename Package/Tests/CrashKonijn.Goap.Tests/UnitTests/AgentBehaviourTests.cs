@@ -234,7 +234,7 @@ namespace CrashKonijn.Goap.UnitTests
         }
 
         [Test]
-        public void SetGoal_EnqueuesAgent()
+        public void SetGoal_ResolvesAgent()
         {
             // Arrange
             var agentType = Substitute.For<IAgentType>();
@@ -242,12 +242,13 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.AgentType = agentType;
+            agent.MockEvents();
             
             // Act
             agent.SetGoal<TestGoal>(false);
             
             // Assert
-            agentType.Agents.Received(1).Enqueue(agent);
+            agent.Events.Received(1).Resolve();
         }
 
         [Test]
@@ -509,19 +510,21 @@ namespace CrashKonijn.Goap.UnitTests
         }
 
         [Test]
-        public void EndAction_ShouldEnqueueAgent()
+        public void EndAction_ShouldResolveAgent()
         {
             // Arrange
             var set = Substitute.For<IAgentType>();
+            
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
             agent.AgentType = set;
+            agent.MockEvents();
             
             // Act
             agent.EndAction();
             
             // Assert
-            set.Agents.Received(1).Enqueue(agent);
+            agent.Events.Received(1).Resolve();
         }
         
         [Test]

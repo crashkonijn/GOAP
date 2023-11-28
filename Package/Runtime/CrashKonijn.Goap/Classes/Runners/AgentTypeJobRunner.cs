@@ -9,7 +9,7 @@ using Unity.Mathematics;
 
 namespace CrashKonijn.Goap.Classes.Runners
 {
-    public class AgentTypeJobRunner
+    public class AgentTypeJobRunner : IAgentTypeJobRunner
     {
         private readonly IAgentType agentType;
         private readonly IGraphResolver resolver;
@@ -31,7 +31,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             this.conditionBuilder = this.resolver.GetConditionBuilder();
         }
 
-        public void Run()
+        public void Run(HashSet<IMonoAgent> queue)
         {
             this.resolveHandles.Clear();
             
@@ -39,7 +39,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             
             var globalData = this.agentType.SensorRunner.SenseGlobal();
 
-            foreach (var agent in this.agentType.Agents.GetQueue())
+            foreach (var agent in queue)
             {
                 this.Run(globalData, agent);
             }
