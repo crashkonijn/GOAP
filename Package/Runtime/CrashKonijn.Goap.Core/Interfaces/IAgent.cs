@@ -23,13 +23,13 @@ namespace CrashKonijn.Goap.Core.Interfaces
 
         void Run();
         
+        void ClearGoal();
         void SetGoal<TGoal>(bool endAction) where TGoal : IGoal;
-
         void SetGoal(IGoal goal, bool endAction);
         void SetAction(IAction action, List<IAction> path, ITarget target);
         void StopAction(bool resolveAction = true);
         void CompleteAction(bool resolveAction = true);
-        void SetDistanceMultiplierSpeed(float speed);
         void ResolveAction();
+        void SetDistanceMultiplierSpeed(float speed);
     }
 }
