@@ -159,6 +159,11 @@ namespace CrashKonijn.Goap.Behaviours
                 this.StopAction();
         }
 
+        public void ClearGoal()
+        {
+            this.CurrentGoal = null;
+        }
+
         public void SetAction(IAction action, List<IAction> path, ITarget target)
         {
             if (this.CurrentAction != null)
