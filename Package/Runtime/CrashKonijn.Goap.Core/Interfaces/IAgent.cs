@@ -7,6 +7,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
     {
         float DistanceMultiplier { get; }
         AgentState State { get; }
+        AgentMoveState MoveState { get; }
         IAgentType AgentType { get; }
         IGoal CurrentGoal { get; }
         IAction CurrentAction { get; }
@@ -17,6 +18,8 @@ namespace CrashKonijn.Goap.Core.Interfaces
         IDataReferenceInjector Injector { get; }
         IAgentDistanceObserver DistanceObserver { get; }
         IAgentTimers Timers { get; }
+        IActionRunState RunState { get; }
+        ITarget CurrentTarget { get; }
 
         void Run();
         
@@ -24,7 +27,8 @@ namespace CrashKonijn.Goap.Core.Interfaces
 
         void SetGoal(IGoal goal, bool endAction);
         void SetAction(IAction action, List<IAction> path, ITarget target);
-        void EndAction(bool resolveAction = true);
+        void StopAction(bool resolveAction = true);
+        void CompleteAction(bool resolveAction = true);
         void SetDistanceMultiplierSpeed(float speed);
         void ResolveAction();
     }

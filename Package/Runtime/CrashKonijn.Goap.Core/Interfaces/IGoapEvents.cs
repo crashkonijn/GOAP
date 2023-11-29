@@ -9,6 +9,9 @@
         event AgentActionDelegate OnActionStop;
         void ActionStop(IAgent agent, IAction action);
         
+        event AgentActionDelegate OnActionComplete;
+        void ActionComplete(IAgent agent, IAction action);
+        
         event AgentGoalDelegate OnNoActionFound;
         void NoActionFound(IAgent agent, IGoal goal);
         

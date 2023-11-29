@@ -28,7 +28,7 @@ namespace CrashKonijn.Goap.Classes.Controllers
                 if (agent.IsNull())
                     continue;
 
-                if (agent.Timers.Resolve.IsExpired(this.ResolveTime))
+                if (agent.Timers.Resolve.IsRunningFor(this.ResolveTime))
                 {
                     agent.ResolveAction();
                 }

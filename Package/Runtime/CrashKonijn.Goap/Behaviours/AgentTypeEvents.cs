@@ -27,6 +27,13 @@ namespace CrashKonijn.Goap.Behaviours
             this.goapEvents?.ActionStop(agent, action);
         }
 
+        public event AgentActionDelegate OnActionComplete;
+        public void ActionComplete(IAgent agent, IAction action)
+        {
+            this.OnActionComplete?.Invoke(agent, action);
+            this.goapEvents?.ActionComplete(agent, action);
+        }
+
         public event AgentGoalDelegate OnNoActionFound;
         public void NoActionFound(IAgent agent, IGoal goal)
         {

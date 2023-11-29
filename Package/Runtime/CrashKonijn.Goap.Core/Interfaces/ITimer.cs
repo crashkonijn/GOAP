@@ -4,6 +4,6 @@
     {
         void Touch();
         float GetElapsed();
-        bool IsExpired(float time);
+        bool IsRunningFor(float time);
     }
 }
