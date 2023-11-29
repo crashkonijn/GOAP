@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
@@ -18,17 +19,16 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
             data.Timer = Random.Range(0.3f, 1f);
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            data.Timer -= context.DeltaTime;
-            
-            if (data.Timer > 0)
-                return ActionRunState.Continue;
-            
-            return ActionRunState.Stop;
+            return ActionRunState.WaitThenComplete(data.Timer);
         }
 
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
+        {
+        }
+
+        public override void Complete(IMonoAgent agent, Data data)
         {
         }
 

@@ -11,6 +11,9 @@
         event ActionDelegate OnActionStop;
         void ActionStop(IAction action);
         
+        event ActionDelegate OnActionComplete;
+        void ActionComplete(IAction action);
+        
         event GoalDelegate OnNoActionFound;
         void NoActionFound(IGoal goal);
         

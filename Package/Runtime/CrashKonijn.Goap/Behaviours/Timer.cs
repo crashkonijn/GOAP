@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Behaviours
             return Time.realtimeSinceStartup - this.lastTouch;
         }
         
-        public bool IsExpired(float time)
+        public bool IsRunningFor(float time)
         {
             return this.GetElapsed() >= time;
         }

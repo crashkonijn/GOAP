@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace Demos.Shared.Actions
             data.Timer = Random.Range(0.3f, 1f);
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             data.Timer -= context.DeltaTime;
             
@@ -27,7 +28,11 @@ namespace Demos.Shared.Actions
             return ActionRunState.Stop;
         }
 
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
+        {
+        }
+
+        public override void Complete(IMonoAgent agent, Data data)
         {
         }
 

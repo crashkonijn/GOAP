@@ -1,6 +1,7 @@
 ﻿using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.References;
+using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
@@ -17,16 +18,10 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 
         public override void Start(IMonoAgent agent, Data data)
         {
-            var inventory = agent.GetComponent<InventoryBehaviour>();
-
-            if (inventory == null)
-                return;
-            
-            data.Apple =  inventory.Hold();
-            data.SimpleHunger = agent.GetComponent<SimpleHungerBehaviour>();
+            data.Apple =  data.Inventory.Hold();
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.Apple == null || data.SimpleHunger == null)
                 return ActionRunState.Stop;
@@ -40,24 +35,28 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
             {
                 data.Inventory.Drop(data.Apple);
                 Object.Destroy(data.Apple.gameObject);
+                return ActionRunState.Completed;
             }
             
             return ActionRunState.Continue;
         }
         
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
         {
             if (data.Apple == null)
                 return;
             
-            var inventory = agent.GetComponent<InventoryBehaviour>();
+            data.Inventory.Put(data.Apple);
+        }
 
-            if (inventory == null)
+        public override void Complete(IMonoAgent agent, Data data)
+        {
+            if (data.Apple == null)
                 return;
             
-            inventory.Put(data.Apple);
+            data.Inventory.Put(data.Apple);
         }
-        
+
         public class Data : IActionData
         {
             public ITarget Target { get; set; }

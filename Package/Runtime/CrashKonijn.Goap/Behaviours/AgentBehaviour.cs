@@ -5,6 +5,7 @@ using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Exceptions;
 using CrashKonijn.Goap.Observers;
+using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -17,7 +18,7 @@ namespace CrashKonijn.Goap.Behaviours
         [field: SerializeField]
         public float DistanceMultiplier { get; set; } = 1f;
         public AgentState State { get; private set; } = AgentState.NoAction;
-        public AgentMoveState MoveState { get; set; } = AgentMoveState.Idle;
+        public AgentMoveState MoveState { get; private set; } = AgentMoveState.Idle;
 
         private IAgentType agentType;
         public IAgentType AgentType
@@ -41,12 +42,15 @@ namespace CrashKonijn.Goap.Behaviours
         public IAgentDistanceObserver DistanceObserver { get; set; } = new VectorDistanceObserver();
         
         public IAgentTimers Timers { get; } = new AgentTimers();
+        public IActionRunState RunState { get; private set; }
 
-        private ITarget currentTarget;
+        public ITarget CurrentTarget { get; private set; }
+        private ActionRunner actionRunner;
 
         private void Awake()
         {
             this.Injector = new DataReferenceInjector(this);
+            this.actionRunner = new ActionRunner(this, new AgentProxy(this.SetState, this.SetMoveState, (state) => this.RunState = state, this.IsInRange));
             
             if (this.agentTypeBehaviour != null)
                 this.AgentType = this.agentTypeBehaviour.AgentType;
@@ -66,7 +70,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void OnDisable()
         {
-            this.EndAction(false);
+            this.StopAction(false);
             
             if (this.AgentType != null)
                 this.AgentType.Unregister(this);
@@ -76,61 +80,35 @@ namespace CrashKonijn.Goap.Behaviours
         {
             if (this.CurrentAction == null)
             {
-                this.State = AgentState.NoAction;
+                this.SetState(AgentState.NoAction);
                 return;
             }
             
             this.UpdateTarget();
 
-            switch (this.CurrentAction.Config.MoveMode)
-            {
-                case ActionMoveMode.MoveBeforePerforming:
-                    this.RunMoveBeforePerforming();
-                    break;
-                case ActionMoveMode.PerformWhileMoving:
-                    this.RunPerformWhileMoving();
-                    break;
-            }
-        }
-
-        private void RunPerformWhileMoving()
-        {
-            if (this.IsInRange())
-            {
-                this.State = AgentState.PerformingAction;
-                this.SetMoveState(AgentMoveState.InRange);
-                this.PerformAction();
-                return;
-            }
-                
-            this.State = AgentState.MovingWhilePerformingAction;
-            this.SetMoveState(AgentMoveState.OutOfRange);
-            this.Move();
-            this.PerformAction();
-        }
-
-        private void RunMoveBeforePerforming()
-        {
-            if (this.IsInRange())
-            {
-                this.State = AgentState.PerformingAction;
-                this.SetMoveState(AgentMoveState.InRange);
-                this.PerformAction();
-                return;
-            }
-
-            this.State = AgentState.MovingToTarget;
-            this.SetMoveState(AgentMoveState.OutOfRange);
-            this.Move();
+            this.actionRunner.Run();
         }
 
         private void UpdateTarget()
         {
-            if (this.currentTarget == this.CurrentActionData?.Target)
+            if (this.CurrentTarget == this.CurrentActionData?.Target)
                 return;
             
-            this.currentTarget = this.CurrentActionData?.Target;
-            this.Events.TargetChanged(this.currentTarget, this.IsInRange());
+            this.CurrentTarget = this.CurrentActionData?.Target;
+            this.Events.TargetChanged(this.CurrentTarget, this.IsInRange());
+        }
+
+        private void SetState(AgentState state)
+        {
+            if (this.State == state)
+                return;
+            
+            this.State = state;
+
+            if (state is AgentState.PerformingAction or AgentState.MovingWhilePerformingAction)
+            {
+                this.Timers.Action.Touch();
+            }
         }
 
         private void SetMoveState(AgentMoveState state)
@@ -143,33 +121,12 @@ namespace CrashKonijn.Goap.Behaviours
             switch (state)
             {
                 case AgentMoveState.InRange:
-                    this.Events.TargetInRange(this.currentTarget);
+                    this.Events.TargetInRange(this.CurrentTarget);
                     break;
                 case AgentMoveState.OutOfRange:
-                    this.Events.TargetOutOfRange(this.currentTarget);
+                    this.Events.TargetOutOfRange(this.CurrentTarget);
                     break;
             }
-        }
-
-        private void Move()
-        {
-            if (this.currentTarget == null)
-                return;
-            
-            this.Events.Move(this.currentTarget);
-        }
-
-        private void PerformAction()
-        {
-            var result = this.CurrentAction.Perform(this, this.CurrentActionData, new ActionContext
-            {
-                DeltaTime = Time.deltaTime,
-            });
-
-            if (result == ActionRunState.Continue)
-                return;
-            
-            this.EndAction();
         }
 
         private bool IsInRange()
@@ -199,14 +156,14 @@ namespace CrashKonijn.Goap.Behaviours
             this.Events.GoalStart(goal);
             
             if (endAction)
-                this.EndAction();
+                this.StopAction();
         }
 
         public void SetAction(IAction action, List<IAction> path, ITarget target)
         {
             if (this.CurrentAction != null)
             {
-                this.EndAction(false);
+                this.StopAction(false);
             }
 
             this.CurrentAction = action;
@@ -218,23 +175,44 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentActionData.Target = target;
             this.CurrentActionPath = path;
             this.CurrentAction.Start(this, this.CurrentActionData);
+            this.RunState = null;
+            
             this.Events.ActionStart(action);
         }
         
-        public void EndAction(bool resolveAction = true)
+        public void StopAction(bool resolveAction = true)
         {
             var action = this.CurrentAction;
             
-            this.CurrentAction?.End(this, this.CurrentActionData);
-            this.CurrentAction = null;
-            this.CurrentActionData = null;
-            this.currentTarget = null;
-            this.MoveState = AgentMoveState.Idle;
+            action?.Stop(this, this.CurrentActionData);
+            this.ResetAction();
             
             this.Events.ActionStop(action);
             
             if (resolveAction)
                 this.ResolveAction();
+        }
+
+        public void CompleteAction(bool resolveAction = true)
+        {
+            var action = this.CurrentAction;
+            
+            action?.Complete(this, this.CurrentActionData);
+            this.ResetAction();
+            
+            this.Events.ActionComplete(action);
+            
+            if (resolveAction)
+                this.ResolveAction();
+        }
+
+        private void ResetAction()
+        {
+            this.CurrentAction = null;
+            this.CurrentActionData = null;
+            this.CurrentTarget = null;
+            this.MoveState = AgentMoveState.Idle;
+            this.RunState = null;
         }
 
         public void SetDistanceMultiplierSpeed(float speed)

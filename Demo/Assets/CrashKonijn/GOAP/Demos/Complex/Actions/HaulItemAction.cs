@@ -2,6 +2,7 @@
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
+using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
@@ -39,7 +40,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             data.Timer = 0.5f;
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.Item is null)
                 return ActionRunState.Stop;
@@ -55,7 +56,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             }
         }
 
-        private ActionRunState MoveToItem(IMonoAgent agent, Data data)
+        private IActionRunState MoveToItem(IMonoAgent agent, Data data)
         {
             if (data.Target is null)
                 return ActionRunState.Stop;
@@ -86,7 +87,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             return ActionRunState.Continue;
         }
         
-        private ActionRunState MoveToTarget(Data data)
+        private IActionRunState MoveToTarget(Data data)
         {
             if (data.Target is null)
                 return ActionRunState.Stop;
@@ -117,10 +118,14 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             return box;
         }
 
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
         {
         }
-        
+
+        public override void Complete(IMonoAgent agent, Data data)
+        {
+        }
+
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
