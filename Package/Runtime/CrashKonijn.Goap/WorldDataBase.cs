@@ -100,18 +100,8 @@ namespace CrashKonijn.Goap
             
             this.Targets.Add(key, target);
         }
-        
-        public void Apply(IWorldData worldData)
-        {
-            foreach (var (key, value) in worldData.States)
-            {
-                this.SetState(key, value);
-            }
-            
-            foreach (var (key, value) in worldData.Targets)
-            {
-                this.SetTarget(key, value);
-            }
-        }
+
+        public abstract (bool Exists, int Value) GetWorldValue(Type worldKey);
+        public abstract ITarget GetTargetValue(Type targetKey);
     }
 }

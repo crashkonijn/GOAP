@@ -302,7 +302,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.SetAction(action, path, new PositionTarget(Vector3.zero));
             
             // Assert
-            agent.CurrentActionPath.Should().BeSameAs(path);
+            agent.CurrentPlan.Should().BeSameAs(path);
         }
         
         [Test]

@@ -12,8 +12,8 @@ namespace CrashKonijn.Goap.Core.Interfaces
         IGoal CurrentGoal { get; }
         IAction CurrentAction { get; }
         IActionData CurrentActionData { get; }
-        IWorldData WorldData { get; }
-        List<IAction> CurrentActionPath { get; }
+        ILocalWorldData WorldData { get; }
+        List<IAction> CurrentPlan { get; }
         IAgentEvents Events { get; }
         IDataReferenceInjector Injector { get; }
         IAgentDistanceObserver DistanceObserver { get; }

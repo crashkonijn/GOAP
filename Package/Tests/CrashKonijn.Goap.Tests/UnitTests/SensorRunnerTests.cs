@@ -19,7 +19,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var sensor = Substitute.For<IGlobalWorldSensor>();
             
-            var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { });
+            var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
             // Act
             runner.SenseGlobal();
@@ -34,7 +34,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var sensor = Substitute.For<ILocalWorldSensor>();
             
-            var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { });
+            var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
             // Act
             runner.SenseGlobal();
@@ -49,7 +49,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var sensor = Substitute.For<IMultiSensor>();
             
-            var runner = new SensorRunner(new IWorldSensor[] {  }, new ITargetSensor[] { }, new IMultiSensor[] { sensor });
+            var runner = new SensorRunner(new IWorldSensor[] {  }, new ITargetSensor[] { }, new IMultiSensor[] { sensor }, Substitute.For<IGlobalWorldData>());
             
             // Act
             runner.SenseGlobal();
@@ -64,13 +64,13 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var sensor = Substitute.For<IGlobalWorldSensor>();
             
-            var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { });
+            var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
             var agent = Substitute.For<IMonoAgent>();
             agent.WorldData.Returns(new LocalWorldData());
             
             // Act
-            runner.SenseLocal(new GlobalWorldData(), agent);
+            runner.SenseLocal(agent);
             
             // Assert
             sensor.DidNotReceive().Sense(Arg.Any<IWorldData>());
@@ -82,13 +82,13 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var sensor = Substitute.For<ILocalWorldSensor>();
             
-            var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { });
+            var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
             var agent = Substitute.For<IMonoAgent>();
             agent.WorldData.Returns(new LocalWorldData());
             
             // Act
-            runner.SenseLocal(new GlobalWorldData(), agent);
+            runner.SenseLocal(agent);
             
             // Assert
             sensor.Received().Sense(Arg.Any<IWorldData>(), agent, Arg.Any<IComponentReference>());
@@ -100,18 +100,19 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var sensor = Substitute.For<IMultiSensor>();
             
-            var runner = new SensorRunner(new IWorldSensor[] {  }, new ITargetSensor[] { }, new IMultiSensor[] { sensor });
+            var runner = new SensorRunner(new IWorldSensor[] {  }, new ITargetSensor[] { }, new IMultiSensor[] { sensor }, Substitute.For<IGlobalWorldData>());
             
             var agent = Substitute.For<IMonoAgent>();
             agent.WorldData.Returns(new LocalWorldData());
             
             // Act
-            runner.SenseLocal(new GlobalWorldData(), agent);
+            runner.SenseLocal(agent);
             
             // Assert
             sensor.Received().Sense(Arg.Any<IWorldData>(), agent, Arg.Any<IComponentReference>());
         }
         
+        // TODO: look at!
         // // Global
         // [Test]
         // public void SenseGlobal_WithPositiveWorldSense_IsPresentInStates()

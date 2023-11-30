@@ -7,13 +7,17 @@ namespace CrashKonijn.Goap.Classes.Runners
     {
         private HashSet<ILocalSensor> localSensors = new();
         private HashSet<IGlobalSensor> globalSensors = new();
-        
-        // GC caches
-        private LocalWorldData localWorldData;
-        private readonly GlobalWorldData worldData = new();
 
-        public SensorRunner(IEnumerable<IWorldSensor> worldSensors, IEnumerable<ITargetSensor> targetSensors, IEnumerable<IMultiSensor> multiSensors)
-        {
+        private IGlobalWorldData worldData;
+
+        public SensorRunner(
+            IEnumerable<IWorldSensor> worldSensors,
+            IEnumerable<ITargetSensor> targetSensors,
+            IEnumerable<IMultiSensor> multiSensors,
+            IGlobalWorldData globalWorldData
+        ) {
+            this.worldData = globalWorldData;
+            
             foreach (var worldSensor in worldSensors)
             {
                 switch (worldSensor)
@@ -55,27 +59,20 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        public IGlobalWorldData SenseGlobal()
+        public void SenseGlobal()
         {
             foreach (var globalSensor in this.globalSensors)
             {
                 globalSensor.Sense(this.worldData);
             }
-
-            return this.worldData;
         }
 
-        public ILocalWorldData SenseLocal(IGlobalWorldData worldData, IMonoAgent agent)
+        public void SenseLocal(IMonoAgent agent)
         {
-            this.localWorldData = (LocalWorldData) agent.WorldData;
-            this.localWorldData.Apply(worldData);
-            
             foreach (var localSensor in this.localSensors)
             {
-                localSensor.Sense(this.localWorldData, agent, agent.Injector);
+                localSensor.Sense(agent.WorldData, agent, agent.Injector);
             }
-            
-            return this.localWorldData;
         }
     }
 }

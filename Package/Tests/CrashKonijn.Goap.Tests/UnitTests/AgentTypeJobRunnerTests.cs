@@ -28,7 +28,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>());
+            runner.Run(new HashSet<IMonoAgent>() { Substitute.For<IMonoAgent>() });
             runner.Dispose();
             
             // Assert
@@ -36,7 +36,7 @@ namespace CrashKonijn.Goap.UnitTests
         }
         
         [Test]
-        public void Run_SensesGlobalSensors()
+        public void Run_WithAtLeastOneAgent_DoesntSenseGlobalSensors()
         {
             // Arrange
             var sensorRunner = Substitute.For<ISensorRunner>();
@@ -54,6 +54,28 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
+            sensorRunner.Received(0).SenseGlobal();
+        }
+        
+        [Test]
+        public void Run_WithNoAgents_SensesGlobalSensors()
+        {
+            // Arrange
+            var sensorRunner = Substitute.For<ISensorRunner>();
+            var agentType = Substitute.For<IAgentType>();
+            agentType.SensorRunner.Returns(sensorRunner);
+            agentType.GetAllNodes().Returns(new List<IConnectable>());
+            agentType.GoapConfig.Returns(GoapConfig.Default);
+            
+            var resolver = Substitute.For<IGraphResolver>();
+            
+            var runner = new AgentTypeJobRunner(agentType, resolver);
+            
+            // Act
+            runner.Run(new HashSet<IMonoAgent>() { Substitute.For<IMonoAgent>() });
+            runner.Dispose();
+            
+            // Assert
             sensorRunner.Received(1).SenseGlobal();
         }
 
@@ -66,7 +88,6 @@ namespace CrashKonijn.Goap.UnitTests
             agent.CurrentAction.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
-            sensorRunner.SenseGlobal().Returns(new GlobalWorldData());
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
@@ -82,7 +103,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(0).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
+            sensorRunner.Received(0).SenseLocal(agent);
             resolver.Received(0).StartResolve(Arg.Any<RunData>());
         }
 
@@ -113,7 +134,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
+            sensorRunner.Received(1).SenseLocal(agent);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
         
@@ -144,7 +165,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
+            sensorRunner.Received(1).SenseLocal(agent);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
 
@@ -177,7 +198,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
+            sensorRunner.Received(1).SenseLocal(agent);
             resolver.Received(0).StartResolve(Arg.Any<RunData>());
             agent.Events.Received(1).GoalCompleted(agent.CurrentGoal);
         }
@@ -211,7 +232,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(Arg.Any<IGlobalWorldData>(), agent);
+            sensorRunner.Received(1).SenseLocal(agent);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
             agent.Events.Received(0).GoalCompleted(agent.CurrentGoal);
         }

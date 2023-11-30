@@ -3,7 +3,7 @@
     public interface ISensorRunner
     {
         void Update();
-        IGlobalWorldData SenseGlobal();
-        ILocalWorldData SenseLocal(IGlobalWorldData worldData, IMonoAgent agent);
+        void SenseGlobal();
+        void SenseLocal(IMonoAgent agent);
     }
 }

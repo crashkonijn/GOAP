@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
-using CrashKonijn.Goap;
-using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using System;
@@ -10,20 +8,15 @@ using CrashKonijn.Goap.Configs;
 
 namespace CrashKonijn.Goap.UnitTests
 {
-    public class TestWorldDataBase : WorldDataBase
-    {
-    }
-    
-
     [TestFixture]
     public class WorldDataBaseTests
     {
-        private TestWorldDataBase worldDataBase;
+        private LocalWorldData worldDataBase;
 
         [SetUp]
         public void SetUp()
         {
-            this.worldDataBase = new TestWorldDataBase();
+            this.worldDataBase = new LocalWorldData();
         }
 
         [Test]
@@ -124,25 +117,25 @@ namespace CrashKonijn.Goap.UnitTests
         }
 
         [Test]
-        public void Apply_UpdatesStatesAndTargetsCorrectly()
+        public void SetParent_UpdatesStatesAndTargetsCorrectly()
         {
             // Arrange
-            var mockWorldData = Substitute.For<IWorldData>();
-            mockWorldData.States.Returns(new Dictionary<Type, int> { { typeof(IWorldKey), 1 } });
+            var mockWorldData = Substitute.For<IGlobalWorldData>();
+            mockWorldData.GetWorldValue(Arg.Any<Type>()).Returns((true, 1));
             var mockTarget = Substitute.For<ITarget>();
-            mockWorldData.Targets.Returns(new Dictionary<Type, ITarget> { { typeof(ITargetKey), mockTarget } });
+            mockWorldData.GetTargetValue(Arg.Any<Type>()).Returns(mockTarget);
 
             // Act
-            this.worldDataBase.Apply(mockWorldData);
+            this.worldDataBase.SetParent(mockWorldData);
 
             // Assert
-            Assert.AreEqual(1, this.worldDataBase.States.Count);
-            Assert.IsTrue(this.worldDataBase.States.ContainsKey(typeof(IWorldKey)));
-            Assert.AreEqual(1, this.worldDataBase.States[typeof(IWorldKey)]);
+            Assert.AreEqual(0, this.worldDataBase.States.Count);
+            Assert.IsFalse(this.worldDataBase.States.ContainsKey(typeof(IWorldKey)));
+            Assert.AreEqual((true, 1), this.worldDataBase.GetWorldValue(typeof(IWorldKey)));
 
-            Assert.AreEqual(1, this.worldDataBase.Targets.Count);
-            Assert.IsTrue(this.worldDataBase.Targets.ContainsKey(typeof(ITargetKey)));
-            Assert.AreEqual(mockTarget, this.worldDataBase.Targets[typeof(ITargetKey)]);
+            Assert.AreEqual(0, this.worldDataBase.Targets.Count);
+            Assert.IsFalse(this.worldDataBase.Targets.ContainsKey(typeof(ITargetKey)));
+            Assert.AreEqual(mockTarget, this.worldDataBase.GetTargetValue(typeof(ITargetKey)));
         }
     }
 }

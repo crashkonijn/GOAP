@@ -3,7 +3,6 @@ using System.Linq;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Resolver.Interfaces;
-using CrashKonijn.Goap.Resolver.Models;
 using Unity.Collections;
 using Unity.Mathematics;
 
@@ -39,16 +38,15 @@ namespace CrashKonijn.Goap.Classes.Runners
             this.resolveHandles.Clear();
             
             this.agentType.SensorRunner.Update();
-            
-            var globalData = this.agentType.SensorRunner.SenseGlobal();
+            this.agentType.SensorRunner.SenseGlobal();
 
             foreach (var agent in queue)
             {
-                this.Run(globalData, agent);
+                this.Run(agent);
             }
         }
 
-        private void Run(IGlobalWorldData globalData, IMonoAgent agent)
+        private void Run(IMonoAgent agent)
         {
             if (agent.IsNull())
                 return;
@@ -56,9 +54,9 @@ namespace CrashKonijn.Goap.Classes.Runners
             if (agent.CurrentGoal == null)
                 return;
 
-            var localData = this.agentType.SensorRunner.SenseLocal(globalData, agent);
+            this.agentType.SensorRunner.SenseLocal(agent);
 
-            if (this.IsGoalCompleted(localData, agent))
+            if (this.IsGoalCompleted(agent))
             {
                 var goal = agent.CurrentGoal;
                 agent.ClearGoal();
@@ -66,7 +64,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                 return;
             }
 
-            this.FillBuilders(localData, agent);
+            this.FillBuilders(agent);
             
             this.resolveHandles.Add(new JobRunHandle(agent)
             {
@@ -82,10 +80,10 @@ namespace CrashKonijn.Goap.Classes.Runners
             });
         }
 
-        private void FillBuilders(ILocalWorldData localData, IMonoAgent agent)
+        private void FillBuilders(IMonoAgent agent)
         {
             var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
-            conditionObserver.SetWorldData(localData);
+            conditionObserver.SetWorldData(agent.WorldData);
 
             this.executableBuilder.Clear();
             this.positionBuilder.Clear();
@@ -108,7 +106,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                     this.conditionBuilder.SetConditionMet(condition, true);
                 }
                 
-                var target = localData.GetTarget(node);
+                var target = agent.WorldData.GetTarget(node);
 
                 this.executableBuilder.SetExecutable(node, allMet);
                 this.costBuilder.SetCost(node, node.GetCost(agent, agent.Injector));
@@ -117,10 +115,10 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        private bool IsGoalCompleted(ILocalWorldData localData, IMonoAgent agent)
+        private bool IsGoalCompleted(IMonoAgent agent)
         {
             var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
-            conditionObserver.SetWorldData(localData);
+            conditionObserver.SetWorldData(agent.WorldData);
             
             return agent.CurrentGoal.Conditions.All(x => conditionObserver.IsMet(x));
         }

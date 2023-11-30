@@ -23,7 +23,9 @@ namespace CrashKonijn.Goap.Classes
         {
             this.Validate(config);
             
-            var sensorRunner = this.CreateSensorRunner(config);
+            var worldData = new GlobalWorldData();
+            
+            var sensorRunner = this.CreateSensorRunner(config, worldData);
 
             return new AgentType(
                 id: config.Name,
@@ -31,7 +33,8 @@ namespace CrashKonijn.Goap.Classes
                 actions: this.GetActions(config),
                 goals: this.GetGoals(config),
                 sensorRunner: sensorRunner,
-                debugger: this.GetDebugger(config)
+                debugger: this.GetDebugger(config),
+                worldData: worldData
             );
         }
         
@@ -53,9 +56,9 @@ namespace CrashKonijn.Goap.Classes
                 throw new GoapException($"AgentTypeConfig has errors: {config.Name}");
         }
         
-        private SensorRunner CreateSensorRunner(IAgentTypeConfig config)
+        private SensorRunner CreateSensorRunner(IAgentTypeConfig config, GlobalWorldData globalWorldData)
         {
-            return new SensorRunner(this.GetWorldSensors(config), this.GetTargetSensors(config), this.GetMultiSensors(config));
+            return new SensorRunner(this.GetWorldSensors(config), this.GetTargetSensors(config), this.GetMultiSensors(config), globalWorldData);
         }
         
         private List<IAction> GetActions(IAgentTypeConfig config)

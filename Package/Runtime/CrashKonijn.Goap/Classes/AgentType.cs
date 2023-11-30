@@ -14,11 +14,12 @@ namespace CrashKonijn.Goap.Classes
         public ISensorRunner SensorRunner { get; }
         public IAgentDebugger Debugger { get; }
         public IAgentTypeEvents Events { get; } = new AgentTypeEvents();
+        public IGlobalWorldData WorldData { get; }
 
         private List<IGoal> goals;
         private List<IAction> actions;
 
-        public AgentType(string id, IGoapConfig config, List<IGoal> goals, List<IAction> actions, ISensorRunner sensorRunner, IAgentDebugger debugger)
+        public AgentType(string id, IGoapConfig config, List<IGoal> goals, List<IAction> actions, ISensorRunner sensorRunner, IAgentDebugger debugger, IGlobalWorldData worldData)
         {
             this.Id = id;
             this.GoapConfig = config;
@@ -26,6 +27,7 @@ namespace CrashKonijn.Goap.Classes
             this.goals = goals;
             this.actions = actions;
             this.Debugger = debugger;
+            this.WorldData = worldData;
             
             this.Agents = new AgentCollection(this);
         }

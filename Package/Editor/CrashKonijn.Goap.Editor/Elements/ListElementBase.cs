@@ -13,6 +13,7 @@ namespace CrashKonijn.Goap.Editor.Elements
         private readonly List<TItemType> list;
         private TItemType selectedItem;
         private readonly VisualElement elementsRoot;
+        private VisualElement buttonContainer;
 
         public ListElementBase(List<TItemType> list)
         {
@@ -29,24 +30,27 @@ namespace CrashKonijn.Goap.Editor.Elements
             {
                 this.CreateElement(i);
             }
+
+            if (this.buttonContainer is not null)
+                return;
             
-            var buttonContainer = new VisualElement();
-            buttonContainer.style.flexDirection = FlexDirection.Row;
-            buttonContainer.style.justifyContent = Justify.FlexEnd;
+            this.buttonContainer = new VisualElement();
+            this.buttonContainer.style.flexDirection = FlexDirection.Row;
+            this.buttonContainer.style.justifyContent = Justify.FlexEnd;
 
             var addButton = new Button(this.AddItem)
             {
                 text = "+"
             };
-            buttonContainer.Add(addButton);
+            this.buttonContainer.Add(addButton);
 
             var removeButton = new Button(this.RemoveSelectedItem)
             {
                 text = "-"
             };
-            buttonContainer.Add(removeButton);
+            this.buttonContainer.Add(removeButton);
 
-            this.Add(buttonContainer);
+            this.Add(this.buttonContainer);
         }
 
         private void CreateElement(int i)
