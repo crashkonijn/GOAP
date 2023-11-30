@@ -98,7 +98,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
         
         private string GetText(ICondition condition, bool value)
         {
-            var color = value ? "green" : "red";
+            var color = value ? "#1A9018" : "#DD1C1A";
 
             return $"    <color={color}>{condition.WorldKey.Name} {GetText(condition.Comparison)} {condition.Amount}</color>";
         }
