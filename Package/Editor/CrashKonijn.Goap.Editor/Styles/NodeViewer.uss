@@ -8,28 +8,29 @@
 }
 
 #node-viewer {
-
 }
 
 #node-viewer__node {
     position: absolute;
     padding: 10px;
-    border-width: 1px;
     border-radius: 5px;
-    background-color: #2d2d2d;
+    background-color: var(--unity-colors-tooltip-background);
     min-height: 150px;
 }
 
 .node-viewer__node--normal {
+    border-width: 1px;
     border-color: #b0b0b0;
 }
 
 .node-viewer__node--active {
-    border-color: #14b214;
+    border-color: #1A9018;
+    border-width: 2px;
 }
 
 .node-viewer__node--path {
     border-color: #009dff;
+    border-width: 2px;
 }
 
 #node-viewer__node__label {
@@ -59,5 +60,5 @@
 }
 
 #card {
-    background-color: #2d2d2d;
+    background-color: var(--unity-colors-tooltip-background);
 }
