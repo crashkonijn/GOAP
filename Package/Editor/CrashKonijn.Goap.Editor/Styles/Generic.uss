@@ -12,7 +12,7 @@
 }
 
 #card {
-    background-color: var(--unity-colors-box-background);
+    background-color: var(--unity-colors-tooltip-background);
     border-radius: 5px;
     border-width: 1px;
     border-color: var(--unity-colors-default-border);
@@ -21,7 +21,7 @@
 }
 
 .card {
-    background-color: var(--unity-colors-highlight-background-inactive);
+    background-color: var(--unity-colors-tooltip-background);
     border-radius: 5px;
     border-width: 1px;
     border-color: var(--unity-colors-default-border);
