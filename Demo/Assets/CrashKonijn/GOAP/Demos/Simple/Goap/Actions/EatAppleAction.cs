@@ -33,8 +33,6 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 
             if (data.Apple.nutritionValue <= 0)
             {
-                data.Inventory.Drop(data.Apple);
-                Object.Destroy(data.Apple.gameObject);
                 return ActionRunState.Completed;
             }
             
@@ -43,16 +41,25 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
         
         public override void Stop(IMonoAgent agent, Data data)
         {
-            if (data.Apple == null)
-                return;
-            
-            data.Inventory.Put(data.Apple);
+            this.Finish(agent, data);
         }
 
         public override void Complete(IMonoAgent agent, Data data)
         {
+            this.Finish(agent, data);
+        }
+
+        private void Finish(IMonoAgent agent, Data data)
+        {
             if (data.Apple == null)
                 return;
+            
+            if (data.Apple.nutritionValue <= 0)
+            {
+                data.Inventory.Drop(data.Apple);
+                Object.Destroy(data.Apple.gameObject);
+                return;
+            }
             
             data.Inventory.Put(data.Apple);
         }

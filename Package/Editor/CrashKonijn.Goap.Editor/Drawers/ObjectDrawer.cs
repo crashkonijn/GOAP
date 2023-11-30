@@ -26,15 +26,25 @@ namespace CrashKonijn.Goap.Editor.Drawers
         {
             if (value is null)
                 return "null";
-            
+
             if (value is TransformTarget transformTarget)
+            {
+                if (transformTarget.Transform == null)
+                    return "null";
+                
                 return transformTarget.Transform.name;
+            }
             
             if (value is PositionTarget positionTarget)
                 return positionTarget.Position.ToString();
-            
+
             if (value is MonoBehaviour monoBehaviour)
+            {
+                if (monoBehaviour == null)
+                    return "null";
+                
                 return monoBehaviour.name;
+            }
             
             if (value is ScriptableObject scriptableObject)
                 return scriptableObject.name;

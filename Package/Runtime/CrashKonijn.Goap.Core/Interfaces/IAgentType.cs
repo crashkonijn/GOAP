@@ -10,6 +10,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         ISensorRunner SensorRunner { get; }
         IAgentDebugger Debugger { get; }
         IAgentTypeEvents Events { get; }
+        IGlobalWorldData WorldData { get; }
         void Register(IMonoAgent agent);
         void Unregister(IMonoAgent agent);
         List<IConnectable> GetAllNodes();

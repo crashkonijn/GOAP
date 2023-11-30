@@ -48,7 +48,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             if (agent.CurrentAction == node.Node.Action)
                 return "node-viewer__node--active";
             
-            if (agent.CurrentActionPath.Contains(node.Node.Action))
+            if (agent.CurrentPlan.Contains(node.Node.Action))
                 return "node-viewer__node--path";
             
             return "node-viewer__node--normal";

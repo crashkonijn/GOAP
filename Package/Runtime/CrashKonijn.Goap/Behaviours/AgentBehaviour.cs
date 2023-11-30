@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Exceptions;
 using CrashKonijn.Goap.Observers;
-using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,6 +25,7 @@ namespace CrashKonijn.Goap.Behaviours
             set
             {
                 this.agentType = value;
+                this.WorldData.SetParent(value.WorldData);
                 value.Register(this);
                 this.Events.Bind(this, value.Events);
             }
@@ -35,8 +34,8 @@ namespace CrashKonijn.Goap.Behaviours
         public IGoal CurrentGoal { get; private set; }
         public IAction CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
-        public List<IAction> CurrentActionPath { get; private set; } = new List<IAction>();
-        public IWorldData WorldData { get; } = new LocalWorldData();
+        public List<IAction> CurrentPlan { get; private set; } = new List<IAction>();
+        public ILocalWorldData WorldData { get; } = new LocalWorldData();
         public IAgentEvents Events { get; } = new AgentEvents();
         public IDataReferenceInjector Injector { get; private set; }
         public IAgentDistanceObserver DistanceObserver { get; set; } = new VectorDistanceObserver();
@@ -178,7 +177,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Injector.Inject(data);
             this.CurrentActionData = data;
             this.CurrentActionData.Target = target;
-            this.CurrentActionPath = path;
+            this.CurrentPlan = path;
             this.CurrentAction.Start(this, this.CurrentActionData);
             this.RunState = null;
             
