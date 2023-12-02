@@ -149,6 +149,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
             foreach (var graphRootNode in graph.RootNodes.Values)
             {
+                // Fully qualified namespace to prevent collision with the Squiggle package. Fixes #126.
                 var debugGraph = new CrashKonijn.Goap.Editor.Classes.DebugGraph(graph).GetGraph(graphRootNode);
                 var drawer = new NodesDrawer(debugGraph, this.agent);
                 
