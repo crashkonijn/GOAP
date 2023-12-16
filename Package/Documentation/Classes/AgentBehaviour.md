@@ -40,7 +40,7 @@ public class NavMeshDistanceObserver : MonoBehaviour, IAgentDistanceObserver
     private void Awake()
     {
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
-        this.GetComponent<AgentBehaviour>.DistanceObserver = this;
+        this.GetComponent<AgentBehaviour>().DistanceObserver = this;
     }
     
     public float GetDistance(IMonoAgent agent, ITarget target, IComponentReference reference)
@@ -48,7 +48,7 @@ public class NavMeshDistanceObserver : MonoBehaviour, IAgentDistanceObserver
         var distance = this.navMeshAgent.remainingDistance;
         
         // No path
-        if (float.IsInfinite(distance))
+        if (float.IsInfinity(distance))
             return 0f;
         
         return distance;
