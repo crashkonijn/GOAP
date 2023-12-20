@@ -1,9 +1,5 @@
-﻿using System;
-using System.Linq;
-using CrashKonijn.Goap.Core.Enums;
+﻿using System.Linq;
 using CrashKonijn.Goap.Scriptables;
-using UnityEditor;
-using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.Elements
 {

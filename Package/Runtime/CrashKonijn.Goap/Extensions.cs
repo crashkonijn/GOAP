@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Loaders;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -67,9 +64,9 @@ namespace CrashKonijn.Goap
 
         public static (ClassRefStatus status, Script script) GetMatch(this IClassRef classRef, Script[] scripts)
         {
-            if (classRef.Name == "" && classRef.Id == "")
+            if (string.IsNullOrEmpty(classRef.Name) && string.IsNullOrEmpty(classRef.Id))
             {
-                return (ClassRefStatus.None, null);
+                return (ClassRefStatus.Empty, null);
             }
             
             // Full match

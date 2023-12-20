@@ -1,14 +1,14 @@
-﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 
-namespace {{namespace}}
+namespace CrashKonijn.Goap.GenTest
 {
-    [GoapId("{{id}}")]
-    public class {{name}}Action : ActionBase<{{name}}Action.Data>
+    [GoapId("Test-c8aa802b-1908-485a-96e1-5dc452a26cbc")]
+    public class TestAction : ActionBase<TestAction.Data>
     {
         public override void Created()
         {
@@ -16,6 +16,7 @@ namespace {{namespace}}
 
         public override void Start(IMonoAgent agent, Data data)
         {
+            
         }
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)

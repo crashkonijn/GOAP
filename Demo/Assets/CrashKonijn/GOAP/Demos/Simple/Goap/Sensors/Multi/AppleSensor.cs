@@ -1,6 +1,5 @@
 ﻿using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
 using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
 using CrashKonijn.Goap.Demos.Simple.Goap.WorldKeys;

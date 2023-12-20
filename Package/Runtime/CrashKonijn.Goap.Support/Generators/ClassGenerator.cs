@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
-using UnityEngine;
 
 namespace CrashKonijn.Goap.Generators
 {
@@ -15,56 +13,110 @@ namespace CrashKonijn.Goap.Generators
             }
         }
 
-        public void CreateTargetKey(string basePath, string name, string namespaceName)
+        public GenerationResult CreateTargetKey(string basePath, string name, string namespaceName)
         {
             if (name == String.Empty)
-                return;
+                return null;
             
             var template = this.LoadTemplate("target-key");
             var id = this.GetId(name);
             
             var result = this.Replace(template, id, name, namespaceName);
-            this.StoreAtPath(result, $"{basePath}/TargetKeys/{name}.cs");
+            var path = $"{basePath}/TargetKeys/{name}.cs";
+            this.StoreAtPath(result, path);
+            
+            return new GenerationResult
+            {
+                path = path,
+                name = name,
+                id = id
+            };
         }
 
-        public void CreateWorldKey(string basePath, string name, string namespaceName)
+        public GenerationResult CreateWorldKey(string basePath, string name, string namespaceName)
         {
             if (name == String.Empty)
-                return;
+                return null;
 
             var template = this.LoadTemplate("world-key");
             var id = this.GetId(name);
             
             var result = this.Replace(template, id, name, namespaceName);
-            this.StoreAtPath(result, $"{basePath}/WorldKeys/{name}.cs");
+            var path = $"{basePath}/WorldKeys/{name}.cs";
+            this.StoreAtPath(result, path);
+            
+            return new GenerationResult
+            {
+                path = path,
+                name = name,
+                id = id
+            };
         }
 
-        public void CreateGoal(string basePath, string name, string namespaceName)
+        public GenerationResult CreateGoal(string basePath, string name, string namespaceName)
         {
             var template = this.LoadTemplate("goal");
             name = name.Replace("Goal", "");
 
             if (name == String.Empty)
-                return;
+                return null;
             
             var id = this.GetId(name);
             
             var result = this.Replace(template, id, name, namespaceName);
-            this.StoreAtPath(result, $"{basePath}/Goals/{name}Goal.cs");
+            var path = $"{basePath}/Goals/{name}Goal.cs";
+            this.StoreAtPath(result, path);
+            
+            return new GenerationResult
+            {
+                path = path,
+                name = name,
+                id = id
+            };
         }
         
-        public void CreateAction(string basePath, string name, string namespaceName)
+        public GenerationResult CreateAction(string basePath, string name, string namespaceName)
         {
             var template = this.LoadTemplate("action");
             name = name.Replace("Action", "");
 
             if (name == String.Empty)
-                return;
+                return null;
             
             var id = this.GetId(name);
             
             var result = this.Replace(template, id, name, namespaceName);
-            this.StoreAtPath(result, $"{basePath}/Actions/{name}Action.cs");
+            var path = $"{basePath}/Actions/{name}Action.cs";
+            this.StoreAtPath(result, path);
+            
+            return new GenerationResult
+            {
+                path = path,
+                name = name,
+                id = id
+            };
+        }
+        
+        public GenerationResult CreateMultiSensor(string basePath, string name, string namespaceName)
+        {
+            if (name == String.Empty)
+                return null;
+
+            var template = this.LoadTemplate("multi-sensor");
+            name = name.Replace("Sensor", "");
+            
+            var id = this.GetId(name);
+            
+            var result = this.Replace(template, id, name, namespaceName);
+            var path = $"{basePath}/Sensors/Multi/{name}Sensor.cs";
+            this.StoreAtPath(result, path);
+            
+            return new GenerationResult
+            {
+                path = path,
+                name = name,
+                id = id
+            };
         }
 
         private string GetId(string name)
@@ -104,5 +156,12 @@ namespace CrashKonijn.Goap.Generators
             
             return basePath + "/Templates/" + name + ".template";
         }
+    }
+
+    public class GenerationResult
+    {
+        public string path;
+        public string name;
+        public string id;
     }
 }
