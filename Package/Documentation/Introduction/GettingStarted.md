@@ -1,5 +1,9 @@
 # Getting Started
 
+## Tutorials
+- **[YouTube tutorials](https://www.youtube.com/playlist?list=PLZWmMt_TbeYeatHa9hntDPu4zGEBAFffn)** on how to use the library.
+- **[YouTube references](https://www.youtube.com/playlist?list=PLZWmMt_TbeYdBZKvlsRuuOubPTTfPuZot)** discussing GOAP in general.
+
 ## Installation
 Add the package to your project using the package manager. Add the following URL to the package manager:
 ```
