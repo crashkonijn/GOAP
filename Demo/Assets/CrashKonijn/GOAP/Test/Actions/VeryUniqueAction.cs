@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.GenTest
 {
-    [GoapId("Test-c8aa802b-1908-485a-96e1-5dc452a26cbc")]
-    public class TestAction : ActionBase<TestAction.Data>
+    [GoapId("VeryUnique-73ca96e7-b2a3-4023-81ec-6e065f41c7a5")]
+    public class VeryUniqueAction : ActionBase<VeryUniqueAction.Data>
     {
         public override void Created()
         {
@@ -16,7 +16,6 @@ namespace CrashKonijn.Goap.GenTest
 
         public override void Start(IMonoAgent agent, Data data)
         {
-            
         }
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)

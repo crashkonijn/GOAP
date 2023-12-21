@@ -3,8 +3,6 @@ using CrashKonijn.Goap.Attributes;
 
 namespace CrashKonijn.Goap.GenTest
 {
-    [GoapId("Test-31127dc9-8700-4e39-a475-b59972ff4e82")]
-    public class TestGoal : GoalBase
-    {
-    }
+    [GoapId("TestKey-c839707f-b975-49f7-89cf-0936d5856476")]
+    public class TestKey : WorldKeyBase {}
 }

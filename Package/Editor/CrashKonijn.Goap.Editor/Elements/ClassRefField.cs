@@ -64,6 +64,11 @@ namespace CrashKonijn.Goap.Editor.Elements
             });
             
             this.UpdateStatus(classRef, scripts);
+            
+            this.schedule.Execute(() =>
+            {
+                this.UpdateStatus(classRef, scripts);
+            }).Every(1000);
         }
 
         private void UpdateStatus(ClassRef classRef, Script[] scripts)

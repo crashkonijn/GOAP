@@ -82,14 +82,9 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                     issue.Fix(this.scriptable.GetGenerator());
                 }
                 
-                this.goalList.Rebuild();
-                this.actionList.Rebuild();
-                this.worldSensorList.Rebuild();
-                this.targetSensorList.Rebuild();
-                this.multiSensorList.Rebuild();
-                
                 EditorUtility.SetDirty(this.scriptable);
                 AssetDatabase.SaveAssetIfDirty(this.scriptable);
+                AssetDatabase.Refresh();
             });
             fixButton.Add(new Label("Fix issues!"));
             root.Add(fixButton);

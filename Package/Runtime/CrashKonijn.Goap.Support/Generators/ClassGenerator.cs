@@ -70,7 +70,7 @@ namespace CrashKonijn.Goap.Generators
             return new GenerationResult
             {
                 path = path,
-                name = name,
+                name = name + "Goal",
                 id = id
             };
         }
@@ -92,7 +92,7 @@ namespace CrashKonijn.Goap.Generators
             return new GenerationResult
             {
                 path = path,
-                name = name,
+                name = name + "Action",
                 id = id
             };
         }
@@ -114,7 +114,7 @@ namespace CrashKonijn.Goap.Generators
             return new GenerationResult
             {
                 path = path,
-                name = name,
+                name = name + "Sensor",
                 id = id
             };
         }

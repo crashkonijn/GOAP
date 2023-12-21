@@ -15,21 +15,29 @@ MonoBehaviour:
   goals:
   - goal:
       <Name>k__BackingField: TestGoal
-      <Id>k__BackingField: Test-e83a1b4c-4b93-4c44-88cc-c81b3f801864
-    conditions: []
-  actions: []
-  worldSensors:
-  - sensor:
-      <Name>k__BackingField: NotFoundSensor
-      <Id>k__BackingField: 
-    worldKey:
-      <Name>k__BackingField: NotExistingKey
-      <Id>k__BackingField: NotExistingKey-5f34d91f-7f64-4f25-a982-1ff0c4bbc738
-  targetSensors:
-  - sensor:
-      <Name>k__BackingField: AnotherSensor
-      <Id>k__BackingField: 
-    targetKey:
+      <Id>k__BackingField: Test-31127dc9-8700-4e39-a475-b59972ff4e82
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: TestKey
+        <Id>k__BackingField: TestKey-c839707f-b975-49f7-89cf-0936d5856476
+      comparison: 2
+      amount: 1
+  actions:
+  - action:
+      <Name>k__BackingField: VeryUniqueAction
+      <Id>k__BackingField: VeryUnique-73ca96e7-b2a3-4023-81ec-6e065f41c7a5
+    baseCost: 1
+    target:
       <Name>k__BackingField: AnotherTargetKey
-      <Id>k__BackingField: AnotherTargetKey-cef08f33-4ef8-4c1e-92a9-c9fae0772426
+      <Id>k__BackingField: AnotherTargetKey-649b70a7-ed4a-4598-9243-ed2c30a69c63
+    inRange: 0.1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: TestKey
+        <Id>k__BackingField: TestKey-b460e713-86c4-49ef-b6ba-a9314b14d8f5
+      effect: 1
+  worldSensors: []
+  targetSensors: []
   multiSensors: []
