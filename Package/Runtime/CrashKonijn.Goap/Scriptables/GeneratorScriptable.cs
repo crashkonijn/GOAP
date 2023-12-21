@@ -7,51 +7,43 @@ namespace CrashKonijn.Goap.Scriptables
     [CreateAssetMenu(menuName = "Goap/Generator")]
     public class GeneratorScriptable : ScriptableObject
     {
+        private readonly ClassGenerator generator = new();
+        
         public string nameSpace = "CrashKonijn.Goap.GenTest";
         
-        public GenerationResult CreateGoal(string name)
+        public Script CreateGoal(string name)
         {
-            var generator = new ClassGenerator();
-            
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
             
-            return generator.CreateGoal(assetPath, name, this.nameSpace);
+            return this.generator.CreateGoal(assetPath, name, this.nameSpace);
         }
         
-        public GenerationResult CreateAction(string name)
+        public Script CreateAction(string name)
         {
-            var generator = new ClassGenerator();
-            
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
             
-            return generator.CreateAction(assetPath, name, this.nameSpace);
+            return this.generator.CreateAction(assetPath, name, this.nameSpace);
         }
         
-        public GenerationResult CreateTargetKey(string name)
+        public Script CreateTargetKey(string name)
         {
-            var generator = new ClassGenerator();
-            
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
             
-            return generator.CreateTargetKey(assetPath, name, this.nameSpace);
+            return this.generator.CreateTargetKey(assetPath, name, this.nameSpace);
         }
         
-        public GenerationResult CreateWorldKey(string name)
+        public Script CreateWorldKey(string name)
         {
-            var generator = new ClassGenerator();
-            
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
             
-            return generator.CreateWorldKey(assetPath, name, this.nameSpace);
+            return this.generator.CreateWorldKey(assetPath, name, this.nameSpace);
         }
         
-        public GenerationResult CreateMultiSensor(string name)
+        public Script CreateMultiSensor(string name)
         {
-            var generator = new ClassGenerator();
-            
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
             
-            return generator.CreateMultiSensor(assetPath, name, this.nameSpace);
+            return this.generator.CreateMultiSensor(assetPath, name, this.nameSpace);
         }
 
         public Scripts GetClasses() => ClassScanner.GetClasses(this.nameSpace,

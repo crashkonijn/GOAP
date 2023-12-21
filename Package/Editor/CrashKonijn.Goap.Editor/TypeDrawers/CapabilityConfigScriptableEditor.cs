@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Editor.Elements;
+﻿using System.Linq;
+using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Scriptables;
 using UnityEditor;
 using UnityEngine;
@@ -52,7 +53,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
 
             var checkButton = new Button(() =>
             {
-                var issues = new ScriptReferenceValidator().Check(this.scriptable);
+                var issues = new ScriptReferenceValidator().CheckAll(this.scriptable);
                 if (issues.Length == 0)
                 {
                     Debug.Log("No issues found!");
@@ -69,14 +70,16 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             var fixButton = new Button(() =>
             {
-                var issues = new ScriptReferenceValidator().Check(this.scriptable);
+                var validator = new ScriptReferenceValidator();
+                
+                var issues = validator.CheckAll(this.scriptable);
                 
                 if (issues.Length == 0)
                 {
                     Debug.Log("No issues found!");
                     return;
                 }
-                
+           
                 foreach (var issue in issues)
                 {
                     issue.Fix(this.scriptable.GetGenerator());

@@ -96,7 +96,7 @@ namespace CrashKonijn.Goap.Editor.Elements
                 return Array.Empty<string>();
             
             // Create instance of type
-            var instance = (IMultiSensor) Activator.CreateInstance(match.script.type);
+            var instance = (IMultiSensor) Activator.CreateInstance(match.script.Type);
             
             return instance.GetSensors();
         }
@@ -139,10 +139,10 @@ namespace CrashKonijn.Goap.Editor.Elements
             
             var scopes = new List<string>();
             
-            if (typeof(ILocalSensor).IsAssignableFrom(match.type))
+            if (typeof(ILocalSensor).IsAssignableFrom(match.Type))
                 scopes.Add("local");
             
-            if (typeof(IGlobalSensor).IsAssignableFrom(match.type))
+            if (typeof(IGlobalSensor).IsAssignableFrom(match.Type))
                 scopes.Add("global");
 
             return scopes.ToArray();

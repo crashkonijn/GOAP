@@ -19,13 +19,13 @@ namespace CrashKonijn.Goap
 
             return new Scripts
             {
-                goals = scripts.Where(x => typeof(IGoal).IsAssignableFrom(x.type)).ToArray(),
-                actions = scripts.Where(x => typeof(IAction).IsAssignableFrom(x.type)).ToArray(),
-                targetSensors = scripts.Where(x => typeof(ITargetSensor).IsAssignableFrom(x.type)).ToArray(),
-                worldSensors = scripts.Where(x => typeof(IWorldSensor).IsAssignableFrom(x.type)).ToArray(),
-                multiSensors = scripts.Where(x => typeof(IMultiSensor).IsAssignableFrom(x.type)).ToArray(),
-                worldKeys = scripts.Where(x => typeof(IWorldKey).IsAssignableFrom(x.type)).ToArray(),
-                targetKeys = scripts.Where(x => typeof(ITargetKey).IsAssignableFrom(x.type)).ToArray(),
+                goals = scripts.Where(x => typeof(IGoal).IsAssignableFrom(x.Type)).ToArray(),
+                actions = scripts.Where(x => typeof(IAction).IsAssignableFrom(x.Type)).ToArray(),
+                targetSensors = scripts.Where(x => typeof(ITargetSensor).IsAssignableFrom(x.Type)).ToArray(),
+                worldSensors = scripts.Where(x => typeof(IWorldSensor).IsAssignableFrom(x.Type)).ToArray(),
+                multiSensors = scripts.Where(x => typeof(IMultiSensor).IsAssignableFrom(x.Type)).ToArray(),
+                worldKeys = scripts.Where(x => typeof(IWorldKey).IsAssignableFrom(x.Type)).ToArray(),
+                targetKeys = scripts.Where(x => typeof(ITargetKey).IsAssignableFrom(x.Type)).ToArray(),
             };
         }
         
@@ -41,32 +41,45 @@ namespace CrashKonijn.Goap
                 var scriptPath = AssetDatabase.GUIDToAssetPath(scriptGuid);
                 
                 // Load the script asset
-                var script = AssetDatabase.LoadAssetAtPath<MonoScript>(scriptPath);
+                var script = GetScript(scriptPath, namespaceName);
+                
                 if (script == null)
                     continue;
                 
-                // Get the type represented by the script
-                var scriptType = script.GetClass();
-                if (scriptType?.Namespace == null)
-                    continue;
-
-                if (scriptType.IsAbstract)
-                    continue;
-
-                if (!scriptType.Namespace.ToLower().StartsWith(namespaceName.ToLower()))
-                    continue;
-
-                var id = scriptType.GetCustomAttribute<GoapIdAttribute>();
-                
-                classNames.Add(new Script
-                {
-                    type = scriptType,
-                    path = scriptPath,
-                    id = id?.Id
-                });
+                classNames.Add(script);
             }
 
             return classNames;
+        }
+
+        public static Script GetScript(string path, string namespaceName)
+        {
+            // Load the script asset
+            var script = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
+            if (script == null)
+                return null;
+                
+            // Get the type represented by the script
+            var scriptType = script.GetClass();
+            
+            if (scriptType?.Namespace == null)
+                return null;
+
+            if (scriptType.IsAbstract)
+                return null;
+
+            if (!scriptType.Namespace.ToLower().StartsWith(namespaceName.ToLower()))
+                return null;
+
+            var id = scriptType.GetCustomAttribute<GoapIdAttribute>();
+            
+            return new Script
+            {
+                Name = scriptType.Name,
+                Type = scriptType,
+                Path = path,
+                Id = id?.Id
+            };
         }
 
         public static GeneratorScriptable GetGenerator(ScriptableObject scriptable)
@@ -102,9 +115,10 @@ namespace CrashKonijn.Goap
 
     public class Script
     {
-        public Type type;
-        public string path;
-        public string id;
+        public string Name { get; set; }
+        public Type Type { get; set; }
+        public string Path { get; set; }
+        public string Id { get; set; }
     }
 
     public class Scripts
