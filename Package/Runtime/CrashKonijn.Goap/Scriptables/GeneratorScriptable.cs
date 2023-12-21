@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using CrashKonijn.Goap.Generators;
-using CrashKonijn.Goap.Support.Loaders;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Scriptables
@@ -10,43 +9,52 @@ namespace CrashKonijn.Goap.Scriptables
     {
         public string nameSpace = "CrashKonijn.Goap.GenTest";
         
-        public void CreateGoal(string name)
+        public GenerationResult CreateGoal(string name)
         {
             var generator = new ClassGenerator();
             
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
             
-            generator.CreateGoal(assetPath, name, this.nameSpace);
+            return generator.CreateGoal(assetPath, name, this.nameSpace);
         }
         
-        public void CreateAction(string name)
+        public GenerationResult CreateAction(string name)
         {
             var generator = new ClassGenerator();
             
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
             
-            generator.CreateAction(assetPath, name, this.nameSpace);
+            return generator.CreateAction(assetPath, name, this.nameSpace);
         }
         
-        public void CreateTargetKey(string name)
+        public GenerationResult CreateTargetKey(string name)
         {
             var generator = new ClassGenerator();
             
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
             
-            generator.CreateTargetKey(assetPath, name, this.nameSpace);
+            return generator.CreateTargetKey(assetPath, name, this.nameSpace);
         }
         
-        public void CreateWorldKey(string name)
+        public GenerationResult CreateWorldKey(string name)
         {
             var generator = new ClassGenerator();
             
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
             
-            generator.CreateWorldKey(assetPath, name, this.nameSpace);
+            return generator.CreateWorldKey(assetPath, name, this.nameSpace);
+        }
+        
+        public GenerationResult CreateMultiSensor(string name)
+        {
+            var generator = new ClassGenerator();
+            
+            var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
+            
+            return generator.CreateMultiSensor(assetPath, name, this.nameSpace);
         }
 
-        public Support.Loaders.Classes GetClasses() => ClassScanner.GetClasses(this.nameSpace,
+        public Scripts GetClasses() => ClassScanner.GetClasses(this.nameSpace,
             Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this)));
 
         public Script[] GetActions() => this.GetClasses().actions;

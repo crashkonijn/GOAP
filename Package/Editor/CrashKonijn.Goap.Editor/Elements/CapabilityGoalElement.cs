@@ -1,6 +1,4 @@
-﻿using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Loaders;
+﻿using CrashKonijn.Goap.Scriptables;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.Elements

@@ -1,14 +1,14 @@
-﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 
-namespace {{namespace}}
+namespace CrashKonijn.Goap.GenTest
 {
-    [GoapId("{{id}}")]
-    public class {{name}}Action : ActionBase<{{name}}Action.Data>
+    [GoapId("VeryUnique-73ca96e7-b2a3-4023-81ec-6e065f41c7a5")]
+    public class VeryUniqueAction : ActionBase<VeryUniqueAction.Data>
     {
         public override void Created()
         {

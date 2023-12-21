@@ -2,7 +2,6 @@
 using System.Linq;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Loaders;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -65,6 +64,11 @@ namespace CrashKonijn.Goap.Editor.Elements
             });
             
             this.UpdateStatus(classRef, scripts);
+            
+            this.schedule.Execute(() =>
+            {
+                this.UpdateStatus(classRef, scripts);
+            }).Every(1000);
         }
 
         private void UpdateStatus(ClassRef classRef, Script[] scripts)
@@ -75,17 +79,30 @@ namespace CrashKonijn.Goap.Editor.Elements
             {
                 case ClassRefStatus.Full:
                     this.Status.SetColor(Color.green);
+                    this.Status.tooltip = $"Class is found by name and id {this.GetTooltip(classRef)}";
                     break;
                 case ClassRefStatus.Id:
                     this.Status.SetColor(Color.cyan);
+                    this.Status.tooltip = $"Class is only found by id! {this.GetTooltip(classRef)}";
                     break;
                 case ClassRefStatus.Name:
                     this.Status.SetColor(Color.yellow);
+                    this.Status.tooltip = $"Class is only found by name! {this.GetTooltip(classRef)}";
                     break;
                 case ClassRefStatus.None:
                     this.Status.SetColor(Color.red);
+                    this.Status.tooltip = $"Class is not found! {this.GetTooltip(classRef)}";
+                    break;
+                case ClassRefStatus.Empty:
+                    this.Status.SetColor(Color.black);
+                    this.Status.tooltip = $"There is no name or id! {this.GetTooltip(classRef)}";
                     break;
             }
+        }
+
+        private string GetTooltip(ClassRef classRef)
+        {
+            return $"\nname: {classRef.Name ?? "-"}\nid: {classRef.Id ?? "-"}\nhash: {classRef.GetHashCode()}";
         }
     }
 }

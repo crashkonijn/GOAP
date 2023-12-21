@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Scriptables;
-using CrashKonijn.Goap.Support.Loaders;
 
 namespace CrashKonijn.Goap.Editor.Elements
 {
@@ -58,6 +57,7 @@ namespace CrashKonijn.Goap.Editor.Elements
             
             element.KeyField.Bind(this.scriptable, item.worldKey, this.generator.GetWorldKeys(), classRef =>
             {
+                element.Foldout.text = this.GetName(item);
             });
         }
 
@@ -70,6 +70,7 @@ namespace CrashKonijn.Goap.Editor.Elements
             
             element.KeyField.Bind(this.scriptable, item.targetKey, this.generator.GetTargetKeys(), classRef =>
             {
+                element.Foldout.text = this.GetName(item);
             });
         }
 
@@ -131,6 +132,9 @@ namespace CrashKonijn.Goap.Editor.Elements
             var (status, match) = classRef.GetMatch(scripts);
 
             if (status == ClassRefStatus.None)
+                return Array.Empty<string>();
+            
+            if (status == ClassRefStatus.Empty)
                 return Array.Empty<string>();
             
             var scopes = new List<string>();

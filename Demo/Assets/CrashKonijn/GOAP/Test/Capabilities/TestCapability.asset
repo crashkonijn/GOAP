@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
+  m_Name: TestCapability
+  m_EditorClassIdentifier: 
+  goals:
+  - goal:
+      <Name>k__BackingField: TestGoal
+      <Id>k__BackingField: Test-31127dc9-8700-4e39-a475-b59972ff4e82
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: TestKey
+        <Id>k__BackingField: TestKey-c839707f-b975-49f7-89cf-0936d5856476
+      comparison: 2
+      amount: 1
+  actions:
+  - action:
+      <Name>k__BackingField: VeryUniqueAction
+      <Id>k__BackingField: VeryUnique-73ca96e7-b2a3-4023-81ec-6e065f41c7a5
+    baseCost: 1
+    target:
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-649b70a7-ed4a-4598-9243-ed2c30a69c63
+    inRange: 0.1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: TestKey
+        <Id>k__BackingField: TestKey-b460e713-86c4-49ef-b6ba-a9314b14d8f5
+      effect: 1
+  worldSensors: []
+  targetSensors: []
+  multiSensors: []

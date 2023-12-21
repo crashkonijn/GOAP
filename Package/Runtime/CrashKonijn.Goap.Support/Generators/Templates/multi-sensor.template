@@ -1,0 +1,24 @@
+﻿using CrashKonijn.Goap.Attributes;
+using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Sensors;
+using UnityEngine;
+
+namespace {{namespace}}
+{
+    [GoapId("{{id}}")]
+    public class {{name}}Sensor : MultiSensorBase
+    {
+        public override void Created()
+        {
+        }
+
+        public override void Update()
+        {
+        }
+
+        public {{name}}Sensor()
+        {
+            // Add sensors here
+        }
+    }
+}

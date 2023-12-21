@@ -9,15 +9,15 @@ using CrashKonijn.Goap.Scriptables;
 using UnityEditor;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Support.Loaders
+namespace CrashKonijn.Goap
 {
     public class ClassScanner
     {
-        public static Classes GetClasses(string nameSpace, string folder)
+        public static Scripts GetClasses(string nameSpace, string folder)
         {
             var scripts = GetDerivedClassNames(nameSpace, folder);
 
-            return new Classes
+            return new Scripts
             {
                 goals = scripts.Where(x => typeof(IGoal).IsAssignableFrom(x.type)).ToArray(),
                 actions = scripts.Where(x => typeof(IAction).IsAssignableFrom(x.type)).ToArray(),
@@ -107,7 +107,7 @@ namespace CrashKonijn.Goap.Support.Loaders
         public string id;
     }
 
-    public class Classes
+    public class Scripts
     {
         public Script[] goals;
         public Script[] actions;
