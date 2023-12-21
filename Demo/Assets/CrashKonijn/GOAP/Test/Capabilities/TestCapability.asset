@@ -18,8 +18,8 @@ MonoBehaviour:
       <Id>k__BackingField: Test-31127dc9-8700-4e39-a475-b59972ff4e82
     conditions:
     - worldKey:
-        <Name>k__BackingField: TestKey
-        <Id>k__BackingField: TestKey-c839707f-b975-49f7-89cf-0936d5856476
+        <Name>k__BackingField: TestKeyy
+        <Id>k__BackingField: TestKeyy-73757bc7-cab5-45e3-99d6-8bbae9a0fd5c
       comparison: 2
       amount: 1
   actions:
@@ -35,8 +35,8 @@ MonoBehaviour:
     conditions: []
     effects:
     - worldKey:
-        <Name>k__BackingField: TestKey
-        <Id>k__BackingField: TestKey-b460e713-86c4-49ef-b6ba-a9314b14d8f5
+        <Name>k__BackingField: TestKeyy
+        <Id>k__BackingField: TestKeyy-73757bc7-cab5-45e3-99d6-8bbae9a0fd5c
       effect: 1
   worldSensors: []
   targetSensors: []

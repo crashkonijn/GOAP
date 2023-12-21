@@ -47,7 +47,6 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             button.Add(new Label($"Generate"));
             root.Add(button);
 
-
             var check = new Button(() =>
             {
                 var classes = ClassScanner.GetClasses(scriptable.nameSpace, Path.GetDirectoryName(AssetDatabase.GetAssetPath(scriptable)));
@@ -55,37 +54,37 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                 Debug.Log("---Goals---");
                 foreach (var script in classes.goals)
                 {
-                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                    Debug.Log($"{script.Type.Name}\n{script.Path}\n{script.Id}");
                 }
 
                 Debug.Log("---Actions---");
                 foreach (var script in classes.actions)
                 {
-                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                    Debug.Log($"{script.Type.Name}\n{script.Path}\n{script.Id}");
                 }
 
                 Debug.Log("---WorldKeys---");
                 foreach (var script in classes.worldKeys)
                 {
-                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                    Debug.Log($"{script.Type.Name}\n{script.Path}\n{script.Id}");
                 }
 
                 Debug.Log("---WorldSensors---");
                 foreach (var script in classes.worldSensors)
                 {
-                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                    Debug.Log($"{script.Type.Name}\n{script.Path}\n{script.Id}");
                 }
 
                 Debug.Log("---TargetKeys---");
                 foreach (var script in classes.targetKeys)
                 {
-                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                    Debug.Log($"{script.Type.Name}\n{script.Path}\n{script.Id}");
                 }
 
                 Debug.Log("---TargetSensors---");
                 foreach (var script in classes.targetSensors)
                 {
-                    Debug.Log($"{script.type.Name}\n{script.path}\n{script.id}");
+                    Debug.Log($"{script.Type.Name}\n{script.Path}\n{script.Id}");
                 }
             });
             check.Add(new Label("Check"));

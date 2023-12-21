@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Generators
 {
     public class ClassGenerator
     {
+        private Dictionary<string, Script> scripts = new();
+        
         private void EnsureDirectoryExists(string path)
         {
             if (!Directory.Exists(path))
@@ -13,7 +18,7 @@ namespace CrashKonijn.Goap.Generators
             }
         }
 
-        public GenerationResult CreateTargetKey(string basePath, string name, string namespaceName)
+        public Script CreateTargetKey(string basePath, string name, string namespaceName)
         {
             if (name == String.Empty)
                 return null;
@@ -23,17 +28,13 @@ namespace CrashKonijn.Goap.Generators
             
             var result = this.Replace(template, id, name, namespaceName);
             var path = $"{basePath}/TargetKeys/{name}.cs";
-            this.StoreAtPath(result, path);
             
-            return new GenerationResult
-            {
-                path = path,
-                name = name,
-                id = id
-            };
+            var created = this.StoreAtPath(result, path);
+            
+            return this.GetScript(id, path, name, !created);
         }
 
-        public GenerationResult CreateWorldKey(string basePath, string name, string namespaceName)
+        public Script CreateWorldKey(string basePath, string name, string namespaceName)
         {
             if (name == String.Empty)
                 return null;
@@ -41,19 +42,16 @@ namespace CrashKonijn.Goap.Generators
             var template = this.LoadTemplate("world-key");
             var id = this.GetId(name);
             
+            Debug.Log(id);
+            
             var result = this.Replace(template, id, name, namespaceName);
             var path = $"{basePath}/WorldKeys/{name}.cs";
-            this.StoreAtPath(result, path);
+            var created = this.StoreAtPath(result, path);
             
-            return new GenerationResult
-            {
-                path = path,
-                name = name,
-                id = id
-            };
+            return this.GetScript(id, path, name, !created);
         }
 
-        public GenerationResult CreateGoal(string basePath, string name, string namespaceName)
+        public Script CreateGoal(string basePath, string name, string namespaceName)
         {
             var template = this.LoadTemplate("goal");
             name = name.Replace("Goal", "");
@@ -65,17 +63,12 @@ namespace CrashKonijn.Goap.Generators
             
             var result = this.Replace(template, id, name, namespaceName);
             var path = $"{basePath}/Goals/{name}Goal.cs";
-            this.StoreAtPath(result, path);
+            var created = this.StoreAtPath(result, path);
             
-            return new GenerationResult
-            {
-                path = path,
-                name = name + "Goal",
-                id = id
-            };
+            return this.GetScript(id, path, name, !created);
         }
         
-        public GenerationResult CreateAction(string basePath, string name, string namespaceName)
+        public Script CreateAction(string basePath, string name, string namespaceName)
         {
             var template = this.LoadTemplate("action");
             name = name.Replace("Action", "");
@@ -87,17 +80,12 @@ namespace CrashKonijn.Goap.Generators
             
             var result = this.Replace(template, id, name, namespaceName);
             var path = $"{basePath}/Actions/{name}Action.cs";
-            this.StoreAtPath(result, path);
+            var created = this.StoreAtPath(result, path);
             
-            return new GenerationResult
-            {
-                path = path,
-                name = name + "Action",
-                id = id
-            };
+            return this.GetScript(id, path, name, !created);
         }
         
-        public GenerationResult CreateMultiSensor(string basePath, string name, string namespaceName)
+        public Script CreateMultiSensor(string basePath, string name, string namespaceName)
         {
             if (name == String.Empty)
                 return null;
@@ -111,11 +99,11 @@ namespace CrashKonijn.Goap.Generators
             var path = $"{basePath}/Sensors/Multi/{name}Sensor.cs";
             this.StoreAtPath(result, path);
             
-            return new GenerationResult
+            return new Script
             {
-                path = path,
-                name = name + "Sensor",
-                id = id
+                Id = id,
+                Name = name,
+                Path = path,
             };
         }
 
@@ -133,14 +121,15 @@ namespace CrashKonijn.Goap.Generators
             return template;
         }
 
-        private void StoreAtPath(string content, string path)
+        private bool StoreAtPath(string content, string path)
         {
             this.EnsureDirectoryExists(Path.GetDirectoryName(path));
 
             if (File.Exists(path))
-                return;
+                return false;
             
             File.WriteAllText(path, content);
+            return true;
         }
 
         private string LoadTemplate(string name)
@@ -152,16 +141,25 @@ namespace CrashKonijn.Goap.Generators
         
         private string GetTemplatePath(string name)
         {
-            var basePath = "Packages/com.crashkonijn.goap/Runtime/CrashKonijn.Goap.Support/Generators";
+            var basePath = "Packages/com.crashkonijn.goap/Runtime/CrashKonijn.Goap/Generators";
             
             return basePath + "/Templates/" + name + ".template";
         }
-    }
 
-    public class GenerationResult
-    {
-        public string path;
-        public string name;
-        public string id;
+        private Script GetScript(string id, string path, string name, bool existing)
+        {
+            if (existing && this.scripts.TryGetValue(path, out var s))
+                return s;
+            
+            var script = new Script
+            {
+                Id = id,
+                Path = path,
+                Name = name,
+            };
+
+            this.scripts.Add(path, script);
+            return script;
+        }
     }
 }

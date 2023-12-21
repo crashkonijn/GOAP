@@ -31,7 +31,7 @@ namespace CrashKonijn.Goap.Editor.Elements
             row.Add(this.NameField);
 
             this.SelectField = new PopupField<Script>();
-            this.SelectField.formatListItemCallback = item => item.type.Name;
+            this.SelectField.formatListItemCallback = item => item.Type.Name;
             this.SelectField.style.width = new StyleLength(new Length(20, LengthUnit.Pixel));
             row.Add(this.SelectField);
             
@@ -54,9 +54,9 @@ namespace CrashKonijn.Goap.Editor.Elements
             this.SelectField.choices = scripts.ToList();
             this.SelectField.RegisterValueChangedCallback(evt =>
             {
-                this.NameField.SetValueWithoutNotify(evt.newValue.type.Name);
-                classRef.Name = evt.newValue.type.Name;
-                classRef.Id = evt.newValue.id;
+                this.NameField.SetValueWithoutNotify(evt.newValue.Type.Name);
+                classRef.Name = evt.newValue.Type.Name;
+                classRef.Id = evt.newValue.Id;
                 this.SelectField.SetValueWithoutNotify(null);
                 onValueChanged(classRef);
                 this.UpdateStatus(classRef, scripts);

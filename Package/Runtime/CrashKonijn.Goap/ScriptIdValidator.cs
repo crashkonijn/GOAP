@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Generators;
 using CrashKonijn.Goap.Scriptables;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace CrashKonijn.Goap
 {
     public class ScriptReferenceValidator
     {
-        public IClassReferenceIssue[] Check(CapabilityConfigScriptable capabilityConfig)
+        public IClassReferenceIssue[] CheckAll(CapabilityConfigScriptable capabilityConfig)
         {
             var generator = capabilityConfig.GetGenerator();
             var classes = generator.GetClasses();
@@ -128,13 +127,13 @@ namespace CrashKonijn.Goap
             if (result == null)
                 return;
             
-            this.reference.Id = result.id;
-            this.reference.Name = result.name;
+            this.reference.Id = result.Id;
+            this.reference.Name = result.Name;
             
-            Debug.Log($"Generated {result.path}");
+            Debug.Log($"Generated {result.Path}");
         }
 
-        private GenerationResult Generate(GeneratorScriptable generator)
+        private Script Generate(GeneratorScriptable generator)
         {
             switch (this.type)
             {
@@ -178,14 +177,13 @@ namespace CrashKonijn.Goap
 
         public void Fix(GeneratorScriptable generator)
         {
-            this.reference.Id = this.script.id;
-            Debug.Log($"{this.reference.Id}");
+            this.reference.Id = this.script.Id;
             Debug.Log($"Fixed {this.GetMessage()}");
         }
 
         public string GetMessage()
         {
-            return $"Reference matched by name, but not by id: {this.reference.Name} ({this.script.type.Name}) {this.reference.GetHashCode()}";
+            return $"Reference matched by name, but not by id: {this.reference.Name} ({this.script.Type.Name})";
         }
     }
     
@@ -202,13 +200,13 @@ namespace CrashKonijn.Goap
 
         public void Fix(GeneratorScriptable generator)
         {
-            this.reference.Name = this.script.type.Name;
+            this.reference.Name = this.script.Type.Name;
             Debug.Log($"Fixed {this.GetMessage()}");
         }
 
         public string GetMessage()
         {
-            return $"Reference matched by id, but not by name: {this.reference.Id} ({this.script.type.Name}) {this.reference.GetHashCode()}";
+            return $"Reference matched by id, but not by name: {this.reference.Id} ({this.script.Type.Name})";
         }
     }
     

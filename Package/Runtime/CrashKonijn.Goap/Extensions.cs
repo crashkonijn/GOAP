@@ -70,21 +70,21 @@ namespace CrashKonijn.Goap
             }
             
             // Full match
-            if (scripts.Any(x => x.id == classRef.Id && x.type.Name == classRef.Name))
+            if (scripts.Any(x => x.Id == classRef.Id && x.Type.Name == classRef.Name))
             {
-                return (ClassRefStatus.Full, scripts.First(x => x.id == classRef.Id && x.type.Name == classRef.Name));
+                return (ClassRefStatus.Full, scripts.First(x => x.Id == classRef.Id && x.Type.Name == classRef.Name));
             }
             
             // Id Match
-            if (scripts.Any(x => x.id == classRef.Id))
+            if (scripts.Any(x => x.Id == classRef.Id))
             {
-                return (ClassRefStatus.Id, scripts.First(x => x.id == classRef.Id));
+                return (ClassRefStatus.Id, scripts.First(x => x.Id == classRef.Id));
             }
             
             // Name Match
-            if (scripts.Any(x => x.type.Name == classRef.Name))
+            if (scripts.Any(x => x.Type.Name == classRef.Name))
             {
-                return (ClassRefStatus.Name, scripts.First(x => x.type.Name == classRef.Name));
+                return (ClassRefStatus.Name, scripts.First(x => x.Type.Name == classRef.Name));
             }
             
             return (ClassRefStatus.None, null);
@@ -93,16 +93,16 @@ namespace CrashKonijn.Goap
         public static T GetInstance<T>(this Script script)
             where T : class
         {
-            var instance = Activator.CreateInstance(script.type);
+            var instance = Activator.CreateInstance(script.Type);
 
             if (instance is TargetKeyBase targetKey)
             {
-                targetKey.Name = script.type.Name;
+                targetKey.Name = script.Type.Name;
             }
 
             if (instance is WorldKeyBase worldKey)
             {
-                worldKey.Name = script.type.Name;
+                worldKey.Name = script.Type.Name;
             }
             
             return instance as T;
@@ -110,7 +110,7 @@ namespace CrashKonijn.Goap
 
         public static string GetFullName([CanBeNull] this Script script)
         {
-            return script?.type.AssemblyQualifiedName ?? "UNDEFINED";
+            return script?.Type.AssemblyQualifiedName ?? "UNDEFINED";
         }
 
         public static GeneratorScriptable GetGenerator(this ScriptableObject scriptable)
