@@ -1,4 +1,6 @@
-﻿namespace CrashKonijn.Goap.Resolver.Interfaces
+﻿using CrashKonijn.Goap.Core.Interfaces;
+
+namespace CrashKonijn.Goap.Resolver.Interfaces
 {
     public interface IConditionBuilder
     {

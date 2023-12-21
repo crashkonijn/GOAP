@@ -1,5 +1,5 @@
 ﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Scriptables;
 using UnityEngine;
 
@@ -12,20 +12,17 @@ namespace CrashKonijn.Goap.Behaviours
         private GoapSetConfigScriptable config;
 
         [SerializeField]
-        private GoapRunnerBehaviour runner;
+        private GoapBehaviour runner;
 
-        [System.Obsolete("'Set' is deprecated, please use 'GoapSet' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
-        public IGoapSet Set { get; private set; }
-
-        public IGoapSet GoapSet { get; private set; }
+        public IAgentType AgentType { get; private set; }
 
         private void Awake()
         {
-            var goapSet = new GoapSetFactory(GoapConfig.Default).Create(this.config);
+            var agentType = new AgentTypeFactory(GoapConfig.Default).Create(this.config);
 
-            this.runner.Register(goapSet);
+            this.runner.Register(agentType);
             
-            this.GoapSet = goapSet;
+            this.AgentType = agentType;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 
 namespace Demos.Shared.Behaviours

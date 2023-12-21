@@ -1,14 +1,14 @@
 ﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Classes.RunStates;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Goap;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
     public class GatherItemAction<TGatherable> : ActionBase<GatherItemAction<TGatherable>.Data>, IInjectable
         where TGatherable : ItemBase
@@ -32,12 +32,10 @@ namespace Demos.Complex.Actions
             data.Timer = this.Config.BaseCost;
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            data.Timer -= context.DeltaTime;
-            
-            if (data.Timer > 0)
-                return ActionRunState.Continue;
+            if (!agent.Timers.Action.IsRunningFor(data.Timer))
+                return ActionRunState.Wait(data.Timer);
             
             var item = this.itemFactory.Instantiate<TGatherable>();
             item.transform.position = this.GetRandomPosition(agent);
@@ -45,10 +43,14 @@ namespace Demos.Complex.Actions
             return ActionRunState.Stop;
         }
 
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
         {
         }
-        
+
+        public override void Complete(IMonoAgent agent, Data data)
+        {
+        }
+
         private Vector3 GetRandomPosition(IMonoAgent agent)
         {
             var pos = Random.insideUnitCircle.normalized * Random.Range(1f, 2f);
@@ -60,9 +62,6 @@ namespace Demos.Complex.Actions
         {
             public ITarget Target { get; set; }
             public float Timer { get; set; }
-            
-            [GetComponent]
-            public ComplexInventoryBehaviour Inventory { get; set; }
         }
     }
 }

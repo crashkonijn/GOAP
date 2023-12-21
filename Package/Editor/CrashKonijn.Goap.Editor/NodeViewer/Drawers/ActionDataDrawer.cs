@@ -1,6 +1,6 @@
-﻿using CrashKonijn.Goap.Editor.Drawers;
+﻿using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Editor.Drawers;
 using CrashKonijn.Goap.Editor.Elements;
-using CrashKonijn.Goap.Interfaces;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers

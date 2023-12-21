@@ -1,28 +1,75 @@
 ﻿using System;
 using System.Linq;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.UnitTests.Data;
+using CrashKonijn.Goap.UnitTests.Interfaces;
 using FluentAssertions;
+using NSubstitute;
 using NUnit.Framework;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using ITestAction = CrashKonijn.Goap.UnitTests.Interfaces.ITestAction;
 
 namespace CrashKonijn.Goap.UnitTests
 {
     public class GraphResolverTests
     {
-        private class TestAction : IAction
+        private class TestAction : TestNode<ITestAction>
+        {
+            public TestAction(string name) : base(name)
+            {
+            }
+
+            public new ITestAction ToMock()
+            {
+                var mock = base.ToMock();
+
+                mock.Name.Returns(this.Name);
+
+                return mock;
+            }
+        }
+        
+        private class TestGoal : TestNode<ITestGoal>
+        {
+            public TestGoal(string name) : base(name)
+            {
+            }
+
+            public new ITestGoal ToMock()
+            {
+                var mock = base.ToMock();
+
+                mock.Name.Returns(this.Name);
+
+                return mock;
+            }
+        }
+        
+        private class TestNode<T>
+            where T : class, IConnectable
         {
             public string Name { get; }
             public Guid Guid { get; } = Guid.NewGuid();
             public IEffect[] Effects { get; set; } = {};
             public ICondition[] Conditions { get; set; } = {};
 
-            public TestAction(string name)
+            public TestNode(string name)
             {
                 this.Name = name;
+            }
+
+            public T ToMock()
+            {
+                var action = Substitute.For<T>();
+                action.Conditions.Returns(this.Conditions);
+                action.Effects.Returns(this.Effects);
+                action.Guid.Returns(this.Guid);
+
+                return action;
             }
         }
         
@@ -30,7 +77,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void Resolve_WithNoActions_ReturnsEmptyList()
         {
             // Arrange
-            var actions = Array.Empty<IAction>();
+            var actions = Array.Empty<IConnectable>();
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             // Act
@@ -61,13 +108,13 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = new TestAction("goal")
             {
                 Conditions = new ICondition[] { connection }
-            };
+            }.ToMock();
             var action = new TestAction("action")
             {
                 Effects = new IEffect[] { connection }
-            };
+            }.ToMock();
             
-            var actions = new IAction[] { goal, action };
+            var actions = new IConnectable[] { goal, action };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             // Act
@@ -97,24 +144,24 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var connection = new TestConnection("connection");
             
-            var goal = new TestAction("goal")
+            var goal = new TestGoal("goal")
             {
                 Conditions = new ICondition[] { connection }
-            };
+            }.ToMock();
             var firstAction = new TestAction("action1")
             {
                 Effects = new IEffect[] { connection }
-            };
+            }.ToMock();
             var secondAction = new TestAction("action2")
             {
                 Effects = new IEffect[] { connection }
-            };
+            }.ToMock();
             var thirdAction = new TestAction("action3")
             {
                 Effects = new IEffect[] { connection }
-            };
+            }.ToMock();
             
-            var actions = new IAction[] { goal, firstAction, secondAction, thirdAction };
+            var actions = new IConnectable[] { goal, firstAction, secondAction, thirdAction };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             // Act
@@ -146,30 +193,30 @@ namespace CrashKonijn.Goap.UnitTests
             var connection2 = new TestConnection("connection2");
             var connection3 = new TestConnection("connection3");
             
-            var goal = new TestAction("goal")
+            var goal = new TestGoal("goal")
             {
                 Conditions = new ICondition[] { connection }
-            };
+            }.ToMock();
             var action1 = new TestAction("action1")
             {
                 Effects = new IEffect[] { connection },
                 Conditions = new ICondition[] { connection2 }
-            };
+            }.ToMock();
             var action2 = new TestAction("action2")
             {
                 Effects = new IEffect[] { connection },
                 Conditions = new ICondition[] { connection3 }
-            };
+            }.ToMock();
             var action11 = new TestAction("action11")
             {
                 Effects = new IEffect[] { connection2 }
-            };
+            }.ToMock();
             var action22 = new TestAction("action22")
             {
                 Effects = new IEffect[] { connection3 }
-            };
+            }.ToMock();
             
-            var actions = new IAction[] { goal, action1, action2, action11, action22 };
+            var actions = new IConnectable[] { goal, action1, action2, action11, action22 };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             var executableBuilder = resolver.GetExecutableBuilder();
             var conditionBuilder = resolver.GetConditionBuilder();
@@ -206,31 +253,31 @@ namespace CrashKonijn.Goap.UnitTests
             var connection2 = new TestConnection("connection2");
             
             // Act
-            var goal = new TestAction("goal")
+            var goal = new TestGoal("goal")
             {
                 Conditions = new ICondition[] { connection }
-            };
+            }.ToMock();
             var action1 = new TestAction("action1")
             {
                 Effects = new IEffect[] { connection },
                 Conditions = new ICondition[] { connection1 }
-            };
+            }.ToMock();
             var action11 = new TestAction("action11")
             {
                 Effects = new IEffect[] { connection1 },
                 Conditions = new ICondition[] { connection2 }
-            };
+            }.ToMock();
             var action111 = new TestAction("action111")
             {
                 Effects = new IEffect[] { connection2 },
-            };
+            }.ToMock();
             var action2 = new TestAction("action2")
             {
                 Effects = new IEffect[] { connection },
                 Conditions = new ICondition[] { connection2 }
-            };
+            }.ToMock();
             
-            var actions = new IAction[] { goal, action1, action2, action11, action111 };
+            var actions = new IConnectable[] { goal, action1, action2, action11, action111 };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             var executableBuilder = resolver.GetExecutableBuilder();
@@ -281,31 +328,31 @@ namespace CrashKonijn.Goap.UnitTests
             var connection2 = new TestConnection("connection2");
             
             // Act
-            var goal = new TestAction("goal")
+            var goal = new TestGoal("goal")
             {
                 Conditions = new ICondition[] { connection }
-            };
+            }.ToMock();
             var action1 = new TestAction("action1")
             {
                 Effects = new IEffect[] { connection },
                 Conditions = new ICondition[] { connection1 }
-            };
+            }.ToMock();
             var action11 = new TestAction("action11")
             {
                 Effects = new IEffect[] { connection1 },
                 Conditions = new ICondition[] { connection2 }
-            };
+            }.ToMock();
             var action111 = new TestAction("action111")
             {
                 Effects = new IEffect[] { connection2 },
-            };
+            }.ToMock();
             var action2 = new TestAction("action2")
             {
                 Effects = new IEffect[] { connection },
                 Conditions = new ICondition[] { connection2 }
-            };
+            }.ToMock();
             
-            var actions = new IAction[] { goal, action1, action2, action11, action111 };
+            var actions = new IConnectable[] { goal, action1, action2, action11, action111 };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             var executableBuilder = resolver.GetExecutableBuilder();
@@ -354,26 +401,25 @@ namespace CrashKonijn.Goap.UnitTests
             var shortConnection = new TestConnection("Short");
             var longConnection = new TestConnection("Long");
             
-            var goal = new TestAction("goal")
+            var goal = new TestGoal("goal")
             {
                 Conditions = new ICondition[] { rootConnection }
-            };
-            
+            }.ToMock();
             var rootAction = new TestAction("action")
             {
                 Effects = new IEffect[] { rootConnection },
                 Conditions = new ICondition[] { shortConnection, longConnection }
-            };
+            }.ToMock();
             var closeAction = new TestAction("closeAction")
             {
                 Effects = new IEffect[] { shortConnection },
-            };
+            }.ToMock();
             var farAction = new TestAction("farAction")
             {
                 Effects = new IEffect[] { longConnection },
-            };
+            }.ToMock();
             
-            var actions = new IAction[] { goal, rootAction, closeAction, farAction };
+            var actions = new IConnectable[] { goal, rootAction, closeAction, farAction };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             // Far action: cost 1, distance 2 (10 * 0.2f) = 3
@@ -432,26 +478,25 @@ namespace CrashKonijn.Goap.UnitTests
             var completedConnection = new TestConnection("Completed");
             var incompleteConnection = new TestConnection("Incomplete");
             
-            var goal = new TestAction("goal")
+            var goal = new TestGoal("goal")
             {
                 Conditions = new ICondition[] { rootConnection }
-            };
-            
+            }.ToMock();
             var rootAction = new TestAction("action")
             {
                 Effects = new IEffect[] { rootConnection },
                 Conditions = new ICondition[] { completedConnection, incompleteConnection }
-            };
+            }.ToMock();
             var completedAction = new TestAction("completedAction")
             {
                 Effects = new IEffect[] { completedConnection },
-            };
+            }.ToMock();
             var incompleteAction = new TestAction("incompleteAction")
             {
                 Effects = new IEffect[] { incompleteConnection },
-            };
+            }.ToMock();
             
-            var actions = new IAction[] { goal, rootAction, completedAction, incompleteAction };
+            var actions = new IConnectable[] { goal, rootAction, completedAction, incompleteAction };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             var executableBuilder = resolver.GetExecutableBuilder();
@@ -493,28 +538,27 @@ namespace CrashKonijn.Goap.UnitTests
             var availableConnection = new TestConnection("Available");
             var unavailableConnection = new TestConnection("Unavailable");
             
-            var goal = new TestAction("goal")
+            var goal = new TestGoal("goal")
             {
                 Conditions = new ICondition[] { rootConnection }
-            };
-            
+            }.ToMock();
             var expensiveAction = new TestAction("expensiveAction")
             {
                 Effects = new IEffect[] { rootConnection },
-            };
+            }.ToMock();
             
             var unavailableAction = new TestAction("subAction")
             {
                 Effects = new IEffect[] { rootConnection },
                 Conditions = new ICondition[] { unavailableConnection, availableConnection }
-            };
+            }.ToMock();
             
             var shouldNotResolveAction = new TestAction("shouldNotResolveAction")
             {
                 Effects = new IEffect[] { availableConnection },
-            };
+            }.ToMock();
             
-            var actions = new IAction[] { goal, expensiveAction, unavailableAction, shouldNotResolveAction };
+            var actions = new IConnectable[] { goal, expensiveAction, unavailableAction, shouldNotResolveAction };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
             var executableBuilder = resolver.GetExecutableBuilder();

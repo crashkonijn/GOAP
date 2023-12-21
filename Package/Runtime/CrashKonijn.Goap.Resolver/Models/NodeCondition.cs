@@ -1,11 +1,11 @@
 using System;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Resolver.Models
 {
-    public class NodeCondition
+    public class NodeCondition : INodeCondition
     {
         public ICondition Condition { get; set; }
-        public Node[] Connections { get; set; } = Array.Empty<Node>();
+        public INode[] Connections { get; set; } = Array.Empty<INode>();
     }
 }

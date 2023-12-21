@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Editor.Classes;
-using CrashKonijn.Goap.Interfaces;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -59,7 +59,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
         {
             var color = Color.black;
             
-            if (agent.CurrentActionPath.Contains(node.Node.Action))
+            if (agent.CurrentPlan.Contains(node.Node.Action))
                 ColorUtility.TryParseHtmlString("#009dff", out color);
             
             return color;

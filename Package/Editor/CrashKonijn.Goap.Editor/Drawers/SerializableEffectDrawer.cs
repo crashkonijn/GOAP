@@ -1,4 +1,4 @@
-﻿using CrashKonijn.Goap.Enums;
+﻿using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Serializables;
 using UnityEditor;
 using UnityEngine;

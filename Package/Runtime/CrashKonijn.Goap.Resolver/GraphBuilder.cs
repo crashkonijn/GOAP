@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
 
@@ -7,14 +8,14 @@ namespace CrashKonijn.Goap.Resolver
 {
     public class GraphBuilder
     {
-        private readonly IActionKeyResolver keyResolver;
+        private readonly IKeyResolver keyResolver;
 
-        public GraphBuilder(IActionKeyResolver keyResolver)
+        public GraphBuilder(IKeyResolver keyResolver)
         {
             this.keyResolver = keyResolver;
         }
         
-        public Graph Build(IEnumerable<IAction> actions)
+        public Graph Build(IEnumerable<IConnectable> actions)
         {
             var nodes = actions.ToNodes();
             
@@ -36,7 +37,7 @@ namespace CrashKonijn.Goap.Resolver
             return graph;
         }
 
-        private void ConnectNodes(Node node, Dictionary<string, List<Node>> effectMap, Dictionary<string, List<Node>> conditionMap, Graph graph)
+        private void ConnectNodes(INode node, Dictionary<string, List<INode>> effectMap, Dictionary<string, List<INode>> conditionMap, IGraph graph)
         {
             if (!graph.ChildNodes.Contains(node) && !node.IsRootNode)
                 graph.ChildNodes.Add(node);
@@ -65,9 +66,9 @@ namespace CrashKonijn.Goap.Resolver
             }
         }
 
-        private Dictionary<string, List<Node>> GetEffectMap(Node[] actionNodes)
+        private Dictionary<string, List<INode>> GetEffectMap(INode[] actionNodes)
         {
-            var map = new Dictionary<string, List<Node>>();
+            var map = new Dictionary<string, List<INode>>();
             
             foreach (var actionNode in actionNodes)
             {
@@ -76,7 +77,7 @@ namespace CrashKonijn.Goap.Resolver
                     var key = this.keyResolver.GetKey(actionNode.Action, actionNodeEffect.Effect);
                     
                     if (!map.ContainsKey(key))
-                        map[key] = new List<Node>();
+                        map[key] = new List<INode>();
                     
                     map[key].Add(actionNode);
                 }
@@ -85,9 +86,9 @@ namespace CrashKonijn.Goap.Resolver
             return map;
         }
 
-        private Dictionary<string, List<Node>> GetConditionMap(Node[] actionNodes)
+        private Dictionary<string, List<INode>> GetConditionMap(INode[] actionNodes)
         {
-            var map = new Dictionary<string, List<Node>>();
+            var map = new Dictionary<string, List<INode>>();
             
             foreach (var actionNode in actionNodes)
             {
@@ -96,7 +97,7 @@ namespace CrashKonijn.Goap.Resolver
                     var key = this.keyResolver.GetKey(actionNode.Action, actionNodeConditions.Condition);
                     
                     if (!map.ContainsKey(key))
-                        map[key] = new List<Node>();
+                        map[key] = new List<INode>();
                     
                     map[key].Add(actionNode);
                 }

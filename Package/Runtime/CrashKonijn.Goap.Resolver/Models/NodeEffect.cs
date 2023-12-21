@@ -1,11 +1,11 @@
 using System;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Resolver.Models
 {
-    public class NodeEffect
+    public class NodeEffect : INodeEffect
     {
         public IEffect Effect { get; set; }
-        public Node[] Connections { get; set; } = Array.Empty<Node>();
+        public INode[] Connections { get; set; } = Array.Empty<INode>();
     }
 }

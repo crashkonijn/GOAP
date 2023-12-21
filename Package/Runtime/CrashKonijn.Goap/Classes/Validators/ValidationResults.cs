@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class ValidationResults
+    public class ValidationResults : IValidationResults
     {
         private readonly string name;
         private readonly List<string> errors = new();

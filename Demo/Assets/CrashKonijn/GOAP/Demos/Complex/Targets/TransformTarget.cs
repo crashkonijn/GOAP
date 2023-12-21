@@ -1,6 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 
-namespace Demos.Complex.Targets
+namespace CrashKonijn.Goap.Demos.Complex.Targets
 {
     public class TransformTarget : TargetKeyBase
     {

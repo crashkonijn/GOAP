@@ -1,6 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 
-namespace Demos.Complex.Goals
+namespace CrashKonijn.Goap.Demos.Complex.Goals
 {
     public class CleanItemsGoal : GoalBase
     {

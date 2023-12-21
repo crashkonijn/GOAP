@@ -1,15 +1,14 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
-using Demos.Shared.Behaviours;
+using CrashKonijn.Goap.Classes.RunStates;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Goap;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
-namespace Demos.Complex.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
     public class EatAction : ActionBase<EatAction.Data>, IInjectable
     {
@@ -30,7 +29,7 @@ namespace Demos.Complex.Actions
             data.Inventory.Hold(data.Eatable);
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.Eatable == null)
                 return ActionRunState.Stop;
@@ -40,7 +39,7 @@ namespace Demos.Complex.Actions
             data.Hunger.hunger -= eatNutrition;
 
             if (data.Hunger.hunger <= 20f)
-                return ActionRunState.Stop;
+                return ActionRunState.Completed;
 
             if (data.Eatable.NutritionValue > 0)
                 return ActionRunState.Continue;
@@ -51,10 +50,10 @@ namespace Demos.Complex.Actions
             data.Inventory.Remove(data.Eatable);
             this.instanceHandler.QueueForDestroy(data.Eatable);
             
-            return ActionRunState.Stop;
+            return ActionRunState.Completed;
         }
 
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
         {
             if (data.Eatable == null)
                 return;
@@ -62,7 +61,16 @@ namespace Demos.Complex.Actions
             if (data.Eatable.NutritionValue > 0)
                 data.Inventory.Add(data.Eatable);
         }
-        
+
+        public override void Complete(IMonoAgent agent, Data data)
+        {
+            if (data.Eatable == null)
+                return;
+            
+            if (data.Eatable.NutritionValue > 0)
+                data.Inventory.Add(data.Eatable);
+        }
+
         public class Data : IActionData
         {
             public ITarget Target { get; set; }

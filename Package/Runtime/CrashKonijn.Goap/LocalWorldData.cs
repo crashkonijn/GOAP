@@ -1,20 +1,31 @@
-﻿using CrashKonijn.Goap.Interfaces;
+﻿using System;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap
 {
-    public class LocalWorldData : WorldDataBase
+    public class LocalWorldData : WorldDataBase, ILocalWorldData
     {
-        public void Apply(IWorldData globalWorldData)
+        public IGlobalWorldData GlobalData { get; private set; }
+        
+        public void SetParent(IGlobalWorldData globalData)
         {
-            foreach (var (key, value) in globalWorldData.States)
-            {
-                this.SetState(key, value);
-            }
+            this.GlobalData = globalData;
+        }
+
+        public override (bool Exists, int Value) GetWorldValue(Type worldKey)
+        {
+            if (this.States.TryGetValue(worldKey, out var state))
+                return (true, state);
             
-            foreach (var (key, value) in globalWorldData.Targets)
-            {
-                this.SetTarget(key, value);
-            }
+            return this.GlobalData.GetWorldValue(worldKey);
+        }
+
+        public override ITarget GetTargetValue(Type targetKey)
+        {
+            if (this.Targets.TryGetValue(targetKey, out var value))
+                return value;
+            
+            return this.GlobalData.GetTargetValue(targetKey);
         }
     }
 }

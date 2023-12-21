@@ -1,14 +1,12 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using CrashKonijn.Goap.Sensors;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Sensors.Target
+namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
 {
     public class ClosestItemSensor<T> : LocalTargetSensorBase
         where T : IHoldable
@@ -18,7 +16,7 @@ namespace Demos.Complex.Sensors.Target
 
         public override void Created()
         {
-            this.collection = GameObject.FindObjectOfType<ItemCollection>();
+            this.collection = Object.FindObjectOfType<ItemCollection>();
         }
 
         public override void Update()

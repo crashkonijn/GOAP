@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Scriptables
 {
     [CreateAssetMenu(menuName = "Goap/GoapSetConfig")]
-    public class GoapSetConfigScriptable : ScriptableObject, IGoapSetConfig
+    public class GoapSetConfigScriptable : ScriptableObject, IAgentTypeConfig
     {
         public List<ActionConfigScriptable> actions = new List<ActionConfigScriptable>();
         public List<GoalConfigScriptable> goals = new List<GoalConfigScriptable>();
@@ -24,6 +23,7 @@ namespace CrashKonijn.Goap.Scriptables
         public List<IGoalConfig> Goals => this.goals.Cast<IGoalConfig>().ToList();
         public List<ITargetSensorConfig> TargetSensors => this.targetSensors.Cast<ITargetSensorConfig>().ToList();
         public List<IWorldSensorConfig> WorldSensors => this.worldSensors.Cast<IWorldSensorConfig>().ToList();
+        public List<IMultiSensorConfig> MultiSensors { get; set; }
         public string DebuggerClass => this.debuggerClass;
     }
 }

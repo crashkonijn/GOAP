@@ -1,22 +1,23 @@
 ﻿using System;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 
 namespace CrashKonijn.Goap.Resolvers
 {
     public class KeyResolver : KeyResolverBase
     {
-        protected override string GetKey(IActionBase action, ICondition condition)
+        protected override string GetKey(IAction action, ICondition condition)
         {
             return condition.WorldKey.Name + this.GetText(condition.Comparison);
         }
 
-        protected override string GetKey(IActionBase action, IEffect effect)
+        protected override string GetKey(IAction action, IEffect effect)
         {
             return effect.WorldKey.Name + this.GetText(effect.Increase);
         }
 
-        protected override string GetKey(IGoalBase action, ICondition condition)
+        protected override string GetKey(IGoal action, ICondition condition)
         {
             return condition.WorldKey.Name + this.GetText(condition.Comparison);
         }

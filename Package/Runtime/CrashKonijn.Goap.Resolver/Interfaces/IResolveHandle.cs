@@ -1,7 +1,9 @@
-﻿namespace CrashKonijn.Goap.Resolver.Interfaces
+﻿using CrashKonijn.Goap.Core.Interfaces;
+
+namespace CrashKonijn.Goap.Resolver.Interfaces
 {
     public interface IResolveHandle
     {
-        IAction[] Complete();
+        IConnectable[] Complete();
     }
 }

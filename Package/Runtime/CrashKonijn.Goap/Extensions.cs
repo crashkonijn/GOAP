@@ -1,4 +1,10 @@
-﻿using CrashKonijn.Goap.Interfaces;
+﻿using System;
+using System.Linq;
+using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Scriptables;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace CrashKonijn.Goap
@@ -7,5 +13,109 @@ namespace CrashKonijn.Goap
     {
         public static bool IsNull(this IMonoAgent agent)
             => agent is MonoBehaviour mono && mono == null;
+
+        public static string ToName(this Comparison comparison)
+        {
+            return comparison switch
+            {
+                Comparison.SmallerThan => "<",
+                Comparison.SmallerThanOrEqual => "<=",
+                Comparison.GreaterThan => ">",
+                Comparison.GreaterThanOrEqual => ">=",
+                _ => throw new System.NotImplementedException()
+            };
+        }
+        
+        public static Comparison FromName(this string comparison)
+        {
+            return comparison switch
+            {
+                "<" => Comparison.SmallerThan,
+                "<=" => Comparison.SmallerThanOrEqual,
+                ">" => Comparison.GreaterThan,
+                ">=" => Comparison.GreaterThanOrEqual,
+                _ => throw new System.NotImplementedException()
+            };
+        }
+        
+        public static string ToName(this EffectType type)
+        {
+            return type switch
+            {
+                EffectType.Increase => "++",
+                EffectType.Decrease => "--",
+                _ => throw new System.NotImplementedException()
+            };
+        }
+        
+        public static ClassRefStatus GetStatus(this IClassRef classRef, Script[] scripts)
+        {
+            var (status, match) = classRef.GetMatch(scripts);
+            
+            return status;
+        }
+
+        public static Script GetScript(this IClassRef classRef, Script[] scripts)
+        {
+            var (status, match) = classRef.GetMatch(scripts);
+            
+            return match;
+        }
+
+        public static (ClassRefStatus status, Script script) GetMatch(this IClassRef classRef, Script[] scripts)
+        {
+            if (string.IsNullOrEmpty(classRef.Name) && string.IsNullOrEmpty(classRef.Id))
+            {
+                return (ClassRefStatus.Empty, null);
+            }
+            
+            // Full match
+            if (scripts.Any(x => x.Id == classRef.Id && x.Type.Name == classRef.Name))
+            {
+                return (ClassRefStatus.Full, scripts.First(x => x.Id == classRef.Id && x.Type.Name == classRef.Name));
+            }
+            
+            // Id Match
+            if (scripts.Any(x => x.Id == classRef.Id))
+            {
+                return (ClassRefStatus.Id, scripts.First(x => x.Id == classRef.Id));
+            }
+            
+            // Name Match
+            if (scripts.Any(x => x.Type.Name == classRef.Name))
+            {
+                return (ClassRefStatus.Name, scripts.First(x => x.Type.Name == classRef.Name));
+            }
+            
+            return (ClassRefStatus.None, null);
+        }
+
+        public static T GetInstance<T>(this Script script)
+            where T : class
+        {
+            var instance = Activator.CreateInstance(script.Type);
+
+            if (instance is TargetKeyBase targetKey)
+            {
+                targetKey.Name = script.Type.Name;
+            }
+
+            if (instance is WorldKeyBase worldKey)
+            {
+                worldKey.Name = script.Type.Name;
+            }
+            
+            return instance as T;
+        }
+
+        public static string GetFullName([CanBeNull] this Script script)
+        {
+            return script?.Type.AssemblyQualifiedName ?? "UNDEFINED";
+        }
+
+        public static GeneratorScriptable GetGenerator(this ScriptableObject scriptable)
+        {
+            return ClassScanner.GetGenerator(scriptable);
+        }
     }
 }

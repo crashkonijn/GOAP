@@ -7,7 +7,7 @@ using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 
 namespace CrashKonijn.Goap.Resolver {
-    using static Unity.Collections.LowLevel.Unsafe.UnsafeUtility;
+    using static UnsafeUtility;
 
     public struct NativeHeapIndex {
         internal int TableIndex;

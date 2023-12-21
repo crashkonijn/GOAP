@@ -1,14 +1,13 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class GoalConditionKeyValidator : IValidator<IGoapSetConfig>
+    public class GoalConditionKeyValidator : IValidator<IAgentTypeConfig>
     {
-        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
+        public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
-            foreach (var configGoal in goapSetConfig.Goals)
+            foreach (var configGoal in agentTypeConfig.Goals)
             {
                 var missing = configGoal.Conditions.Where(x => x.WorldKey == null).ToArray();
                 

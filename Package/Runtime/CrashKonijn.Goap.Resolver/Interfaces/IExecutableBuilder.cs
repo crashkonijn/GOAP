@@ -1,8 +1,10 @@
-﻿namespace CrashKonijn.Goap.Resolver.Interfaces
+﻿using CrashKonijn.Goap.Core.Interfaces;
+
+namespace CrashKonijn.Goap.Resolver.Interfaces
 {
     public interface IExecutableBuilder
     {
-        IExecutableBuilder SetExecutable(IAction action, bool executable);
+        IExecutableBuilder SetExecutable(IConnectable action, bool executable);
         void Clear();
         bool[] Build();
     }

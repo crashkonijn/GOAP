@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 
 namespace CrashKonijn.Goap.Classes.Builders
@@ -102,7 +101,7 @@ namespace CrashKonijn.Goap.Classes.Builders
         }
         
         public static ActionBuilder Create<TAction>(WorldKeyBuilder worldKeyBuilder, TargetKeyBuilder targetKeyBuilder)
-            where TAction : IActionBase
+            where TAction : IAction
         {
             return new ActionBuilder(typeof(TAction), worldKeyBuilder, targetKeyBuilder);
         }

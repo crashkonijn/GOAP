@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.Resolver.Models;
 
@@ -7,9 +8,9 @@ namespace CrashKonijn.Goap.Resolver
 {
     internal static class Extensions
     {
-        public static (Node[] RootNodes, Node[] ChildNodes) ToNodes(this IEnumerable<IAction> actions)
+        public static (INode[] RootNodes, INode[] ChildNodes) ToNodes(this IEnumerable<IConnectable> actions)
         {
-            var mappedNodes =actions.Select(ToNode).ToArray();
+            var mappedNodes = actions.Select(ToNode).ToArray();
             
             return (
                 mappedNodes.Where(x => x.IsRootNode).ToArray(),
@@ -17,7 +18,7 @@ namespace CrashKonijn.Goap.Resolver
             );
         }
 
-        private static Node ToNode(IAction action)
+        private static INode ToNode(IConnectable action)
         {
             return new Node
             {
@@ -25,11 +26,11 @@ namespace CrashKonijn.Goap.Resolver
                 Conditions = action.Conditions?.Select(y => new NodeCondition
                 {
                     Condition = y
-                }).ToList() ?? new List<NodeCondition>(),
+                }).Cast<INodeCondition>().ToList() ?? new List<INodeCondition>(),
                 Effects = action.Effects?.Select(y => new NodeEffect
                 {
                     Effect = y
-                }).ToList() ?? new List<NodeEffect>()
+                }).Cast<INodeEffect>().ToList() ?? new List<INodeEffect>()
             };
         }
     }

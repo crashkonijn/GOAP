@@ -1,4 +1,4 @@
-﻿using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Observers

@@ -1,5 +1,4 @@
-﻿using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Sensors
 {
@@ -11,6 +10,12 @@ namespace CrashKonijn.Goap.Sensors
         public void SetConfig(ITargetSensorConfig config) => this.Config = config;
 
         public abstract void Created();
+
+        public void Sense(IWorldData worldData)
+        {
+            worldData.SetTarget(this.Key, this.Sense());
+        }
+        
         public abstract ITarget Sense();
     }
 }

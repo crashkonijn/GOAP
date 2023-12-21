@@ -1,5 +1,5 @@
 ﻿using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Sensors;
 
 namespace CrashKonijn.Goap.UnitTests.Data

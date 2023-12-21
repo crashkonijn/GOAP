@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Demos.Complex.Interfaces
+﻿namespace CrashKonijn.Goap.Demos.Complex.Interfaces
 {
     public interface ICreatable : IHoldable
     {

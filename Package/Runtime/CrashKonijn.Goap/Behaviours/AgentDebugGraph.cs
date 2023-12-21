@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Behaviours
 {
-    public struct AgentDebugGraph
+    public struct AgentDebugGraph : IAgentDebugGraph
     {
-        public List<IGoalBase> Goals { get; set; }
-        public List<IActionBase> Actions { get; set; }
+        public List<IGoal> Goals { get; set; }
+        public List<IAction> Actions { get; set; }
         public IGoapConfig Config { get; set; }
     }
 }

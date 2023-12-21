@@ -1,15 +1,14 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class WorldKeySensorsValidator : IValidator<IGoapSetConfig>
+    public class WorldKeySensorsValidator : IValidator<IAgentTypeConfig>
     {
-        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
+        public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
-            var required = goapSetConfig.GetWorldKeys();
-            var provided = goapSetConfig.WorldSensors
+            var required = agentTypeConfig.GetWorldKeys();
+            var provided = agentTypeConfig.WorldSensors
                 .Where(x => x.Key != null)
                 .Select(x => x.Key)
                 .ToArray();

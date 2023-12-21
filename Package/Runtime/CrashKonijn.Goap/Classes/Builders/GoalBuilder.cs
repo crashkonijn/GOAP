@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 
 namespace CrashKonijn.Goap.Classes.Builders
@@ -43,7 +43,7 @@ namespace CrashKonijn.Goap.Classes.Builders
         }
         
         public static GoalBuilder Create<TGoal>(WorldKeyBuilder worldKeyBuilder)
-            where TGoal : IGoalBase
+            where TGoal : IGoal
         {
             return new GoalBuilder(typeof(TGoal), worldKeyBuilder);
         }

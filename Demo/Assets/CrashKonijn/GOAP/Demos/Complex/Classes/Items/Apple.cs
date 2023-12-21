@@ -1,7 +1,7 @@
-﻿using Demos.Complex.Behaviours;
-using Demos.Complex.Interfaces;
+﻿using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
-namespace Demos.Complex.Classes.Items
+namespace CrashKonijn.Goap.Demos.Complex.Classes.Items
 {
     public class Apple : ItemBase, IEatable
     {

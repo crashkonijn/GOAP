@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Sensors
 {
@@ -14,6 +14,12 @@ namespace CrashKonijn.Goap.Sensors
 
         public abstract void Created();
         public abstract void Update();
+
+        public void Sense(IWorldData data, IMonoAgent agent, IComponentReference references)
+        {
+            data.SetState(this.Key, this.Sense(agent, references));
+        }
+        
         public abstract SenseValue Sense(IMonoAgent agent, IComponentReference references);
     }
 }

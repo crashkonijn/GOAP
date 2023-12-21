@@ -1,10 +1,12 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Configs;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace Demos.Simple.Behaviours
+namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class SettingsBehaviour : MonoBehaviour
     {
@@ -12,7 +14,8 @@ namespace Demos.Simple.Behaviours
         
         public GameObject applePrefab;
         public GameObject agentPrefab;
-        public GoapSetBehaviour goapSet;
+        [FormerlySerializedAs("agentType")] public GoapSetBehaviour goapSet;
+        public AgentTypeBehaviour agentType;
         
         public TextMeshProUGUI appleCountText;
         public TextMeshProUGUI agentCountText;
@@ -20,7 +23,7 @@ namespace Demos.Simple.Behaviours
         public Toggle debugToggle;
 
         private bool debug = true;
-        private GoapRunnerBehaviour goapRunner;
+        private GoapBehaviour goap;
 
         private int frameCount;
         private float fps;
@@ -31,7 +34,7 @@ namespace Demos.Simple.Behaviours
         private void Awake()
         {
             this.agentPrefab.SetActive(false);
-            this.goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
+            this.goap = FindObjectOfType<GoapBehaviour>();
             this.apples = FindObjectOfType<AppleCollection>();
         }
 
@@ -47,13 +50,13 @@ namespace Demos.Simple.Behaviours
                 this.fpsTimer -= 1;
             }
             
-            this.fpsText.text = $"FPS: {this.fps}\nResolve count: {this.goapRunner.RunCount}\nRunTime: {this.goapRunner.RunTime} (ms)\nCompleteTime: {this.goapRunner.CompleteTime} (ms)";
+            this.fpsText.text = $"FPS: {this.fps}\nResolve count: {this.goap.RunCount}\nRunTime: {this.goap.RunTime} (ms)\nCompleteTime: {this.goap.CompleteTime} (ms)";
         }
 
         private void FixedUpdate()
         {
             this.appleCountText.text = $"+ Apple ({this.apples.Get().Length})";
-            this.agentCountText.text = $"+ Agent ({this.goapRunner.Agents.Length})";
+            this.agentCountText.text = $"+ Agent ({this.goap.Agents.Length})";
         }
 
         public void SetDebug(bool value)
@@ -87,13 +90,13 @@ namespace Demos.Simple.Behaviours
         {
             this.SetDebug(false);
             
-            var agentCount = this.goapRunner.Agents.Length;
+            var agentCount = this.goap.Agents.Length;
             var count = agentCount < 50 ? 50 - agentCount : 50;
             
             for (var i = 0; i < count; i++)
             {
                 var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
-                agent.GoapSet = this.goapSet.GoapSet;
+                agent.AgentType = this.agentType.AgentType;
             
                 this.SetDebug(agent.GetComponentInChildren<TextBehaviour>(), this.debug);
             

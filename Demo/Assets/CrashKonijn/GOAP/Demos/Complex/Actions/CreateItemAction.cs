@@ -1,16 +1,16 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Classes.Items;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Classes.RunStates;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Classes.Items;
+using CrashKonijn.Goap.Demos.Complex.Goap;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
     public class CreateItemAction<TCreatable> : ActionBase<CreateItemAction<TCreatable>.Data>, IInjectable
         where TCreatable : ItemBase, ICreatable
@@ -30,31 +30,31 @@ namespace Demos.Complex.Actions
         
         public override void Start(IMonoAgent agent, Data data)
         {
-            data.Timer = 5f;
             data.RequiredWood = this.GetRequiredWood();
             data.RequiredIron = this.GetRequiredIron();
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.State == State.NotStarted)
             {
                 data.State = State.Started;
                 this.RemoveRequiredResources(data);
+                
+                return ActionRunState.Wait(5f);
             }
-            
-            data.Timer -= context.DeltaTime;
-            
-            if (data.Timer > 0)
-                return ActionRunState.Continue;
             
             var item = this.itemFactory.Instantiate<TCreatable>();
             item.transform.position = this.GetRandomPosition(agent);
             
-            return ActionRunState.Stop;
+            return ActionRunState.Completed;
         }
 
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
+        {
+        }
+
+        public override void Complete(IMonoAgent agent, Data data)
         {
         }
 
@@ -98,7 +98,6 @@ namespace Demos.Complex.Actions
             public int RequiredWood { get; set; }
             public int RequiredIron { get; set; }
             public State State { get; set; } = State.NotStarted;
-            public float Timer { get; set; }
             
             [GetComponent]
             public ComplexInventoryBehaviour Inventory { get; set; }

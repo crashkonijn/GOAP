@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes.References
@@ -59,7 +59,7 @@ namespace CrashKonijn.Goap.Classes.References
             return this.references[type];
         }
 
-        [System.Obsolete("'GetComponent<T>' is deprecated, please use 'GetCachedComponent<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
+        [Obsolete("'GetComponent<T>' is deprecated, please use 'GetCachedComponent<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
         public T GetComponent<T>()
             where T : MonoBehaviour
         {
@@ -82,7 +82,7 @@ namespace CrashKonijn.Goap.Classes.References
             return this.references[type];
         }
 
-        [System.Obsolete("'GetComponentInChildren<T>' is deprecated, please use 'GetCachedComponentInChildren<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
+        [Obsolete("'GetComponentInChildren<T>' is deprecated, please use 'GetCachedComponentInChildren<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
         public T GetComponentInChildren<T>()
             where T : MonoBehaviour
         {

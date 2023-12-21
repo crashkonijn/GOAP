@@ -1,12 +1,10 @@
 ﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Classes.Items;
-using Demos.Complex.Goals;
-using Demos.Shared.Behaviours;
-using Demos.Shared.Goals;
+using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Classes.Items;
+using CrashKonijn.Goap.Demos.Complex.Goals;
 using UnityEngine;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class ComplexAgentBrain : MonoBehaviour
     {
@@ -43,17 +41,17 @@ namespace Demos.Complex.Behaviours
             this.agent.SetGoal<WanderGoal>(false);
         }
         
-        private void OnNoActionFound(IGoalBase goal)
+        private void OnNoActionFound(IGoal goal)
         {
             this.agent.SetGoal<WanderGoal>(false);
         }
 
-        private void OnGoalCompleted(IGoalBase goal)
+        private void OnGoalCompleted(IGoal goal)
         {
             this.agent.SetGoal<WanderGoal>(false);
         }
 
-        private void OnActionStop(IActionBase action)
+        private void OnActionStop(IAction action)
         {
             this.UpdateHunger();
             

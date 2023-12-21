@@ -1,14 +1,13 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
-    public class TargetSensorKeyValidator : IValidator<IGoapSetConfig>
+    public class TargetSensorKeyValidator : IValidator<IAgentTypeConfig>
     {
-        public void Validate(IGoapSetConfig goapSetConfig, ValidationResults results)
+        public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
-            var missing = goapSetConfig.TargetSensors.Where(x => x.Key == null).ToArray();
+            var missing = agentTypeConfig.TargetSensors.Where(x => x.Key == null).ToArray();
             
             if (!missing.Any())
                 return;

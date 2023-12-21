@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Serializables;
 using UnityEngine;
 

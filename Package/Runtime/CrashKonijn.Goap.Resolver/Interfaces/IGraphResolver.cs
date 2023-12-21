@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Resolver.Models;
+﻿using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Resolver.Models;
 
 namespace CrashKonijn.Goap.Resolver.Interfaces
 {
@@ -8,8 +9,8 @@ namespace CrashKonijn.Goap.Resolver.Interfaces
         IExecutableBuilder GetExecutableBuilder();
         IPositionBuilder GetPositionBuilder();
         ICostBuilder GetCostBuilder();
-        Graph GetGraph();
-        int GetIndex(IAction action);
+        IGraph GetGraph();
+        int GetIndex(IConnectable action);
         IAction GetAction(int index);
         void Dispose();
         IConditionBuilder GetConditionBuilder();

@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver.Interfaces;
 
 namespace CrashKonijn.Goap.Resolver
 {
     public class CostBuilder : ICostBuilder
     {
-        private readonly List<IAction> actionIndexList;
+        private readonly List<IConnectable> actionIndexList;
         private float[] costList;
 
-        public CostBuilder(List<IAction> actionIndexList)
+        public CostBuilder(List<IConnectable> actionIndexList)
         {
             this.actionIndexList = actionIndexList;
             this.costList = this.actionIndexList.Select(x => 1f).ToArray();
         }
         
-        public ICostBuilder SetCost(IAction action, float cost)
+        public ICostBuilder SetCost(IConnectable action, float cost)
         {
             var index = this.actionIndexList.IndexOf(action);
 

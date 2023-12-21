@@ -1,6 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core.Interfaces;
 using NSubstitute;
 using UnityEngine;
 
@@ -51,7 +50,7 @@ namespace CrashKonijn.Goap.UnitTests.Support
             return events;
         }
 
-        public static void InsertAction(this AgentBehaviour agent, IActionBase action)
+        public static void InsertAction(this AgentBehaviour agent, IAction action)
         {
             // Set Action property through reflection
             typeof(AgentBehaviour)

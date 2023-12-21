@@ -1,5 +1,5 @@
-﻿using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Resolver;
 
 namespace CrashKonijn.Goap.Classes
