@@ -6,8 +6,23 @@ using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Behaviours
 {
-    public abstract class ActionBase<TActionData> : ActionBase
+    public class EmptyActionProperties : IActionProperties
+    {
+    }
+    
+    // Backwards compatibility for old actions
+    public abstract class ActionBase<TActionData> : ActionBase<TActionData, EmptyActionProperties>
         where TActionData : IActionData, new()
+    {
+        public ActionBase()
+        {
+            this.SetProperties(new EmptyActionProperties());
+        }
+    }
+
+    public abstract class ActionBase<TActionData, TActionProperties> : ActionBase
+        where TActionData : IActionData, new()
+        where TActionProperties : class, IActionProperties, new()
     {
         public override IActionData GetData()
         {
@@ -17,6 +32,11 @@ namespace CrashKonijn.Goap.Behaviours
         public virtual TActionData CreateData()
         {
             return new TActionData();
+        }
+        
+        public TActionProperties GetProperties()
+        {
+            return this.Properties as TActionProperties;
         }
 
         public override void Start(IMonoAgent agent, IActionData data) => this.Start(agent, (TActionData) data);
@@ -38,28 +58,32 @@ namespace CrashKonijn.Goap.Behaviours
 
     public abstract class ActionBase : IAction
     {
-        private IActionConfig config;
-        
-        public IActionConfig Config => this.config;
-        
+        public IActionConfig Config { get; private set; }
+        public IActionProperties Properties { get; private set; }
+
         public Guid Guid { get; } = Guid.NewGuid();
-        public IEffect[] Effects => this.config.Effects.ToArray();
-        public ICondition[] Conditions => this.config.Conditions.ToArray();
+        public IEffect[] Effects => this.Config.Effects;
+        public ICondition[] Conditions => this.Config.Conditions;
 
         public void SetConfig(IActionConfig config)
         {
-            this.config = config;
+            this.Config = config;
+        }
+        
+        public void SetProperties(IActionProperties properties)
+        {
+            this.Properties = properties;
         }
 
         public virtual float GetCost(IMonoAgent agent, IComponentReference references)
         {
-            return this.config.BaseCost;
+            return this.Config.BaseCost;
         }
         
         [Obsolete("Please use the IsInRange method")]
         public virtual float GetInRange(IMonoAgent agent, IActionData data)
         {
-            return this.config.InRange;
+            return this.Config.InRange;
         }
         
         public virtual bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references)

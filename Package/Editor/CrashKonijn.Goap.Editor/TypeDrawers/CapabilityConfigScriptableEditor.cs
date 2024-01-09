@@ -20,6 +20,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
         public override VisualElement CreateInspectorGUI()
         {
             this.scriptable = (CapabilityConfigScriptable)this.target;
+            
             var root = new VisualElement();
             
             var styleSheet =
@@ -32,23 +33,23 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             var generator = ClassScanner.GetGenerator(this.scriptable);
             
             root.Add(new Header("Goals"));
-            this.goalList = new GoalList(this.scriptable, generator);
+            this.goalList = new GoalList(this.serializedObject, this.scriptable, generator);
             root.Add(this.goalList);
 
             root.Add(new Header("Actions"));
-            this.actionList = new ActionList(this.scriptable, generator);
+            this.actionList = new ActionList(this.serializedObject, this.scriptable, generator);
             root.Add(this.actionList);
 
             root.Add(new Header("WorldSensors"));
-            this.worldSensorList = new SensorList<BehaviourWorldSensor>(this.scriptable, generator, this.scriptable.worldSensors);
+            this.worldSensorList = new SensorList<BehaviourWorldSensor>(this.serializedObject, this.scriptable, generator, this.scriptable.worldSensors, "worldSensors");
             root.Add(this.worldSensorList);
 
             root.Add(new Header("TargetSensors"));
-            this.targetSensorList = new SensorList<BehaviourTargetSensor>(this.scriptable, generator, this.scriptable.targetSensors);
+            this.targetSensorList = new SensorList<BehaviourTargetSensor>(this.serializedObject, this.scriptable, generator, this.scriptable.targetSensors, "targetSensors");
             root.Add(this.targetSensorList);
 
             root.Add(new Header("MultiSensors"));
-            this.multiSensorList = new SensorList<BehaviourMultiSensor>(this.scriptable, generator, this.scriptable.multiSensors);
+            this.multiSensorList = new SensorList<BehaviourMultiSensor>(this.serializedObject, this.scriptable, generator, this.scriptable.multiSensors, "multiSensors");
             root.Add(this.multiSensorList);
 
             var checkButton = new Button(() =>

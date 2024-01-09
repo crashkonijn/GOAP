@@ -12,7 +12,7 @@ namespace CrashKonijn.Goap.Editor.Elements
         private readonly CapabilityConfigScriptable scriptable;
         private readonly GeneratorScriptable generator;
 
-        public EffectList(CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<BehaviourEffect> conditions) : base(conditions)
+        public EffectList(SerializedProperty serializedProperty, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<BehaviourEffect> effects) : base(serializedProperty.FindPropertyRelative("effects"), effects)
         {
             this.scriptable = scriptable;
             this.generator = generator;
@@ -20,12 +20,12 @@ namespace CrashKonijn.Goap.Editor.Elements
             this.Rebuild();
         }
 
-        protected override CapabilityEffectElement CreateListItem(BehaviourEffect item)
+        protected override CapabilityEffectElement CreateListItem(SerializedProperty property, BehaviourEffect item)
         {
             return new CapabilityEffectElement(this.scriptable, this.generator);
         }
 
-        protected override void BindListItem(CapabilityEffectElement element, BehaviourEffect item, int index)
+        protected override void BindListItem(SerializedProperty property, CapabilityEffectElement element, BehaviourEffect item, int index)
         {
             element.Foldout.text = item.ToString();
             

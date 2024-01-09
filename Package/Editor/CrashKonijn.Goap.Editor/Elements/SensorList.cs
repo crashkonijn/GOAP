@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Scriptables;
+using UnityEditor;
 
 namespace CrashKonijn.Goap.Editor.Elements
 {
@@ -12,7 +13,7 @@ namespace CrashKonijn.Goap.Editor.Elements
         private readonly CapabilityConfigScriptable scriptable;
         private readonly GeneratorScriptable generator;
 
-        public SensorList(CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<TSensorType> sensors) : base(sensors)
+        public SensorList(SerializedObject serializedObject, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<TSensorType> list, string property) : base(serializedObject.FindProperty(property), list)
         {
             this.scriptable = scriptable;
             this.generator = generator;
@@ -20,12 +21,12 @@ namespace CrashKonijn.Goap.Editor.Elements
             this.Rebuild();
         }
 
-        protected override CapabilitySensorElement CreateListItem(TSensorType item)
+        protected override CapabilitySensorElement CreateListItem(SerializedProperty property, TSensorType item)
         {
             return new CapabilitySensorElement(this.scriptable, this.generator, item);
         }
 
-        protected override void BindListItem(CapabilitySensorElement element, TSensorType item, int index)
+        protected override void BindListItem(SerializedProperty property, CapabilitySensorElement element, TSensorType item, int index)
         {
             element.Foldout.text = this.GetName(item);
             

@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Scriptables;
+using UnityEditor;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.Elements
@@ -8,7 +9,7 @@ namespace CrashKonijn.Goap.Editor.Elements
         public Foldout Foldout { get; private set; }
         public ClassRefField Goal { get; private set; }
         
-        public CapabilityGoalElement(CapabilityConfigScriptable scriptable, GeneratorScriptable generator, BehaviourGoal item)
+        public CapabilityGoalElement(SerializedProperty serializedProperty, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, BehaviourGoal item)
         {
             this.Foldout = new Foldout
             {
@@ -23,7 +24,7 @@ namespace CrashKonijn.Goap.Editor.Elements
                 card.Add(goal);
 
                 card.Add(new Label("Conditions"));
-                var conditions = new ConditionList(scriptable, generator, item.conditions);
+                var conditions = new ConditionList(serializedProperty, scriptable, generator, item.conditions);
                 card.Add(conditions);
             });
             

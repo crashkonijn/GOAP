@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Scriptables;
+using UnityEditor;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.Elements
@@ -14,9 +15,11 @@ namespace CrashKonijn.Goap.Editor.Elements
         public FloatField InRangeField { get; set; }
 
         public EnumField MoveModeField { get; set; }
+        public ActionPropertiesElement Properties { get; private set; }
 
         
-        public CapabilityActionElement(CapabilityConfigScriptable scriptable, GeneratorScriptable generator, BehaviourAction item)
+        public CapabilityActionElement(SerializedObject serializedObject, SerializedProperty serializedProperty,
+            CapabilityConfigScriptable scriptable, GeneratorScriptable generator, BehaviourAction item)
         {
             this.Foldout = new Foldout
             {
@@ -47,12 +50,16 @@ namespace CrashKonijn.Goap.Editor.Elements
                 card.Add(moveMode);
 
                 card.Add(new Label("Effects"));
-                var effects = new EffectList(scriptable, generator, item.effects);
+                var effects = new EffectList(serializedProperty, scriptable, generator, item.effects);
                 card.Add(effects);
 
                 card.Add(new Label("Conditions"));
-                var conditions = new ConditionList(scriptable, generator, item.conditions);
+                var conditions = new ConditionList(serializedProperty, scriptable, generator, item.conditions);
                 card.Add(conditions);
+                
+                var properties = new ActionPropertiesElement(serializedObject);
+                this.Properties = properties;
+                card.Add(properties);
             });
             
             this.Foldout.Add(card);
