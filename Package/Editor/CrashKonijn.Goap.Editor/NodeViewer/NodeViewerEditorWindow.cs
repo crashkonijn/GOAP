@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Editor.Classes;
-using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
 using CrashKonijn.Goap.Interfaces;
 using UnityEditor;
@@ -57,7 +54,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 this.agents.Clear();
                 this.agents.AddRange(FindObjectsOfType<AgentBehaviour>());
                 this.agentList.RefreshItems();
-
             }).Every(1000);
             
             this.RenderGraph();
