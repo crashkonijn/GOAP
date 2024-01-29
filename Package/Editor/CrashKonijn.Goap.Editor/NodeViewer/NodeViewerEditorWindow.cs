@@ -24,6 +24,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         private DragDrawer dragDrawer;
         private VisualElement nodesDrawer;
         private VisualElement floatData;
+        private ListView agentList;
 
         [MenuItem("Tools/GOAP/Node Viewer")]
         private static void ShowWindow()
@@ -52,9 +53,11 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 }
             
                 this.runner = FindObjectOfType<GoapRunnerBehaviour>();
-                this.agents = FindObjectsOfType<AgentBehaviour>().ToList();
+                
+                this.agents.Clear();
+                this.agents.AddRange(FindObjectsOfType<AgentBehaviour>());
+                this.agentList.RefreshItems();
 
-                this.RenderAgents();
             }).Every(1000);
             
             this.RenderGraph();
@@ -116,6 +119,8 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             };
             
             root.Add(this.floatData);
+            
+            this.RenderAgents();
         }
 
         private (VisualElement RootElement, VisualElement Right) CreatePanels()
@@ -167,7 +172,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         {
             this.leftPanel.Clear();
 
-            var list = new ListView
+            this.agentList = new ListView
             {
                 fixedItemHeight = 70,
                 makeItem = () => new AgentDrawer(),
@@ -177,13 +182,13 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
 
             if (this.agent == null && this.agents.Count > 0)
             {
-                list.SetSelectionWithoutNotify(new[] { 0 });
+                this.agentList.SetSelectionWithoutNotify(new[] { 0 });
                 this.AgentChanged(this.agents[0]);
             }
 
             if (this.agent != null)
             {
-                list.SetSelectionWithoutNotify(new []{ this.agents.IndexOf(this.agent) });
+                this.agentList.SetSelectionWithoutNotify(new []{ this.agents.IndexOf(this.agent) });
                 this.AgentChanged(this.agent);
             }
 
@@ -203,12 +208,12 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                 this.AgentChanged(agent);
             }).Every(33);
 #elif UNITY_2022_1_OR_NEWER
-            list.selectionChanged += _ =>
+            this.agentList.selectionChanged += _ =>
             {
-                this.AgentChanged(this.agents[list.selectedIndex]);
+                this.AgentChanged(this.agents[this.agentList.selectedIndex]);
             };
 #endif
-            this.leftPanel.Add(list);
+            this.leftPanel.Add(this.agentList);
         }
 
         private void AgentChanged(AgentBehaviour agent)
