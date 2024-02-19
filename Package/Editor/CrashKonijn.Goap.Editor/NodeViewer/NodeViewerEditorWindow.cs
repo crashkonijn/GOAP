@@ -189,9 +189,9 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             }
 
 #if UNITY_2021_1 || UNITY_2021_2 || UNITY_2021_3
-            list.schedule.Execute(() =>
+            this.agentList.schedule.Execute(() =>
             {
-                var index = list.selectedIndex;
+                var index = this.agentList.selectedIndex;
                 
                 if (index < 0)
                     return;
