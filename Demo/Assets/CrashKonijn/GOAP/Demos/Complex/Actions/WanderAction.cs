@@ -16,9 +16,6 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
 
         public override void Start(IMonoAgent agent, Data data)
         {
-            Debug.Log(this.Properties.minTimer);
-            Debug.Log(this.Properties.maxTimer);
-            
             data.Timer = Random.Range(this.Properties.minTimer, this.Properties.maxTimer);
         }
 
