@@ -15,29 +15,39 @@ MonoBehaviour:
   goals:
   - goal:
       <Name>k__BackingField: TestGoal
-      <Id>k__BackingField: Test-31127dc9-8700-4e39-a475-b59972ff4e82
+      <Id>k__BackingField: Test-219cae30-3998-4d06-84f6-7ccc86f7af29
     conditions:
     - worldKey:
         <Name>k__BackingField: TestKeyy
-        <Id>k__BackingField: TestKeyy-73757bc7-cab5-45e3-99d6-8bbae9a0fd5c
+        <Id>k__BackingField: TestKeyy-eb6a725c-2dec-4e3f-ba82-5d05f7426d12
       comparison: 2
       amount: 1
   actions:
   - action:
       <Name>k__BackingField: VeryUniqueAction
-      <Id>k__BackingField: VeryUnique-73ca96e7-b2a3-4023-81ec-6e065f41c7a5
-    baseCost: 1
+      <Id>k__BackingField: VeryUnique-97508604-5cf4-4f1e-8d39-dbb74eed201f
     target:
       <Name>k__BackingField: AnotherTargetKey
-      <Id>k__BackingField: AnotherTargetKey-649b70a7-ed4a-4598-9243-ed2c30a69c63
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
+    properties:
+      rid: 1537142740700102710
+    baseCost: 1
     inRange: 0.1
     moveMode: 0
     conditions: []
     effects:
     - worldKey:
         <Name>k__BackingField: TestKeyy
-        <Id>k__BackingField: TestKeyy-73757bc7-cab5-45e3-99d6-8bbae9a0fd5c
+        <Id>k__BackingField: TestKeyy-eb6a725c-2dec-4e3f-ba82-5d05f7426d12
       effect: 1
   worldSensors: []
   targetSensors: []
   multiSensors: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1537142740700102710
+      type: {class: VeryUniqueAction/Props, ns: CrashKonijn.Goap.GenTest, asm: Assembly-CSharp}
+      data:
+        words: asdfsad
+        number: 0

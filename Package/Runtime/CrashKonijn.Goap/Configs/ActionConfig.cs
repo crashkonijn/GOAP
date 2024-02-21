@@ -7,6 +7,7 @@ namespace CrashKonijn.Goap.Configs
     {
         public string Name { get; set; }
         public string ClassType { get; set; }
+        public IActionProperties Properties { get; set; }
         public int BaseCost { get; set; }
         public ITargetKey Target { get; set; }
         public float InRange { get; set; }

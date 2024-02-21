@@ -3,6 +3,7 @@ using System.Linq;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Scriptables;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.Elements
@@ -12,7 +13,7 @@ namespace CrashKonijn.Goap.Editor.Elements
         private readonly CapabilityConfigScriptable scriptable;
         private readonly GeneratorScriptable generator;
 
-        public ConditionList(CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<BehaviourCondition> conditions) : base(conditions)
+        public ConditionList(SerializedProperty serializedProperty, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<BehaviourCondition> conditions) : base(serializedProperty.FindPropertyRelative("conditions"), conditions)
         {
             this.scriptable = scriptable;
             this.generator = generator;
@@ -21,12 +22,12 @@ namespace CrashKonijn.Goap.Editor.Elements
         }
 
 
-        protected override CapabilityConditionElement CreateListItem(BehaviourCondition item)
+        protected override CapabilityConditionElement CreateListItem(SerializedProperty property, BehaviourCondition item)
         {
             return new CapabilityConditionElement(this.scriptable, this.generator);
         }
 
-        protected override void BindListItem(CapabilityConditionElement element, BehaviourCondition item, int index)
+        protected override void BindListItem(SerializedProperty property,  CapabilityConditionElement element, BehaviourCondition item, int index)
         {
             element.Foldout.text = item.ToString();
             

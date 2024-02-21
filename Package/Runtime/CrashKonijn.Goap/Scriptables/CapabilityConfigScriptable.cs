@@ -6,7 +6,6 @@ using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Scriptables
 {
@@ -56,7 +55,8 @@ namespace CrashKonijn.Goap.Scriptables
                     WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
                     Increase = y.effect == EffectType.Increase,
                 }).Cast<IEffect>().ToArray(),
-                MoveMode = x.moveMode
+                MoveMode = x.moveMode,
+                Properties = x.properties
             }).Cast<IActionConfig>().ToList();
         }
 
@@ -125,8 +125,12 @@ namespace CrashKonijn.Goap.Scriptables
     public class BehaviourAction
     {
         public ClassRef action = new();
-        public int baseCost = 1;
         public ClassRef target = new();
+        
+        [SerializeReference]
+        public IActionProperties properties;
+        
+        public int baseCost = 1;
         public float inRange = 0.1f;
         public ActionMoveMode moveMode;
         public List<BehaviourCondition> conditions = new();

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes.Builders
 {
@@ -14,9 +16,11 @@ namespace CrashKonijn.Goap.Classes.Builders
         private readonly List<IEffect> effects = new();
         private readonly WorldKeyBuilder worldKeyBuilder;
         private readonly TargetKeyBuilder targetKeyBuilder;
+        private readonly Type actionType;
 
         public ActionBuilder(Type actionType, WorldKeyBuilder worldKeyBuilder, TargetKeyBuilder targetKeyBuilder)
         {
+            this.actionType = actionType;
             this.worldKeyBuilder = worldKeyBuilder;
             this.targetKeyBuilder = targetKeyBuilder;
             
@@ -90,6 +94,40 @@ namespace CrashKonijn.Goap.Classes.Builders
             });
             
             return this;
+        }
+
+        public ActionBuilder SetProperties(IActionProperties properties)
+        {
+            this.ValidateProperties(properties);
+            
+            this.config.Properties = properties;
+            return this;
+        }
+
+        private void ValidateProperties(IActionProperties properties)
+        {
+            var actionPropsType = this.GetPropertiesType();
+            
+            if (actionPropsType == properties.GetType())
+                return;
+                
+            throw new ArgumentException($"The provided properties do not match the expected type '{actionPropsType.Name}'.", nameof(properties));
+        }
+        
+        private Type GetPropertiesType()
+        {
+            var baseType = this.actionType.BaseType;
+            
+            if (baseType == null)
+                return null;
+            
+            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(ActionBase<,>)) 
+                return baseType.GetGenericArguments()[1];
+            
+            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(ActionBase<>)) 
+                return typeof(EmptyActionProperties);
+            
+            return null;
         }
 
         public IActionConfig Build()

@@ -1,5 +1,4 @@
 ﻿using System;
-using CrashKonijn.Goap.Core.Enums;
 
 namespace CrashKonijn.Goap.Core.Interfaces
 {
@@ -11,7 +10,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references);
         IActionData GetData();
         void Created();
-        public IActionRunState Perform(IMonoAgent agent, IActionData data, IActionContext context);
+        IActionRunState Perform(IMonoAgent agent, IActionData data, IActionContext context);
         void Start(IMonoAgent agent, IActionData data);
         void Stop(IMonoAgent agent, IActionData data);
         void Complete(IMonoAgent agent, IActionData data);

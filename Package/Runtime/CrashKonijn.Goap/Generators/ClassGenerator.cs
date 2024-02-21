@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Generators
@@ -42,8 +41,6 @@ namespace CrashKonijn.Goap.Generators
             var template = this.LoadTemplate("world-key");
             var id = this.GetId(name);
             
-            Debug.Log(id);
-            
             var result = this.Replace(template, id, name, namespaceName);
             var path = $"{basePath}/WorldKeys/{name}.cs";
             var created = this.StoreAtPath(result, path);
@@ -65,7 +62,7 @@ namespace CrashKonijn.Goap.Generators
             var path = $"{basePath}/Goals/{name}Goal.cs";
             var created = this.StoreAtPath(result, path);
             
-            return this.GetScript(id, path, name, !created);
+            return this.GetScript(id, path, name + "Goal", !created);
         }
         
         public Script CreateAction(string basePath, string name, string namespaceName)
@@ -82,7 +79,7 @@ namespace CrashKonijn.Goap.Generators
             var path = $"{basePath}/Actions/{name}Action.cs";
             var created = this.StoreAtPath(result, path);
             
-            return this.GetScript(id, path, name, !created);
+            return this.GetScript(id, path, name + "Action", !created);
         }
         
         public Script CreateMultiSensor(string basePath, string name, string namespaceName)
@@ -97,14 +94,9 @@ namespace CrashKonijn.Goap.Generators
             
             var result = this.Replace(template, id, name, namespaceName);
             var path = $"{basePath}/Sensors/Multi/{name}Sensor.cs";
-            this.StoreAtPath(result, path);
+            var created = this.StoreAtPath(result, path);
             
-            return new Script
-            {
-                Id = id,
-                Name = name,
-                Path = path,
-            };
+            return this.GetScript(id, path, name + "Sensor", !created);
         }
 
         private string GetId(string name)

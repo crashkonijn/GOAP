@@ -1,16 +1,14 @@
-﻿using System;
-using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
+namespace CrashKonijn.Goap.GenTest
 {
-    [GoapId("Simple-WanderAction")]
-    public class WanderAction : ActionBase<WanderAction.Data, WanderAction.Props>
+    [GoapId("SomeOther-c23f2477-2b28-4efd-ac57-0886700dd051")]
+    public class SomeOtherAction : ActionBase<SomeOtherAction.Data>
     {
         public override void Created()
         {
@@ -18,12 +16,11 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 
         public override void Start(IMonoAgent agent, Data data)
         {
-            data.Timer = Random.Range(this.Properties.minTimer, this.Properties.maxTimer);
         }
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            return ActionRunState.WaitThenComplete(data.Timer);
+            return ActionRunState.Stop;
         }
 
         public override void Stop(IMonoAgent agent, Data data)
@@ -33,19 +30,10 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
         public override void Complete(IMonoAgent agent, Data data)
         {
         }
-        
-        [Serializable]
-        public class Props : IActionProperties
-        {
-            public float minTimer;
-            public float maxTimer;
-        }
 
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
-            public float Timer { get; set; }
         }
     }
 }
-
