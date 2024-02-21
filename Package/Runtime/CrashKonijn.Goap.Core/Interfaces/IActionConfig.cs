@@ -10,5 +10,6 @@ namespace CrashKonijn.Goap.Core.Interfaces
         ICondition[] Conditions { get; }
         IEffect[] Effects { get; }
         public ActionMoveMode MoveMode { get; }
+        public IActionProperties Properties { get; }
     }
 }

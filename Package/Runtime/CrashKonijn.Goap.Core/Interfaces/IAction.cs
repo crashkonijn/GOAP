@@ -4,7 +4,6 @@ namespace CrashKonijn.Goap.Core.Interfaces
 {
     public interface IAction : IConnectable, IHasConfig<IActionConfig>
     {
-        IActionProperties Properties { get; }
         float GetCost(IMonoAgent agent, IComponentReference references);
         [Obsolete("Please use the IsInRange method")]
         float GetInRange(IMonoAgent agent, IActionData data);

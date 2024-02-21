@@ -23,7 +23,9 @@ namespace CrashKonijn.Goap.Scriptables
         
         [field:SerializeField]
         public ActionMoveMode MoveMode { get; set; }
-        
+
+        public IActionProperties Properties { get; }
+
         [Header("Conditions and Effects")]
         public List<SerializableCondition> conditions;
         public List<SerializableEffect> effects;

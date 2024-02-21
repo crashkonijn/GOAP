@@ -14,10 +14,7 @@ namespace CrashKonijn.Goap.Behaviours
     public abstract class ActionBase<TActionData> : ActionBase<TActionData, EmptyActionProperties>
         where TActionData : IActionData, new()
     {
-        public ActionBase()
-        {
-            this.SetProperties(new EmptyActionProperties());
-        }
+ 
     }
 
     public abstract class ActionBase<TActionData, TActionProperties> : ActionBase
@@ -34,15 +31,7 @@ namespace CrashKonijn.Goap.Behaviours
             return new TActionData();
         }
         
-        public TActionProperties GetProperties()
-        {
-            return this.Properties as TActionProperties;
-        }
-        
-        public T GetProperty<T>(Func<TActionProperties, T> func)
-        {
-            return func(this.GetProperties());
-        }
+        public TActionProperties Properties => this.Config.Properties as TActionProperties;
 
         public override void Start(IMonoAgent agent, IActionData data) => this.Start(agent, (TActionData) data);
         
@@ -64,7 +53,6 @@ namespace CrashKonijn.Goap.Behaviours
     public abstract class ActionBase : IAction
     {
         public IActionConfig Config { get; private set; }
-        public IActionProperties Properties { get; private set; }
 
         public Guid Guid { get; } = Guid.NewGuid();
         public IEffect[] Effects => this.Config.Effects;
@@ -75,11 +63,6 @@ namespace CrashKonijn.Goap.Behaviours
             this.Config = config;
         }
         
-        public void SetProperties(IActionProperties properties)
-        {
-            this.Properties = properties;
-        }
-
         public virtual float GetCost(IMonoAgent agent, IComponentReference references)
         {
             return this.Config.BaseCost;

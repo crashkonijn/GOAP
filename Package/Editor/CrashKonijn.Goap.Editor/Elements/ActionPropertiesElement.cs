@@ -98,8 +98,6 @@ namespace CrashKonijn.Goap.Editor.Elements
             var type = script.Type;
             var baseType = type.BaseType;
             
-            Debug.Log(baseType);
-            
             if (baseType == null)
                 return null;
             

@@ -55,7 +55,8 @@ namespace CrashKonijn.Goap.Scriptables
                     WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
                     Increase = y.effect == EffectType.Increase,
                 }).Cast<IEffect>().ToArray(),
-                MoveMode = x.moveMode
+                MoveMode = x.moveMode,
+                Properties = x.properties
             }).Cast<IActionConfig>().ToList();
         }
 

@@ -58,6 +58,9 @@ namespace CrashKonijn.Goap.Behaviours
                 this.configInitializer.InitConfig(this.config);
 
             var controller = this.GetComponent<IGoapController>();
+
+            if (controller == null)
+                throw new MissingComponentException("No IGoapController found on GameObject of GoapBehaviour");
             
             this.goap = new Classes.Runners.Goap(controller);
             
