@@ -1,12 +1,14 @@
-﻿using CrashKonijn.Goap.Behaviours;
+﻿using System;
+using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class WanderAction : ActionBase<WanderAction.Data>
+    public class WanderAction : ActionBase<WanderAction.Data, WanderAction.Props>
     {
         public override void Created()
         {
@@ -14,6 +16,8 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
 
         public override void Start(IMonoAgent agent, Data data)
         {
+            Debug.Log(this.GetProperty(x => x.minTimer));
+            
             data.Timer = Random.Range(0.3f, 1f);
         }
 
@@ -31,6 +35,13 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
 
         public override void Complete(IMonoAgent agent, Data data)
         {
+        }
+
+        [Serializable]
+        public class Props : IActionProperties
+        {
+            public float minTimer;
+            public float maxTimer;
         }
 
         public class Data : IActionData

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver;
 
 namespace CrashKonijn.Goap.Classes.Builders
 {
@@ -89,6 +88,12 @@ namespace CrashKonijn.Goap.Classes.Builders
                 Increase = type == EffectType.Increase
             });
             
+            return this;
+        }
+
+        public ActionBuilder SetProperties(IActionProperties properties)
+        {
+            this.config.Properties = properties;
             return this;
         }
 

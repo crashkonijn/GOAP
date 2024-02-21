@@ -17,7 +17,12 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
         {
             builder.AddAction<WanderAction>()
                 .SetTarget<WanderTarget>()
-                .AddEffect<IsWandering>(EffectType.Increase);
+                .AddEffect<IsWandering>(EffectType.Increase)
+                .SetProperties(new WanderAction.Props
+                {
+                    minTimer = 0.3f,
+                    maxTimer = 1f
+                });
         }
         
         public static void AddPickupItemAction<T>(this AgentTypeBuilder builder)

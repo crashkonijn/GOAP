@@ -38,6 +38,11 @@ namespace CrashKonijn.Goap.Behaviours
         {
             return this.Properties as TActionProperties;
         }
+        
+        public T GetProperty<T>(Func<TActionProperties, T> func)
+        {
+            return func(this.GetProperties());
+        }
 
         public override void Start(IMonoAgent agent, IActionData data) => this.Start(agent, (TActionData) data);
         
