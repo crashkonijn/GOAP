@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Core.Interfaces;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver.Models
 {
@@ -9,5 +10,6 @@ namespace CrashKonijn.Goap.Resolver.Models
         public List<INode> RootNodes { get; set; } = new();
         public List<INode> ChildNodes { get; set; } = new();
         public INode[] AllNodes => this.RootNodes.Union(this.ChildNodes).ToArray();
+        public INode[] UnconnectedNodes { get; set; }
     }
 }

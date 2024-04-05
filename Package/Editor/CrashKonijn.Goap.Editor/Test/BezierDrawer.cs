@@ -1,31 +1,18 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
+namespace CrashKonijn.Goap.Editor.Test
 {
-    public class BezierDrawer : VisualElement
+    public class BezierElement : VisualElement
     {
-        private Vector3 startPos;
-        private Vector3 endPos;
-        private Vector3 startTan;
-        private Vector3 endTan;
-        private float thickness;
-        private Color strokeColor;
-        
-        public BezierDrawer()
-        {
-            this.AddToClassList("bezier-drawer");
-            
-            this.generateVisualContent += this.OnGenerateVisualContent;
+        private readonly Vector3 startPos;
+        private readonly Vector3 endPos;
+        private readonly Vector3 startTan;
+        private readonly Vector3 endTan;
+        private readonly float thickness;
+        private readonly Color strokeColor;
 
-            this.schedule.Execute(() =>
-            {
-                this.MarkDirtyRepaint();
-            }).Every(100);
-        }
-
-        public BezierDrawer(Vector3 startPost, Vector3 endPos, Vector3 startTan, Vector3 endTan, float width, Color color)
+        public BezierElement(Vector3 startPost, Vector3 endPos, Vector3 startTan, Vector3 endTan, float width, Color color)
         {
             this.AddToClassList("bezier-drawer");
             
@@ -37,16 +24,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             this.strokeColor = color;
             
             this.generateVisualContent += this.OnGenerateVisualContent;
-        }
-
-        public void Update(Vector3 startPost, Vector3 endPos, Vector3 startTan, Vector3 endTan, float width, Color color)
-        {
-            this.startPos = startPost;
-            this.endPos = endPos;
-            this.startTan = startTan;
-            this.endTan = endTan;
-            this.thickness = width;
-            this.strokeColor = color;
         }
 
         private void OnGenerateVisualContent(MeshGenerationContext ctx)

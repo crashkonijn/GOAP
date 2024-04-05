@@ -30,7 +30,7 @@ namespace CrashKonijn.Goap
         {
             return this.IsTrue(worldKey.GetType(), comparison, value);
         }
-        
+
         public bool IsTrue(Type worldKey, Comparison comparison, int value)
         {
             if (!this.States.ContainsKey(worldKey))
@@ -100,6 +100,8 @@ namespace CrashKonijn.Goap
             
             this.Targets.Add(key, target);
         }
+
+        public (bool Exists, int Value) GetWorldValue<TKey>(TKey worldKey) where TKey : IWorldKey => this.GetWorldValue(worldKey.GetType());
 
         public abstract (bool Exists, int Value) GetWorldValue(Type worldKey);
         public abstract ITarget GetTargetValue(Type targetKey);

@@ -31,7 +31,6 @@ namespace CrashKonijn.Goap.Editor.Elements
 
             if (!this.property.isArray)
             {
-                Debug.Log("No Array property: " + this.property.name);
                 return;
             }
             
@@ -95,6 +94,8 @@ namespace CrashKonijn.Goap.Editor.Elements
             // var element = this.property.GetArrayElementAtIndex(this.property.arraySize -1);
             // element.managedReferenceValue = new TItemType();
             
+            this.list.Add(new TItemType());
+            
             this.CreateElement(this.property.arraySize -1);
 
             this.CloseAll();
@@ -106,7 +107,7 @@ namespace CrashKonijn.Goap.Editor.Elements
 
         private void RemoveSelectedItem()
         {
-            // this.list.Remove(this.selectedItem);
+            this.list.RemoveAt(this.selectedItemIndex);
             
             this.Rebuild();
         }

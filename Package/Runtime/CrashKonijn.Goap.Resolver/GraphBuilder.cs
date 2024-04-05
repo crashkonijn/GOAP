@@ -33,6 +33,8 @@ namespace CrashKonijn.Goap.Resolver
             {
                 this.ConnectNodes(node, effectMap, conditionMap, graph);
             }
+            
+            graph.UnconnectedNodes = allNodes.Where(x => !graph.ChildNodes.Contains(x) && !graph.RootNodes.Contains(x)).ToArray();
 
             return graph;
         }

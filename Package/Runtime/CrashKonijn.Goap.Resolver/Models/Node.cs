@@ -15,6 +15,6 @@ namespace CrashKonijn.Goap.Resolver.Models
         public List<INodeEffect> Effects { get; set; } = new ();
         public List<INodeCondition> Conditions { get; set; } = new ();
 
-        public bool IsRootNode => this.Action.Effects == null || !this.Action.Effects.Any();
+        public bool IsRootNode => this.Action is IGoal;
     }
 }

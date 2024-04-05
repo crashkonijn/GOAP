@@ -15,6 +15,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         void SetTarget<TKey>(ITarget target) where TKey : ITargetKey;
         bool IsTrue<TWorldKey>(Comparison comparison, int value);
         bool IsTrue(IWorldKey worldKey, Comparison comparison, int value);
+        (bool Exists, int Value) GetWorldValue<TKey>(TKey worldKey) where TKey : IWorldKey;
         (bool Exists, int Value) GetWorldValue(Type worldKey);
         ITarget GetTargetValue(Type targetKey);
     }
