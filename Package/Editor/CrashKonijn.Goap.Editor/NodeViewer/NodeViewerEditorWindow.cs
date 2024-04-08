@@ -13,8 +13,8 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
     {
         private IGoapRunner runner;
         private IGoapSet goapSet;
-        private AgentBehaviour agent;
-        private List<AgentBehaviour> agents = new();
+        private IMonoAgent agent;
+        private List<IMonoAgent> agents = new();
         private VisualElement leftPanel;
         private VisualElement rightPanel;
 
@@ -49,10 +49,10 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
                     return;
                 }
             
-                this.runner = FindObjectOfType<GoapRunnerBehaviour>();
+                this.runner = ClassFinder.FindComponentOfType<IGoapRunner>();
                 
                 this.agents.Clear();
-                this.agents.AddRange(FindObjectsOfType<AgentBehaviour>());
+                this.agents.AddRange(ClassFinder.FindComponentsOfType<IMonoAgent>());
                 this.agentList.RefreshItems();
             }).Every(1000);
             
@@ -212,7 +212,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             this.leftPanel.Add(this.agentList);
         }
 
-        private void AgentChanged(AgentBehaviour agent)
+        private void AgentChanged(IMonoAgent agent)
         {
             if (agent == null)
                 return;

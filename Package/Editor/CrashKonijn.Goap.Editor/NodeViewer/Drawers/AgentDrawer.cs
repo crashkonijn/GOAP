@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.Validators;
+using CrashKonijn.Goap.Interfaces;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
@@ -11,7 +12,7 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             this.name = "agent";
         }
 
-        public void Update(AgentBehaviour agent)
+        public void Update(IMonoAgent agent)
         {
             this.Clear();
 
