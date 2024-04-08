@@ -67,5 +67,14 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             this.offset += this.delta;
             this.delta = Vector2.zero;
         }
+
+        public void Reset()
+        {
+            this.enabled = false;
+            this.offset = Vector2.zero;
+            this.delta = Vector2.zero;
+            
+            this.callback(Vector2.zero);
+        }
     }
 }

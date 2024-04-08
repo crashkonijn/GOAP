@@ -5,12 +5,14 @@ using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.Validators;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Scriptables;
 using UnityEditor;
 using UnityEditor.Graphs;
 using UnityEditor.TextCore.Text;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
@@ -22,6 +24,7 @@ namespace CrashKonijn.Goap.Editor.Test
         private IGraph graph;
         private SelectedObject selectedObject = new ();
         private DragDrawer dragDrawer;
+        private int zoom = 100;
 
         [MenuItem("Tools/GOAP/Test Viewer")]
         private static void ShowWindow()
@@ -93,20 +96,89 @@ namespace CrashKonijn.Goap.Editor.Test
             
             this.rootVisualElement.Clear();
             
-            Debug.Log("cleared?");
-            
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Test.uss");
+            this.rootVisualElement.styleSheets.Add(styleSheet);
+            
+            styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Test_2022.uss");
             this.rootVisualElement.styleSheets.Add(styleSheet);
 
             var bezierRoot = new VisualElement();
             bezierRoot.AddToClassList("bezier-root");
             this.rootVisualElement.Add(bezierRoot);
+
+            var toolbar = new Toolbar();
+            
+            
+            toolbar.Add(new ToolbarButton(() =>
+            {
+                var elementsWithClass = this.rootVisualElement.Query<VisualElement>(className: "node").ToList();
+
+                foreach (var element in elementsWithClass)
+                {
+                    element.AddToClassList("collapsed");
+                }
+            })
+            {
+                text = "collapse"
+            });
+            
+            toolbar.Add(new ToolbarButton(() =>
+            {
+                var elementsWithClass = this.rootVisualElement.Query<VisualElement>(className: "node").ToList();
+
+                foreach (var element in elementsWithClass)
+                {
+                    element.RemoveFromClassList("collapsed");
+                }
+            })
+            {
+                text = "open"
+            });
+            
+            var spacer = new VisualElement();
+            spacer.style.flexGrow = 1; // This makes the spacer flexible, filling available space
+            toolbar.Add(spacer);
+            
+            toolbar.Add(new ToolbarButton(() =>
+            {
+                if (this.zoom < 100)
+                    this.zoom += 10;
+            })
+            {
+                text = "+"
+            });
+            toolbar.Add(new ToolbarButton(() =>
+            {
+                if (this.zoom > 50)
+                    this.zoom -= 10;
+            })
+            {
+                text = "-"
+            });
+            toolbar.Add(new ToolbarButton(() =>
+            {
+                this.zoom = 100;
+                this.dragDrawer.Reset();
+            })
+            {
+                text = "reset"
+            });
+            this.rootVisualElement.Add(toolbar);
+            
+            var dragRoot = new VisualElement();
+            dragRoot.AddToClassList("drag-root");
+            this.rootVisualElement.Add(dragRoot);
             
             var nodeRoot = new VisualElement();
             nodeRoot.AddToClassList("node-root");
-            this.rootVisualElement.Add(nodeRoot);
+            dragRoot.Add(nodeRoot);
+
+            nodeRoot.schedule.Execute(() =>
+            {
+                nodeRoot.transform.scale = new Vector3(this.zoom / 100f, this.zoom / 100f, 1);
+            }).Every(33);
             
-            this.dragDrawer = new DragDrawer(nodeRoot, (offset) =>
+            this.dragDrawer = new DragDrawer(dragRoot, (offset) =>
             {
                 nodeRoot.transform.position = offset;
                 
@@ -193,8 +265,8 @@ namespace CrashKonijn.Goap.Editor.Test
             this.ChildWrapper = new VisualElement();
             this.ChildWrapper.AddToClassList("child-wrapper");
 
-            this.Add(this.ChildWrapper);
             this.Add(this.NodeWrapper);
+            this.Add(this.ChildWrapper);
 
             foreach (var condition in graphNode.Conditions)
             {
@@ -290,23 +362,52 @@ namespace CrashKonijn.Goap.Editor.Test
         private readonly SelectedObject selectedObject;
         public INodeCondition GraphCondition { get; }
 
+        public Circle Circle { get; set; }
+
+        public Label Label { get; set; }
+
         public ConditionElement(INodeCondition graphCondition, SelectedObject selectedObject)
         {
             this.selectedObject = selectedObject;
             this.GraphCondition = graphCondition;
             this.AddToClassList("condition");
+
+            this.Circle = new Circle(GetCircleColor(graphCondition), 10f);
+            this.Add(this.Circle);
             
-            this.Label = new Label(this.GetText(graphCondition.Condition, this.GetColor()));
+            this.Label = new Label(this.GetText(graphCondition.Condition, this.GetTextColor()));
             this.Add(this.Label);
 
             this.schedule.Execute(() =>
             {
-                this.Label.text = this.GetText(this.GraphCondition.Condition, this.GetColor());
+                this.Label.text = this.GetText(this.GraphCondition.Condition, this.GetTextColor());
+                this.Circle.SetColor(this.GetCircleColor(this.GraphCondition));
             }).Every(33);
         }
 
-        private Color GetColor()
+        private Color GetCircleColor(INodeCondition condition)
         {
+            if (Application.isPlaying)
+            {
+                if (selectedObject.Object is not IMonoAgent agent)
+                    return Color.white;
+                
+                var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
+                conditionObserver.SetWorldData(agent.WorldData);
+            
+                return conditionObserver.IsMet(GraphCondition.Condition) ? Color.green : Color.red;
+            }
+            
+            if (!condition.Connections.Any())
+                return Color.red;
+            
+            return Color.green;
+        }
+
+        private Color GetTextColor()
+        {
+            return Color.white;
+            
             if (!Application.isPlaying)
                 return Color.white;
             
@@ -354,8 +455,6 @@ namespace CrashKonijn.Goap.Editor.Test
             
             return "";
         }
-
-        public Label Label { get; set; }
     }
     
     public class ConnectionElement : VisualElement
@@ -373,16 +472,18 @@ namespace CrashKonijn.Goap.Editor.Test
             this.Bezier = new BezierDrawer();
             this.Add(this.Bezier);
             
+            var magicOffset = 10f;
+            
             this.schedule.Execute(() =>
             {
                 var start = condition;
                 var end = node.Node;
                 
-                var startPos = new Vector3(start.worldBound.position.x, start.worldBound.position.y - (start.worldBound.height / 4), 0);
-                var endPos = new Vector3(end.worldBound.position.x + end.worldBound.width, end.worldBound.position.y, 0);
+                var startPos = new Vector3(condition.parent.parent.worldBound.position.x + condition.parent.parent.worldBound.width, start.worldBound.position.y - magicOffset, 0);
+                var endPos = new Vector3(end.worldBound.position.x, end.worldBound.position.y - magicOffset, 0);
                     
-                var startTan = startPos + (Vector3.left * 40);
-                var endTan = endPos + (Vector3.right * 40);
+                var startTan = startPos + (Vector3.right * 40);
+                var endTan = endPos + (Vector3.left * 40);
             
                 this.Bezier.Update(startPos, endPos, startTan, endTan, 2f, this.GetColor());
             }).Every(33);

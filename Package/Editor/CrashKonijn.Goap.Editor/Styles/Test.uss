@@ -20,7 +20,7 @@
     border-width: 2px;
 }
 
-.node.collapsed .conditions, .node.collapsed .effects {
+.node.collapsed .effects {
     /*min-height: 40px;*/
     max-height: 0;
     margin: 0;
@@ -33,9 +33,44 @@
     /*border-width: 1px;*/
 }
 
-.node.collapsed .condition Label, .node.collapsed .effect Label {
+.node.collapsed .conditions {
+    /*min-height: 40px;*/
+    /*max-height: 0;*/
+    margin: 0;
+    margin-top: -5px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    /*opacity: 0;*/
+    /*visibility: hidden;*/
+    /*display: none;*/
+
+    /*border-color: red;*/
+    /*border-width: 1px;*/
+
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    flex-grow: 1;
+    flex-shrink: 0;
+
+    padding: 0;
+}
+
+.node.collapsed .condition {
+    max-width: 20px;
+    /*border-color: blue;*/
+    /*border-width: 1px;*/
+    margin: 0;
+    padding: 0;
+}
+
+.node.collapsed .conditions Label, .node.collapsed .effects Label {
     display: none;
     max-height: 0;
+}
+
+.node.collapsed .conditions Circle {
+    margin: 0;
+    padding: 0;
 }
 
 .node .content {
@@ -68,6 +103,11 @@
     /*border-width: 1px;*/
 }
 
+.node .conditions Circle {
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
 .node .effects {
     display: flex;
     flex-direction: column; /* Stack children vertically */
@@ -91,6 +131,14 @@
     /*border-width: 1px;*/
 }
 
+.drag-root {
+    flex-grow: 1;
+    overflow: hidden;
+    
+    /*border-color: red;*/
+    /*border-width: 1px;*/
+}
+
 .node-root {
     display: flex;
     flex-direction: column; /* Align children horizontally */
@@ -98,12 +146,15 @@
 
     flex-shrink: 0; /* Don’t shrink smaller than content */
     flex-grow: 0; /* Don’t grow larger than content */
+
+    /*border-color: blue;*/
+    /*border-width: 1px;*/
 }
 
 .wrapper {
     display: flex;
     flex-direction: row; /* Align children horizontally */
-    justify-content: flex-end;
+    justify-content: flex-start;
     
     flex-shrink: 0; /* Don’t shrink smaller than content */
     flex-grow: 0; /* Don’t grow larger than content */
