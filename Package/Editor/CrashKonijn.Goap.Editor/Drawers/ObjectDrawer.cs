@@ -1,6 +1,6 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Editor.Elements;
-using CrashKonijn.Goap.Interfaces;
+﻿using System.Linq;
+using System.Reflection;
+using CrashKonijn.Goap.Classes;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,13 +14,24 @@ namespace CrashKonijn.Goap.Editor.Drawers
                 return;
             
             var properties = obj.GetType().GetProperties();
+            
+            var label = new Label();
+            label.text = this.GetLabelText(properties, obj);
+            this.Add(label);
 
-            foreach (var property in properties)
+            this.schedule.Execute(() =>
             {
-                var value = property.GetValue(obj);
-                
-                this.Add(new Label($"{property.Name}: {this.GetValueString(value)}"));
-            }
+                label.text = this.GetLabelText(properties, obj);
+            }).Every(33);
+        }
+
+        private string GetLabelText(PropertyInfo[] properties, object obj)
+        {
+            return string.Join("\n", properties.Select(x =>
+            {
+                var value = x.GetValue(obj);
+                return $"{x.Name}: {this.GetValueString(value)}";
+            }));
         }
 
         private string GetValueString(object value)
