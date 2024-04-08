@@ -26,25 +26,74 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             var agent = (AgentBehaviour) this.target;
             
+            var currentGoal = agent.CurrentGoal;
+            var currentAction = agent.CurrentAction;
+            var state = agent.State;
+            var moveState = agent.MoveState;
+            
             root.Add(new Card((card) =>
             {
-                card.schedule.Execute(() =>
+                card.Add(new Label(), (label) =>
                 {
-                    card.Clear();
-                    card.Add(new Label("Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName()));
-                    card.Add(new Label("Action: " + agent.CurrentAction?.GetType().GetGenericTypeName()));
-                    card.Add(new Label("State: " + agent.State));
-                    card.Add(new Label("MoveState: " + agent.MoveState));
-                }).Every(33);
+                    label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
+                    
+                    label.schedule.Execute(() =>
+                    {
+                        if (currentGoal == agent.CurrentGoal)
+                            return;
+                        
+                        currentGoal = agent.CurrentGoal;
+                        label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
+                    }).Every(33);
+                });
+                
+                card.Add(new Label(), (label) =>
+                {
+                    label.text = "Action: " + agent.CurrentAction?.GetType().GetGenericTypeName();
+                    
+                    label.schedule.Execute(() =>
+                    {
+                        if (currentAction == agent.CurrentAction)
+                            return;
+                        
+                        currentAction = agent.CurrentAction;
+                        label.text = "Action: " + agent.CurrentAction?.GetType().GetGenericTypeName();
+                    }).Every(33);
+                });
+                
+                card.Add(new Label(), (label) =>
+                {
+                    label.text = "State: " + agent.State;
+                    
+                    label.schedule.Execute(() =>
+                    {
+                        if (state == agent.State)
+                            return;
+                        
+                        state = agent.State;
+                        label.text = "State: " + agent.State;
+                    }).Every(33);
+                });
+                
+                card.Add(new Label(), (label) =>
+                {
+                    label.text = "MoveState: " + agent.MoveState;
+                    
+                    label.schedule.Execute(() =>
+                    {
+                        if (moveState == agent.MoveState)
+                            return;
+                        
+                        moveState = agent.MoveState;
+                        label.text = "MoveState: " + agent.MoveState;
+                    }).Every(33);
+                });
+                
             }));
             
             root.Add(new Card((card) =>
             {
-                card.schedule.Execute(() =>
-                {
-                    card.Clear();
-                    card.Add(new ObjectDrawer(agent.CurrentActionData));
-                }).Every(33);
+                card.Add(new ObjectDrawer(agent.CurrentActionData));
             }));
 
             return root;
