@@ -18,8 +18,8 @@ MonoBehaviour:
       <Name>k__BackingField: BegForMoneyAction
       <Id>k__BackingField: BegForMoney-eec1193b-de39-43a5-aa68-0d78807a7954
     target:
-      <Name>k__BackingField: 
-      <Id>k__BackingField: 
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
     properties:
       rid: 5955038660131291141
     baseCost: 1
@@ -35,8 +35,8 @@ MonoBehaviour:
       <Name>k__BackingField: StealMoneyAction
       <Id>k__BackingField: StealMoney-9d697ad2-49ed-4a02-aadb-4a69461a8844
     target:
-      <Name>k__BackingField: 
-      <Id>k__BackingField: 
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
     properties:
       rid: 5955038660131291142
     baseCost: 1

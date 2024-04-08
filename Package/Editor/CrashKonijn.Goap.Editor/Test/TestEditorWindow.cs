@@ -249,7 +249,6 @@ namespace CrashKonijn.Goap.Editor.Test
                     this.Node.AddToClassList("path");
                     return;
                 }
-                
             }).Every(33);
         }
 
@@ -260,6 +259,7 @@ namespace CrashKonijn.Goap.Editor.Test
         public VisualElement Node { get; set; }
         public VisualElement NodeWrapper { get; private set; }
     }
+    
     public class EffectElement : VisualElement
     {
         private readonly SelectedObject selectedObject;

@@ -26,10 +26,12 @@ MonoBehaviour:
   - action:
       <Name>k__BackingField: WanderAction
       <Id>k__BackingField: Simple-WanderAction
-    baseCost: 1
     target:
       <Name>k__BackingField: WanderTarget
       <Id>k__BackingField: WanderTarget-ae7344be-5223-4260-acac-f33c9eb260f5
+    properties:
+      rid: 5955038660131291139
+    baseCost: 1
     inRange: 0.1
     moveMode: 0
     conditions: []
@@ -47,3 +49,12 @@ MonoBehaviour:
       <Name>k__BackingField: WanderTarget
       <Id>k__BackingField: WanderTarget-ae7344be-5223-4260-acac-f33c9eb260f5
   multiSensors: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5955038660131291139
+      type: {class: WanderAction/Props, ns: CrashKonijn.Goap.Demos.Simple.Goap.Actions,
+        asm: com.crashkonijn.goap.demos.simple}
+      data:
+        minTimer: 0
+        maxTimer: 0

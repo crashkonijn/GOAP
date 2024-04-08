@@ -13,10 +13,76 @@ MonoBehaviour:
   m_Name: BuyCapability
   m_EditorClassIdentifier: 
   goals: []
-  actions: []
+  actions:
+  - action:
+      <Name>k__BackingField: BuyAppleAction
+      <Id>k__BackingField: BuyApple-2811cd3f-2c6f-488e-94ad-8cc5fa46013f
+    target:
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
+    properties:
+      rid: 5955038660131291140
+    baseCost: 1
+    inRange: 0.1
+    moveMode: 0
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: HasMoney
+        <Id>k__BackingField: HasMoney-f8279ea0-d74a-40b8-b072-6a56986d7051
+      comparison: 3
+      amount: 5
+    - worldKey:
+        <Name>k__BackingField: ApplesForSale
+        <Id>k__BackingField: ApplesForSale-9e41bc85-387d-47a1-9c71-f4a9c53b3e3e
+      comparison: 3
+      amount: 0
+    effects:
+    - worldKey:
+        <Name>k__BackingField: HasFood
+        <Id>k__BackingField: HasApple-dbc1a152-2367-430a-8cdd-974d44896d87
+      effect: 1
+    - worldKey:
+        <Name>k__BackingField: HasFood
+        <Id>k__BackingField: HasApple-dbc1a152-2367-430a-8cdd-974d44896d87
+      effect: 0
+  - action:
+      <Name>k__BackingField: BuyPieAction
+      <Id>k__BackingField: BuyPie-3680d80a-685a-47e8-9f00-f060d3d895aa
+    target:
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
+    properties:
+      rid: 5955038660131291143
+    baseCost: 1
+    inRange: 0.1
+    moveMode: 0
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: HasMoney
+        <Id>k__BackingField: HasMoney-f8279ea0-d74a-40b8-b072-6a56986d7051
+      comparison: 2
+      amount: 3
+    - worldKey:
+        <Name>k__BackingField: PiesForSale
+        <Id>k__BackingField: PiesForSale-717f2d3d-067e-4992-b7a1-63a04e71a15c
+      comparison: 3
+      amount: 1
+    effects:
+    - worldKey:
+        <Name>k__BackingField: HasFood
+        <Id>k__BackingField: HasApple-dbc1a152-2367-430a-8cdd-974d44896d87
+      effect: 1
+    - worldKey:
+        <Name>k__BackingField: HasMoney
+        <Id>k__BackingField: HasMoney-f8279ea0-d74a-40b8-b072-6a56986d7051
+      effect: 0
   worldSensors: []
   targetSensors: []
   multiSensors: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5955038660131291140
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Goap.Behaviours, asm: CrashKonijn.Goap}
+    - rid: 5955038660131291143
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Goap.Behaviours, asm: CrashKonijn.Goap}

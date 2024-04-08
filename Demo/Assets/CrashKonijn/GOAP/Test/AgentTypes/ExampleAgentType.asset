@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: ExampleAgentType
   m_EditorClassIdentifier: 
   debuggerClass: 
-  behaviours: []
+  behaviours:
+  - {fileID: 11400000, guid: ea9d79b1e6c5a12438ff594b47aade80, type: 2}
+  - {fileID: 11400000, guid: f52ef9fb88fe40642b658e7d2e4c6d29, type: 2}
+  - {fileID: 11400000, guid: 43ceb1c3f6fb16e4ab37252e704f84bd, type: 2}

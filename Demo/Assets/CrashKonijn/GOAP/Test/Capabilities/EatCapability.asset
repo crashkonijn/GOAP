@@ -12,41 +12,115 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
   m_Name: EatCapability
   m_EditorClassIdentifier: 
-  goals: []
+  goals:
+  - goal:
+      <Name>k__BackingField: FixHungerGoal
+      <Id>k__BackingField: FixHunger-7d399d0c-ed31-467b-9a31-57d4acc3ef4d
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: IsHungry
+        <Id>k__BackingField: IsHungry-73502d09-11dc-4b5b-9d25-356fe24deab1
+      comparison: 1
+      amount: 50
   actions:
   - action:
       <Name>k__BackingField: EatFoodAction
       <Id>k__BackingField: EatApple-069cb9ae-b7f8-4e99-940d-934e0df18baa
     target:
-      <Name>k__BackingField: 
-      <Id>k__BackingField: 
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
     properties:
       rid: 5955038660131291144
     baseCost: 1
     inRange: 0.1
     moveMode: 0
-    conditions: []
-    effects: []
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: HasFood
+        <Id>k__BackingField: HasApple-dbc1a152-2367-430a-8cdd-974d44896d87
+      comparison: 3
+      amount: 1
+    - worldKey:
+        <Name>k__BackingField: HasCutleries
+        <Id>k__BackingField: HasCutleries-ed181b18-25b2-4153-9f26-e9a6b314b6ba
+      comparison: 3
+      amount: 1
+    - worldKey:
+        <Name>k__BackingField: HasPlate
+        <Id>k__BackingField: HasPlate-0292fc2a-9225-4e9b-9cdf-36194264587e
+      comparison: 3
+      amount: 1
+    effects:
+    - worldKey:
+        <Name>k__BackingField: HasFood
+        <Id>k__BackingField: HasApple-dbc1a152-2367-430a-8cdd-974d44896d87
+      effect: 0
+    - worldKey:
+        <Name>k__BackingField: IsHungry
+        <Id>k__BackingField: IsHungry-73502d09-11dc-4b5b-9d25-356fe24deab1
+      effect: 0
   - action:
-      <Name>k__BackingField: 
-      <Id>k__BackingField: 
+      <Name>k__BackingField: PickupAppleAction
+      <Id>k__BackingField: PickupApple-3dfd7e22-0bc8-4f9a-9851-e7bb74a35c77
     target:
-      <Name>k__BackingField: 
-      <Id>k__BackingField: 
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
     properties:
-      rid: -2
+      rid: 5955038660131291145
     baseCost: 1
     inRange: 0.1
     moveMode: 0
     conditions: []
-    effects: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: HasFood
+        <Id>k__BackingField: HasApple-dbc1a152-2367-430a-8cdd-974d44896d87
+      effect: 1
+  - action:
+      <Name>k__BackingField: PickupCutleriesAction
+      <Id>k__BackingField: PickupCutleries-4058ed59-d274-4e43-b9cf-7c00f1ceaa30
+    target:
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
+    properties:
+      rid: 5955038660131291146
+    baseCost: 1
+    inRange: 0.1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: HasCutleries
+        <Id>k__BackingField: HasCutleries-ed181b18-25b2-4153-9f26-e9a6b314b6ba
+      effect: 1
+  - action:
+      <Name>k__BackingField: PickupPlateAction
+      <Id>k__BackingField: PickupPlate-b843ee22-7dd8-4709-abab-716456975930
+    target:
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
+    properties:
+      rid: 5955038660131291147
+    baseCost: 1
+    inRange: 0.1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: HasPlate
+        <Id>k__BackingField: HasPlate-0292fc2a-9225-4e9b-9cdf-36194264587e
+      effect: 1
   worldSensors: []
   targetSensors: []
   multiSensors: []
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 5955038660131291144
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Goap.Behaviours, asm: CrashKonijn.Goap}
+    - rid: 5955038660131291145
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Goap.Behaviours, asm: CrashKonijn.Goap}
+    - rid: 5955038660131291146
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Goap.Behaviours, asm: CrashKonijn.Goap}
+    - rid: 5955038660131291147
       type: {class: EmptyActionProperties, ns: CrashKonijn.Goap.Behaviours, asm: CrashKonijn.Goap}
