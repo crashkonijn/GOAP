@@ -88,7 +88,6 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                         label.text = "MoveState: " + agent.MoveState;
                     }).Every(33);
                 });
-                
             }));
             
             root.Add(new Card((card) =>
