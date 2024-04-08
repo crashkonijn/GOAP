@@ -36,7 +36,6 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
             return default;
         }
 
-
         public static IReadOnlyList<TComponent> FindComponentsOfTypeInScene<TComponent>(Scene scene)
         {
             var roots = scene.GetRootGameObjects();
