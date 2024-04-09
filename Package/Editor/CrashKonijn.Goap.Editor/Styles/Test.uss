@@ -7,7 +7,8 @@
     flex-direction: column; /* Align children horizontally */
     flex-shrink: 0; /* Don’t shrink smaller than content */
     
-    background-color: #2f2f2f;
+    /*background-color: #2f2f2f;*/
+    background-color: var(--unity-colors-tooltip-background);
 }
 
 .node.active {
@@ -162,7 +163,7 @@
     /*border-color: blue;*/
     /*border-width: 1px;*/
     
-    margin: 20px;
+    margin: 0 0;
 }
 
 .wrapper .wrapper {

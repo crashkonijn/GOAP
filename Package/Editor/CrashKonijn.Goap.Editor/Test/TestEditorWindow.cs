@@ -25,6 +25,7 @@ namespace CrashKonijn.Goap.Editor.Test
         private SelectedObject selectedObject = new ();
         private DragDrawer dragDrawer;
         private int zoom = 100;
+        private EditorWindowValues values;
 
         [MenuItem("Tools/GOAP/Test Viewer")]
         private static void ShowWindow()
@@ -51,9 +52,7 @@ namespace CrashKonijn.Goap.Editor.Test
 
             if (selectedObject is AgentTypeScriptable agentTypeScriptable)
             {
-                Debug.Log(agentTypeScriptable.name);
-                
-                var agentType = new AgentTypeFactory(GoapConfig.Default).Create(agentTypeScriptable);
+                var agentType = new AgentTypeFactory(GoapConfig.Default).Create(agentTypeScriptable, false);
                 var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
                 
                 this.RenderGraph(graph, selectedObject);
@@ -61,9 +60,7 @@ namespace CrashKonijn.Goap.Editor.Test
 
             if (selectedObject is CapabilityConfigScriptable capabilityConfigScriptable)
             {
-                Debug.Log(capabilityConfigScriptable.name);
-                
-                var agentType = new AgentTypeFactory(GoapConfig.Default).Create(capabilityConfigScriptable.GetConfig());
+                var agentType = new AgentTypeFactory(GoapConfig.Default).Create(capabilityConfigScriptable.GetConfig(), false);
                 var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
                 
                 this.RenderGraph(graph, selectedObject);
@@ -76,7 +73,7 @@ namespace CrashKonijn.Goap.Editor.Test
                 if (agent == null)
                     return;
                 
-                var agentType = agent.AgentType ?? new AgentTypeFactory(GoapConfig.Default).Create(agent.agentTypeBehaviour.Config);
+                var agentType = agent.AgentType ?? new AgentTypeFactory(GoapConfig.Default).Create(agent.agentTypeBehaviour.Config, false);
                 var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
                 
                 this.RenderGraph(graph, agent);
@@ -106,8 +103,20 @@ namespace CrashKonijn.Goap.Editor.Test
             bezierRoot.AddToClassList("bezier-root");
             this.rootVisualElement.Add(bezierRoot);
 
+            this.values = new EditorWindowValues
+            {
+                RootElement = this.rootVisualElement
+            };
+
             var toolbar = new Toolbar();
             
+            toolbar.Add(new ToolbarButton(() =>
+            {
+                Selection.activeObject = this.selectedObject.Object;
+            })
+            {
+                text = this.selectedObject.Object.name
+            });
             
             toolbar.Add(new ToolbarButton(() =>
             {
@@ -141,16 +150,14 @@ namespace CrashKonijn.Goap.Editor.Test
             
             toolbar.Add(new ToolbarButton(() =>
             {
-                if (this.zoom < 100)
-                    this.zoom += 10;
+                this.UpdateZoom(10);
             })
             {
                 text = "+"
             });
             toolbar.Add(new ToolbarButton(() =>
             {
-                if (this.zoom > 50)
-                    this.zoom -= 10;
+                this.UpdateZoom(-10);
             })
             {
                 text = "-"
@@ -192,6 +199,11 @@ namespace CrashKonijn.Goap.Editor.Test
                 nodeRoot.style.backgroundPositionY = posY;
 #endif
             });
+            
+            dragRoot.RegisterCallback<WheelEvent>((evt) =>
+            {
+                this.UpdateZoom(2 * (int) evt.delta.y);
+            });
 
             foreach (var rootNode in graph.RootNodes)
             {
@@ -210,22 +222,111 @@ namespace CrashKonijn.Goap.Editor.Test
             
             parent.Add(node);
         }
+
+        private void UpdateZoom(int zoom)
+        {
+            if (zoom > 0)
+            {
+                this.zoom = Math.Min(100, this.zoom + zoom);
+                return;
+            }
+            
+            this.zoom = Math.Max(50, this.zoom + zoom);
+        }
+    }
+    
+    public class ToolbarElement : Toolbar
+    {
+        public ToolbarElement(SelectedObject selectedObject, EditorWindowValues values)
+        {
+            this.Add(new ToolbarButton(() =>
+            {
+                Selection.activeObject = selectedObject.Object;
+            })
+            {
+                text = selectedObject.Object.name
+            });
+            
+            this.Add(new ToolbarButton(() =>
+            {
+                var elementsWithClass = values.RootElement.Query<VisualElement>(className: "node").ToList();
+
+                foreach (var element in elementsWithClass)
+                {
+                    element.AddToClassList("collapsed");
+                }
+            })
+            {
+                text = "collapse"
+            });
+            
+            this.Add(new ToolbarButton(() =>
+            {
+                var elementsWithClass = values.RootElement.Query<VisualElement>(className: "node").ToList();
+
+                foreach (var element in elementsWithClass)
+                {
+                    element.RemoveFromClassList("collapsed");
+                }
+            })
+            {
+                text = "open"
+            });
+            
+            var spacer = new VisualElement();
+            spacer.style.flexGrow = 1; // This makes the spacer flexible, filling available space
+            this.Add(spacer);
+            
+            this.Add(new ToolbarButton(() =>
+            {
+                values.UpdateZoom(10);
+            })
+            {
+                text = "+"
+            });
+            this.Add(new ToolbarButton(() =>
+            {
+                values.UpdateZoom(-10);
+            })
+            {
+                text = "-"
+            });
+            this.Add(new ToolbarButton(() =>
+            {
+                values.Zoom = 100;
+                values.DragDrawer.Reset();
+            })
+            {
+                text = "reset"
+            });
+        }
     }
 
     public class SelectedObject
     {
         public Object Object { get; private set; }
-        public IMonoAgent Agent { get; private set; }
         
         public void SetObject(Object obj)
         {
             this.Object = obj;
-            this.Agent = null;
         }
+    }
+
+    public class EditorWindowValues
+    {
+        public int Zoom { get; set; }
+        public VisualElement RootElement { get; set; }
+        public DragDrawer DragDrawer { get; set; }
         
-        public void SetAgent(IMonoAgent agent)
+        public void UpdateZoom(int zoom)
         {
-            this.Agent = agent;
+            if (zoom > 0)
+            {
+                this.Zoom = Math.Min(100, this.Zoom + zoom);
+                return;
+            }
+            
+            this.Zoom = Math.Max(50, this.Zoom + zoom);
         }
     }
 
@@ -372,15 +473,15 @@ namespace CrashKonijn.Goap.Editor.Test
             this.GraphCondition = graphCondition;
             this.AddToClassList("condition");
 
-            this.Circle = new Circle(GetCircleColor(graphCondition), 10f);
+            this.Circle = new Circle(this.GetCircleColor(graphCondition), 10f);
             this.Add(this.Circle);
             
-            this.Label = new Label(this.GetText(graphCondition.Condition, this.GetTextColor()));
+            this.Label = new Label(this.GetText(graphCondition.Condition));
             this.Add(this.Label);
 
             this.schedule.Execute(() =>
             {
-                this.Label.text = this.GetText(this.GraphCondition.Condition, this.GetTextColor());
+                this.Label.text = this.GetText(this.GraphCondition.Condition);
                 this.Circle.SetColor(this.GetCircleColor(this.GraphCondition));
             }).Every(33);
         }
@@ -388,15 +489,7 @@ namespace CrashKonijn.Goap.Editor.Test
         private Color GetCircleColor(INodeCondition condition)
         {
             if (Application.isPlaying)
-            {
-                if (selectedObject.Object is not IMonoAgent agent)
-                    return Color.white;
-                
-                var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
-                conditionObserver.SetWorldData(agent.WorldData);
-            
-                return conditionObserver.IsMet(GraphCondition.Condition) ? Color.green : Color.red;
-            }
+                return this.GetLiveColor();
             
             if (!condition.Connections.Any())
                 return Color.red;
@@ -404,34 +497,35 @@ namespace CrashKonijn.Goap.Editor.Test
             return Color.green;
         }
 
-        private Color GetTextColor()
+        private Color GetLiveColor()
         {
-            return Color.white;
-            
-            if (!Application.isPlaying)
+            if (this.selectedObject.Object is not IMonoAgent agent)
                 return Color.white;
-            
-            if (selectedObject.Object is not IMonoAgent agent)
-                return Color.white;
-            
+                
             var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
             
-            return conditionObserver.IsMet(GraphCondition.Condition) ? Color.green : Color.red;
+            return conditionObserver.IsMet(this.GraphCondition.Condition) ? Color.green : Color.red;
         }
         
-        private string GetText(ICondition condition, Color color)
+        private string GetText(ICondition condition)
         {
-            var suffix = "";
+            var suffix = this.GetSuffix(condition);
             
-            if (selectedObject.Object is IMonoAgent agent)
-            {
-                var (exists, value) = agent.WorldData.GetWorldValue(condition.WorldKey);
+            return $"{condition.WorldKey.Name} {this.GetText(condition.Comparison)} {condition.Amount} {suffix}";
+        }
 
-                suffix = "(" + (exists ? value.ToString() : "-") + ")";
-            }
+        private string GetSuffix(ICondition condition)
+        {
+            if (!Application.isPlaying)
+                return "";
             
-            return $"<color={this.GetHex(color)}>{condition.WorldKey.Name} {this.GetText(condition.Comparison)} {condition.Amount}</color> {suffix}";
+            if (this.selectedObject.Object is not IMonoAgent agent)
+                return "";
+            
+            var (exists, value) = agent.WorldData.GetWorldValue(condition.WorldKey);
+            
+            return "(" + (exists ? value.ToString() : "-") + ")";
         }
 
         private string GetHex(Color color)
@@ -491,10 +585,10 @@ namespace CrashKonijn.Goap.Editor.Test
 
         private Color GetColor()
         {
-            if (selectedObject.Object == null)
+            if (this.selectedObject.Object == null)
                 return Color.black;
             
-            if (selectedObject.Object is not IMonoAgent agent)
+            if (this.selectedObject.Object is not IMonoAgent agent)
                 return Color.black;
 
             var actions = agent.CurrentPlan;
