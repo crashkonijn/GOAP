@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Test
+namespace CrashKonijn.Goap.Editor.GraphViewer
 {
     public class BezierElement : VisualElement
     {
