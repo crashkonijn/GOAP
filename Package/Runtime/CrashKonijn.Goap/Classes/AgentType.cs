@@ -12,21 +12,19 @@ namespace CrashKonijn.Goap.Classes
         public IAgentCollection Agents { get; }
         public IGoapConfig GoapConfig { get; }
         public ISensorRunner SensorRunner { get; }
-        public IAgentDebugger Debugger { get; }
         public IAgentTypeEvents Events { get; } = new AgentTypeEvents();
         public IGlobalWorldData WorldData { get; }
 
         private List<IGoal> goals;
         private List<IAction> actions;
 
-        public AgentType(string id, IGoapConfig config, List<IGoal> goals, List<IAction> actions, ISensorRunner sensorRunner, IAgentDebugger debugger, IGlobalWorldData worldData)
+        public AgentType(string id, IGoapConfig config, List<IGoal> goals, List<IAction> actions, ISensorRunner sensorRunner, IGlobalWorldData worldData)
         {
             this.Id = id;
             this.GoapConfig = config;
             this.SensorRunner = sensorRunner;
             this.goals = goals;
             this.actions = actions;
-            this.Debugger = debugger;
             this.WorldData = worldData;
             
             this.Agents = new AgentCollection(this);
@@ -67,15 +65,5 @@ namespace CrashKonijn.Goap.Classes
         public List<IConnectable> GetAllNodes() => this.actions.Cast<IConnectable>().Concat(this.goals).ToList();
         public List<IAction> GetActions() => this.actions;
         public List<IGoal> GetGoals() => this.goals;
-
-        public IAgentDebugGraph GetDebugGraph()
-        {
-            return new AgentDebugGraph
-            {
-                Goals = this.goals,
-                Actions = this.actions,
-                Config = this.GoapConfig
-            };
-        }
     }
 }

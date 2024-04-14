@@ -12,9 +12,6 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
         public override IAgentTypeConfig Create()
         {
             var builder = new AgentTypeBuilder(SetIds.Cleaner);
-            
-            // Debugger
-            builder.SetAgentDebugger<AgentDebugger>();
 
             // Goals
             builder.AddWanderGoal();
