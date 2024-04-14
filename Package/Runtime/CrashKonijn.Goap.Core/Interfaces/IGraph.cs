@@ -7,5 +7,6 @@ namespace CrashKonijn.Goap.Core.Interfaces
         List<INode> RootNodes { get; set; }
         List<INode> ChildNodes { get; set; }
         INode[] AllNodes { get; }
+        INode[] UnconnectedNodes { get; }
     }
 }

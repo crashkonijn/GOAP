@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
+  m_Name: MoneyCapability
+  m_EditorClassIdentifier: 
+  goals: []
+  actions:
+  - action:
+      <Name>k__BackingField: BegForMoneyAction
+      <Id>k__BackingField: BegForMoney-eec1193b-de39-43a5-aa68-0d78807a7954
+    target:
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
+    properties:
+      rid: 5955038660131291141
+    baseCost: 1
+    inRange: 0.1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: HasMoney
+        <Id>k__BackingField: HasMoney-f8279ea0-d74a-40b8-b072-6a56986d7051
+      effect: 1
+  - action:
+      <Name>k__BackingField: StealMoneyAction
+      <Id>k__BackingField: StealMoney-9d697ad2-49ed-4a02-aadb-4a69461a8844
+    target:
+      <Name>k__BackingField: AnotherTargetKey
+      <Id>k__BackingField: AnotherTargetKey-b7aace5a-bdbe-4fc9-83fb-3b67053fd7fb
+    properties:
+      rid: 5955038660131291142
+    baseCost: 1
+    inRange: 0.1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: HasMoney
+        <Id>k__BackingField: HasMoney-f8279ea0-d74a-40b8-b072-6a56986d7051
+      effect: 1
+  worldSensors: []
+  targetSensors: []
+  multiSensors: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5955038660131291141
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Goap.Behaviours, asm: CrashKonijn.Goap}
+    - rid: 5955038660131291142
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Goap.Behaviours, asm: CrashKonijn.Goap}

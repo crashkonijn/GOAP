@@ -19,9 +19,10 @@ namespace CrashKonijn.Goap.Classes
             this.goapConfig = goapConfig;
         }
         
-        public AgentType Create(IAgentTypeConfig config)
+        public AgentType Create(IAgentTypeConfig config, bool validate = true)
         {
-            this.Validate(config);
+            if (validate)
+                this.Validate(config);
             
             var worldData = new GlobalWorldData();
             

@@ -75,6 +75,6 @@ namespace CrashKonijn.Goap.Scriptables
             }
         }
 
-    public string DebuggerClass => this.debuggerClass;
+        public string DebuggerClass => this.debuggerClass;
     }
 }

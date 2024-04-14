@@ -2,11 +2,9 @@
     "name": "CrashKonijn.Goap",
     "rootNamespace": "CrashKonijn.Goap",
     "references": [
-        "GUID:9a4f4f993c75b2341aa3b2b1b03e407f",
         "GUID:e52adf591423434e8c16eeb452c84a82",
         "GUID:d8b63aba1907145bea998dd612889d6b",
-        "GUID:1492f7fc38ce464dae5c20df05fd22e3",
-        "GUID:8282cc5c8c8f4060b23b6f5e86bcba3b"
+        "GUID:1492f7fc38ce464dae5c20df05fd22e3"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

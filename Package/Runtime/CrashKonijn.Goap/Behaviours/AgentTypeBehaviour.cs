@@ -15,6 +15,7 @@ namespace CrashKonijn.Goap.Behaviours
         private GoapBehaviour runner;
 
         public IAgentType AgentType { get; private set; }
+        public AgentTypeScriptable Config => this.config;
 
         private void Awake()
         {

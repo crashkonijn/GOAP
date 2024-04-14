@@ -2,7 +2,6 @@
 using CrashKonijn.Goap.Classes.Validators;
 using CrashKonijn.Goap.Editor.Drawers;
 using CrashKonijn.Goap.Editor.Elements;
-using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
