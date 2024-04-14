@@ -105,7 +105,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var connection = new TestConnection("connection");
-            var goal = new TestAction("goal")
+            var goal = new TestGoal("goal")
             {
                 Conditions = new ICondition[] { connection }
             }.ToMock();
