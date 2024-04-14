@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         IAction CurrentAction { get; }
         IActionData CurrentActionData { get; }
         ILocalWorldData WorldData { get; }
-        List<IAction> CurrentPlan { get; }
+        IConnectable[] CurrentPlan { get; }
         IAgentEvents Events { get; }
         IDataReferenceInjector Injector { get; }
         IAgentDistanceObserver DistanceObserver { get; }
@@ -26,7 +26,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         void ClearGoal();
         void SetGoal<TGoal>(bool endAction) where TGoal : IGoal;
         void SetGoal(IGoal goal, bool endAction);
-        void SetAction(IAction action, List<IAction> path, ITarget target);
+        void SetAction(IAction action, IConnectable[] path, ITarget target);
         void StopAction(bool resolveAction = true);
         void CompleteAction(bool resolveAction = true);
         void ResolveAction();

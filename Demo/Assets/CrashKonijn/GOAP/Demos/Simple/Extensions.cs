@@ -9,17 +9,39 @@ namespace Demos
     {
         public static GameObject Closest(this IEnumerable<GameObject> items, Vector3 position)
         {
-            return items
-                .OrderBy(x => Vector3.Distance(x.transform.position, position))
-                .FirstOrDefault();
+            GameObject closest = null;
+            var closestDistance = float.MaxValue;
+
+            foreach (var item in items)
+            {
+                var distance = Vector3.Distance(item.transform.position, position);
+                if (!(distance < closestDistance))
+                    continue;
+                
+                closest = item;
+                closestDistance = distance;
+            }
+
+            return closest;
         }
         
         public static T Closest<T>(this IEnumerable<T> items, Vector3 position)
             where T : MonoBehaviour
         {
-            return items
-                .OrderBy(x => Vector3.Distance(x.transform.position, position))
-                .FirstOrDefault();
+            T closest = null;
+            var closestDistance = float.MaxValue;
+
+            foreach (var item in items)
+            {
+                var distance = Vector3.Distance(item.transform.position, position);
+                if (!(distance < closestDistance))
+                    continue;
+                
+                closest = item;
+                closestDistance = distance;
+            }
+
+            return closest;
         }
     }
 }

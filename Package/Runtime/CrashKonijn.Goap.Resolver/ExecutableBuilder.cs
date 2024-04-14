@@ -18,7 +18,7 @@ namespace CrashKonijn.Goap.Resolver
         
         public IExecutableBuilder SetExecutable(IConnectable action, bool executable)
         {
-            var index = this.actionIndexList.IndexOf(action);
+            var index = this.GetIndex(action);
 
             if (index == -1)
                 return this;
@@ -27,10 +27,24 @@ namespace CrashKonijn.Goap.Resolver
 
             return this;
         }
+        
+        private int GetIndex(IConnectable condition)
+        {
+            for (var i = 0; i < this.actionIndexList.Count; i++)
+            {
+                if (this.actionIndexList[i] == condition)
+                    return i;
+            }
+            
+            return -1;
+        }
 
         public void Clear()
         {
-            this.executableList = this.actionIndexList.Select(x => false).ToArray();
+            for (var i = 0; i < this.executableList.Length; i++)
+            {
+                this.executableList[i] = false;
+            }
         }
         
         public bool[] Build()

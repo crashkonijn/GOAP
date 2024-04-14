@@ -86,7 +86,7 @@ namespace CrashKonijn.Goap.Behaviours
         public IGoapController Controller => this.goap.Controller;
         public IGraph GetGraph(IAgentType agentType) => this.goap.GetGraph(agentType);
         public bool Knows(IAgentType agentType) => this.goap.Knows(agentType);
-        public IMonoAgent[] Agents => this.goap.Agents;
+        public List<IMonoAgent> Agents => this.goap.Agents;
         public IAgentType[] AgentTypes => this.goap.AgentTypes;
 
         public IAgentType GetAgentType(string id)

@@ -18,9 +18,9 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
             this.apples.Remove(apple);
         }
 
-        public AppleBehaviour[] Get()
+        public List<AppleBehaviour> Get()
         {
-            return this.apples.ToArray();
+            return this.apples;
         }
 
         public bool Any()

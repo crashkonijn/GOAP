@@ -72,7 +72,7 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IAction>();
             action.IsInRange(agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Stop);
-            agent.SetAction(action, new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Act
             agent.Run();
@@ -187,7 +187,7 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IAction>();
             
             // Act
-            agent.SetAction(action, new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
             agent.CurrentAction.Should().Be(action);
@@ -209,7 +209,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.InsertAction(oldAction);
             
             // Act
-            agent.SetAction(action, new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
             oldAction.Received(1).Stop(agent, Arg.Any<IActionData>());
@@ -225,7 +225,7 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IAction>();
             
             // Act
-            agent.SetAction(action, new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
             action.Received(1).GetData();
@@ -243,7 +243,7 @@ namespace CrashKonijn.Goap.UnitTests
             action.GetData().Returns(actionData);
             
             // Act
-            agent.SetAction(action, new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
             agent.CurrentActionData.Should().Be(actionData);
@@ -263,7 +263,7 @@ namespace CrashKonijn.Goap.UnitTests
             var target = new PositionTarget(Vector3.zero);
             
             // Act
-            agent.SetAction(action, new List<IAction>(), target);
+            agent.SetAction(action, Array.Empty<IConnectable>(), target);
             
             // Assert
             actionData.Target.Should().Be(target);
@@ -279,7 +279,7 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IAction>();
 
             // Act
-            agent.SetAction(action, new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
             action.Received(1).Start(agent, Arg.Any<IActionData>());
@@ -293,7 +293,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.CallAwake();
             
             var action = Substitute.For<IAction>();
-            var path = new List<IAction>
+            var path = new IAction[]
             {
                 Substitute.For<IAction>()
             };
@@ -316,7 +316,7 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IAction>();
             
             // Act
-            agent.SetAction(action, new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
             agent.Events.Received(1).ActionStart(action);
@@ -351,7 +351,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.AgentType = set;
 
             // Act
-            agent.SetAction(Substitute.For<IAction>(), new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(Substitute.For<IAction>(), Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             agent.StopAction();
             
             // Assert
@@ -368,7 +368,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.AgentType = set;
 
             // Act
-            agent.SetAction(Substitute.For<IAction>(), new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(Substitute.For<IAction>(), Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             agent.StopAction();
             
             // Assert
@@ -404,7 +404,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.MockEvents();
 
             var action = Substitute.For<IAction>();
-            agent.SetAction(action, new List<IAction>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
 
             // Act
             agent.StopAction();

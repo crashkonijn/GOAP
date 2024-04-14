@@ -24,12 +24,18 @@ namespace CrashKonijn.Goap.Sensors
         
         public void Sense(IWorldData data)
         {
-            this.GlobalSensors.ForEach(s => s.Sense(data));
+            foreach (var globalSensor in this.GlobalSensors)
+            {
+                globalSensor.Sense(data);
+            }
         }
 
         public void Sense(IWorldData data, IMonoAgent agent, IComponentReference references)
         {
-            this.LocalSensors.ForEach(s => s.Sense(data, agent, references));
+            foreach (var localSensor in this.LocalSensors)
+            {
+                localSensor.Sense(data, agent, references);
+            }
         }
 
         public void AddLocalWorldSensor<TKey>(Func<IMonoAgent, IComponentReference, SenseValue> sense)

@@ -10,6 +10,7 @@ namespace CrashKonijn.Goap.Behaviours
     {
         private readonly IMonoAgent agent;
         private readonly IAgentProxy proxy;
+        private readonly ActionContext context = new();
 
         public ActionRunner(IMonoAgent agent, IAgentProxy proxy)
         {
@@ -74,10 +75,9 @@ namespace CrashKonijn.Goap.Behaviours
             if (!this.ShouldContinue())
                 return;
             
-            var state = this.agent.CurrentAction.Perform(this.agent, this.agent.CurrentActionData, new ActionContext
-            {
-                DeltaTime = Time.deltaTime,
-            });
+            this.context.DeltaTime = Time.deltaTime;
+            
+            var state = this.agent.CurrentAction.Perform(this.agent, this.agent.CurrentActionData, this.context);
             
             if (state.IsCompleted(this.agent))
             {
