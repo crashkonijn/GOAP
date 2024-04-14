@@ -1,0 +1,7 @@
+﻿#card {
+    margin: 10px;
+}
+
+Button {
+    margin-top: 10px;
+}
