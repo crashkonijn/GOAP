@@ -12,11 +12,13 @@ namespace CrashKonijn.Goap.Classes.Controllers
         {
             this.goap = goap;
             this.goap.Events.OnAgentResolve += this.OnAgentResolve;
+            this.goap.Events.OnNoActionFound += this.OnNoActionFound;
         }
 
         public void Disable()
         {
             this.goap.Events.OnAgentResolve -= this.OnAgentResolve;
+            this.goap.Events.OnNoActionFound -= this.OnNoActionFound;
         }
 
         public void OnUpdate()
@@ -45,6 +47,11 @@ namespace CrashKonijn.Goap.Classes.Controllers
             {
                 runner.Complete();
             }
+        }
+
+        private void OnNoActionFound(IAgent agent, IGoal goal)
+        {
+            this.GetQueue(agent.AgentType).Add(agent as IMonoAgent);
         }
 
         private void OnAgentResolve(IAgent agent)
