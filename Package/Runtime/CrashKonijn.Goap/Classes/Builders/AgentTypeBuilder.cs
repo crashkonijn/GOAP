@@ -75,13 +75,5 @@ namespace CrashKonijn.Goap.Classes.Builders
             
             return this.agentTypeConfig;
         }
-
-        public AgentTypeBuilder SetAgentDebugger<TDebugger>()
-            where TDebugger : IAgentDebugger
-        {
-            this.agentTypeConfig.DebuggerClass = typeof(TDebugger).AssemblyQualifiedName;
-
-            return this;
-        }
     }
 }

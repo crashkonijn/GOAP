@@ -34,7 +34,6 @@ namespace CrashKonijn.Goap.Classes
                 actions: this.GetActions(config),
                 goals: this.GetGoals(config),
                 sensorRunner: sensorRunner,
-                debugger: this.GetDebugger(config),
                 worldData: worldData
             );
         }
@@ -129,11 +128,6 @@ namespace CrashKonijn.Goap.Classes
             });
             
             return targetSensors;
-        }
-
-        private IAgentDebugger GetDebugger(IAgentTypeConfig config)
-        {
-            return this.classResolver.Load<IAgentDebugger>(config.DebuggerClass);
         }
     }
 }

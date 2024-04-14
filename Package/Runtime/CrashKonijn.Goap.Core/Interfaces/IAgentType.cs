@@ -8,7 +8,6 @@ namespace CrashKonijn.Goap.Core.Interfaces
         IGoapConfig GoapConfig { get; }
         IAgentCollection Agents { get; }
         ISensorRunner SensorRunner { get; }
-        IAgentDebugger Debugger { get; }
         IAgentTypeEvents Events { get; }
         IGlobalWorldData WorldData { get; }
         void Register(IMonoAgent agent);
@@ -22,7 +21,5 @@ namespace CrashKonijn.Goap.Core.Interfaces
 
         TGoal ResolveGoal<TGoal>()
             where TGoal : IGoal;
-
-        IAgentDebugGraph GetDebugGraph();
     }
 }

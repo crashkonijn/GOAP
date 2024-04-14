@@ -14,9 +14,6 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
         {
             var builder = new AgentTypeBuilder(SetIds.WoodCutter);
             
-            // Debugger
-            builder.SetAgentDebugger<AgentDebugger>();
-
             // Goals
             builder.AddWanderGoal();
             
