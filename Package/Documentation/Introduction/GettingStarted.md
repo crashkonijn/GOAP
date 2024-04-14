@@ -1,9 +1,13 @@
 # Getting Started
 
+## Tutorials
+- **[YouTube tutorials](https://www.youtube.com/playlist?list=PLZWmMt_TbeYeatHa9hntDPu4zGEBAFffn)** on how to use the library.
+- **[YouTube references](https://www.youtube.com/playlist?list=PLZWmMt_TbeYdBZKvlsRuuOubPTTfPuZot)** discussing GOAP in general.
+
 ## Installation
 Add the package to your project using the package manager. Add the following URL to the package manager:
 ```
-https://github.com/crashkonijn/GOAP.git?path=/Package#2.1.15
+https://github.com/crashkonijn/GOAP.git?path=/Package#2.1.20
 ```
 
 Alternatively install through [OpenUPM](https://openupm.com/packages/com.crashkonijn.goap/) or the [Unity Asset Store](https://assetstore.unity.com/packages/slug/252687).
