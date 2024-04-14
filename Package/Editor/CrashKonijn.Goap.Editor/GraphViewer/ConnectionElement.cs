@@ -31,8 +31,6 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
         public void Update()
         {
-            Debug.Log("aaa");
-            
             var magicOffset = 10f;
             
             var start = this.condition;
