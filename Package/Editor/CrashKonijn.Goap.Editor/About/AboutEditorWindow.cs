@@ -109,8 +109,7 @@ namespace CrashKonijn.Goap.Editor.About
         
         private string GetDebugText()
         {
-            var debug =
-                $"Unity Version:                {Application.unityVersion}\nGOAP Version:               {version}\nCollections Version:       {collectionsVersion}";
+            var debug = $"GOAP Version:               {version}\nUnity Version:                {Application.unityVersion}\nCollections Version:       {collectionsVersion}";
 
             return debug;
         }
