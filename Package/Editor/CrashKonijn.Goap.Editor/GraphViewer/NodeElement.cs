@@ -10,7 +10,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
     {
         public INode GraphNode { get; }
 
-        public NodeElement(INode graphNode, VisualElement bezierRoot, SelectedObject selectedObject)
+        public NodeElement(INode graphNode, VisualElement bezierRoot, EditorWindowValues values)
         {
             this.GraphNode = graphNode;
             this.AddToClassList("wrapper");
@@ -35,6 +35,8 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             this.Node.RegisterCallback<ClickEvent>(evt =>
             {
                 this.Node.ToggleInClassList("collapsed");
+                
+                values.Update();
             });
 
             this.NodeWrapper.Add(this.Node);
@@ -47,15 +49,15 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
             foreach (var condition in graphNode.Conditions)
             {
-                var conditionElement = new ConditionElement(condition, selectedObject);
+                var conditionElement = new ConditionElement(condition, values);
                 this.Conditions.Add(conditionElement);
                 
                 foreach (var connection in condition.Connections)
                 {
-                    var connectionNode = new NodeElement(connection, bezierRoot, selectedObject);
+                    var connectionNode = new NodeElement(connection, bezierRoot, values);
                     this.ChildWrapper.Add(connectionNode);
                     
-                    bezierRoot.Add(new ConnectionElement(conditionElement, connectionNode, selectedObject));
+                    bezierRoot.Add(new ConnectionElement(conditionElement, connectionNode, values));
                 }
             }
             
@@ -68,7 +70,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             
                 foreach (var effect in graphNode.Effects)
                 {
-                    var effectElement = new EffectElement(effect, selectedObject);
+                    var effectElement = new EffectElement(effect);
                     this.Effects.Add(effectElement);
                 }
             }
@@ -78,7 +80,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                 this.Node.RemoveFromClassList("active");
                 this.Node.RemoveFromClassList("path");
 
-                if (selectedObject.Object is not IMonoAgent agent)
+                if (values.SelectedObject is not IMonoAgent agent)
                     return;
                 
                 if (agent.CurrentGoal == this.GraphNode.Action)

@@ -3,7 +3,7 @@ using CrashKonijn.Goap.Serializables;
 using UnityEditor;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Editor.TypeDrawers
+namespace CrashKonijn.Goap.Editor.Drawers
 {
     [CustomPropertyDrawer(typeof(SerializableEffect))]
     public class SerializableEffectDrawer : PropertyDrawer

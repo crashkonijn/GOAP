@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
+namespace CrashKonijn.Goap.Editor.Drawers
 {
     public class DragDrawer : PointerManipulator
     {

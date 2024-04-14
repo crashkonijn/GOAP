@@ -4,7 +4,7 @@ using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Editor.Elements;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
+namespace CrashKonijn.Goap.Editor.Drawers
 {
     public class WorldDataDrawer : VisualElement
     {

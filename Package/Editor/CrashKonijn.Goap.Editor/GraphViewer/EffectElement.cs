@@ -5,12 +5,10 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 {
     public class EffectElement : VisualElement
     {
-        private readonly SelectedObject selectedObject;
         public INodeEffect GraphEffect { get; }
 
-        public EffectElement(INodeEffect graphEffect, SelectedObject selectedObject)
+        public EffectElement(INodeEffect graphEffect)
         {
-            this.selectedObject = selectedObject;
             this.GraphEffect = graphEffect;
             this.AddToClassList("effect");
             

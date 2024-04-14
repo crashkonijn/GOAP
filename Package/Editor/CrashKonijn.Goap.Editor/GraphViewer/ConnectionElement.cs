@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
+using CrashKonijn.Goap.Editor.Drawers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,40 +10,49 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
     {
         private readonly ConditionElement condition;
         private readonly NodeElement node;
-        private readonly SelectedObject selectedObject;
+        private readonly EditorWindowValues values;
 
-        public ConnectionElement(ConditionElement condition, NodeElement node, SelectedObject selectedObject)
+        public BezierDrawer Bezier { get; set; }
+
+        public ConnectionElement(ConditionElement condition, NodeElement node, EditorWindowValues values)
         {
             this.condition = condition;
             this.node = node;
-            this.selectedObject = selectedObject;
+            this.values = values;
             
             this.Bezier = new BezierDrawer();
             this.Add(this.Bezier);
+            this.Update();
+            
+            this.values.OnUpdate += this.Update;
+            
+            this.schedule.Execute(this.Update).Every(100);
+        }
+
+        public void Update()
+        {
+            Debug.Log("aaa");
             
             var magicOffset = 10f;
             
-            this.schedule.Execute(() =>
-            {
-                var start = condition;
-                var end = node.Node;
+            var start = this.condition;
+            var end = this.node.Node;
                 
-                var startPos = new Vector3(condition.parent.parent.worldBound.position.x + condition.parent.parent.worldBound.width, start.worldBound.position.y - magicOffset, 0);
-                var endPos = new Vector3(end.worldBound.position.x, end.worldBound.position.y - magicOffset, 0);
+            var startPos = new Vector3(this.condition.parent.parent.worldBound.position.x + this.condition.parent.parent.worldBound.width, start.worldBound.position.y - magicOffset, 0);
+            var endPos = new Vector3(end.worldBound.position.x, end.worldBound.position.y - magicOffset, 0);
                     
-                var startTan = startPos + (Vector3.right * 40);
-                var endTan = endPos + (Vector3.left * 40);
+            var startTan = startPos + (Vector3.right * 40);
+            var endTan = endPos + (Vector3.left * 40);
             
-                this.Bezier.Update(startPos, endPos, startTan, endTan, 2f, this.GetColor());
-            }).Every(33);
+            this.Bezier.Update(startPos, endPos, startTan, endTan, 2f, this.GetColor());
         }
 
         private Color GetColor()
         {
-            if (this.selectedObject.Object == null)
+            if (this.values.SelectedObject == null)
                 return Color.black;
             
-            if (this.selectedObject.Object is not IMonoAgent agent)
+            if (this.values.SelectedObject is not IMonoAgent agent)
                 return Color.black;
 
             var actions = agent.CurrentPlan;
@@ -53,7 +62,5 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             
             return Color.black;
         }
-
-        public BezierDrawer Bezier { get; set; }
     }
 }

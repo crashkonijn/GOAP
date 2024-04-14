@@ -6,14 +6,14 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 {
     public class ToolbarElement : Toolbar
     {
-        public ToolbarElement(SelectedObject selectedObject, EditorWindowValues values)
+        public ToolbarElement(EditorWindowValues values)
         {
             this.Add(new ToolbarButton(() =>
             {
-                Selection.activeObject = selectedObject.Object;
+                Selection.activeObject = values.SelectedObject;
             })
             {
-                text = selectedObject.Object.name
+                text = values.SelectedObject.name
             });
             
             this.Add(new ToolbarButton(() =>

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
+namespace CrashKonijn.Goap.Editor.Drawers
 {
     public class BezierDrawer : VisualElement
     {
@@ -19,10 +18,10 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             
             this.generateVisualContent += this.OnGenerateVisualContent;
 
-            this.schedule.Execute(() =>
-            {
-                this.MarkDirtyRepaint();
-            }).Every(100);
+            // this.schedule.Execute(() =>
+            // {
+            //     // this.MarkDirtyRepaint();
+            // }).Every(100);
         }
 
         public BezierDrawer(Vector3 startPost, Vector3 endPos, Vector3 startTan, Vector3 endTan, float width, Color color)
@@ -47,6 +46,8 @@ namespace CrashKonijn.Goap.Editor.NodeViewer.Drawers
             this.endTan = endTan;
             this.thickness = width;
             this.strokeColor = color;
+            
+            this.MarkDirtyRepaint();
         }
 
         private void OnGenerateVisualContent(MeshGenerationContext ctx)

@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
+using CrashKonijn.Goap.Editor.Drawers;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Scriptables;
 using UnityEditor;
@@ -16,8 +16,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
     public class GraphViewerEditorWindow : EditorWindow
     {
         private IGraph graph;
-        private SelectedObject selectedObject = new ();
-        private EditorWindowValues values;
+        private EditorWindowValues values = new ();
 
         [MenuItem("Tools/GOAP/Graph Viewer")]
         private static void ShowWindow()
@@ -39,7 +38,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             if (selectedObject == null)
                 return;
 
-            if (this.selectedObject.Object == selectedObject)
+            if (this.values.SelectedObject == selectedObject)
                 return;
 
             if (selectedObject is AgentTypeScriptable agentTypeScriptable)
@@ -77,11 +76,11 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             if (this.graph == graph)
                 return;
             
-            if (this.selectedObject.Object == selectedObject)
+            if (this.values.SelectedObject == selectedObject)
                 return;
             
             this.graph = graph;
-            this.selectedObject.SetObject(selectedObject);
+            this.values.SelectedObject = selectedObject;
             
             this.rootVisualElement.Clear();
             
@@ -92,12 +91,9 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             bezierRoot.AddToClassList("bezier-root");
             this.rootVisualElement.Add(bezierRoot);
 
-            this.values = new EditorWindowValues
-            {
-                RootElement = this.rootVisualElement
-            };
+            this.values.RootElement = this.rootVisualElement;
 
-            var toolbar = new ToolbarElement(this.selectedObject, this.values);
+            var toolbar = new ToolbarElement(this.values);
             this.rootVisualElement.Add(toolbar);
             
             var dragRoot = new VisualElement();
@@ -117,6 +113,8 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             {
                 nodeRoot.transform.position = offset;
                 
+                this.values.Update();
+                
 #if UNITY_2022_1_OR_NEWER
                 var posX = nodeRoot.style.backgroundPositionX;
                 posX.value = new BackgroundPosition(BackgroundPositionKeyword.Left, offset.x);
@@ -135,18 +133,18 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
             foreach (var rootNode in graph.RootNodes)
             {
-                this.CreateNode(nodeRoot, bezierRoot, rootNode, this.selectedObject);
+                this.CreateNode(nodeRoot, bezierRoot, rootNode);
             }
 
             foreach (var rootNode in graph.UnconnectedNodes)
             {
-                this.CreateNode(nodeRoot, bezierRoot, rootNode, this.selectedObject);
+                this.CreateNode(nodeRoot, bezierRoot, rootNode);
             }
         }
 
-        private void CreateNode(VisualElement parent, VisualElement bezierRoot, INode graphNode, SelectedObject selectedObject)
+        private void CreateNode(VisualElement parent, VisualElement bezierRoot, INode graphNode)
         {
-            var node = new NodeElement(graphNode, bezierRoot, selectedObject);
+            var node = new NodeElement(graphNode, bezierRoot, this.values);
             
             parent.Add(node);
         }

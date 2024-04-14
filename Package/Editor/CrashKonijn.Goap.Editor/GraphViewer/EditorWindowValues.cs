@@ -1,5 +1,5 @@
 ﻿using System;
-using CrashKonijn.Goap.Editor.NodeViewer.Drawers;
+using CrashKonijn.Goap.Editor.Drawers;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.GraphViewer
@@ -9,6 +9,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
         public int Zoom { get; set; } = 100;
         public VisualElement RootElement { get; set; }
         public DragDrawer DragDrawer { get; set; }
+        public UnityEngine.Object SelectedObject { get; set; }
         
         public void UpdateZoom(int zoom)
         {
@@ -19,6 +20,14 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             }
             
             this.Zoom = Math.Max(50, this.Zoom + zoom);
+        }
+
+        public delegate void UpdateEvent();
+        public event UpdateEvent OnUpdate;
+        
+        public void Update()
+        {
+            this.OnUpdate?.Invoke();
         }
     }
 }

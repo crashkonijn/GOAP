@@ -9,16 +9,16 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 {
     public class ConditionElement : VisualElement
     {
-        private readonly SelectedObject selectedObject;
+        private readonly EditorWindowValues values;
         public INodeCondition GraphCondition { get; }
 
         public Circle Circle { get; set; }
 
         public Label Label { get; set; }
 
-        public ConditionElement(INodeCondition graphCondition, SelectedObject selectedObject)
+        public ConditionElement(INodeCondition graphCondition, EditorWindowValues values)
         {
-            this.selectedObject = selectedObject;
+            this.values = values;
             this.GraphCondition = graphCondition;
             this.AddToClassList("condition");
 
@@ -48,7 +48,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
         private Color GetLiveColor()
         {
-            if (this.selectedObject.Object is not IMonoAgent agent)
+            if (this.values.SelectedObject is not IMonoAgent agent)
                 return Color.white;
                 
             var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
@@ -69,7 +69,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             if (!Application.isPlaying)
                 return "";
             
-            if (this.selectedObject.Object is not IMonoAgent agent)
+            if (this.values.SelectedObject is not IMonoAgent agent)
                 return "";
             
             var (exists, value) = agent.WorldData.GetWorldValue(condition.WorldKey);
