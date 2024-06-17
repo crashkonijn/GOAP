@@ -11,12 +11,16 @@ namespace CrashKonijn.Goap.Resolver
         private readonly GraphResolver graphResolver;
         private JobHandle handle;
         private GraphResolverJob job;
-        private RunData runData;
+        private readonly List<IConnectable> results = new();
+
+        public ResolveHandle(GraphResolver graphResolver)
+        {
+            this.graphResolver = graphResolver;
+        }
 
 #if UNITY_COLLECTIONS_2_1
-        public ResolveHandle(GraphResolver graphResolver, NativeParallelMultiHashMap<int, int> nodeConditions, NativeParallelMultiHashMap<int, int> conditionConnections, RunData runData)
+        public ResolveHandle Start(NativeParallelMultiHashMap<int, int> nodeConditions, NativeParallelMultiHashMap<int, int> conditionConnections, RunData runData)
         {
-            this.graphResolver = graphResolver;
             this.job = new GraphResolverJob
             {
                 NodeConditions = nodeConditions,
@@ -26,11 +30,12 @@ namespace CrashKonijn.Goap.Resolver
             };
         
             this.handle = this.job.Schedule();
+
+            return this;
         }
 #else
-        public ResolveHandle(GraphResolver graphResolver, NativeMultiHashMap<int, int> nodeConditions, NativeMultiHashMap<int, int> conditionConnections, RunData runData)
+        public ResolveHandle Start(NativeMultiHashMap<int, int> nodeConditions, NativeMultiHashMap<int, int> conditionConnections, RunData runData)
         {
-            this.graphResolver = graphResolver;
             this.job = new GraphResolverJob
             {
                 NodeConditions = nodeConditions,
@@ -40,6 +45,8 @@ namespace CrashKonijn.Goap.Resolver
             };
         
             this.handle = this.job.Schedule();
+
+            return this;
         }
 #endif
 
@@ -47,11 +54,11 @@ namespace CrashKonijn.Goap.Resolver
         {
             this.handle.Complete();
         
-            var results = new List<IConnectable>();
+            this.results.Clear();
         
             foreach (var data in this.job.Result)
             {
-                results.Add(this.graphResolver.GetAction(data.Index));
+                this.results.Add(this.graphResolver.GetAction(data.Index));
             }
         
             this.job.Result.Dispose();
@@ -61,7 +68,9 @@ namespace CrashKonijn.Goap.Resolver
             this.job.RunData.Costs.Dispose();
             this.job.RunData.ConditionsMet.Dispose();
 
-            return results.ToArray();
+            this.graphResolver.Release(this);
+
+            return this.results.ToArray();
         }
     }
 }

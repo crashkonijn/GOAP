@@ -11,6 +11,9 @@ namespace CrashKonijn.Goap.Classes.References
     {
         private readonly IMonoAgent agent;
         private readonly Dictionary<Type, object> references = new();
+        private readonly Dictionary<PropertyInfo, object> cachedReferences = new();
+        
+        private static readonly Dictionary<Type, DataReferenceCache> CachedDataReferenceCaches = new();
 
         public DataReferenceInjector(IMonoAgent agent)
         {
@@ -19,34 +22,50 @@ namespace CrashKonijn.Goap.Classes.References
         
         public void Inject(IActionData data)
         {
-            var type = data.GetType();
+            var reference = this.GetCachedDataReferenceCache(data.GetType());
             
-            // find all properties with the GetComponent attribute
-            var properties = type.GetProperties();
-            foreach (var property in properties)
+            foreach (var (propertyInfo, attribute) in reference.Properties)
             {
-                var value = this.GetPropertyValue(property);
+                var value = this.GetCachedPropertyValue(propertyInfo, attribute);
                 
                 if (value == null)
                     continue;
 
                 // set the reference
-                property.SetValue(data, value);
+                propertyInfo.SetValue(data, value);
             }
         }
-
-        private object GetPropertyValue(PropertyInfo property)
+        
+        private DataReferenceCache GetCachedDataReferenceCache(Type type)
         {
-            if (property.GetCustomAttributes(typeof(GetComponentAttribute), true).Any())
+            if (!CachedDataReferenceCaches.ContainsKey(type))
+                CachedDataReferenceCaches.Add(type, new DataReferenceCache(type));
+            
+            return CachedDataReferenceCaches[type];
+        }
+
+        private object GetPropertyValue(PropertyInfo property, Attribute attribute)
+        {
+            if (attribute is GetComponentAttribute)
                 return this.GetCachedComponentReference(property.PropertyType);
             
-            if (property.GetCustomAttributes(typeof(GetComponentInChildrenAttribute), true).Any())
+            if (attribute is GetComponentInChildrenAttribute)
                 return this.GetCachedComponentInChildrenReference(property.PropertyType);
             
-            if (property.GetCustomAttributes(typeof(GetComponentInParentAttribute), true).Any())
+            if (attribute is GetComponentInParentAttribute)
                 return this.GetCachedComponentInParentReference(property.PropertyType);
-            
+
             return null;
+        }
+        
+        private object GetCachedPropertyValue(PropertyInfo property, Attribute attribute)
+        {
+            if (!this.cachedReferences.ContainsKey(property))
+            {
+                this.cachedReferences.Add(property, this.GetPropertyValue(property, attribute));
+            }
+            
+            return this.cachedReferences[property];
         }
 
         private object GetCachedComponentReference(Type type)
@@ -88,6 +107,7 @@ namespace CrashKonijn.Goap.Classes.References
         {
             return (T) this.GetCachedComponentInChildrenReference(typeof(T));
         }
+        
         public T GetCachedComponentInChildren<T>()
             where T : MonoBehaviour
         {
@@ -107,6 +127,31 @@ namespace CrashKonijn.Goap.Classes.References
         public T GetCachedComponentInParent<T>() where T : MonoBehaviour
         {
             return (T)this.GetCachedComponentInParentReference(typeof(T));
+        }
+
+        private class DataReferenceCache
+        {
+            public Dictionary<PropertyInfo, Attribute> Properties { get; private set; }
+            
+            public DataReferenceCache(Type type)
+            {
+                this.Properties = new Dictionary<PropertyInfo, Attribute>();
+                
+                // find all properties with the GetComponent attribute
+                var props = type.GetProperties();
+                
+                foreach (var prop in props)
+                {
+                    foreach (var attribute in prop.GetCustomAttributes(true))
+                    {
+                        if (attribute is not (GetComponentAttribute or GetComponentInChildrenAttribute or GetComponentInParentAttribute))
+                            continue;
+                        
+                        this.Properties.Add(prop, (Attribute)attribute);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

@@ -55,8 +55,8 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 
         private void FixedUpdate()
         {
-            this.appleCountText.text = $"+ Apple ({this.apples.Get().Length})";
-            this.agentCountText.text = $"+ Agent ({this.goap.Agents.Length})";
+            this.appleCountText.text = $"+ Apple ({this.apples.Get().Count})";
+            this.agentCountText.text = $"+ Agent ({this.goap.Agents.Count})";
         }
 
         public void SetDebug(bool value)
@@ -90,7 +90,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
         {
             this.SetDebug(false);
             
-            var agentCount = this.goap.Agents.Length;
+            var agentCount = this.goap.Agents.Count;
             var count = agentCount < 50 ? 50 - agentCount : 50;
             
             for (var i = 0; i < count; i++)

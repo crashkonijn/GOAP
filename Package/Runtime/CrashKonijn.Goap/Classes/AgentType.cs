@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Core.Interfaces;
@@ -16,7 +17,9 @@ namespace CrashKonijn.Goap.Classes
         public IGlobalWorldData WorldData { get; }
 
         private List<IGoal> goals;
+        private Dictionary<Type, IGoal> goalsLookup;
         private List<IAction> actions;
+        private Dictionary<Type, IAction> actionsLookup;
 
         public AgentType(string id, IGoapConfig config, List<IGoal> goals, List<IAction> actions, ISensorRunner sensorRunner, IGlobalWorldData worldData)
         {
@@ -24,7 +27,9 @@ namespace CrashKonijn.Goap.Classes
             this.GoapConfig = config;
             this.SensorRunner = sensorRunner;
             this.goals = goals;
+            this.goalsLookup = goals.ToDictionary(x => x.GetType());
             this.actions = actions;
+            this.actionsLookup = actions.ToDictionary(x => x.GetType());
             this.WorldData = worldData;
             
             this.Agents = new AgentCollection(this);
@@ -43,9 +48,7 @@ namespace CrashKonijn.Goap.Classes
         public TAction ResolveAction<TAction>()
             where TAction : IAction
         {
-            var result = this.actions.FirstOrDefault(x => x.GetType() == typeof(TAction));
-
-            if (result != null)
+            if (this.actionsLookup.TryGetValue(typeof(TAction), out var result))
                 return (TAction) result;
             
             throw new KeyNotFoundException($"No action found of type {typeof(TAction)}");
@@ -54,9 +57,7 @@ namespace CrashKonijn.Goap.Classes
         public TGoal ResolveGoal<TGoal>()
             where TGoal : IGoal
         {
-            var result = this.goals.FirstOrDefault(x => x.GetType() == typeof(TGoal));
-
-            if (result != null)
+            if (this.goalsLookup.TryGetValue(typeof(TGoal), out var result))
                 return (TGoal) result;
             
             throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");

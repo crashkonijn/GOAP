@@ -120,19 +120,25 @@ namespace CrashKonijn.Goap.Classes.Runners
             var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
             
-            return agent.CurrentGoal.Conditions.All(x => conditionObserver.IsMet(x));
+            foreach (var condition in agent.CurrentGoal.Conditions)
+            {
+                if (!conditionObserver.IsMet(condition))
+                    return false;
+            }
+
+            return true;
         }
 
         public void Complete()
         {
             foreach (var resolveHandle in this.resolveHandles)
             {
-                var result = resolveHandle.Handle.Complete().OfType<IAction>().ToList();
+                var result = resolveHandle.Handle.Complete();
 
                 if (resolveHandle.Agent.IsNull())
                     continue;
                 
-                var action = result.FirstOrDefault();
+                var action = result.FirstOrDefault() as IAction;
                 
                 if (action is null)
                 {

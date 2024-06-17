@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
@@ -34,7 +35,7 @@ namespace CrashKonijn.Goap.Behaviours
         public IGoal CurrentGoal { get; private set; }
         public IAction CurrentAction  { get;  private set;}
         public IActionData CurrentActionData { get; private set; }
-        public List<IAction> CurrentPlan { get; private set; } = new List<IAction>();
+        public IConnectable[] CurrentPlan { get; private set; } = Array.Empty<IConnectable>();
         public ILocalWorldData WorldData { get; } = new LocalWorldData();
         public IAgentEvents Events { get; } = new AgentEvents();
         public IDataReferenceInjector Injector { get; private set; }
@@ -163,7 +164,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentGoal = null;
         }
 
-        public void SetAction(IAction action, List<IAction> path, ITarget target)
+        public void SetAction(IAction action, IConnectable[] path, ITarget target)
         {
             if (this.CurrentAction != null)
             {

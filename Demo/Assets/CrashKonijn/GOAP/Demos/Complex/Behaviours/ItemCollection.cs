@@ -68,9 +68,22 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 
         public IHoldable Closest(Vector3 position, bool canBeInBox, bool canBeHeld, bool canBeClaimed)
         {
-            return this.Filtered(canBeInBox, canBeHeld, canBeClaimed)
-                .OrderBy(x => Vector3.Distance(x.gameObject.transform.position, position))
-                .FirstOrDefault();
+            var filteredItems = this.Filtered(canBeInBox, canBeHeld, canBeClaimed);
+            IHoldable closest = null;
+            var closestDistance = float.MaxValue; // Start with the largest possible distance
+
+            foreach (var item in filteredItems)
+            {
+                var distance = Vector3.Distance(item.gameObject.transform.position, position);
+                
+                if (!(distance < closestDistance))
+                    continue;
+                
+                closest = item;
+                closestDistance = distance;
+            }
+
+            return closest;
         }
     }
 }

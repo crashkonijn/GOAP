@@ -18,7 +18,7 @@ namespace CrashKonijn.Goap.Resolver
         
         public ICostBuilder SetCost(IConnectable action, float cost)
         {
-            var index = this.actionIndexList.IndexOf(action);
+            var index = this.GetIndex(action);
 
             if (index == -1)
                 return this;
@@ -28,6 +28,17 @@ namespace CrashKonijn.Goap.Resolver
             return this;
         }
         
+        private int GetIndex(IConnectable condition)
+        {
+            for (var i = 0; i < this.actionIndexList.Count; i++)
+            {
+                if (this.actionIndexList[i] == condition)
+                    return i;
+            }
+            
+            return -1;
+        }
+        
         public float[] Build()
         {
             return this.costList;
@@ -35,7 +46,10 @@ namespace CrashKonijn.Goap.Resolver
 
         public void Clear()
         {
-            this.costList = this.actionIndexList.Select(x => 1f).ToArray();
+            for (var i = 0; i < this.costList.Length; i++)
+            {
+                this.costList[i] = 1f;
+            }
         }
     }
 }

@@ -26,10 +26,8 @@ namespace CrashKonijn.Goap.Resolver
         private NativeMultiHashMap<int, int> conditionConnections;
 #endif
         
-        private GraphResolverJob job;
-        private JobHandle handle;
-
         private Graph graph;
+        private Queue<ResolveHandle> handles = new();
 
         public GraphResolver(IConnectable[] actions, IKeyResolver keyResolver)
         {
@@ -91,7 +89,7 @@ namespace CrashKonijn.Goap.Resolver
 
         public IResolveHandle StartResolve(RunData runData)
         {
-            return new ResolveHandle(this, this.nodeConditions, this.conditionConnections, runData);
+            return this.GetResolveHandle().Start(this.nodeConditions, this.conditionConnections, runData);
         }
         
         public IExecutableBuilder GetExecutableBuilder()
@@ -126,6 +124,19 @@ namespace CrashKonijn.Goap.Resolver
         {
             this.nodeConditions.Dispose();
             this.conditionConnections.Dispose();
+        }
+
+        private ResolveHandle GetResolveHandle()
+        {
+            if (this.handles.TryDequeue(out var handle))
+                return handle;
+
+            return new ResolveHandle(this);
+        }
+
+        public void Release(ResolveHandle handle)
+        {
+            this.handles.Enqueue(handle);
         }
     }
 }

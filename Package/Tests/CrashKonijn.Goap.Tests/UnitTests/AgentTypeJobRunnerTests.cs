@@ -270,7 +270,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Complete();
             
             // Assert
-            agent.Received(1).SetAction(action, Arg.Any<List<IAction>>(), Arg.Any<ITarget>());
+            agent.Received(1).SetAction(action, Arg.Any<IConnectable[]>(), Arg.Any<ITarget>());
         }
         
         [Test]
@@ -306,7 +306,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Complete();
             
             // Assert
-            agent.Received(0).SetAction(Arg.Any<IAction>(), Arg.Any<List<IAction>>(), Arg.Any<ITarget>());
+            agent.Received(0).SetAction(Arg.Any<IAction>(), Arg.Any<IConnectable[]>(), Arg.Any<ITarget>());
         }
     }
 }

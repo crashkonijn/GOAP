@@ -20,7 +20,7 @@ namespace CrashKonijn.Goap.Resolver
         
         public IPositionBuilder SetPosition(IConnectable action, Vector3 position)
         {
-            var index = this.actionIndexList.IndexOf(action);
+            var index = this.GetIndex(action);
 
             if (index == -1)
                 return this;
@@ -30,6 +30,17 @@ namespace CrashKonijn.Goap.Resolver
             return this;
         }
         
+        private int GetIndex(IConnectable condition)
+        {
+            for (var i = 0; i < this.actionIndexList.Count; i++)
+            {
+                if (this.actionIndexList[i] == condition)
+                    return i;
+            }
+            
+            return -1;
+        }
+        
         public float3[] Build()
         {
             return this.executableList;
@@ -37,7 +48,10 @@ namespace CrashKonijn.Goap.Resolver
 
         public void Clear()
         {
-            this.executableList = this.actionIndexList.Select(x => GraphResolverJob.InvalidPosition).ToArray();
+            for (var i = 0; i < this.executableList.Length; i++)
+            {
+                this.executableList[i] = GraphResolverJob.InvalidPosition;
+            }
         }
     }
 }

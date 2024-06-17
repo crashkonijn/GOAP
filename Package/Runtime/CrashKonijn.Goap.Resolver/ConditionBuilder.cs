@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Resolver
         
         public IConditionBuilder SetConditionMet(ICondition condition, bool met)
         {
-            var index = this.conditionIndexList.FindIndex(x => x == condition);
+            var index = this.GetIndex(condition);
 
             if (index == -1)
                 return this;
@@ -27,6 +27,17 @@ namespace CrashKonijn.Goap.Resolver
             return this;
         }
         
+        private int GetIndex(ICondition condition)
+        {
+            for (var i = 0; i < this.conditionIndexList.Count; i++)
+            {
+                if (this.conditionIndexList[i] == condition)
+                    return i;
+            }
+            
+            return -1;
+        }
+        
         public bool[] Build()
         {
             return this.conditionsMetList;
@@ -34,7 +45,10 @@ namespace CrashKonijn.Goap.Resolver
         
         public void Clear()
         {
-            this.conditionsMetList = new bool[this.conditionIndexList.Count];
+            for (var i = 0; i < this.conditionsMetList.Length; i++)
+            {
+                this.conditionsMetList[i] = false;
+            }
         }
     }
 }

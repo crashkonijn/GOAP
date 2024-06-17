@@ -46,7 +46,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             this.agent.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(true);
         
-            this.goap.Agents.Returns(new [] { this.agent });
+            this.goap.Agents.Returns(new List<IMonoAgent>() { this.agent });
             this.proactiveController.Initialize(this.goap);
 
             // Act
@@ -63,7 +63,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.agent = Substitute.For<IMonoAgent>();
             this.agent.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(false);
         
-            this.goap.Agents.Returns(new [] { this.agent });
+            this.goap.Agents.Returns(new List<IMonoAgent>() { this.agent });
             this.proactiveController.Initialize(this.goap);
 
             // Act
