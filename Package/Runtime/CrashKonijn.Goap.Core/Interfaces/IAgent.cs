@@ -6,6 +6,9 @@ namespace CrashKonijn.Goap.Core.Interfaces
     public interface IAgent
     {
         float DistanceMultiplier { get; }
+        DebugMode DebugMode { get; }
+        int MaxLogSize { get; }
+        List<IAction> DisabledActions { get; }
         AgentState State { get; }
         AgentMoveState MoveState { get; }
         IAgentType AgentType { get; }
@@ -20,6 +23,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         IAgentTimers Timers { get; }
         IActionRunState RunState { get; }
         ITarget CurrentTarget { get; }
+        ILogger Logger { get; }
 
         void Run();
         
@@ -31,5 +35,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         void CompleteAction(bool resolveAction = true);
         void ResolveAction();
         void SetDistanceMultiplierSpeed(float speed);
+        void EnableAction<TAction>() where TAction : IAction;
+        void DisableAction<TAction>() where TAction : IAction;
     }
 }

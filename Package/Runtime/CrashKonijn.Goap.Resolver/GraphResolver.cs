@@ -92,6 +92,11 @@ namespace CrashKonijn.Goap.Resolver
             return this.GetResolveHandle().Start(this.nodeConditions, this.conditionConnections, runData);
         }
         
+        public IEnabledBuilder GetEnabledBuilder()
+        {
+            return new EnabledBuilder(this.actionIndexList);
+        }
+        
         public IExecutableBuilder GetExecutableBuilder()
         {
             return new ExecutableBuilder(this.actionIndexList);

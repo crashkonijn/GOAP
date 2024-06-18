@@ -1,6 +1,8 @@
-﻿using CrashKonijn.Goap.Classes;
+﻿using System;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Core.Interfaces;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Sensors
 {
@@ -12,6 +14,7 @@ namespace CrashKonijn.Goap.Sensors
         public void SetConfig(IWorldSensorConfig config) => this.Config = config;
 
         public abstract void Created();
+        public Type[] GetKeys() => new[] { this.Key.GetType() };
         
         public void Sense(IWorldData data)
         {

@@ -19,12 +19,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 
         public AppleBehaviour Hold()
         {
-            var apple = this.Apples.FirstOrDefault();
-
-            if (apple == null)
-                return null;
-            
-            return apple;
+            return this.Apples.FirstOrDefault();
         }
 
         public void Drop(AppleBehaviour apple)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Goap.Classes.Validators;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Editor.Elements;
@@ -27,7 +28,7 @@ namespace CrashKonijn.Goap.Editor.Drawers
                         root.Add(new Label(this.GetText(key, state, "local")));
                     }
                     
-                    foreach (var (key, state) in worldData.GlobalData.States)
+                    foreach (var (key, state) in worldData.GlobalData?.States ?? new Dictionary<Type, int>())
                     {
                         root.Add(new Label(this.GetText(key, state, "global")));
                     }

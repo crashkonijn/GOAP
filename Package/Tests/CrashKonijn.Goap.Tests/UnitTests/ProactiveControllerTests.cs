@@ -21,6 +21,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void SetUp()
         {
             this.agentType = Substitute.For<IAgentType>();
+            this.agentType.SensorRunner.Returns(Substitute.For<ISensorRunner>());
             
             this.agent = Substitute.For<IMonoAgent>();
             this.agent.AgentType.Returns(this.agentType);
@@ -34,6 +35,7 @@ namespace CrashKonijn.Goap.UnitTests
             };
             
             this.goap = Substitute.For<IGoap>();
+            this.goap.Agents.Returns(new List<IMonoAgent>());
             this.goap.AgentTypeRunners.Returns(this.typeRunners);
             this.goap.Events.Returns(this.events);
         

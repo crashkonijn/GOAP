@@ -10,9 +10,12 @@ namespace CrashKonijn.Goap.Core.Interfaces
         bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references);
         IActionData GetData();
         void Created();
+        bool IsValid(IMonoAgent agent, IActionData data);
         IActionRunState Perform(IMonoAgent agent, IActionData data, IActionContext context);
         void Start(IMonoAgent agent, IActionData data);
         void Stop(IMonoAgent agent, IActionData data);
         void Complete(IMonoAgent agent, IActionData data);
+        bool IsExecutable(IMonoAgent agent, bool conditionsMet);
+        bool IsEnabled(IMonoAgent agent);
     }
 }

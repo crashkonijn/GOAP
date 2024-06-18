@@ -7,6 +7,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         int BaseCost { get; }
         ITargetKey Target { get; }
         float InRange { get; }
+        bool RequiresTarget { get; }
         ICondition[] Conditions { get; }
         IEffect[] Effects { get; }
         public ActionMoveMode MoveMode { get; }

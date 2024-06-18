@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
+﻿using System;
+using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes

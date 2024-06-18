@@ -1,11 +1,13 @@
 ﻿using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
 using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 {
@@ -18,6 +20,36 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
         
         public override void Start(IMonoAgent agent, Data data)
         {
+            if (data.Target is not TransformTarget transformTarget)
+                return;
+            
+            if (transformTarget.Transform == null)
+                return;
+            
+            data.Apple = transformTarget.Transform.GetComponent<AppleBehaviour>();
+        }
+
+        public override bool IsValid(IMonoAgent agent, Data data)
+        {
+            if (!base.IsValid(agent, data))
+                return false;
+            
+            if (data.Apple == null)
+            {
+                agent.Logger.Warning($"No apple found: {data.Target}");
+                return false;
+            }
+
+            if (data.Apple.IsPickedUp)
+            {
+                agent.Logger.Warning($"Apple already picked up: {data.Apple.name}");
+                return false;
+            }
+            
+            if (data.Inventory == null)
+                return false;
+
+            return true;
         }
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
@@ -28,21 +60,8 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
             if (transformTarget.Transform == null)
                 return ActionRunState.Stop;
             
-            var apple = transformTarget.Transform.GetComponent<AppleBehaviour>();
-
-            if (apple == null)
-                return ActionRunState.Stop;
-            
-            // Prevent picking up same apple
-            if (apple.IsPickedUp)
-                return ActionRunState.Stop;
-            
-            var inventory = agent.GetComponent<InventoryBehaviour>();
-
-            if (inventory == null)
-                return ActionRunState.Stop;
-            
-            inventory.Put(apple);
+            data.Inventory.Put(data.Apple);
+            agent.Logger.Log($"Picked up apple: {data.Apple.name}");
 
             return ActionRunState.Completed;
         }
@@ -58,6 +77,9 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
+            public AppleBehaviour Apple { get; set; }
+            [GetComponent]
+            public InventoryBehaviour Inventory { get; set; }
         }
     }
 }

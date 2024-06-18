@@ -70,6 +70,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.CallAwake();
             
             var action = Substitute.For<IAction>();
+            action.IsValid(Arg.Any<IMonoAgent>(), Arg.Any<IActionData>()).Returns(true);
             action.IsInRange(agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Stop);
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));

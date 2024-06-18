@@ -7,6 +7,7 @@ using CrashKonijn.Goap.Exceptions;
 using CrashKonijn.Goap.Observers;
 using UnityEngine;
 using UnityEngine.Serialization;
+using ILogger = CrashKonijn.Goap.Core.Interfaces.ILogger;
 
 namespace CrashKonijn.Goap.Behaviours
 {
@@ -16,8 +17,13 @@ namespace CrashKonijn.Goap.Behaviours
 
         [field: SerializeField]
         public float DistanceMultiplier { get; set; } = 1f;
+        [field: SerializeField]
+        public DebugMode DebugMode { get; set; } = DebugMode.None;
+        [field: SerializeField]
+        public int MaxLogSize { get; set; } = 20;
         public AgentState State { get; private set; } = AgentState.NoAction;
         public AgentMoveState MoveState { get; private set; } = AgentMoveState.Idle;
+        public List<IAction> DisabledActions { get; } = new List<IAction>();
 
         private IAgentType agentType;
         public IAgentType AgentType
@@ -40,6 +46,7 @@ namespace CrashKonijn.Goap.Behaviours
         public IAgentEvents Events { get; } = new AgentEvents();
         public IDataReferenceInjector Injector { get; private set; }
         public IAgentDistanceObserver DistanceObserver { get; set; } = new VectorDistanceObserver();
+        public ILogger Logger { get; set; } = new Classes.Logger();
         
         public IAgentTimers Timers { get; } = new AgentTimers();
         public IActionRunState RunState { get; private set; }
@@ -51,6 +58,7 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.Injector = new DataReferenceInjector(this);
             this.actionRunner = new ActionRunner(this, new AgentProxy(this.SetState, this.SetMoveState, (state) => this.RunState = state, this.IsInRange));
+            this.Logger.Agent = this;
             
             if (this.agentTypeBehaviour != null)
                 this.AgentType = this.agentTypeBehaviour.AgentType;
@@ -88,6 +96,7 @@ namespace CrashKonijn.Goap.Behaviours
 
             this.actionRunner.Run();
         }
+        
 
         private void UpdateTarget()
         {
@@ -229,6 +238,28 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.Events.Resolve();
             this.Timers.Resolve.Touch();
+        }
+        
+        public void EnableAction<TAction>()
+            where TAction : IAction
+        {
+            var action = this.AgentType.ResolveAction<TAction>();
+            
+            if (!this.DisabledActions.Contains(action))
+                return;
+            
+            this.DisabledActions.Remove(action);
+        }
+        
+        public void DisableAction<TAction>()
+            where TAction : IAction
+        {
+            var action = this.AgentType.ResolveAction<TAction>();
+            
+            if (this.DisabledActions.Contains(action))
+                return;
+            
+            this.DisabledActions.Add(action);
         }
     }
 }

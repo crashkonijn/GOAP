@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Classes.Validators;
 using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Editor.Elements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -23,7 +24,13 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             
             this.Content = new VisualElement();
             this.Content.AddToClassList("content");
-            this.Content.Add(new Label($"{graphNode.Action.GetType().GetGenericTypeName()}"));
+            this.Title = new Label($"{graphNode.Action.GetType().GetGenericTypeName()}");
+            this.Cost = new Label();
+            
+            this.Content.Add(new HorizontalSplitView(this.Title, this.Cost, 80));
+
+            this.Target = new Label();
+            this.Content.Add(this.Target);
             
             this.Conditions = new VisualElement();
             this.Conditions.AddToClassList("conditions");
@@ -57,12 +64,14 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                     var connectionNode = new NodeElement(connection, bezierRoot, values);
                     this.ChildWrapper.Add(connectionNode);
                     
-                    bezierRoot.Add(new ConnectionElement(conditionElement, connectionNode, values));
+                    bezierRoot.Add(new ConnectionElement(this, conditionElement, connectionNode, values));
                 }
             }
             
             if (!Application.isPlaying)
             {
+                this.Target.text = $"Target: {(graphNode.Action as IAction)?.Config.Target.GetType().GetGenericTypeName()}";
+                this.Cost.text = "";
                 this.Effects = new VisualElement();
                 this.Effects.AddToClassList("effects");
                 this.Effects.Add(new Label("Effects"));
@@ -78,7 +87,11 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             this.schedule.Execute(() =>
             {
                 this.Node.RemoveFromClassList("active");
+                this.Node.RemoveFromClassList("disabled");
                 this.Node.RemoveFromClassList("path");
+
+                if (!Application.isPlaying)
+                    return;
 
                 if (values.SelectedObject is not IMonoAgent agent)
                     return;
@@ -100,8 +113,29 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                     this.Node.AddToClassList("path");
                     return;
                 }
+
+                if (graphNode.Action is not IAction action)
+                    return;
+                
+                if (!action.IsEnabled(agent))
+                {
+                    this.Node.AddToClassList("disabled");
+                    return;
+                }
+
+                this.Cost.text = $"Cost: {graphNode.GetCost(agent)}";
+                var target = agent.WorldData.GetTarget(graphNode.Action as IAction);
+                var targetText = target != null ? target.Position.ToString() : "null";
+                
+                this.Target.text = $"Target: {targetText}";
             }).Every(33);
         }
+
+        public Label Target { get; set; }
+
+        public Label Cost { get; set; }
+
+        public Label Title { get; set; }
 
         public VisualElement Effects { get; set; }
         public VisualElement ChildWrapper { get; set; }

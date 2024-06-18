@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Attributes;
+﻿using System.Linq;
+using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Classes.RunStates;
@@ -19,6 +20,20 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
         public override void Start(IMonoAgent agent, Data data)
         {
             data.Apple =  data.Inventory.Hold();
+        }
+        
+        public override bool IsValid(IMonoAgent agent, Data data)
+        {
+            if (!base.IsValid(agent, data))
+                return false;
+            
+            if (data.Apple == null)
+                return false;
+            
+            if (data.SimpleHunger == null)
+                return false;
+
+            return true;
         }
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)

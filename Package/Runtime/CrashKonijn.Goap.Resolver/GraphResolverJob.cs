@@ -22,6 +22,7 @@ namespace CrashKonijn.Goap.Resolver
     {
         public int StartIndex;
         // Index = NodeIndex
+        public NativeArray<bool> IsEnabled;
         public NativeArray<bool> IsExecutable;
         // Index = ConditionIndex
         public NativeArray<bool> ConditionsMet;
@@ -113,6 +114,11 @@ namespace CrashKonijn.Goap.Resolver
                     foreach (var neighborIndex in this.ConditionConnections.GetValuesForKey(conditionIndex))
                     {
                         if (closedSet.ContainsKey(neighborIndex))
+                        {
+                            continue;
+                        }
+                        
+                        if (!runData.IsEnabled[neighborIndex])
                         {
                             continue;
                         }

@@ -20,7 +20,10 @@ namespace CrashKonijn.Goap.Scriptables
         
         [field:SerializeField]
         public float InRange { get; set; } = 0.1f;
-        
+
+        [field: SerializeField]
+        public bool RequiresTarget { get; } = true;
+
         [field:SerializeField]
         public ActionMoveMode MoveMode { get; set; }
 

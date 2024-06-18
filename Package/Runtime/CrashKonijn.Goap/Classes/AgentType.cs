@@ -63,6 +63,20 @@ namespace CrashKonijn.Goap.Classes
             throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");
         }
 
+        public bool AllConditionsMet(IAgent agent, IAction action)
+        {
+            var conditionObserver = this.GoapConfig.ConditionObserver;
+            conditionObserver.SetWorldData(agent.WorldData);
+            
+            foreach (var condition in action.Conditions)
+            {
+                if (!conditionObserver.IsMet(condition))
+                    return false;
+            }
+
+            return true;
+        }
+
         public List<IConnectable> GetAllNodes() => this.actions.Cast<IConnectable>().Concat(this.goals).ToList();
         public List<IAction> GetActions() => this.actions;
         public List<IGoal> GetGoals() => this.goals;

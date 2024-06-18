@@ -12,13 +12,13 @@ namespace CrashKonijn.Goap
 
         public ITarget GetTarget(IAction action)
         {
+            if (action == null)
+                return null;
+            
             if (action.Config.Target == null)
                 return null;
             
-            if (!this.Targets.ContainsKey(action.Config.Target.GetType()))
-                return null;
-            
-            return this.Targets[action.Config.Target.GetType()];
+            return this.GetTargetValue(action.Config.Target.GetType());
         }
 
         public bool IsTrue<TWorldKey>(Comparison comparison, int value)
@@ -33,10 +33,10 @@ namespace CrashKonijn.Goap
 
         public bool IsTrue(Type worldKey, Comparison comparison, int value)
         {
-            if (!this.States.ContainsKey(worldKey))
-                return false;
+            var (exists, state) = this.GetWorldValue(worldKey);
             
-            var state = this.States[worldKey];
+            if (!exists)
+                return false;
 
             switch (comparison)
             {
@@ -87,7 +87,7 @@ namespace CrashKonijn.Goap
             this.SetTarget(typeof(TKey), target);
         }
         
-        public void SetTarget(Type key, ITarget target)
+        private void SetTarget(Type key, ITarget target)
         {
             if (key == null)
                 return;

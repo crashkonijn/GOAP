@@ -24,7 +24,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             this.events = Substitute.For<IAgentEvents>();
             this.action = Substitute.For<IAction>();
-
+            this.action.IsValid(Arg.Any<IMonoAgent>(), Arg.Any<IActionData>()).Returns(true);
             
             this.agent = Substitute.For<IMonoAgent>();
             this.agent.Events.Returns(this.events);
@@ -34,6 +34,19 @@ namespace CrashKonijn.Goap.UnitTests
             this.proxy = Substitute.For<IAgentProxy>();
             
             this.actionRunner = new ActionRunner(this.agent, this.proxy);
+        }
+        
+        [Test]
+        public void Run_WhenRunIsNotValid_ShouldStopAction()
+        {
+            // Arrange
+            this.action.IsValid(this.agent, this.agent.CurrentActionData).Returns(false);
+            
+            // Act
+            this.actionRunner.Run();
+            
+            // Assert
+            this.agent.Received().StopAction();
         }
 
         [Test]
