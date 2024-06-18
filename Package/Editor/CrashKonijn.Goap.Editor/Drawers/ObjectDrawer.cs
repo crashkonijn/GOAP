@@ -36,9 +36,9 @@ namespace CrashKonijn.Goap.Editor.Drawers
 
         private string GetValueString(object value)
         {
-            if (value is null)
+            if (value == null)
                 return "null";
-
+            
             if (value is TransformTarget transformTarget)
             {
                 if (transformTarget.Transform == null)
@@ -49,7 +49,7 @@ namespace CrashKonijn.Goap.Editor.Drawers
             
             if (value is PositionTarget positionTarget)
                 return positionTarget.Position.ToString();
-
+            
             if (value is MonoBehaviour monoBehaviour)
             {
                 if (monoBehaviour == null)
@@ -57,9 +57,14 @@ namespace CrashKonijn.Goap.Editor.Drawers
                 
                 return monoBehaviour.name;
             }
-            
+
             if (value is ScriptableObject scriptableObject)
+            {
+                if (scriptableObject == null)
+                    return "null";
+
                 return scriptableObject.name;
+            }
 
             return value.ToString();
         }
