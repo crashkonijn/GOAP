@@ -34,9 +34,6 @@ namespace CrashKonijn.Goap.Classes.Runners
 
         public void Run(HashSet<IMonoAgent> queue)
         {
-            if (!queue.Any())
-                return;
-            
             this.resolveHandles.Clear();
             
             this.agentType.SensorRunner.Update();
