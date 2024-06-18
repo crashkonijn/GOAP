@@ -50,6 +50,9 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
         {
             if (this.values.SelectedObject is not IMonoAgent agent)
                 return Color.white;
+            
+            if (agent.AgentType == null)
+                return Color.white;
                 
             var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);

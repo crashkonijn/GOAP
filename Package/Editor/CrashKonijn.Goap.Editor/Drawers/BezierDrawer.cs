@@ -117,6 +117,11 @@ namespace CrashKonijn.Goap.Editor.Drawers
             }
 #endif
         }
+        
+        public Vector3 GetCenter()
+        {
+            return this.BezierPoint(0.5f, this.startPos, this.startTan, this.endTan, this.endPos);
+        }
 
         private Vector3 BezierPoint(float t)
         {

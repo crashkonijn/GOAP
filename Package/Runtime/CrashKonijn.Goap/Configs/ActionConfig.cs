@@ -11,6 +11,7 @@ namespace CrashKonijn.Goap.Configs
         public int BaseCost { get; set; }
         public ITargetKey Target { get; set; }
         public float InRange { get; set; }
+        public bool RequiresTarget { get; set; }
         public ICondition[] Conditions { get; set; }
         public IEffect[] Effects { get; set; }
         public ActionMoveMode MoveMode { get; set; } = ActionMoveMode.MoveBeforePerforming;

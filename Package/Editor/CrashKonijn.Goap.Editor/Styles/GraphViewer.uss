@@ -21,6 +21,11 @@
     border-width: 2px;
 }
 
+.node.disabled {
+    border-color: #ff3c00;
+    border-width: 2px;
+}
+
 .node.collapsed .effects {
     /*min-height: 40px;*/
     max-height: 0;
@@ -208,3 +213,15 @@
     max-height: 0;
 }
 
+.distance-cost {
+    color: white;
+    
+    padding: 5px;
+    margin-top: -10px;
+    /*margin-left: -15px;*/
+
+    background-color: var(--unity-colors-tooltip-background);
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: var(--unity-colors-default-border);
+}

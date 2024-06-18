@@ -15,6 +15,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         
         private List<JobRunHandle> resolveHandles = new();
         private readonly IExecutableBuilder executableBuilder;
+        private readonly IEnabledBuilder enabledBuilder;
         private readonly IPositionBuilder positionBuilder;
         private readonly ICostBuilder costBuilder;
         private readonly IConditionBuilder conditionBuilder;
@@ -24,6 +25,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             this.agentType = agentType;
             this.resolver = graphResolver;
             
+            this.enabledBuilder = this.resolver.GetEnabledBuilder();
             this.executableBuilder = this.resolver.GetExecutableBuilder();
             this.positionBuilder = this.resolver.GetPositionBuilder();
             this.costBuilder = this.resolver.GetCostBuilder();
@@ -71,6 +73,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                 Handle = this.resolver.StartResolve(new RunData
                 {
                     StartIndex = this.resolver.GetIndex(agent.CurrentGoal),
+                    IsEnabled = new NativeArray<bool>(this.enabledBuilder.Build(), Allocator.TempJob),
                     IsExecutable = new NativeArray<bool>(this.executableBuilder.Build(), Allocator.TempJob),
                     Positions = new NativeArray<float3>(this.positionBuilder.Build(), Allocator.TempJob),
                     Costs = new NativeArray<float>(this.costBuilder.Build(), Allocator.TempJob),
@@ -85,6 +88,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
 
+            this.enabledBuilder.Clear();
             this.executableBuilder.Clear();
             this.positionBuilder.Clear();
             this.conditionBuilder.Clear();
@@ -108,7 +112,8 @@ namespace CrashKonijn.Goap.Classes.Runners
                 
                 var target = agent.WorldData.GetTarget(node);
 
-                this.executableBuilder.SetExecutable(node, allMet);
+                this.executableBuilder.SetExecutable(node, node.IsExecutable(agent, allMet));
+                this.enabledBuilder.SetEnabled(node, node.IsEnabled(agent));
                 this.costBuilder.SetCost(node, node.GetCost(agent, agent.Injector));
                 
                 this.positionBuilder.SetPosition(node, target?.Position ?? transformTarget.Position);

@@ -20,6 +20,9 @@ namespace CrashKonijn.Goap.Behaviours
         
         public void Run()
         {
+            if (!this.RunIsValid())
+                return;
+            
             switch (this.agent.CurrentAction.Config.MoveMode)
             {
                 case ActionMoveMode.MoveBeforePerforming:
@@ -29,6 +32,19 @@ namespace CrashKonijn.Goap.Behaviours
                     this.RunPerformWhileMoving();
                     break;
             }
+        }
+
+        private bool RunIsValid()
+        {
+            var isValid = this.agent.CurrentAction.IsValid(this.agent, this.agent.CurrentActionData);
+            
+            if (!isValid)
+            {
+                this.agent.StopAction();
+                return false;
+            }
+
+            return true;
         }
 
         private void RunPerformWhileMoving()

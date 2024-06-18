@@ -8,20 +8,36 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 {
     public class ConnectionElement : VisualElement
     {
+        private readonly NodeElement fromNode;
+        private readonly NodeElement toNode;
         private readonly ConditionElement condition;
-        private readonly NodeElement node;
         private readonly EditorWindowValues values;
 
         public BezierDrawer Bezier { get; set; }
+        public Label Cost { get; set; }
 
-        public ConnectionElement(ConditionElement condition, NodeElement node, EditorWindowValues values)
+        public ConnectionElement(NodeElement fromNode, ConditionElement condition, NodeElement toNode, EditorWindowValues values)
         {
+            this.fromNode = fromNode;
             this.condition = condition;
-            this.node = node;
+            this.toNode = toNode;
             this.values = values;
             
             this.Bezier = new BezierDrawer();
             this.Add(this.Bezier);
+            
+            this.Cost = new Label("")
+            {
+                style =
+                {
+                    position = Position.Absolute,
+                    top = 0,
+                    left = 0,
+                },
+            };
+            this.Cost.AddToClassList("distance-cost");
+            this.Add(this.Cost);
+            
             this.Update();
             
             this.values.OnUpdate += this.Update;
@@ -34,7 +50,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             var magicOffset = 10f;
             
             var start = this.condition;
-            var end = this.node.Node;
+            var end = this.toNode.Node;
                 
             var startPos = new Vector3(this.condition.parent.parent.worldBound.position.x + this.condition.parent.parent.worldBound.width, start.worldBound.position.y - magicOffset, 0);
             var endPos = new Vector3(end.worldBound.position.x, end.worldBound.position.y - magicOffset, 0);
@@ -43,6 +59,15 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             var endTan = endPos + (Vector3.left * 40);
             
             this.Bezier.Update(startPos, endPos, startTan, endTan, 2f, this.GetColor());
+
+            var center = this.Bezier.GetCenter();
+            var cost = this.GetCost();
+            var length = cost.Length * 5;
+            
+            this.Cost.style.left = center.x - length;
+            this.Cost.style.top = center.y;
+            this.Cost.text = cost;
+            this.Cost.visible = !string.IsNullOrEmpty(cost);
         }
 
         private Color GetColor()
@@ -55,10 +80,36 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
             var actions = agent.CurrentPlan;
             
-            if (actions.Contains(this.node.GraphNode.Action))
+            if (actions.Contains(this.toNode.GraphNode.Action))
                 return new Color(0, 157, 100);
             
             return Color.black;
+        }
+
+        private string GetCost()
+        {
+            if (this.values.SelectedObject is not IMonoAgent agent)
+                return "";
+            
+            if (!Application.isPlaying)
+                return "";
+            
+            var fromAction = this.fromNode.GraphNode.Action as IAction;
+            var toAction = this.toNode.GraphNode.Action as IAction;
+            
+            if (fromAction == null || toAction == null)
+                return "";
+
+            var startVector = agent.WorldData.GetTarget(fromAction);
+            var endVector = agent.WorldData.GetTarget(toAction);
+            
+            if (startVector == null || endVector == null)
+                return "";
+            
+            var distance = Vector3.Distance(startVector.Position, endVector.Position);
+            var cost = agent.DistanceMultiplier * distance;
+            
+            return cost.ToString("F2");
         }
     }
 }

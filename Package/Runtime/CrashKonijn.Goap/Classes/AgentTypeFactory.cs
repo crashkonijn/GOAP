@@ -118,16 +118,16 @@ namespace CrashKonijn.Goap.Classes
         
         private List<IMultiSensor> GetMultiSensors(IAgentTypeConfig config)
         {
-            var targetSensors = this.classResolver.Load<IMultiSensor, IMultiSensorConfig>(config.MultiSensors);
+            var multiSensor = this.classResolver.Load<IMultiSensor, IMultiSensorConfig>(config.MultiSensors);
             var injector = this.goapConfig.GoapInjector;
             
-            targetSensors.ForEach(x =>
+            multiSensor.ForEach(x =>
             {
                 injector.Inject(x);
                 x.Created();
             });
             
-            return targetSensors;
+            return multiSensor;
         }
     }
 }

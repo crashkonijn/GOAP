@@ -29,7 +29,8 @@ namespace CrashKonijn.Goap.Classes.Builders
                 Name = actionType.Name,
                 ClassType = actionType.AssemblyQualifiedName,
                 BaseCost = 1,
-                InRange = 0.5f
+                InRange = 0.5f,
+                RequiresTarget = true,
             };
         }
 
@@ -43,6 +44,12 @@ namespace CrashKonijn.Goap.Classes.Builders
         public ActionBuilder SetBaseCost(int baseCost)
         {
             this.config.BaseCost = baseCost;
+            return this;
+        }
+        
+        public ActionBuilder SetRequiresTarget(bool requiresTarget)
+        {
+            this.config.RequiresTarget = requiresTarget;
             return this;
         }
         

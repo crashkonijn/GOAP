@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Core.Interfaces

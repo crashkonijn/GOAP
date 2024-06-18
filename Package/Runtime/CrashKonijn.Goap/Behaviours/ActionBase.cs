@@ -3,6 +3,7 @@ using System.Linq;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
 {
@@ -36,6 +37,48 @@ namespace CrashKonijn.Goap.Behaviours
         public override void Start(IMonoAgent agent, IActionData data) => this.Start(agent, (TActionData) data);
         
         public abstract void Start(IMonoAgent agent, TActionData data);
+        public override bool IsValid(IMonoAgent agent, IActionData data)
+        {
+            if (!agent.AgentType.AllConditionsMet(agent, this))
+            {
+                agent.Logger.Warning($"Conditions not met for {agent.name}: {this.Config.Name}");
+                return false;
+            }
+
+            if (this.Config.RequiresTarget && agent.WorldData.GetTarget(this) == null)
+            {
+                agent.Logger.Warning($"No target found for {agent.name}: {this.Config.Name}");
+                return false;
+            }
+
+            return this.IsValid(agent, (TActionData) data);
+        }
+
+        public virtual bool IsValid(IMonoAgent agent, TActionData data)
+        {
+            return true;
+        }
+
+        public override bool IsExecutable(IMonoAgent agent, bool conditionsMet)
+        {
+            if (!conditionsMet)
+                return false;
+            
+            if (this.Config.RequiresTarget && agent.WorldData.GetTarget(this) == null)
+                return false;
+
+            return true;
+        }
+        
+        public override bool IsEnabled(IMonoAgent agent)
+        {
+            return this.IsEnabled(agent, agent.Injector);
+        }
+        
+        public virtual bool IsEnabled(IMonoAgent agent, IComponentReference references)
+        {
+            return !agent.DisabledActions.Contains(this);
+        }
 
         public override IActionRunState Perform(IMonoAgent agent, IActionData data, IActionContext context) => this.Perform(agent, (TActionData) data, context);
 
@@ -83,9 +126,13 @@ namespace CrashKonijn.Goap.Behaviours
 
         public abstract IActionData GetData();
         public abstract void Created();
+        public abstract bool IsValid(IMonoAgent agent, IActionData data);
+
         public abstract IActionRunState Perform(IMonoAgent agent, IActionData data, IActionContext context);
         public abstract void Start(IMonoAgent agent, IActionData data);
         public abstract void Stop(IMonoAgent agent, IActionData data);
         public abstract void Complete(IMonoAgent agent, IActionData data);
+        public abstract bool IsExecutable(IMonoAgent agent, bool conditionsMet);
+        public abstract bool IsEnabled(IMonoAgent agent);
     }
 }

@@ -1,4 +1,6 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
+﻿using System;
+using CrashKonijn.Goap.Core.Interfaces;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Sensors
 {
@@ -8,6 +10,7 @@ namespace CrashKonijn.Goap.Sensors
         
         public ITargetSensorConfig Config { get; private set; }
         public void SetConfig(ITargetSensorConfig config) => this.Config = config;
+        public Type[] GetKeys() => new[] { this.Key.GetType() };
 
         public abstract void Created();
 

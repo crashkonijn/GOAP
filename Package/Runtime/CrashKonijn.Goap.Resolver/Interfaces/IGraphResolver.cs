@@ -6,6 +6,7 @@ namespace CrashKonijn.Goap.Resolver.Interfaces
     public interface IGraphResolver
     {
         IResolveHandle StartResolve(RunData runData);
+        IEnabledBuilder GetEnabledBuilder();
         IExecutableBuilder GetExecutableBuilder();
         IPositionBuilder GetPositionBuilder();
         ICostBuilder GetCostBuilder();

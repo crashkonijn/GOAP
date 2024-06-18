@@ -20,6 +20,8 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             root.Add(new PropertyField(this.serializedObject.FindProperty("agentTypeBehaviour")));
             root.Add(new PropertyField(this.serializedObject.FindProperty("<DistanceMultiplier>k__BackingField")));
+            root.Add(new PropertyField(this.serializedObject.FindProperty("<DebugMode>k__BackingField")));
+            root.Add(new PropertyField(this.serializedObject.FindProperty("<MaxLogSize>k__BackingField")));
             
             if (!Application.isPlaying)
                 return root;
@@ -96,6 +98,8 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             }));
             
             root.Add(new WorldDataDrawer(agent.WorldData));
+
+            root.Add(new LogDrawer(agent.Logger));
 
             return root;
         }

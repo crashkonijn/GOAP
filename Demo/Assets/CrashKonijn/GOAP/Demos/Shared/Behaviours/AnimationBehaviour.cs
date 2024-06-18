@@ -57,6 +57,12 @@ namespace Demos.Shared.Behaviours
 
         private bool IsMovingLeft()
         {
+            if (this.agent.CurrentActionData == null)
+                return false;
+            
+            if (this.agent.CurrentActionData.Target == null)
+                return false;
+            
             var target = this.agent.CurrentActionData.Target.Position;
             
             return this.transform.position.x > target.x;

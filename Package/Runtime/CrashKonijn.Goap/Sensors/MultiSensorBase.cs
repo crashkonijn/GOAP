@@ -10,8 +10,8 @@ namespace CrashKonijn.Goap.Sensors
     {
         public IMultiSensorConfig Config { get; private set; }
 
-        public List<LocalSensor> LocalSensors { get; private set; } = new();
-        public List<GlobalSensor> GlobalSensors { get; private set; } = new();
+        public Dictionary<Type, LocalSensor> LocalSensors { get; private set; } = new();
+        public Dictionary<Type, GlobalSensor> GlobalSensors { get; private set; } = new();
 
         public void SetConfig(IMultiSensorConfig config)
         {
@@ -22,26 +22,65 @@ namespace CrashKonijn.Goap.Sensors
 
         public abstract void Update();
         
+        public Type[] GetKeys()
+        {
+            var keys = new List<Type>();
+            
+            foreach (var sensor in this.LocalSensors.Values)
+            {
+                keys.Add(sensor.Key);
+            }
+            
+            foreach (var sensor in this.GlobalSensors.Values)
+            {
+                keys.Add(sensor.Key);
+            }
+
+            return keys.ToArray();
+        }
+        
         public void Sense(IWorldData data)
         {
-            foreach (var globalSensor in this.GlobalSensors)
+            foreach (var sensor in this.GlobalSensors.Values)
             {
-                globalSensor.Sense(data);
+                sensor.Sense(data);
+            }
+        }
+
+        public void Sense(IWorldData data, Type[] keys)
+        {
+            foreach (var key in keys)
+            {
+                if (this.GlobalSensors.ContainsKey(key))
+                {
+                    this.GlobalSensors[key].Sense(data);
+                }
             }
         }
 
         public void Sense(IWorldData data, IMonoAgent agent, IComponentReference references)
         {
-            foreach (var localSensor in this.LocalSensors)
+            foreach (var sensor in this.LocalSensors.Values)
             {
-                localSensor.Sense(data, agent, references);
+                sensor.Sense(data, agent, references);
+            }
+        }
+        
+        public void Sense(IWorldData data, IMonoAgent agent, IComponentReference references, Type[] keys)
+        {
+            foreach (var key in keys)
+            {
+                if (this.LocalSensors.ContainsKey(key))
+                {
+                    this.LocalSensors[key].Sense(data, agent, references);
+                }
             }
         }
 
         public void AddLocalWorldSensor<TKey>(Func<IMonoAgent, IComponentReference, SenseValue> sense)
             where TKey : IWorldKey
         {
-            this.LocalSensors.Add(new LocalSensor
+            this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
                 Sense = (IWorldData data, IMonoAgent agent, IComponentReference references) =>
@@ -54,7 +93,7 @@ namespace CrashKonijn.Goap.Sensors
         public void AddGlobalWorldSensor<TKey>(Func<SenseValue> sense)
             where TKey : IWorldKey
         {
-            this.GlobalSensors.Add(new GlobalSensor
+            this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
             {
                 Key = typeof(TKey),
                 Sense = (IWorldData data) =>
@@ -67,7 +106,7 @@ namespace CrashKonijn.Goap.Sensors
         public void AddLocalTargetSensor<TKey>(Func<IMonoAgent, IComponentReference, ITarget> sense)
             where TKey : ITargetKey
         {
-            this.LocalSensors.Add(new LocalSensor
+            this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
                 Sense = (IWorldData data, IMonoAgent agent, IComponentReference references) =>
@@ -80,7 +119,7 @@ namespace CrashKonijn.Goap.Sensors
         public void AddGlobalTargetSensor<TKey>(Func<ITarget> sense)
             where TKey : ITargetKey
         {
-            this.GlobalSensors.Add(new GlobalSensor
+            this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
             {
                 Key = typeof(TKey),
                 Sense = (IWorldData data) =>
@@ -94,12 +133,12 @@ namespace CrashKonijn.Goap.Sensors
         {
             var sensors = new List<string>();
             
-            foreach (var sensor in this.LocalSensors)
+            foreach (var sensor in this.LocalSensors.Values)
             {
                 sensors.Add($"{sensor.Key.Name} (local)");
             }
             
-            foreach (var sensor in this.GlobalSensors)
+            foreach (var sensor in this.GlobalSensors.Values)
             {
                 sensors.Add($"{sensor.Key.Name} (global)");
             }
