@@ -116,7 +116,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.actionRunner.Run();
             
             // Assert
-            this.proxy.Received().SetMoveState(AgentMoveState.OutOfRange);
+            this.proxy.Received().SetMoveState(AgentMoveState.NotInRange);
         }
         
         [Test]
@@ -215,7 +215,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.actionRunner.Run();
             
             // Assert
-            this.proxy.Received().SetMoveState(AgentMoveState.OutOfRange);
+            this.proxy.Received().SetMoveState(AgentMoveState.NotInRange);
         }
         
         [Test]

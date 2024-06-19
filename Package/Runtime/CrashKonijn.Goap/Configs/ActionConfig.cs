@@ -10,7 +10,7 @@ namespace CrashKonijn.Goap.Configs
         public IActionProperties Properties { get; set; }
         public int BaseCost { get; set; }
         public ITargetKey Target { get; set; }
-        public float InRange { get; set; }
+        public float StoppingDistance { get; set; }
         public bool RequiresTarget { get; set; }
         public ICondition[] Conditions { get; set; }
         public IEffect[] Effects { get; set; }

@@ -67,10 +67,10 @@ namespace CrashKonijn.Goap.Behaviours
             this.OnTargetInRange?.Invoke(target);
         }
 
-        public event TargetDelegate OnTargetOutOfRange;
-        public void TargetOutOfRange(ITarget target)
+        public event TargetDelegate OnTargetNotInRange;
+        public void TargetNotInRange(ITarget target)
         {
-            this.OnTargetOutOfRange?.Invoke(target);
+            this.OnTargetNotInRange?.Invoke(target);
         }
 
         public event TargetRangeDelegate OnTargetChanged;

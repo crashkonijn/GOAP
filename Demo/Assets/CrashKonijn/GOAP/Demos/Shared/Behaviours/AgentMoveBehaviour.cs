@@ -20,14 +20,14 @@ namespace Demos.Shared.Behaviours
         {
             this.agent.Events.OnTargetInRange += this.OnTargetInRange;
             this.agent.Events.OnTargetChanged += this.OnTargetChanged;
-            this.agent.Events.OnTargetOutOfRange += this.OnTargetOutOfRange;
+            this.agent.Events.OnTargetNotInRange += this.TargetNotInRange;
         }
 
         private void OnDisable()
         {
             this.agent.Events.OnTargetInRange -= this.OnTargetInRange;
             this.agent.Events.OnTargetChanged -= this.OnTargetChanged;
-            this.agent.Events.OnTargetOutOfRange -= this.OnTargetOutOfRange;
+            this.agent.Events.OnTargetNotInRange -= this.TargetNotInRange;
         }
 
         private void OnTargetInRange(ITarget target)
@@ -41,7 +41,7 @@ namespace Demos.Shared.Behaviours
             this.shouldMove = !inRange;
         }
 
-        private void OnTargetOutOfRange(ITarget target)
+        private void TargetNotInRange(ITarget target)
         {
             this.shouldMove = true;
         }

@@ -29,7 +29,7 @@ namespace CrashKonijn.Goap.Classes.Builders
                 Name = actionType.Name,
                 ClassType = actionType.AssemblyQualifiedName,
                 BaseCost = 1,
-                InRange = 0.5f,
+                StoppingDistance = 0.5f,
                 RequiresTarget = true,
             };
         }
@@ -53,9 +53,9 @@ namespace CrashKonijn.Goap.Classes.Builders
             return this;
         }
         
-        public ActionBuilder SetInRange(float inRange)
+        public ActionBuilder SetStoppingDistance(float inRange)
         {
-            this.config.InRange = inRange;
+            this.config.StoppingDistance = inRange;
             return this;
         }
         
