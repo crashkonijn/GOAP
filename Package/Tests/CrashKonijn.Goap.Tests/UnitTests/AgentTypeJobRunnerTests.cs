@@ -36,7 +36,7 @@ namespace CrashKonijn.Goap.UnitTests
         }
         
         [Test]
-        public void Run_WithAtLeastOneAgent_DoesntSenseGlobalSensors()
+        public void Run_WithNoAgens_SensesGlobalSensors()
         {
             // Arrange
             var sensorRunner = Substitute.For<ISensorRunner>();
@@ -54,11 +54,11 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(0).SenseGlobal();
+            sensorRunner.Received(1).SenseGlobal();
         }
         
         [Test]
-        public void Run_WithNoAgents_SensesGlobalSensors()
+        public void Run_WithAtLeastOneAgent_SensesGlobalSensors()
         {
             // Arrange
             var sensorRunner = Substitute.For<ISensorRunner>();
