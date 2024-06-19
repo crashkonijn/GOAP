@@ -132,8 +132,8 @@ namespace CrashKonijn.Goap.Behaviours
                 case AgentMoveState.InRange:
                     this.Events.TargetInRange(this.CurrentTarget);
                     break;
-                case AgentMoveState.OutOfRange:
-                    this.Events.TargetOutOfRange(this.CurrentTarget);
+                case AgentMoveState.NotInRange:
+                    this.Events.TargetNotInRange(this.CurrentTarget);
                     break;
             }
         }

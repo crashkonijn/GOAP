@@ -114,7 +114,7 @@ namespace CrashKonijn.Goap.Behaviours
         [Obsolete("Please use the IsInRange method")]
         public virtual float GetInRange(IMonoAgent agent, IActionData data)
         {
-            return this.Config.InRange;
+            return this.Config.StoppingDistance;
         }
         
         public virtual bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references)

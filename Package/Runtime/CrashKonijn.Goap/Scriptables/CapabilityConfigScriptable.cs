@@ -43,7 +43,7 @@ namespace CrashKonijn.Goap.Scriptables
                 ClassType = x.action.GetScript(actionClasses).GetFullName(),
                 BaseCost = x.baseCost,
                 Target = x.target.GetScript(targetClasses).GetInstance<ITargetKey>(),
-                InRange = x.inRange,
+                StoppingDistance = x.inRange,
                 Conditions = x.conditions.Select(y => new Condition
                 {
                     WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),

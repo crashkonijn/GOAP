@@ -19,7 +19,7 @@ namespace CrashKonijn.Goap.Scriptables
         public int BaseCost { get; set; } = 1;
         
         [field:SerializeField]
-        public float InRange { get; set; } = 0.1f;
+        public float StoppingDistance { get; set; } = 0.1f;
 
         [field: SerializeField]
         public bool RequiresTarget { get; } = true;

@@ -58,7 +58,7 @@ namespace CrashKonijn.Goap.Behaviours
             }
                 
             this.proxy.SetState(AgentState.MovingWhilePerformingAction);
-            this.proxy.SetMoveState(AgentMoveState.OutOfRange);
+            this.proxy.SetMoveState(AgentMoveState.NotInRange);
             this.Move();
             this.PerformAction();
         }
@@ -74,7 +74,7 @@ namespace CrashKonijn.Goap.Behaviours
             }
 
             this.proxy.SetState(AgentState.MovingToTarget);
-            this.proxy.SetMoveState(AgentMoveState.OutOfRange);
+            this.proxy.SetMoveState(AgentMoveState.NotInRange);
             this.Move();
         }
 

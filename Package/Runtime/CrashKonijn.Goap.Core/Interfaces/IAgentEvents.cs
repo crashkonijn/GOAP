@@ -28,8 +28,8 @@
         event TargetDelegate OnTargetInRange;
         void TargetInRange(ITarget target);
         
-        event TargetDelegate OnTargetOutOfRange;
-        void TargetOutOfRange(ITarget target);
+        event TargetDelegate OnTargetNotInRange;
+        void TargetNotInRange(ITarget target);
         
         event TargetRangeDelegate OnTargetChanged;
         void TargetChanged(ITarget target, bool inRange);
