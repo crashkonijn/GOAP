@@ -3,6 +3,7 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {
@@ -13,6 +14,7 @@ namespace CrashKonijn.Goap.Resolver
         public float G;
         public float H;
         public int ParentIndex;
+        public float3 Position;
     
         public float F => this.G + this.H;
     }
@@ -21,6 +23,7 @@ namespace CrashKonijn.Goap.Resolver
     public struct RunData
     {
         public int StartIndex;
+        public float3 StartPosition;
         // Index = NodeIndex
         public NativeArray<bool> IsEnabled;
         public NativeArray<bool> IsExecutable;
@@ -78,7 +81,8 @@ namespace CrashKonijn.Goap.Resolver
                 Index = runData.StartIndex,
                 G = 0,
                 H = int.MaxValue,
-                ParentIndex = -1
+                ParentIndex = -1,
+                Position = runData.StartPosition
             };
             openSet.Add(runData.StartIndex, nodeData);
 
@@ -123,7 +127,9 @@ namespace CrashKonijn.Goap.Resolver
                             continue;
                         }
                 
-                        var newG = currentNode.G + this.RunData.Costs[neighborIndex];
+                        var neighborPosition = this.GetPosition(currentNode, neighborIndex);
+                        
+                        var newG = this.GetNewCost(currentNode, neighborIndex, neighborPosition);
                         NodeData neighbor;
                 
                         // Current neighbour is not in the open set
@@ -133,8 +139,9 @@ namespace CrashKonijn.Goap.Resolver
                             {
                                 Index = neighborIndex,
                                 G = newG,
-                                H = this.Heuristic(neighborIndex, currentNode.Index),
-                                ParentIndex = currentNode.Index
+                                H = this.GetHeuristic(neighborIndex),
+                                ParentIndex = currentNode.Index,
+                                Position = neighborPosition
                             };
                             openSet.Add(neighborIndex, neighbor);
                             continue;
@@ -145,6 +152,7 @@ namespace CrashKonijn.Goap.Resolver
                         {
                             neighbor.G = newG;
                             neighbor.ParentIndex = currentNode.Index;
+                            neighbor.Position = neighborPosition;
                     
                             openSet.Remove(neighborIndex);
                             openSet.Add(neighborIndex, neighbor);
@@ -158,11 +166,20 @@ namespace CrashKonijn.Goap.Resolver
             openSet.Dispose();
             closedSet.Dispose();
         }
-
-        private float Heuristic(int currentIndex, int previousIndex)
+        
+        private float GetNewCost(NodeData currentNode, int neighborIndex, float3 neighborPosition)
         {
-            var previousPosition = this.RunData.Positions[previousIndex];
-            var currentPosition = this.RunData.Positions[currentIndex];
+            return currentNode.G + this.RunData.Costs[neighborIndex] + this.GetDistanceCost(currentNode, neighborPosition);
+        }
+
+        private float GetHeuristic(int neighborIndex)
+        {
+            return this.AmountOfUnmetConditions(neighborIndex);
+        }
+
+        private float GetDistanceCost(NodeData previousNode, float3 currentPosition)
+        {
+            var previousPosition = previousNode.Position;
 
             if (previousPosition.Equals(InvalidPosition) || currentPosition.Equals(InvalidPosition))
             {
@@ -170,6 +187,16 @@ namespace CrashKonijn.Goap.Resolver
             }
 
             return math.distance(previousPosition, currentPosition) * this.RunData.DistanceMultiplier;
+        }
+
+        private float3 GetPosition(NodeData currentNode, int currentIndex)
+        {
+            var pos = this.RunData.Positions[currentIndex];
+            
+            if (pos.Equals(InvalidPosition))
+                return currentNode.Position;
+
+            return pos;
         }
 
         private void RetracePath(NodeData startNode, NativeHashMap<int, NodeData> closedSet, NativeList<NodeData> path)
@@ -198,6 +225,20 @@ namespace CrashKonijn.Goap.Resolver
             }
 
             return false;
+        }
+        
+        private int AmountOfUnmetConditions(int currentIndex)
+        {
+            var count = 0;
+            foreach (var conditionIndex in this.NodeConditions.GetValuesForKey(currentIndex))
+            {
+                if (!this.RunData.ConditionsMet[conditionIndex])
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
     }
 }

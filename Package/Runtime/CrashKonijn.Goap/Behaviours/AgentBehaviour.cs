@@ -47,7 +47,8 @@ namespace CrashKonijn.Goap.Behaviours
         public IDataReferenceInjector Injector { get; private set; }
         public IAgentDistanceObserver DistanceObserver { get; set; } = new VectorDistanceObserver();
         public ILogger Logger { get; set; } = new Classes.Logger();
-        
+        public Vector3 Position => this.transform.position;
+
         public IAgentTimers Timers { get; } = new AgentTimers();
         public IActionRunState RunState { get; private set; }
 

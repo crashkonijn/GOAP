@@ -84,6 +84,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(new []{ false }, Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(new [] { false }, Allocator.TempJob),
                 Positions = new NativeArray<float3>(new [] { float3.zero }, Allocator.TempJob),
@@ -122,6 +123,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(new []{ true, true }, Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(new [] { false, true }, Allocator.TempJob),
                 Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero }, Allocator.TempJob),
@@ -170,6 +172,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(new []{ true, true, true ,true }, Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(new [] { false, false, false, true }, Allocator.TempJob),
                 Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero, float3.zero, float3.zero }, Allocator.TempJob),
@@ -230,6 +233,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(resolver.GetEnabledBuilder().Build(), Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero, float3.zero, float3.zero, float3.zero }, Allocator.TempJob),
@@ -306,6 +310,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(resolver.GetEnabledBuilder().Build(), Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
@@ -379,6 +384,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(resolver.GetEnabledBuilder().Build(), Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
@@ -428,8 +434,13 @@ namespace CrashKonijn.Goap.UnitTests
             var actions = new IConnectable[] { goal, rootAction, closeAction, farAction };
             var resolver = new GraphResolver(actions, new TestKeyResolver());
             
+            // Multiplier: 0.2
             // Far action: cost 1, distance 2 (10 * 0.2f) = 3
-            // Close action: cost 4, distance 1 (5 * 0.2f) = 4 
+            // Close action: cost 4, distance 1 (5 * 0.2f) = 4
+            
+            // Multiplier: 1
+            // Far action: cost 1, distance 10 (10 * 1) = 11
+            // Close action: cost 4, distance 5 (5 * 1) = 9
 
             var executableBuilder = resolver.GetExecutableBuilder();
             
@@ -456,6 +467,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(resolver.GetEnabledBuilder().Build(), Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
@@ -524,6 +536,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(resolver.GetEnabledBuilder().Build(), Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
@@ -588,6 +601,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(resolver.GetEnabledBuilder().Build(), Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
@@ -653,6 +667,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(enabledBuilder.Build(), Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
@@ -725,6 +740,7 @@ namespace CrashKonijn.Goap.UnitTests
             var handle = resolver.StartResolve(new RunData
             {
                 StartIndex = 0,
+                StartPosition = Vector3.zero,
                 IsEnabled = new NativeArray<bool>(enabledBuilder.Build(), Allocator.TempJob),
                 IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
                 Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
