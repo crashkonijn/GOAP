@@ -85,7 +85,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.ReturnsNull();
-            agent.CurrentAction.ReturnsNull();
+            agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -116,7 +116,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
-            agent.CurrentAction.ReturnsNull();
+            agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -147,7 +147,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
-            agent.CurrentAction.Returns(Substitute.For<IAction>());
+            agent.ActionState.Action.Returns(Substitute.For<IAction>());
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -178,7 +178,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
-            agent.CurrentAction.ReturnsNull();
+            agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -212,7 +212,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
-            agent.CurrentAction.ReturnsNull();
+            agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -248,7 +248,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
-            agent.CurrentAction.ReturnsNull();
+            agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -284,7 +284,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.Returns(goal);
-            agent.CurrentAction.Returns(action);
+            agent.ActionState.Action.Returns(action);
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             

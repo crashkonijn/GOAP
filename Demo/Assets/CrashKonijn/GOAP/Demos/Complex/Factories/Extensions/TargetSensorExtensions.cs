@@ -8,33 +8,21 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
 {
     public static class TargetSensorExtensions
     {
-        public static void AddWanderTargetSensor(this AgentTypeBuilder builder)
-        {
-            builder.AddTargetSensor<WanderTargetSensor>()
-                .SetTarget<WanderTarget>();
-        }
-        
-        public static void AddTransformTargetSensor(this AgentTypeBuilder builder)
-        {
-            builder.AddTargetSensor<TransformSensor>()
-                .SetTarget<TransformTarget>();
-        }
-        
-        public static void AddClosestItemTargetSensor<T>(this AgentTypeBuilder builder)
+        public static void AddClosestItemTargetSensor<T>(this CapabilityBuilder builder)
             where T : class, IHoldable
         {
             builder.AddTargetSensor<ClosestItemSensor<T>>()
                 .SetTarget<ClosestTarget<T>>();
         }
         
-        public static void AddClosestObjectTargetSensor<T>(this AgentTypeBuilder builder)
+        public static void AddClosestObjectTargetSensor<T>(this CapabilityBuilder builder)
             where T : MonoBehaviour
         {
             builder.AddTargetSensor<ClosestObjectSensor<T>>()
                 .SetTarget<ClosestTarget<T>>();
         }
 
-        public static void AddClosestSourceTargetSensor<T>(this AgentTypeBuilder builder)
+        public static void AddClosestSourceTargetSensor<T>(this CapabilityBuilder builder)
             where T : IGatherable
         {
             builder.AddTargetSensor<ClosestSourceSensor<T>>()

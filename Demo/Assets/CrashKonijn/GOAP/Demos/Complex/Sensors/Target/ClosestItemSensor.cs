@@ -12,7 +12,6 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
         where T : IHoldable
     {
         private ItemCollection collection;
-        private T[] items;
 
         public override void Created()
         {
@@ -21,12 +20,11 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
 
         public override void Update()
         {
-            this.items = this.collection.GetFiltered<T>(false, true, false);
         }
 
         public override ITarget Sense(IMonoAgent agent, IComponentReference references)
         {
-            var closest = this.items.Cast<ItemBase>().Closest(agent.transform.position);
+            var closest = this.collection.GetFiltered<T>(false, true, agent.gameObject).Cast<ItemBase>().Closest(agent.transform.position);
             
             if (closest == null)
                 return null;

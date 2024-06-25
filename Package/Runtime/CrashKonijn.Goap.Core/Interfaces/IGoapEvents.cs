@@ -6,6 +6,9 @@
         event AgentActionDelegate OnActionStart;
         void ActionStart(IAgent agent, IAction action);
         
+        event AgentActionDelegate OnActionEnd;
+        void ActionEnd(IAgent agent, IAction action);
+        
         event AgentActionDelegate OnActionStop;
         void ActionStop(IAgent agent, IAction action);
         

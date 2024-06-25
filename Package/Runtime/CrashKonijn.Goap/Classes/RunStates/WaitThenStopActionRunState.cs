@@ -4,7 +4,7 @@ namespace CrashKonijn.Goap.Classes.RunStates
 {
     public class WaitThenStopActionRunState : IActionRunState
     {
-        private readonly float time;
+        private float time;
         private readonly bool mayResolve;
 
         public WaitThenStopActionRunState(float time, bool mayResolve)
@@ -13,9 +13,14 @@ namespace CrashKonijn.Goap.Classes.RunStates
             this.mayResolve = mayResolve;
         }
 
+        public void Update(IAgent agent, IActionContext context)
+        {
+            this.time -= context.DeltaTime;
+        }
+
         public bool ShouldStop(IAgent agent)
         {
-            return agent.Timers.Action.IsRunningFor(this.time);
+            return this.time <= 0f;
         }
 
         public bool ShouldPerform(IAgent agent)
@@ -31,6 +36,11 @@ namespace CrashKonijn.Goap.Classes.RunStates
         public bool MayResolve(IAgent agent)
         {
             return this.mayResolve;
+        }
+        
+        public bool IsRunning()
+        {
+            return this.time > 0f;
         }
     }
 }

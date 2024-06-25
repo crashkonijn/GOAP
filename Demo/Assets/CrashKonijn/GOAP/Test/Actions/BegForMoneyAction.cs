@@ -1,7 +1,6 @@
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 

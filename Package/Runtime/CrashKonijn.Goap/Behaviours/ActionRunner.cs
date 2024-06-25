@@ -23,7 +23,7 @@ namespace CrashKonijn.Goap.Behaviours
             if (!this.RunIsValid())
                 return;
             
-            switch (this.agent.CurrentAction.Config.MoveMode)
+            switch (this.agent.ActionState.Action.Config.MoveMode)
             {
                 case ActionMoveMode.MoveBeforePerforming:
                     this.RunMoveBeforePerforming();
@@ -36,7 +36,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         private bool RunIsValid()
         {
-            var isValid = this.agent.CurrentAction.IsValid(this.agent, this.agent.CurrentActionData);
+            var isValid = this.agent.ActionState.Action.IsValid(this.agent, this.agent.ActionState.Data);
             
             if (!isValid)
             {
@@ -92,8 +92,12 @@ namespace CrashKonijn.Goap.Behaviours
                 return;
             
             this.context.DeltaTime = Time.deltaTime;
+            this.context.IsInRange = this.proxy.IsInRange();
             
-            var state = this.agent.CurrentAction.Perform(this.agent, this.agent.CurrentActionData, this.context);
+            if (!this.agent.ActionState.HasPerformed)
+                this.agent.ActionState.Action.BeforePerform(this.agent, this.agent.ActionState.Data);
+            
+            var state = this.agent.ActionState.Action.Perform(this.agent, this.agent.ActionState.Data, this.context);
             
             if (state.IsCompleted(this.agent))
             {
@@ -112,22 +116,24 @@ namespace CrashKonijn.Goap.Behaviours
 
         private bool ShouldContinue()
         {
-            if (this.agent.RunState == null)
+            if (this.agent.ActionState.RunState == null)
                 return true;
             
-            if (this.agent.RunState.IsCompleted(this.agent))
+            this.agent.ActionState.RunState.Update(this.agent, this.context);
+            
+            if (this.agent.ActionState.RunState.IsCompleted(this.agent))
             {
                 this.agent.CompleteAction();
                 return false;
             }
             
-            if (this.agent.RunState.ShouldStop(this.agent))
+            if (this.agent.ActionState.RunState.ShouldStop(this.agent))
             {
                 this.agent.StopAction();
                 return false;
             }
 
-            return this.agent.RunState.ShouldPerform(this.agent);
+            return this.agent.ActionState.RunState.ShouldPerform(this.agent);
         }
     }
 

@@ -10,28 +10,28 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
     {
         public AgentType agentType;
         private AgentBehaviour agent;
-        private HungerBehaviour hunger;
+        private ComplexHungerBehaviour complexHunger;
         private ItemCollection itemCollection;
         private ComplexInventoryBehaviour inventory;
 
         private void Awake()
         {
             this.agent = this.GetComponent<AgentBehaviour>();
-            this.hunger = this.GetComponent<HungerBehaviour>();
+            this.complexHunger = this.GetComponent<ComplexHungerBehaviour>();
             this.inventory = this.GetComponent<ComplexInventoryBehaviour>();
             this.itemCollection = FindObjectOfType<ItemCollection>();
         }
 
         private void OnEnable()
         {
-            this.agent.Events.OnActionStop += this.OnActionStop;
+            this.agent.Events.OnActionEnd += this.OnActionEnd;
             this.agent.Events.OnNoActionFound += this.OnNoActionFound;
             this.agent.Events.OnGoalCompleted += this.OnGoalCompleted;
         }
 
         private void OnDisable()
         {
-            this.agent.Events.OnActionStop -= this.OnActionStop;
+            this.agent.Events.OnActionEnd -= this.OnActionEnd;
             this.agent.Events.OnNoActionFound -= this.OnNoActionFound;
             this.agent.Events.OnGoalCompleted -= this.OnGoalCompleted;
         }
@@ -51,7 +51,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             this.agent.SetGoal<WanderGoal>(false);
         }
 
-        private void OnActionStop(IAction action)
+        private void OnActionEnd(IAction action)
         {
             this.UpdateHunger();
             
@@ -63,7 +63,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 
         private void UpdateHunger()
         {
-            if (this.hunger.hunger > 80)
+            if (this.complexHunger.hunger > 80)
             {
                 this.agent.SetGoal<FixHungerGoal>(false);
                 return;
@@ -72,7 +72,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             if (this.agent.CurrentGoal is not FixHungerGoal)
                 return;
             
-            if (this.hunger.hunger < 20)
+            if (this.complexHunger.hunger < 20)
                 this.DetermineGoal();
         }
 

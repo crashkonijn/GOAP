@@ -70,8 +70,14 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             
             if (!Application.isPlaying)
             {
-                this.Target.text = $"Target: {(graphNode.Action as IAction)?.Config.Target.GetType().GetGenericTypeName()}";
-                this.Cost.text = "";
+                var config = (graphNode.Action as IAction)?.Config;
+
+                if (config != null)
+                {
+                    this.Target.text = $"Target: {config.Target.GetType().GetGenericTypeName()}";
+                    this.Cost.text = $"Cost: {config.BaseCost}";
+                }
+                
                 this.Effects = new VisualElement();
                 this.Effects.AddToClassList("effects");
                 this.Effects.Add(new Label("Effects"));
@@ -102,7 +108,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                     return;
                 }
                 
-                if (agent.CurrentAction == this.GraphNode.Action)
+                if (agent.ActionState.Action == this.GraphNode.Action)
                 {
                     this.Node.AddToClassList("active");
                     return;

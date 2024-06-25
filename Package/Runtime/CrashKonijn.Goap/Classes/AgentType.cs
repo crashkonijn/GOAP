@@ -19,7 +19,6 @@ namespace CrashKonijn.Goap.Classes
         private List<IGoal> goals;
         private Dictionary<Type, IGoal> goalsLookup;
         private List<IAction> actions;
-        private Dictionary<Type, IAction> actionsLookup;
 
         public AgentType(string id, IGoapConfig config, List<IGoal> goals, List<IAction> actions, ISensorRunner sensorRunner, IGlobalWorldData worldData)
         {
@@ -29,7 +28,6 @@ namespace CrashKonijn.Goap.Classes
             this.goals = goals;
             this.goalsLookup = goals.ToDictionary(x => x.GetType());
             this.actions = actions;
-            this.actionsLookup = actions.ToDictionary(x => x.GetType());
             this.WorldData = worldData;
             
             this.Agents = new AgentCollection(this);
@@ -43,15 +41,6 @@ namespace CrashKonijn.Goap.Classes
         public void Unregister(IMonoAgent agent)
         {
             this.Agents.Remove(agent);
-        }
-
-        public TAction ResolveAction<TAction>()
-            where TAction : IAction
-        {
-            if (this.actionsLookup.TryGetValue(typeof(TAction), out var result))
-                return (TAction) result;
-            
-            throw new KeyNotFoundException($"No action found of type {typeof(TAction)}");
         }
 
         public TGoal ResolveGoal<TGoal>()

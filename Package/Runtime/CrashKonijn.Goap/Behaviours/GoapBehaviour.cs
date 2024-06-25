@@ -44,7 +44,7 @@ namespace CrashKonijn.Goap.Behaviours
         
         private void OnDestroy()
         {
-            this.goap.Dispose();
+            this.goap?.Dispose();
         }
 
         private void Initialize()

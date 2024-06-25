@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
@@ -23,7 +24,7 @@ namespace CrashKonijn.Goap.Behaviours
         public int MaxLogSize { get; set; } = 20;
         public AgentState State { get; private set; } = AgentState.NoAction;
         public AgentMoveState MoveState { get; private set; } = AgentMoveState.Idle;
-        public List<IAction> DisabledActions { get; } = new List<IAction>();
+        public List<Type> DisabledActions { get; } = new ();
 
         private IAgentType agentType;
         public IAgentType AgentType
@@ -39,8 +40,14 @@ namespace CrashKonijn.Goap.Behaviours
         }
 
         public IGoal CurrentGoal { get; private set; }
-        public IAction CurrentAction  { get;  private set;}
-        public IActionData CurrentActionData { get; private set; }
+        
+        [Obsolete("Use ActionState.Action instead.")]
+        public IAction CurrentAction => this.ActionState.Action;
+        [Obsolete("Use ActionState.Data instead.")]
+        public IActionData CurrentActionData => this.ActionState.Data;
+        [Obsolete("Use ActionState.RunState instead.")]
+        public IActionRunState RunState => this.ActionState.RunState;
+        public IActionState ActionState { get; } = new ActionState();
         public IConnectable[] CurrentPlan { get; private set; } = Array.Empty<IConnectable>();
         public ILocalWorldData WorldData { get; } = new LocalWorldData();
         public IAgentEvents Events { get; } = new AgentEvents();
@@ -49,7 +56,6 @@ namespace CrashKonijn.Goap.Behaviours
         public ILogger Logger { get; set; } = new Classes.Logger();
         
         public IAgentTimers Timers { get; } = new AgentTimers();
-        public IActionRunState RunState { get; private set; }
 
         public ITarget CurrentTarget { get; private set; }
         private ActionRunner actionRunner;
@@ -57,7 +63,7 @@ namespace CrashKonijn.Goap.Behaviours
         private void Awake()
         {
             this.Injector = new DataReferenceInjector(this);
-            this.actionRunner = new ActionRunner(this, new AgentProxy(this.SetState, this.SetMoveState, (state) => this.RunState = state, this.IsInRange));
+            this.actionRunner = new ActionRunner(this, new AgentProxy(this.SetState, this.SetMoveState, (state) => this.ActionState.RunState = state, this.IsInRange));
             this.Logger.Agent = this;
             
             if (this.agentTypeBehaviour != null)
@@ -86,7 +92,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         public void Run()
         {
-            if (this.CurrentAction == null)
+            if (this.ActionState.Action == null)
             {
                 this.SetState(AgentState.NoAction);
                 return;
@@ -100,10 +106,10 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void UpdateTarget()
         {
-            if (this.CurrentTarget == this.CurrentActionData?.Target)
+            if (this.CurrentTarget == this.ActionState.Data?.Target)
                 return;
             
-            this.CurrentTarget = this.CurrentActionData?.Target;
+            this.CurrentTarget = this.ActionState.Data?.Target;
             this.Events.TargetChanged(this.CurrentTarget, this.IsInRange());
         }
 
@@ -140,9 +146,9 @@ namespace CrashKonijn.Goap.Behaviours
 
         private bool IsInRange()
         {
-            var distance = this.DistanceObserver.GetDistance(this, this.CurrentActionData?.Target, this.Injector);
+            var distance = this.DistanceObserver.GetDistance(this, this.ActionState.Data?.Target, this.Injector);
             
-            return this.CurrentAction.IsInRange(this, distance, this.CurrentActionData, this.Injector);
+            return this.ActionState.Action.IsInRange(this, distance, this.ActionState.Data, this.Injector);
         }
 
         public void SetGoal<TGoal>(bool endAction)
@@ -159,7 +165,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.CurrentGoal = goal;
             this.Timers.Goal.Touch();
             
-            if (this.CurrentAction == null)
+            if (this.ActionState.Action == null)
                 this.ResolveAction();
             
             this.Events.GoalStart(goal);
@@ -175,30 +181,29 @@ namespace CrashKonijn.Goap.Behaviours
 
         public void SetAction(IAction action, IConnectable[] path, ITarget target)
         {
-            if (this.CurrentAction != null)
+            if (this.ActionState.Action != null)
             {
                 this.StopAction(false);
             }
-
-            this.CurrentAction = action;
-            this.Timers.Action.Touch();
-
+            
             var data = action.GetData();
             this.Injector.Inject(data);
-            this.CurrentActionData = data;
-            this.CurrentActionData.Target = target;
+            data.Target = target;
+
+            this.ActionState.SetAction(action, data);
+            this.Timers.Action.Touch();
+
             this.CurrentPlan = path;
-            this.CurrentAction.Start(this, this.CurrentActionData);
-            this.RunState = null;
+            action.Start(this, data);
             
             this.Events.ActionStart(action);
         }
         
         public void StopAction(bool resolveAction = true)
         {
-            var action = this.CurrentAction;
+            var action = this.ActionState.Action;
             
-            action?.Stop(this, this.CurrentActionData);
+            action?.Stop(this, this.ActionState.Data);
             this.ResetAction();
             
             this.Events.ActionStop(action);
@@ -209,9 +214,9 @@ namespace CrashKonijn.Goap.Behaviours
 
         public void CompleteAction(bool resolveAction = true)
         {
-            var action = this.CurrentAction;
+            var action = this.ActionState.Action;
             
-            action?.Complete(this, this.CurrentActionData);
+            action?.Complete(this, this.ActionState.Data);
             this.ResetAction();
             
             this.Events.ActionComplete(action);
@@ -222,11 +227,9 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void ResetAction()
         {
-            this.CurrentAction = null;
-            this.CurrentActionData = null;
+            this.ActionState.Reset();
             this.CurrentTarget = null;
             this.MoveState = AgentMoveState.Idle;
-            this.RunState = null;
         }
 
         public void SetDistanceMultiplierSpeed(float speed)
@@ -243,23 +246,19 @@ namespace CrashKonijn.Goap.Behaviours
         public void EnableAction<TAction>()
             where TAction : IAction
         {
-            var action = this.AgentType.ResolveAction<TAction>();
-            
-            if (!this.DisabledActions.Contains(action))
+            if (!this.DisabledActions.Contains(typeof(TAction)))
                 return;
             
-            this.DisabledActions.Remove(action);
+            this.DisabledActions.Remove(typeof(TAction));
         }
         
         public void DisableAction<TAction>()
             where TAction : IAction
         {
-            var action = this.AgentType.ResolveAction<TAction>();
-            
-            if (this.DisabledActions.Contains(action))
+            if (this.DisabledActions.Contains(typeof(TAction)))
                 return;
             
-            this.DisabledActions.Add(action);
+            this.DisabledActions.Add(typeof(TAction));
         }
     }
 }

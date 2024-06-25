@@ -24,9 +24,9 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             return this.items.ToArray();
         }
 
-        public IHoldable[] Filtered(bool canBeHeld, bool canBeInBox, bool canBeClaimed = false)
+        public IHoldable[] Filtered(bool canBeHeld, bool canBeInBox, GameObject canBeClaimedBy = null)
         {
-            if (canBeInBox && canBeHeld && canBeClaimed)
+            if (canBeInBox && canBeHeld && canBeClaimedBy == null)
                 return this.All();
 
             var items = this.items as IEnumerable<IHoldable>;
@@ -37,8 +37,11 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             if (!canBeInBox)
                 items = items.Where(x => x.IsInBox == false);
             
-            if (!canBeClaimed)
+            if (canBeClaimedBy == null)
                 items = items.Where(x => x.IsClaimed == false);
+            
+            if (canBeClaimedBy != null)
+                items = items.Where(x => x.IsClaimed == false || x.IsClaimedBy == canBeClaimedBy);
 
             return items.ToArray();
         }
@@ -49,10 +52,10 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             return this.items.Where(x => x is T).Cast<T>().ToArray();
         }
         
-        public T[] GetFiltered<T>(bool canBeHeld, bool canBeInBox, bool canBeClaimed)
+        public T[] GetFiltered<T>(bool canBeHeld, bool canBeInBox, GameObject canBeClaimedBy = null)
             where T : IHoldable
         {
-            return this.Filtered(canBeHeld, canBeInBox, canBeClaimed).Where(x => x is T).Cast<T>().ToArray();
+            return this.Filtered(canBeHeld, canBeInBox, canBeClaimedBy).Where(x => x is T).Cast<T>().ToArray();
         }
 
         public bool Any<T>()
@@ -66,9 +69,9 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             return this.Filtered(canBeInBox, canBeHeld).Length;
         }
 
-        public IHoldable Closest(Vector3 position, bool canBeInBox, bool canBeHeld, bool canBeClaimed)
+        public IHoldable Closest(Vector3 position, bool canBeInBox, bool canBeHeld, GameObject canBeClaimedBy = null)
         {
-            var filteredItems = this.Filtered(canBeInBox, canBeHeld, canBeClaimed);
+            var filteredItems = this.Filtered(canBeInBox, canBeHeld, canBeClaimedBy);
             IHoldable closest = null;
             var closestDistance = float.MaxValue; // Start with the largest possible distance
 

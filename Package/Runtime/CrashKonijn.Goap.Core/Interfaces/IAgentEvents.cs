@@ -8,6 +8,9 @@
         event ActionDelegate OnActionStart;
         void ActionStart(IAction action);
         
+        event ActionDelegate OnActionEnd;
+        void ActionEnd(IAction action);
+        
         event ActionDelegate OnActionStop;
         void ActionStop(IAction action);
         

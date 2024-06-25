@@ -29,7 +29,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             var agent = (AgentBehaviour) this.target;
             
             var currentGoal = agent.CurrentGoal;
-            var currentAction = agent.CurrentAction;
+            var currentAction = agent.ActionState.Action;
             var state = agent.State;
             var moveState = agent.MoveState;
             
@@ -51,15 +51,15 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                 
                 card.Add(new Label(), (label) =>
                 {
-                    label.text = "Action: " + agent.CurrentAction?.GetType().GetGenericTypeName();
+                    label.text = "Action: " + agent.ActionState.Action?.GetType().GetGenericTypeName();
                     
                     label.schedule.Execute(() =>
                     {
-                        if (currentAction == agent.CurrentAction)
+                        if (currentAction == agent.ActionState.Action)
                             return;
                         
-                        currentAction = agent.CurrentAction;
-                        label.text = "Action: " + agent.CurrentAction?.GetType().GetGenericTypeName();
+                        currentAction = agent.ActionState.Action;
+                        label.text = "Action: " + agent.ActionState.Action?.GetType().GetGenericTypeName();
                     }).Every(33);
                 });
                 
@@ -94,7 +94,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             root.Add(new Card((card) =>
             {
-                card.Add(new ObjectDrawer(agent.CurrentActionData));
+                card.Add(new ObjectDrawer(agent.ActionState.Data));
             }));
             
             root.Add(new WorldDataDrawer(agent.WorldData));

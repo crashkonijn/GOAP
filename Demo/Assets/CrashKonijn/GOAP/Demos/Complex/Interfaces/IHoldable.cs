@@ -9,9 +9,10 @@ namespace CrashKonijn.Goap.Demos.Complex.Interfaces
         bool IsHeld { get; }
         bool IsInBox { get; }
         bool IsClaimed { get; }
+        GameObject IsClaimedBy { get; set; }
 
-        void Claim();
-        void Pickup(bool visible = false);
+        void Claim(GameObject gameObject);
+        void Pickup(GameObject gameObject, bool visible = false);
         void Drop(bool inBox = false);
     }
 }

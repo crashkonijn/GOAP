@@ -10,7 +10,7 @@ using UnityEngine;
 namespace CrashKonijn.Goap.Scriptables
 {
     [CreateAssetMenu(menuName = "Goap/CapabilityConfig")]
-    public class CapabilityConfigScriptable : ScriptableObject
+    public class CapabilityConfigScriptable : ScriptableCapabilityFactoryBase
     {
         public List<BehaviourGoal> goals = new();
         public List<BehaviourAction> actions = new();
@@ -18,11 +18,11 @@ namespace CrashKonijn.Goap.Scriptables
         public List<BehaviourTargetSensor> targetSensors = new();
         public List<BehaviourMultiSensor> multiSensors = new();
 
-        public IAgentTypeConfig GetConfig()
+        public override ICapabilityConfig Create()
         {
             var generator = this.GetGenerator();
 
-            return new AgentTypeConfig(this.name)
+            return new CapabilityConfig(this.name)
             {
                 Goals = this.GetGoals(generator),
                 Actions = this.GetActions(generator),

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d368a8b48fd34cbd83b85cf61794f000, type: 3}
   m_Name: SimpleAgent
   m_EditorClassIdentifier: 
-  debuggerClass: 
-  behaviours:
-  - {fileID: 11400000, guid: 612cfb64e3bdce140b08f4232574b434, type: 2}
+  capabilities:
+  - {fileID: 11400000, guid: 95701775852b77548a7ac923dbb6c6d1, type: 2}
   - {fileID: 11400000, guid: 77cdcbaddf97d4e40b2e62f54cc32d7f, type: 2}
   - {fileID: 11400000, guid: 563d3883c04401f4c8f33cc9fc8e73b5, type: 2}
