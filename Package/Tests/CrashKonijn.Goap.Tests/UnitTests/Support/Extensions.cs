@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Core.Interfaces;
 using NSubstitute;
 using UnityEngine;
@@ -52,10 +53,13 @@ namespace CrashKonijn.Goap.UnitTests.Support
 
         public static void InsertAction(this AgentBehaviour agent, IAction action)
         {
+            var actionState = new ActionState();
+            actionState.SetAction(action, action.GetData());
+            
             // Set Action property through reflection
             typeof(AgentBehaviour)
-                .GetField("<CurrentAction>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, action);
+                .GetField("<ActionState>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                .SetValue(agent, actionState);
         }
     }
 }

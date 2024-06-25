@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0857b2a53377458ebec6c4b1179e3c5a, type: 3}
   m_Name: GOAP
   m_EditorClassIdentifier: 
-  nameSpace: CrashKonijn.Goap.GenTest
+  nameSpace: CrashKonijn.Goap.Demos.Complex
