@@ -1,9 +1,7 @@
 ﻿using System;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
@@ -16,13 +14,15 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
 
         public override void Start(IMonoAgent agent, Data data)
         {
-            data.Timer = Random.Range(this.Properties.minTimer, this.Properties.maxTimer);
+            var wait = Random.Range(this.Properties.minTimer, this.Properties.maxTimer);
+            
+            data.Timer = ActionRunState.Wait(wait);
         }
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            if (!agent.Timers.Action.IsRunningFor(data.Timer))
-                return ActionRunState.Wait(data.Timer);
+            if (data.Timer.IsRunning())
+                return data.Timer;
             
             return ActionRunState.Completed;
         }
@@ -45,7 +45,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
-            public float Timer { get; set; }
+            public IActionRunState Timer { get; set; }
         }
     }
 }

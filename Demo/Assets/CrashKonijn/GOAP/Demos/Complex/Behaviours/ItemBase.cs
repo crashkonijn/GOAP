@@ -13,8 +13,10 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
         [field: SerializeField]
         public bool IsInBox { get; private set; }
         
+        public bool IsClaimed => this.IsClaimedBy != null;
+            
         [field: SerializeField]
-        public bool IsClaimed { get; private set; }
+        public GameObject IsClaimedBy { get; set; }
 
         public string DebugName { get; set; }
 
@@ -33,16 +35,16 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             this.collection.Remove(this);
         }
 
-        public void Claim()
+        public void Claim(GameObject gameObject)
         {
-            this.IsClaimed = true;
+            this.IsClaimedBy = gameObject;
         }
 
-        public void Pickup(bool visible = false)
+        public void Pickup(GameObject gameObject, bool visible = false)
         {
             this.IsHeld = true;
             this.IsInBox = false;
-            this.IsClaimed = true;
+            this.IsClaimedBy = gameObject;
 
             if (this == null || this.gameObject == null)
                 return;
@@ -57,7 +59,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
         {
             this.IsHeld = false;
             this.IsInBox = inBox;
-            this.IsClaimed = false;
+            this.IsClaimedBy = null;
             
             foreach (var renderer in this.GetComponentsInChildren<SpriteRenderer>())
             {

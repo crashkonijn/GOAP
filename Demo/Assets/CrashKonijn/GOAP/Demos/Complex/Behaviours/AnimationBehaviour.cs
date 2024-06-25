@@ -57,7 +57,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 
         private bool IsMovingLeft()
         {
-            var target = this.agent.CurrentActionData.Target.Position;
+            var target = this.agent.ActionState.Data.Target.Position;
             
             return this.transform.position.x > target.x;
         }

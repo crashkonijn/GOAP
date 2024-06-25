@@ -3,7 +3,6 @@ using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Goap;
@@ -27,7 +26,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
 
         public override void Start(IMonoAgent agent, Data data)
         {
-            data.Timer = 0.5f;
+            data.Timer = ActionRunState.Wait(0.5f);
             
             var transformTarget = data.Target as TransformTarget;
             
@@ -37,9 +36,9 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             var holdable = transformTarget.Transform.GetComponent<THoldable>();
 
             // If this target is claimed by another agent, find another one
-            if (holdable.IsClaimed)
+            if (holdable.IsClaimed && holdable.IsClaimedBy != agent.gameObject)
             {
-                holdable = this.itemCollection.GetFiltered<THoldable>(false, false, false).FirstOrDefault();
+                holdable = this.itemCollection.GetFiltered<THoldable>(false, false, agent.gameObject).FirstOrDefault();
                 
                 if (holdable != null)
                     data.Target = new TransformTarget(holdable.gameObject.transform);
@@ -48,17 +47,22 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             if (holdable == null)
                 return;
 
-            holdable.Claim();
+            holdable.Claim(agent.gameObject);
             data.Holdable = holdable;
+        }
+
+        public override bool IsValid(IMonoAgent agent, Data data)
+        {
+            if (data.Holdable == null)
+                return false;
+            
+            return true;
         }
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            if (data.Holdable is null)
-                return ActionRunState.Stop;
-         
-            if (!agent.Timers.Action.IsRunningFor(data.Timer))
-                return ActionRunState.Wait(data.Timer);
+            if (data.Timer.IsRunning())
+                return data.Timer;
             
             data.Inventory.Add(data.Holdable);
             
@@ -78,7 +82,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             public ITarget Target { get; set; }
             
             public IHoldable Holdable { get; set; }
-            public float Timer { get; set; }
+            public IActionRunState Timer { get; set; }
             
             [GetComponent]
             public ComplexInventoryBehaviour Inventory { get; set; }

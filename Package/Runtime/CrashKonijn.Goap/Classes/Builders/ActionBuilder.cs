@@ -24,6 +24,8 @@ namespace CrashKonijn.Goap.Classes.Builders
             this.worldKeyBuilder = worldKeyBuilder;
             this.targetKeyBuilder = targetKeyBuilder;
             
+            var propType = this.GetPropertiesType();
+            
             this.config = new ActionConfig
             {
                 Name = actionType.Name,
@@ -31,6 +33,7 @@ namespace CrashKonijn.Goap.Classes.Builders
                 BaseCost = 1,
                 StoppingDistance = 0.5f,
                 RequiresTarget = true,
+                Properties = (IActionProperties)Activator.CreateInstance(propType)
             };
         }
 

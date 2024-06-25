@@ -1,80 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Attributes;
+using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Configs;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Scriptables
 {
     [CreateAssetMenu(menuName = "Goap/AgentTypeConfig")]
-    public class AgentTypeScriptable : ScriptableObject, IAgentTypeConfig
+    public class AgentTypeScriptable : ScriptableObject
     {
-        [ActionDebuggerClass] public string debuggerClass;
-
-        public List<CapabilityConfigScriptable> behaviours = new();
+        [FormerlySerializedAs("capabilityFactories")]
+        public List<ScriptableCapabilityFactoryBase> capabilities = new();
 
         public string Name => this.name;
 
-        public List<IActionConfig> Actions
+        public IAgentTypeConfig Create()
         {
-            get
+            var configs = this.capabilities
+                .Select(behaviour => behaviour.Create())
+                .ToList();
+            
+            return new AgentTypeConfig(this.name)
             {
-                var generator = this.GetGenerator();
-
-                return this.behaviours
-                    .SelectMany(behaviour => behaviour.GetActions(generator))
-                    .ToList();
-            }
+                Goals = configs.SelectMany(x => x.Goals).ToList(),
+                Actions = configs.SelectMany(x => x.Actions).ToList(),
+                WorldSensors = configs.SelectMany(x => x.WorldSensors).ToList(),
+                TargetSensors = configs.SelectMany(x => x.TargetSensors).ToList(),
+                MultiSensors = configs.SelectMany(x => x.MultiSensors).ToList(),
+            };
         }
-
-        public List<IGoalConfig> Goals
-        {
-            get
-            {
-                var generator = this.GetGenerator();
-
-                return this.behaviours
-                    .SelectMany(behaviour => behaviour.GetGoals(generator))
-                    .ToList();
-            }
-        }
-
-        public List<ITargetSensorConfig> TargetSensors
-        {
-            get
-            {
-                var generator = this.GetGenerator();
-
-                return this.behaviours
-                    .SelectMany(behaviour => behaviour.GetTargetSensors(generator))
-                    .ToList();
-            }
-        }
-
-        public List<IWorldSensorConfig> WorldSensors
-        {
-            get
-            {
-                var generator = this.GetGenerator();
-
-                return this.behaviours
-                    .SelectMany(behaviour => behaviour.GetWorldSensors(generator))
-                    .ToList();
-            }
-        }
-
-        public List<IMultiSensorConfig> MultiSensors
-        {
-            get
-            {
-                var generator = this.GetGenerator();
-                
-                return this.behaviours
-                    .SelectMany(behaviour => behaviour.GetMultiSensors(generator))
-                    .ToList();
-            }
-        }
-
-        public string DebuggerClass => this.debuggerClass;
     }
 }

@@ -24,11 +24,20 @@ namespace CrashKonijn.Goap.Behaviours
             this.typeEvents?.ActionStart(this.agent, action);
         }
         
+        public event ActionDelegate OnActionEnd;
+        public void ActionEnd(IAction action)
+        {
+            this.OnActionEnd?.Invoke(action);
+            this.typeEvents?.ActionEnd(this.agent, action);
+        }
+        
         public event ActionDelegate OnActionStop;
         public void ActionStop(IAction action)
         {
             this.OnActionStop?.Invoke(action);
             this.typeEvents?.ActionStop(this.agent, action);
+            
+            this.ActionEnd(action);
         }
 
         public event ActionDelegate OnActionComplete;
@@ -36,6 +45,8 @@ namespace CrashKonijn.Goap.Behaviours
         {
             this.OnActionComplete?.Invoke(action);
             this.typeEvents?.ActionComplete(this.agent, action);
+            
+            this.ActionEnd(action);
         }
 
         public event GoalDelegate OnNoActionFound;

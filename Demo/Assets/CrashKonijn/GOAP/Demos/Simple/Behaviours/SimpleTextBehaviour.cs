@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
-    public class TextBehaviour : MonoBehaviour
+    public class SimpleTextBehaviour : MonoBehaviour
     {
         private TextMeshProUGUI text;
         private AgentBehaviour agent;
@@ -25,10 +25,13 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 
         private string GetText()
         {
-            if (this.agent.CurrentAction is null)
+            if (this.agent.CurrentGoal is null)
+                return "Idle";
+            
+            if (this.agent.ActionState.Action is null)
                 return "Idle";
 
-            return $"{this.agent.CurrentGoal.GetType().GetGenericTypeName()}\n{this.agent.CurrentAction.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleHunger.hunger:0.00}";
+            return $"{this.agent.CurrentGoal.GetType().GetGenericTypeName()}\n{this.agent.ActionState.Action.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleHunger.hunger:0.00}";
         }
     }
 }

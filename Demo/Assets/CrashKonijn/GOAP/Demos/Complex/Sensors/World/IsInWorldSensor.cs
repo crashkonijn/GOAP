@@ -1,4 +1,5 @@
 ﻿using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using CrashKonijn.Goap.Sensors;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Complex.Sensors.World
 {
-    public class IsInWorldSensor<T> : GlobalWorldSensorBase where T : IHoldable
+    public class IsInWorldSensor<T> : LocalWorldSensorBase where T : IHoldable
     {
         private ItemCollection collection;
 
@@ -15,9 +16,13 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.World
             this.collection = Object.FindObjectOfType<ItemCollection>();
         }
 
-        public override SenseValue Sense()
+        public override void Update()
         {
-            return this.collection.GetFiltered<T>(false, true, false).Length;
+        }
+
+        public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
+        {
+            return this.collection.GetFiltered<T>(false, true, agent.gameObject).Length;
         }
     }
 }

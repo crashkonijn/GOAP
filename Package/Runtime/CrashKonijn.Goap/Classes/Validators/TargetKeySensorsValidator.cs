@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Core.Interfaces;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes.Validators
 {
@@ -7,10 +8,10 @@ namespace CrashKonijn.Goap.Classes.Validators
     {
         public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
-            var required = agentTypeConfig.GetTargetKeys();
+            var required = agentTypeConfig.GetTargetKeys().Select(x => x.Name);
             var provided = agentTypeConfig.TargetSensors
                 .Where(x => x.Key != null)
-                .Select(x => x.Key)
+                .Select(x => x.Key.Name)
                 .ToArray();
             
             var missing = required.Except(provided).ToHashSet();
@@ -18,7 +19,7 @@ namespace CrashKonijn.Goap.Classes.Validators
             if (!missing.Any())
                 return;
             
-            results.AddWarning($"TargetKeys without sensors: {string.Join(", ", missing.Select(x => x.Name))}");
+            results.AddWarning($"TargetKeys without sensors: {string.Join(", ", missing)}");
         }
     }
 }

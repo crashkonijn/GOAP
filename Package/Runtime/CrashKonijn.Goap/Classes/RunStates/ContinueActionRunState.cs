@@ -4,6 +4,11 @@ namespace CrashKonijn.Goap.Classes.RunStates
 {
     public class ContinueActionRunState : IActionRunState
     {
+        public void Update(IAgent agent, IActionContext context)
+        {
+            
+        }
+
         public bool ShouldStop(IAgent agent)
         {
             return false;
@@ -20,6 +25,11 @@ namespace CrashKonijn.Goap.Classes.RunStates
         }
 
         public bool MayResolve(IAgent agent)
+        {
+            return false;
+        }
+
+        public bool IsRunning()
         {
             return false;
         }

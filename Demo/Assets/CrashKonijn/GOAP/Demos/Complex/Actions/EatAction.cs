@@ -2,7 +2,6 @@
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Goap;
@@ -29,23 +28,25 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             data.Inventory.Hold(data.Eatable);
         }
 
-        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        public override bool IsValid(IMonoAgent agent, Data data)
         {
             if (data.Eatable == null)
-                return ActionRunState.Stop;
+                return false;
             
+            return true;
+        }
+
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        {
             var eatNutrition = context.DeltaTime * 20f;
             data.Eatable.NutritionValue -= eatNutrition;
-            data.Hunger.hunger -= eatNutrition;
+            data.ComplexHunger.hunger -= eatNutrition;
 
-            if (data.Hunger.hunger <= 20f)
+            if (data.ComplexHunger.hunger <= 20f)
                 return ActionRunState.Completed;
 
             if (data.Eatable.NutritionValue > 0)
                 return ActionRunState.Continue;
-
-            if (data.Eatable == null)
-                return ActionRunState.Stop;
             
             data.Inventory.Remove(data.Eatable);
             this.instanceHandler.QueueForDestroy(data.Eatable);
@@ -53,16 +54,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             return ActionRunState.Completed;
         }
 
-        public override void Stop(IMonoAgent agent, Data data)
-        {
-            if (data.Eatable == null)
-                return;
-            
-            if (data.Eatable.NutritionValue > 0)
-                data.Inventory.Add(data.Eatable);
-        }
-
-        public override void Complete(IMonoAgent agent, Data data)
+        public override void End(IMonoAgent agent, Data data)
         {
             if (data.Eatable == null)
                 return;
@@ -80,7 +72,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             public ComplexInventoryBehaviour Inventory { get; set; }
             
             [GetComponent]
-            public HungerBehaviour Hunger { get; set; }
+            public ComplexHungerBehaviour ComplexHunger { get; set; }
         }
     }
 }

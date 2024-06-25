@@ -10,6 +10,10 @@ namespace CrashKonijn.Goap.Core.Interfaces
         public List<ITargetSensorConfig> TargetSensors { get; }
         public List<IWorldSensorConfig> WorldSensors { get; }
         public List<IMultiSensorConfig> MultiSensors { get; }
-        public string DebuggerClass { get; }
+    }
+    
+    public interface ICapabilityConfig : IAgentTypeConfig
+    {
+        
     }
 }

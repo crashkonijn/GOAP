@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Behaviours;
+﻿using System;
+using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Classes.RunStates;
 using CrashKonijn.Goap.Core.Enums;
@@ -7,10 +8,11 @@ using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Goap;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class GatherItemAction<TGatherable> : ActionBase<GatherItemAction<TGatherable>.Data>, IInjectable
+    public class GatherItemAction<TGatherable> : ActionBase<GatherItemAction<TGatherable>.Data, GatherItemAction<TGatherable>.Props>, IInjectable
         where TGatherable : ItemBase
     {
         private ItemFactory itemFactory;
@@ -27,18 +29,21 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
         public override void Start(IMonoAgent agent, Data data)
         {
             // There is a normal and slow version of this action
-            // based on whether or not the agent is holding an (pick)axe
-            // We use the cost as a timer
-            data.Timer = this.Config.BaseCost;
+            // based on whether  the agent is holding a (pick)axe
+            data.WaitState = ActionRunState.Wait(this.Properties.timer);
         }
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            if (!agent.Timers.Action.IsRunningFor(data.Timer))
-                return ActionRunState.Wait(data.Timer);
+            if (data.WaitState.IsRunning())
+                return data.WaitState;
             
             var item = this.itemFactory.Instantiate<TGatherable>();
+            
             item.transform.position = this.GetRandomPosition(agent);
+            
+            if (this.Properties.pickupItem)
+                data.Inventory.Add(item);
             
             return ActionRunState.Stop;
         }
@@ -58,10 +63,19 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             return agent.transform.position + new Vector3(pos.x, 0f, pos.y);
         }
         
+        [Serializable]
+        public class Props : IActionProperties
+        {
+            public bool pickupItem = false;
+            public float timer = 3f;
+        }
+        
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
-            public float Timer { get; set; }
+            public IActionRunState WaitState { get; set; }
+            [GetComponent]
+            public ComplexInventoryBehaviour Inventory { get; set; }
         }
     }
 }

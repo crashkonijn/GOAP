@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CrashKonijn.Goap.Classes.Validators;
 using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 
@@ -142,12 +143,12 @@ namespace CrashKonijn.Goap.Classes
             this.Agent.Events.OnGoalCompleted -= this.GoalCompleted;
         }
         
-        private void ActionStart(IAction action) => this.Handle($"Action {action?.GetType().Name} started", DebugSeverity.Log);
-        private void ActionStop(IAction action) => this.Handle($"Action {action?.GetType().Name} stopped", DebugSeverity.Log);
-        private void ActionComplete(IAction action) => this.Handle($"Action {action?.GetType().Name} completed", DebugSeverity.Log);
-        private void NoActionFound(IGoal goal) => this.Handle($"No action found for goal {goal?.GetType().Name}", DebugSeverity.Warning);
-        private void GoalStart(IGoal goal) => this.Handle($"Goal {goal?.GetType().Name} started", DebugSeverity.Log);
-        private void GoalCompleted(IGoal goal) => this.Handle($"Goal {goal?.GetType().Name} completed", DebugSeverity.Log);
+        private void ActionStart(IAction action) => this.Handle($"Action {action?.GetType().GetGenericTypeName()} started", DebugSeverity.Log);
+        private void ActionStop(IAction action) => this.Handle($"Action {action?.GetType().GetGenericTypeName()} stopped", DebugSeverity.Log);
+        private void ActionComplete(IAction action) => this.Handle($"Action {action?.GetType().GetGenericTypeName()} completed", DebugSeverity.Log);
+        private void NoActionFound(IGoal goal) => this.Handle($"No action found for goal {goal?.GetType().GetGenericTypeName()}", DebugSeverity.Warning);
+        private void GoalStart(IGoal goal) => this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} started", DebugSeverity.Log);
+        private void GoalCompleted(IGoal goal) => this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} completed", DebugSeverity.Log);
         
         ~Logger()
         {

@@ -77,7 +77,7 @@ namespace CrashKonijn.Goap.Classes
         
         private List<IGoal> GetGoals(IAgentTypeConfig config)
         {
-            var goals = this.classResolver.Load<IGoal, IGoalConfig>(config.Goals);
+            var goals = this.classResolver.Load<IGoal, IGoalConfig>(config.Goals.DistinctBy(x => x.ClassType));
             var injector = this.goapConfig.GoapInjector;
             
             goals.ForEach(x =>

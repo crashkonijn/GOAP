@@ -16,9 +16,6 @@ namespace CrashKonijn.Goap.Core.Interfaces
         List<IAction> GetActions();
         List<IGoal> GetGoals();
 
-        TAction ResolveAction<TAction>()
-            where TAction : IAction;
-
         TGoal ResolveGoal<TGoal>()
             where TGoal : IGoal;
 

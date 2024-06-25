@@ -9,7 +9,7 @@ namespace Demos.Shared.Behaviours
     {
         private AgentBehaviour agent;
         private ITarget currentTarget;
-        private bool shouldMove;
+        public bool IsMoving { get; private set; }
 
         private void Awake()
         {
@@ -32,23 +32,23 @@ namespace Demos.Shared.Behaviours
 
         private void OnTargetInRange(ITarget target)
         {
-            this.shouldMove = false;
+            this.IsMoving = false;
         }
 
         private void OnTargetChanged(ITarget target, bool inRange)
         {
             this.currentTarget = target;
-            this.shouldMove = !inRange;
+            this.IsMoving = !inRange;
         }
 
         private void TargetNotInRange(ITarget target)
         {
-            this.shouldMove = true;
+            this.IsMoving = true;
         }
 
         public void Update()
         {
-            if (!this.shouldMove)
+            if (!this.IsMoving)
                 return;
             
             if (this.currentTarget == null)
