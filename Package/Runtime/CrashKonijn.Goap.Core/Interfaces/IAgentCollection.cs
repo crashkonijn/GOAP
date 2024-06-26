@@ -4,8 +4,11 @@ namespace CrashKonijn.Goap.Core.Interfaces
 {
     public interface IAgentCollection
     {
-        HashSet<IMonoAgent> All();
-        void Add(IMonoAgent agent);
-        void Remove(IMonoAgent agent);
+        HashSet<IMonoGoapAgent> All();
+        void Add(IMonoGoapAgent agent);
+        void Remove(IMonoGoapAgent agent);
+        void Enqueue(IMonoGoapAgent agent);
+        IMonoGoapAgent[] GetQueue();
+        int GetQueueCount();
     }
 }

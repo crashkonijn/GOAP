@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Core.Interfaces;
 using UnityEngine;
 
@@ -9,26 +8,26 @@ namespace CrashKonijn.Goap.Behaviours
     public class AgentCollection : IAgentCollection
     {
         private readonly IAgentType agentType;
-        private HashSet<IMonoAgent> agents = new();
-        private HashSet<IMonoAgent> queue = new HashSet<IMonoAgent>();
+        private HashSet<IMonoGoapAgent> agents = new();
+        private HashSet<IMonoGoapAgent> queue = new HashSet<IMonoGoapAgent>();
 
         public AgentCollection(IAgentType agentType)
         {
             this.agentType = agentType;
         }
 
-        public HashSet<IMonoAgent> All() => this.agents;
+        public HashSet<IMonoGoapAgent> All() => this.agents;
         
-        public void Add(IMonoAgent agent)
+        public void Add(IMonoGoapAgent agent)
         {
             if (this.agents.Contains(agent))
                 return;
             
-            this.agents.Add(agent);
+            this.agents.Add(agent );
             this.agentType.Events.AgentRegistered(agent);
         }
 
-        public void Remove(IMonoAgent agent)
+        public void Remove(IMonoGoapAgent agent)
         {
             if (!this.agents.Contains(agent))
                 return;
@@ -37,14 +36,14 @@ namespace CrashKonijn.Goap.Behaviours
             this.agentType.Events.AgentUnregistered(agent);
         }
 
-        public void Enqueue(IMonoAgent agent)
+        public void Enqueue(IMonoGoapAgent agent)
         {
             this.queue.Add(agent);
         }
         
         public int GetQueueCount() => this.queue.Count;
 
-        public IMonoAgent[] GetQueue()
+        public IMonoGoapAgent[] GetQueue()
         {
             var data = this.queue.ToArray();
             

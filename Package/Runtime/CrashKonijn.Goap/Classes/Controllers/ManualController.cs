@@ -28,15 +28,15 @@ namespace CrashKonijn.Goap.Classes.Controllers
             
         }
 
-        private void OnAgentResolve(IAgent agent)
+        private void OnAgentResolve(IGoapAgent agent)
         {
             var runner = this.GetRunner(agent);
             
-            runner.Run(new HashSet<IMonoAgent>() { agent as IMonoAgent });
+            runner.Run(new HashSet<IMonoGoapAgent>() { agent as IMonoGoapAgent });
             runner.Complete();
         }
 
-        private IAgentTypeJobRunner GetRunner(IAgent agent)
+        private IAgentTypeJobRunner GetRunner(IGoapAgent agent)
         {
             return this.goap.AgentTypeRunners[agent.AgentType];
         }

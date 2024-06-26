@@ -82,10 +82,10 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                 return;
             }
             
-            var agent = gameObject.GetComponent<AgentBehaviour>();
+            var agent = gameObject.GetComponent<GoapAgentBehaviour>();
             if (agent != null)
             {
-                var agentType = agent.AgentType ?? new AgentTypeFactory(GoapConfig.Default).Create(agent.agentTypeBehaviour.Config.Create(), false);
+                var agentType = agent.AgentType ?? new AgentTypeFactory(GoapConfig.Default).Create(agent.AgentTypeBehaviour.Config.Create(), false);
                 var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
             
                 this.RenderGraph(graph, agent);

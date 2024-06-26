@@ -9,7 +9,7 @@ using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class EatAction : ActionBase<EatAction.Data>, IInjectable
+    public class EatAction : GoapActionBase<EatAction.Data>, IInjectable
     {
         private InstanceHandler instanceHandler;
 

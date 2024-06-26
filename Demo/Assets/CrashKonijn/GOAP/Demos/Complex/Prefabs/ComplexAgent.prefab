@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2644901599046946488}
+  - component: {fileID: -5926512986792016431}
   - component: {fileID: 3664022629467210336}
   - component: {fileID: 2567974379695048867}
   - component: {fileID: 7347070554750064065}
@@ -40,6 +41,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5926512986792016431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31104030825128304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72344165e2cc41da93476bb1aa2cdd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentTypeBehaviour: {fileID: 0}
 --- !u!114 &3664022629467210336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,7 +66,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cef53d855ccf0b46bcf004b27c4a52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentTypeBehaviour: {fileID: 0}
   <DistanceMultiplier>k__BackingField: 1
   <DebugMode>k__BackingField: 1
   <MaxLogSize>k__BackingField: 20

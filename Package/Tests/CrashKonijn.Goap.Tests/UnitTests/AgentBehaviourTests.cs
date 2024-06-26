@@ -21,7 +21,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var agentType = Substitute.For<IAgentType>();
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.AgentType = agentType;
 
             // Act
@@ -43,7 +43,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var agentType = Substitute.For<IAgentType>();
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.AgentType = agentType;
             
             // Act
@@ -65,22 +65,24 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var agentType = Substitute.For<IAgentType>();
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.AgentType = agentType;
             agent.CallAwake();
+            agent.Agent.Initialize();
             
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             action.IsValid(Arg.Any<IMonoAgent>(), Arg.Any<IActionData>()).Returns(true);
-            action.IsInRange(agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
-            action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Stop);
+            action.IsInRange(agent.Agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
+            action.Perform(agent.Agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Stop);
+            
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Act
-            agent.Run();
+            agent.Agent.Run();
             
             // Assert
-            action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
-            action.Received(1).Stop(agent, Arg.Any<IActionData>());
+            action.Received(1).Perform(agent.Agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
+            action.Received(1).Stop(agent.Agent, Arg.Any<IActionData>());
         }
 
         [Test]
@@ -90,7 +92,7 @@ namespace CrashKonijn.Goap.UnitTests
             var agentType = Substitute.For<IAgentType>();
             agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
             
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.AgentType = agentType;
             
             // Act
@@ -107,7 +109,7 @@ namespace CrashKonijn.Goap.UnitTests
             var agentType = Substitute.For<IAgentType>();
             agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
             
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.AgentType = agentType;
             agent.MockEvents();
             
@@ -125,7 +127,7 @@ namespace CrashKonijn.Goap.UnitTests
             var agentType = Substitute.For<IAgentType>();
             agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
             
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.AgentType = agentType;
             agent.MockEvents();
             
@@ -143,11 +145,11 @@ namespace CrashKonijn.Goap.UnitTests
             var agentType = Substitute.For<IAgentType>();
             agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
             
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.AgentType = agentType;
             
             // Set Action property through reflection
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             agent.InsertAction(action);
             
             // Act
@@ -164,11 +166,12 @@ namespace CrashKonijn.Goap.UnitTests
             var agentType = Substitute.For<IAgentType>();
             agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
             
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.AgentType = agentType;
+            agent.Agent.ActionResolver = Substitute.For<IActionResolver>();
             
             // Set Action property through reflection
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             agent.InsertAction(action);
             
             // Act
@@ -182,16 +185,17 @@ namespace CrashKonijn.Goap.UnitTests
         public void SetAction_SetsAction()
         {
             // Arrange
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             
             // Act
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
-            agent.ActionState.Action.Should().Be(action);
+            agent.Agent.ActionState.Action.Should().Be(action);
         }
         
         [Test]
@@ -199,31 +203,33 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var set = Substitute.For<IAgentType>();
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.AgentType = set;
             agent.CallAwake();
+            agent.Agent.Initialize();
 
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             
             // Set Action property through reflection
-            var oldAction = Substitute.For<IAction>();
+            var oldAction = Substitute.For<IGoapAction>();
             agent.InsertAction(oldAction);
             
             // Act
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
-            oldAction.Received(1).Stop(agent, Arg.Any<IActionData>());
+            oldAction.Received(1).Stop(agent.Agent, Arg.Any<IActionData>());
         }
         
         [Test]
         public void SetAction_CallsGetData()
         {
             // Arrange
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             
             // Act
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
@@ -236,29 +242,31 @@ namespace CrashKonijn.Goap.UnitTests
         public void SetAction_StoresData()
         {
             // Arrange
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             
             var actionData = Substitute.For<IActionData>();
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             action.GetData().Returns(actionData);
             
             // Act
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
-            agent.ActionState.Data.Should().Be(actionData);
+            agent.Agent.ActionState.Data.Should().Be(actionData);
         }
         
         [Test]
         public void SetAction_SetsDataTarget()
         {
             // Arrange
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             
             var actionData = Substitute.For<IActionData>();
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             action.GetData().Returns(actionData);
 
             var target = new PositionTarget(Vector3.zero);
@@ -274,29 +282,31 @@ namespace CrashKonijn.Goap.UnitTests
         public void SetAction_CallsStartOnAction()
         {
             // Arrange
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
 
             // Act
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
-            action.Received(1).Start(agent, Arg.Any<IActionData>());
+            action.Received(1).Start(agent.Agent, Arg.Any<IActionData>());
         }
         
         [Test]
         public void SetAction_StoresPath()
         {
             // Arrange
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             
-            var action = Substitute.For<IAction>();
-            var path = new IAction[]
+            var action = Substitute.For<IGoapAction>();
+            var path = new IConnectable[]
             {
-                Substitute.For<IAction>()
+                Substitute.For<IGoapAction>()
             };
             
             // Act
@@ -310,17 +320,18 @@ namespace CrashKonijn.Goap.UnitTests
         public void SetAction_CallsActionStartEvent()
         {
             // Arrange
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
-            agent.MockEvents();
+            agent.Agent.Initialize();
+            agent.Agent.MockEvents();
 
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             
             // Act
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
-            agent.Events.Received(1).ActionStart(action);
+            agent.Agent.Events.Received(1).ActionStart(action);
         }
         
         [Test]
@@ -328,18 +339,20 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var set = Substitute.For<IAgentType>();
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
+            agent.Agent.ActionResolver = Substitute.For<IActionResolver>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             agent.AgentType = set;
             
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             agent.InsertAction(action);
             
             // Act
             agent.StopAction();
             
             // Assert
-            action.Received(1).Stop(agent, Arg.Any<IActionData>());
+            action.Received(1).Stop(agent.Agent, Arg.Any<IActionData>());
         }
         
         [Test]
@@ -347,16 +360,17 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var set = Substitute.For<IAgentType>();
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             agent.AgentType = set;
 
             // Act
-            agent.SetAction(Substitute.For<IAction>(), Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(Substitute.For<IGoapAction>(), Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             agent.StopAction();
             
             // Assert
-            agent.ActionState.Action.Should().BeNull();
+            agent.Agent.ActionState.Action.Should().BeNull();
         }
         
         [Test]
@@ -364,16 +378,17 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var set = Substitute.For<IAgentType>();
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             agent.AgentType = set;
 
             // Act
-            agent.SetAction(Substitute.For<IAction>(), Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
+            agent.SetAction(Substitute.For<IGoapAction>(), Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             agent.StopAction();
             
             // Assert
-            agent.ActionState.Data.Should().BeNull();
+            agent.Agent.ActionState.Data.Should().BeNull();
         }
 
         [Test]
@@ -382,8 +397,10 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var set = Substitute.For<IAgentType>();
             
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
+            agent.Agent.ActionResolver = agent;
             agent.CallAwake();
+            agent.Agent.Initialize();
             agent.AgentType = set;
             agent.MockEvents();
             
@@ -399,19 +416,20 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var set = Substitute.For<IAgentType>();
-            var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
+            var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
             agent.CallAwake();
+            agent.Agent.Initialize();
             agent.AgentType = set;
-            agent.MockEvents();
+            agent.Agent.MockEvents();
 
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
 
             // Act
             agent.StopAction();
             
             // Assert
-            agent.Events.Received(1).ActionStop(action);
+            agent.Agent.Events.Received(1).ActionStop(action);
         }
     }
 }

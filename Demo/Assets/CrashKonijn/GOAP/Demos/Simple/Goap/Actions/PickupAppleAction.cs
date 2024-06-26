@@ -12,12 +12,12 @@ using UnityEngine;
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 {
     [GoapId("Simple-PickupAppleAction")]
-    public class PickupAppleAction : ActionBase<PickupAppleAction.Data>
+    public class PickupAppleAction : GoapActionBase<PickupAppleAction.Data>
     {
         public override void Created()
         {
         }
-        
+
         public override void Start(IMonoAgent agent, Data data)
         {
             if (data.Target is not TransformTarget transformTarget)

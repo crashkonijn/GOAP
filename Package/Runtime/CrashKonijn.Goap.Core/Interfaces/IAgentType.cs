@@ -10,15 +10,15 @@ namespace CrashKonijn.Goap.Core.Interfaces
         ISensorRunner SensorRunner { get; }
         IAgentTypeEvents Events { get; }
         IGlobalWorldData WorldData { get; }
-        void Register(IMonoAgent agent);
-        void Unregister(IMonoAgent agent);
+        void Register(IMonoGoapAgent agent);
+        void Unregister(IMonoGoapAgent agent);
         List<IConnectable> GetAllNodes();
-        List<IAction> GetActions();
+        List<IGoapAction> GetActions();
         List<IGoal> GetGoals();
 
         TGoal ResolveGoal<TGoal>()
             where TGoal : IGoal;
 
-        bool AllConditionsMet(IAgent agent, IAction action);
+        bool AllConditionsMet(IGoapAgent agent, IGoapAction action);
     }
 }

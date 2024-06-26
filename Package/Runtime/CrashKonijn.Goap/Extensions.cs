@@ -14,6 +14,9 @@ namespace CrashKonijn.Goap
     {
         public static bool IsNull(this IMonoAgent agent)
             => agent is MonoBehaviour mono && mono == null;
+        
+        public static bool IsNull(this IMonoGoapAgent agent)
+            => agent is MonoBehaviour mono && mono == null;
 
         public static string ToName(this Comparison comparison)
         {

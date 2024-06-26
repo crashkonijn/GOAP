@@ -6,7 +6,7 @@ namespace CrashKonijn.Goap.Classes.Controllers
     public class ProactiveController : IGoapController
     {
         private IGoap goap;
-        private Dictionary<IAgentType, HashSet<IMonoAgent>> agents = new();
+        private Dictionary<IAgentType, HashSet<IMonoGoapAgent>> agents = new();
         
         public float ResolveTime { get; set; } = 1f;
 
@@ -30,7 +30,7 @@ namespace CrashKonijn.Goap.Classes.Controllers
                 if (agent.IsNull())
                     continue;
 
-                if (agent.Timers.Resolve.IsRunningFor(this.ResolveTime))
+                if (agent.Agent.Timers.Resolve.IsRunningFor(this.ResolveTime))
                 {
                     agent.ResolveAction();
                 }
@@ -51,9 +51,9 @@ namespace CrashKonijn.Goap.Classes.Controllers
                     continue;
                 
                 // Update the action sensors for the agent
-                agent.AgentType.SensorRunner.SenseLocal(agent, agent.ActionState.Action);
+                agent.AgentType.SensorRunner.SenseLocal(agent, agent.Agent.ActionState.Action as IGoapAction);
                 
-                agent.Run();
+                agent.Agent.Run();
             }
         }
 
@@ -65,20 +65,20 @@ namespace CrashKonijn.Goap.Classes.Controllers
             }
         }
         
-        private void OnNoActionFound(IAgent agent, IGoal goal)
+        private void OnNoActionFound(IMonoGoapAgent agent, IGoal goal)
         {
-            this.GetQueue(agent.AgentType).Add(agent as IMonoAgent);
+            this.GetQueue(agent.AgentType).Add(agent);
         }
 
-        private void OnAgentResolve(IAgent agent)
+        private void OnAgentResolve(IMonoGoapAgent agent)
         {
-            this.GetQueue(agent.AgentType).Add(agent as IMonoAgent);
+            this.GetQueue(agent.AgentType).Add(agent);
         }
         
-        private HashSet<IMonoAgent> GetQueue(IAgentType agentType)
+        private HashSet<IMonoGoapAgent> GetQueue(IAgentType agentType)
         {
             if (!this.agents.ContainsKey(agentType))
-                this.agents.Add(agentType, new HashSet<IMonoAgent>());
+                this.agents.Add(agentType, new HashSet<IMonoGoapAgent>());
             
             return this.agents[agentType];
         }

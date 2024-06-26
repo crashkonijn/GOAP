@@ -12,7 +12,7 @@ namespace CrashKonijn.Goap.Resolver.Interfaces
         ICostBuilder GetCostBuilder();
         IGraph GetGraph();
         int GetIndex(IConnectable action);
-        IAction GetAction(int index);
+        IGoapAction GetAction(int index);
         void Dispose();
         IConditionBuilder GetConditionBuilder();
     }

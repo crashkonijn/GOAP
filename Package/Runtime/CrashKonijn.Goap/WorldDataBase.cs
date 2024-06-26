@@ -10,7 +10,7 @@ namespace CrashKonijn.Goap
         public Dictionary<Type, int> States { get; } = new();
         public Dictionary<Type, ITarget> Targets { get; } = new();
 
-        public ITarget GetTarget(IAction action)
+        public ITarget GetTarget(IGoapAction action)
         {
             if (action == null)
                 return null;

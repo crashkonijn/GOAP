@@ -6,7 +6,7 @@ using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.UnitTests.Classes
 {
-    public class TestAction : ActionBase<TestAction.Data>
+    public class TestAction : GoapActionBase<TestAction.Data>
     {
         public override void Created()
         {

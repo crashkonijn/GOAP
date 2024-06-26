@@ -37,7 +37,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 
         private void SpawnAgent(string setId, ComplexAgentBrain.AgentType agentType, Color color)
         {
-            var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
+            var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<GoapAgentBehaviour>();
             
             agent.AgentType = this.goap.GetAgentType(setId);
             agent.gameObject.SetActive(true);

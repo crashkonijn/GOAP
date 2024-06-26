@@ -11,7 +11,7 @@ using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 {
     [GoapId("Simple-PluckAppleAction")]
-    public class PluckAppleAction : ActionBase<PluckAppleAction.Data>
+    public class PluckAppleAction : GoapActionBase<PluckAppleAction.Data>
     {
         public override void Created()
         {

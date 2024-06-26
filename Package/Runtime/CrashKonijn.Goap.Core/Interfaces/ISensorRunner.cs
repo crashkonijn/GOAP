@@ -3,10 +3,10 @@
     public interface ISensorRunner
     {
         void Update();
-        void Update(IAction action);
+        void Update(IGoapAction action);
         void SenseGlobal();
-        void SenseGlobal(IAction action);
-        void SenseLocal(IMonoAgent agent);
-        void SenseLocal(IMonoAgent agent, IAction action);
+        void SenseGlobal(IGoapAction action);
+        void SenseLocal(IMonoGoapAgent agent);
+        void SenseLocal(IMonoGoapAgent agent, IGoapAction action);
     }
 }

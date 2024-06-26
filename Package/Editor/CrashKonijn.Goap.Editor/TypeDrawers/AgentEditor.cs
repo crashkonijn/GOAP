@@ -18,36 +18,34 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
             
-            root.Add(new PropertyField(this.serializedObject.FindProperty("agentTypeBehaviour")));
+            // root.Add(new PropertyField(this.serializedObject.FindProperty("agentTypeBehaviour")));
             root.Add(new PropertyField(this.serializedObject.FindProperty("<DistanceMultiplier>k__BackingField")));
-            root.Add(new PropertyField(this.serializedObject.FindProperty("<DebugMode>k__BackingField")));
-            root.Add(new PropertyField(this.serializedObject.FindProperty("<MaxLogSize>k__BackingField")));
+            root.Add(new PropertyField(this.serializedObject.FindProperty("<LoggerConfig>k__BackingField")));
             
             if (!Application.isPlaying)
                 return root;
             
             var agent = (AgentBehaviour) this.target;
             
-            var currentGoal = agent.CurrentGoal;
             var currentAction = agent.ActionState.Action;
             var state = agent.State;
             var moveState = agent.MoveState;
             
             root.Add(new Card((card) =>
             {
-                card.Add(new Label(), (label) =>
-                {
-                    label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
-                    
-                    label.schedule.Execute(() =>
-                    {
-                        if (currentGoal == agent.CurrentGoal)
-                            return;
-                        
-                        currentGoal = agent.CurrentGoal;
-                        label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
-                    }).Every(33);
-                });
+                // card.Add(new Label(), (label) =>
+                // {
+                //     label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
+                //     
+                //     label.schedule.Execute(() =>
+                //     {
+                //         if (currentGoal == agent.CurrentGoal)
+                //             return;
+                //         
+                //         currentGoal = agent.CurrentGoal;
+                //         label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
+                //     }).Every(33);
+                // });
                 
                 card.Add(new Label(), (label) =>
                 {
@@ -97,7 +95,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                 card.Add(new ObjectDrawer(agent.ActionState.Data));
             }));
             
-            root.Add(new WorldDataDrawer(agent.WorldData));
+            
 
             root.Add(new LogDrawer(agent.Logger));
 

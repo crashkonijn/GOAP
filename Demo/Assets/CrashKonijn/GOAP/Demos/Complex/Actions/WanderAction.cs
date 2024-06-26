@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class WanderAction : ActionBase<WanderAction.Data, WanderAction.Props>
+    public class WanderAction : GoapActionBase<WanderAction.Data, WanderAction.Props>
     {
         public override void Created()
         {

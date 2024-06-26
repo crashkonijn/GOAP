@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class HaulItemAction : ActionBase<HaulItemAction.Data>, IInjectable
+    public class HaulItemAction : GoapActionBase<HaulItemAction.Data>, IInjectable
     {
         private ItemCollection itemCollection;
 

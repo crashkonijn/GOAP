@@ -7,7 +7,7 @@ namespace CrashKonijn.Goap.Classes.Runners
     public class SensorRunner : ISensorRunner
     {
         private SensorSet defaultSet = new();
-        private Dictionary<IAction, SensorSet> actionSets = new();
+        private Dictionary<IGoapAction, SensorSet> actionSets = new();
         private Dictionary<Type, ISensor> sensors = new();
 
         private IGlobalWorldData worldData;
@@ -53,7 +53,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        public void Update(IAction action)
+        public void Update(IGoapAction action)
         {
             var set = this.GetSet(action);
             
@@ -71,7 +71,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        public void SenseGlobal(IAction action)
+        public void SenseGlobal(IGoapAction action)
         {
             var set = this.GetSet(action);
             
@@ -81,15 +81,15 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        public void SenseLocal(IMonoAgent agent)
+        public void SenseLocal(IMonoGoapAgent agent)
         {
             foreach (var localSensor in this.defaultSet.LocalSensors)
             {
-                localSensor.Sense(agent.WorldData, agent, agent.Injector);
+                localSensor.Sense(agent.WorldData, agent.Agent, agent.Agent.Injector);
             }
         }
         
-        public void SenseLocal(IMonoAgent agent, IAction action)
+        public void SenseLocal(IMonoGoapAgent agent, IGoapAction action)
         {
             if (agent.IsNull())
                 return;
@@ -101,11 +101,11 @@ namespace CrashKonijn.Goap.Classes.Runners
             
             foreach (var localSensor in set.LocalSensors)
             {
-                localSensor.Sense(agent.WorldData, agent, agent.Injector);
+                localSensor.Sense(agent.WorldData, agent.Agent, agent.Agent.Injector);
             }
         }
 
-        private SensorSet GetSet(IAction action)
+        private SensorSet GetSet(IGoapAction action)
         {
             if (this.actionSets.TryGetValue(action, out var existingSet))
                 return existingSet;
@@ -113,7 +113,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             return this.CreateSet(action);
         }
 
-        private SensorSet CreateSet(IAction action)
+        private SensorSet CreateSet(IGoapAction action)
         {
             var set = new SensorSet();
                 

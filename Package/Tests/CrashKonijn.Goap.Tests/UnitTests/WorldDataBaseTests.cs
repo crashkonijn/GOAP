@@ -23,7 +23,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void GetTarget_ReturnsCorrectTarget()
         {
             // Arrange
-            var mockAction = Substitute.For<IAction>();
+            var mockAction = Substitute.For<IGoapAction>();
             var mockTarget = Substitute.For<ITarget>();
             mockAction.Config.Target.Returns(new TargetKey("example"));
 

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Demos.Shared.Actions
 {
-    public class WanderAction : ActionBase<WanderAction.Data>
+    public class WanderAction : GoapActionBase<WanderAction.Data>
     {
         public override void Created()
         {

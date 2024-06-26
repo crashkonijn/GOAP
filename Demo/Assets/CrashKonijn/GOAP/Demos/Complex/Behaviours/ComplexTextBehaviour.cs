@@ -8,14 +8,14 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
     public class ComplexTextBehaviour : MonoBehaviour
     {
         private TextMeshProUGUI text;
-        private AgentBehaviour agent;
+        private GoapAgentBehaviour agent;
         private ComplexHungerBehaviour simpleComplexHunger;
         private ComplexAgentBrain brain;
 
         private void Awake()
         {
             this.text = this.GetComponentInChildren<TextMeshProUGUI>();
-            this.agent = this.GetComponent<AgentBehaviour>();
+            this.agent = this.GetComponent<GoapAgentBehaviour>();
             this.simpleComplexHunger = this.GetComponent<ComplexHungerBehaviour>();
             this.brain = this.GetComponent<ComplexAgentBrain>();
         }
@@ -30,10 +30,10 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             if (this.agent.CurrentGoal is null)
                 return $"{this.GetTypeText()}\nIdle";
             
-            if (this.agent.ActionState.Action is null)
+            if (this.agent.Agent.ActionState.Action is null)
                 return $"{this.GetTypeText()}\nIdle";
 
-            return $"{this.GetTypeText()}\n{this.agent.CurrentGoal.GetType().GetGenericTypeName()}\n{this.agent.ActionState.Action.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleComplexHunger.hunger:0.00}";
+            return $"{this.GetTypeText()}\n{this.agent.CurrentGoal.GetType().GetGenericTypeName()}\n{this.agent.Agent.ActionState.Action.GetType().GetGenericTypeName()}\n{this.agent.Agent.State}\nhunger: {this.simpleComplexHunger.hunger:0.00}";
         }
 
         private string GetTypeText()

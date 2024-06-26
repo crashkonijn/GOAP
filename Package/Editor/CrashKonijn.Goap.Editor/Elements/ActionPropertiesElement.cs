@@ -101,10 +101,10 @@ namespace CrashKonijn.Goap.Editor.Elements
             if (baseType == null)
                 return null;
             
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(ActionBase<,>)) 
+            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>)) 
                 return baseType.GetGenericArguments()[1];
             
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(ActionBase<>)) 
+            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<>)) 
                 return typeof(EmptyActionProperties);
             
             return null;

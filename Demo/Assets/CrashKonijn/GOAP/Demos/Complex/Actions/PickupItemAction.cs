@@ -10,7 +10,7 @@ using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class PickupItemAction<THoldable> : ActionBase<PickupItemAction<THoldable>.Data>, IInjectable
+    public class PickupItemAction<THoldable> : GoapActionBase<PickupItemAction<THoldable>.Data>, IInjectable
         where THoldable : IHoldable
     {
         private ItemCollection itemCollection;

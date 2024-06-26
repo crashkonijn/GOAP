@@ -123,7 +123,7 @@ namespace CrashKonijn.Goap.Resolver
         }
         
         public int GetIndex(IConnectable action) => this.actionIndexList.IndexOf(action);
-        public IAction GetAction(int index) => this.actionIndexList[index] as IAction;
+        public IGoapAction GetAction(int index) => this.actionIndexList[index] as IGoapAction;
         
         public void Dispose()
         {

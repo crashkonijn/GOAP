@@ -2,7 +2,7 @@
 
 namespace CrashKonijn.Goap.UnitTests.Interfaces
 {
-    public interface ITestAction : IAction
+    public interface ITestAction : IGoapAction
     {
         public string Name { get; set; }
     }

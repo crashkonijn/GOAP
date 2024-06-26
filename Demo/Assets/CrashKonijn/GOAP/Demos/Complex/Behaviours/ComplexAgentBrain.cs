@@ -9,14 +9,14 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
     public class ComplexAgentBrain : MonoBehaviour
     {
         public AgentType agentType;
-        private AgentBehaviour agent;
+        private GoapAgentBehaviour agent;
         private ComplexHungerBehaviour complexHunger;
         private ItemCollection itemCollection;
         private ComplexInventoryBehaviour inventory;
 
         private void Awake()
         {
-            this.agent = this.GetComponent<AgentBehaviour>();
+            this.agent = this.GetComponent<GoapAgentBehaviour>();
             this.complexHunger = this.GetComponent<ComplexHungerBehaviour>();
             this.inventory = this.GetComponent<ComplexInventoryBehaviour>();
             this.itemCollection = FindObjectOfType<ItemCollection>();

@@ -13,7 +13,7 @@ using Random = UnityEngine.Random;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class CreateItemAction<TCreatable> : ActionBase<CreateItemAction<TCreatable>.Data, CreateItemAction<TCreatable>.Props>, IInjectable
+    public class CreateItemAction<TCreatable> : GoapActionBase<CreateItemAction<TCreatable>.Data, CreateItemAction<TCreatable>.Props>, IInjectable
         where TCreatable : ItemBase, ICreatable
     {
         private ItemFactory itemFactory;

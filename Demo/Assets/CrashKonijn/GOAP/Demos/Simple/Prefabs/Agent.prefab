@@ -114,6 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4823857909233374360}
+  - component: {fileID: -2073804781843839524}
   - component: {fileID: 7404671039891351144}
   - component: {fileID: 4823857909233374367}
   - component: {fileID: 271546477}
@@ -143,8 +144,24 @@ Transform:
   - {fileID: 3883320178211587631}
   - {fileID: 2691210283582884549}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2073804781843839524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823857909233374357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72344165e2cc41da93476bb1aa2cdd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LoggerConfig>k__BackingField:
+    <DebugMode>k__BackingField: 1
+    <MaxLogSize>k__BackingField: 20
+  <AgentTypeBehaviour>k__BackingField: {fileID: 0}
 --- !u!114 &7404671039891351144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,10 +174,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cef53d855ccf0b46bcf004b27c4a52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentTypeBehaviour: {fileID: 0}
+  <LoggerConfig>k__BackingField:
+    <DebugMode>k__BackingField: 1
+    <MaxLogSize>k__BackingField: 20
   <DistanceMultiplier>k__BackingField: 1
-  <DebugMode>k__BackingField: 1
-  <MaxLogSize>k__BackingField: 20
 --- !u!114 &4823857909233374367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +236,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4823857909233374357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc89a1df52a4499a4efb85d8b5ad601, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d55e9c9be4438343b6c311bdbc1b549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &898294010904684375

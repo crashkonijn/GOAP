@@ -75,7 +75,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             if (this.values.SelectedObject == null)
                 return Color.black;
             
-            if (this.values.SelectedObject is not IMonoAgent agent)
+            if (this.values.SelectedObject is not IMonoGoapAgent agent)
                 return Color.black;
 
             var actions = agent.CurrentPlan;
@@ -88,14 +88,14 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
         private string GetCost()
         {
-            if (this.values.SelectedObject is not IMonoAgent agent)
+            if (this.values.SelectedObject is not IMonoGoapAgent agent)
                 return "";
             
             if (!Application.isPlaying)
                 return "";
             
-            var fromAction = this.fromNode.GraphNode.Action as IAction;
-            var toAction = this.toNode.GraphNode.Action as IAction;
+            var fromAction = this.fromNode.GraphNode.Action as IGoapAction;
+            var toAction = this.toNode.GraphNode.Action as IGoapAction;
             
             if (fromAction == null || toAction == null)
                 return "";
@@ -107,7 +107,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                 return "";
             
             var distance = Vector3.Distance(startVector.Position, endVector.Position);
-            var cost = agent.DistanceMultiplier * distance;
+            var cost = agent.Agent.DistanceMultiplier * distance;
             
             return cost.ToString("F2");
         }

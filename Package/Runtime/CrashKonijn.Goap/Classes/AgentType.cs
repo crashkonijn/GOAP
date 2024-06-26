@@ -18,9 +18,9 @@ namespace CrashKonijn.Goap.Classes
 
         private List<IGoal> goals;
         private Dictionary<Type, IGoal> goalsLookup;
-        private List<IAction> actions;
+        private List<IGoapAction> actions;
 
-        public AgentType(string id, IGoapConfig config, List<IGoal> goals, List<IAction> actions, ISensorRunner sensorRunner, IGlobalWorldData worldData)
+        public AgentType(string id, IGoapConfig config, List<IGoal> goals, List<IGoapAction> actions, ISensorRunner sensorRunner, IGlobalWorldData worldData)
         {
             this.Id = id;
             this.GoapConfig = config;
@@ -33,12 +33,12 @@ namespace CrashKonijn.Goap.Classes
             this.Agents = new AgentCollection(this);
         }
 
-        public void Register(IMonoAgent agent)
+        public void Register(IMonoGoapAgent agent)
         {
             this.Agents.Add(agent);
         }
 
-        public void Unregister(IMonoAgent agent)
+        public void Unregister(IMonoGoapAgent agent)
         {
             this.Agents.Remove(agent);
         }
@@ -52,7 +52,7 @@ namespace CrashKonijn.Goap.Classes
             throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");
         }
 
-        public bool AllConditionsMet(IAgent agent, IAction action)
+        public bool AllConditionsMet(IGoapAgent agent, IGoapAction action)
         {
             var conditionObserver = this.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
@@ -67,7 +67,7 @@ namespace CrashKonijn.Goap.Classes
         }
 
         public List<IConnectable> GetAllNodes() => this.actions.Cast<IConnectable>().Concat(this.goals).ToList();
-        public List<IAction> GetActions() => this.actions;
+        public List<IGoapAction> GetActions() => this.actions;
         public List<IGoal> GetGoals() => this.goals;
     }
 }

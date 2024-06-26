@@ -8,7 +8,9 @@
         "BoundfoxStudios.FluentAssertions",
         "CrashKonijn.Goap.Resolver",
         "Unity.Mathematics",
-        "CrashKonijn.Goap.Core"
+        "CrashKonijn.Goap.Core",
+        "CrashKonijn.Agent.Core",
+        "CrashKonijn.Agent"
     ],
     "includePlatforms": [
         "Editor"

@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Scenes/SimpleDemoScene.unity
+    path: Assets/CrashKonijn/GOAP/Demos/Simple/Scenes/SimpleDemoScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/CrashKonijn/GOAP/Demos/Complex/Scenes/ComplexDemoScene.unity

@@ -3,7 +3,6 @@ using CrashKonijn.Goap.Attributes;
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
 using UnityEngine;
@@ -11,7 +10,7 @@ using UnityEngine;
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 {
     [GoapId("Simple-EatAppleAction")]
-    public class EatAppleAction : ActionBase<EatAppleAction.Data>
+    public class EatAppleAction : GoapActionBase<EatAppleAction.Data>
     {
         public override void Created()
         {

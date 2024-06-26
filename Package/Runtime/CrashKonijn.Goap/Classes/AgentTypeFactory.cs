@@ -61,9 +61,9 @@ namespace CrashKonijn.Goap.Classes
             return new SensorRunner(this.GetWorldSensors(config), this.GetTargetSensors(config), this.GetMultiSensors(config), globalWorldData);
         }
         
-        private List<IAction> GetActions(IAgentTypeConfig config)
+        private List<IGoapAction> GetActions(IAgentTypeConfig config)
         {
-            var actions = this.classResolver.Load<IAction, IActionConfig>(config.Actions);
+            var actions = this.classResolver.Load<IGoapAction, IActionConfig>(config.Actions);
             var injector = this.goapConfig.GoapInjector;
             
             actions.ForEach(x =>

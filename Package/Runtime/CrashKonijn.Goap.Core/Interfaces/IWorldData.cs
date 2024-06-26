@@ -8,7 +8,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
     {
         Dictionary<Type, int> States { get; }
         Dictionary<Type, ITarget> Targets { get; }
-        ITarget GetTarget(IAction action);
+        ITarget GetTarget(IGoapAction action);
         void SetState(IWorldKey key, int state);
         void SetState<TKey>(int state) where TKey : IWorldKey;
         void SetTarget(ITargetKey key, ITarget target);
