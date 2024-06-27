@@ -197,7 +197,7 @@ namespace CrashKonijn.Goap.Resolver
 
         private float GetHeuristic(int neighborIndex)
         {
-            return this.AmountOfUnmetConditions(neighborIndex);
+            return UnmetConditionCost(neighborIndex);
         }
 
         private float GetDistanceCost(NodeData previousNode, float3 currentPosition)
@@ -253,18 +253,18 @@ namespace CrashKonijn.Goap.Resolver
             return false;
         }
         
-        private int AmountOfUnmetConditions(int currentIndex)
+        private float UnmetConditionCost(int currentIndex)
         {
-            var count = 0;
+            var cost = 0f;
             foreach (var conditionIndex in this.NodeConditions.GetValuesForKey(currentIndex))
             {
                 if (!this.RunData.ConditionsMet[conditionIndex])
                 {
-                    count++;
+                    cost += this.RunData.Costs[conditionIndex];
                 }
             }
 
-            return count;
+            return cost;
         }
     }
 }

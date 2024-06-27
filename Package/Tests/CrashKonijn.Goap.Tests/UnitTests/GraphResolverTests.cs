@@ -902,5 +902,86 @@ namespace CrashKonijn.Goap.UnitTests
             result.Should().HaveCount(1);
             result.Should().Equal(one ? rootAction1 : rootAction2);
         }
+
+        [Test]
+        public void Resolve_Should_UseUnmetConditionsInHeuristics()
+        {
+            // Arrange
+            var rootConnection = new TestConnection("Root");
+            var cheapChildConnection1 = new TestConnection("CheapChild1");
+            var cheapChildConnection2 = new TestConnection("CheapChild2");
+            var cheapChildConnection3 = new TestConnection("CheapChild3");
+            
+            var goal = new TestGoal("goal")
+            {
+                Conditions = new ICondition[] { rootConnection }
+            }.ToMock();
+            var expensiveAction = new TestAction("expensiveAction")
+            {
+                Effects = new IEffect[] { rootConnection },
+            }.ToMock();
+            var cheapAction = new TestAction("cheapAction")
+            {
+                Effects = new IEffect[] { rootConnection },
+                Conditions = new ICondition[] { cheapChildConnection1, cheapChildConnection2, cheapChildConnection3 }
+            }.ToMock();
+            var cheapChildAction1 = new TestAction("cheapChildAction1")
+            {
+                Effects = new IEffect[] { cheapChildConnection1 },
+            }.ToMock();
+            var cheapChildAction2 = new TestAction("cheapChildAction2")
+            {
+                Effects = new IEffect[] { cheapChildConnection2 },
+            }.ToMock();
+            var cheapChildAction3 = new TestAction("cheapChildAction3")
+            {
+                Effects = new IEffect[] { cheapChildConnection3 },
+            }.ToMock();
+            
+            var actions = new IConnectable[] { goal, expensiveAction, cheapAction, cheapChildAction1, cheapChildAction2, cheapChildAction3 };
+            var resolver = new GraphResolver(actions, new TestKeyResolver());
+            
+            var executableBuilder = resolver.GetExecutableBuilder();
+            executableBuilder
+                .SetExecutable(expensiveAction, true)
+                .SetExecutable(cheapAction, false)
+                .SetExecutable(cheapChildAction1, true)
+                .SetExecutable(cheapChildAction2, true)
+                .SetExecutable(cheapChildAction3, true);
+            
+            var positionBuilder = resolver.GetPositionBuilder();
+            var costBuilder = resolver.GetCostBuilder();
+            costBuilder
+                .SetCost(expensiveAction, 10f)
+                .SetCost(cheapAction, 1f)
+                .SetCost(cheapChildAction1, 5f)
+                .SetCost(cheapChildAction2, 5f)
+                .SetCost(cheapChildAction3, 5f);
+            
+            var conditionBuilder = resolver.GetConditionBuilder();
+            var enabledBuilder = resolver.GetEnabledBuilder();
+            
+            // Act
+            var handle = resolver.StartResolve(new RunData
+            {
+                StartIndex = new NativeArray<int>(new [] { 0 }, Allocator.TempJob),
+                AgentPosition = Vector3.zero,
+                IsEnabled = new NativeArray<bool>(enabledBuilder.Build(), Allocator.TempJob),
+                IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
+                Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
+                Costs = new NativeArray<float>(costBuilder.Build(), Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(conditionBuilder.Build(), Allocator.TempJob),
+                DistanceMultiplier = 1f
+            });
+            
+            var result = handle.Complete();
+            
+            // Cleanup
+            resolver.Dispose();
+            
+            // Assert
+            result.Should().HaveCount(1);
+            result.Should().Equal(expensiveAction);
+        }
     }
 }
