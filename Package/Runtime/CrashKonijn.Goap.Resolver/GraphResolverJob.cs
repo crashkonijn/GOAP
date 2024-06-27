@@ -153,7 +153,7 @@ namespace CrashKonijn.Goap.Resolver
             
                     var neighborPosition = this.GetPosition(currentNode, neighborIndex);
                     
-                    // The cost with distance from the neighbour node to the agent
+                    // The cost with distance from the current node to the neighbour node
                     var newParentG = this.GetNewCost(currentNode, neighborIndex, neighborPosition);
                     // The cost with distance from the agent to the neighbour node
                     var newG = newParentG + this.GetDistanceCost(runData.AgentPosition, neighborPosition);
