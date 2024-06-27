@@ -69,8 +69,8 @@ namespace CrashKonijn.Goap.Classes.Runners
             {
                 Handle = this.resolver.StartResolve(new RunData
                 {
-                    StartIndex = this.resolver.GetIndex(agent.CurrentGoal),
-                    StartPosition = agent.Position,
+                    StartIndex = new NativeArray<int>(new []{ this.resolver.GetIndex(agent.CurrentGoal) }, Allocator.Temp),
+                    AgentPosition = agent.Position,
                     IsEnabled = new NativeArray<bool>(this.enabledBuilder.Build(), Allocator.TempJob),
                     IsExecutable = new NativeArray<bool>(this.executableBuilder.Build(), Allocator.TempJob),
                     Positions = new NativeArray<float3>(this.positionBuilder.Build(), Allocator.TempJob),

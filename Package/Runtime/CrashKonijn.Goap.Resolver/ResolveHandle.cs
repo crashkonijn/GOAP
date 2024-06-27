@@ -64,6 +64,7 @@ namespace CrashKonijn.Goap.Resolver
         
             this.job.Result.Dispose();
         
+            this.job.RunData.StartIndex.Dispose();
             this.job.RunData.IsEnabled.Dispose();
             this.job.RunData.IsExecutable.Dispose();
             this.job.RunData.Positions.Dispose();
