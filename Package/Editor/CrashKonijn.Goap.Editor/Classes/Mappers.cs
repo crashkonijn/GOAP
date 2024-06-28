@@ -1,8 +1,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Editor.Classes.Models;
 
-namespace CrashKonijn.Goap.Editor.Classes
+namespace CrashKonijn.Goap.Editor
 {
     public static class Mappers
     {

@@ -1,7 +1,7 @@
 ﻿using CrashKonijn.Goap.Core;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.GraphViewer
+namespace CrashKonijn.Goap.Editor
 {
     public class EffectElement : VisualElement
     {

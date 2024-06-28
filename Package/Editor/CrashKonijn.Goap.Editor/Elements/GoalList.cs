@@ -2,7 +2,7 @@
 using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class GoalList : ListElementBase<BehaviourGoal, CapabilityGoalElement>
     {

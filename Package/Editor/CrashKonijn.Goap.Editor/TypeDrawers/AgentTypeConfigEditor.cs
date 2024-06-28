@@ -1,12 +1,11 @@
 ﻿using System;
-using CrashKonijn.Goap.Editor.Elements;
 using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.TypeDrawers
+namespace CrashKonijn.Goap.Editor
 {
     [CustomEditor(typeof(GoapSetConfigScriptable))]
     public class AgentTypeConfigEditor : UnityEditor.Editor

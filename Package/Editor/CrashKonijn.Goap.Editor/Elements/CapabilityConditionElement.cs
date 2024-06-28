@@ -2,7 +2,7 @@
 using CrashKonijn.Goap.Runtime;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class CapabilityConditionElement : VisualElement, IFoldable
     {

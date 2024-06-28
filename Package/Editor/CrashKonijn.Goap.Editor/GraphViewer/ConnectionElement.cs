@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Editor.Drawers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.GraphViewer
+namespace CrashKonijn.Goap.Editor
 {
     public class ConnectionElement : VisualElement
     {

@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Core;
+﻿using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {

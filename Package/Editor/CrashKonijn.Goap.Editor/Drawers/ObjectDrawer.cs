@@ -4,7 +4,7 @@ using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Drawers
+namespace CrashKonijn.Goap.Editor
 {
     public class ObjectDrawer : VisualElement
     {

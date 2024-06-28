@@ -3,10 +3,9 @@ using System.Linq;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class ConditionList : ListElementBase<BehaviourCondition, CapabilityConditionElement>
     {

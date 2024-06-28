@@ -1,13 +1,11 @@
-﻿using CrashKonijn.Agent;
-using CrashKonijn.Goap.Editor.Drawers;
-using CrashKonijn.Goap.Editor.Elements;
+﻿using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.Device;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.TypeDrawers
+namespace CrashKonijn.Goap.Editor
 {
     [CustomEditor(typeof(GoapActionProvider))]
     public class GoapActionProviderEditor : UnityEditor.Editor
@@ -54,9 +52,9 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
 
         private string GetText(GoapActionProvider provider)
         {
-            return $@"Goal: {Runtime.Extensions.GetGenericTypeName(provider.CurrentGoal?.GetType())}
+            return $@"Goal: {provider.CurrentGoal?.GetType().GetGenericTypeName()}
 AgentType: {provider.AgentType.Id}
-Receiver: {Runtime.Extensions.GetGenericTypeName(provider.Agent?.GetType())}";
+Receiver: {provider.Agent?.GetType().GetGenericTypeName()}";
         }
     }
 }

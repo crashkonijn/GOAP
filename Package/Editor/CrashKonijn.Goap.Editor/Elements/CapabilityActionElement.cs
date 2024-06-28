@@ -3,7 +3,7 @@ using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class CapabilityActionElement : VisualElement, IFoldable
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Editor.Attributes
+namespace CrashKonijn.Goap.Editor
 {
     public abstract class ClassDrawerBase<TClassType> : PropertyDrawer
     {

@@ -1,8 +1,7 @@
 ﻿using System;
-using CrashKonijn.Goap.Editor.Drawers;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.GraphViewer
+namespace CrashKonijn.Goap.Editor
 {
     public class EditorWindowValues
     {

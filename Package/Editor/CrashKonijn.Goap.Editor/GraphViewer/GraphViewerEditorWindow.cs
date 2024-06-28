@@ -1,15 +1,12 @@
 ﻿using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Editor.Drawers;
 using CrashKonijn.Goap.Resolver;
 using CrashKonijn.Goap.Runtime;
 using UnityEditor;
-using UnityEditor.Graphs;
-using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
-namespace CrashKonijn.Goap.Editor.GraphViewer
+namespace CrashKonijn.Goap.Editor
 {
     public class GraphViewerEditorWindow : EditorWindow
     {

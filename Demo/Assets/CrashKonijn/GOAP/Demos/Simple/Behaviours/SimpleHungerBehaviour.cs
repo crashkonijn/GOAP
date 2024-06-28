@@ -1,6 +1,6 @@
 ﻿using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Demos.Simple.Goap.Actions;
-using CrashKonijn.Goap.Editor.Attributes;
+using CrashKonijn.Goap.Editor;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Simple.Behaviours

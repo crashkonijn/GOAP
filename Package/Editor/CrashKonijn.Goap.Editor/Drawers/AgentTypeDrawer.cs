@@ -1,8 +1,7 @@
 ﻿using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Editor.Elements;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Drawers
+namespace CrashKonijn.Goap.Editor
 {
     public class AgentTypeDrawer : VisualElement
     {

@@ -2,7 +2,7 @@
 using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 
-namespace CrashKonijn.Goap.Editor.Attributes
+namespace CrashKonijn.Goap.Editor
 {
     [CustomPropertyDrawer(typeof(GoalClassAttribute))]
     public class GoalClassDrawer : ClassDrawerBase<IGoal>
