@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Resolvers;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Classes.Validators
@@ -9,10 +10,7 @@ namespace CrashKonijn.Goap.Classes.Validators
         public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
             var required = agentTypeConfig.GetTargetKeys().Select(x => x.Name);
-            var provided = agentTypeConfig.TargetSensors
-                .Where(x => x.Key != null)
-                .Select(x => x.Key.Name)
-                .ToArray();
+            var provided = this.GetTargetSensorKeys(agentTypeConfig).Concat(this.GetMultiSensorKeys(agentTypeConfig));
             
             var missing = required.Except(provided).ToHashSet();
             
@@ -20,6 +18,26 @@ namespace CrashKonijn.Goap.Classes.Validators
                 return;
             
             results.AddWarning($"TargetKeys without sensors: {string.Join(", ", missing)}");
+        }
+        
+        private string[] GetTargetSensorKeys(IAgentTypeConfig agentTypeConfig)
+        {
+            return agentTypeConfig.TargetSensors
+                .Where(x => x.Key != null)
+                .Select(x => x.Key.Name)
+                .Distinct()
+                .ToArray();
+        }
+        
+        private string [] GetMultiSensorKeys(IAgentTypeConfig agentTypeConfig)
+        {
+            var temp = new ClassResolver().Load<IMultiSensor, IMultiSensorConfig>(agentTypeConfig.MultiSensors);
+            
+            return temp
+                .SelectMany(x => x.GetKeys())
+                .Select(x => x.Name)
+                .Distinct()
+                .ToArray();
         }
     }
 }

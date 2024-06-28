@@ -85,7 +85,7 @@ namespace CrashKonijn.Goap.Resolver
             {
                 var nodeData = new NodeData
                 {
-                    Index = runData.StartIndex[i],
+                    Index = i,
                     G = 0,
                     P = 0,
                     H = int.MaxValue,
