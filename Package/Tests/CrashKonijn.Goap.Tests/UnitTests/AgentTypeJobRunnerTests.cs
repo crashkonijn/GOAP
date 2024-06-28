@@ -1,26 +1,30 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.Runners;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Resolver;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Runtime;
+using CrashKonijn.Goap.UnitTests.Support;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
 using UnityEngine;
-using ICondition = CrashKonijn.Goap.Core.Interfaces.ICondition;
+using ICondition = CrashKonijn.Goap.Core.ICondition;
 
 namespace CrashKonijn.Goap.UnitTests
 {
     public class AgentTypeJobRunnerTests
     {
-        private IMonoAgent agent;
-        
+        private IMonoGoapActionProvider goapActionProvider;
+        private IAgent agent;
+
         [SetUp]
         public void Setup()
         {
             this.agent = Substitute.For<IMonoAgent>();
-            this.agent.Position.Returns(Vector3.zero);
+            
+            this.goapActionProvider = Substitute.For<IMonoGoapActionProvider>();
+            this.goapActionProvider.Agent.Returns(this.agent);
+            this.goapActionProvider.Position.Returns(Vector3.zero);
         }
         
         [Test]
@@ -38,7 +42,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>() { this.agent });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
@@ -60,7 +64,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>());
+            runner.Run(new HashSet<IMonoGoapActionProvider>());
             runner.Dispose();
             
             // Assert
@@ -82,7 +86,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>() { this.agent });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
@@ -93,9 +97,8 @@ namespace CrashKonijn.Goap.UnitTests
         public void Run_AgentHasNoCurrentGoal_DoesNotRun()
         {
             // Arrange
-            var agent = Substitute.For<IMonoAgent>();
-            agent.CurrentGoal.ReturnsNull();
-            agent.ActionState.Action.ReturnsNull();
+            this.goapActionProvider.CurrentGoal.ReturnsNull();
+            this.goapActionProvider.Agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -109,11 +112,11 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>());
+            runner.Run(new HashSet<IMonoGoapActionProvider>());
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(0).SenseLocal(agent);
+            sensorRunner.Received(0).SenseLocal(this.goapActionProvider);
             resolver.Received(0).StartResolve(Arg.Any<RunData>());
         }
 
@@ -123,27 +126,27 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
-
-            this.agent.CurrentGoal.Returns(goal);
-            this.agent.ActionState.Action.ReturnsNull();
+            
+            this.goapActionProvider.CurrentGoal.Returns(goal);
+            this.goapActionProvider.Agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
             agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
-            agentType.GetActions().Returns(new List<IAction>());
+            agentType.GetActions().Returns(new List<IGoapAction>());
             
             var resolver = Substitute.For<IGraphResolver>();
             
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>() { this.agent });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.agent);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
         
@@ -154,26 +157,26 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new []{ Substitute.For<ICondition>() });
 
-            this.agent.CurrentGoal.Returns(goal);
-            this.agent.ActionState.Action.Returns(Substitute.For<IAction>());
+            this.goapActionProvider.CurrentGoal.Returns(goal);
+            this.goapActionProvider.Agent.ActionState.Action.Returns(Substitute.For<IAction>());
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
             agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
-            agentType.GetActions().Returns(new List<IAction>());
+            agentType.GetActions().Returns(new List<IGoapAction>());
             
             var resolver = Substitute.For<IGraphResolver>();
             
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>() { this.agent });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.agent);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
 
@@ -184,15 +187,15 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
 
-            this.agent.CurrentGoal.Returns(goal);
-            this.agent.ActionState.Action.ReturnsNull();
+            this.goapActionProvider.CurrentGoal.Returns(goal);
+            this.goapActionProvider.Agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
             agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
-            agentType.GetActions().Returns(new List<IAction>());
+            agentType.GetActions().Returns(new List<IGoapAction>());
 
             agentType.GoapConfig.ConditionObserver.IsMet(Arg.Any<ICondition>()).Returns(true);
             
@@ -201,13 +204,13 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>() { this.agent });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.agent);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
             resolver.Received(0).StartResolve(Arg.Any<RunData>());
-            this.agent.Events.Received(1).GoalCompleted(this.agent.CurrentGoal);
+            this.goapActionProvider.Events.Received(1).GoalCompleted(this.goapActionProvider.CurrentGoal);
         }
 
         [Test]
@@ -217,15 +220,15 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
 
-            this.agent.CurrentGoal.Returns(goal);
-            this.agent.ActionState.Action.ReturnsNull();
+            this.goapActionProvider.CurrentGoal.Returns(goal);
+            this.goapActionProvider.Agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
             agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
-            agentType.GetActions().Returns(new List<IAction>());
+            agentType.GetActions().Returns(new List<IGoapAction>());
 
             agentType.GoapConfig.ConditionObserver.IsMet(Arg.Any<ICondition>()).Returns(false);
             
@@ -234,13 +237,13 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>() { this.agent });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.agent);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
-            this.agent.Events.Received(0).GoalCompleted(this.agent.CurrentGoal);
+            this.goapActionProvider.Events.Received(0).GoalCompleted(this.goapActionProvider.CurrentGoal);
         }
         
         [Test]
@@ -250,17 +253,17 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
 
-            var action = Substitute.For<IAction>();
-
-            this.agent.CurrentGoal.Returns(goal);
-            this.agent.ActionState.Action.ReturnsNull();
+            var action = Substitute.For<IGoapAction>();
+            
+            this.goapActionProvider.CurrentGoal.Returns(goal);
+            this.goapActionProvider.Agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
             agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
-            agentType.GetActions().Returns(new List<IAction>());
+            agentType.GetActions().Returns(new List<IGoapAction>());
 
             var handle = Substitute.For<IResolveHandle>();
             handle.Complete().Returns(new IConnectable[] { action });
@@ -271,11 +274,11 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>() { this.agent });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
             runner.Complete();
             
             // Assert
-            this.agent.Received(1).SetAction(action, Arg.Any<IConnectable[]>(), Arg.Any<ITarget>());
+            this.goapActionProvider.Received(1).SetAction(action, Arg.Any<IConnectable[]>());
         }
         
         [Test]
@@ -285,17 +288,17 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
 
-            var action = Substitute.For<IAction>();
-
-            this.agent.CurrentGoal.Returns(goal);
-            this.agent.ActionState.Action.Returns(action);
+            var action = Substitute.For<IGoapAction>();
+            
+            this.goapActionProvider.CurrentGoal.Returns(goal);
+            this.goapActionProvider.Agent.ActionState.Action.Returns(action);
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
             var agentType = Substitute.For<IAgentType>();
             agentType.SensorRunner.Returns(sensorRunner);
             agentType.GetAllNodes().Returns(new List<IConnectable> { goal });
-            agentType.GetActions().Returns(new List<IAction>());
+            agentType.GetActions().Returns(new List<IGoapAction>());
 
             var handle = Substitute.For<IResolveHandle>();
             handle.Complete().Returns(new IConnectable[] { action });
@@ -306,11 +309,11 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoAgent>() { this.agent });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
             runner.Complete();
             
             // Assert
-            this.agent.Received(0).SetAction(Arg.Any<IAction>(), Arg.Any<IConnectable[]>(), Arg.Any<ITarget>());
+            this.goapActionProvider.Received(0).SetAction(Arg.Any<IGoapAction>(), Arg.Any<IConnectable[]>());
         }
     }
 }

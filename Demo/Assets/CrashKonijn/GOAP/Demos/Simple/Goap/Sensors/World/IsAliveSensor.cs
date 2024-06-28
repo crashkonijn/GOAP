@@ -1,7 +1,6 @@
-﻿using CrashKonijn.Goap.Attributes;
+﻿using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Sensors;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.World
 {
@@ -16,7 +15,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.World
         {
         }
 
-        public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
+        public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
         {
             return true;
         }

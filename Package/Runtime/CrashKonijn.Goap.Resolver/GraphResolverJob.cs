@@ -3,7 +3,6 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {
@@ -11,15 +10,18 @@ namespace CrashKonijn.Goap.Resolver
     public struct NodeData
     {
         public int Index;
+
         // Cost of when using this node as a parent
         public float P;
+
         // Cost when performing this node
         public float G;
+
         // Heuristic
         public float H;
         public int ParentIndex;
         public float3 Position;
-    
+
         public float F => this.G + this.H;
     }
 
@@ -27,10 +29,14 @@ namespace CrashKonijn.Goap.Resolver
     public struct RunData
     {
         public NativeArray<int> StartIndex;
+
         public float3 AgentPosition;
+
         // Index = NodeIndex
         public NativeArray<bool> IsEnabled;
+
         public NativeArray<bool> IsExecutable;
+
         // Index = ConditionIndex
         public NativeArray<bool> ConditionsMet;
         public NativeArray<float3> Positions;
@@ -59,6 +65,7 @@ namespace CrashKonijn.Goap.Resolver
 #else
         // Dictionary<ActionIndex, ConditionIndex[]>
         [ReadOnly] public NativeMultiHashMap<int, int> NodeConditions;
+
         // Dictionary<ConditionIndex, NodeIndex[]>
         [ReadOnly] public NativeMultiHashMap<int, int> ConditionConnections;
 #endif
@@ -68,7 +75,7 @@ namespace CrashKonijn.Goap.Resolver
 
         // Results
         public NativeList<NodeData> Result;
-        
+
         public static readonly float3 InvalidPosition = new float3(float.MaxValue, float.MaxValue, float.MaxValue);
 
         [BurstCompile]
@@ -76,10 +83,10 @@ namespace CrashKonijn.Goap.Resolver
         {
             var nodeCount = this.NodeConditions.Count();
             var runData = this.RunData;
-        
+
             var openSet = new NativeHashMap<int, NodeData>(nodeCount, Allocator.Temp);
             var closedSet = new NativeHashMap<int, NodeData>(nodeCount, Allocator.Temp);
-        
+
             // Add each start node's (goal) connections to the open set
             foreach (var i in runData.StartIndex)
             {
@@ -92,18 +99,18 @@ namespace CrashKonijn.Goap.Resolver
                     ParentIndex = -1,
                     Position = InvalidPosition
                 };
-                
+
                 // We're assuming the start node is always a goal, and as such not executable
                 closedSet.TryAdd(nodeData.Index, nodeData);
-                
+
                 this.AddConnections(this.RunData, ref openSet, ref closedSet, nodeData);
             }
-            
+
             while (!openSet.IsEmpty)
             {
                 var openList = openSet.GetValueArray(Allocator.Temp);
                 openList.Sort(new NodeSorter());
-                
+
                 var currentNode = openList[0];
 
                 if (runData.IsExecutable[currentNode.Index])
@@ -114,7 +121,7 @@ namespace CrashKonijn.Goap.Resolver
 
                 closedSet.TryAdd(currentNode.Index, currentNode);
                 openSet.Remove(currentNode.Index);
-                
+
                 // If this node has a condition that is false and has no connections, it is unresolvable
                 if (this.HasUnresolvableCondition(currentNode.Index))
                 {
@@ -129,8 +136,9 @@ namespace CrashKonijn.Goap.Resolver
             openSet.Dispose();
             closedSet.Dispose();
         }
-        
-        private void AddConnections(RunData runData, ref NativeHashMap<int, NodeData> openSet, ref NativeHashMap<int, NodeData> closedSet, NodeData currentNode)
+
+        private void AddConnections(RunData runData, ref NativeHashMap<int, NodeData> openSet,
+            ref NativeHashMap<int, NodeData> closedSet, NodeData currentNode)
         {
             foreach (var conditionIndex in this.NodeConditions.GetValuesForKey(currentNode.Index))
             {
@@ -138,27 +146,27 @@ namespace CrashKonijn.Goap.Resolver
                 {
                     continue;
                 }
-                
+
                 foreach (var neighborIndex in this.ConditionConnections.GetValuesForKey(conditionIndex))
                 {
                     if (closedSet.ContainsKey(neighborIndex))
                     {
                         continue;
                     }
-                    
+
                     if (!runData.IsEnabled[neighborIndex])
                     {
                         continue;
                     }
-            
+
                     var neighborPosition = this.GetPosition(currentNode, neighborIndex);
-                    
+
                     // The cost with distance from the current node to the neighbour node
                     var newParentG = this.GetNewCost(currentNode, neighborIndex, neighborPosition);
                     // The cost with distance from the agent to the neighbour node
                     var newG = newParentG + this.GetDistanceCost(runData.AgentPosition, neighborPosition);
                     NodeData neighbor;
-            
+
                     // Current neighbour is not in the open set
                     if (!openSet.TryGetValue(neighborIndex, out neighbor))
                     {
@@ -174,7 +182,7 @@ namespace CrashKonijn.Goap.Resolver
                         openSet.Add(neighborIndex, neighbor);
                         continue;
                     }
-            
+
                     // This neighbour has a lower cost
                     if (newG < neighbor.G)
                     {
@@ -182,17 +190,18 @@ namespace CrashKonijn.Goap.Resolver
                         neighbor.P = newParentG;
                         neighbor.ParentIndex = currentNode.Index;
                         neighbor.Position = neighborPosition;
-                
+
                         openSet.Remove(neighborIndex);
                         openSet.Add(neighborIndex, neighbor);
                     }
                 }
             }
         }
-        
+
         private float GetNewCost(NodeData currentNode, int neighborIndex, float3 neighborPosition)
         {
-            return currentNode.P + this.RunData.Costs[neighborIndex] + this.GetDistanceCost(currentNode, neighborPosition);
+            return currentNode.P + this.RunData.Costs[neighborIndex] +
+                   this.GetDistanceCost(currentNode, neighborPosition);
         }
 
         private float GetHeuristic(int neighborIndex)
@@ -218,7 +227,7 @@ namespace CrashKonijn.Goap.Resolver
         private float3 GetPosition(NodeData currentNode, int currentIndex)
         {
             var pos = this.RunData.Positions[currentIndex];
-            
+
             if (pos.Equals(InvalidPosition))
                 return currentNode.Position;
 
@@ -243,7 +252,7 @@ namespace CrashKonijn.Goap.Resolver
                 {
                     continue;
                 }
-                    
+
                 if (!this.ConditionConnections.GetValuesForKey(conditionIndex).MoveNext())
                 {
                     return true;
@@ -252,7 +261,7 @@ namespace CrashKonijn.Goap.Resolver
 
             return false;
         }
-        
+
         private float UnmetConditionCost(int currentIndex)
         {
             var cost = 0f;

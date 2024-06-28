@@ -1,5 +1,6 @@
-﻿using CrashKonijn.Goap.Classes.Runners;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using CrashKonijn.Goap.UnitTests.Classes;
 using NSubstitute;
 using NUnit.Framework;
@@ -61,7 +62,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
-            var agent = Substitute.For<IMonoAgent>();
+            var agent = Substitute.For<IMonoGoapActionProvider>();
             agent.WorldData.Returns(new LocalWorldData());
             
             // Act
@@ -79,14 +80,14 @@ namespace CrashKonijn.Goap.UnitTests
             
             var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
-            var agent = Substitute.For<IMonoAgent>();
+            var agent = Substitute.For<IMonoGoapActionProvider>();
             agent.WorldData.Returns(new LocalWorldData());
             
             // Act
             runner.SenseLocal(agent);
             
             // Assert
-            sensor.Received().Sense(Arg.Any<IWorldData>(), agent, Arg.Any<IComponentReference>());
+            sensor.Received().Sense(Arg.Any<IWorldData>(), agent.Agent, Arg.Any<IComponentReference>());
         }
         
         [Test]
@@ -97,14 +98,14 @@ namespace CrashKonijn.Goap.UnitTests
             
             var runner = new SensorRunner(new IWorldSensor[] {  }, new ITargetSensor[] { }, new IMultiSensor[] { sensor }, Substitute.For<IGlobalWorldData>());
             
-            var agent = Substitute.For<IMonoAgent>();
+            var agent = Substitute.For<IMonoGoapActionProvider>();
             agent.WorldData.Returns(new LocalWorldData());
             
             // Act
             runner.SenseLocal(agent);
             
             // Assert
-            sensor.Received().Sense(Arg.Any<IWorldData>(), agent, Arg.Any<IComponentReference>());
+            sensor.Received().Sense(Arg.Any<IWorldData>(), agent.Agent, Arg.Any<IComponentReference>());
         }
 
         [Test]
@@ -122,17 +123,17 @@ namespace CrashKonijn.Goap.UnitTests
             var condition = Substitute.For<ICondition>();
             condition.WorldKey.Returns(key);
             
-            var action = Substitute.For<IAction>();
+            var action = Substitute.For<IGoapAction>();
             action.Conditions.Returns(new []{ condition });
             
             var runner = new SensorRunner(new IWorldSensor[] { matchedSensor, unMatchedSensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
             // Act
-            runner.SenseLocal(Substitute.For<IMonoAgent>(), action);
+            runner.SenseLocal(Substitute.For<IMonoGoapActionProvider>(), action);
             
             // Assert
-            matchedSensor.Received().Sense(Arg.Any<IWorldData>(), Arg.Any<IMonoAgent>(), Arg.Any<IComponentReference>());
-            unMatchedSensor.DidNotReceive().Sense(Arg.Any<IWorldData>(), Arg.Any<IMonoAgent>(), Arg.Any<IComponentReference>());
+            matchedSensor.Received().Sense(Arg.Any<IWorldData>(), Arg.Any<IActionReceiver>(), Arg.Any<IComponentReference>());
+            unMatchedSensor.DidNotReceive().Sense(Arg.Any<IWorldData>(), Arg.Any<IActionReceiver>(), Arg.Any<IComponentReference>());
         }
     }
 }

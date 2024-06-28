@@ -1,6 +1,5 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Sensors;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
 {
@@ -14,9 +13,9 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
         {
-            return new TransformTarget(agent.transform);
+            return new TransformTarget(agent.Transform);
         }
     }
 }

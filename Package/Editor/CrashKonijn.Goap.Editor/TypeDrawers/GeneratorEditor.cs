@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.TypeDrawers
+namespace CrashKonijn.Goap.Editor
 {
     [CustomEditor(typeof(GeneratorScriptable))]
     public class GeneratorEditor : UnityEditor.Editor

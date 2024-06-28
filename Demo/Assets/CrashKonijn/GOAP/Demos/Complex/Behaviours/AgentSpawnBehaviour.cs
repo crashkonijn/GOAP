@@ -1,6 +1,6 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Demos.Complex.Classes;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -37,7 +37,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 
         private void SpawnAgent(string setId, ComplexAgentBrain.AgentType agentType, Color color)
         {
-            var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
+            var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<GoapActionProvider>();
             
             agent.AgentType = this.goap.GetAgentType(setId);
             agent.gameObject.SetActive(true);

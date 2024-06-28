@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Behaviours;
 using UnityEngine;
 
 namespace Demos
@@ -33,6 +32,9 @@ namespace Demos
 
             foreach (var item in items)
             {
+                if (item == null)
+                    continue;
+                
                 var distance = Vector3.Distance(item.transform.position, position);
                 if (!(distance < closestDistance))
                     continue;

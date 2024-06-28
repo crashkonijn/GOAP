@@ -1,16 +1,12 @@
 ﻿using System;
-using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Core.Interfaces;
-using UnityEngine;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 using Random = UnityEngine.Random;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 {
     [GoapId("Simple-WanderAction")]
-    public class WanderAction : ActionBase<WanderAction.Data, WanderAction.Props>
+    public class WanderAction : GoapActionBase<WanderAction.Data, WanderAction.Props>
     {
         public override void Created()
         {

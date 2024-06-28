@@ -1,23 +1,19 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
 using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 {
     [GoapId("Simple-PickupAppleAction")]
-    public class PickupAppleAction : ActionBase<PickupAppleAction.Data>
+    public class PickupAppleAction : GoapActionBase<PickupAppleAction.Data>
     {
         public override void Created()
         {
         }
-        
+
         public override void Start(IMonoAgent agent, Data data)
         {
             if (data.Target is not TransformTarget transformTarget)
@@ -29,7 +25,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
             data.Apple = transformTarget.Transform.GetComponent<AppleBehaviour>();
         }
 
-        public override bool IsValid(IMonoAgent agent, Data data)
+        public override bool IsValid(IActionReceiver agent, Data data)
         {
             if (!base.IsValid(agent, data))
                 return false;

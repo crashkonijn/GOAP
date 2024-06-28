@@ -1,7 +1,6 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Sensors;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap;
+using CrashKonijn.Goap.Runtime;
 
 namespace Demos.Shared.Sensors.Target
 {
@@ -15,9 +14,9 @@ namespace Demos.Shared.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
         {
-            return new TransformTarget(agent.transform);
+            return new TransformTarget(agent.Transform);
         }
     }
 }

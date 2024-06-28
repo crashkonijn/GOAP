@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class ClassRefField : VisualElement
     {

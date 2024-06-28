@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Resolver
 {
@@ -15,19 +14,19 @@ namespace CrashKonijn.Goap.Resolver
             this.actionIndexList = actionIndexList;
             this.enabledList = this.actionIndexList.Select(x => true).ToArray();
         }
-        
+
         public IEnabledBuilder SetEnabled(IConnectable action, bool executable)
         {
             var index = this.GetIndex(action);
 
             if (index == -1)
                 return this;
-            
+
             this.enabledList[index] = executable;
 
             return this;
         }
-        
+
         private int GetIndex(IConnectable condition)
         {
             for (var i = 0; i < this.actionIndexList.Count; i++)
@@ -35,7 +34,7 @@ namespace CrashKonijn.Goap.Resolver
                 if (this.actionIndexList[i] == condition)
                     return i;
             }
-            
+
             return -1;
         }
 
@@ -46,7 +45,7 @@ namespace CrashKonijn.Goap.Resolver
                 this.enabledList[i] = true;
             }
         }
-        
+
         public bool[] Build()
         {
             return this.enabledList;

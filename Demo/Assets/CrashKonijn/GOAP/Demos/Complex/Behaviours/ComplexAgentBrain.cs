@@ -1,7 +1,8 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Demos.Complex.Classes.Items;
 using CrashKonijn.Goap.Demos.Complex.Goals;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Complex.Behaviours
@@ -9,14 +10,14 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
     public class ComplexAgentBrain : MonoBehaviour
     {
         public AgentType agentType;
-        private AgentBehaviour agent;
+        private GoapActionProvider agent;
         private ComplexHungerBehaviour complexHunger;
         private ItemCollection itemCollection;
         private ComplexInventoryBehaviour inventory;
 
         private void Awake()
         {
-            this.agent = this.GetComponent<AgentBehaviour>();
+            this.agent = this.GetComponent<GoapActionProvider>();
             this.complexHunger = this.GetComponent<ComplexHungerBehaviour>();
             this.inventory = this.GetComponent<ComplexInventoryBehaviour>();
             this.itemCollection = FindObjectOfType<ItemCollection>();

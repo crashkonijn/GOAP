@@ -1,7 +1,6 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver.Models;
+﻿using CrashKonijn.Goap.Core;
 
-namespace CrashKonijn.Goap.Resolver.Interfaces
+namespace CrashKonijn.Goap.Resolver
 {
     public interface IGraphResolver
     {
@@ -12,7 +11,7 @@ namespace CrashKonijn.Goap.Resolver.Interfaces
         ICostBuilder GetCostBuilder();
         IGraph GetGraph();
         int GetIndex(IConnectable action);
-        IAction GetAction(int index);
+        IGoapAction GetAction(int index);
         void Dispose();
         IConditionBuilder GetConditionBuilder();
     }

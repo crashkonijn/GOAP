@@ -1,18 +1,16 @@
 ﻿using System;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Goap;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class GatherItemAction<TGatherable> : ActionBase<GatherItemAction<TGatherable>.Data, GatherItemAction<TGatherable>.Props>, IInjectable
+    public class GatherItemAction<TGatherable> : GoapActionBase<GatherItemAction<TGatherable>.Data, GatherItemAction<TGatherable>.Props>, IInjectable
         where TGatherable : ItemBase
     {
         private ItemFactory itemFactory;

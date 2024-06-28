@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Resolver;
-using CrashKonijn.Goap.Resolver.Interfaces;
 using CrashKonijn.Goap.UnitTests.Data;
 using CrashKonijn.Goap.UnitTests.Interfaces;
 using FluentAssertions;

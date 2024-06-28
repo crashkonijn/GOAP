@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes.Controllers;
 using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Runtime;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -32,7 +31,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agentType = Substitute.For<IAgentType>();
             
-            var agent = Substitute.For<IAgent>();
+            var agent = Substitute.For<IMonoGoapActionProvider>();
             agent.AgentType.Returns(agentType);
 
             var jobRunner = Substitute.For<IAgentTypeJobRunner>();
@@ -44,10 +43,10 @@ namespace CrashKonijn.Goap.UnitTests
             this.goap.AgentTypeRunners.Returns(typeRunners);
             
             // Act
-            this.goap.Events.OnAgentResolve += Raise.Event<AgentDelegate>(agent);
+            this.goap.Events.OnAgentResolve += Raise.Event<GoapAgentDelegate>(agent);
             
             // Assert
-            jobRunner.Received(1).Run(Arg.Any<HashSet<IMonoAgent>>());
+            jobRunner.Received(1).Run(Arg.Any<HashSet<IMonoGoapActionProvider>>());
             jobRunner.Received(1).Complete();
         }
     }

@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
 using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Sensors;
 using System;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.UnitTests
 {
@@ -58,7 +58,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void Sense_CallsLocalAndGlobalSensors()
         {
             // Arrange
-            var localSensor = Substitute.For<Func<IMonoAgent, IComponentReference, SenseValue>>();
+            var localSensor = Substitute.For<Func<IActionReceiver, IComponentReference, SenseValue>>();
             var globalSensor = Substitute.For<Func<SenseValue>>();
             
             this.multiSensorBase.AddLocalWorldSensor<IWorldKey>(localSensor);

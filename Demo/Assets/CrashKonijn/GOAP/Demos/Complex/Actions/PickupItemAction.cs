@@ -1,16 +1,14 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Goap;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class PickupItemAction<THoldable> : ActionBase<PickupItemAction<THoldable>.Data>, IInjectable
+    public class PickupItemAction<THoldable> : GoapActionBase<PickupItemAction<THoldable>.Data>, IInjectable
         where THoldable : IHoldable
     {
         private ItemCollection itemCollection;
@@ -51,7 +49,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             data.Holdable = holdable;
         }
 
-        public override bool IsValid(IMonoAgent agent, Data data)
+        public override bool IsValid(IActionReceiver agent, Data data)
         {
             if (data.Holdable == null)
                 return false;

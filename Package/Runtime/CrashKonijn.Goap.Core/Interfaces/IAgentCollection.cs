@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace CrashKonijn.Goap.Core.Interfaces
+namespace CrashKonijn.Goap.Core
 {
     public interface IAgentCollection
     {
-        HashSet<IMonoAgent> All();
-        void Add(IMonoAgent agent);
-        void Remove(IMonoAgent agent);
+        HashSet<IMonoGoapActionProvider> All();
+        void Add(IMonoGoapActionProvider actionProvider);
+        void Remove(IMonoGoapActionProvider actionProvider);
+        void Enqueue(IMonoGoapActionProvider actionProvider);
+        IMonoGoapActionProvider[] GetQueue();
+        int GetQueueCount();
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Editor.Elements;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.GraphViewer
+namespace CrashKonijn.Goap.Editor
 {
     public class NodeElement : VisualElement
     {
@@ -70,7 +70,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             
             if (!Application.isPlaying)
             {
-                var config = (graphNode.Action as IAction)?.Config;
+                var config = (graphNode.Action as IGoapAction)?.Config;
 
                 if (config != null)
                 {
@@ -99,7 +99,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                 if (!Application.isPlaying)
                     return;
 
-                if (values.SelectedObject is not IMonoAgent agent)
+                if (values.SelectedObject is not IMonoGoapActionProvider agent)
                     return;
                 
                 if (agent.CurrentGoal == this.GraphNode.Action)
@@ -108,7 +108,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                     return;
                 }
                 
-                if (agent.ActionState.Action == this.GraphNode.Action)
+                if (agent.Agent.ActionState.Action == this.GraphNode.Action)
                 {
                     this.Node.AddToClassList("active");
                     return;
@@ -123,14 +123,14 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                 if (graphNode.Action is not IAction action)
                     return;
                 
-                if (!action.IsEnabled(agent))
+                if (!action.IsEnabled(agent.Agent))
                 {
                     this.Node.AddToClassList("disabled");
                     return;
                 }
 
-                this.Cost.text = $"Cost: {graphNode.GetCost(agent)}";
-                var target = agent.WorldData.GetTarget(graphNode.Action as IAction);
+                this.Cost.text = $"Cost: {graphNode.GetCost(agent.Agent)}";
+                var target = agent.WorldData.GetTarget(graphNode.Action as IGoapAction);
                 var targetText = target != null ? target.Position.ToString() : "null";
                 
                 this.Target.text = $"Target: {targetText}";

@@ -1,6 +1,5 @@
-﻿using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Sensors;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.UnitTests.Data
 {
@@ -14,7 +13,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
         {
         }
 
-        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
         {
             return default;
         }

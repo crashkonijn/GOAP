@@ -1,8 +1,7 @@
-﻿using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Scriptables;
+﻿using CrashKonijn.Goap.Runtime;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class CapabilitySensorElement : VisualElement, IFoldable
     {

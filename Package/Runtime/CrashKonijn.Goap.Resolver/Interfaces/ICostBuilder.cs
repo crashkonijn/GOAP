@@ -1,6 +1,6 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Goap.Core;
 
-namespace CrashKonijn.Goap.Resolver.Interfaces
+namespace CrashKonijn.Goap.Resolver
 {
     public interface ICostBuilder
     {

@@ -1,8 +1,7 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
-using CrashKonijn.Goap.Sensors;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
@@ -21,9 +20,9 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
         {
-            var closest = this.collection.Closest(agent.transform.position);
+            var closest = this.collection.Closest(agent.Transform.position);
             
             if (closest == null)
                 return null;

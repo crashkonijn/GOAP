@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
-using Graph = CrashKonijn.Goap.Editor.Classes.Models.Graph;
-using Node = CrashKonijn.Goap.Editor.Classes.Models.Node;
 
-namespace CrashKonijn.Goap.Editor.Classes
+namespace CrashKonijn.Goap.Editor
 {
     public class DebugGraph
     {

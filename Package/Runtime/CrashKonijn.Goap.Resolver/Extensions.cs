@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver.Interfaces;
-using CrashKonijn.Goap.Resolver.Models;
+using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Resolver
 {
@@ -11,7 +9,7 @@ namespace CrashKonijn.Goap.Resolver
         public static (INode[] RootNodes, INode[] ChildNodes) ToNodes(this IEnumerable<IConnectable> actions)
         {
             var mappedNodes = actions.Select(ToNode).ToArray();
-            
+
             return (
                 mappedNodes.Where(x => x.IsRootNode).ToArray(),
                 mappedNodes.Where(x => !x.IsRootNode).ToArray()

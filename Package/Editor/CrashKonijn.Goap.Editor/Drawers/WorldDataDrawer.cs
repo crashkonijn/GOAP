@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Editor.Elements;
+using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Core;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Drawers
+namespace CrashKonijn.Goap.Editor
 {
     public class WorldDataDrawer : VisualElement
     {

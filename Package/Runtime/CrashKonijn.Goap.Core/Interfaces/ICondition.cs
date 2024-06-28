@@ -1,6 +1,4 @@
-﻿using CrashKonijn.Goap.Core.Enums;
-
-namespace CrashKonijn.Goap.Core.Interfaces
+﻿namespace CrashKonijn.Goap.Core
 {
     public interface ICondition {
         public IWorldKey WorldKey { get; }

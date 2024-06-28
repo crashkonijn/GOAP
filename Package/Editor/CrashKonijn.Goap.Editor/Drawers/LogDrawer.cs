@@ -1,10 +1,8 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Editor.Elements;
+using CrashKonijn.Agent.Core;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Drawers
+namespace CrashKonijn.Goap.Editor
 {
     public class LogDrawer : VisualElement
     {

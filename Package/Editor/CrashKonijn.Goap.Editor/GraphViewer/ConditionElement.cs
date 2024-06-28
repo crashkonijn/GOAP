@@ -1,11 +1,9 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Editor.Elements;
+using CrashKonijn.Goap.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.GraphViewer
+namespace CrashKonijn.Goap.Editor
 {
     public class ConditionElement : VisualElement
     {
@@ -48,7 +46,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
         private Color GetLiveColor()
         {
-            if (this.values.SelectedObject is not IMonoAgent agent)
+            if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
                 return Color.white;
             
             if (agent.AgentType == null)
@@ -72,7 +70,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             if (!Application.isPlaying)
                 return "";
             
-            if (this.values.SelectedObject is not IMonoAgent agent)
+            if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
                 return "";
             
             var (exists, value) = agent.WorldData.GetWorldValue(condition.WorldKey);

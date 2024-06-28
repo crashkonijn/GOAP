@@ -1,6 +1,6 @@
 ﻿using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
-using CrashKonijn.Goap.Sensors;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Complex.Sensors.World

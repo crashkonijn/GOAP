@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Reflection;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
-using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class ActionPropertiesElement : VisualElement
     {
@@ -101,10 +100,10 @@ namespace CrashKonijn.Goap.Editor.Elements
             if (baseType == null)
                 return null;
             
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(ActionBase<,>)) 
+            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>)) 
                 return baseType.GetGenericArguments()[1];
             
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(ActionBase<>)) 
+            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<>)) 
                 return typeof(EmptyActionProperties);
             
             return null;

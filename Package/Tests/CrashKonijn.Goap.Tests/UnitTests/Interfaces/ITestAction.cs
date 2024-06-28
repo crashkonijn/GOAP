@@ -1,8 +1,8 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.UnitTests.Interfaces
 {
-    public interface ITestAction : IAction
+    public interface ITestAction : IGoapAction
     {
         public string Name { get; set; }
     }

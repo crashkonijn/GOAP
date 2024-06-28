@@ -1,17 +1,12 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Editor.Drawers;
+﻿using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Resolver;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
-using UnityEditor.Graphs;
-using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
-namespace CrashKonijn.Goap.Editor.GraphViewer
+namespace CrashKonijn.Goap.Editor
 {
     public class GraphViewerEditorWindow : EditorWindow
     {
@@ -82,10 +77,10 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                 return;
             }
             
-            var agent = gameObject.GetComponent<AgentBehaviour>();
+            var agent = gameObject.GetComponent<GoapActionProvider>();
             if (agent != null)
             {
-                var agentType = agent.AgentType ?? new AgentTypeFactory(GoapConfig.Default).Create(agent.agentTypeBehaviour.Config.Create(), false);
+                var agentType = agent.AgentType ?? new AgentTypeFactory(GoapConfig.Default).Create(agent.AgentTypeBehaviour.Config.Create(), false);
                 var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
             
                 this.RenderGraph(graph, agent);

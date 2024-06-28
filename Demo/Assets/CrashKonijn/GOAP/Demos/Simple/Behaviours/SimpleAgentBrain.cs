@@ -1,17 +1,17 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Demos.Simple.Goap.Goals;
+﻿using CrashKonijn.Goap.Demos.Simple.Goap.Goals;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class SimpleAgentBrain : MonoBehaviour
     {
-        private AgentBehaviour agent;
+        private GoapActionProvider agent;
         private SimpleHungerBehaviour hunger;
 
         private void Awake()
         {
-            this.agent = this.GetComponent<AgentBehaviour>();
+            this.agent = this.GetComponent<GoapActionProvider>();
             this.hunger = this.GetComponent<SimpleHungerBehaviour>();
         }
 

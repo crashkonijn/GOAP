@@ -1,6 +1,6 @@
-﻿using CrashKonijn.Goap.Core.Enums;
+﻿using CrashKonijn.Agent.Core;
 
-namespace CrashKonijn.Goap.Core.Interfaces
+namespace CrashKonijn.Goap.Core
 {
     public interface IActionConfig : IClassConfig
     {

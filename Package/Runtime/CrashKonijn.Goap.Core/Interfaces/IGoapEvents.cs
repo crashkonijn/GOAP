@@ -1,39 +1,39 @@
-﻿namespace CrashKonijn.Goap.Core.Interfaces
+﻿namespace CrashKonijn.Goap.Core
 {
     public interface IGoapEvents
     {
         // Actions
-        event AgentActionDelegate OnActionStart;
-        void ActionStart(IAgent agent, IAction action);
+        event GoapAgentActionDelegate OnActionStart;
+        void ActionStart(IMonoGoapActionProvider actionProvider, IGoapAction action);
         
-        event AgentActionDelegate OnActionEnd;
-        void ActionEnd(IAgent agent, IAction action);
+        event GoapAgentActionDelegate OnActionEnd;
+        void ActionEnd(IMonoGoapActionProvider actionProvider, IGoapAction action);
         
-        event AgentActionDelegate OnActionStop;
-        void ActionStop(IAgent agent, IAction action);
+        event GoapAgentActionDelegate OnActionStop;
+        void ActionStop(IMonoGoapActionProvider actionProvider, IGoapAction action);
         
-        event AgentActionDelegate OnActionComplete;
-        void ActionComplete(IAgent agent, IAction action);
+        event GoapAgentActionDelegate OnActionComplete;
+        void ActionComplete(IMonoGoapActionProvider actionProvider, IGoapAction action);
         
         event AgentGoalDelegate OnNoActionFound;
-        void NoActionFound(IAgent agent, IGoal goal);
+        void NoActionFound(IMonoGoapActionProvider actionProvider, IGoal goal);
         
         // Goals
         event AgentGoalDelegate OnGoalStart;
-        void GoalStart(IAgent agent, IGoal goal);
+        void GoalStart(IMonoGoapActionProvider actionProvider, IGoal goal);
         
         event AgentGoalDelegate OnGoalCompleted;
-        void GoalCompleted(IAgent agent, IGoal goal);
+        void GoalCompleted(IMonoGoapActionProvider actionProvider, IGoal goal);
         
         // General
-        event AgentDelegate OnAgentResolve;
-        void AgentResolve(IAgent agent);
+        event GoapAgentDelegate OnAgentResolve;
+        void AgentResolve(IMonoGoapActionProvider actionProvider);
         
-        event AgentDelegate OnAgentRegistered;
-        void AgentRegistered(IAgent agent);
+        event GoapAgentDelegate OnAgentRegistered;
+        void AgentRegistered(IMonoGoapActionProvider actionProvider);
         
-        event AgentDelegate OnAgentUnregistered;
-        void AgentUnregistered(IAgent agent);
+        event GoapAgentDelegate OnAgentUnregistered;
+        void AgentUnregistered(IMonoGoapActionProvider actionProvider);
         
         // Agent Types
         event AgentTypeDelegate OnAgentTypeRegistered;

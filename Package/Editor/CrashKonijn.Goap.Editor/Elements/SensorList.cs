@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class SensorList<TSensorType> : ListElementBase<TSensorType, CapabilitySensorElement>
         where TSensorType : BehaviourSensor, new()

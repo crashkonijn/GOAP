@@ -1,15 +1,14 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Goap;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class EatAction : ActionBase<EatAction.Data>, IInjectable
+    public class EatAction : GoapActionBase<EatAction.Data>, IInjectable
     {
         private InstanceHandler instanceHandler;
 
@@ -28,7 +27,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             data.Inventory.Hold(data.Eatable);
         }
 
-        public override bool IsValid(IMonoAgent agent, Data data)
+        public override bool IsValid(IActionReceiver agent, Data data)
         {
             if (data.Eatable == null)
                 return false;

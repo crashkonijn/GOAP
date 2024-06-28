@@ -4,11 +4,13 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "CrashKonijn.Goap",
         "BoundfoxStudios.FluentAssertions",
-        "CrashKonijn.Goap.Resolver",
         "Unity.Mathematics",
-        "CrashKonijn.Goap.Core"
+        "CrashKonijn.Goap.Core",
+        "CrashKonijn.Goap.Runtime",
+        "CrashKonijn.Goap.Resolver",
+        "CrashKonijn.Agent.Core",
+        "CrashKonijn.Agent.Runtime"
     ],
     "includePlatforms": [
         "Editor"

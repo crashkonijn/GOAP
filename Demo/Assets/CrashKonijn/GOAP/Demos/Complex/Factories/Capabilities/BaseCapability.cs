@@ -1,9 +1,6 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.Builders;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Demos.Complex.Factories.Extensions;
+﻿using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Demos.Complex.Sensors.Target;
-using TransformTarget = CrashKonijn.Goap.Demos.Complex.Targets.TransformTarget;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Complex.Factories.Capabilities
 {
@@ -14,7 +11,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories.Capabilities
             var builder = new CapabilityBuilder("BaseCapability");
 
             builder.AddTargetSensor<TransformSensor>()
-                .SetTarget<TransformTarget>();
+                .SetTarget<Targets.TransformTarget>();
 
             return builder.Build();
         }

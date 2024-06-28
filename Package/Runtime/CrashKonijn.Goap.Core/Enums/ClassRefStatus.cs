@@ -1,4 +1,4 @@
-﻿namespace CrashKonijn.Goap.Core.Enums
+﻿namespace CrashKonijn.Goap.Core
 {
     public enum ClassRefStatus
     {

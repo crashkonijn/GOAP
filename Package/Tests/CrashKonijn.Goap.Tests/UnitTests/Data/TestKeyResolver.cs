@@ -1,6 +1,5 @@
 ﻿using System;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.UnitTests.Data
 {

@@ -1,8 +1,7 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.Builders;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target;
 using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Factories

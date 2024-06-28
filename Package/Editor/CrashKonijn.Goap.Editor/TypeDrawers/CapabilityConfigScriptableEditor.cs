@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using CrashKonijn.Goap.Editor.Elements;
-using CrashKonijn.Goap.Scriptables;
+﻿using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.TypeDrawers
+namespace CrashKonijn.Goap.Editor
 {
     [CustomEditor(typeof(CapabilityConfigScriptable))]
     public class CapabilityConfigScriptableEditor : UnityEditor.Editor

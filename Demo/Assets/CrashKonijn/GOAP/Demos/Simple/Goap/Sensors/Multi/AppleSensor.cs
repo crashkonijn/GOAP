@@ -1,9 +1,7 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Demos.Simple.Behaviours;
+﻿using CrashKonijn.Goap.Demos.Simple.Behaviours;
 using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
 using CrashKonijn.Goap.Demos.Simple.Goap.WorldKeys;
-using CrashKonijn.Goap.Sensors;
+using CrashKonijn.Goap.Runtime;
 using Demos;
 using UnityEngine;
 
@@ -30,7 +28,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
         {
             this.AddLocalTargetSensor<ClosestApple>((agent, references) =>
             {
-                var closestApple = this.apples.Get().Closest(agent.transform.position);
+                var closestApple = this.apples.Get().Closest(agent.Transform.position);
 
                 if (closestApple is null)
                     return null;
@@ -40,7 +38,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
             
             this.AddLocalTargetSensor<ClosestTree>((agent, references) =>
             {
-                return new TransformTarget(this.trees.Closest(agent.transform.position).transform);
+                return new TransformTarget(this.trees.Closest(agent.Transform.position).transform);
             });
             
             this.AddLocalWorldSensor<HasApple>((agent, references) =>

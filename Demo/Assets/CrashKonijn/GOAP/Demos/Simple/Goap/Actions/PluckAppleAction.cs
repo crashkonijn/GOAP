@@ -1,17 +1,12 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
-using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 {
     [GoapId("Simple-PluckAppleAction")]
-    public class PluckAppleAction : ActionBase<PluckAppleAction.Data>
+    public class PluckAppleAction : GoapActionBase<PluckAppleAction.Data>
     {
         public override void Created()
         {

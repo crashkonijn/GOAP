@@ -1,9 +1,7 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
 using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
-using CrashKonijn.Goap.Sensors;
+using CrashKonijn.Goap.Runtime;
 using Demos;
 using UnityEngine;
 
@@ -23,9 +21,9 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
         {
-            return new TransformTarget(this.trees.Closest(agent.transform.position).transform);
+            return new TransformTarget(this.trees.Closest(agent.Transform.position).transform);
         }
     }
 }

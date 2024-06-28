@@ -1,5 +1,4 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Behaviours;
+﻿using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Goals
 {

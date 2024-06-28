@@ -1,7 +1,7 @@
-﻿using CrashKonijn.Goap.Classes.Builders;
-using CrashKonijn.Goap.Demos.Complex.Interfaces;
+﻿using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using CrashKonijn.Goap.Demos.Complex.Sensors.World;
 using CrashKonijn.Goap.Demos.Complex.WorldKeys;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
 {

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Editor.Classes.Models;
 
-namespace CrashKonijn.Goap.Editor.Classes
+namespace CrashKonijn.Goap.Editor
 {
     public class Nodes
     {

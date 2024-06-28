@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CrashKonijn.Goap.Core.Interfaces
+namespace CrashKonijn.Goap.Core
 {
     public interface IGoap
     {
@@ -10,7 +10,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         void Register(IAgentType agentType);
         IGraph GetGraph(IAgentType agentType);
         bool Knows(IAgentType agentType);
-        List<IMonoAgent> Agents { get; }
+        List<IMonoGoapActionProvider> Agents { get; }
 
         IAgentType[] AgentTypes { get; }
 

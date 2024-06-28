@@ -1,12 +1,12 @@
-﻿namespace CrashKonijn.Goap.Core.Interfaces
+﻿namespace CrashKonijn.Goap.Core
 {
     public interface ISensorRunner
     {
         void Update();
-        void Update(IAction action);
+        void Update(IGoapAction action);
         void SenseGlobal();
-        void SenseGlobal(IAction action);
-        void SenseLocal(IMonoAgent agent);
-        void SenseLocal(IMonoAgent agent, IAction action);
+        void SenseGlobal(IGoapAction action);
+        void SenseLocal(IMonoGoapActionProvider actionProvider);
+        void SenseLocal(IMonoGoapActionProvider actionProvider, IGoapAction action);
     }
 }

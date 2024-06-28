@@ -733,6 +733,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821375}
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -821,6 +831,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821375}
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -1162,6 +1182,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821375}
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -1227,16 +1257,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
-        type: 3}
-      propertyPath: agentTypeBehaviour
-      value: 
-      objectReference: {fileID: 845821375}
-    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
-        type: 3}
-      propertyPath: <DebugMode>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1250,6 +1270,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821375}
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -1333,6 +1363,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821375}
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -1408,6 +1448,11 @@ PrefabInstance:
       propertyPath: <DebugMode>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <ActionProvider>k__BackingField
+      value: 
+      objectReference: {fileID: 817940822}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1421,6 +1466,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821375}
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -1496,6 +1551,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2233afe6b5d3734dbb94bce7789238e, type: 3}
+--- !u!114 &817940822 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+    type: 3}
+  m_PrefabInstance: {fileID: 676037569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72344165e2cc41da93476bb1aa2cdd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &845821371
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,6 +2747,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821375}
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -2971,6 +3048,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821375}
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -3212,6 +3299,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: agentTypeBehaviour
+      value: 
+      objectReference: {fileID: 845821375}
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -3295,6 +3392,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2073804781843839524, guid: f2233afe6b5d3734dbb94bce7789238e,
+        type: 3}
+      propertyPath: <AgentTypeBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: 845821375}
     - target: {fileID: 4823857909233374357, guid: f2233afe6b5d3734dbb94bce7789238e,
         type: 3}
       propertyPath: m_Name
@@ -3359,16 +3461,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
-        type: 3}
-      propertyPath: agentTypeBehaviour
-      value: 
-      objectReference: {fileID: 845821375}
-    - target: {fileID: 7404671039891351144, guid: f2233afe6b5d3734dbb94bce7789238e,
-        type: 3}
-      propertyPath: <DebugMode>k__BackingField
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

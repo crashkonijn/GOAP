@@ -1,10 +1,9 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Editor.Drawers;
+using CrashKonijn.Goap.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.GraphViewer
+namespace CrashKonijn.Goap.Editor
 {
     public class ConnectionElement : VisualElement
     {
@@ -75,7 +74,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             if (this.values.SelectedObject == null)
                 return Color.black;
             
-            if (this.values.SelectedObject is not IMonoAgent agent)
+            if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
                 return Color.black;
 
             var actions = agent.CurrentPlan;
@@ -88,14 +87,14 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
         private string GetCost()
         {
-            if (this.values.SelectedObject is not IMonoAgent agent)
+            if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
                 return "";
             
             if (!Application.isPlaying)
                 return "";
             
-            var fromAction = this.fromNode.GraphNode.Action as IAction;
-            var toAction = this.toNode.GraphNode.Action as IAction;
+            var fromAction = this.fromNode.GraphNode.Action as IGoapAction;
+            var toAction = this.toNode.GraphNode.Action as IGoapAction;
             
             if (fromAction == null || toAction == null)
                 return "";

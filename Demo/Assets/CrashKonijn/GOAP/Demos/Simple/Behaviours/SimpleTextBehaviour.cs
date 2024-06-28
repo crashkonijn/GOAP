@@ -1,19 +1,22 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.Validators;
+﻿using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Runtime;
 using TMPro;
 using UnityEngine;
+using Extensions = CrashKonijn.Goap.Runtime.Extensions;
 
 namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class SimpleTextBehaviour : MonoBehaviour
     {
         private TextMeshProUGUI text;
-        private AgentBehaviour agent;
+        private GoapActionProvider actionProvider;
         private SimpleHungerBehaviour simpleHunger;
+        private AgentBehaviour agent;
 
         private void Awake()
         {
             this.text = this.GetComponentInChildren<TextMeshProUGUI>();
+            this.actionProvider = this.GetComponent<GoapActionProvider>();
             this.agent = this.GetComponent<AgentBehaviour>();
             this.simpleHunger = this.GetComponent<SimpleHungerBehaviour>();
         }
@@ -25,13 +28,13 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 
         private string GetText()
         {
-            if (this.agent.CurrentGoal is null)
+            if (this.actionProvider.CurrentGoal is null)
                 return "Idle";
             
-            if (this.agent.ActionState.Action is null)
+            if (this.actionProvider.Agent.ActionState.Action is null)
                 return "Idle";
 
-            return $"{this.agent.CurrentGoal.GetType().GetGenericTypeName()}\n{this.agent.ActionState.Action.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleHunger.hunger:0.00}";
+            return $"{this.actionProvider.CurrentGoal.GetType().GetGenericTypeName()}\n{this.actionProvider.Agent.ActionState.Action.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleHunger.hunger:0.00}";
         }
     }
 }

@@ -2,7 +2,7 @@
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.GraphViewer
+namespace CrashKonijn.Goap.Editor
 {
     public class ToolbarElement : Toolbar
     {

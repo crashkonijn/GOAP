@@ -1,10 +1,8 @@
-﻿#if UNITY_EDITOR
+﻿
 using UnityEditor;
-#endif
-
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Editor.Attributes
+namespace CrashKonijn.Goap.Editor
 {
 #if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(ButtonAttribute))]

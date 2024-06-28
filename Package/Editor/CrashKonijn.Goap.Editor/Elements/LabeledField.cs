@@ -1,7 +1,7 @@
-﻿namespace CrashKonijn.Goap.Editor.Elements
-{
-    using UnityEngine.UIElements;
+﻿using UnityEngine.UIElements;
 
+namespace CrashKonijn.Goap.Editor
+{
     public class LabeledField<T> : VisualElement
         where T : VisualElement, new()
     {

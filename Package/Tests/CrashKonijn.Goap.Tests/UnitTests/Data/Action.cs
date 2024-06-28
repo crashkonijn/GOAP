@@ -1,12 +1,9 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.UnitTests.Data
 {
-    public class Action : ActionBase<Action.Data>
+    public class Action : GoapActionBase<Action.Data>
     {
         public override void Created()
         {

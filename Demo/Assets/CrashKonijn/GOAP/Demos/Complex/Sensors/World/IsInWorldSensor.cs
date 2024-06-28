@@ -1,8 +1,8 @@
-﻿using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
-using CrashKonijn.Goap.Sensors;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Complex.Sensors.World
@@ -20,9 +20,9 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.World
         {
         }
 
-        public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
+        public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
         {
-            return this.collection.GetFiltered<T>(false, true, agent.gameObject).Length;
+            return this.collection.GetFiltered<T>(false, true, agent.Transform.gameObject).Length;
         }
     }
 }
