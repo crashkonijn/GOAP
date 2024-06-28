@@ -18,14 +18,14 @@ namespace CrashKonijn.Goap.Resolver
             this.executableList = this.actionIndexList.Select(x => GraphResolverJob.InvalidPosition).ToArray();
         }
         
-        public IPositionBuilder SetPosition(IConnectable action, Vector3 position)
+        public IPositionBuilder SetPosition(IConnectable action, Vector3? position)
         {
             var index = this.GetIndex(action);
 
             if (index == -1)
                 return this;
             
-            this.executableList[index] = position;
+            this.executableList[index] = position ?? GraphResolverJob.InvalidPosition;
 
             return this;
         }
