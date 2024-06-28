@@ -28,7 +28,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             data.Inventory.Hold(data.Eatable);
         }
 
-        public override bool IsValid(IMonoAgent agent, Data data)
+        public override bool IsValid(IActionReceiver agent, Data data)
         {
             if (data.Eatable == null)
                 return false;

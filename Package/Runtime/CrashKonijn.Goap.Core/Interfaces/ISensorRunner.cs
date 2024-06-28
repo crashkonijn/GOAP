@@ -6,7 +6,7 @@
         void Update(IGoapAction action);
         void SenseGlobal();
         void SenseGlobal(IGoapAction action);
-        void SenseLocal(IMonoGoapAgent agent);
-        void SenseLocal(IMonoGoapAgent agent, IGoapAction action);
+        void SenseLocal(IMonoGoapActionProvider actionProvider);
+        void SenseLocal(IMonoGoapActionProvider actionProvider, IGoapAction action);
     }
 }

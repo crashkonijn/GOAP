@@ -33,14 +33,14 @@ namespace CrashKonijn.Goap.Classes
             this.Agents = new AgentCollection(this);
         }
 
-        public void Register(IMonoGoapAgent agent)
+        public void Register(IMonoGoapActionProvider actionProvider)
         {
-            this.Agents.Add(agent);
+            this.Agents.Add(actionProvider);
         }
 
-        public void Unregister(IMonoGoapAgent agent)
+        public void Unregister(IMonoGoapActionProvider actionProvider)
         {
-            this.Agents.Remove(agent);
+            this.Agents.Remove(actionProvider);
         }
 
         public TGoal ResolveGoal<TGoal>()

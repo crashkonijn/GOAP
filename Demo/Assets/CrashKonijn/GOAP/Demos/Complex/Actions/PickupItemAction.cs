@@ -51,7 +51,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             data.Holdable = holdable;
         }
 
-        public override bool IsValid(IMonoAgent agent, Data data)
+        public override bool IsValid(IActionReceiver agent, Data data)
         {
             if (data.Holdable == null)
                 return false;

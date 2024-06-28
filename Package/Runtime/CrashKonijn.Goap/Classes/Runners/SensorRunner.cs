@@ -81,17 +81,17 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        public void SenseLocal(IMonoGoapAgent agent)
+        public void SenseLocal(IMonoGoapActionProvider actionProvider)
         {
             foreach (var localSensor in this.defaultSet.LocalSensors)
             {
-                localSensor.Sense(agent.WorldData, agent.Agent, agent.Agent.Injector);
+                localSensor.Sense(actionProvider.WorldData, actionProvider.Agent, actionProvider.Agent.Injector);
             }
         }
         
-        public void SenseLocal(IMonoGoapAgent agent, IGoapAction action)
+        public void SenseLocal(IMonoGoapActionProvider actionProvider, IGoapAction action)
         {
-            if (agent.IsNull())
+            if (actionProvider.IsNull())
                 return;
             
             if (action == null)
@@ -101,7 +101,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             
             foreach (var localSensor in set.LocalSensors)
             {
-                localSensor.Sense(agent.WorldData, agent.Agent, agent.Agent.Injector);
+                localSensor.Sense(actionProvider.WorldData, actionProvider.Agent, actionProvider.Agent.Injector);
             }
         }
 

@@ -14,9 +14,9 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
         {
-            return new TransformTarget(agent.transform);
+            return new TransformTarget(agent.Transform);
         }
     }
 }

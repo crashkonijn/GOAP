@@ -2,7 +2,7 @@
 {
     public interface IGoapAgentEvents
     {
-        void Bind(IMonoGoapAgent agent, IAgentTypeEvents events);
+        void Bind(IMonoGoapActionProvider actionProvider, IAgentTypeEvents events);
         void Unbind();
         event GoalDelegate OnNoActionFound;
         void NoActionFound(IGoal goal);

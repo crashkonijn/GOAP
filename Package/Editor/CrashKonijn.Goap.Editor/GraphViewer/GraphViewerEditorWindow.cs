@@ -82,7 +82,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                 return;
             }
             
-            var agent = gameObject.GetComponent<GoapAgentBehaviour>();
+            var agent = gameObject.GetComponent<GoapActionProvider>();
             if (agent != null)
             {
                 var agentType = agent.AgentType ?? new AgentTypeFactory(GoapConfig.Default).Create(agent.AgentTypeBehaviour.Config.Create(), false);

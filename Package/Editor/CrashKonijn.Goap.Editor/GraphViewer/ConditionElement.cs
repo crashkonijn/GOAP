@@ -48,7 +48,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
         private Color GetLiveColor()
         {
-            if (this.values.SelectedObject is not IMonoGoapAgent agent)
+            if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
                 return Color.white;
             
             if (agent.AgentType == null)
@@ -72,7 +72,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
             if (!Application.isPlaying)
                 return "";
             
-            if (this.values.SelectedObject is not IMonoGoapAgent agent)
+            if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
                 return "";
             
             var (exists, value) = agent.WorldData.GetWorldValue(condition.WorldKey);

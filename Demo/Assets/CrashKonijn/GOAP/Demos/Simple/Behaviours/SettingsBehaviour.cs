@@ -95,7 +95,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
             
             for (var i = 0; i < count; i++)
             {
-                var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<GoapAgentBehaviour>();
+                var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<GoapActionProvider>();
                 agent.AgentType = this.agentType.AgentType;
             
                 this.SetDebug(agent.GetComponentInChildren<SimpleTextBehaviour>(), this.debug);

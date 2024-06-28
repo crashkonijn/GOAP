@@ -21,7 +21,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
             data.Apple =  data.Inventory.Hold();
         }
         
-        public override bool IsValid(IMonoAgent agent, Data data)
+        public override bool IsValid(IActionReceiver agent, Data data)
         {
             if (!base.IsValid(agent, data))
                 return false;

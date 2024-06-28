@@ -53,7 +53,7 @@ namespace CrashKonijn.Goap.UnitTests.Support
         {
             var events = Substitute.For<IGoapAgentEvents>();
             // Set Events property through reflection
-            typeof(GoapAgentBehaviour)
+            typeof(GoapActionProvider)
                 .GetField("<Events>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
                 .SetValue(agent, events);
 
@@ -71,12 +71,12 @@ namespace CrashKonijn.Goap.UnitTests.Support
             return events;
         }
 
-        public static void InsertAction(this GoapAgentBehaviour agent, IAction action)
+        public static void InsertAction(this GoapActionProvider agent, IAction action)
         {
             agent.Agent.InsertAction(action);
         }
 
-        public static void InsertAction(this IAgent agent, IAction action)
+        public static void InsertAction(this IActionReceiver agent, IAction action)
         {
             var actionState = new ActionState();
             actionState.SetAction(action, action.GetData());

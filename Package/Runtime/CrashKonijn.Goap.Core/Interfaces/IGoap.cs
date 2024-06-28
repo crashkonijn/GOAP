@@ -10,7 +10,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         void Register(IAgentType agentType);
         IGraph GetGraph(IAgentType agentType);
         bool Knows(IAgentType agentType);
-        List<IMonoGoapAgent> Agents { get; }
+        List<IMonoGoapActionProvider> Agents { get; }
 
         IAgentType[] AgentTypes { get; }
 

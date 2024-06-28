@@ -4,7 +4,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
 {
     public interface IAgentTypeJobRunner
     {
-        void Run(HashSet<IMonoGoapAgent> queue);
+        void Run(HashSet<IMonoGoapActionProvider> queue);
         void Complete();
         void Dispose();
         IGraph GetGraph();

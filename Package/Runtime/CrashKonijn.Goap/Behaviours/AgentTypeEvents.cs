@@ -14,73 +14,73 @@ namespace CrashKonijn.Goap.Behaviours
         }
 
         public event GoapAgentActionDelegate OnActionStart;
-        public void ActionStart(IMonoGoapAgent agent, IGoapAction action)
+        public void ActionStart(IMonoGoapActionProvider actionProvider, IGoapAction action)
         {
-            this.OnActionStart?.Invoke(agent, action);
-            this.goapEvents?.ActionStart(agent, action);
+            this.OnActionStart?.Invoke(actionProvider, action);
+            this.goapEvents?.ActionStart(actionProvider, action);
         }
         
         public event GoapAgentActionDelegate OnActionEnd;
-        public void ActionEnd(IMonoGoapAgent agent, IGoapAction action)
+        public void ActionEnd(IMonoGoapActionProvider actionProvider, IGoapAction action)
         {
-            this.OnActionEnd?.Invoke(agent, action);
-            this.goapEvents?.ActionEnd(agent, action);
+            this.OnActionEnd?.Invoke(actionProvider, action);
+            this.goapEvents?.ActionEnd(actionProvider, action);
         }
 
         public event GoapAgentActionDelegate OnActionStop;
-        public void ActionStop(IMonoGoapAgent agent, IGoapAction action)
+        public void ActionStop(IMonoGoapActionProvider actionProvider, IGoapAction action)
         {
-            this.OnActionStop?.Invoke(agent, action);
-            this.goapEvents?.ActionStop(agent, action);
+            this.OnActionStop?.Invoke(actionProvider, action);
+            this.goapEvents?.ActionStop(actionProvider, action);
         }
 
         public event GoapAgentActionDelegate OnActionComplete;
-        public void ActionComplete(IMonoGoapAgent agent, IGoapAction action)
+        public void ActionComplete(IMonoGoapActionProvider actionProvider, IGoapAction action)
         {
-            this.OnActionComplete?.Invoke(agent, action);
-            this.goapEvents?.ActionComplete(agent, action);
+            this.OnActionComplete?.Invoke(actionProvider, action);
+            this.goapEvents?.ActionComplete(actionProvider, action);
         }
 
         public event AgentGoalDelegate OnNoActionFound;
-        public void NoActionFound(IMonoGoapAgent agent, IGoal goal)
+        public void NoActionFound(IMonoGoapActionProvider actionProvider, IGoal goal)
         {
-            this.OnNoActionFound?.Invoke(agent, goal);
-            this.goapEvents?.NoActionFound(agent, goal);
+            this.OnNoActionFound?.Invoke(actionProvider, goal);
+            this.goapEvents?.NoActionFound(actionProvider, goal);
         }
 
         public event AgentGoalDelegate OnGoalStart;
-        public void GoalStart(IMonoGoapAgent agent, IGoal goal)
+        public void GoalStart(IMonoGoapActionProvider actionProvider, IGoal goal)
         {
-            this.OnGoalStart?.Invoke(agent, goal);
-            this.goapEvents?.GoalStart(agent, goal);
+            this.OnGoalStart?.Invoke(actionProvider, goal);
+            this.goapEvents?.GoalStart(actionProvider, goal);
         }
 
         public event AgentGoalDelegate OnGoalCompleted;
-        public void GoalCompleted(IMonoGoapAgent agent, IGoal goal)
+        public void GoalCompleted(IMonoGoapActionProvider actionProvider, IGoal goal)
         {
-            this.OnGoalCompleted?.Invoke(agent, goal);
-            this.goapEvents?.GoalCompleted(agent, goal);
+            this.OnGoalCompleted?.Invoke(actionProvider, goal);
+            this.goapEvents?.GoalCompleted(actionProvider, goal);
         }
 
         public event GoapAgentDelegate OnAgentResolve;
-        public void AgentResolve(IMonoGoapAgent agent)
+        public void AgentResolve(IMonoGoapActionProvider actionProvider)
         {
-            this.OnAgentResolve?.Invoke(agent);
-            this.goapEvents?.AgentResolve(agent);
+            this.OnAgentResolve?.Invoke(actionProvider);
+            this.goapEvents?.AgentResolve(actionProvider);
         }
 
         public event GoapAgentDelegate OnAgentRegistered;
-        public void AgentRegistered(IMonoGoapAgent agent)
+        public void AgentRegistered(IMonoGoapActionProvider actionProvider)
         {
-            this.OnAgentRegistered?.Invoke(agent);
-            this.goapEvents?.AgentRegistered(agent);
+            this.OnAgentRegistered?.Invoke(actionProvider);
+            this.goapEvents?.AgentRegistered(actionProvider);
         }
 
         public event GoapAgentDelegate OnAgentUnregistered;
-        public void AgentUnregistered(IMonoGoapAgent agent)
+        public void AgentUnregistered(IMonoGoapActionProvider actionProvider)
         {
-            this.OnAgentUnregistered?.Invoke(agent);
-            this.goapEvents?.AgentUnregistered(agent);
+            this.OnAgentUnregistered?.Invoke(actionProvider);
+            this.goapEvents?.AgentUnregistered(actionProvider);
         }
     }
 }

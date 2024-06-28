@@ -5,7 +5,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
 {
     public interface IAction
     {
-        float GetCost(IMonoAgent agent, IComponentReference references);
+        float GetCost(IActionReceiver agent, IComponentReference references);
         ActionMoveMode GetMoveMode(IMonoAgent agent);
         bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references);
         IActionData GetData();
@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         /// <summary>
         /// Check if the action is valid
         /// </summary>
-        bool IsValid(IMonoAgent agent, IActionData data);
+        bool IsValid(IActionReceiver agent, IActionData data);
         
         /// <summary>
         /// Called when the action is started/assigned to an agent
@@ -43,7 +43,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         /// Called when the action is completed
         /// </summary>
         void Complete(IMonoAgent agent, IActionData data);
-        bool IsExecutable(IMonoAgent agent, bool conditionsMet);
-        bool IsEnabled(IMonoAgent agent);
+        bool IsExecutable(IActionReceiver agent, bool conditionsMet);
+        bool IsEnabled(IActionReceiver agent);
     }
 }

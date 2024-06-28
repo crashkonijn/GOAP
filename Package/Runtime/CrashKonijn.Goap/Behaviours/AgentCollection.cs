@@ -8,42 +8,42 @@ namespace CrashKonijn.Goap.Behaviours
     public class AgentCollection : IAgentCollection
     {
         private readonly IAgentType agentType;
-        private HashSet<IMonoGoapAgent> agents = new();
-        private HashSet<IMonoGoapAgent> queue = new HashSet<IMonoGoapAgent>();
+        private HashSet<IMonoGoapActionProvider> agents = new();
+        private HashSet<IMonoGoapActionProvider> queue = new HashSet<IMonoGoapActionProvider>();
 
         public AgentCollection(IAgentType agentType)
         {
             this.agentType = agentType;
         }
 
-        public HashSet<IMonoGoapAgent> All() => this.agents;
+        public HashSet<IMonoGoapActionProvider> All() => this.agents;
         
-        public void Add(IMonoGoapAgent agent)
+        public void Add(IMonoGoapActionProvider actionProvider)
         {
-            if (this.agents.Contains(agent))
+            if (this.agents.Contains(actionProvider))
                 return;
             
-            this.agents.Add(agent );
-            this.agentType.Events.AgentRegistered(agent);
+            this.agents.Add(actionProvider );
+            this.agentType.Events.AgentRegistered(actionProvider);
         }
 
-        public void Remove(IMonoGoapAgent agent)
+        public void Remove(IMonoGoapActionProvider actionProvider)
         {
-            if (!this.agents.Contains(agent))
+            if (!this.agents.Contains(actionProvider))
                 return;
             
-            this.agents.Remove(agent);
-            this.agentType.Events.AgentUnregistered(agent);
+            this.agents.Remove(actionProvider);
+            this.agentType.Events.AgentUnregistered(actionProvider);
         }
 
-        public void Enqueue(IMonoGoapAgent agent)
+        public void Enqueue(IMonoGoapActionProvider actionProvider)
         {
-            this.queue.Add(agent);
+            this.queue.Add(actionProvider);
         }
         
         public int GetQueueCount() => this.queue.Count;
 
-        public IMonoGoapAgent[] GetQueue()
+        public IMonoGoapActionProvider[] GetQueue()
         {
             var data = this.queue.ToArray();
             

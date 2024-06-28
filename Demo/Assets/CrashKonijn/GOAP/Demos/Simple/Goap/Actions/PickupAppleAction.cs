@@ -29,7 +29,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
             data.Apple = transformTarget.Transform.GetComponent<AppleBehaviour>();
         }
 
-        public override bool IsValid(IMonoAgent agent, Data data)
+        public override bool IsValid(IActionReceiver agent, Data data)
         {
             if (!base.IsValid(agent, data))
                 return false;

@@ -162,6 +162,7 @@ MonoBehaviour:
     <DebugMode>k__BackingField: 1
     <MaxLogSize>k__BackingField: 20
   <AgentTypeBehaviour>k__BackingField: {fileID: 0}
+  <DistanceMultiplier>k__BackingField: 1
 --- !u!114 &7404671039891351144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,10 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cef53d855ccf0b46bcf004b27c4a52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ActionProvider>k__BackingField: {fileID: -2073804781843839524}
   <LoggerConfig>k__BackingField:
     <DebugMode>k__BackingField: 1
     <MaxLogSize>k__BackingField: 20
-  <DistanceMultiplier>k__BackingField: 1
 --- !u!114 &4823857909233374367
 MonoBehaviour:
   m_ObjectHideFlags: 0

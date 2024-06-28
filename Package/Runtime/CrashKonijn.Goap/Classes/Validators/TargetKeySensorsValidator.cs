@@ -1,9 +1,7 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolvers;
-using UnityEngine;
 
-namespace CrashKonijn.Goap.Classes.Validators
+namespace CrashKonijn.Goap
 {
     public class TargetKeySensorsValidator : IValidator<IAgentTypeConfig>
     {

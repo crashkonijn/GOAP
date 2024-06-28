@@ -58,7 +58,7 @@ namespace CrashKonijn.Goap.Sensors
             }
         }
 
-        public void Sense(IWorldData data, IMonoAgent agent, IComponentReference references)
+        public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references)
         {
             foreach (var sensor in this.LocalSensors.Values)
             {
@@ -66,7 +66,7 @@ namespace CrashKonijn.Goap.Sensors
             }
         }
         
-        public void Sense(IWorldData data, IMonoAgent agent, IComponentReference references, Type[] keys)
+        public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references, Type[] keys)
         {
             foreach (var key in keys)
             {
@@ -77,13 +77,13 @@ namespace CrashKonijn.Goap.Sensors
             }
         }
 
-        public void AddLocalWorldSensor<TKey>(Func<IMonoAgent, IComponentReference, SenseValue> sense)
+        public void AddLocalWorldSensor<TKey>(Func<IActionReceiver, IComponentReference, SenseValue> sense)
             where TKey : IWorldKey
         {
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
-                Sense = (IWorldData data, IMonoAgent agent, IComponentReference references) =>
+                Sense = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
                 {
                     data.SetState<TKey>(sense(agent, references));
                 }
@@ -103,13 +103,13 @@ namespace CrashKonijn.Goap.Sensors
             });
         }
 
-        public void AddLocalTargetSensor<TKey>(Func<IMonoAgent, IComponentReference, ITarget> sense)
+        public void AddLocalTargetSensor<TKey>(Func<IActionReceiver, IComponentReference, ITarget> sense)
             where TKey : ITargetKey
         {
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
-                Sense = (IWorldData data, IMonoAgent agent, IComponentReference references) =>
+                Sense = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
                 {
                     data.SetTarget<TKey>(sense(agent, references));
                 }
@@ -156,6 +156,6 @@ namespace CrashKonijn.Goap.Sensors
     public class LocalSensor
     {
         public Type Key;
-        public Action<IWorldData, IMonoAgent, IComponentReference> Sense;
+        public Action<IWorldData, IActionReceiver, IComponentReference> Sense;
     }
 }

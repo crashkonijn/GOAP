@@ -16,7 +16,7 @@ namespace CrashKonijn.Goap.Editor
             return child;
         }
 
-        public static float GetCost(this INode node, IMonoAgent agent)
+        public static float GetCost(this INode node, IActionReceiver agent)
         {
             if (node.Action is IAction action)
             {

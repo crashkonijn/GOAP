@@ -12,7 +12,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         private Stopwatch stopwatch = new();
 
         /** GC caches **/
-        private List<IMonoGoapAgent> agentsGC = new();
+        private List<IMonoGoapActionProvider> agentsGC = new();
         /** **/
         
         public IGoapEvents Events { get; } = new GoapEvents();
@@ -64,7 +64,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         public IGraph GetGraph(IAgentType agentType) => this.AgentTypeRunners[agentType].GetGraph();
         public bool Knows(IAgentType agentType) => this.AgentTypeRunners.ContainsKey(agentType);
 
-        public List<IMonoGoapAgent> Agents
+        public List<IMonoGoapActionProvider> Agents
         {
             get {
                 this.agentsGC.Clear();

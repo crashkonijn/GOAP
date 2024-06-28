@@ -5,33 +5,34 @@ namespace CrashKonijn.Goap.Behaviours
 {
     public class GoapAgentEvents : IGoapAgentEvents
     {
-        private IMonoGoapAgent agent;
+        private IMonoGoapActionProvider actionProvider;
         private IAgentTypeEvents typeEvents;
 
-        public void Bind(IMonoGoapAgent agent, IAgentTypeEvents events)
+        public void Bind(IMonoGoapActionProvider actionProvider, IAgentTypeEvents events)
         {
             this.typeEvents = events;
-            this.agent = agent;
+            this.actionProvider = actionProvider;
             
-            agent.Agent.Events.OnActionStart += this.ActionStart;
-            agent.Agent.Events.OnActionEnd += this.ActionEnd;
-            agent.Agent.Events.OnActionStop += this.ActionStop;
-            agent.Agent.Events.OnActionComplete += this.ActionComplete;
+            // Todo
+            // actionProvider.Agent.Events.OnActionStart += this.ActionStart;
+            // actionProvider.Agent.Events.OnActionEnd += this.ActionEnd;
+            // actionProvider.Agent.Events.OnActionStop += this.ActionStop;
+            // actionProvider.Agent.Events.OnActionComplete += this.ActionComplete;
         }
         
         public void Unbind()
         {
-            this.agent.Agent.Events.OnActionStart -= this.ActionStart;
-            this.agent.Agent.Events.OnActionEnd -= this.ActionEnd;
-            this.agent.Agent.Events.OnActionStop -= this.ActionStop;
-            this.agent.Agent.Events.OnActionComplete -= this.ActionComplete;
+            // this.actionProvider.Agent.Events.OnActionStart -= this.ActionStart;
+            // this.actionProvider.Agent.Events.OnActionEnd -= this.ActionEnd;
+            // this.actionProvider.Agent.Events.OnActionStop -= this.ActionStop;
+            // this.actionProvider.Agent.Events.OnActionComplete -= this.ActionComplete;
         }
         
         public event GoalDelegate OnNoActionFound;
         public void NoActionFound(IGoal goal)
         {
             this.OnNoActionFound?.Invoke(goal);
-            this.typeEvents?.NoActionFound(this.agent, goal);
+            this.typeEvents?.NoActionFound(this.actionProvider, goal);
         }
         
         // Goals
@@ -39,14 +40,14 @@ namespace CrashKonijn.Goap.Behaviours
         public void GoalStart(IGoal goal)
         {
             this.OnGoalStart?.Invoke(goal);
-            this.typeEvents?.GoalStart(this.agent, goal);
+            this.typeEvents?.GoalStart(this.actionProvider, goal);
         }
 
         public event GoalDelegate OnGoalCompleted;
         public void GoalCompleted(IGoal goal)
         {
             this.OnGoalCompleted?.Invoke(goal);
-            this.typeEvents?.GoalCompleted(this.agent, goal);
+            this.typeEvents?.GoalCompleted(this.actionProvider, goal);
         }
         
         // General
@@ -54,7 +55,7 @@ namespace CrashKonijn.Goap.Behaviours
         public void Resolve()
         {
             this.OnResolve?.Invoke();
-            this.typeEvents?.AgentResolve(this.agent);
+            this.typeEvents?.AgentResolve(this.actionProvider);
         }
         
         // Agent events
@@ -70,7 +71,7 @@ namespace CrashKonijn.Goap.Behaviours
                return;
 
            this.OnActionStart?.Invoke(goapAction);
-           this.typeEvents.ActionStart(this.agent, goapAction);
+           this.typeEvents.ActionStart(this.actionProvider, goapAction);
         }
 
         private void ActionEnd(IAction action)
@@ -79,8 +80,7 @@ namespace CrashKonijn.Goap.Behaviours
                 return;
 
             this.OnActionEnd?.Invoke(goapAction);
-            this.typeEvents.ActionEnd(this.agent, goapAction);
-        
+            this.typeEvents.ActionEnd(this.actionProvider, goapAction);
         }
 
         private void ActionStop(IAction action)
@@ -89,7 +89,7 @@ namespace CrashKonijn.Goap.Behaviours
                 return;
 
             this.OnActionStop?.Invoke(goapAction);
-            this.typeEvents.ActionStop(this.agent, goapAction);
+            this.typeEvents.ActionStop(this.actionProvider, goapAction);
         }
 
         private void ActionComplete(IAction action)
@@ -98,7 +98,7 @@ namespace CrashKonijn.Goap.Behaviours
                 return;
 
             this.OnActionComplete?.Invoke(goapAction);
-            this.typeEvents.ActionComplete(this.agent, goapAction);
+            this.typeEvents.ActionComplete(this.actionProvider, goapAction);
         }
     }
 }

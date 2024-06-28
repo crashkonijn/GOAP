@@ -9,8 +9,8 @@ using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.TypeDrawers
 {
-    [CustomEditor(typeof(GoapAgentBehaviour))]
-    public class GoapAgentEditor : UnityEditor.Editor
+    [CustomEditor(typeof(GoapActionProvider))]
+    public class GoapActionProviderEditor : UnityEditor.Editor
     {
         public override VisualElement CreateInspectorGUI()
         {
@@ -24,7 +24,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             if (!Application.isPlaying)
                 return root;
             
-            var agent = (GoapAgentBehaviour) this.target;
+            var agent = (GoapActionProvider) this.target;
             
             var currentGoal = agent.CurrentGoal;
 
@@ -32,7 +32,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             {
                 card.Add(new Label(), (label) =>
                 {
-                    label.text = "Goal: " + currentGoal?.GetType().GetGenericTypeName();
+                    label.text = this.GetText(agent);
                     
                     label.schedule.Execute(() =>
                     {
@@ -40,7 +40,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                             return;
                         
                         currentGoal = agent.CurrentGoal;
-                        label.text = "Goal: " + currentGoal?.GetType().GetGenericTypeName();
+                        label.text = this.GetText(agent);
                     }).Every(33);
                 });
             }));
@@ -50,6 +50,13 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             root.Add(new LogDrawer(agent.Logger));
 
             return root;
+        }
+
+        private string GetText(GoapActionProvider provider)
+        {
+            return $@"Goal: {provider.CurrentGoal?.GetType().GetGenericTypeName()}
+AgentType: {provider.AgentType.Id}
+Receiver: {provider.Agent?.GetType().GetGenericTypeName()}";
         }
     }
 }

@@ -20,9 +20,9 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.World
         {
         }
 
-        public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
+        public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
         {
-            return this.collection.GetFiltered<T>(false, true, agent.gameObject).Length;
+            return this.collection.GetFiltered<T>(false, true, agent.Transform.gameObject).Length;
         }
     }
 }

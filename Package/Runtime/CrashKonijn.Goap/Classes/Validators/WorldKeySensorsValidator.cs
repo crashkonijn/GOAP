@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolvers;
 
-namespace CrashKonijn.Goap.Classes.Validators
+namespace CrashKonijn.Goap
 {
     public class WorldKeySensorsValidator : IValidator<IAgentTypeConfig>
     {

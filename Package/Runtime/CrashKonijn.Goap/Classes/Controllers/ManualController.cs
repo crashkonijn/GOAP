@@ -32,7 +32,7 @@ namespace CrashKonijn.Goap.Classes.Controllers
         {
             var runner = this.GetRunner(agent);
             
-            runner.Run(new HashSet<IMonoGoapAgent>() { agent as IMonoGoapAgent });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { agent as IMonoGoapActionProvider });
             runner.Complete();
         }
 

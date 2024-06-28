@@ -32,7 +32,7 @@ namespace CrashKonijn.Goap.Classes.Runners
             this.conditionBuilder = this.resolver.GetConditionBuilder();
         }
 
-        public void Run(HashSet<IMonoGoapAgent> queue)
+        public void Run(HashSet<IMonoGoapActionProvider> queue)
         {
             this.resolveHandles.Clear();
             
@@ -45,46 +45,46 @@ namespace CrashKonijn.Goap.Classes.Runners
             }
         }
 
-        private void Run(IMonoGoapAgent agent)
+        private void Run(IMonoGoapActionProvider actionProvider)
         {
-            if (agent.IsNull())
+            if (actionProvider.IsNull())
                 return;
             
-            if (agent.CurrentGoal == null)
+            if (actionProvider.CurrentGoal == null)
                 return;
 
-            this.agentType.SensorRunner.SenseLocal(agent);
+            this.agentType.SensorRunner.SenseLocal(actionProvider);
 
-            if (this.IsGoalCompleted(agent))
+            if (this.IsGoalCompleted(actionProvider))
             {
-                var goal = agent.CurrentGoal;
-                agent.ClearGoal();
-                agent.Events.GoalCompleted(goal);
+                var goal = actionProvider.CurrentGoal;
+                actionProvider.ClearGoal();
+                actionProvider.Events.GoalCompleted(goal);
                 return;
             }
 
-            this.FillBuilders(agent);
+            this.FillBuilders(actionProvider);
             
-            this.resolveHandles.Add(new JobRunHandle(agent)
+            this.resolveHandles.Add(new JobRunHandle(actionProvider)
             {
                 Handle = this.resolver.StartResolve(new RunData
                 {
-                    StartIndex = new NativeArray<int>(new []{ this.resolver.GetIndex(agent.CurrentGoal) }, Allocator.TempJob),
-                    AgentPosition = agent.Agent.Position,
+                    StartIndex = new NativeArray<int>(new []{ this.resolver.GetIndex(actionProvider.CurrentGoal) }, Allocator.TempJob),
+                    AgentPosition = actionProvider.Position,
                     IsEnabled = new NativeArray<bool>(this.enabledBuilder.Build(), Allocator.TempJob),
                     IsExecutable = new NativeArray<bool>(this.executableBuilder.Build(), Allocator.TempJob),
                     Positions = new NativeArray<float3>(this.positionBuilder.Build(), Allocator.TempJob),
                     Costs = new NativeArray<float>(this.costBuilder.Build(), Allocator.TempJob),
                     ConditionsMet = new NativeArray<bool>(this.conditionBuilder.Build(), Allocator.TempJob),
-                    DistanceMultiplier = agent.Agent.DistanceMultiplier
+                    DistanceMultiplier = actionProvider.DistanceMultiplier
                 })
             });
         }
 
-        private void FillBuilders(IMonoGoapAgent agent)
+        private void FillBuilders(IMonoGoapActionProvider actionProvider)
         {
             var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
-            conditionObserver.SetWorldData(agent.WorldData);
+            conditionObserver.SetWorldData(actionProvider.WorldData);
 
             this.enabledBuilder.Clear();
             this.executableBuilder.Clear();
@@ -106,11 +106,11 @@ namespace CrashKonijn.Goap.Classes.Runners
                     this.conditionBuilder.SetConditionMet(condition, true);
                 }
                 
-                var target = agent.WorldData.GetTarget(node);
+                var target = actionProvider.WorldData.GetTarget(node);
 
-                this.executableBuilder.SetExecutable(node, node.IsExecutable(agent.Agent, allMet));
-                this.enabledBuilder.SetEnabled(node, node.IsEnabled(agent.Agent));
-                this.costBuilder.SetCost(node, node.GetCost(agent.Agent, agent.Agent.Injector));
+                this.executableBuilder.SetExecutable(node, node.IsExecutable(actionProvider.Agent, allMet));
+                this.enabledBuilder.SetEnabled(node, node.IsEnabled(actionProvider.Agent));
+                this.costBuilder.SetCost(node, node.GetCost(actionProvider.Agent, actionProvider.Agent.Injector));
                 
                 this.positionBuilder.SetPosition(node, target?.Position);
             }
@@ -136,20 +136,20 @@ namespace CrashKonijn.Goap.Classes.Runners
             {
                 var result = resolveHandle.Handle.Complete();
 
-                if (resolveHandle.Agent.IsNull())
+                if (resolveHandle.ActionProvider.IsNull())
                     continue;
                 
                 var action = result.FirstOrDefault() as IGoapAction;
                 
                 if (action is null)
                 {
-                    resolveHandle.Agent.Events.NoActionFound(resolveHandle.Agent.CurrentGoal);
+                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.ActionProvider.CurrentGoal);
                     continue;
                 }
 
-                if (action != resolveHandle.Agent.Agent.ActionState.Action)
+                if (action != resolveHandle.ActionProvider.Agent.ActionState.Action)
                 {
-                    resolveHandle.Agent.SetAction(action, result, resolveHandle.Agent.WorldData.GetTarget(action));
+                    resolveHandle.ActionProvider.SetAction(action, result);
                 }
             }
             
@@ -168,12 +168,12 @@ namespace CrashKonijn.Goap.Classes.Runners
 
         private class JobRunHandle
         {
-            public IMonoGoapAgent Agent { get; }
+            public IMonoGoapActionProvider ActionProvider { get; }
             public IResolveHandle Handle { get; set; }
             
-            public JobRunHandle(IMonoGoapAgent agent)
+            public JobRunHandle(IMonoGoapActionProvider actionProvider)
             {
-                this.Agent = agent;
+                this.ActionProvider = actionProvider;
             }
         }
 

@@ -2,7 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Core.Interfaces;
 
-namespace CrashKonijn.Goap.Classes.Validators
+namespace CrashKonijn.Goap
 {
     public class ValidationResults : IValidationResults
     {

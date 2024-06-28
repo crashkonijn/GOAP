@@ -99,7 +99,7 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
                 if (!Application.isPlaying)
                     return;
 
-                if (values.SelectedObject is not IMonoGoapAgent agent)
+                if (values.SelectedObject is not IMonoGoapActionProvider agent)
                     return;
                 
                 if (agent.CurrentGoal == this.GraphNode.Action)

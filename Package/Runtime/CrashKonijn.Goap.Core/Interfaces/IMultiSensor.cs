@@ -6,7 +6,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
     {
         string[] GetSensors();
         void Sense(IWorldData data, Type[] keys);
-        void Sense(IWorldData data, IMonoAgent agent, IComponentReference references, Type[] keys);
+        void Sense(IWorldData data, IActionReceiver agent, IComponentReference references, Type[] keys);
     }
 
     public interface ISensor
@@ -18,7 +18,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
     public interface ILocalSensor : ISensor
     {
         public void Update();
-        public void Sense(IWorldData data, IMonoAgent agent, IComponentReference references);
+        public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references);
     }
 
     public interface IGlobalSensor : ISensor

@@ -4,7 +4,7 @@ using CrashKonijn.Goap.Core.Interfaces;
 
 namespace CrashKonijn.Goap.Classes
 {
-    public class GoapAgentLogger : LoggerBase<IMonoGoapAgent>
+    public class GoapAgentLogger : LoggerBase<IMonoGoapActionProvider>
     {
         protected override string Name => this.source.name;
 

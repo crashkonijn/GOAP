@@ -15,8 +15,8 @@ namespace CrashKonijn.Goap
         public static bool IsNull(this IMonoAgent agent)
             => agent is MonoBehaviour mono && mono == null;
         
-        public static bool IsNull(this IMonoGoapAgent agent)
-            => agent is MonoBehaviour mono && mono == null;
+        public static bool IsNull(this IMonoGoapActionProvider actionProvider)
+            => actionProvider is MonoBehaviour mono && mono == null;
 
         public static string ToName(this Comparison comparison)
         {
@@ -133,6 +133,43 @@ namespace CrashKonijn.Goap
                     yield return element;
                 }
             }
+        }
+        
+        public static IWorldKey[] GetWorldKeys(this IAgentTypeConfig agentTypeConfig)
+        {
+            return agentTypeConfig.Actions
+                .SelectMany((action) =>
+                {
+                    return action.Conditions
+                        .Where(x => x.WorldKey != null)
+                        .Select(y => y.WorldKey);
+                })
+                .Distinct()
+                .ToArray();
+        }
+        
+        public static ITargetKey[] GetTargetKeys(this IAgentTypeConfig agentTypeConfig)
+        {
+            return agentTypeConfig.Actions
+                .Where(x => x.Target != null)
+                .Select(x => x.Target)
+                .Distinct()
+                .ToArray();
+        }
+        
+        public static string GetGenericTypeName(this Type type)
+        {
+            var typeName = type.Name;
+
+            if (type.IsGenericType)
+            {
+                var genericArguments = type.GetGenericArguments();
+                var genericTypeName = typeName.Substring(0, typeName.IndexOf('`'));
+                var typeArgumentNames = string.Join(",", genericArguments.Select(a => a.GetGenericTypeName()));
+                typeName = $"{genericTypeName}<{typeArgumentNames}>";
+            }
+
+            return typeName;
         }
     }
 }

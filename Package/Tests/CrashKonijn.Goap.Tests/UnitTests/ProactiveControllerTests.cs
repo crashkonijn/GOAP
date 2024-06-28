@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.UnitTests
         private ProactiveController proactiveController;
         private IGoapEvents events;
         private Dictionary<IAgentType, IAgentTypeJobRunner> typeRunners;
-        private IMonoGoapAgent agent;
+        private IMonoGoapActionProvider actionProvider;
         private IAgentType agentType;
         private IAgentTypeJobRunner runner;
 
@@ -23,8 +23,8 @@ namespace CrashKonijn.Goap.UnitTests
             this.agentType = Substitute.For<IAgentType>();
             this.agentType.SensorRunner.Returns(Substitute.For<ISensorRunner>());
             
-            this.agent = Substitute.For<IMonoGoapAgent>();
-            this.agent.AgentType.Returns(this.agentType);
+            this.actionProvider = Substitute.For<IMonoGoapActionProvider>();
+            this.actionProvider.AgentType.Returns(this.agentType);
             
             this.events = Substitute.For<IGoapEvents>();
             this.runner = Substitute.For<IAgentTypeJobRunner>();
@@ -35,7 +35,7 @@ namespace CrashKonijn.Goap.UnitTests
             };
             
             this.goap = Substitute.For<IGoap>();
-            this.goap.Agents.Returns(new List<IMonoGoapAgent>());
+            this.goap.Agents.Returns(new List<IMonoGoapActionProvider>());
             this.goap.AgentTypeRunners.Returns(this.typeRunners);
             this.goap.Events.Returns(this.events);
         
@@ -46,33 +46,33 @@ namespace CrashKonijn.Goap.UnitTests
         public void OnUpdate_ResolveActionCalledWhenResolveTimeExpired()
         {
             // Arrange
-            this.agent.Agent.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(true);
+            this.actionProvider.Agent.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(true);
         
-            this.goap.Agents.Returns(new List<IMonoGoapAgent>() { this.agent });
+            this.goap.Agents.Returns(new List<IMonoGoapActionProvider>() { this.actionProvider });
             this.proactiveController.Initialize(this.goap);
 
             // Act
             this.proactiveController.OnUpdate();
 
             // Assert
-            this.agent.Received().ResolveAction();
+            this.actionProvider.Received().ResolveAction();
         }
         
         [Test]
         public void OnUpdate_ResolveActionNotCalledWhenResolveTimeNotExpired()
         {
             // Arrange
-            this.agent = Substitute.For<IMonoGoapAgent>();
-            this.agent.Agent.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(false);
+            this.actionProvider = Substitute.For<IMonoGoapActionProvider>();
+            this.actionProvider.Agent.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(false);
         
-            this.goap.Agents.Returns(new List<IMonoGoapAgent>() { this.agent });
+            this.goap.Agents.Returns(new List<IMonoGoapActionProvider>() { this.actionProvider });
             this.proactiveController.Initialize(this.goap);
 
             // Act
             this.proactiveController.OnUpdate();
 
             // Assert
-            this.agent.DidNotReceive().ResolveAction();
+            this.actionProvider.DidNotReceive().ResolveAction();
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.proactiveController.OnUpdate();
         
             // Assert
-            this.runner.Received().Run(Arg.Any<HashSet<IMonoGoapAgent>>());
+            this.runner.Received().Run(Arg.Any<HashSet<IMonoGoapActionProvider>>());
         }
         
         [Test]

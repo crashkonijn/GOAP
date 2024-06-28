@@ -6,7 +6,7 @@ namespace CrashKonijn.Goap.Classes.Controllers
     public class ReactiveController : IGoapController
     {
         private IGoap goap;
-        private Dictionary<IAgentType, HashSet<IMonoGoapAgent>> agents = new();
+        private Dictionary<IAgentType, HashSet<IMonoGoapActionProvider>> agents = new();
 
         public void Initialize(IGoap goap)
         {
@@ -40,7 +40,7 @@ namespace CrashKonijn.Goap.Classes.Controllers
                 // Update the action sensors for the agent
                 agent.AgentType.SensorRunner.SenseLocal(agent, agent.Agent.ActionState.Action as IGoapAction);
 
-                agent.Agent.Run();
+                // agent.Agent.Run();
             }
         }
 
@@ -52,20 +52,20 @@ namespace CrashKonijn.Goap.Classes.Controllers
             }
         }
 
-        private void OnNoActionFound(IMonoGoapAgent agent, IGoal goal)
+        private void OnNoActionFound(IMonoGoapActionProvider actionProvider, IGoal goal)
         {
-            this.GetQueue(agent.AgentType).Add(agent);
+            this.GetQueue(actionProvider.AgentType).Add(actionProvider);
         }
 
-        private void OnAgentResolve(IMonoGoapAgent agent)
+        private void OnAgentResolve(IMonoGoapActionProvider actionProvider)
         {
-            this.GetQueue(agent.AgentType).Add(agent);
+            this.GetQueue(actionProvider.AgentType).Add(actionProvider);
         }
         
-        private HashSet<IMonoGoapAgent> GetQueue(IAgentType agentType)
+        private HashSet<IMonoGoapActionProvider> GetQueue(IAgentType agentType)
         {
             if (!this.agents.ContainsKey(agentType))
-                this.agents.Add(agentType, new HashSet<IMonoGoapAgent>());
+                this.agents.Add(agentType, new HashSet<IMonoGoapActionProvider>());
             
             return this.agents[agentType];
         }

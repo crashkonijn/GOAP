@@ -53,7 +53,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72344165e2cc41da93476bb1aa2cdd4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentTypeBehaviour: {fileID: 0}
+  <LoggerConfig>k__BackingField:
+    <DebugMode>k__BackingField: 1
+    <MaxLogSize>k__BackingField: 20
+  <AgentTypeBehaviour>k__BackingField: {fileID: 0}
+  <DistanceMultiplier>k__BackingField: 1
 --- !u!114 &3664022629467210336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,9 +70,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cef53d855ccf0b46bcf004b27c4a52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DistanceMultiplier>k__BackingField: 1
-  <DebugMode>k__BackingField: 1
-  <MaxLogSize>k__BackingField: 20
+  <ActionProvider>k__BackingField: {fileID: -5926512986792016431}
+  <LoggerConfig>k__BackingField:
+    <DebugMode>k__BackingField: 1
+    <MaxLogSize>k__BackingField: 20
 --- !u!114 &2567974379695048867
 MonoBehaviour:
   m_ObjectHideFlags: 0

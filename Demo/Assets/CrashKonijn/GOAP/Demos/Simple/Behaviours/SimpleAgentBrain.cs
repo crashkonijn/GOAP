@@ -6,12 +6,12 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class SimpleAgentBrain : MonoBehaviour
     {
-        private GoapAgentBehaviour agent;
+        private GoapActionProvider agent;
         private SimpleHungerBehaviour hunger;
 
         private void Awake()
         {
-            this.agent = this.GetComponent<GoapAgentBehaviour>();
+            this.agent = this.GetComponent<GoapActionProvider>();
             this.hunger = this.GetComponent<SimpleHungerBehaviour>();
         }
 

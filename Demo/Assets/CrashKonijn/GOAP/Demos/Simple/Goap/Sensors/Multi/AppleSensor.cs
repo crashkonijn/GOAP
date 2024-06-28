@@ -30,7 +30,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
         {
             this.AddLocalTargetSensor<ClosestApple>((agent, references) =>
             {
-                var closestApple = this.apples.Get().Closest(agent.transform.position);
+                var closestApple = this.apples.Get().Closest(agent.Transform.position);
 
                 if (closestApple is null)
                     return null;
@@ -40,7 +40,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
             
             this.AddLocalTargetSensor<ClosestTree>((agent, references) =>
             {
-                return new TransformTarget(this.trees.Closest(agent.transform.position).transform);
+                return new TransformTarget(this.trees.Closest(agent.Transform.position).transform);
             });
             
             this.AddLocalWorldSensor<HasApple>((agent, references) =>

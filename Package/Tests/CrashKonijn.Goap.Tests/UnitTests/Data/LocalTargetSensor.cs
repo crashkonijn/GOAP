@@ -14,7 +14,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
         {
         }
 
-        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
         {
             return default;
         }

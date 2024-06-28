@@ -14,10 +14,11 @@ namespace CrashKonijn.Goap.Behaviours
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
         [field: SerializeField]
-        public LoggerConfig LoggerConfig { get; set; } = new LoggerConfig();
+        public ActionProviderBase ActionProvider { get; set; }
         
         [field: SerializeField]
-        public float DistanceMultiplier { get; set; } = 1f;
+        public LoggerConfig LoggerConfig { get; set; } = new LoggerConfig();
+        
         public AgentState State { get; private set; } = AgentState.NoAction;
         public AgentMoveState MoveState { get; private set; } = AgentMoveState.Idle;
         public List<Type> DisabledActions { get; } = new ();
@@ -39,7 +40,9 @@ namespace CrashKonijn.Goap.Behaviours
         public IAgentTimers Timers { get; } = new AgentTimers();
 
         public ITarget CurrentTarget { get; private set; }
-        public Vector3 Position => this.transform.position;
+        
+        public Transform Transform => this.transform;
+        
         private ActionRunner actionRunner;
 
         private void Awake()
@@ -52,6 +55,11 @@ namespace CrashKonijn.Goap.Behaviours
             this.Injector = new DataReferenceInjector(this);
             this.actionRunner = new ActionRunner(this, new AgentProxy(this.SetState, this.SetMoveState, (state) => this.ActionState.RunState = state, this.IsInRange));
             this.Logger.Initialize(this.LoggerConfig, this);
+        }
+
+        private void Update()
+        {
+            this.Run();
         }
 
         public void Run()
@@ -176,10 +184,6 @@ namespace CrashKonijn.Goap.Behaviours
             this.MoveState = AgentMoveState.Idle;
         }
 
-        public void SetDistanceMultiplierSpeed(float speed)
-        {
-            this.DistanceMultiplier = 1f / speed;
-        }
         
         public void EnableAction<TAction>()
             where TAction : IAction

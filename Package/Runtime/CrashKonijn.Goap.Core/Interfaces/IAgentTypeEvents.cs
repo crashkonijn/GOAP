@@ -6,35 +6,35 @@
         
         // Actions
         event GoapAgentActionDelegate OnActionStart;
-        void ActionStart(IMonoGoapAgent agent, IGoapAction action);
+        void ActionStart(IMonoGoapActionProvider actionProvider, IGoapAction action);
         
         event GoapAgentActionDelegate OnActionEnd;
-        void ActionEnd(IMonoGoapAgent agent, IGoapAction action);
+        void ActionEnd(IMonoGoapActionProvider actionProvider, IGoapAction action);
         
         event GoapAgentActionDelegate OnActionStop;
-        void ActionStop(IMonoGoapAgent agent, IGoapAction action);
+        void ActionStop(IMonoGoapActionProvider actionProvider, IGoapAction action);
         
         event GoapAgentActionDelegate OnActionComplete;
-        void ActionComplete(IMonoGoapAgent agent, IGoapAction action);
+        void ActionComplete(IMonoGoapActionProvider actionProvider, IGoapAction action);
         
         event AgentGoalDelegate OnNoActionFound;
-        void NoActionFound(IMonoGoapAgent agent, IGoal goal);
+        void NoActionFound(IMonoGoapActionProvider actionProvider, IGoal goal);
         
         // Goals
         event AgentGoalDelegate OnGoalStart;
-        void GoalStart(IMonoGoapAgent agent, IGoal goal);
+        void GoalStart(IMonoGoapActionProvider actionProvider, IGoal goal);
         
         event AgentGoalDelegate OnGoalCompleted;
-        void GoalCompleted(IMonoGoapAgent agent, IGoal goal);
+        void GoalCompleted(IMonoGoapActionProvider actionProvider, IGoal goal);
         
         // General
         event GoapAgentDelegate OnAgentResolve;
-        void AgentResolve(IMonoGoapAgent agent);
+        void AgentResolve(IMonoGoapActionProvider actionProvider);
         
         event GoapAgentDelegate OnAgentRegistered;
-        void AgentRegistered(IMonoGoapAgent agent);
+        void AgentRegistered(IMonoGoapActionProvider actionProvider);
         
         event GoapAgentDelegate OnAgentUnregistered;
-        void AgentUnregistered(IMonoGoapAgent agent);
+        void AgentUnregistered(IMonoGoapActionProvider actionProvider);
     }
 }

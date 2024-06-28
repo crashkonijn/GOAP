@@ -35,19 +35,22 @@ namespace CrashKonijn.Goap.Behaviours
         
         public abstract void Start(IMonoAgent agent, TActionData data);
 
-        public virtual bool IsValid(IMonoAgent agent, TActionData data)
+        public virtual bool IsValid(IActionReceiver agent, TActionData data)
         {
             return true;
         }
         
-        public bool IsEnabled(IMonoAgent agent)
+        public bool IsEnabled(IActionReceiver agent)
         {
             return this.IsEnabled(agent, agent.Injector);
         }
         
-        public virtual bool IsEnabled(IMonoAgent agent, IComponentReference references)
+        public virtual bool IsEnabled(IActionReceiver receiver, IComponentReference references)
         {
-            return !agent.DisabledActions.Contains(this.GetType());
+            if (receiver is IMonoAgent agent)
+                return !agent.DisabledActions.Contains(this.GetType());
+
+            return true;
         }
         
         public void BeforePerform(IMonoAgent agent, IActionData data) => this.BeforePerform(agent, (TActionData) data);
@@ -74,24 +77,5 @@ namespace CrashKonijn.Goap.Behaviours
         }
         
         public virtual void Complete(IMonoAgent agent, TActionData data) {}
-    }
-
-    public abstract class ActionBase : IAction
-    {
-        public abstract float GetCost(IMonoAgent agent, IComponentReference references);
-        public abstract ActionMoveMode GetMoveMode(IMonoAgent agent);
-        public abstract float GetInRange(IMonoAgent agent, IActionData data);
-        public abstract bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references);
-        public abstract IActionData GetData();
-        public abstract void Created();
-        public abstract bool IsValid(IMonoAgent agent, IActionData data);
-
-        public abstract void Start(IMonoAgent agent, IActionData data);
-        public abstract void BeforePerform(IMonoAgent agent, IActionData data);
-        public abstract IActionRunState Perform(IMonoAgent agent, IActionData data, IActionContext context);
-        public abstract void Stop(IMonoAgent agent, IActionData data);
-        public abstract void Complete(IMonoAgent agent, IActionData data);
-        public abstract bool IsExecutable(IMonoAgent agent, bool conditionsMet);
-        public abstract bool IsEnabled(IMonoAgent agent);
     }
 }

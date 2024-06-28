@@ -7,14 +7,16 @@ using UnityEngine;
 
 namespace CrashKonijn.Goap.Behaviours
 {
-    [RequireComponent(typeof(AgentBehaviour))]
-    public class GoapAgentBehaviour : MonoBehaviour, IMonoGoapAgent
+    public class GoapActionProvider : ActionProviderBase, IMonoGoapActionProvider
     {
         [field: SerializeField]
         public LoggerConfig LoggerConfig { get; set; } = new LoggerConfig();
         
         [field: SerializeField]
         public AgentTypeBehaviour AgentTypeBehaviour { get; set; }
+        
+        [field: SerializeField]
+        public float DistanceMultiplier { get; set; } = 1f;
         
         private IAgentType agentType;
         public IAgentType AgentType
@@ -33,19 +35,21 @@ namespace CrashKonijn.Goap.Behaviours
         public ILocalWorldData WorldData { get; } = new LocalWorldData();
         public IConnectable[] CurrentPlan { get; private set; } = Array.Empty<IConnectable>();
         public IGoapAgentEvents Events { get; } = new GoapAgentEvents();
-        public ILogger<IMonoGoapAgent> Logger { get; } = new GoapAgentLogger();
+        public ILogger<IMonoGoapActionProvider> Logger { get; } = new GoapAgentLogger();
 
-        private IMonoAgent agent;
-        public IMonoAgent Agent
+        private IActionReceiver agent;
+        public IActionReceiver Agent
         {
             get
             {
                 if (this.agent == null)
                     this.agent = this.GetComponent<AgentBehaviour>();
-
+        
                 return this.agent;
             }
         }
+        
+        public Vector3 Position => this.transform.position;
 
         private void Awake()
         {
@@ -103,10 +107,10 @@ namespace CrashKonijn.Goap.Behaviours
                 this.StopAction();
         }
 
-        public void SetAction(IGoapAction action, IConnectable[] path, ITarget target)
+        public void SetAction(IGoapAction action, IConnectable[] path)
         {
             this.CurrentPlan = path;
-            this.Agent.SetAction(this, action, target);
+            this.Agent.SetAction(this, action, this.WorldData.GetTarget(action));
         }
 
         public void StopAction(bool resolveAction = true)
@@ -114,7 +118,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Agent.StopAction(resolveAction);
         }
         
-        public void ResolveAction()
+        public override void ResolveAction()
         {
             this.Events.Resolve();
             this.Agent.Timers.Resolve.Touch();
@@ -123,6 +127,11 @@ namespace CrashKonijn.Goap.Behaviours
         public void ClearGoal()
         {
             this.CurrentGoal = null;
+        }
+        
+        public void SetDistanceMultiplierSpeed(float speed)
+        {
+            this.DistanceMultiplier = 1f / speed;
         }
     }
 }

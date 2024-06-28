@@ -28,7 +28,7 @@ namespace CrashKonijn.Goap.Behaviours
             this.Config = config;
         }
         
-        public virtual float GetCost(IMonoAgent agent, IComponentReference references)
+        public virtual float GetCost(IActionReceiver agent, IComponentReference references)
         {
             return this.Config.BaseCost;
         }
@@ -45,31 +45,31 @@ namespace CrashKonijn.Goap.Behaviours
 
         public abstract void Created();
 
-        public bool IsValid(IMonoAgent agent, IActionData data)
+        public bool IsValid(IActionReceiver agent, IActionData data)
         {
-            var goapAgent = agent.Injector.GetCachedComponent<GoapAgentBehaviour>();
+            var goapAgent = agent.Injector.GetCachedComponent<GoapActionProvider>();
             
             if (goapAgent == null)
                 return false;
             
             if (!goapAgent.AgentType.AllConditionsMet(goapAgent, this))
             {
-                agent.Logger.Warning($"Conditions not met for {agent.name}: {this.Config.Name}");
+                agent.Logger.Warning($"Conditions not met: {this.Config.Name}");
                 return false;
             }
 
             if (this.Config.RequiresTarget && goapAgent.WorldData.GetTarget(this) == null)
             {
-                agent.Logger.Warning($"No target found for {agent.name}: {this.Config.Name}");
+                agent.Logger.Warning($"No target found for: {this.Config.Name}");
                 return false;
             }
 
             return base.IsValid(agent, (TActionData) data);
         }
         
-        public bool IsExecutable(IMonoAgent agent, bool conditionsMet)
+        public bool IsExecutable(IActionReceiver agent, bool conditionsMet)
         {
-            var goapAgent = agent.Injector.GetCachedComponent<GoapAgentBehaviour>();
+            var goapAgent = agent.Injector.GetCachedComponent<GoapActionProvider>();
             
             if (goapAgent == null)
                 return false;

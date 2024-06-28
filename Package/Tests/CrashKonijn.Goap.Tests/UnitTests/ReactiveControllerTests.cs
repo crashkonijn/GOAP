@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.UnitTests
         private ReactiveController controller;
         private IGoapEvents events;
         private Dictionary<IAgentType, IAgentTypeJobRunner> typeRunners;
-        private IMonoGoapAgent agent;
+        private IMonoGoapActionProvider actionProvider;
         private IAgentType agentType;
         private IAgentTypeJobRunner runner;
 
@@ -22,8 +22,8 @@ namespace CrashKonijn.Goap.UnitTests
         {
             this.agentType = Substitute.For<IAgentType>();
             
-            this.agent = Substitute.For<IMonoGoapAgent>();
-            this.agent.AgentType.Returns(this.agentType);
+            this.actionProvider = Substitute.For<IMonoGoapActionProvider>();
+            this.actionProvider.AgentType.Returns(this.agentType);
             
             this.events = Substitute.For<IGoapEvents>();
             this.runner = Substitute.For<IAgentTypeJobRunner>();
@@ -34,7 +34,7 @@ namespace CrashKonijn.Goap.UnitTests
             };
             
             this.goap = Substitute.For<IGoap>();
-            this.goap.Agents.Returns(new List<IMonoGoapAgent>());
+            this.goap.Agents.Returns(new List<IMonoGoapActionProvider>());
             this.goap.AgentTypeRunners.Returns(this.typeRunners);
             this.goap.Events.Returns(this.events);
         
@@ -51,7 +51,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.controller.OnUpdate();
         
             // Assert
-            this.runner.Received().Run(Arg.Any<HashSet<IMonoGoapAgent>>());
+            this.runner.Received().Run(Arg.Any<HashSet<IMonoGoapActionProvider>>());
         }
         
         [Test]

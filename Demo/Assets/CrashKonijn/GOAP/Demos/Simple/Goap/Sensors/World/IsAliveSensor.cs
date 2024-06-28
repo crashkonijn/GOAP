@@ -16,7 +16,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.World
         {
         }
 
-        public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
+        public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
         {
             return true;
         }

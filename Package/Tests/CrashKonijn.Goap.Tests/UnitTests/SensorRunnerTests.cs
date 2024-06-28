@@ -61,7 +61,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
-            var agent = Substitute.For<IMonoGoapAgent>();
+            var agent = Substitute.For<IMonoGoapActionProvider>();
             agent.WorldData.Returns(new LocalWorldData());
             
             // Act
@@ -79,7 +79,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var runner = new SensorRunner(new IWorldSensor[] { sensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
-            var agent = Substitute.For<IMonoGoapAgent>();
+            var agent = Substitute.For<IMonoGoapActionProvider>();
             agent.WorldData.Returns(new LocalWorldData());
             
             // Act
@@ -97,7 +97,7 @@ namespace CrashKonijn.Goap.UnitTests
             
             var runner = new SensorRunner(new IWorldSensor[] {  }, new ITargetSensor[] { }, new IMultiSensor[] { sensor }, Substitute.For<IGlobalWorldData>());
             
-            var agent = Substitute.For<IMonoGoapAgent>();
+            var agent = Substitute.For<IMonoGoapActionProvider>();
             agent.WorldData.Returns(new LocalWorldData());
             
             // Act
@@ -128,11 +128,11 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new SensorRunner(new IWorldSensor[] { matchedSensor, unMatchedSensor }, new ITargetSensor[] { }, new IMultiSensor[] { }, Substitute.For<IGlobalWorldData>());
             
             // Act
-            runner.SenseLocal(Substitute.For<IMonoGoapAgent>(), action);
+            runner.SenseLocal(Substitute.For<IMonoGoapActionProvider>(), action);
             
             // Assert
-            matchedSensor.Received().Sense(Arg.Any<IWorldData>(), Arg.Any<IMonoAgent>(), Arg.Any<IComponentReference>());
-            unMatchedSensor.DidNotReceive().Sense(Arg.Any<IWorldData>(), Arg.Any<IMonoAgent>(), Arg.Any<IComponentReference>());
+            matchedSensor.Received().Sense(Arg.Any<IWorldData>(), Arg.Any<IActionReceiver>(), Arg.Any<IComponentReference>());
+            unMatchedSensor.DidNotReceive().Sense(Arg.Any<IWorldData>(), Arg.Any<IActionReceiver>(), Arg.Any<IComponentReference>());
         }
     }
 }

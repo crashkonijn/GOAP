@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CrashKonijn.Goap.Core.Interfaces;
 
-namespace CrashKonijn.Goap.Classes.Validators
+namespace CrashKonijn.Goap
 {
     public class AgentTypeConfigValidatorRunner : IAgentTypeConfigValidatorRunner
     {
