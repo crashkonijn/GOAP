@@ -7,9 +7,4 @@ namespace CrashKonijn.Goap.Behaviours
     {
         public abstract IAgentTypeConfig Create();
     }
-    
-    public abstract class BehaviourSetFactoryBase : MonoBehaviour
-    {
-        public abstract IAgentTypeConfig Create();
-    }
 }

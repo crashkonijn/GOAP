@@ -29,8 +29,6 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
         private void Start()
         {
             this.SpawnAgent(SetIds.Cleaner, ComplexAgentBrain.AgentType.Cleaner, this.cleanerColor);
-            this.SpawnAgent(SetIds.Cleaner, ComplexAgentBrain.AgentType.Cleaner, this.cleanerColor);
-            this.SpawnAgent(SetIds.Cleaner, ComplexAgentBrain.AgentType.Cleaner, this.cleanerColor);
             
             this.SpawnAgent(SetIds.Smith, ComplexAgentBrain.AgentType.Smith, this.smithColor);
             this.SpawnAgent(SetIds.Miner, ComplexAgentBrain.AgentType.Miner, this.minerColor);

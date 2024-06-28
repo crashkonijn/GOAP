@@ -7,10 +7,10 @@ namespace CrashKonijn.Goap.Classes.Validators
     {
         public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
-            var required = agentTypeConfig.GetWorldKeys();
+            var required = agentTypeConfig.GetWorldKeys().Select(x => x.Name);
             var provided = agentTypeConfig.WorldSensors
                 .Where(x => x.Key != null)
-                .Select(x => x.Key)
+                .Select(x => x.Key.Name)
                 .ToArray();
             
             var missing = required.Except(provided).ToHashSet();
@@ -18,7 +18,7 @@ namespace CrashKonijn.Goap.Classes.Validators
             if (!missing.Any())
                 return;
             
-            results.AddWarning($"WorldKeys without sensors: {string.Join(", ", missing.Select(x => x.Name))}");
+            results.AddWarning($"WorldKeys without sensors: {string.Join(", ", missing)}");
         }
     }
 }

@@ -28,8 +28,8 @@ namespace CrashKonijn.Goap.UnitTests
             
             this.agent = Substitute.For<IMonoAgent>();
             this.agent.Events.Returns(this.events);
-            this.agent.CurrentAction.Returns(this.action);
-            this.agent.RunState.ReturnsNull();
+            this.agent.ActionState.Action.Returns(this.action);
+            this.agent.ActionState.RunState.ReturnsNull();
             
             this.proxy = Substitute.For<IAgentProxy>();
             
@@ -40,7 +40,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void Run_WhenRunIsNotValid_ShouldStopAction()
         {
             // Arrange
-            this.action.IsValid(this.agent, this.agent.CurrentActionData).Returns(false);
+            this.action.IsValid(this.agent, this.agent.ActionState.Data).Returns(false);
             
             // Act
             this.actionRunner.Run();
@@ -54,7 +54,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             
             // Act
             this.actionRunner.Run();
@@ -68,7 +68,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             
             // Act
             this.actionRunner.Run();
@@ -82,13 +82,13 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             
             // Act
             this.actionRunner.Run();
             
             // Assert
-            this.action.Received().Perform(this.agent, this.agent.CurrentActionData, Arg.Any<IActionContext>());
+            this.action.Received().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
         }
         
         [Test]
@@ -96,7 +96,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(false);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             
             // Act
             this.actionRunner.Run();
@@ -110,13 +110,13 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(false);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             
             // Act
             this.actionRunner.Run();
             
             // Assert
-            this.proxy.Received().SetMoveState(AgentMoveState.OutOfRange);
+            this.proxy.Received().SetMoveState(AgentMoveState.NotInRange);
         }
         
         [Test]
@@ -124,7 +124,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(false);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             
             // Act
             this.actionRunner.Run();
@@ -139,7 +139,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             this.proxy.IsInRange().Returns(false);
             this.agent.State.Returns(AgentState.PerformingAction);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             
             // Act
             this.actionRunner.Run();
@@ -153,7 +153,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
@@ -167,7 +167,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
@@ -181,13 +181,13 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
             
             // Assert
-            this.action.Received().Perform(this.agent, this.agent.CurrentActionData, Arg.Any<IActionContext>());
+            this.action.Received().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
         }
         
         [Test]
@@ -195,7 +195,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(false);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
@@ -209,13 +209,13 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(false);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
             
             // Assert
-            this.proxy.Received().SetMoveState(AgentMoveState.OutOfRange);
+            this.proxy.Received().SetMoveState(AgentMoveState.NotInRange);
         }
         
         [Test]
@@ -223,7 +223,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(false);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
@@ -237,13 +237,13 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
             
             // Assert
-            this.action.Received().Perform(this.agent, this.agent.CurrentActionData, Arg.Any<IActionContext>());
+            this.action.Received().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
         }
         
         [Test]
@@ -251,14 +251,14 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.RunState.Returns(ActionRunState.Completed);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.RunState.Returns(ActionRunState.Completed);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
             
             // Assert
-            this.action.DidNotReceive().Perform(this.agent, this.agent.CurrentActionData, Arg.Any<IActionContext>());
+            this.action.DidNotReceive().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
             this.agent.Received().CompleteAction();
         }
 
@@ -267,14 +267,14 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.RunState.Returns(ActionRunState.Stop);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.RunState.Returns(ActionRunState.Stop);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
             
             // Assert
-            this.action.DidNotReceive().Perform(this.agent, this.agent.CurrentActionData, Arg.Any<IActionContext>());
+            this.action.DidNotReceive().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
             this.agent.Received().StopAction();
         }
         
@@ -283,14 +283,14 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.RunState.Returns(ActionRunState.Continue);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.agent.ActionState.RunState.Returns(ActionRunState.Continue);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             
             // Act
             this.actionRunner.Run();
             
             // Assert
-            this.action.Received().Perform(this.agent, this.agent.CurrentActionData, Arg.Any<IActionContext>());
+            this.action.Received().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
         }
         
         [Test]
@@ -298,9 +298,9 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.RunState.Returns(ActionRunState.Completed);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
-            this.action.Perform(this.agent, this.agent.CurrentActionData, Arg.Any<IActionContext>()).Returns(ActionRunState.Completed);
+            this.agent.ActionState.RunState.Returns(ActionRunState.Completed);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.action.Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>()).Returns(ActionRunState.Completed);
             
             // Act
             this.actionRunner.Run();
@@ -314,9 +314,9 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.proxy.IsInRange().Returns(true);
-            this.agent.RunState.Returns(ActionRunState.Stop);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
-            this.action.Perform(this.agent, this.agent.CurrentActionData, Arg.Any<IActionContext>()).Returns(ActionRunState.Stop);
+            this.agent.ActionState.RunState.Returns(ActionRunState.Stop);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.action.Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>()).Returns(ActionRunState.Stop);
             
             // Act
             this.actionRunner.Run();
@@ -333,9 +333,9 @@ namespace CrashKonijn.Goap.UnitTests
 
             var state = ActionRunState.Continue;
             
-            this.agent.RunState.Returns(state);
-            this.agent.CurrentAction.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
-            this.action.Perform(this.agent, this.agent.CurrentActionData, Arg.Any<IActionContext>()).Returns(ActionRunState.Continue);
+            this.agent.ActionState.RunState.Returns(state);
+            this.agent.ActionState.Action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
+            this.action.Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>()).Returns(ActionRunState.Continue);
             
             // Act
             this.actionRunner.Run();

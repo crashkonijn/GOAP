@@ -19,7 +19,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void Awake()
         {
-            var agentType = new AgentTypeFactory(GoapConfig.Default).Create(this.config);
+            var agentType = new AgentTypeFactory(GoapConfig.Default).Create(this.config.Create());
 
             this.runner.Register(agentType);
             

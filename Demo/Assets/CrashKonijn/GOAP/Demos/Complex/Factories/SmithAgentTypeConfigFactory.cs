@@ -4,8 +4,8 @@ using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Complex.Classes;
 using CrashKonijn.Goap.Demos.Complex.Classes.Items;
 using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
+using CrashKonijn.Goap.Demos.Complex.Factories.Capabilities;
 using CrashKonijn.Goap.Demos.Complex.Factories.Extensions;
-using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
 namespace CrashKonijn.Goap.Demos.Complex.Factories
 {
@@ -14,51 +14,42 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
         public override IAgentTypeConfig Create()
         {
             var builder = new AgentTypeBuilder(SetIds.Smith);
+            
+            builder.AddCapability<BaseCapability>();
+            builder.AddCapability<WanderCapability>();
+            builder.AddCapability<HungerCapability>();
 
-            // Goals
-            builder.AddWanderGoal();
-            
-            builder.AddCreateItemGoal<Axe>();
-            builder.AddCreateItemGoal<Pickaxe>();
-            builder.AddFixHungerGoal();
+            builder.CreateCapability("SmithCapability", (capability) =>
+            {
+                // Goals
+                capability.AddCreateItemGoal<Axe>();
+                capability.AddCreateItemGoal<Pickaxe>();
 
-            // Actions
-            builder.AddWanderAction();
+                // Actions
+                capability.AddPickupItemAction<Wood>();
+                capability.AddPickupItemAction<Iron>();
 
-            builder.AddPickupItemAction<Wood>();
-            builder.AddPickupItemAction<Iron>();
-            builder.AddPickupItemAction<IEatable>();
-            
-            builder.AddCreateItemAction<Pickaxe>();
-            builder.AddCreateItemAction<Axe>();
+                capability.AddCreateItemAction<Pickaxe>(2, 1);
+                capability.AddCreateItemAction<Axe>(1, 2);
 
-            builder.AddEatAction();
-            
-            // TargetSensors
-            builder.AddWanderTargetSensor();
-            builder.AddTransformTargetSensor();
-            
-            builder.AddClosestObjectTargetSensor<AnvilSource>();
-            
-            builder.AddClosestItemTargetSensor<Iron>();
-            builder.AddClosestItemTargetSensor<Wood>();
-            builder.AddClosestItemTargetSensor<IEatable>();
-            
-            builder.AddClosestSourceTargetSensor<Iron>();
-            builder.AddClosestSourceTargetSensor<Wood>();
+                // TargetSensors
+                capability.AddClosestObjectTargetSensor<AnvilSource>();
 
-            // WorldSensors
-            builder.AddIsHoldingSensor<Wood>();
-            builder.AddIsHoldingSensor<Iron>();
-            builder.AddIsHoldingSensor<IEatable>();
-            
-            builder.AddIsInWorldSensor<Axe>();
-            builder.AddIsInWorldSensor<Pickaxe>();
-            builder.AddIsInWorldSensor<Wood>();
-            builder.AddIsInWorldSensor<Iron>();
-            builder.AddIsInWorldSensor<IEatable>();
-            
-            builder.AddItemOnFloorSensor();
+                capability.AddClosestItemTargetSensor<Iron>();
+                capability.AddClosestItemTargetSensor<Wood>();
+
+                capability.AddClosestSourceTargetSensor<Iron>();
+                capability.AddClosestSourceTargetSensor<Wood>();
+
+                // WorldSensors
+                capability.AddIsHoldingSensor<Wood>();
+                capability.AddIsHoldingSensor<Iron>();
+
+                capability.AddIsInWorldSensor<Axe>();
+                capability.AddIsInWorldSensor<Pickaxe>();
+                capability.AddIsInWorldSensor<Wood>();
+                capability.AddIsInWorldSensor<Iron>();
+            });
 
             return builder.Build();
         }

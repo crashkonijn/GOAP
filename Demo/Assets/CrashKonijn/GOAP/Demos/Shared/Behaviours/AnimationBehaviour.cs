@@ -8,6 +8,7 @@ namespace Demos.Shared.Behaviours
     {
         private Animator animator;
         private AgentBehaviour agent;
+        private AgentMoveBehaviour moveBehaviour;
         private static readonly int Walking = Animator.StringToHash("Walking");
 
         private bool isWalking;
@@ -17,6 +18,7 @@ namespace Demos.Shared.Behaviours
         {
             this.animator = this.GetComponentInChildren<Animator>();
             this.agent = this.GetComponent<AgentBehaviour>();
+            this.moveBehaviour = this.GetComponent<AgentMoveBehaviour>();
             
             // Random y offset to prevent clipping
             this.animator.transform.localPosition = new Vector3(0, Random.Range(-0.1f, 0.1f), 0);
@@ -30,14 +32,14 @@ namespace Demos.Shared.Behaviours
 
         private void UpdateAnimation()
         {
-            var isWalking = this.agent.State == AgentState.MovingToTarget;
+            var shouldWalk = this.moveBehaviour.IsMoving;
 
-            if (this.isWalking == isWalking)
+            if (this.isWalking == shouldWalk)
                 return;
 
-            this.isWalking = isWalking;
+            this.isWalking = shouldWalk;
             
-            this.animator.SetBool(Walking, isWalking);
+            this.animator.SetBool(Walking, shouldWalk);
         }
 
         private void UpdateScale()
@@ -45,25 +47,25 @@ namespace Demos.Shared.Behaviours
             if (!this.isWalking)
                 return;
             
-            var isMovingLeft = this.IsMovingLeft();
+            var shouldMoveLeft = this.IsMovingLeft();
 
-            if (this.isMovingLeft == isMovingLeft)
+            if (this.isMovingLeft == shouldMoveLeft)
                 return;
 
-            this.isMovingLeft = isMovingLeft;
+            this.isMovingLeft = shouldMoveLeft;
             
-            this.animator.transform.localScale = new Vector3(isMovingLeft ? -1 : 1, 1, 1);
+            this.animator.transform.localScale = new Vector3(shouldMoveLeft ? -1 : 1, 1, 1);
         }
 
         private bool IsMovingLeft()
         {
-            if (this.agent.CurrentActionData == null)
+            if (this.agent.ActionState.Data == null)
                 return false;
             
-            if (this.agent.CurrentActionData.Target == null)
+            if (this.agent.ActionState.Data.Target == null)
                 return false;
             
-            var target = this.agent.CurrentActionData.Target.Position;
+            var target = this.agent.ActionState.Data.Target.Position;
             
             return this.transform.position.x > target.x;
         }

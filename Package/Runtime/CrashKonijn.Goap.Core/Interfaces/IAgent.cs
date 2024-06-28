@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Goap.Core.Enums;
 using UnityEngine;
 
@@ -9,20 +10,24 @@ namespace CrashKonijn.Goap.Core.Interfaces
         float DistanceMultiplier { get; }
         DebugMode DebugMode { get; }
         int MaxLogSize { get; }
-        List<IAction> DisabledActions { get; }
+        List<Type> DisabledActions { get; }
         AgentState State { get; }
         AgentMoveState MoveState { get; }
         IAgentType AgentType { get; }
         IGoal CurrentGoal { get; }
+        [Obsolete("Use ActionState.Action instead.")]
         IAction CurrentAction { get; }
+        [Obsolete("Use ActionState.Data instead.")]
         IActionData CurrentActionData { get; }
+        [Obsolete("Use ActionState.RunState instead.")]
+        IActionRunState RunState { get; }
+        IActionState ActionState { get; }
         ILocalWorldData WorldData { get; }
         IConnectable[] CurrentPlan { get; }
         IAgentEvents Events { get; }
         IDataReferenceInjector Injector { get; }
         IAgentDistanceObserver DistanceObserver { get; }
         IAgentTimers Timers { get; }
-        IActionRunState RunState { get; }
         ITarget CurrentTarget { get; }
         ILogger Logger { get; }
         Vector3 Position { get; }

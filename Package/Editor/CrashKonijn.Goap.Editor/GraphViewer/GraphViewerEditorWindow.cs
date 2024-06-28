@@ -43,31 +43,53 @@ namespace CrashKonijn.Goap.Editor.GraphViewer
 
             if (selectedObject is AgentTypeScriptable agentTypeScriptable)
             {
-                var agentType = new AgentTypeFactory(GoapConfig.Default).Create(agentTypeScriptable, false);
+                var agentType = new AgentTypeFactory(GoapConfig.Default).Create(agentTypeScriptable.Create(), false);
                 var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
                 
                 this.RenderGraph(graph, selectedObject);
+                return;
             }
 
             if (selectedObject is CapabilityConfigScriptable capabilityConfigScriptable)
             {
-                var agentType = new AgentTypeFactory(GoapConfig.Default).Create(capabilityConfigScriptable.GetConfig(), false);
+                var agentType = new AgentTypeFactory(GoapConfig.Default).Create(capabilityConfigScriptable.Create(), false);
                 var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
                 
                 this.RenderGraph(graph, selectedObject);
+                return;
             }
-            
-            if (selectedObject is GameObject gameObject)
-            {
-                var agent = gameObject.GetComponent<AgentBehaviour>();
 
-                if (agent == null)
-                    return;
-                
-                var agentType = agent.AgentType ?? new AgentTypeFactory(GoapConfig.Default).Create(agent.agentTypeBehaviour.Config, false);
+            if (selectedObject is ScriptableCapabilityFactoryBase capabilityFactoryScriptable)
+            {
+                var agentType =
+                    new AgentTypeFactory(GoapConfig.Default).Create(capabilityFactoryScriptable.Create(), false);
+                var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
+
+                this.RenderGraph(graph, selectedObject);
+                return;
+            }
+
+            if (selectedObject is not GameObject gameObject)
+                return;
+            
+            var typeFactory = gameObject.GetComponent<AgentTypeFactoryBase>();
+            if (typeFactory != null)
+            {
+                var agentType = new AgentTypeFactory(GoapConfig.Default).Create(typeFactory.Create(), false);
                 var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
                 
+                this.RenderGraph(graph, selectedObject);
+                return;
+            }
+            
+            var agent = gameObject.GetComponent<AgentBehaviour>();
+            if (agent != null)
+            {
+                var agentType = agent.AgentType ?? new AgentTypeFactory(GoapConfig.Default).Create(agent.agentTypeBehaviour.Config.Create(), false);
+                var graph = new GraphBuilder(GoapConfig.Default.KeyResolver).Build(agentType.GetAllNodes().ToArray());
+            
                 this.RenderGraph(graph, agent);
+                return;
             }
         }
 

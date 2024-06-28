@@ -38,7 +38,7 @@ namespace CrashKonijn.Goap.Classes.Controllers
                     continue;
                 
                 // Update the action sensors for the agent
-                agent.AgentType.SensorRunner.SenseLocal(agent, agent.CurrentAction);
+                agent.AgentType.SensorRunner.SenseLocal(agent, agent.ActionState.Action);
 
                 agent.Run();
             }

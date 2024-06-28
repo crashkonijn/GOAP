@@ -191,7 +191,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
-            agent.CurrentAction.Should().Be(action);
+            agent.ActionState.Action.Should().Be(action);
         }
         
         [Test]
@@ -247,7 +247,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.SetAction(action, Array.Empty<IConnectable>(), new PositionTarget(Vector3.zero));
             
             // Assert
-            agent.CurrentActionData.Should().Be(actionData);
+            agent.ActionState.Data.Should().Be(actionData);
         }
         
         [Test]
@@ -356,7 +356,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.StopAction();
             
             // Assert
-            agent.CurrentAction.Should().BeNull();
+            agent.ActionState.Action.Should().BeNull();
         }
         
         [Test]
@@ -373,7 +373,7 @@ namespace CrashKonijn.Goap.UnitTests
             agent.StopAction();
             
             // Assert
-            agent.CurrentActionData.Should().BeNull();
+            agent.ActionState.Data.Should().BeNull();
         }
 
         [Test]

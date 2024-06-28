@@ -147,7 +147,7 @@ namespace CrashKonijn.Goap.Classes.Runners
                     continue;
                 }
 
-                if (action != resolveHandle.Agent.CurrentAction)
+                if (action != resolveHandle.Agent.ActionState.Action)
                 {
                     resolveHandle.Agent.SetAction(action, result, resolveHandle.Agent.WorldData.GetTarget(action));
                 }

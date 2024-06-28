@@ -3,8 +3,8 @@ using CrashKonijn.Goap.Classes.Builders;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Complex.Classes;
 using CrashKonijn.Goap.Demos.Complex.Classes.Items;
+using CrashKonijn.Goap.Demos.Complex.Factories.Capabilities;
 using CrashKonijn.Goap.Demos.Complex.Factories.Extensions;
-using CrashKonijn.Goap.Demos.Complex.Interfaces;
 
 namespace CrashKonijn.Goap.Demos.Complex.Factories
 {
@@ -14,44 +14,35 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
         {
             var builder = new AgentTypeBuilder(SetIds.WoodCutter);
             
-            // Goals
-            builder.AddWanderGoal();
+            builder.AddCapability<BaseCapability>();
+            builder.AddCapability<WanderCapability>();
+            builder.AddCapability<HungerCapability>();
             
-            builder.AddFixHungerGoal();
-            builder.AddPickupItemGoal<Axe>();
-
-            builder.AddGatherItemGoal<Wood>();
-            
-            // Actions
-            builder.AddWanderAction();
-
-            builder.AddPickupItemAction<Wood>();
-            builder.AddPickupItemAction<Axe>();
-            builder.AddPickupItemAction<IEatable>();
-            
-            builder.AddGatherItemAction<Wood, Axe>();
-            builder.AddGatherItemSlowAction<Wood>();
-
-            builder.AddEatAction();
-            
-            // TargetSensors
-            builder.AddWanderTargetSensor();
-            builder.AddTransformTargetSensor();
-            
-            builder.AddClosestItemTargetSensor<Axe>();
-            builder.AddClosestItemTargetSensor<Wood>();
-            builder.AddClosestItemTargetSensor<IEatable>();
-            
-            builder.AddClosestSourceTargetSensor<Wood>();
-
-            // WorldSensors
-            builder.AddIsHoldingSensor<Axe>();
-            builder.AddIsHoldingSensor<Wood>();
-            builder.AddIsHoldingSensor<IEatable>();
-            
-            builder.AddIsInWorldSensor<Axe>();
-            builder.AddIsInWorldSensor<Wood>();
-            builder.AddIsInWorldSensor<IEatable>();
+            builder.CreateCapability("WoodCutterCapability", (capability) =>
+            {
+                // Goals
+                capability.AddPickupItemGoal<Axe>();
+                capability.AddGatherItemGoal<Wood>();
+                
+                // Actions
+                capability.AddPickupItemAction<Axe>();
+                
+                capability.AddGatherItemAction<Wood, Axe>();
+                capability.AddGatherItemSlowAction<Wood>();
+                
+                // Target sensors
+                capability.AddClosestItemTargetSensor<Axe>();
+                capability.AddClosestItemTargetSensor<Wood>();
+                
+                capability.AddClosestSourceTargetSensor<Wood>();
+                
+                // World sensors
+                capability.AddIsHoldingSensor<Axe>();
+                capability.AddIsHoldingSensor<Wood>();
+                
+                capability.AddIsInWorldSensor<Axe>();
+                capability.AddIsInWorldSensor<Wood>();
+            });
             
             return builder.Build();
         }

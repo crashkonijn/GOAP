@@ -3,7 +3,7 @@ using CrashKonijn.Goap.Demos.Complex.Classes.Items;
 
 namespace CrashKonijn.Goap.Demos.Complex.Classes.Sources
 {
-    public class TreeSource : ItemSourceBase<Wood>
+    public class WoodSource : ItemSourceBase<Wood>
     {
     }
 }

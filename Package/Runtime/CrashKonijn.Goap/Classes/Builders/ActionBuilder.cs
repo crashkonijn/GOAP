@@ -24,13 +24,16 @@ namespace CrashKonijn.Goap.Classes.Builders
             this.worldKeyBuilder = worldKeyBuilder;
             this.targetKeyBuilder = targetKeyBuilder;
             
+            var propType = this.GetPropertiesType();
+            
             this.config = new ActionConfig
             {
                 Name = actionType.Name,
                 ClassType = actionType.AssemblyQualifiedName,
                 BaseCost = 1,
-                InRange = 0.5f,
+                StoppingDistance = 0.5f,
                 RequiresTarget = true,
+                Properties = (IActionProperties)Activator.CreateInstance(propType)
             };
         }
 
@@ -53,9 +56,9 @@ namespace CrashKonijn.Goap.Classes.Builders
             return this;
         }
         
-        public ActionBuilder SetInRange(float inRange)
+        public ActionBuilder SetStoppingDistance(float inRange)
         {
-            this.config.InRange = inRange;
+            this.config.StoppingDistance = inRange;
             return this;
         }
         

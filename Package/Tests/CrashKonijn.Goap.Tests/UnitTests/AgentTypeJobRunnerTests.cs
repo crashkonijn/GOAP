@@ -95,7 +95,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = Substitute.For<IMonoAgent>();
             agent.CurrentGoal.ReturnsNull();
-            agent.CurrentAction.ReturnsNull();
+            agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -123,9 +123,9 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
-            
+
             this.agent.CurrentGoal.Returns(goal);
-            this.agent.CurrentAction.ReturnsNull();
+            this.agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -153,9 +153,9 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new []{ Substitute.For<ICondition>() });
-            
+
             this.agent.CurrentGoal.Returns(goal);
-            this.agent.CurrentAction.Returns(Substitute.For<IAction>());
+            this.agent.ActionState.Action.Returns(Substitute.For<IAction>());
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -183,9 +183,9 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
-            
+
             this.agent.CurrentGoal.Returns(goal);
-            this.agent.CurrentAction.ReturnsNull();
+            this.agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -216,9 +216,9 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
-            
+
             this.agent.CurrentGoal.Returns(goal);
-            this.agent.CurrentAction.ReturnsNull();
+            this.agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -253,7 +253,7 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IAction>();
 
             this.agent.CurrentGoal.Returns(goal);
-            this.agent.CurrentAction.ReturnsNull();
+            this.agent.ActionState.Action.ReturnsNull();
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             
@@ -288,7 +288,7 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IAction>();
 
             this.agent.CurrentGoal.Returns(goal);
-            this.agent.CurrentAction.Returns(action);
+            this.agent.ActionState.Action.Returns(action);
             
             var sensorRunner = Substitute.For<ISensorRunner>();
             

@@ -66,16 +66,16 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
             if (this.debugToggle.isOn != value)
                 this.debugToggle.isOn = value;
             
-            foreach (var textBehaviour in FindObjectsOfType<TextBehaviour>())
+            foreach (var textBehaviour in FindObjectsOfType<SimpleTextBehaviour>())
             {
                 this.SetDebug(textBehaviour, value);
             }
         }
 
-        private void SetDebug(TextBehaviour textBehaviour, bool value)
+        private void SetDebug(SimpleTextBehaviour complexTextBehaviour, bool value)
         {
-            textBehaviour.enabled = value;
-            textBehaviour.GetComponentInChildren<Canvas>(true).gameObject.SetActive(value);
+            complexTextBehaviour.enabled = value;
+            complexTextBehaviour.GetComponentInChildren<Canvas>(true).gameObject.SetActive(value);
         }
 
         public void SpawnApple()
@@ -98,7 +98,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
                 var agent = Instantiate(this.agentPrefab, this.GetRandomPosition(), Quaternion.identity).GetComponent<AgentBehaviour>();
                 agent.AgentType = this.agentType.AgentType;
             
-                this.SetDebug(agent.GetComponentInChildren<TextBehaviour>(), this.debug);
+                this.SetDebug(agent.GetComponentInChildren<SimpleTextBehaviour>(), this.debug);
             
                 agent.gameObject.SetActive(true);
             }

@@ -3,7 +3,6 @@ using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Enums;
 using CrashKonijn.Goap.Core.Interfaces;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
@@ -28,12 +27,12 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
         
         public override void Start(IMonoAgent agent, Data data)
         {
-            var item = this.itemCollection.Closest(agent.transform.position, false, false, false);
+            var item = this.itemCollection.Closest(agent.transform.position, false, false, agent.gameObject);
             
             if (item is null)
                 return;
 
-            item.Claim();
+            item.Claim(agent.gameObject);
             
             data.Item = item;
             data.Target = new TransformTarget(data.Item.gameObject.transform);
@@ -42,6 +41,9 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
+            if (!context.IsInRange)
+                return ActionRunState.Continue;
+            
             if (data.Item is null)
                 return ActionRunState.Stop;
             
@@ -50,7 +52,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
                 case State.MovingToItem:
                     return this.MoveToItem(agent, data);
                 case State.MovingToTarget:
-                    return this.MoveToTarget(data);
+                    return this.MoveToTarget(agent, data);
                 default:
                     return ActionRunState.Stop;
             }
@@ -87,10 +89,13 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
             return ActionRunState.Continue;
         }
         
-        private IActionRunState MoveToTarget(Data data)
+        private IActionRunState MoveToTarget(IMonoAgent agent, Data data)
         {
             if (data.Target is null)
                 return ActionRunState.Stop;
+            
+            if (agent.DistanceObserver.GetDistance(agent, data.Target, agent.Injector) > this.Config.StoppingDistance)
+                return ActionRunState.Continue;
             
             if (data.Timer > 0)
             {

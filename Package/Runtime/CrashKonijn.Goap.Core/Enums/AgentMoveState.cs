@@ -4,6 +4,6 @@
     {
         Idle,
         InRange,
-        OutOfRange,
+        NotInRange,
     }
 }
