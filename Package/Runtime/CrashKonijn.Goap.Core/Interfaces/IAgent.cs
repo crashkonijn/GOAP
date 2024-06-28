@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrashKonijn.Goap.Core.Enums;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Core.Interfaces
 {
@@ -29,6 +30,7 @@ namespace CrashKonijn.Goap.Core.Interfaces
         IAgentTimers Timers { get; }
         ITarget CurrentTarget { get; }
         ILogger Logger { get; }
+        Vector3 Position { get; }
 
         void Run();
         
