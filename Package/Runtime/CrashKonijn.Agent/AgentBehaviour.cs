@@ -39,13 +39,14 @@ namespace CrashKonijn.Goap.Behaviours
         public IAgentTimers Timers { get; } = new AgentTimers();
 
         public ITarget CurrentTarget { get; private set; }
+        public Vector3 Position => this.transform.position;
         private ActionRunner actionRunner;
 
         private void Awake()
         {
             this.Initialize();
         }
-
+        
         public void Initialize()
         {
             this.Injector = new DataReferenceInjector(this);
