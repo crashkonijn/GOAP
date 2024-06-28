@@ -1,4 +1,4 @@
-﻿using CrashKonijn.Goap.Scriptables;
+﻿using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEngine.UIElements;
 

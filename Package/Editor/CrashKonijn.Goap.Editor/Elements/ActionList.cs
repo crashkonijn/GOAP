@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEngine.UIElements;
 

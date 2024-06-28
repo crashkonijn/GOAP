@@ -1,5 +1,5 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 
 namespace CrashKonijn.Goap.Editor.Attributes

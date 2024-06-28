@@ -1,6 +1,7 @@
 ﻿using System;
+using CrashKonijn.Agent.Core;
 
-namespace CrashKonijn.Goap.Core.Interfaces
+namespace CrashKonijn.Goap.Core
 {
     public interface IMultiSensor : IHasConfig<IMultiSensorConfig>, ILocalSensor, IGlobalSensor
     {

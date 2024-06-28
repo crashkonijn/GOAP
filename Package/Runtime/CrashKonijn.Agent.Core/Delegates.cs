@@ -1,6 +1,4 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
-
-namespace CrashKonijn.Goap.Core
+﻿namespace CrashKonijn.Agent.Core
 {
     public delegate void ActionDelegate(IAction action);
     public delegate void AgentActionDelegate(IAgent agent, IAction action);

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using CrashKonijn.Agent.Core;
+using UnityEngine;
 
-namespace CrashKonijn.Goap.Core.Interfaces
+namespace CrashKonijn.Goap.Core
 {
     public interface IGoapAgent : IActionResolver
     {

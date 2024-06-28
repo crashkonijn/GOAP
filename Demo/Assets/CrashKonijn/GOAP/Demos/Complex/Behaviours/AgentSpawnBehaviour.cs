@@ -1,6 +1,6 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Demos.Complex.Classes;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

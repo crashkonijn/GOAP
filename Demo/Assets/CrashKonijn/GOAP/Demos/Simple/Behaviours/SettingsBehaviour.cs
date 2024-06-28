@@ -1,5 +1,4 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Configs;
+﻿using CrashKonijn.Goap.Runtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;

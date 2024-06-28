@@ -1,4 +1,4 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Goap.Core;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.GraphViewer

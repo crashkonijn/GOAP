@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.Runners;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Resolver;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Runtime;
 using CrashKonijn.Goap.UnitTests.Support;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
 using UnityEngine;
-using ICondition = CrashKonijn.Goap.Core.Interfaces.ICondition;
+using ICondition = CrashKonijn.Goap.Core.ICondition;
 
 namespace CrashKonijn.Goap.UnitTests
 {

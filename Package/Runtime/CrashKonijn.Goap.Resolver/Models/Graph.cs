@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Goap.Core.Interfaces;
-using UnityEngine;
+using CrashKonijn.Goap.Core;
 
-namespace CrashKonijn.Goap.Resolver.Models
+namespace CrashKonijn.Goap.Resolver
 {
     public class Graph : IGraph
     {

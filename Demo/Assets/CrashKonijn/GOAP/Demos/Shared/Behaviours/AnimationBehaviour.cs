@@ -1,5 +1,4 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Core.Enums;
+﻿using CrashKonijn.Agent.Runtime;
 using UnityEngine;
 
 namespace Demos.Shared.Behaviours

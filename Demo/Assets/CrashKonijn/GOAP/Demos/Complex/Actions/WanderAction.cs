@@ -1,7 +1,6 @@
 ﻿using System;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 using Random = UnityEngine.Random;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions

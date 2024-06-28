@@ -1,8 +1,8 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Goap.Core;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Resolver.Interfaces
+namespace CrashKonijn.Goap.Resolver
 {
     public interface IPositionBuilder
     {

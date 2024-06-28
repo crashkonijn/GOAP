@@ -1,7 +1,6 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Sensors;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap;
+using CrashKonijn.Goap.Runtime;
 
 namespace Demos.Shared.Sensors.Target
 {

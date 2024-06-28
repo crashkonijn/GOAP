@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core;
 using Unity.Collections;
 using Unity.Jobs;
-using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {

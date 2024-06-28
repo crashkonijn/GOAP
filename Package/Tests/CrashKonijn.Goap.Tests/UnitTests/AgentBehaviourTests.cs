@@ -1,8 +1,8 @@
 ﻿using System;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using CrashKonijn.Goap.UnitTests.Classes;
 using CrashKonijn.Goap.UnitTests.Support;
 using FluentAssertions;

@@ -1,6 +1,5 @@
 ﻿using System;
-using CrashKonijn.Goap.Classes.Builders;
-using CrashKonijn.Goap.Core.Enums;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Demos.Complex.Actions;
 using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Classes.Items;
@@ -8,6 +7,7 @@ using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using CrashKonijn.Goap.Demos.Complex.Targets;
 using CrashKonijn.Goap.Demos.Complex.WorldKeys;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
 {

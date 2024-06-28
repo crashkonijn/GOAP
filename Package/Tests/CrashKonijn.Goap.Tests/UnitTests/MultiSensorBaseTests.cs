@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
 using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Sensors;
 using System;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.UnitTests
 {

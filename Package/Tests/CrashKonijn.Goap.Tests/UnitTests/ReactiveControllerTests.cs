@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes.Controllers;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using NSubstitute;
 using NUnit.Framework;
 

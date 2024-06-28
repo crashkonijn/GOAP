@@ -1,7 +1,8 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Editor.Elements;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 using UnityEngine.UIElements;
 

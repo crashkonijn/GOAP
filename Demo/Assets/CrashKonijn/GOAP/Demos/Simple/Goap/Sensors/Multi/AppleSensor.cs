@@ -1,9 +1,7 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Demos.Simple.Behaviours;
+﻿using CrashKonijn.Goap.Demos.Simple.Behaviours;
 using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
 using CrashKonijn.Goap.Demos.Simple.Goap.WorldKeys;
-using CrashKonijn.Goap.Sensors;
+using CrashKonijn.Goap.Runtime;
 using Demos;
 using UnityEngine;
 

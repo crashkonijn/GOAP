@@ -1,5 +1,5 @@
-﻿using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Serializables;
+﻿using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEngine;
 

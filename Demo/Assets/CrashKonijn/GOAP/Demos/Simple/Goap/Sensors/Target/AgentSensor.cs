@@ -1,8 +1,6 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
-using CrashKonijn.Goap.Sensors;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target
 {

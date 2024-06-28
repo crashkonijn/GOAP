@@ -1,7 +1,7 @@
 using System;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Core;
 
-namespace CrashKonijn.Goap.Resolver.Models
+namespace CrashKonijn.Goap.Resolver
 {
     public class NodeCondition : INodeCondition
     {

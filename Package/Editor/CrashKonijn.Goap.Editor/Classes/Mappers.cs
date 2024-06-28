@@ -1,5 +1,5 @@
 using System.Linq;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Editor.Classes.Models;
 
 namespace CrashKonijn.Goap.Editor.Classes

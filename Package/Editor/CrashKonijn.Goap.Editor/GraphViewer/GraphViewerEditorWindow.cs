@@ -1,9 +1,7 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Editor.Drawers;
 using CrashKonijn.Goap.Resolver;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEditor.Graphs;
 using UnityEditor.TextCore.Text;

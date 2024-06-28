@@ -1,4 +1,4 @@
-﻿namespace CrashKonijn.Goap.Core.Enums
+﻿namespace CrashKonijn.Agent.Core
 {
     public enum DebugMode
     {

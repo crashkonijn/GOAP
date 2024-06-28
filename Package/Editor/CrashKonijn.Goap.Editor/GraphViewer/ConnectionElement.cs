@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Editor.Drawers;
 using UnityEngine;
 using UnityEngine.UIElements;

@@ -1,4 +1,4 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Editor.Elements;
 using UnityEngine.UIElements;
 

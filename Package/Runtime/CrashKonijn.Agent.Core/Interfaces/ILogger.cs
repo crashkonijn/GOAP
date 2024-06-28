@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CrashKonijn.Goap.Core.Interfaces
+namespace CrashKonijn.Agent.Core
 {
     public interface ILogger<TObj> : ILogger
     {

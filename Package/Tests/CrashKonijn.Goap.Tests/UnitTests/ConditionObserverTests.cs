@@ -1,8 +1,5 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Configs;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Observers;
-using CrashKonijn.Goap.Resolver;
+﻿using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using NUnit.Framework;
 
 namespace CrashKonijn.Goap.UnitTests

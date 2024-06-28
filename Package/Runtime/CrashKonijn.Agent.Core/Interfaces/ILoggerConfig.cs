@@ -1,6 +1,4 @@
-﻿using CrashKonijn.Goap.Core.Enums;
-
-namespace CrashKonijn.Goap.Core.Interfaces
+﻿namespace CrashKonijn.Agent.Core
 {
     public interface ILoggerConfig
     {

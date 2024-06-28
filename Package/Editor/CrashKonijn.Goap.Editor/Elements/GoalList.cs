@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 
 namespace CrashKonijn.Goap.Editor.Elements

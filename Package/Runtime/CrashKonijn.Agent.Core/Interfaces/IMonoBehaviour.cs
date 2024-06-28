@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Core.Interfaces
+namespace CrashKonijn.Agent.Core
 {
     public interface IMonoBehaviour
     {

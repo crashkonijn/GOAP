@@ -1,5 +1,6 @@
 ﻿using System;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 

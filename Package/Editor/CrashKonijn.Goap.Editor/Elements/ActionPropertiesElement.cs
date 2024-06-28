@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Core.Enums;
-using CrashKonijn.Goap.Core.Interfaces;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;

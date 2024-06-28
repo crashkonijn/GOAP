@@ -1,8 +1,6 @@
-﻿
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CrashKonijn.Goap.Core.Interfaces
+namespace CrashKonijn.Agent.Core
 {
     public interface ITarget
     {

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Editor.Elements;
 using UnityEngine.UIElements;
 

@@ -1,7 +1,8 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.Validators;
+﻿using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Runtime;
 using TMPro;
 using UnityEngine;
+using Extensions = CrashKonijn.Goap.Runtime.Extensions;
 
 namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
@@ -33,7 +34,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
             if (this.actionProvider.Agent.ActionState.Action is null)
                 return "Idle";
 
-            return $"{this.actionProvider.CurrentGoal.GetType().GetGenericTypeName()}\n{this.actionProvider.Agent.ActionState.Action.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleHunger.hunger:0.00}";
+            return $"{Extensions.GetGenericTypeName(this.actionProvider.CurrentGoal.GetType())}\n{Extensions.GetGenericTypeName(this.actionProvider.Agent.ActionState.Action.GetType())}\n{this.agent.State}\nhunger: {this.simpleHunger.hunger:0.00}";
         }
     }
 }

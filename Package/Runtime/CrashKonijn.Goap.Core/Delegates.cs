@@ -1,6 +1,4 @@
-﻿using CrashKonijn.Goap.Core.Interfaces;
-
-namespace CrashKonijn.Goap.Core
+﻿namespace CrashKonijn.Goap.Core
 {
     public delegate void GoalDelegate(IGoal goal);
     public delegate void AgentGoalDelegate(IMonoGoapActionProvider actionProvider, IGoal goal);

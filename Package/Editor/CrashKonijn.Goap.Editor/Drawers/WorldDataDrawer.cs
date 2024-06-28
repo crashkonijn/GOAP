@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Core.Interfaces;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Editor.Elements;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor.Drawers

@@ -1,10 +1,7 @@
-﻿using System.Linq;
-using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Classes.RunStates;
-using CrashKonijn.Goap.Core.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions

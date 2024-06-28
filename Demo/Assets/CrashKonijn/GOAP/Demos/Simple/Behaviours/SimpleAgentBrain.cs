@@ -1,5 +1,5 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Demos.Simple.Goap.Goals;
+﻿using CrashKonijn.Goap.Demos.Simple.Goap.Goals;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Simple.Behaviours

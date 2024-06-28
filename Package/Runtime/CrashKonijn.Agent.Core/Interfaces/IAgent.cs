@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrashKonijn.Goap.Core.Enums;
-using UnityEngine;
 
-namespace CrashKonijn.Goap.Core.Interfaces
+namespace CrashKonijn.Agent.Core
 {
     public interface IAgent : IActionReceiver
     {

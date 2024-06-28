@@ -1,5 +1,5 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.Validators;
+﻿using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Runtime;
 using TMPro;
 using UnityEngine;
 
@@ -35,7 +35,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             if (this.actionProvider.Agent.ActionState.Action is null)
                 return $"{this.GetTypeText()}\nIdle";
 
-            return $"{this.GetTypeText()}\n{this.actionProvider.CurrentGoal.GetType().GetGenericTypeName()}\n{this.actionProvider.Agent.ActionState.Action.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleComplexHunger.hunger:0.00}";
+            return $"{this.GetTypeText()}\n{Runtime.Extensions.GetGenericTypeName(this.actionProvider.CurrentGoal.GetType())}\n{Runtime.Extensions.GetGenericTypeName(this.actionProvider.Agent.ActionState.Action.GetType())}\n{this.agent.State}\nhunger: {this.simpleComplexHunger.hunger:0.00}";
         }
 
         private string GetTypeText()
