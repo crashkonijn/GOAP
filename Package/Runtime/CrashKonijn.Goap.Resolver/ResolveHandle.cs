@@ -33,7 +33,8 @@ namespace CrashKonijn.Goap.Resolver
             return this;
         }
 #else
-        public ResolveHandle Start(NativeMultiHashMap<int, int> nodeConditions, NativeMultiHashMap<int, int> conditionConnections, RunData runData)
+        public ResolveHandle Start(NativeMultiHashMap<int, int> nodeConditions,
+            NativeMultiHashMap<int, int> conditionConnections, RunData runData)
         {
             this.job = new GraphResolverJob
             {
@@ -42,7 +43,7 @@ namespace CrashKonijn.Goap.Resolver
                 RunData = runData,
                 Result = new NativeList<NodeData>(Allocator.TempJob)
             };
-        
+
             this.handle = this.job.Schedule();
 
             return this;
@@ -52,16 +53,16 @@ namespace CrashKonijn.Goap.Resolver
         public IConnectable[] Complete()
         {
             this.handle.Complete();
-        
+
             this.results.Clear();
-        
+
             foreach (var data in this.job.Result)
             {
                 this.results.Add(this.graphResolver.GetAction(data.Index));
             }
-        
+
             this.job.Result.Dispose();
-        
+
             this.job.RunData.StartIndex.Dispose();
             this.job.RunData.IsEnabled.Dispose();
             this.job.RunData.IsExecutable.Dispose();

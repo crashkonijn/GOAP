@@ -14,19 +14,19 @@ namespace CrashKonijn.Goap.Resolver
             this.actionIndexList = actionIndexList;
             this.executableList = this.actionIndexList.Select(x => false).ToArray();
         }
-        
+
         public IExecutableBuilder SetExecutable(IConnectable action, bool executable)
         {
             var index = this.GetIndex(action);
 
             if (index == -1)
                 return this;
-            
+
             this.executableList[index] = executable;
 
             return this;
         }
-        
+
         private int GetIndex(IConnectable condition)
         {
             for (var i = 0; i < this.actionIndexList.Count; i++)
@@ -34,7 +34,7 @@ namespace CrashKonijn.Goap.Resolver
                 if (this.actionIndexList[i] == condition)
                     return i;
             }
-            
+
             return -1;
         }
 
@@ -45,7 +45,7 @@ namespace CrashKonijn.Goap.Resolver
                 this.executableList[i] = false;
             }
         }
-        
+
         public bool[] Build()
         {
             return this.executableList;

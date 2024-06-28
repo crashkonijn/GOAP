@@ -6,10 +6,12 @@ using System.Threading;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 
-namespace CrashKonijn.Goap.Resolver {
+namespace CrashKonijn.Goap.Resolver
+{
     using static UnsafeUtility;
 
-    public struct NativeHeapIndex {
+    public struct NativeHeapIndex
+    {
         internal int TableIndex;
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
         internal int Version;
@@ -43,8 +45,8 @@ namespace CrashKonijn.Goap.Resolver {
     [StructLayout(LayoutKind.Sequential)]
     public struct NativeHeap<T, U> : IDisposable
         where T : unmanaged
-        where U : unmanaged, IComparer<T> {
-
+        where U : unmanaged, IComparer<T>
+    {
         #region API
 
         public const int DEFAULT_CAPACITY = 128;
@@ -53,39 +55,51 @@ namespace CrashKonijn.Goap.Resolver {
         /// Returns the number of elements that this collection can hold before the internal structures
         /// need to be reallocated.
         /// </summary>
-        public int Capacity {
-            get {
-                unsafe {
+        public int Capacity
+        {
+            get
+            {
+                unsafe
+                {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                     AtomicSafetyHandle.CheckReadAndThrow(this.m_Safety);
 #endif
                     return this.Data->Capacity;
                 }
             }
-            set {
-                unsafe {
+            set
+            {
+                unsafe
+                {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                     AtomicSafetyHandle.CheckWriteAndThrow(this.m_Safety);
-                    if (value < this.Data->Count) {
-                        throw new ArgumentException($"Capacity of {value} cannot be smaller than count of {this.Data->Count}.");
+                    if (value < this.Data->Count)
+                    {
+                        throw new ArgumentException(
+                            $"Capacity of {value} cannot be smaller than count of {this.Data->Count}.");
                     }
 #endif
-                    TableValue* newTable = (TableValue*)Malloc(SizeOf<TableValue>() * value, AlignOf<TableValue>(), this.Allocator);
-                    HeapNode<T>* newHeap = (HeapNode<T>*)Malloc(SizeOf<HeapNode<T>>() * value, AlignOf<HeapNode<T>>(), this.Allocator);
+                    TableValue* newTable = (TableValue*)Malloc(SizeOf<TableValue>() * value, AlignOf<TableValue>(),
+                        this.Allocator);
+                    HeapNode<T>* newHeap = (HeapNode<T>*)Malloc(SizeOf<HeapNode<T>>() * value, AlignOf<HeapNode<T>>(),
+                        this.Allocator);
 
                     int toCopy = this.Data->Capacity < value ? this.Data->Capacity : value;
                     MemCpy(newTable, this.Data->Table, toCopy * SizeOf<TableValue>());
                     MemCpy(newHeap, this.Data->Heap, toCopy * SizeOf<HeapNode<T>>());
 
-                    for (int i = 0; i < value - this.Data->Capacity; i++) {
+                    for (int i = 0; i < value - this.Data->Capacity; i++)
+                    {
                         //For each new heap node, make sure that it has a new unique index
-                        newHeap[i + this.Data->Capacity] = new HeapNode<T>() {
+                        newHeap[i + this.Data->Capacity] = new HeapNode<T>()
+                        {
                             TableIndex = i + this.Data->Capacity
                         };
 
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                         //For each new table value, make sure it has a specific version
-                        newTable[i + this.Data->Capacity] = new TableValue() {
+                        newTable[i + this.Data->Capacity] = new TableValue()
+                        {
                             Version = 1
                         };
 #endif
@@ -105,9 +119,12 @@ namespace CrashKonijn.Goap.Resolver {
         /// <summary>
         /// Returns the number of elements currently contained inside this collection.
         /// </summary>
-        public int Count {
-            get {
-                unsafe {
+        public int Count
+        {
+            get
+            {
+                unsafe
+                {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                     AtomicSafetyHandle.CheckReadAndThrow(this.m_Safety);
 #endif
@@ -120,22 +137,29 @@ namespace CrashKonijn.Goap.Resolver {
         /// Gets or sets the comparator used for this Heap. Note that you can only set the comparator
         /// when the Heap is empty.
         /// </summary>
-        public U Comparator {
-            get {
-                unsafe {
+        public U Comparator
+        {
+            get
+            {
+                unsafe
+                {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                     AtomicSafetyHandle.CheckReadAndThrow(this.m_Safety);
 #endif
                     return this.Data->Comparator;
                 }
             }
-            set {
-                unsafe {
+            set
+            {
+                unsafe
+                {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                     AtomicSafetyHandle.CheckWriteAndThrow(this.m_Safety);
 
-                    if (this.Data->Count != 0) {
-                        throw new InvalidOperationException("Can only change the comparator of a NativeHeap when it is empty.");
+                    if (this.Data->Count != 0)
+                    {
+                        throw new InvalidOperationException(
+                            "Can only change the comparator of a NativeHeap when it is empty.");
                     }
 #endif
                     this.Data->Comparator = value;
@@ -159,15 +183,19 @@ namespace CrashKonijn.Goap.Resolver {
         /// always return the smallest element according to the ordering specified by this comparator.
         /// </param>
         public NativeHeap(Allocator allocator, int initialCapacity = DEFAULT_CAPACITY, U comparator = default) :
-            this(initialCapacity, comparator, allocator, disposeSentinelStackDepth: 1) { }
+            this(initialCapacity, comparator, allocator, disposeSentinelStackDepth: 1)
+        {
+        }
 
         /// <summary>
         /// Disposes of this container and deallocates its memory immediately.
         /// 
         /// Any NativeHeapIndex structures obtained will be invalidated and cannot be used again.
         /// </summary>
-        public void Dispose() {
-            unsafe {
+        public void Dispose()
+        {
+            unsafe
+            {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 DisposeSentinel.Dispose(ref this.m_Safety, ref this.m_DisposeSentinel);
 #endif
@@ -185,12 +213,15 @@ namespace CrashKonijn.Goap.Resolver {
         /// Removes all elements from this container.  Any NativeHeapIndex structures obtained will be
         /// invalidated and cannot be used again.
         /// </summary>
-        public void Clear() {
-            unsafe {
+        public void Clear()
+        {
+            unsafe
+            {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 AtomicSafetyHandle.CheckWriteAndThrow(this.m_Safety);
 
-                for (int i = 0; i < this.Data->Count; i++) {
+                for (int i = 0; i < this.Data->Count; i++)
+                {
                     var node = this.Data->Heap[i];
                     this.Data->Table[node.TableIndex].Version++;
                 }
@@ -206,7 +237,8 @@ namespace CrashKonijn.Goap.Resolver {
         /// 
         /// This method will always return true if Unity safety checks is turned off.
         /// </summary>
-        public bool IsValidIndex(NativeHeapIndex index) {
+        public bool IsValidIndex(NativeHeapIndex index)
+        {
             var isValid = true;
             var errorCode = 0;
             this.IsValidIndexInternal(index, ref isValid, ref errorCode);
@@ -219,15 +251,18 @@ namespace CrashKonijn.Goap.Resolver {
         /// This method will never throw if Unity safety checks is turned off.
         /// </summary>
         [Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
-        public void AssertValidIndex(NativeHeapIndex index) {
+        public void AssertValidIndex(NativeHeapIndex index)
+        {
             var isValid = true;
             var errorCode = 0;
             this.IsValidIndexInternal(index, ref isValid, ref errorCode);
-            if (isValid) {
+            if (isValid)
+            {
                 return;
             }
 
-            switch (errorCode) {
+            switch (errorCode)
+            {
                 case VALIDATION_ERROR_WRONG_INSTANCE:
                     throw new ArgumentException("The provided ItemHandle was not valid for this NativeHeap.  " +
                                                 "It was taken from a different instance.");
@@ -247,12 +282,14 @@ namespace CrashKonijn.Goap.Resolver {
         /// 
         /// This method will throw an InvalidOperationException if the collection is empty.
         /// </summary>
-        public T Peek() {
+        public T Peek()
+        {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
             AtomicSafetyHandle.CheckReadAndThrow(this.m_Safety);
 #endif
 
-            if (!this.TryPeek(out T t)) {
+            if (!this.TryPeek(out T t))
+            {
                 throw new InvalidOperationException("Cannot Peek NativeHeap when the count is zero.");
             }
 
@@ -267,17 +304,23 @@ namespace CrashKonijn.Goap.Resolver {
         /// 
         /// This method will return true if an element could be obtained, or false if the container is empty.
         /// </summary>
-        public bool TryPeek(out T t) {
-            unsafe {
+        public bool TryPeek(out T t)
+        {
+            unsafe
+            {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 AtomicSafetyHandle.CheckReadAndThrow(this.m_Safety);
 #endif
 
-                if (this.Data->Count == 0) {
+                if (this.Data->Count == 0)
+                {
                     t = default;
                     return false;
-                } else {
-                    unsafe {
+                }
+                else
+                {
+                    unsafe
+                    {
                         t = this.Data->Heap[0].Item;
                         return true;
                     }
@@ -292,12 +335,14 @@ namespace CrashKonijn.Goap.Resolver {
         /// 
         /// This method will throw an InvalidOperationException if the collection is empty.
         /// </summary>
-        public T Pop() {
+        public T Pop()
+        {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
             AtomicSafetyHandle.CheckWriteAndThrow(this.m_Safety);
 #endif
 
-            if (!this.TryPop(out T t)) {
+            if (!this.TryPop(out T t))
+            {
                 throw new InvalidOperationException("Cannot Pop NativeHeap when the count is zero.");
             }
 
@@ -311,13 +356,16 @@ namespace CrashKonijn.Goap.Resolver {
         /// 
         /// This method will return true if an element could be obtained, or false if the container is empty.
         /// </summary>
-        public bool TryPop(out T t) {
-            unsafe {
+        public bool TryPop(out T t)
+        {
+            unsafe
+            {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 AtomicSafetyHandle.CheckWriteAndThrow(this.m_Safety);
 #endif
 
-                if (this.Data->Count == 0) {
+                if (this.Data->Count == 0)
+                {
                     t = default;
                     return false;
                 }
@@ -356,13 +404,16 @@ namespace CrashKonijn.Goap.Resolver {
         /// 
         /// This method is an O(log(n)) operation.
         /// </summary>
-        public NativeHeapIndex Insert(in T t) {
-            unsafe {
+        public NativeHeapIndex Insert(in T t)
+        {
+            unsafe
+            {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 AtomicSafetyHandle.CheckWriteAndThrow(this.m_Safety);
 #endif
 
-                if (this.Data->Count == this.Data->Capacity) {
+                if (this.Data->Count == this.Data->Capacity)
+                {
                     this.Capacity *= 2;
                 }
 
@@ -373,7 +424,8 @@ namespace CrashKonijn.Goap.Resolver {
 
                 this.InsertAndBubbleUp(node, insertIndex);
 
-                return new NativeHeapIndex() {
+                return new NativeHeapIndex()
+                {
                     TableIndex = node.TableIndex,
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                     Version = this.Data->Table[node.TableIndex].Version,
@@ -393,8 +445,10 @@ namespace CrashKonijn.Goap.Resolver {
         /// 
         /// This method is an O(log(n)) operation.
         /// </summary>
-        public T Remove(NativeHeapIndex index) {
-            unsafe {
+        public T Remove(NativeHeapIndex index)
+        {
+            unsafe
+            {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 AtomicSafetyHandle.CheckWriteAndThrow(this.m_Safety);
 
@@ -413,10 +467,12 @@ namespace CrashKonijn.Goap.Resolver {
                 //First we move the node to remove to the end of the heap
                 WriteArrayElement(this.Data->Heap, this.Data->Count, toRemove);
 
-                if (indexToRemove != 0) {
+                if (indexToRemove != 0)
+                {
                     int parentIndex = (indexToRemove - 1) / 2;
                     var parentNode = this.Data->Heap[parentIndex];
-                    if (this.Data->Comparator.Compare(lastNode.Item, parentNode.Item) < 0) {
+                    if (this.Data->Comparator.Compare(lastNode.Item, parentNode.Item) < 0)
+                    {
                         this.InsertAndBubbleUp(lastNode, indexToRemove);
                         return toRemove.Item;
                     }
@@ -443,24 +499,28 @@ namespace CrashKonijn.Goap.Resolver {
 
         internal unsafe AtomicSafetyHandle m_Safety;
 
-        [NativeSetClassTypeToNullOnSchedule]
-        internal unsafe DisposeSentinel m_DisposeSentinel;
+        [NativeSetClassTypeToNullOnSchedule] internal unsafe DisposeSentinel m_DisposeSentinel;
 #endif
 
-        [NativeDisableUnsafePtrRestriction]
-        internal unsafe HeapData<T, U>* Data;
+        [NativeDisableUnsafePtrRestriction] internal unsafe HeapData<T, U>* Data;
         internal unsafe Allocator Allocator;
 
-        internal unsafe NativeHeap(int initialCapacity, U comparator, Allocator allocator, int disposeSentinelStackDepth) {
+        internal unsafe NativeHeap(int initialCapacity, U comparator, Allocator allocator,
+            int disposeSentinelStackDepth)
+        {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-            if (initialCapacity <= 0) {
-                throw new ArgumentException(nameof(initialCapacity), "Must provide an initial capacity that is greater than zero.");
+            if (initialCapacity <= 0)
+            {
+                throw new ArgumentException(nameof(initialCapacity),
+                    "Must provide an initial capacity that is greater than zero.");
             }
 
             if (allocator == Allocator.None ||
                 allocator == Allocator.Invalid ||
-                allocator == Allocator.AudioKernel) {
-                throw new ArgumentException(nameof(allocator), "Must provide an Allocator type of Temp, TempJob, or Persistent.");
+                allocator == Allocator.AudioKernel)
+            {
+                throw new ArgumentException(nameof(allocator),
+                    "Must provide an Allocator type of Temp, TempJob, or Persistent.");
             }
 
             DisposeSentinel.Create(out this.m_Safety, out this.m_DisposeSentinel, disposeSentinelStackDepth, allocator);
@@ -468,17 +528,22 @@ namespace CrashKonijn.Goap.Resolver {
 #endif
 
             this.Data = (HeapData<T, U>*)Malloc(SizeOf<HeapData<T, U>>(), AlignOf<HeapData<T, U>>(), allocator);
-            this.Data->Heap = (HeapNode<T>*)Malloc(SizeOf<HeapNode<T>>() * initialCapacity, AlignOf<HeapNode<T>>(), allocator);
-            this.Data->Table = (TableValue*)Malloc(SizeOf<TableValue>() * initialCapacity, AlignOf<TableValue>(), allocator);
+            this.Data->Heap = (HeapNode<T>*)Malloc(SizeOf<HeapNode<T>>() * initialCapacity, AlignOf<HeapNode<T>>(),
+                allocator);
+            this.Data->Table =
+                (TableValue*)Malloc(SizeOf<TableValue>() * initialCapacity, AlignOf<TableValue>(), allocator);
 
             this.Allocator = allocator;
 
-            for (int i = 0; i < initialCapacity; i++) {
-                this.Data->Heap[i] = new HeapNode<T>() {
+            for (int i = 0; i < initialCapacity; i++)
+            {
+                this.Data->Heap[i] = new HeapNode<T>()
+                {
                     TableIndex = i
                 };
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-                this.Data->Table[i] = new TableValue() {
+                this.Data->Table[i] = new TableValue()
+                {
                     Version = 1
                 };
 #endif
@@ -489,22 +554,27 @@ namespace CrashKonijn.Goap.Resolver {
             this.Data->Comparator = comparator;
         }
 
-        internal unsafe void InsertAndBubbleDown(HeapNode<T> node, int insertIndex) {
-            while (true) {
+        internal unsafe void InsertAndBubbleDown(HeapNode<T> node, int insertIndex)
+        {
+            while (true)
+            {
                 int indexL = insertIndex * 2 + 1;
                 int indexR = insertIndex * 2 + 2;
 
                 //If the left index is off the end, we are finished
-                if (indexL >= this.Data->Count) {
+                if (indexL >= this.Data->Count)
+                {
                     break;
                 }
 
                 if (indexR >= this.Data->Count || this.Data->Comparator.Compare(this.Data->Heap[indexL].Item,
-                                                                        this.Data->Heap[indexR].Item) <= 0) {
+                        this.Data->Heap[indexR].Item) <= 0)
+                {
                     //left is smaller (or the only child)
                     var leftNode = this.Data->Heap[indexL];
 
-                    if (this.Data->Comparator.Compare(node.Item, leftNode.Item) <= 0) {
+                    if (this.Data->Comparator.Compare(node.Item, leftNode.Item) <= 0)
+                    {
                         //Last is smaller or equal to left, we are done
                         break;
                     }
@@ -512,11 +582,14 @@ namespace CrashKonijn.Goap.Resolver {
                     this.Data->Heap[insertIndex] = leftNode;
                     this.Data->Table[leftNode.TableIndex].HeapIndex = insertIndex;
                     insertIndex = indexL;
-                } else {
+                }
+                else
+                {
                     //right is smaller
                     var rightNode = this.Data->Heap[indexR];
 
-                    if (this.Data->Comparator.Compare(node.Item, rightNode.Item) <= 0) {
+                    if (this.Data->Comparator.Compare(node.Item, rightNode.Item) <= 0)
+                    {
                         //Last is smaller than or equal to right, we are done
                         break;
                     }
@@ -531,13 +604,16 @@ namespace CrashKonijn.Goap.Resolver {
             this.Data->Table[node.TableIndex].HeapIndex = insertIndex;
         }
 
-        internal unsafe void InsertAndBubbleUp(HeapNode<T> node, int insertIndex) {
-            while (insertIndex != 0) {
+        internal unsafe void InsertAndBubbleUp(HeapNode<T> node, int insertIndex)
+        {
+            while (insertIndex != 0)
+            {
                 int parentIndex = (insertIndex - 1) / 2;
                 var parentNode = this.Data->Heap[parentIndex];
 
                 //If parent is actually less or equal to us, we are ok and can break out
-                if (this.Data->Comparator.Compare(parentNode.Item, node.Item) <= 0) {
+                if (this.Data->Comparator.Compare(parentNode.Item, node.Item) <= 0)
+                {
                     break;
                 }
 
@@ -555,24 +631,28 @@ namespace CrashKonijn.Goap.Resolver {
         }
 
         [Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
-        internal unsafe void IsValidIndexInternal(NativeHeapIndex index, ref bool result, ref int errorCode) {
+        internal unsafe void IsValidIndexInternal(NativeHeapIndex index, ref bool result, ref int errorCode)
+        {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
             AtomicSafetyHandle.CheckReadAndThrow(this.m_Safety);
 
-            if (index.StructureId != this.Id) {
+            if (index.StructureId != this.Id)
+            {
                 errorCode = VALIDATION_ERROR_WRONG_INSTANCE;
                 result = false;
                 return;
             }
 
-            if (index.TableIndex >= this.Data->Capacity) {
+            if (index.TableIndex >= this.Data->Capacity)
+            {
                 errorCode = VALIDATION_ERROR_INVALID;
                 result = false;
                 return;
             }
 
             TableValue tableValue = this.Data->Table[index.TableIndex];
-            if (tableValue.Version != index.Version) {
+            if (tableValue.Version != index.Version)
+            {
                 errorCode = VALIDATION_ERROR_REMOVED;
                 result = false;
                 return;
@@ -585,11 +665,12 @@ namespace CrashKonijn.Goap.Resolver {
 
     internal unsafe class NativeHeapDebugView<T, U>
         where T : unmanaged
-        where U : unmanaged, IComparer<T> {
-
+        where U : unmanaged, IComparer<T>
+    {
         private NativeHeap<T, U> _heap;
 
-        public NativeHeapDebugView(NativeHeap<T, U> heap) {
+        public NativeHeapDebugView(NativeHeap<T, U> heap)
+        {
             this._heap = heap;
         }
 
@@ -597,21 +678,27 @@ namespace CrashKonijn.Goap.Resolver {
         public int Capacity => this._heap.Capacity;
         public U Comparator => this._heap.Comparator;
 
-        public T[] Items {
-            get {
+        public T[] Items
+        {
+            get
+            {
                 T[] items = new T[this._heap.Count];
-                for (int i = 0; i < items.Length; i++) {
-                    unsafe {
+                for (int i = 0; i < items.Length; i++)
+                {
+                    unsafe
+                    {
                         items[i] = this._heap.Data->Heap[i].Item;
                     }
                 }
+
                 return items;
             }
         }
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    internal unsafe struct TableValue {
+    internal unsafe struct TableValue
+    {
         public int HeapIndex;
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
         public int Version;
@@ -620,7 +707,8 @@ namespace CrashKonijn.Goap.Resolver {
 
     [StructLayout(LayoutKind.Sequential)]
     internal unsafe struct HeapData<T, U>
-        where T : unmanaged {
+        where T : unmanaged
+    {
         public int Count;
         public int Capacity;
         public unsafe HeapNode<T>* Heap;
@@ -630,7 +718,8 @@ namespace CrashKonijn.Goap.Resolver {
 
     [StructLayout(LayoutKind.Sequential)]
     internal unsafe struct HeapNode<T>
-        where T : unmanaged {
+        where T : unmanaged
+    {
         public T Item;
         public int TableIndex;
     }

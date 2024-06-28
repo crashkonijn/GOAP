@@ -9,7 +9,7 @@ namespace CrashKonijn.Goap.Resolver
         public static (INode[] RootNodes, INode[] ChildNodes) ToNodes(this IEnumerable<IConnectable> actions)
         {
             var mappedNodes = actions.Select(ToNode).ToArray();
-            
+
             return (
                 mappedNodes.Where(x => x.IsRootNode).ToArray(),
                 mappedNodes.Where(x => !x.IsRootNode).ToArray()

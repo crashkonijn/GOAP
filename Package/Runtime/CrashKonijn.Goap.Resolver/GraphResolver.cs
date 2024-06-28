@@ -19,27 +19,28 @@ namespace CrashKonijn.Goap.Resolver
 #else
         // Dictionary<ActionIndex, ConditionIndex[]>
         private NativeMultiHashMap<int, int> nodeConditions;
+
         // Dictionary<ConditionIndex, NodeIndex[]>
         private NativeMultiHashMap<int, int> conditionConnections;
 #endif
-        
+
         private Graph graph;
         private Queue<ResolveHandle> handles = new();
 
         public GraphResolver(IConnectable[] actions, IKeyResolver keyResolver)
         {
             this.graph = new GraphBuilder(keyResolver).Build(actions);
-            
+
             this.indexList = this.graph.AllNodes.ToList();
             this.actionIndexList = this.indexList.Select(x => x.Action).ToList();
-            
+
             this.conditionList = this.indexList.SelectMany(x => x.Conditions).ToList();
             this.conditionIndexList = this.conditionList.Select(x => x.Condition).ToList();
-            
+
             this.CreateNodeConditions();
             this.CreateConditionConnections();
         }
-        
+
         private void CreateNodeConditions()
         {
 #if UNITY_COLLECTIONS_2_1
@@ -47,7 +48,7 @@ namespace CrashKonijn.Goap.Resolver
 #else
             var map = new NativeMultiHashMap<int, int>(this.indexList.Count, Allocator.Persistent);
 #endif
-            
+
             for (var i = 0; i < this.indexList.Count; i++)
             {
                 var conditions = this.indexList[i].Conditions
@@ -58,7 +59,7 @@ namespace CrashKonijn.Goap.Resolver
                     map.Add(i, condition);
                 }
             }
-            
+
             this.nodeConditions = map;
         }
 
@@ -80,7 +81,7 @@ namespace CrashKonijn.Goap.Resolver
                     map.Add(i, connection);
                 }
             }
-            
+
             this.conditionConnections = map;
         }
 
@@ -88,17 +89,17 @@ namespace CrashKonijn.Goap.Resolver
         {
             return this.GetResolveHandle().Start(this.nodeConditions, this.conditionConnections, runData);
         }
-        
+
         public IEnabledBuilder GetEnabledBuilder()
         {
             return new EnabledBuilder(this.actionIndexList);
         }
-        
+
         public IExecutableBuilder GetExecutableBuilder()
         {
             return new ExecutableBuilder(this.actionIndexList);
         }
-        
+
         public IPositionBuilder GetPositionBuilder()
         {
             return new PositionBuilder(this.actionIndexList);
@@ -108,20 +109,20 @@ namespace CrashKonijn.Goap.Resolver
         {
             return new CostBuilder(this.actionIndexList);
         }
-        
+
         public IConditionBuilder GetConditionBuilder()
         {
             return new ConditionBuilder(this.conditionIndexList);
         }
-        
+
         public IGraph GetGraph()
         {
             return this.graph;
         }
-        
+
         public int GetIndex(IConnectable action) => this.actionIndexList.IndexOf(action);
         public IGoapAction GetAction(int index) => this.actionIndexList[index] as IGoapAction;
-        
+
         public void Dispose()
         {
             this.nodeConditions.Dispose();
