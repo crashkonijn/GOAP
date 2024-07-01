@@ -42,12 +42,12 @@ namespace CrashKonijn.Goap.Runtime
             this.capabilityConfigs.Add(new TCapability().Create());
         }
         
-        public void AddCapability<TCapability>(CapabilityFactoryBase capabilityFactory)
+        public void AddCapability(CapabilityFactoryBase capabilityFactory)
         {
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
         
-        public void AddCapability<TCapability>(MonoCapabilityFactoryBase capabilityFactory)
+        public void AddCapability(MonoCapabilityFactoryBase capabilityFactory)
         {
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
