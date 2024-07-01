@@ -53,7 +53,7 @@ namespace CrashKonijn.Goap.Editor
         private string GetText(GoapActionProvider provider)
         {
             return $@"Goal: {provider.CurrentGoal?.GetType().GetGenericTypeName()}
-AgentType: {provider.AgentType.Id}
+AgentType: {provider.AgentType?.Id}
 Receiver: {provider.Agent?.GetType().GetGenericTypeName()}";
         }
     }

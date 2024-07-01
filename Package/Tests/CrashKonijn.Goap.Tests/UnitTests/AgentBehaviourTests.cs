@@ -76,12 +76,14 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.CallAwake();
             this.agent.Initialize();
             
+            var goal = Substitute.For<IGoal>();
+            
             var action = Substitute.For<IGoapAction>();
             action.IsValid(Arg.Any<IMonoAgent>(), Arg.Any<IActionData>()).Returns(true);
             action.IsInRange(this.agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
             action.Perform(this.agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Stop);
 
-            this.provider.SetAction(action, Array.Empty<IConnectable>());
+            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
             
             // Act
             this.agent.Run();
@@ -179,10 +181,11 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.CallAwake();
             this.agent.Initialize();
             
+            var goal = Substitute.For<IGoal>();
             var action = Substitute.For<IGoapAction>();
             
             // Act
-            this.provider.SetAction(action, Array.Empty<IConnectable>());
+            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
             
             // Assert
             this.provider.Agent.ActionState.Action.Should().Be(action);
@@ -195,6 +198,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.CallAwake();
             this.agent.Initialize();
 
+            var goal = Substitute.For<IGoal>();
             var action = Substitute.For<IGoapAction>();
             
             // Set Action property through reflection
@@ -202,7 +206,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.InsertAction(oldAction);
             
             // Act
-            this.provider.SetAction(action, Array.Empty<IConnectable>());
+            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
             
             // Assert
             oldAction.Received(1).Stop(this.agent, Arg.Any<IActionData>());
@@ -215,10 +219,11 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.CallAwake();
             this.agent.Initialize();
             
+            var goal = Substitute.For<IGoal>();
             var action = Substitute.For<IGoapAction>();
             
             // Act
-            this.provider.SetAction(action, Array.Empty<IConnectable>());
+            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
             
             // Assert
             action.Received(1).GetData();
@@ -232,11 +237,13 @@ namespace CrashKonijn.Goap.UnitTests
             this.agent.Initialize();
             
             var actionData = Substitute.For<IActionData>();
+            var goal = Substitute.For<IGoal>();
+            
             var action = Substitute.For<IGoapAction>();
             action.GetData().Returns(actionData);
             
             // Act
-            this.provider.SetAction(action, Array.Empty<IConnectable>());
+            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
             
             // Assert
             this.provider.Agent.ActionState.Data.Should().Be(actionData);
@@ -271,10 +278,11 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.CallAwake();
             this.agent.Initialize();
             
+            var goal = Substitute.For<IGoal>();
             var action = Substitute.For<IGoapAction>();
 
             // Act
-            this.provider.SetAction(action, Array.Empty<IConnectable>());
+            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
             
             // Assert
             action.Received(1).Start(this.agent, Arg.Any<IActionData>());
@@ -287,6 +295,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.CallAwake();
             this.agent.Initialize();
             
+            var goal = Substitute.For<IGoal>();
             var action = Substitute.For<IGoapAction>();
             var path = new IConnectable[]
             {
@@ -294,7 +303,7 @@ namespace CrashKonijn.Goap.UnitTests
             };
             
             // Act
-            this.provider.SetAction(action, path);
+            this.provider.SetAction(goal, action, path);
             
             // Assert
             this.provider.CurrentPlan.Should().BeSameAs(path);
@@ -308,10 +317,11 @@ namespace CrashKonijn.Goap.UnitTests
             this.agent.Initialize();
             this.agent.MockEvents();
 
+            var goal = Substitute.For<IGoal>();
             var action = Substitute.For<IGoapAction>();
             
             // Act
-            this.provider.SetAction(action, Array.Empty<IConnectable>());
+            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
             
             // Assert
             this.agent.Events.Received(1).ActionStart(action);
@@ -343,7 +353,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.agent.Initialize();
 
             // Act
-            this.provider.SetAction(Substitute.For<IGoapAction>(), Array.Empty<IConnectable>());
+            this.provider.SetAction(Substitute.For<IGoal>(), Substitute.For<IGoapAction>(), Array.Empty<IConnectable>());
             this.provider.StopAction();
             
             // Assert
@@ -358,7 +368,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.agent.Initialize();
 
             // Act
-            this.provider.SetAction(Substitute.For<IGoapAction>(), Array.Empty<IConnectable>());
+            this.provider.SetAction(Substitute.For<IGoal>(), Substitute.For<IGoapAction>(), Array.Empty<IConnectable>());
             this.provider.StopAction();
             
             // Assert
@@ -389,8 +399,9 @@ namespace CrashKonijn.Goap.UnitTests
             this.agent.Initialize();
             this.agent.MockEvents();
 
+            var goal = Substitute.For<IGoal>();
             var action = Substitute.For<IGoapAction>();
-            this.provider.SetAction(action, Array.Empty<IConnectable>());
+            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
 
             // Act
             this.provider.StopAction();

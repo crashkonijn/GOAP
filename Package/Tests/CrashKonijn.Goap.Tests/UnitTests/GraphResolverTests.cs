@@ -98,7 +98,7 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().BeEmpty();
+            result.Actions.Should().BeEmpty();
         }
         
         [Test]
@@ -137,8 +137,48 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(1);
-            result.First().Should().Be(action);
+            result.Actions.Should().HaveCount(1);
+            result.Actions.First().Should().Be(action);
+        }
+        
+        [Test]
+        public void Resolve_WithOneExecutableConnection_ReturnsGoal()
+        {
+            // Arrange
+            var connection = new TestConnection("connection");
+            var goal = new TestGoal("goal")
+            {
+                Conditions = new ICondition[] { connection }
+            }.ToMock();
+            var action = new TestAction("action")
+            {
+                Effects = new IEffect[] { connection }
+            }.ToMock();
+            
+            var actions = new IConnectable[] { goal, action };
+            var resolver = new GraphResolver(actions, new TestKeyResolver());
+            
+            // Act
+            var handle = resolver.StartResolve(new RunData
+            {
+                StartIndex = new NativeArray<int>(new [] { 0 }, Allocator.TempJob),
+                AgentPosition = Vector3.zero,
+                IsEnabled = new NativeArray<bool>(new []{ true, true }, Allocator.TempJob),
+                IsExecutable = new NativeArray<bool>(new [] { false, true }, Allocator.TempJob),
+                Positions = new NativeArray<float3>(new []{ float3.zero, float3.zero }, Allocator.TempJob),
+                Costs = new NativeArray<float>(new []{ 1f, 1f }, Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(new [] { false }, Allocator.TempJob),
+                DistanceMultiplier = 1f
+            });
+
+            var result = handle.Complete();
+            
+            // Cleanup
+            resolver.Dispose();
+
+            // Assert
+            result.Actions.Should().HaveCount(1);
+            result.Goal.Should().Be(goal);
         }
         
         [Test]
@@ -186,8 +226,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(1);
-            result.First().Should().Be(thirdAction);
+            result.Actions.Should().HaveCount(1);
+            result.Actions.First().Should().Be(thirdAction);
         }
         
         [Test]
@@ -247,8 +287,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(2);
-            result.Should().Equal(action11, action1);
+            result.Actions.Should().HaveCount(2);
+            result.Actions.Should().Equal(action11, action1);
         }
 
         [Test]
@@ -324,8 +364,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(3);
-            result.Should().Equal(action111, action11, action1);
+            result.Actions.Should().HaveCount(3);
+            result.Actions.Should().Equal(action111, action11, action1);
         }
 
         [Test]
@@ -398,8 +438,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(3);
-            result.Should().Equal(action111, action11, action1);
+            result.Actions.Should().HaveCount(3);
+            result.Actions.Should().Equal(action111, action11, action1);
         }
 
         [TestCase(true)]
@@ -481,12 +521,12 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(2);
+            result.Actions.Should().HaveCount(2);
             
             if (close)
-                result.Should().Equal(closeAction, rootAction);
+                result.Actions.Should().Equal(closeAction, rootAction);
             else
-                result.Should().Equal(farAction, rootAction);
+                result.Actions.Should().Equal(farAction, rootAction);
         }
         
         [Test]
@@ -550,8 +590,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(2);
-            result.Should().Equal(incompleteAction, rootAction);
+            result.Actions.Should().HaveCount(2);
+            result.Actions.Should().Equal(incompleteAction, rootAction);
         }
         
         [Test]
@@ -615,8 +655,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(1);
-            result.Should().Equal(expensiveAction);
+            result.Actions.Should().HaveCount(1);
+            result.Actions.Should().Equal(expensiveAction);
         }
         
         [Test]
@@ -681,8 +721,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(2);
-            result.Should().Equal(enabledAction, rootAction);
+            result.Actions.Should().HaveCount(2);
+            result.Actions.Should().Equal(enabledAction, rootAction);
         }
         
         [Test]
@@ -754,8 +794,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
 
             // Assert
-            result.Should().HaveCount(2);
-            result.Should().Equal(enabledAction, rootAction);
+            result.Actions.Should().HaveCount(2);
+            result.Actions.Should().Equal(enabledAction, rootAction);
         }
 
         [Test]
@@ -826,8 +866,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
             
             // Assert
-            result.Should().HaveCount(2);
-            result.Should().Equal(closeAction, rootAction);
+            result.Actions.Should().HaveCount(2);
+            result.Actions.Should().Equal(closeAction, rootAction);
         }
 
         [TestCase(true)]
@@ -898,8 +938,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
             
             // Assert
-            result.Should().HaveCount(1);
-            result.Should().Equal(one ? rootAction1 : rootAction2);
+            result.Actions.Should().HaveCount(1);
+            result.Actions.Should().Equal(one ? rootAction1 : rootAction2);
         }
 
         [Test]
@@ -979,8 +1019,8 @@ namespace CrashKonijn.Goap.UnitTests
             resolver.Dispose();
             
             // Assert
-            result.Should().HaveCount(1);
-            result.Should().Equal(expensiveAction);
+            result.Actions.Should().HaveCount(1);
+            result.Actions.Should().Equal(expensiveAction);
         }
     }
 }

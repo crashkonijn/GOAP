@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CrashKonijn.Goap.Core;
 using Unity.Collections;
 using Unity.Jobs;
@@ -41,7 +42,8 @@ namespace CrashKonijn.Goap.Resolver
                 NodeConditions = nodeConditions,
                 ConditionConnections = conditionConnections,
                 RunData = runData,
-                Result = new NativeList<NodeData>(Allocator.TempJob)
+                Result = new NativeList<NodeData>(Allocator.TempJob),
+                PickedGoal = new NativeList<NodeData>(Allocator.TempJob)
             };
 
             this.handle = this.job.Schedule();
@@ -50,7 +52,7 @@ namespace CrashKonijn.Goap.Resolver
         }
 #endif
 
-        public IConnectable[] Complete()
+        public JobResult Complete()
         {
             this.handle.Complete();
 
@@ -61,7 +63,13 @@ namespace CrashKonijn.Goap.Resolver
                 this.results.Add(this.graphResolver.GetAction(data.Index));
             }
 
+            IGoal goal = default;
+
+            if (this.job.PickedGoal.Length > 0)
+                goal = this.graphResolver.GetGoal(this.job.PickedGoal[0].Index);
+
             this.job.Result.Dispose();
+            this.job.PickedGoal.Dispose();
 
             this.job.RunData.StartIndex.Dispose();
             this.job.RunData.IsEnabled.Dispose();
@@ -72,7 +80,17 @@ namespace CrashKonijn.Goap.Resolver
 
             this.graphResolver.Release(this);
 
-            return this.results.ToArray();
+            return new JobResult
+            {
+                Actions = this.results.ToArray(),
+                Goal = goal
+            };
         }
+    }
+
+    public class JobResult
+    {
+        public IConnectable[] Actions { get; set; }
+        public IGoal Goal { get; set; }
     }
 }

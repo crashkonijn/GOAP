@@ -4,6 +4,6 @@ namespace CrashKonijn.Goap.Resolver
 {
     public interface IResolveHandle
     {
-        IConnectable[] Complete();
+        JobResult Complete();
     }
 }

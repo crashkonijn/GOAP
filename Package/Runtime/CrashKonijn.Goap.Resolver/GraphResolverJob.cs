@@ -21,7 +21,7 @@ namespace CrashKonijn.Goap.Resolver
         public float H;
         public int ParentIndex;
         public float3 Position;
-
+        
         public float F => this.G + this.H;
     }
 
@@ -75,6 +75,7 @@ namespace CrashKonijn.Goap.Resolver
 
         // Results
         public NativeList<NodeData> Result;
+        public NativeList<NodeData> PickedGoal;
 
         public static readonly float3 InvalidPosition = new float3(float.MaxValue, float.MaxValue, float.MaxValue);
 
@@ -242,6 +243,8 @@ namespace CrashKonijn.Goap.Resolver
                 path.Add(currentNode);
                 currentNode = closedSet[currentNode.ParentIndex];
             }
+
+            this.PickedGoal.Add(currentNode);
         }
 
         private bool HasUnresolvableCondition(int currentIndex)

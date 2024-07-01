@@ -252,7 +252,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new [] { Substitute.For<ICondition>() });
-
+            
             var action = Substitute.For<IGoapAction>();
             
             this.goapActionProvider.CurrentGoal.Returns(goal);
@@ -266,7 +266,11 @@ namespace CrashKonijn.Goap.UnitTests
             agentType.GetActions().Returns(new List<IGoapAction>());
 
             var handle = Substitute.For<IResolveHandle>();
-            handle.Complete().Returns(new IConnectable[] { action });
+            handle.Complete().Returns(new JobResult
+            {
+                Goal = goal,
+                Actions = new IConnectable[] { action }
+            });
             
             var resolver = Substitute.For<IGraphResolver>();
             resolver.StartResolve(Arg.Any<RunData>()).Returns(handle);
@@ -278,7 +282,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Complete();
             
             // Assert
-            this.goapActionProvider.Received(1).SetAction(action, Arg.Any<IConnectable[]>());
+            this.goapActionProvider.Received(1).SetAction(goal, action, Arg.Any<IConnectable[]>());
         }
         
         [Test]
@@ -301,7 +305,11 @@ namespace CrashKonijn.Goap.UnitTests
             agentType.GetActions().Returns(new List<IGoapAction>());
 
             var handle = Substitute.For<IResolveHandle>();
-            handle.Complete().Returns(new IConnectable[] { action });
+            handle.Complete().Returns(new JobResult
+            {
+                Goal = goal,
+                Actions = new IConnectable[] { action }
+            });
             
             var resolver = Substitute.For<IGraphResolver>();
             resolver.StartResolve(Arg.Any<RunData>()).Returns(handle);
@@ -313,7 +321,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Complete();
             
             // Assert
-            this.goapActionProvider.Received(0).SetAction(Arg.Any<IGoapAction>(), Arg.Any<IConnectable[]>());
+            this.goapActionProvider.Received(0).SetAction(Arg.Any<IGoal>(), Arg.Any<IGoapAction>(), Arg.Any<IConnectable[]>());
         }
     }
 }

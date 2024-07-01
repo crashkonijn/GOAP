@@ -138,7 +138,14 @@ namespace CrashKonijn.Goap.Runtime
                 if (resolveHandle.ActionProvider.IsNull())
                     continue;
                 
-                var action = result.FirstOrDefault() as IGoapAction;
+                var goal = result.Goal;
+                if (goal == null)
+                {
+                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.ActionProvider.CurrentGoal);
+                    continue;
+                }
+                
+                var action = result.Actions.FirstOrDefault() as IGoapAction;
                 
                 if (action is null)
                 {
@@ -148,7 +155,7 @@ namespace CrashKonijn.Goap.Runtime
 
                 if (action != resolveHandle.ActionProvider.Agent.ActionState.Action)
                 {
-                    resolveHandle.ActionProvider.SetAction(action, result);
+                    resolveHandle.ActionProvider.SetAction(goal, action, result.Actions);
                 }
             }
             

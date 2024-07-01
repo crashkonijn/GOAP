@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Agent;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
@@ -32,6 +33,9 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
         public IGoal CurrentGoal { get; private set; }
+        public IGoalRequest GoalRequest { get; private set; }
+        public IGoalRequest ActiveGoalRequest { get; private set; }
+        
         public ILocalWorldData WorldData { get; } = new LocalWorldData();
         public IConnectable[] CurrentPlan { get; private set; } = Array.Empty<IConnectable>();
         public IGoapAgentEvents Events { get; } = new GoapAgentEvents();
@@ -107,7 +111,7 @@ namespace CrashKonijn.Goap.Runtime
                 this.StopAction();
         }
 
-        public void SetAction(IGoapAction action, IConnectable[] path)
+        public void SetAction(IGoal goal, IGoapAction action, IConnectable[] path)
         {
             this.CurrentPlan = path;
             this.Agent.SetAction(this, action, this.WorldData.GetTarget(action));
