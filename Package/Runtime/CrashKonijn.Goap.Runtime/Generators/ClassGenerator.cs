@@ -132,7 +132,7 @@ namespace CrashKonijn.Goap.Runtime
         
         private string GetTemplatePath(string name)
         {
-            var basePath = "Packages/com.crashkonijn.goap/Runtime/CrashKonijn.Goap/Generators";
+            var basePath = "Packages/com.crashkonijn.goap/Runtime/CrashKonijn.Goap.Runtime/Generators";
             
             return basePath + "/Templates/" + name + ".template";
         }
