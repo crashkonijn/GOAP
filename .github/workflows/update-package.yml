@@ -41,7 +41,7 @@ jobs:
                 
       - name: Replace version in GoapEditorSettings
         run: |
-          awk -v version="${{ github.event.inputs.version }}" '{ if ($0 ~ /public const string Version = $/) print "public const string Version = \"" version "\";"; else print $0; }' Package/Editor/CrashKonijn.Goap.Editor/GoapEditorSettings.cs > GoapEditorSettings.tmp && mv GoapEditorSettings.tmp Package/Editor/CrashKonijn.Goap.Editor/GoapEditorSettings.cs
+          awk -v version="${{ github.event.inputs.version }}" '{ if ($0 ~ /public const string Version/) print "public const string Version = \"" version "\";"; else print $0; }' Package/Editor/CrashKonijn.Goap.Editor/GoapEditorSettings.cs > GoapEditorSettings.tmp && mv GoapEditorSettings.tmp Package/Editor/CrashKonijn.Goap.Editor/GoapEditorSettings.cs
         shell: bash
 
       - name: Commit and push if there are changes
