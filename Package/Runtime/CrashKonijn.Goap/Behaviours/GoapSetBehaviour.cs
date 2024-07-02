@@ -21,7 +21,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         private void Awake()
         {
-            var goapSet = new GoapSetFactory(GoapConfig.Default).Create(this.config);
+            var goapSet = new GoapSetFactory(this.runner.Config).Create(this.config);
 
             this.runner.Register(goapSet);
             
