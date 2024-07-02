@@ -13,19 +13,18 @@ namespace CrashKonijn.Goap.Runtime
             this.typeEvents = events;
             this.actionProvider = actionProvider;
             
-            // Todo
-            // actionProvider.Agent.Events.OnActionStart += this.ActionStart;
-            // actionProvider.Agent.Events.OnActionEnd += this.ActionEnd;
-            // actionProvider.Agent.Events.OnActionStop += this.ActionStop;
-            // actionProvider.Agent.Events.OnActionComplete += this.ActionComplete;
+            actionProvider.Agent.Events.OnActionStart += this.ActionStart;
+            actionProvider.Agent.Events.OnActionEnd += this.ActionEnd;
+            actionProvider.Agent.Events.OnActionStop += this.ActionStop;
+            actionProvider.Agent.Events.OnActionComplete += this.ActionComplete;
         }
         
         public void Unbind()
         {
-            // this.actionProvider.Agent.Events.OnActionStart -= this.ActionStart;
-            // this.actionProvider.Agent.Events.OnActionEnd -= this.ActionEnd;
-            // this.actionProvider.Agent.Events.OnActionStop -= this.ActionStop;
-            // this.actionProvider.Agent.Events.OnActionComplete -= this.ActionComplete;
+            this.actionProvider.Agent.Events.OnActionStart -= this.ActionStart;
+            this.actionProvider.Agent.Events.OnActionEnd -= this.ActionEnd;
+            this.actionProvider.Agent.Events.OnActionStop -= this.ActionStop;
+            this.actionProvider.Agent.Events.OnActionComplete -= this.ActionComplete;
         }
         
         public event GoalDelegate OnNoActionFound;

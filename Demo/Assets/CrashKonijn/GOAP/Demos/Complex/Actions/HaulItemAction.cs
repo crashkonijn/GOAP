@@ -25,7 +25,10 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
         
         public override void Start(IMonoAgent agent, Data data)
         {
-            var item = this.itemCollection.Closest(agent.transform.position, false, false, agent.gameObject);
+            if (data.Target is not ItemTarget target)
+                return;
+
+            var item = target.Item;
             
             if (item is null)
                 return;

@@ -14,7 +14,6 @@ namespace CrashKonijn.Agent.Core
         IActionData CurrentActionData { get; }
         [Obsolete("Use ActionState.RunState instead.")]
         IActionRunState RunState { get; }
-        IAgentEvents Events { get; }
         
         IAgentDistanceObserver DistanceObserver { get; }
         ITarget CurrentTarget { get; }
