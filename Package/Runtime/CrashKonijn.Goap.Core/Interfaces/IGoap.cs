@@ -13,6 +13,7 @@ namespace CrashKonijn.Goap.Core
         List<IMonoGoapActionProvider> Agents { get; }
 
         IAgentType[] AgentTypes { get; }
+        IGoapConfig Config { get; }
 
         IAgentType GetAgentType(string id);
     }

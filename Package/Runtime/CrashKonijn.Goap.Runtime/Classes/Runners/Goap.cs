@@ -25,6 +25,7 @@ namespace CrashKonijn.Goap.Runtime
         public Goap(IGoapController controller)
         {
             this.Controller = controller;
+            this.Config = GoapConfig.Default;
         }
         
         public void Register(IAgentType agentType) {
@@ -77,7 +78,8 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public IAgentType[] AgentTypes => this.AgentTypeRunners.Keys.ToArray();
-        
+        public IGoapConfig Config { get; }
+
         public IAgentType GetAgentType(string id)
         {
             var agentTypes = this.AgentTypes.FirstOrDefault(x => x.Id == id);
