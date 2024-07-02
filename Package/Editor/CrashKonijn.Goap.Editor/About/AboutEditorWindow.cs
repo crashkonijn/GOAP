@@ -1,12 +1,11 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Editor.Elements;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.About
+namespace CrashKonijn.Goap.Editor
 {
     public class AboutEditorWindow : EditorWindow
     {

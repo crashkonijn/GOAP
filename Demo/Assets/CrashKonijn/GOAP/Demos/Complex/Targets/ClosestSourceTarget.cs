@@ -1,7 +1,7 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using Demos.Complex.Interfaces;
+﻿using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 
-namespace Demos.Complex.Targets
+namespace CrashKonijn.Goap.Demos.Complex.Targets
 {
     public class ClosestSourceTarget<TGatherable> : TargetKeyBase
         where TGatherable : IGatherable

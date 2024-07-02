@@ -1,11 +1,11 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 
-namespace CrashKonijn.Goap.Editor.Attributes
+namespace CrashKonijn.Goap.Editor
 {
     [CustomPropertyDrawer(typeof(GoalClassAttribute))]
-    public class GoalClassDrawer : ClassDrawerBase<IGoalBase>
+    public class GoalClassDrawer : ClassDrawerBase<IGoal>
     {
     }
 }

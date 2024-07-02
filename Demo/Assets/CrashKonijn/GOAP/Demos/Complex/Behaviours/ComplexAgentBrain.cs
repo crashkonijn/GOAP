@@ -1,39 +1,38 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Classes.Items;
-using Demos.Complex.Goals;
-using Demos.Shared.Behaviours;
-using Demos.Shared.Goals;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Demos.Complex.Classes.Items;
+using CrashKonijn.Goap.Demos.Complex.Goals;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class ComplexAgentBrain : MonoBehaviour
     {
         public AgentType agentType;
-        private AgentBehaviour agent;
-        private HungerBehaviour hunger;
+        private GoapActionProvider agent;
+        private ComplexHungerBehaviour complexHunger;
         private ItemCollection itemCollection;
         private ComplexInventoryBehaviour inventory;
 
         private void Awake()
         {
-            this.agent = this.GetComponent<AgentBehaviour>();
-            this.hunger = this.GetComponent<HungerBehaviour>();
+            this.agent = this.GetComponent<GoapActionProvider>();
+            this.complexHunger = this.GetComponent<ComplexHungerBehaviour>();
             this.inventory = this.GetComponent<ComplexInventoryBehaviour>();
             this.itemCollection = FindObjectOfType<ItemCollection>();
         }
 
         private void OnEnable()
         {
-            this.agent.Events.OnActionStop += this.OnActionStop;
+            this.agent.Events.OnActionEnd += this.OnActionEnd;
             this.agent.Events.OnNoActionFound += this.OnNoActionFound;
             this.agent.Events.OnGoalCompleted += this.OnGoalCompleted;
         }
 
         private void OnDisable()
         {
-            this.agent.Events.OnActionStop -= this.OnActionStop;
+            this.agent.Events.OnActionEnd -= this.OnActionEnd;
             this.agent.Events.OnNoActionFound -= this.OnNoActionFound;
             this.agent.Events.OnGoalCompleted -= this.OnGoalCompleted;
         }
@@ -43,17 +42,17 @@ namespace Demos.Complex.Behaviours
             this.agent.SetGoal<WanderGoal>(false);
         }
         
-        private void OnNoActionFound(IGoalBase goal)
+        private void OnNoActionFound(IGoal goal)
         {
             this.agent.SetGoal<WanderGoal>(false);
         }
 
-        private void OnGoalCompleted(IGoalBase goal)
+        private void OnGoalCompleted(IGoal goal)
         {
             this.agent.SetGoal<WanderGoal>(false);
         }
 
-        private void OnActionStop(IActionBase action)
+        private void OnActionEnd(IAction action)
         {
             this.UpdateHunger();
             
@@ -65,7 +64,7 @@ namespace Demos.Complex.Behaviours
 
         private void UpdateHunger()
         {
-            if (this.hunger.hunger > 80)
+            if (this.complexHunger.hunger > 80)
             {
                 this.agent.SetGoal<FixHungerGoal>(false);
                 return;
@@ -74,7 +73,7 @@ namespace Demos.Complex.Behaviours
             if (this.agent.CurrentGoal is not FixHungerGoal)
                 return;
             
-            if (this.hunger.hunger < 20)
+            if (this.complexHunger.hunger < 20)
                 this.DetermineGoal();
         }
 

@@ -1,0 +1,15 @@
+{
+    "name": "CrashKonijn.Agent.Runtime",
+    "rootNamespace": "CrashKonijn.Agent.Runtime",
+    "references": [
+    "GUID:0d347051544a4880a72466503e27985a"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

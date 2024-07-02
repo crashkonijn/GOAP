@@ -1,8 +1,8 @@
-﻿using Demos.Complex.Behaviours;
+﻿using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace Demos.Complex.Editor
+namespace CrashKonijn.Goap.Demos.Complex.Editor
 {
     [CustomEditor(typeof(ItemBase))]
     public class ItemBaseEditor : UnityEditor.Editor

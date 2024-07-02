@@ -1,11 +1,11 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
+﻿using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 
-namespace Demos.Complex.Goap
+namespace CrashKonijn.Goap.Demos.Complex.Goap
 {
     public class GoapConfigInitializer : GoapConfigInitializerBase
     {
-        public override void InitConfig(GoapConfig config)
+        public override void InitConfig(IGoapConfig config)
         {
             config.GoapInjector = this.GetComponent<GoapInjector>();
         }

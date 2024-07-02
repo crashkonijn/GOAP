@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Configs.Interfaces;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
@@ -19,7 +19,7 @@ namespace CrashKonijn.Goap.UnitTests.Validators
             var action = Substitute.For<IActionConfig>();
             action.Target.Returns(Substitute.For<ITargetKey>());
             
-            var config = Substitute.For<IGoapSetConfig>();
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>
             {
                 action
@@ -50,7 +50,7 @@ namespace CrashKonijn.Goap.UnitTests.Validators
             var sensor = Substitute.For<ITargetSensorConfig>();
             sensor.Key.Returns(targetKey);
             
-            var config = Substitute.For<IGoapSetConfig>();
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>
             {
                 action
@@ -77,7 +77,7 @@ namespace CrashKonijn.Goap.UnitTests.Validators
             var action = Substitute.For<IActionConfig>();
             action.Target.ReturnsNull();
             
-            var config = Substitute.For<IGoapSetConfig>();
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>
             {
                 action
@@ -103,7 +103,7 @@ namespace CrashKonijn.Goap.UnitTests.Validators
             var sensor = Substitute.For<ITargetSensorConfig>();
             sensor.Key.ReturnsNull();
             
-            var config = Substitute.For<IGoapSetConfig>();
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>());
             config.TargetSensors.Returns(new List<ITargetSensorConfig>{ sensor });
             
