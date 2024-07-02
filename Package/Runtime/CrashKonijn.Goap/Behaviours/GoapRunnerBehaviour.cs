@@ -26,7 +26,8 @@ namespace CrashKonijn.Goap.Behaviours
 
         public List<GoapSetFactoryBase> goapSetConfigFactories = new();
 
-        private GoapConfig config;
+        public IGoapConfig Config => this.runner.Config;
+        
         private bool isInitialized = false;
 
         private void Awake()
@@ -36,7 +37,7 @@ namespace CrashKonijn.Goap.Behaviours
 
         public void Register(IGoapSet goapSet) => this.runner.Register(goapSet);
         
-        public void Register(IGoapSetConfig goapSetConfig) => this.runner.Register(new GoapSetFactory(this.config).Create(goapSetConfig));
+        public void Register(IGoapSetConfig goapSetConfig) => this.runner.Register(new GoapSetFactory(this.Config).Create(goapSetConfig));
 
         private void Update()
         {
@@ -58,12 +59,15 @@ namespace CrashKonijn.Goap.Behaviours
         {
             if (this.isInitialized)
                 return;
-            
-            this.config = GoapConfig.Default;
-            this.runner = new Classes.Runners.GoapRunner();
-            
+
+            var goapRunner = new Classes.Runners.GoapRunner
+            {
+                Config = GoapConfig.Default
+            };
+            this.runner = goapRunner;
+
             if (this.configInitializer != null)
-                this.configInitializer.InitConfig(this.config);
+                this.configInitializer.InitConfig(this.runner.Config as GoapConfig);
             
             this.CreateGoapSets();
             
@@ -80,7 +84,7 @@ namespace CrashKonijn.Goap.Behaviours
             }
 #pragma warning restore CS0618
             
-            var goapSetFactory = new GoapSetFactory(this.config);
+            var goapSetFactory = new GoapSetFactory(this.Config);
 
             this.goapSetConfigFactories.ForEach(factory =>
             {

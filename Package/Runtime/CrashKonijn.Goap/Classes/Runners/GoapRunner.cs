@@ -72,6 +72,7 @@ namespace CrashKonijn.Goap.Classes.Runners
         public IGoapSet[] Sets => this.goapSets.Keys.ToArray();
 
         public IGoapSet[] GoapSets => this.goapSets.Keys.ToArray();
+        public IGoapConfig Config { get; set; }
 
         [System.Obsolete("'GetSet' is deprecated, please use 'GetGoapSet' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
         public IGoapSet GetSet(string id)

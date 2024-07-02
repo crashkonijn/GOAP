@@ -14,6 +14,7 @@ namespace CrashKonijn.Goap.Interfaces
         IGoapSet[] Sets { get; }
 
         IGoapSet[] GoapSets { get; }
+        IGoapConfig Config { get; }
 
         [System.Obsolete("'GetSet' is deprecated, please use 'GetGoapSet' instead.   Exact same functionality, name changed to mitigate confusion with the word 'set' which could have many meanings.")]
         IGoapSet GetSet(string id);
