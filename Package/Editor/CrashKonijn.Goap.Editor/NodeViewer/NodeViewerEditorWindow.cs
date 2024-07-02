@@ -229,11 +229,10 @@ namespace CrashKonijn.Goap.Editor.NodeViewer
         {
             this.rightPanel.Clear();
 
-            if (this.runner == null)
-                return;
-            
             if (this.agent == null)
                 return;
+
+            this.runner = this.agent.GoapSet.Runner;
             
             if (!this.runner.Knows(this.goapSet))
                 return;

@@ -15,7 +15,15 @@ namespace CrashKonijn.Goap.Classes.Runners
         public float RunTime { get; private set; }
         public float CompleteTime { get; private set; }
 
-        public void Register(IGoapSet goapSet) => this.goapSets.Add(goapSet, new GoapSetJobRunner(goapSet, new GraphResolver(goapSet.GetAllNodes().ToArray(), goapSet.GoapConfig.KeyResolver)));
+        public void Register(IGoapSet goapSet)
+        {
+            goapSet.Runner = this;
+            
+            var graphResolver = new GraphResolver(goapSet.GetAllNodes().ToArray(), goapSet.GoapConfig.KeyResolver);
+            var jobRunner = new GoapSetJobRunner(goapSet, graphResolver);
+            
+            this.goapSets.Add(goapSet, jobRunner);
+        }
 
         public void Run()
         {
