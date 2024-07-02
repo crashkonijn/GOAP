@@ -19,6 +19,6 @@ namespace CrashKonijn.Goap.Editor
             }
         }
 
-        public const string Version = "2.x.x";
+public const string Version = "2.1.22";
     }
 }
