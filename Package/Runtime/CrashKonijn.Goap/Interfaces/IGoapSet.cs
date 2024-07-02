@@ -11,6 +11,7 @@ namespace CrashKonijn.Goap.Interfaces
         IAgentCollection Agents { get; }
         ISensorRunner SensorRunner { get; }
         IAgentDebugger Debugger { get; }
+        IGoapRunner Runner { get; set; }
         void Register(IMonoAgent agent);
         void Unregister(IMonoAgent agent);
         List<IAction> GetAllNodes();

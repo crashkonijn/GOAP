@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.Runners;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Resolver.Interfaces;
 
@@ -14,6 +13,7 @@ namespace CrashKonijn.Goap.Classes
         public IGoapConfig GoapConfig { get; }
         public ISensorRunner SensorRunner { get; }
         public IAgentDebugger Debugger { get; }
+        public IGoapRunner Runner { get; set; }
 
         private List<IGoalBase> goals;
         private List<IActionBase> actions;
