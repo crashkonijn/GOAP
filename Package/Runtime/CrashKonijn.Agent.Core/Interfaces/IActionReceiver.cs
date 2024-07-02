@@ -8,6 +8,7 @@ namespace CrashKonijn.Agent.Core
         IActionState ActionState { get; }
         IAgentTimers Timers { get; }
         ILogger<IMonoAgent> Logger { get; }
+        IAgentEvents Events { get; }
         Transform Transform { get; }
         void SetAction(IActionResolver actionResolver, IAction action, ITarget target);
         void StopAction(bool resolveAction = true);

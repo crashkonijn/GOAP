@@ -59,6 +59,13 @@ namespace CrashKonijn.Goap.Runtime
             return this;
         }
         
+        [Obsolete("Use `SetStoppingDistance(float inRange)` instead.")]
+        public ActionBuilder SetInRange(float inRange)
+        {
+            this.config.StoppingDistance = inRange;
+            return this;
+        }
+        
         public ActionBuilder SetMoveMode(ActionMoveMode moveMode)
         {
             this.config.MoveMode = moveMode;

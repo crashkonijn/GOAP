@@ -19,7 +19,6 @@ namespace CrashKonijn.Goap.Runtime
         [FormerlySerializedAs("goapSetConfigFactories")]
         public List<AgentTypeFactoryBase> agentTypeConfigFactories = new();
 
-        private GoapConfig config;
         private bool isInitialized = false;
 
         private void Awake()
@@ -29,7 +28,7 @@ namespace CrashKonijn.Goap.Runtime
         
         public void Register(IAgentType agentType) => this.goap.Register(agentType);
         
-        public void Register(IAgentTypeConfig agentTypeConfig) => this.goap.Register(new AgentTypeFactory(this.config).Create(agentTypeConfig));
+        public void Register(IAgentTypeConfig agentTypeConfig) => this.goap.Register(new AgentTypeFactory(this.Config).Create(agentTypeConfig));
 
         private void Update()
         {
@@ -50,11 +49,6 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (this.isInitialized)
                 return;
-            
-            this.config = GoapConfig.Default;
-            
-            if (this.configInitializer != null)
-                this.configInitializer.InitConfig(this.config);
 
             var controller = this.GetComponent<IGoapController>();
 
@@ -62,6 +56,9 @@ namespace CrashKonijn.Goap.Runtime
                 throw new MissingComponentException("No IGoapController found on GameObject of GoapBehaviour");
             
             this.goap = new Goap(controller);
+            
+            if (this.configInitializer != null)
+                this.configInitializer.InitConfig(this.Config);
             
             controller.Initialize(this.goap);
             
@@ -72,7 +69,7 @@ namespace CrashKonijn.Goap.Runtime
 
         private void CreateAgentTypes()
         {
-            var agentTypeFactory = new AgentTypeFactory(this.config);
+            var agentTypeFactory = new AgentTypeFactory(this.Config);
 
             this.agentTypeConfigFactories.ForEach(factory =>
             {
@@ -87,6 +84,7 @@ namespace CrashKonijn.Goap.Runtime
         public bool Knows(IAgentType agentType) => this.goap.Knows(agentType);
         public List<IMonoGoapActionProvider> Agents => this.goap.Agents;
         public IAgentType[] AgentTypes => this.goap.AgentTypes;
+        public IGoapConfig Config => this.goap.Config;
 
         public IAgentType GetAgentType(string id)
         {

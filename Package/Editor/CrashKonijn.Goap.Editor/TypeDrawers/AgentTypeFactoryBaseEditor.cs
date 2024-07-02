@@ -1,5 +1,6 @@
 ﻿using CrashKonijn.Goap.Runtime;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,7 +13,13 @@ namespace CrashKonijn.Goap.Editor
         {
             var factory = (AgentTypeFactoryBase) this.target;
             
+            
             var root = new VisualElement();
+            
+            var defaultInspector = new VisualElement();
+            InspectorElement.FillDefaultInspector(defaultInspector, this.serializedObject, this);
+            
+            root.Add(defaultInspector);
 
             var validateButton = new Button(() =>
             {

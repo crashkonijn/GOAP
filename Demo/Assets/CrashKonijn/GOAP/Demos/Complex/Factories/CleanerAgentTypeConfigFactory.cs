@@ -4,6 +4,7 @@ using CrashKonijn.Goap.Demos.Complex.Actions;
 using CrashKonijn.Goap.Demos.Complex.Classes;
 using CrashKonijn.Goap.Demos.Complex.Factories.Capabilities;
 using CrashKonijn.Goap.Demos.Complex.Goals;
+using CrashKonijn.Goap.Demos.Complex.Sensors.Target;
 using CrashKonijn.Goap.Demos.Complex.Sensors.World;
 using CrashKonijn.Goap.Demos.Complex.Targets;
 using CrashKonijn.Goap.Demos.Complex.WorldKeys;
@@ -27,13 +28,16 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
                     .AddCondition<ItemsOnFloor>(Comparison.SmallerThanOrEqual, 0);
                 
                 capability.AddAction<HaulItemAction>()
-                    .SetTarget<Targets.TransformTarget>()
+                    .SetTarget<HaulTarget>()
                     .AddEffect<ItemsOnFloor>(EffectType.Decrease)
                     .AddCondition<ItemsOnFloor>(Comparison.GreaterThanOrEqual, 1)
                     .SetMoveMode(ActionMoveMode.PerformWhileMoving);
                 
                 capability.AddWorldSensor<ItemOnFloorSensor>()
                     .SetKey<ItemsOnFloor>();
+
+                capability.AddTargetSensor<HaulTargetSensor>()
+                    .SetTarget<HaulTarget>();
             });
 
             return builder.Build();

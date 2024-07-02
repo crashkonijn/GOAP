@@ -272,7 +272,9 @@ namespace CrashKonijn.Goap.Resolver
             {
                 if (!this.RunData.ConditionsMet[conditionIndex])
                 {
-                    cost += this.RunData.Costs[conditionIndex];
+                    // Check if the index exists in the costs array
+                    if (conditionIndex < this.RunData.Costs.Length)
+                        cost += this.RunData.Costs[conditionIndex];
                 }
             }
 

@@ -24,6 +24,8 @@ namespace CrashKonijn.Goap.Demos.Complex.Goap
 
         public void Inject(ISensor sensor)
         {
+            if (sensor is IInjectable injectable)
+                injectable.Inject(this);
         }
     }
 }
