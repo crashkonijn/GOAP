@@ -25,6 +25,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
             builder.CreateCapability("CleanCapability", (capability) =>
             {
                 capability.AddGoal<CleanItemsGoal>()
+                    .SetBaseCost(20)
                     .AddCondition<ItemsOnFloor>(Comparison.SmallerThanOrEqual, 0);
                 
                 capability.AddAction<HaulItemAction>()

@@ -4,6 +4,7 @@ using CrashKonijn.Goap.Demos.Complex.Classes.Items;
 using CrashKonijn.Goap.Demos.Complex.Factories.Extensions;
 using CrashKonijn.Goap.Demos.Complex.Goals;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Sensors.World;
 using CrashKonijn.Goap.Demos.Complex.Targets;
 using CrashKonijn.Goap.Demos.Complex.WorldKeys;
 using CrashKonijn.Goap.Runtime;
@@ -18,13 +19,15 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories.Capabilities
 
             // Goals
             builder.AddGoal<FixHungerGoal>()
-                .AddCondition<IsHungry>(Comparison.SmallerThanOrEqual, 0);
+                .AddCondition<Hunger>(Comparison.SmallerThanOrEqual, 0);
             
             // Actions
             builder.AddAction<EatAction>()
                 .SetTarget<Targets.TransformTarget>()
-                .AddEffect<IsHungry>(EffectType.Decrease)
-                .AddCondition<IsHolding<IEatable>>(Comparison.GreaterThanOrEqual, 1);
+                .AddEffect<Hunger>(EffectType.Decrease)
+                .AddCondition<IsHolding<IEatable>>(Comparison.GreaterThanOrEqual, 1)
+                .AddCondition<Hunger>(Comparison.GreaterThanOrEqual, 30)
+                .SetValidateConditions(false); // We don't need to validate conditions for this action, or it will stop when becoming below 80 hunger
             
             builder.AddAction<GatherItemAction<Apple>>()
                 .SetTarget<ClosestSourceTarget<Apple>>()
@@ -45,6 +48,8 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories.Capabilities
             // World sensors
             builder.AddIsHoldingSensor<IEatable>();
             builder.AddIsInWorldSensor<IEatable>();
+            builder.AddWorldSensor<HungerSensor>()
+                .SetKey<Hunger>();
 
             return builder.Build();
         }

@@ -20,7 +20,10 @@ namespace CrashKonijn.Goap.Runtime
         public float StoppingDistance { get; set; } = 0.1f;
 
         [field: SerializeField]
-        public bool RequiresTarget { get; } = true;
+        public bool RequiresTarget { get; set; } = true;
+
+        [field: SerializeField]
+        public bool ValidateConditions { get; set; } = true;
 
         [field:SerializeField]
         public ActionMoveMode MoveMode { get; set; }

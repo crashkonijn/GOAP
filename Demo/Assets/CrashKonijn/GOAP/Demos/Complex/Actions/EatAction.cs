@@ -5,6 +5,7 @@ using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Goap;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using CrashKonijn.Goap.Runtime;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
@@ -16,7 +17,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
         {
             this.instanceHandler = injector.instanceHandler;
         }
-
+        
         public override void Created()
         {
         }

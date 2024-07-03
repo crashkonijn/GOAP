@@ -10,14 +10,14 @@ namespace CrashKonijn.Goap.Runtime
     {
         [GoalClass]
         public string classType;
-        public int baseCost = 1;
+        public float baseCost = 1;
         public List<SerializableCondition> conditions;
 
         public string Name => this.name;
 
         public List<ICondition> Conditions => this.conditions.Cast<ICondition>().ToList();
 
-        public int BaseCost
+        public float BaseCost
         {
             get => this.baseCost;
             set => this.baseCost = value;

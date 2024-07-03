@@ -19,6 +19,6 @@ namespace CrashKonijn.Goap.Core
         TGoal ResolveGoal<TGoal>()
             where TGoal : IGoal;
 
-        bool AllConditionsMet(IGoapAgent agent, IGoapAction action);
+        bool AllConditionsMet(IGoapActionProvider actionProvider, IGoapAction action);
     }
 }

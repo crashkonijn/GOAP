@@ -17,7 +17,6 @@ namespace CrashKonijn.Agent.Core
         
         IAgentDistanceObserver DistanceObserver { get; }
         ITarget CurrentTarget { get; }
-        IActionResolver ActionResolver { get; set; }
 
         void Initialize();
         void Run();

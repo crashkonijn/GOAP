@@ -4,7 +4,7 @@ namespace CrashKonijn.Goap.Core
 {
     public interface IGoalConfig : IClassConfig
     {
-        int BaseCost { get; set; }
+        float BaseCost { get; set; }
         List<ICondition> Conditions { get; }
     }
 }

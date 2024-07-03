@@ -15,8 +15,8 @@
         event GoapAgentActionDelegate OnActionComplete;
         void ActionComplete(IMonoGoapActionProvider actionProvider, IGoapAction action);
         
-        event AgentGoalDelegate OnNoActionFound;
-        void NoActionFound(IMonoGoapActionProvider actionProvider, IGoal goal);
+        event AgentGoalRequestDelegate OnNoActionFound;
+        void NoActionFound(IMonoGoapActionProvider actionProvider, IGoalRequest request);
         
         // Goals
         event AgentGoalDelegate OnGoalStart;

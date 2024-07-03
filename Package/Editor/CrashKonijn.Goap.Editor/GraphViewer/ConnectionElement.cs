@@ -77,7 +77,7 @@ namespace CrashKonijn.Goap.Editor
             if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
                 return Color.black;
 
-            var actions = agent.CurrentPlan;
+            var actions = agent.CurrentPlan.Plan;
             
             if (actions.Contains(this.toNode.GraphNode.Action))
                 return new Color(0, 157, 100);

@@ -2,7 +2,7 @@
 
 namespace CrashKonijn.Goap.Core
 {
-    public interface IMonoGoapActionProvider : IGoapAgent, IMonoBehaviour
+    public interface IMonoGoapActionProvider : IGoapActionProvider, IMonoBehaviour
     {
         
     }

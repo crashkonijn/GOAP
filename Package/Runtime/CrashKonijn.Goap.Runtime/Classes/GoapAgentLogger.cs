@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Agent.Core;
+﻿using System.Linq;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 
@@ -30,7 +31,7 @@ namespace CrashKonijn.Goap.Runtime
             this.source.Events.OnGoalCompleted -= this.GoalCompleted;
         }
         
-        private void NoActionFound(IGoal goal) => this.Handle($"No action found for goal {goal?.GetType().GetGenericTypeName()}", DebugSeverity.Warning);
+        private void NoActionFound(IGoalRequest request) => this.Handle($"No action found for goals {string.Join(", ", request.Goals.Select(x => x.GetType().GetGenericTypeName()))}", DebugSeverity.Warning);
         private void GoalStart(IGoal goal) => this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} started", DebugSeverity.Log);
         private void GoalCompleted(IGoal goal) => this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} completed", DebugSeverity.Log);
 

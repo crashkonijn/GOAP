@@ -35,7 +35,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             if (data.Apple == null || data.SimpleHunger == null)
-                return ActionRunState.Stop;
+                return ActionRunState.StopAndLog("Apple or SimpleHunger is null.");
 
             var eatNutrition = context.DeltaTime * 20f;
 

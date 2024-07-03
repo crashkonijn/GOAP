@@ -1,5 +1,7 @@
 ﻿using System;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -17,7 +19,7 @@ namespace CrashKonijn.Goap.Runtime
             this.config = config;
         }
 
-        public virtual int GetCost(IWorldData data)
+        public virtual float GetCost(IActionReceiver agent, IComponentReference references)
         {
             return this.config.BaseCost;
         }

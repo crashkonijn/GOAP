@@ -38,6 +38,7 @@ namespace CrashKonijn.Agent.Runtime
             
             if (!isValid)
             {
+                this.agent.Logger.Warning($"Action {this.agent.ActionState.Action.GetType().GetGenericTypeName()} is not valid!");
                 this.agent.StopAction();
                 return false;
             }

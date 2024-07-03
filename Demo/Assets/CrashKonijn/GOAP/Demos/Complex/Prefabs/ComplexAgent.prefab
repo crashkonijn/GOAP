@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cef53d855ccf0b46bcf004b27c4a52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ActionProvider>k__BackingField: {fileID: -5926512986792016431}
+  <ActionProviderBase>k__BackingField: {fileID: -5926512986792016431}
   <LoggerConfig>k__BackingField:
     <DebugMode>k__BackingField: 1
     <MaxLogSize>k__BackingField: 20

@@ -12,6 +12,7 @@ namespace CrashKonijn.Goap.Runtime
         public ITargetKey Target { get; set; }
         public float StoppingDistance { get; set; }
         public bool RequiresTarget { get; set; }
+        public bool ValidateConditions { get; set; }
         public ICondition[] Conditions { get; set; }
         public IEffect[] Effects { get; set; }
         public ActionMoveMode MoveMode { get; set; } = ActionMoveMode.MoveBeforePerforming;

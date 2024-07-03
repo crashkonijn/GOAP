@@ -1,4 +1,6 @@
-﻿using CrashKonijn.Agent.Runtime;
+﻿using System;
+using System.Linq;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -24,7 +26,7 @@ namespace CrashKonijn.Goap.Editor
             
             var agent = (GoapActionProvider) this.target;
             
-            var currentGoal = agent.CurrentGoal;
+            var currentGoal = agent.CurrentPlan;
 
             root.Add(new Card((card) =>
             {
@@ -34,10 +36,10 @@ namespace CrashKonijn.Goap.Editor
                     
                     label.schedule.Execute(() =>
                     {
-                        if (currentGoal == agent.CurrentGoal)
+                        if (currentGoal == agent.CurrentPlan)
                             return;
                         
-                        currentGoal = agent.CurrentGoal;
+                        currentGoal = agent.CurrentPlan;
                         label.text = this.GetText(agent);
                     }).Every(33);
                 });
@@ -52,9 +54,12 @@ namespace CrashKonijn.Goap.Editor
 
         private string GetText(GoapActionProvider provider)
         {
-            return $@"Goal: {provider.CurrentGoal?.GetType().GetGenericTypeName()}
+            var requestGoals = provider.GoalRequest?.Goals?.Select(x => x.GetType().GetGenericTypeName());
+            
+            return $@"Goal: {provider.CurrentPlan?.Goal?.GetType().GetGenericTypeName()}
+Request: {string.Join(", ", requestGoals ?? Array.Empty<string>())}
 AgentType: {provider.AgentType?.Id}
-Receiver: {provider.Agent?.GetType().GetGenericTypeName()}";
+Receiver: {provider.Receiver?.GetType().GetGenericTypeName()}";
         }
     }
 }

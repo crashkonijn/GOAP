@@ -12,23 +12,34 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.typeEvents = events;
             this.actionProvider = actionProvider;
+        }
+
+        public void Bind(IActionReceiver receiver)
+        {
+            this.Unbind();
             
-            actionProvider.Agent.Events.OnActionStart += this.ActionStart;
-            actionProvider.Agent.Events.OnActionEnd += this.ActionEnd;
-            actionProvider.Agent.Events.OnActionStop += this.ActionStop;
-            actionProvider.Agent.Events.OnActionComplete += this.ActionComplete;
+            receiver.Events.OnActionStart += this.ActionStart;
+            receiver.Events.OnActionEnd += this.ActionEnd;
+            receiver.Events.OnActionStop += this.ActionStop;
+            receiver.Events.OnActionComplete += this.ActionComplete;
         }
         
         public void Unbind()
         {
-            this.actionProvider.Agent.Events.OnActionStart -= this.ActionStart;
-            this.actionProvider.Agent.Events.OnActionEnd -= this.ActionEnd;
-            this.actionProvider.Agent.Events.OnActionStop -= this.ActionStop;
-            this.actionProvider.Agent.Events.OnActionComplete -= this.ActionComplete;
+            if (this.actionProvider == null)
+                return;
+            
+            if (this.actionProvider.Receiver == null)
+                return;
+            
+            this.actionProvider.Receiver.Events.OnActionStart -= this.ActionStart;
+            this.actionProvider.Receiver.Events.OnActionEnd -= this.ActionEnd;
+            this.actionProvider.Receiver.Events.OnActionStop -= this.ActionStop;
+            this.actionProvider.Receiver.Events.OnActionComplete -= this.ActionComplete;
         }
         
-        public event GoalDelegate OnNoActionFound;
-        public void NoActionFound(IGoal goal)
+        public event GoalRequestDelegate OnNoActionFound;
+        public void NoActionFound(IGoalRequest goal)
         {
             this.OnNoActionFound?.Invoke(goal);
             this.typeEvents?.NoActionFound(this.actionProvider, goal);

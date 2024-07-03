@@ -37,8 +37,11 @@ namespace CrashKonijn.Goap.Runtime
                 if (agent.IsNull())
                     continue;
                 
+                if (agent.Receiver == null)
+                    continue;
+                
                 // Update the action sensors for the agent
-                agent.AgentType.SensorRunner.SenseLocal(agent, agent.Agent.ActionState.Action as IGoapAction);
+                agent.AgentType.SensorRunner.SenseLocal(agent, agent.Receiver.ActionState.Action as IGoapAction);
 
                 // agent.Agent.Run();
             }
@@ -52,7 +55,7 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
-        private void OnNoActionFound(IMonoGoapActionProvider actionProvider, IGoal goal)
+        private void OnNoActionFound(IMonoGoapActionProvider actionProvider, IGoalRequest request)
         {
             this.GetQueue(actionProvider.AgentType).Add(actionProvider);
         }

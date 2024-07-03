@@ -50,13 +50,13 @@ namespace CrashKonijn.Goap.UnitTests.Support
                 .Invoke(behaviour, null);
         }
 
-        public static IGoapAgentEvents MockEvents(this IGoapAgent agent)
+        public static IGoapAgentEvents MockEvents(this IGoapActionProvider actionProvider)
         {
             var events = Substitute.For<IGoapAgentEvents>();
             // Set Events property through reflection
             typeof(GoapActionProvider)
                 .GetField("<Events>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                .SetValue(agent, events);
+                .SetValue(actionProvider, events);
 
             return events;
         }
@@ -72,9 +72,9 @@ namespace CrashKonijn.Goap.UnitTests.Support
             return events;
         }
 
-        public static void InsertAction(this GoapActionProvider agent, IAction action)
+        public static void InsertAction(this GoapActionProvider provider, IAction action)
         {
-            agent.Agent.InsertAction(action);
+            provider.Receiver.InsertAction(action);
         }
 
         public static void InsertAction(this IActionReceiver agent, IAction action)

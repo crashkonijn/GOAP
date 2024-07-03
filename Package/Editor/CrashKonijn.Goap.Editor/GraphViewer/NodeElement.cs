@@ -27,7 +27,16 @@ namespace CrashKonijn.Goap.Editor
             this.Title = new Label($"{graphNode.Action.GetType().GetGenericTypeName()}");
             this.Cost = new Label();
             
-            this.Content.Add(new HorizontalSplitView(this.Title, this.Cost, 80));
+            var costWrapper = new VisualElement
+            {
+                style =
+                {
+                    alignItems = Align.FlexEnd,
+                }
+            };
+            costWrapper.Add(this.Cost);
+            
+            this.Content.Add(new HorizontalSplitView(this.Title, costWrapper, 60));
 
             this.Target = new Label();
             this.Content.Add(this.Target);
@@ -70,12 +79,10 @@ namespace CrashKonijn.Goap.Editor
             
             if (!Application.isPlaying)
             {
-                var config = (graphNode.Action as IGoapAction)?.Config;
-
-                if (config != null)
+                if (graphNode.Action is IGoapAction goapAction)
                 {
-                    this.Target.text = $"Target: {config.Target.GetType().GetGenericTypeName()}";
-                    this.Cost.text = $"Cost: {config.BaseCost}";
+                    this.Target.text = $"Target: {goapAction.Config.Target.GetType().GetGenericTypeName()}";
+                    this.Cost.text = $"Cost: {goapAction.Config.BaseCost}";
                 }
                 
                 this.Effects = new VisualElement();
@@ -92,49 +99,60 @@ namespace CrashKonijn.Goap.Editor
             
             this.schedule.Execute(() =>
             {
-                this.Node.RemoveFromClassList("active");
-                this.Node.RemoveFromClassList("disabled");
-                this.Node.RemoveFromClassList("path");
-
                 if (!Application.isPlaying)
                     return;
 
-                if (values.SelectedObject is not IMonoGoapActionProvider agent)
+                if (values.SelectedObject is not IMonoGoapActionProvider provider)
                     return;
                 
-                if (agent.CurrentGoal == this.GraphNode.Action)
-                {
-                    this.Node.AddToClassList("path");
-                    return;
-                }
+                this.UpdateClasses(graphNode, provider);
                 
-                if (agent.Agent.ActionState.Action == this.GraphNode.Action)
-                {
-                    this.Node.AddToClassList("active");
-                    return;
-                }
-                
-                if (agent.CurrentPlan.Contains(this.GraphNode.Action))
-                {
-                    this.Node.AddToClassList("path");
-                    return;
-                }
+                this.Cost.text = $"Cost: {graphNode.GetCost(provider.Receiver):0.00}";
 
-                if (graphNode.Action is not IAction action)
-                    return;
-                
-                if (!action.IsEnabled(agent.Agent))
+                if (graphNode.Action is IGoapAction action)
                 {
-                    this.Node.AddToClassList("disabled");
-                    return;
-                }
-
-                this.Cost.text = $"Cost: {graphNode.GetCost(agent.Agent)}";
-                var target = agent.WorldData.GetTarget(graphNode.Action as IGoapAction);
-                var targetText = target != null ? target.Position.ToString() : "null";
+                    var target = provider.WorldData.GetTarget(action);
+                    var targetText = target != null ? target.Position.ToString() : "null";
                 
-                this.Target.text = $"Target: {targetText}";
+                    this.Target.text = $"Target: {targetText}";
+                }
+                
             }).Every(33);
+        }
+
+        private void UpdateClasses(INode graphNode, IMonoGoapActionProvider provider)
+        {
+            this.Node.RemoveFromClassList("active");
+            this.Node.RemoveFromClassList("disabled");
+            this.Node.RemoveFromClassList("path");
+ 
+                
+            if (provider.CurrentPlan.Goal == this.GraphNode.Action)
+            {
+                this.Node.AddToClassList("path");
+                return;
+            }
+                
+            if (provider.Receiver.ActionState.Action == this.GraphNode.Action)
+            {
+                this.Node.AddToClassList("active");
+                return;
+            }
+                
+            if (provider.CurrentPlan.Plan.Contains(this.GraphNode.Action))
+            {
+                this.Node.AddToClassList("path");
+                return;
+            }
+
+            if (graphNode.Action is not IAction action)
+                return;
+                
+            if (!action.IsEnabled(provider.Receiver))
+            {
+                this.Node.AddToClassList("disabled");
+                return;
+            }
         }
 
         public Label Target { get; set; }

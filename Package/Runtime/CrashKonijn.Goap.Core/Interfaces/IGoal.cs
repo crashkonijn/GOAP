@@ -1,7 +1,9 @@
-﻿namespace CrashKonijn.Goap.Core
+﻿using CrashKonijn.Agent.Core;
+
+namespace CrashKonijn.Goap.Core
 {
     public interface IGoal : IConnectable, IHasConfig<IGoalConfig>
     {
-        public int GetCost(IWorldData data);
+        public float GetCost(IActionReceiver agent, IComponentReference references);
     }
 }

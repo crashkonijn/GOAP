@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Core;
 using Unity.Collections;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {
@@ -122,6 +123,7 @@ namespace CrashKonijn.Goap.Resolver
 
         public int GetIndex(IConnectable action) => this.actionIndexList.IndexOf(action);
         public IGoapAction GetAction(int index) => this.actionIndexList[index] as IGoapAction;
+        public IGoal GetGoal(int index) => this.actionIndexList[index] as IGoal;
 
         public void Dispose()
         {

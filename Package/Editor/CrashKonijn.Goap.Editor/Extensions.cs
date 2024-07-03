@@ -24,6 +24,11 @@ namespace CrashKonijn.Goap.Editor
                 return action.GetCost(agent, agent.Injector);
             }
             
+            if (node.Action is IGoal goal)
+            {
+                return goal.GetCost(agent, agent.Injector);
+            }
+            
             return 0;
         }
     }

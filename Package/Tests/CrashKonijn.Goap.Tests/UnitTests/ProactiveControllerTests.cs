@@ -46,7 +46,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void OnUpdate_ResolveActionCalledWhenResolveTimeExpired()
         {
             // Arrange
-            this.actionProvider.Agent.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(true);
+            this.actionProvider.Receiver.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(true);
         
             this.goap.Agents.Returns(new List<IMonoGoapActionProvider>() { this.actionProvider });
             this.proactiveController.Initialize(this.goap);
@@ -63,7 +63,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.actionProvider = Substitute.For<IMonoGoapActionProvider>();
-            this.actionProvider.Agent.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(false);
+            this.actionProvider.Receiver.Timers.Resolve.IsRunningFor(this.proactiveController.ResolveTime).Returns(false);
         
             this.goap.Agents.Returns(new List<IMonoGoapActionProvider>() { this.actionProvider });
             this.proactiveController.Initialize(this.goap);
