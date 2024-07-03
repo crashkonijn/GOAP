@@ -95,6 +95,9 @@ namespace CrashKonijn.Goap.Runtime
         public static T GetInstance<T>(this Script script)
             where T : class
         {
+            if (script?.Type == null)
+                return null;
+            
             var instance = Activator.CreateInstance(script.Type);
 
             if (instance is TargetKeyBase targetKey)

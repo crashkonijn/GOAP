@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Core;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -16,7 +17,7 @@ namespace CrashKonijn.Goap.Runtime
             if (list == null)
                 return new List<TType>();
             
-            return list.Where(x => !string.IsNullOrEmpty(x.ClassType)).Select(x =>
+            return list.Where(x => !string.IsNullOrEmpty(x?.ClassType) && x.ClassType != "UNDEFINED").Select(x =>
             {
                 action = Activator.CreateInstance(Type.GetType(x.ClassType)) as TType;
                 action?.SetConfig(x);
