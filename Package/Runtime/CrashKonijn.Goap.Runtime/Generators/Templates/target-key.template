@@ -1,5 +1,4 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Attributes;
+﻿using CrashKonijn.Goap.Runtime;
 
 namespace {{namespace}}
 {
