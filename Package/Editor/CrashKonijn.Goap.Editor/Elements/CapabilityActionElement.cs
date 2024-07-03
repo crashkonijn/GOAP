@@ -9,10 +9,14 @@ namespace CrashKonijn.Goap.Editor
     {
         public Foldout Foldout { get; private set; }
         public ClassRefField Action { get; private set; }
-        public IntegerField BaseCostField { get; private set; }
+        public FloatField BaseCostField { get; private set; }
         public ClassRefField Target { get; private set; }
 
         public FloatField InRangeField { get; set; }
+
+        public Toggle ValidateConditionsField { get; set; }
+
+        public Toggle RequiresTargetField { get; set; }
 
         public EnumField MoveModeField { get; set; }
         public ActionPropertiesElement Properties { get; private set; }
@@ -37,13 +41,21 @@ namespace CrashKonijn.Goap.Editor
                 this.Target = target.Field;
                 card.Add(target);
 
-                var baseCost = new LabeledField<IntegerField>("Base Cost");
+                var baseCost = new LabeledField<FloatField>("Base Cost");
                 this.BaseCostField = baseCost.Field;
                 card.Add(baseCost);
 
                 var inRange = new LabeledField<FloatField>("In Range");
                 this.InRangeField = inRange.Field;
                 card.Add(inRange);
+                
+                var requiresTarget = new LabeledField<Toggle>("Requires Target", new Toggle());
+                this.RequiresTargetField = requiresTarget.Field;
+                card.Add(requiresTarget);
+                
+                var validateConditions = new LabeledField<Toggle>("Validate Conditions", new Toggle());
+                this.ValidateConditionsField = validateConditions.Field;
+                card.Add(validateConditions);
 
                 var moveMode = new LabeledField<EnumField>("Move Mode", new EnumField(ActionMoveMode.MoveBeforePerforming));
                 this.MoveModeField = moveMode.Field;

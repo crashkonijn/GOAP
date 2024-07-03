@@ -49,10 +49,24 @@ namespace CrashKonijn.Goap.Editor
                 EditorUtility.SetDirty(this.scriptable);
             });
             
-            element.InRangeField.value = item.inRange;
+            element.InRangeField.value = item.stoppingDistance;
             element.InRangeField.RegisterValueChangedCallback(evt =>
             {
-                item.inRange = evt.newValue;
+                item.stoppingDistance = evt.newValue;
+                EditorUtility.SetDirty(this.scriptable);
+            });
+            
+            element.RequiresTargetField.value = item.requiresTarget;
+            element.RequiresTargetField.RegisterValueChangedCallback(evt =>
+            {
+                item.requiresTarget = evt.newValue;
+                EditorUtility.SetDirty(this.scriptable);
+            });
+            
+            element.ValidateConditionsField.value = item.validateConditions;
+            element.ValidateConditionsField.RegisterValueChangedCallback(evt =>
+            {
+                item.validateConditions = evt.newValue;
                 EditorUtility.SetDirty(this.scriptable);
             });
             

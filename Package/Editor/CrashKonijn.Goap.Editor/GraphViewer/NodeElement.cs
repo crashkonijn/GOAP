@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
@@ -11,8 +12,10 @@ namespace CrashKonijn.Goap.Editor
     {
         public INode GraphNode { get; }
 
-        public NodeElement(INode graphNode, VisualElement bezierRoot, EditorWindowValues values)
+        public NodeElement(INode graphNode, VisualElement bezierRoot, EditorWindowValues values, INode[] shownList = null)
         {
+            var list = shownList ?? Array.Empty<INode>();
+            
             this.GraphNode = graphNode;
             this.AddToClassList("wrapper");
             
@@ -70,7 +73,13 @@ namespace CrashKonijn.Goap.Editor
                 
                 foreach (var connection in condition.Connections)
                 {
-                    var connectionNode = new NodeElement(connection, bezierRoot, values);
+                    if (list.Contains(connection))
+                    {
+                        Debug.Log($"Skipping connection {connection.Action?.GetType().GetGenericTypeName()} because it's already shown in the list. Recursive connection detected!");
+                        continue;
+                    }
+                    
+                    var connectionNode = new NodeElement(connection, bezierRoot, values, new []{ connection }.Concat(list).ToArray());
                     this.ChildWrapper.Add(connectionNode);
                     
                     bezierRoot.Add(new ConnectionElement(this, conditionElement, connectionNode, values));
@@ -81,7 +90,7 @@ namespace CrashKonijn.Goap.Editor
             {
                 if (graphNode.Action is IGoapAction goapAction)
                 {
-                    this.Target.text = $"Target: {goapAction.Config.Target.GetType().GetGenericTypeName()}";
+                    this.Target.text = $"Target: {goapAction.Config.Target?.GetType().GetGenericTypeName()}";
                     this.Cost.text = $"Cost: {goapAction.Config.BaseCost}";
                 }
                 

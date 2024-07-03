@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Core;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    [CreateAssetMenu(menuName = "Goap/GoalConfig")]
+    [Obsolete("Use CapabilityConfigs instead!")]
     public class GoalConfigScriptable : ScriptableObject, IGoalConfig
     {
         [GoalClass]

@@ -15,5 +15,6 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=_002E_002E_005Cpackage_005Cruntime_005Ccrashkonijn_002Egoap_002Eruntime_005Cobservers/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=_002E_002E_005Cpackage_005Cruntime_005Ccrashkonijn_002Egoap_002Eruntime_005Cresolvers/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=_002E_002E_005Cpackage_005Cruntime_005Ccrashkonijn_002Egoap_002Eruntime_005Cscriptables/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=_002E_002E_005Cpackage_005Cruntime_005Ccrashkonijn_002Egoap_002Eruntime_005Cscriptables_005Clegacy/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=_002E_002E_005Cpackage_005Cruntime_005Ccrashkonijn_002Egoap_002Eruntime_005Csensors/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=_002E_002E_005Cpackage_005Cruntime_005Ccrashkonijn_002Egoap_002Eruntime_005Cserializables/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

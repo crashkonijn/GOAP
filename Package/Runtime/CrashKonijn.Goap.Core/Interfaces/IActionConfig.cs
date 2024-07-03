@@ -4,7 +4,7 @@ namespace CrashKonijn.Goap.Core
 {
     public interface IActionConfig : IClassConfig
     {
-        int BaseCost { get; }
+        float BaseCost { get; }
         ITargetKey Target { get; }
         float StoppingDistance { get; }
         bool RequiresTarget { get; }

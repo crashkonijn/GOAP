@@ -5,13 +5,17 @@ using UnityEngine;
 namespace CrashKonijn.Goap.Runtime
 {
     [Serializable]
-    public class SerializableEffect : IEffect
+    [Obsolete("Use CapabilityConfigs instead!")]
+    public class SerializableCondition : ICondition
     {
         public WorldKeyScriptable worldKey;
 
         public IWorldKey WorldKey => this.worldKey;
         
         [field:SerializeField]
-        public bool Increase { get; set; }
+        public Comparison Comparison { get; set; }
+        
+        [field:SerializeField]
+        public int Amount { get; set; }
     }
 }

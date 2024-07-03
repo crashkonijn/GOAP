@@ -29,9 +29,11 @@ namespace CrashKonijn.Agent.Runtime
         
         public abstract TActionProperties Properties { get; }
 
+        public virtual void Created() {}
+
         public void Start(IMonoAgent agent, IActionData data) => this.Start(agent, (TActionData) data);
         
-        public abstract void Start(IMonoAgent agent, TActionData data);
+        public virtual void Start(IMonoAgent agent, TActionData data) {}
 
         public virtual bool IsValid(IActionReceiver agent, TActionData data)
         {

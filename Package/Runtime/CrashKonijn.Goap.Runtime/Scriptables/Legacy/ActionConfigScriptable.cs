@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    [CreateAssetMenu(menuName = "Goap/ActionConfig")]
+    [Obsolete("Use CapabilityConfigs instead!")]
     public class ActionConfigScriptable : ScriptableObject, IActionConfig
     {
         [Header("Settings")]
@@ -13,10 +15,10 @@ namespace CrashKonijn.Goap.Runtime
         public string actionClass;
         public TargetKeyScriptable target;
                 
-        [field:SerializeField]
-        public int BaseCost { get; set; } = 1;
+        [field: SerializeField]
+        public float BaseCost { get; set; } = 1;
         
-        [field:SerializeField]
+        [field: SerializeField]
         public float StoppingDistance { get; set; } = 0.1f;
 
         [field: SerializeField]

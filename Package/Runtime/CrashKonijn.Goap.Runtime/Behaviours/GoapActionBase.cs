@@ -44,8 +44,6 @@ namespace CrashKonijn.Goap.Runtime
             return distance <= this.Config.StoppingDistance;
         }
 
-        public abstract void Created();
-
         public bool IsValid(IActionReceiver agent, IActionData data)
         {
             var goapAgent = agent.Injector.GetCachedComponent<GoapActionProvider>();

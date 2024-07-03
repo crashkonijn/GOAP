@@ -1,6 +1,4 @@
-﻿using CrashKonijn.Goap.Attributes;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Sensors;
+﻿using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
 namespace {{namespace}}
@@ -8,10 +6,12 @@ namespace {{namespace}}
     [GoapId("{{id}}")]
     public class {{name}}Sensor : MultiSensorBase
     {
+        // Called when the sensor is created
         public override void Created()
         {
         }
 
+        // Called once every frame (when needed)
         public override void Update()
         {
         }

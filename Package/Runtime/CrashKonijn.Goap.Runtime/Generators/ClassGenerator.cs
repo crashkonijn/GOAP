@@ -16,9 +16,23 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
+        private bool EnsureVariables(string basePath, string name, string namespaceName)
+        {
+            if (basePath == string.Empty)
+                throw new GoapException("Base path cannot be empty!");
+
+            if (name == string.Empty)
+                return false;
+            
+            if (namespaceName == string.Empty)
+                throw new GoapException("Namespace cannot be empty!");
+
+            return true;
+        }
+
         public Script CreateTargetKey(string basePath, string name, string namespaceName)
         {
-            if (name == String.Empty)
+            if(!this.EnsureVariables(basePath, name, namespaceName))
                 return null;
             
             var template = this.LoadTemplate("target-key");
@@ -34,7 +48,7 @@ namespace CrashKonijn.Goap.Runtime
 
         public Script CreateWorldKey(string basePath, string name, string namespaceName)
         {
-            if (name == String.Empty)
+            if(!this.EnsureVariables(basePath, name, namespaceName))
                 return null;
 
             var template = this.LoadTemplate("world-key");
@@ -51,8 +65,8 @@ namespace CrashKonijn.Goap.Runtime
         {
             var template = this.LoadTemplate("goal");
             name = name.Replace("Goal", "");
-
-            if (name == String.Empty)
+            
+            if(!this.EnsureVariables(basePath, name, namespaceName))
                 return null;
             
             var id = this.GetId(name);
@@ -69,7 +83,7 @@ namespace CrashKonijn.Goap.Runtime
             var template = this.LoadTemplate("action");
             name = name.Replace("Action", "");
 
-            if (name == String.Empty)
+            if(!this.EnsureVariables(basePath, name, namespaceName))
                 return null;
             
             var id = this.GetId(name);
@@ -83,7 +97,7 @@ namespace CrashKonijn.Goap.Runtime
         
         public Script CreateMultiSensor(string basePath, string name, string namespaceName)
         {
-            if (name == String.Empty)
+            if(!this.EnsureVariables(basePath, name, namespaceName))
                 return null;
 
             var template = this.LoadTemplate("multi-sensor");

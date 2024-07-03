@@ -8,7 +8,7 @@ namespace CrashKonijn.Goap.Runtime
         public string Name { get; set; }
         public string ClassType { get; set; }
         public IActionProperties Properties { get; set; }
-        public int BaseCost { get; set; }
+        public float BaseCost { get; set; }
         public ITargetKey Target { get; set; }
         public float StoppingDistance { get; set; }
         public bool RequiresTarget { get; set; }
