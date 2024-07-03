@@ -10,14 +10,14 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
     public class ComplexAgentBrain : MonoBehaviour
     {
         public AgentType agentType;
-        private GoapActionProvider agent;
+        private GoapActionProvider provider;
         private ComplexHungerBehaviour complexHunger;
         private ItemCollection itemCollection;
         private ComplexInventoryBehaviour inventory;
 
         private void Awake()
         {
-            this.agent = this.GetComponent<GoapActionProvider>();
+            this.provider = this.GetComponent<GoapActionProvider>();
             this.complexHunger = this.GetComponent<ComplexHungerBehaviour>();
             this.inventory = this.GetComponent<ComplexInventoryBehaviour>();
             this.itemCollection = FindObjectOfType<ItemCollection>();
@@ -25,38 +25,38 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 
         private void OnEnable()
         {
-            this.agent.Events.OnActionEnd += this.OnActionEnd;
-            this.agent.Events.OnNoActionFound += this.OnNoActionFound;
-            this.agent.Events.OnGoalCompleted += this.OnGoalCompleted;
+            this.provider.Events.OnActionEnd += this.OnActionEnd;
+            this.provider.Events.OnNoActionFound += this.OnNoActionFound;
+            this.provider.Events.OnGoalCompleted += this.OnGoalCompleted;
         }
 
         private void OnDisable()
         {
-            this.agent.Events.OnActionEnd -= this.OnActionEnd;
-            this.agent.Events.OnNoActionFound -= this.OnNoActionFound;
-            this.agent.Events.OnGoalCompleted -= this.OnGoalCompleted;
+            this.provider.Events.OnActionEnd -= this.OnActionEnd;
+            this.provider.Events.OnNoActionFound -= this.OnNoActionFound;
+            this.provider.Events.OnGoalCompleted -= this.OnGoalCompleted;
         }
 
         private void Start()
         {
-            this.agent.SetGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(false);
         }
         
-        private void OnNoActionFound(IGoal goal)
+        private void OnNoActionFound(IGoalRequest request)
         {
-            this.agent.SetGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(false);
         }
 
         private void OnGoalCompleted(IGoal goal)
         {
-            this.agent.SetGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(false);
         }
 
         private void OnActionEnd(IAction action)
         {
             this.UpdateHunger();
             
-            if (this.agent.CurrentGoal is FixHungerGoal)
+            if (this.provider.CurrentPlan.Goal is FixHungerGoal)
                 return;
             
             this.DetermineGoal();
@@ -66,11 +66,11 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
         {
             if (this.complexHunger.hunger > 80)
             {
-                this.agent.SetGoal<FixHungerGoal>(false);
+                this.provider.RequestGoal<FixHungerGoal>(true);
                 return;
             }
 
-            if (this.agent.CurrentGoal is not FixHungerGoal)
+            if (this.provider.CurrentPlan.Goal is not FixHungerGoal)
                 return;
             
             if (this.complexHunger.hunger < 20)
@@ -100,62 +100,56 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
         {
             if (this.inventory.Count<Pickaxe>() == 0 && this.itemCollection.Get<Pickaxe>().Length >= 1)
             {
-                this.agent.SetGoal<PickupItemGoal<Pickaxe>>(false);
+                this.provider.RequestGoal<PickupItemGoal<Pickaxe>>(false);
                 return;
             }
             
             if (this.itemCollection.Get<Iron>().Length <= 2)
             {
-                this.agent.SetGoal<GatherItemGoal<Iron>>(false);
+                this.provider.RequestGoal<GatherItemGoal<Iron>>(false);
                 return;
             }
             
-            this.agent.SetGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(false);
         }
         
         private void DetermineWoodCutterGoals()
         {
             if (this.inventory.Count<Axe>() == 0 && this.itemCollection.Get<Axe>().Length >= 1)
             {
-                this.agent.SetGoal<PickupItemGoal<Axe>>(false);
+                this.provider.RequestGoal<PickupItemGoal<Axe>>(false);
                 return;
             }
             
             if (this.itemCollection.Get<Wood>().Length <= 2)
             {
-                this.agent.SetGoal<GatherItemGoal<Wood>>(false);
+                this.provider.RequestGoal<GatherItemGoal<Wood>>(false);
                 return;
             }
             
-            this.agent.SetGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(false);
         }
         
         private void DetermineSmithGoals()
         {
             if (this.itemCollection.Get<Axe>().Length <= 1)
             {
-                this.agent.SetGoal<CreateItemGoal<Axe>>(false);
+                this.provider.RequestGoal<CreateItemGoal<Axe>>(false);
                 return;
             }
             
             if (this.itemCollection.Get<Pickaxe>().Length <= 1)
             {
-                this.agent.SetGoal<CreateItemGoal<Pickaxe>>(false);
+                this.provider.RequestGoal<CreateItemGoal<Pickaxe>>(false);
                 return;
             }
 
-            this.agent.SetGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(false);
         }
         
         private void DetermineCleanerGoals()
         {
-            if (this.itemCollection.Count(false, false) > 0)
-            {
-                this.agent.SetGoal<CleanItemsGoal>(false);
-                return;
-            }
-            
-            this.agent.SetGoal<WanderGoal>(false);
+            this.provider.RequestGoal<CleanItemsGoal, FixHungerGoal, WanderGoal>(true);
         }
 
         public enum AgentType

@@ -39,11 +39,11 @@ namespace CrashKonijn.Goap.Runtime
             this.goapEvents?.ActionComplete(actionProvider, action);
         }
 
-        public event AgentGoalDelegate OnNoActionFound;
-        public void NoActionFound(IMonoGoapActionProvider actionProvider, IGoal goal)
+        public event AgentGoalRequestDelegate OnNoActionFound;
+        public void NoActionFound(IMonoGoapActionProvider actionProvider, IGoalRequest request)
         {
-            this.OnNoActionFound?.Invoke(actionProvider, goal);
-            this.goapEvents?.NoActionFound(actionProvider, goal);
+            this.OnNoActionFound?.Invoke(actionProvider, request);
+            this.goapEvents?.NoActionFound(actionProvider, request);
         }
 
         public event AgentGoalDelegate OnGoalStart;

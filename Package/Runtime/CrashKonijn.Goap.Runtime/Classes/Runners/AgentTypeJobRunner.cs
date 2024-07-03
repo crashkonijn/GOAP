@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Resolver;
 using Unity.Collections;
@@ -48,27 +49,32 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (actionProvider.IsNull())
                 return;
-            
-            if (actionProvider.CurrentGoal == null)
-                return;
 
             this.agentType.SensorRunner.SenseLocal(actionProvider);
 
             if (this.IsGoalCompleted(actionProvider))
             {
-                var goal = actionProvider.CurrentGoal;
+                var goal = actionProvider.CurrentPlan;
                 actionProvider.ClearGoal();
-                actionProvider.Events.GoalCompleted(goal);
-                return;
+                actionProvider.Events.GoalCompleted(goal.Goal);
             }
+
+            var goalRequest = actionProvider.GoalRequest;
+            
+            if (goalRequest == null)
+                return;
 
             this.FillBuilders(actionProvider);
             
-            this.resolveHandles.Add(new JobRunHandle(actionProvider)
+            actionProvider.Logger.Log($"Trying to resolve goals {string.Join(", ", goalRequest.Goals.Select(goal => goal.GetType().GetGenericTypeName()))}");
+            
+            var goalIndexes = goalRequest.Goals.Select(goal => this.resolver.GetIndex(goal)).ToArray();
+            
+            this.resolveHandles.Add(new JobRunHandle(actionProvider, goalRequest)
             {
                 Handle = this.resolver.StartResolve(new RunData
                 {
-                    StartIndex = new NativeArray<int>(new []{ this.resolver.GetIndex(actionProvider.CurrentGoal) }, Allocator.TempJob),
+                    StartIndex = new NativeArray<int>(goalIndexes, Allocator.TempJob),
                     AgentPosition = actionProvider.Position,
                     IsEnabled = new NativeArray<bool>(this.enabledBuilder.Build(), Allocator.TempJob),
                     IsExecutable = new NativeArray<bool>(this.executableBuilder.Build(), Allocator.TempJob),
@@ -89,6 +95,11 @@ namespace CrashKonijn.Goap.Runtime
             this.executableBuilder.Clear();
             this.positionBuilder.Clear();
             this.conditionBuilder.Clear();
+            
+            foreach (var goal in this.agentType.GetGoals())
+            {
+                this.costBuilder.SetCost(goal, goal.GetCost(actionProvider.Receiver, actionProvider.Receiver.Injector));
+            }
 
             foreach (var node in this.agentType.GetActions())
             {
@@ -107,20 +118,23 @@ namespace CrashKonijn.Goap.Runtime
                 
                 var target = actionProvider.WorldData.GetTarget(node);
 
-                this.executableBuilder.SetExecutable(node, node.IsExecutable(actionProvider.Agent, allMet));
-                this.enabledBuilder.SetEnabled(node, node.IsEnabled(actionProvider.Agent));
-                this.costBuilder.SetCost(node, node.GetCost(actionProvider.Agent, actionProvider.Agent.Injector));
+                this.executableBuilder.SetExecutable(node, node.IsExecutable(actionProvider.Receiver, allMet));
+                this.enabledBuilder.SetEnabled(node, node.IsEnabled(actionProvider.Receiver));
+                this.costBuilder.SetCost(node, node.GetCost(actionProvider.Receiver, actionProvider.Receiver.Injector));
                 
                 this.positionBuilder.SetPosition(node, target?.Position);
             }
         }
 
-        private bool IsGoalCompleted(IGoapAgent agent)
+        private bool IsGoalCompleted(IGoapActionProvider actionProvider)
         {
-            var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
-            conditionObserver.SetWorldData(agent.WorldData);
+            if (actionProvider.CurrentPlan == null)
+                return false;
             
-            foreach (var condition in agent.CurrentGoal.Conditions)
+            var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
+            conditionObserver.SetWorldData(actionProvider.WorldData);
+            
+            foreach (var condition in actionProvider.CurrentPlan.Goal.Conditions)
             {
                 if (!conditionObserver.IsMet(condition))
                     return false;
@@ -141,7 +155,7 @@ namespace CrashKonijn.Goap.Runtime
                 var goal = result.Goal;
                 if (goal == null)
                 {
-                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.ActionProvider.CurrentGoal);
+                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.GoalRequest);
                     continue;
                 }
                 
@@ -149,13 +163,18 @@ namespace CrashKonijn.Goap.Runtime
                 
                 if (action is null)
                 {
-                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.ActionProvider.CurrentGoal);
+                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.GoalRequest);
                     continue;
                 }
 
-                if (action != resolveHandle.ActionProvider.Agent.ActionState.Action)
+                if (action != resolveHandle.ActionProvider.Receiver.ActionState.Action)
                 {
-                    resolveHandle.ActionProvider.SetAction(goal, action, result.Actions);
+                    resolveHandle.ActionProvider.SetAction(new GoalResult
+                    {
+                        Goal = goal,
+                        Plan = result.Actions,
+                        Action = action
+                    });
                 }
             }
             
@@ -176,10 +195,12 @@ namespace CrashKonijn.Goap.Runtime
         {
             public IMonoGoapActionProvider ActionProvider { get; }
             public IResolveHandle Handle { get; set; }
+            public IGoalRequest GoalRequest { get; set; }
             
-            public JobRunHandle(IMonoGoapActionProvider actionProvider)
+            public JobRunHandle(IMonoGoapActionProvider actionProvider, IGoalRequest goalRequest)
             {
                 this.ActionProvider = actionProvider;
+                this.GoalRequest = goalRequest;
             }
         }
 

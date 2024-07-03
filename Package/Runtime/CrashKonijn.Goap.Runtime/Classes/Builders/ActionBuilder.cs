@@ -30,6 +30,7 @@ namespace CrashKonijn.Goap.Runtime
                 BaseCost = 1,
                 StoppingDistance = 0.5f,
                 RequiresTarget = true,
+                ValidateConditions = true,
                 Properties = (IActionProperties)Activator.CreateInstance(propType)
             };
         }
@@ -50,6 +51,12 @@ namespace CrashKonijn.Goap.Runtime
         public ActionBuilder SetRequiresTarget(bool requiresTarget)
         {
             this.config.RequiresTarget = requiresTarget;
+            return this;
+        }
+        
+        public ActionBuilder SetValidateConditions(bool validate)
+        {
+            this.config.ValidateConditions = validate;
             return this;
         }
         

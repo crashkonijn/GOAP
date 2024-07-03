@@ -50,10 +50,10 @@ namespace CrashKonijn.Goap.Runtime
             throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");
         }
 
-        public bool AllConditionsMet(IGoapAgent agent, IGoapAction action)
+        public bool AllConditionsMet(IGoapActionProvider actionProvider, IGoapAction action)
         {
             var conditionObserver = this.GoapConfig.ConditionObserver;
-            conditionObserver.SetWorldData(agent.WorldData);
+            conditionObserver.SetWorldData(actionProvider.WorldData);
             
             foreach (var condition in action.Conditions)
             {

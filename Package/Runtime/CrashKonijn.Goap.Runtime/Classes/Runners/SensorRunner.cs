@@ -85,7 +85,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             foreach (var localSensor in this.defaultSet.LocalSensors)
             {
-                localSensor.Sense(actionProvider.WorldData, actionProvider.Agent, actionProvider.Agent.Injector);
+                localSensor.Sense(actionProvider.WorldData, actionProvider.Receiver, actionProvider.Receiver.Injector);
             }
         }
         
@@ -101,7 +101,7 @@ namespace CrashKonijn.Goap.Runtime
             
             foreach (var localSensor in set.LocalSensors)
             {
-                localSensor.Sense(actionProvider.WorldData, actionProvider.Agent, actionProvider.Agent.Injector);
+                localSensor.Sense(actionProvider.WorldData, actionProvider.Receiver, actionProvider.Receiver.Injector);
             }
         }
 

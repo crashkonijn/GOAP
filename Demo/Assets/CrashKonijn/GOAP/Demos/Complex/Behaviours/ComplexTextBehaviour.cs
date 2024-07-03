@@ -29,13 +29,13 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 
         private string GetText()
         {
-            if (this.actionProvider.CurrentGoal is null)
+            if (this.actionProvider.CurrentPlan is null)
                 return $"{this.GetTypeText()}\nIdle";
             
-            if (this.actionProvider.Agent.ActionState.Action is null)
+            if (this.actionProvider.Receiver.ActionState.Action is null)
                 return $"{this.GetTypeText()}\nIdle";
 
-            return $"{this.GetTypeText()}\n{this.actionProvider.CurrentGoal.GetType().GetGenericTypeName()}\n{this.actionProvider.Agent.ActionState.Action.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleComplexHunger.hunger:0.00}";
+            return $"{this.GetTypeText()}\n{this.actionProvider.CurrentPlan.GetType().GetGenericTypeName()}\n{this.actionProvider.Receiver.ActionState.Action.GetType().GetGenericTypeName()}\n{this.agent.State}\nhunger: {this.simpleComplexHunger.hunger:0.00}";
         }
 
         private string GetTypeText()

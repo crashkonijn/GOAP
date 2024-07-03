@@ -20,7 +20,7 @@ namespace CrashKonijn.Goap.Runtime
             };
         }
         
-        public GoalBuilder SetBaseCost(int baseCost)
+        public GoalBuilder SetBaseCost(float baseCost)
         {
             this.config.BaseCost = baseCost;
             return this;

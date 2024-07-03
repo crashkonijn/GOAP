@@ -2,6 +2,7 @@
 using System.Linq;
 using CrashKonijn.Goap.Core;
 using Unity.Collections;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {

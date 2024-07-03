@@ -87,7 +87,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.SenseLocal(agent);
             
             // Assert
-            sensor.Received().Sense(Arg.Any<IWorldData>(), agent.Agent, Arg.Any<IComponentReference>());
+            sensor.Received().Sense(Arg.Any<IWorldData>(), agent.Receiver, Arg.Any<IComponentReference>());
         }
         
         [Test]
@@ -105,7 +105,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.SenseLocal(agent);
             
             // Assert
-            sensor.Received().Sense(Arg.Any<IWorldData>(), agent.Agent, Arg.Any<IComponentReference>());
+            sensor.Received().Sense(Arg.Any<IWorldData>(), agent.Receiver, Arg.Any<IComponentReference>());
         }
 
         [Test]

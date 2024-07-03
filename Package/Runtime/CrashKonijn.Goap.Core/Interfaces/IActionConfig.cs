@@ -8,6 +8,7 @@ namespace CrashKonijn.Goap.Core
         ITargetKey Target { get; }
         float StoppingDistance { get; }
         bool RequiresTarget { get; }
+        bool ValidateConditions { get; }
         ICondition[] Conditions { get; }
         IEffect[] Effects { get; }
         public ActionMoveMode MoveMode { get; }

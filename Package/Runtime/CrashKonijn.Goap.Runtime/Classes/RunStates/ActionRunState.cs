@@ -10,5 +10,6 @@ namespace CrashKonijn.Goap.Runtime
         public static IActionRunState Wait(float time, bool mayResolve = false) => new WaitActionRunState(time, mayResolve);
         public static IActionRunState WaitThenComplete(float time, bool mayResolve = false) => new WaitThenCompleteActionRunState(time, mayResolve);
         public static IActionRunState WaitThenStop(float time, bool mayResolve = false) => new WaitThenStopActionRunState(time, mayResolve);
+        public static IActionRunState StopAndLog(string message) => new StopAndLog(message);
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using CrashKonijn.Goap.Core;
 using Unity.Collections;
 using Unity.Jobs;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {

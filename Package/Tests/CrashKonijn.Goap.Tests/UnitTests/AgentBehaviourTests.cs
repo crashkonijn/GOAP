@@ -29,6 +29,9 @@ namespace CrashKonijn.Goap.UnitTests
             
             this.provider = go.AddComponent<GoapActionProvider>();
             this.provider.AgentType = this.agentType;
+            this.provider.Receiver = this.agent;
+
+            this.agent.ActionProvider = this.provider;
         }
         
         [Test]
@@ -82,8 +85,13 @@ namespace CrashKonijn.Goap.UnitTests
             action.IsValid(Arg.Any<IMonoAgent>(), Arg.Any<IActionData>()).Returns(true);
             action.IsInRange(this.agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
             action.Perform(this.agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Stop);
-
-            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
+            
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = goal,
+                Plan = Array.Empty<IConnectable>(),
+                Action = action
+            });
             
             // Act
             this.agent.Run();
@@ -94,7 +102,7 @@ namespace CrashKonijn.Goap.UnitTests
         }
 
         [Test]
-        public void SetGoal_SetsGoal()
+        public void RequestGoal_SetsGoalRequest()
         {
             // Arrange
             this.agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
@@ -102,76 +110,48 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.AgentType = this.agentType;
             
             // Act
-            this.provider.SetGoal<TestGoal>(false);
+            this.provider.RequestGoal<TestGoal>(false);
             
             // Assert
-            this.provider.CurrentGoal.Should().BeOfType<TestGoal>();
+            this.provider.GoalRequest.Goals.Should().ContainItemsAssignableTo<TestGoal>();
         }
-
+        
         [Test]
-        public void SetGoal_ResolvesAgent()
+        public void RequestGoal_ResolveFalse_DoesntCallResolve()
+        {
+            // Arrange
+            this.agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
+            
+            // Set Action property through reflection
+            var action = Substitute.For<IGoapAction>();
+            this.provider.MockEvents();
+            this.provider.InsertAction(action);
+            
+            // Act
+            this.provider.RequestGoal<TestGoal>(false);
+            
+            // Assert
+            this.provider.Events.Received(0).Resolve();
+        }
+        
+        [Test]
+        public void RequestGoal_ResolveTrue_DoesCallResolve()
         {
             // Arrange
             this.agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
 
+            this.agent.ActionProvider = Substitute.For<IActionProvider>();
+            
+            // Set Action property through reflection
+            var action = Substitute.For<IGoapAction>();
             this.provider.MockEvents();
+            this.provider.InsertAction(action);
             
             // Act
-            this.provider.SetGoal<TestGoal>(false);
+            this.provider.RequestGoal<TestGoal>(true);
             
             // Assert
             this.provider.Events.Received(1).Resolve();
-        }
-
-        [Test]
-        public void SetGoal_CallsGoalStartEvent()
-        {
-            // Arrange
-            this.agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
-
-            this.provider.MockEvents();
-            
-            // Act
-            this.provider.SetGoal<TestGoal>(false);
-            
-            // Assert
-            this.provider.Events.Received(1).GoalStart(Arg.Any<IGoal>());
-        }
-        
-        [Test]
-        public void SetGoal_EndActionFalse_DoesntCallEnd()
-        {
-            // Arrange
-            this.agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
-            
-            // Set Action property through reflection
-            var action = Substitute.For<IGoapAction>();
-            this.provider.InsertAction(action);
-            
-            // Act
-            this.provider.SetGoal<TestGoal>(false);
-            
-            // Assert
-            action.Received(0).Stop(Arg.Any<IMonoAgent>(), Arg.Any<IActionData>());
-        }
-        
-        [Test]
-        public void SetGoal_EndActionTrue_DoesCallEnd()
-        {
-            // Arrange
-            this.agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
-
-            this.agent.ActionResolver = Substitute.For<IActionResolver>();
-            
-            // Set Action property through reflection
-            var action = Substitute.For<IGoapAction>();
-            this.provider.InsertAction(action);
-            
-            // Act
-            this.provider.SetGoal<TestGoal>(true);
-            
-            // Assert
-            action.Received(1).Stop(Arg.Any<IMonoAgent>(), Arg.Any<IActionData>());
         }
         
         [Test]
@@ -185,10 +165,15 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IGoapAction>();
             
             // Act
-            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = goal,
+                Plan = Array.Empty<IConnectable>(),
+                Action = action
+            });
             
             // Assert
-            this.provider.Agent.ActionState.Action.Should().Be(action);
+            this.provider.Receiver.ActionState.Action.Should().Be(action);
         }
         
         [Test]
@@ -206,7 +191,12 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.InsertAction(oldAction);
             
             // Act
-            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = goal,
+                Plan = Array.Empty<IConnectable>(),
+                Action = action
+            });
             
             // Assert
             oldAction.Received(1).Stop(this.agent, Arg.Any<IActionData>());
@@ -223,7 +213,12 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IGoapAction>();
             
             // Act
-            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = goal,
+                Plan = Array.Empty<IConnectable>(),
+                Action = action
+            });
             
             // Assert
             action.Received(1).GetData();
@@ -243,10 +238,15 @@ namespace CrashKonijn.Goap.UnitTests
             action.GetData().Returns(actionData);
             
             // Act
-            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = goal,
+                Plan = Array.Empty<IConnectable>(),
+                Action = action
+            });
             
             // Assert
-            this.provider.Agent.ActionState.Data.Should().Be(actionData);
+            this.provider.Receiver.ActionState.Data.Should().Be(actionData);
         }
         
         // TODO
@@ -282,7 +282,12 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IGoapAction>();
 
             // Act
-            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = goal,
+                Plan = Array.Empty<IConnectable>(),
+                Action = action
+            });
             
             // Assert
             action.Received(1).Start(this.agent, Arg.Any<IActionData>());
@@ -303,10 +308,15 @@ namespace CrashKonijn.Goap.UnitTests
             };
             
             // Act
-            this.provider.SetAction(goal, action, path);
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = goal,
+                Plan = path,
+                Action = action
+            });
             
             // Assert
-            this.provider.CurrentPlan.Should().BeSameAs(path);
+            this.provider.CurrentPlan.Plan.Should().BeSameAs(path);
         }
         
         [Test]
@@ -321,7 +331,12 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IGoapAction>();
             
             // Act
-            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = goal,
+                Plan = Array.Empty<IConnectable>(),
+                Action = action
+            });
             
             // Assert
             this.agent.Events.Received(1).ActionStart(action);
@@ -331,7 +346,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void EndAction_CallsEndOnAction()
         {
             // Arrange
-            this.agent.ActionResolver = Substitute.For<IActionResolver>();
+            this.agent.ActionProvider = Substitute.For<IActionProvider>();
             this.provider.CallAwake();
             this.agent.Initialize();
             
@@ -353,11 +368,17 @@ namespace CrashKonijn.Goap.UnitTests
             this.agent.Initialize();
 
             // Act
-            this.provider.SetAction(Substitute.For<IGoal>(), Substitute.For<IGoapAction>(), Array.Empty<IConnectable>());
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = Substitute.For<IGoal>(),
+                Plan = Array.Empty<IConnectable>(),
+                Action = Substitute.For<IGoapAction>()
+            });
+            
             this.provider.StopAction();
             
             // Assert
-            this.provider.Agent.ActionState.Action.Should().BeNull();
+            this.provider.Receiver.ActionState.Action.Should().BeNull();
         }
         
         [Test]
@@ -368,18 +389,23 @@ namespace CrashKonijn.Goap.UnitTests
             this.agent.Initialize();
 
             // Act
-            this.provider.SetAction(Substitute.For<IGoal>(), Substitute.For<IGoapAction>(), Array.Empty<IConnectable>());
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = Substitute.For<IGoal>(),
+                Plan = Array.Empty<IConnectable>(),
+                Action = Substitute.For<IGoapAction>()
+            });
             this.provider.StopAction();
             
             // Assert
-            this.provider.Agent.ActionState.Data.Should().BeNull();
+            this.provider.Receiver.ActionState.Data.Should().BeNull();
         }
 
         [Test]
         public void EndAction_ShouldResolveAgent()
         {
             // Arrange
-            this.agent.ActionResolver = this.provider;
+            this.agent.ActionProvider = this.provider;
             this.provider.CallAwake();
             this.agent.Initialize();
             this.provider.MockEvents();
@@ -401,7 +427,12 @@ namespace CrashKonijn.Goap.UnitTests
 
             var goal = Substitute.For<IGoal>();
             var action = Substitute.For<IGoapAction>();
-            this.provider.SetAction(goal, action, Array.Empty<IConnectable>());
+            this.provider.SetAction(new GoalResult
+            {
+                Goal = goal,
+                Plan = Array.Empty<IConnectable>(),
+                Action = action
+            });
 
             // Act
             this.provider.StopAction();

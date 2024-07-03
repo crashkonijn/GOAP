@@ -5,9 +5,10 @@ namespace CrashKonijn.Goap.Core
     public interface IGoapAgentEvents
     {
         void Bind(IMonoGoapActionProvider actionProvider, IAgentTypeEvents events);
+        void Bind(IActionReceiver receiver);
         void Unbind();
-        event GoalDelegate OnNoActionFound;
-        void NoActionFound(IGoal goal);
+        event GoalRequestDelegate OnNoActionFound;
+        void NoActionFound(IGoalRequest request);
         event GoalDelegate OnGoalStart;
         void GoalStart(IGoal goal);
         

@@ -3,6 +3,7 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {
@@ -94,8 +95,8 @@ namespace CrashKonijn.Goap.Resolver
                 var nodeData = new NodeData
                 {
                     Index = i,
-                    G = 0,
-                    P = 0,
+                    G = this.RunData.Costs[i],
+                    P = this.RunData.Costs[i],
                     H = int.MaxValue,
                     ParentIndex = -1,
                     Position = InvalidPosition
@@ -272,10 +273,20 @@ namespace CrashKonijn.Goap.Resolver
             {
                 if (!this.RunData.ConditionsMet[conditionIndex])
                 {
-                    // Check if the index exists in the costs array
-                    if (conditionIndex < this.RunData.Costs.Length)
-                        cost += this.RunData.Costs[conditionIndex];
+                    cost += this.GetCheapestCostForCondition(conditionIndex);
                 }
+            }
+
+            return cost;
+        }
+        
+        private float GetCheapestCostForCondition(int conditionIndex)
+        {
+            var cost = float.MaxValue;
+            foreach (var nodeIndex in this.ConditionConnections.GetValuesForKey(conditionIndex))
+            {
+                if (this.RunData.Costs[nodeIndex] < cost)
+                    cost = this.RunData.Costs[nodeIndex];
             }
 
             return cost;

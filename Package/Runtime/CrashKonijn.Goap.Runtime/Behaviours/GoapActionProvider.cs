@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using CrashKonijn.Agent;
+using System.Linq;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
@@ -18,7 +17,7 @@ namespace CrashKonijn.Goap.Runtime
         
         [field: SerializeField]
         public float DistanceMultiplier { get; set; } = 1f;
-        
+
         private IAgentType agentType;
         public IAgentType AgentType
         {
@@ -32,26 +31,12 @@ namespace CrashKonijn.Goap.Runtime
                 this.Events.Bind(this, value.Events);
             }
         }
-        public IGoal CurrentGoal { get; private set; }
+        public IGoalResult CurrentPlan { get; private set; }
         public IGoalRequest GoalRequest { get; private set; }
-        public IGoalRequest ActiveGoalRequest { get; private set; }
-        
+
         public ILocalWorldData WorldData { get; } = new LocalWorldData();
-        public IConnectable[] CurrentPlan { get; private set; } = Array.Empty<IConnectable>();
         public IGoapAgentEvents Events { get; } = new GoapAgentEvents();
         public ILogger<IMonoGoapActionProvider> Logger { get; } = new GoapAgentLogger();
-
-        private IActionReceiver agent;
-        public IActionReceiver Agent
-        {
-            get
-            {
-                if (this.agent == null)
-                    this.agent = this.GetComponent<AgentBehaviour>();
-        
-                return this.agent;
-            }
-        }
         
         public Vector3 Position => this.transform.position;
 
@@ -88,49 +73,160 @@ namespace CrashKonijn.Goap.Runtime
             this.Events.Unbind();
         }
 
-        public void SetGoal<TGoal>(bool endAction)
+        [Obsolete("Use RequestGoal<TGoal> instead.")]
+        public void SetGoal<TGoal>(bool endAction) where TGoal : IGoal => this.RequestGoal<TGoal>(endAction);
+        [Obsolete("Use RequestGoal instead.")]
+        public void SetGoal(IGoal goal, bool endAction) => this.RequestGoal(goal, endAction);
+
+        public void RequestGoal<TGoal>(bool resolve)
             where TGoal : IGoal
         {
-            this.SetGoal(this.AgentType.ResolveGoal<TGoal>(), endAction);
+            this.RequestGoal(new GoalRequest
+            {
+                Goals = new IGoal[]
+                {
+                    this.AgentType.ResolveGoal<TGoal>()
+                }
+            }, resolve);
         }
 
-        public void SetGoal(IGoal goal, bool endAction)
+        public void RequestGoal<TGoal1, TGoal2>(bool resolve)
+            where TGoal1 : IGoal
+            where TGoal2 : IGoal
         {
-            if (goal == this.CurrentGoal)
+            this.RequestGoal(new GoalRequest
+            {
+                Goals = new IGoal[]
+                {
+                    this.AgentType.ResolveGoal<TGoal1>(),
+                    this.AgentType.ResolveGoal<TGoal2>()
+                }
+            }, resolve);
+        }
+        
+        public void RequestGoal<TGoal1, TGoal2, TGoal3>(bool resolve)
+            where TGoal1 : IGoal
+            where TGoal2 : IGoal
+            where TGoal3 : IGoal
+        {
+            this.RequestGoal(new GoalRequest
+            {
+                Goals = new IGoal[]
+                {
+                    this.AgentType.ResolveGoal<TGoal1>(),
+                    this.AgentType.ResolveGoal<TGoal2>(),
+                    this.AgentType.ResolveGoal<TGoal3>()
+                }
+            }, resolve);
+        }
+        
+        public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4>(bool resolve)
+            where TGoal1 : IGoal
+            where TGoal2 : IGoal
+            where TGoal3 : IGoal
+            where TGoal4 : IGoal
+        {
+            this.RequestGoal(new GoalRequest
+            {
+                Goals = new IGoal[]
+                {
+                    this.AgentType.ResolveGoal<TGoal1>(),
+                    this.AgentType.ResolveGoal<TGoal2>(),
+                    this.AgentType.ResolveGoal<TGoal3>(),
+                    this.AgentType.ResolveGoal<TGoal4>()
+                }
+            }, resolve);
+        }
+        
+        public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4, TGoal5>(bool resolve)
+            where TGoal1 : IGoal
+            where TGoal2 : IGoal
+            where TGoal3 : IGoal
+            where TGoal4 : IGoal
+            where TGoal5 : IGoal
+        {
+            this.RequestGoal(new GoalRequest
+            {
+                Goals = new IGoal[]
+                {
+                    this.AgentType.ResolveGoal<TGoal1>(),
+                    this.AgentType.ResolveGoal<TGoal2>(),
+                    this.AgentType.ResolveGoal<TGoal3>(),
+                    this.AgentType.ResolveGoal<TGoal4>(),
+                    this.AgentType.ResolveGoal<TGoal5>()
+                }
+            }, resolve);
+        }
+
+        public void RequestGoal(IGoal goal, bool resolve)
+        {
+            this.RequestGoal(new GoalRequest
+            {
+                Goals = new[] { goal }
+            }, resolve);
+        }
+
+        public void RequestGoal(IGoalRequest request, bool resolve)
+        {
+            if (request == null)
                 return;
             
-            this.CurrentGoal = goal;
-            this.Agent.Timers.Goal.Touch();
+            if (this.GoalRequest?.Goals.SequenceEqual(request.Goals) ?? false)
+                return;
             
-            if (this.Agent.ActionState.Action == null)
+            this.GoalRequest = request;
+
+            if (this.Receiver == null)
+                return;
+
+            if (resolve)
                 this.ResolveAction();
-            
-            this.Events.GoalStart(goal);
-            
-            if (endAction)
-                this.StopAction();
         }
 
-        public void SetAction(IGoal goal, IGoapAction action, IConnectable[] path)
+        public void SetAction(IGoalResult result)
         {
-            this.CurrentPlan = path;
-            this.Agent.SetAction(this, action, this.WorldData.GetTarget(action));
+            this.Logger.Log($"Setting action '{result.Action.GetType().GetGenericTypeName()}' for goal '{result.Goal.GetType().GetGenericTypeName()}'.");
+            
+            var currentGoal = this.CurrentPlan?.Goal;
+            
+            this.CurrentPlan = result;
+            
+            if (this.Receiver == null)
+                return;
+            
+            this.Receiver.Timers.Goal.Touch();
+            
+            if (currentGoal != result.Goal)
+                this.Events.GoalStart(currentGoal);
+            
+            this.Receiver.SetAction(this, result.Action, this.WorldData.GetTarget(result.Action));
         }
 
         public void StopAction(bool resolveAction = true)
         {
-            this.Agent.StopAction(resolveAction);
+            this.Receiver.StopAction(resolveAction);
         }
-        
+
+        private IActionReceiver receiver;
+        public override IActionReceiver Receiver
+        {
+            get => this.receiver;
+            set
+            {
+                this.receiver = value;
+                this.Events.Bind(value);
+            }
+        }
+
         public override void ResolveAction()
         {
             this.Events.Resolve();
-            this.Agent.Timers.Resolve.Touch();
+            this.Receiver.Timers.Resolve.Touch();
         }
 
         public void ClearGoal()
         {
-            this.CurrentGoal = null;
+            this.CurrentPlan = null;
         }
         
         public void SetDistanceMultiplierSpeed(float speed)

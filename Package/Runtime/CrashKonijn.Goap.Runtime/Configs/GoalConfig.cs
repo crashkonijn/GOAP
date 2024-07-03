@@ -20,7 +20,7 @@ namespace CrashKonijn.Goap.Runtime
 
         public string Name { get; set; }
         public string ClassType { get; set; }
-        public int BaseCost { get; set; }
+        public float BaseCost { get; set; }
         public List<ICondition> Conditions { get; set; } = new();
         
         public static GoalConfig Create<TGoal>()

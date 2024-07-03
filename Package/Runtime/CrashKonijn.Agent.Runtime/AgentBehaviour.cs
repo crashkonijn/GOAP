@@ -8,8 +8,19 @@ namespace CrashKonijn.Agent.Runtime
     public class AgentBehaviour : MonoBehaviour, IMonoAgent
     {
         [field: SerializeField]
-        public ActionProviderBase ActionProvider { get; set; }
-        
+        public ActionProviderBase ActionProviderBase { get; set; }
+
+        private IActionProvider actionProvider;
+        public IActionProvider ActionProvider
+        {
+            get => this.actionProvider;
+            set
+            {
+                this.actionProvider = value;
+                this.actionProvider.Receiver = this;
+            }
+        }
+
         [field: SerializeField]
         public LoggerConfig LoggerConfig { get; set; } = new LoggerConfig();
         
@@ -29,7 +40,6 @@ namespace CrashKonijn.Agent.Runtime
         public IDataReferenceInjector Injector { get; private set; }
         public IAgentDistanceObserver DistanceObserver { get; set; } = new VectorDistanceObserver();
         public ILogger<IMonoAgent> Logger { get; set; } = new AgentLogger();
-        public IActionResolver ActionResolver { get; set; }
 
         public IAgentTimers Timers { get; } = new AgentTimers();
 
@@ -49,6 +59,9 @@ namespace CrashKonijn.Agent.Runtime
             this.Injector = new DataReferenceInjector(this);
             this.actionRunner = new ActionRunner(this, new AgentProxy(this.SetState, this.SetMoveState, (state) => this.ActionState.RunState = state, this.IsInRange));
             this.Logger.Initialize(this.LoggerConfig, this);
+            
+            if (this.ActionProviderBase != null)
+                this.ActionProvider = this.ActionProviderBase;
         }
 
         private void Update()
@@ -116,9 +129,9 @@ namespace CrashKonijn.Agent.Runtime
             return this.ActionState.Action.IsInRange(this, distance, this.ActionState.Data, this.Injector);
         }
         
-        public void SetAction(IActionResolver actionResolver, IAction action, ITarget target)
+        public void SetAction(IActionProvider actionProvider, IAction action, ITarget target)
         {
-            this.ActionResolver = actionResolver;
+            this.ActionProvider = actionProvider;
             
             if (this.ActionState.Action != null)
             {
@@ -165,10 +178,10 @@ namespace CrashKonijn.Agent.Runtime
 
         public void ResolveAction()
         {
-            if (this.ActionResolver == null)
-                throw new AgentException("No action resolver found!");
+            if (this.ActionProvider == null)
+                throw new AgentException("No action provider found!");
             
-            this.ActionResolver.ResolveAction();
+            this.ActionProvider.ResolveAction();
         }
 
         private void ResetAction()

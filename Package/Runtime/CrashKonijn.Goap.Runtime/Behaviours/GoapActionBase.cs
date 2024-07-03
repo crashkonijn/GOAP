@@ -53,7 +53,7 @@ namespace CrashKonijn.Goap.Runtime
             if (goapAgent == null)
                 return false;
             
-            if (!goapAgent.AgentType.AllConditionsMet(goapAgent, this))
+            if (this.Config.ValidateConditions && !goapAgent.AgentType.AllConditionsMet(goapAgent, this))
             {
                 agent.Logger.Warning($"Conditions not met: {this.Config.Name}");
                 return false;

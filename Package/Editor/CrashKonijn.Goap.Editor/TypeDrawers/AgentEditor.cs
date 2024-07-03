@@ -16,7 +16,7 @@ namespace CrashKonijn.Goap.Editor
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
             
             // root.Add(new PropertyField(this.serializedObject.FindProperty("agentTypeBehaviour")));
-            root.Add(new PropertyField(this.serializedObject.FindProperty("<ActionProvider>k__BackingField")));
+            root.Add(new PropertyField(this.serializedObject.FindProperty("<ActionProviderBase>k__BackingField")));
             root.Add(new PropertyField(this.serializedObject.FindProperty("<DistanceMultiplier>k__BackingField")));
             root.Add(new PropertyField(this.serializedObject.FindProperty("<LoggerConfig>k__BackingField")));
             

@@ -28,17 +28,17 @@ namespace CrashKonijn.Goap.Runtime
             
         }
 
-        private void OnAgentResolve(IGoapAgent agent)
+        private void OnAgentResolve(IGoapActionProvider actionProvider)
         {
-            var runner = this.GetRunner(agent);
+            var runner = this.GetRunner(actionProvider);
             
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { agent as IMonoGoapActionProvider });
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { actionProvider as IMonoGoapActionProvider });
             runner.Complete();
         }
 
-        private IAgentTypeJobRunner GetRunner(IGoapAgent agent)
+        private IAgentTypeJobRunner GetRunner(IGoapActionProvider actionProvider)
         {
-            return this.goap.AgentTypeRunners[agent.AgentType];
+            return this.goap.AgentTypeRunners[actionProvider.AgentType];
         }
     }
 }
