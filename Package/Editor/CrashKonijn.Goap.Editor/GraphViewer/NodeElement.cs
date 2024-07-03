@@ -134,21 +134,20 @@ namespace CrashKonijn.Goap.Editor
             this.Node.RemoveFromClassList("active");
             this.Node.RemoveFromClassList("disabled");
             this.Node.RemoveFromClassList("path");
- 
                 
-            if (provider.CurrentPlan.Goal == this.GraphNode.Action)
+            if (provider.CurrentPlan?.Goal == this.GraphNode.Action)
             {
                 this.Node.AddToClassList("path");
                 return;
             }
                 
-            if (provider.Receiver.ActionState.Action == this.GraphNode.Action)
+            if (provider.Receiver?.ActionState.Action == this.GraphNode.Action)
             {
                 this.Node.AddToClassList("active");
                 return;
             }
                 
-            if (provider.CurrentPlan.Plan.Contains(this.GraphNode.Action))
+            if (provider.CurrentPlan != null && provider.CurrentPlan.Plan.Contains(this.GraphNode.Action))
             {
                 this.Node.AddToClassList("path");
                 return;

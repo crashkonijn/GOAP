@@ -39,17 +39,17 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 
         private void Start()
         {
-            this.provider.RequestGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(true);
         }
         
         private void OnNoActionFound(IGoalRequest request)
         {
-            this.provider.RequestGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(true);
         }
 
         private void OnGoalCompleted(IGoal goal)
         {
-            this.provider.RequestGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(true);
         }
 
         private void OnActionEnd(IAction action)
@@ -100,47 +100,47 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
         {
             if (this.inventory.Count<Pickaxe>() == 0 && this.itemCollection.Get<Pickaxe>().Length >= 1)
             {
-                this.provider.RequestGoal<PickupItemGoal<Pickaxe>>(false);
+                this.provider.RequestGoal<PickupItemGoal<Pickaxe>>(true);
                 return;
             }
             
             if (this.itemCollection.Get<Iron>().Length <= 2)
             {
-                this.provider.RequestGoal<GatherItemGoal<Iron>>(false);
+                this.provider.RequestGoal<GatherItemGoal<Iron>>(true);
                 return;
             }
             
-            this.provider.RequestGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(true);
         }
         
         private void DetermineWoodCutterGoals()
         {
             if (this.inventory.Count<Axe>() == 0 && this.itemCollection.Get<Axe>().Length >= 1)
             {
-                this.provider.RequestGoal<PickupItemGoal<Axe>>(false);
+                this.provider.RequestGoal<PickupItemGoal<Axe>>(true);
                 return;
             }
             
             if (this.itemCollection.Get<Wood>().Length <= 2)
             {
-                this.provider.RequestGoal<GatherItemGoal<Wood>>(false);
+                this.provider.RequestGoal<GatherItemGoal<Wood>>(true);
                 return;
             }
             
-            this.provider.RequestGoal<WanderGoal>(false);
+            this.provider.RequestGoal<WanderGoal>(true);
         }
         
         private void DetermineSmithGoals()
         {
             if (this.itemCollection.Get<Axe>().Length <= 1)
             {
-                this.provider.RequestGoal<CreateItemGoal<Axe>>(false);
+                this.provider.RequestGoal<CreateItemGoal<Axe>>(true);
                 return;
             }
             
             if (this.itemCollection.Get<Pickaxe>().Length <= 1)
             {
-                this.provider.RequestGoal<CreateItemGoal<Pickaxe>>(false);
+                this.provider.RequestGoal<CreateItemGoal<Pickaxe>>(true);
                 return;
             }
 

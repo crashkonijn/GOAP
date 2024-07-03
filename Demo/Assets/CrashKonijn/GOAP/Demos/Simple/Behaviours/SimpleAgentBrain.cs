@@ -17,14 +17,14 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 
         private void Start()
         {
-            this.agent.RequestGoal<WanderGoal>(false);
+            this.agent.RequestGoal<WanderGoal>(true);
         }
 
         private void Update()
         {
             if (this.hunger.hunger > 80)
             {
-                this.agent.RequestGoal<FixHungerGoal>(false);
+                this.agent.RequestGoal<FixHungerGoal>(true);
                 return;
             }
             
