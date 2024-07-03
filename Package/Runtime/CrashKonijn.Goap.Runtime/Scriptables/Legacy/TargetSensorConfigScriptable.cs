@@ -1,9 +1,10 @@
-﻿using CrashKonijn.Goap.Core;
+﻿using System;
+using CrashKonijn.Goap.Core;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    [CreateAssetMenu(menuName = "Goap/TargetSensorConfig")]
+    [Obsolete("Use CapabilityConfigs instead!")]
     public class TargetSensorConfigScriptable : ScriptableObject, ITargetSensorConfig
     {
         [TargetSensor]

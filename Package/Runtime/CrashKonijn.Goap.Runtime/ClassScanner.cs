@@ -83,6 +83,11 @@ namespace CrashKonijn.Goap.Runtime
 
         public static GeneratorScriptable GetGenerator(ScriptableObject scriptable)
         {
+            var assetPath = AssetDatabase.GetAssetPath(scriptable);
+            
+            if (string.IsNullOrEmpty(assetPath))
+                return null;
+            
             var path = Path.GetDirectoryName(AssetDatabase.GetAssetPath(scriptable));
             var generators = GetGenerators();
             

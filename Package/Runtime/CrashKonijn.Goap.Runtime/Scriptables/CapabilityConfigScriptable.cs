@@ -4,6 +4,7 @@ using System.Linq;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -41,7 +42,9 @@ namespace CrashKonijn.Goap.Runtime
                 ClassType = x.action.GetScript(actionClasses).GetFullName(),
                 BaseCost = x.baseCost,
                 Target = x.target.GetScript(targetClasses).GetInstance<ITargetKey>(),
-                StoppingDistance = x.inRange,
+                StoppingDistance = x.stoppingDistance,
+                RequiresTarget = x.requiresTarget,
+                ValidateConditions = x.validateConditions,
                 Conditions = x.conditions.Select(y => new Condition
                 {
                     WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
@@ -115,7 +118,8 @@ namespace CrashKonijn.Goap.Runtime
     public class BehaviourGoal
     {
         public ClassRef goal = new();
-        
+
+        public float baseCost = 1;
         public List<BehaviourCondition> conditions = new();
     }
     
@@ -128,8 +132,10 @@ namespace CrashKonijn.Goap.Runtime
         [SerializeReference]
         public IActionProperties properties;
         
-        public int baseCost = 1;
-        public float inRange = 0.1f;
+        public float baseCost = 1;
+        public float stoppingDistance = 0.1f;
+        public bool requiresTarget = true;
+        public bool validateConditions = true;
         public ActionMoveMode moveMode;
         public List<BehaviourCondition> conditions = new();
         public List<BehaviourEffect> effects = new();

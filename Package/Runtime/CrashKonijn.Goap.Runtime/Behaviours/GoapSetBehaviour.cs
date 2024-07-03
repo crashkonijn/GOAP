@@ -1,9 +1,12 @@
-﻿using CrashKonijn.Goap.Core;
+﻿using System;
+using CrashKonijn.Goap.Core;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Runtime
 {
     [DefaultExecutionOrder(-99)]
+    [Obsolete("Use AgentTypeBehaviour instead!")]
+    [RequireComponent(typeof(AgentTypeBehaviour))]
     public class GoapSetBehaviour : MonoBehaviour
     {
         [SerializeField]

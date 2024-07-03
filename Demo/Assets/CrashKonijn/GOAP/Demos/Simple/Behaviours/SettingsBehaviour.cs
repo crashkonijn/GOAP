@@ -13,7 +13,6 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
         
         public GameObject applePrefab;
         public GameObject agentPrefab;
-        [FormerlySerializedAs("agentType")] public GoapSetBehaviour goapSet;
         public AgentTypeBehaviour agentType;
         
         public TextMeshProUGUI appleCountText;
