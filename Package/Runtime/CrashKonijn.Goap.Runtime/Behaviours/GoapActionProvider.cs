@@ -74,11 +74,11 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         [Obsolete("Use RequestGoal<TGoal> instead.")]
-        public void SetGoal<TGoal>(bool endAction) where TGoal : IGoal => this.RequestGoal<TGoal>(endAction);
+        public void SetGoal<TGoal>(bool endAction = false) where TGoal : IGoal => this.RequestGoal<TGoal>(endAction);
         [Obsolete("Use RequestGoal instead.")]
-        public void SetGoal(IGoal goal, bool endAction) => this.RequestGoal(goal, endAction);
+        public void SetGoal(IGoal goal, bool endAction = false) => this.RequestGoal(goal, endAction);
 
-        public void RequestGoal<TGoal>(bool resolve)
+        public void RequestGoal<TGoal>(bool resolve = true)
             where TGoal : IGoal
         {
             this.ValidateSetup();
@@ -92,7 +92,7 @@ namespace CrashKonijn.Goap.Runtime
             }, resolve);
         }
 
-        public void RequestGoal<TGoal1, TGoal2>(bool resolve)
+        public void RequestGoal<TGoal1, TGoal2>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
         {
@@ -108,7 +108,7 @@ namespace CrashKonijn.Goap.Runtime
             }, resolve);
         }
         
-        public void RequestGoal<TGoal1, TGoal2, TGoal3>(bool resolve)
+        public void RequestGoal<TGoal1, TGoal2, TGoal3>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
             where TGoal3 : IGoal
@@ -126,7 +126,7 @@ namespace CrashKonijn.Goap.Runtime
             }, resolve);
         }
         
-        public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4>(bool resolve)
+        public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
             where TGoal3 : IGoal
@@ -146,7 +146,7 @@ namespace CrashKonijn.Goap.Runtime
             }, resolve);
         }
         
-        public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4, TGoal5>(bool resolve)
+        public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4, TGoal5>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
             where TGoal3 : IGoal
@@ -178,7 +178,7 @@ namespace CrashKonijn.Goap.Runtime
             }, resolve);
         }
 
-        public void RequestGoal(IGoalRequest request, bool resolve)
+        public void RequestGoal(IGoalRequest request, bool resolve = true)
         {
             this.ValidateSetup();
 
@@ -258,5 +258,12 @@ namespace CrashKonijn.Goap.Runtime
             if (this.Receiver == null)
                 throw new GoapException($"There is no ActionReceiver assigned to the agent '{this.name}'! You're probably missing the ActionProvider on the AgentBehaviour.");
         }
+        
+        #region Obsolete Methods
+        [Obsolete("Use CurrentPlan.Goal instead")]
+        public object CurrentGoal { get; set; }
+        [Obsolete("Use AgentType instead")]
+        public object GoapSet { get; set; }
+        #endregion
     }
 }

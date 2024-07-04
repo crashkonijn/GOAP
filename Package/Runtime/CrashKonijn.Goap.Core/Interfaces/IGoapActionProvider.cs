@@ -51,5 +51,12 @@ namespace CrashKonijn.Goap.Core
         void ClearGoal();
         void StopAction(bool resolveAction = true);
         void SetDistanceMultiplierSpeed(float speed);
+        
+        #region Obsolete
+        [Obsolete("Use CurrentPlan.Goal instead")]
+        public object CurrentGoal { get; set; }
+        [Obsolete("Use AgentType instead")]
+        public object GoapSet { get; set; }
+        #endregion
     }
 }
