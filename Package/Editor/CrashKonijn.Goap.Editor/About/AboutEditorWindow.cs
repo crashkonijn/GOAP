@@ -9,7 +9,10 @@ namespace CrashKonijn.Goap.Editor
 {
     public class AboutEditorWindow : EditorWindow
     {
-        private static string version = "loading";
+        private const int Version = 1;
+        
+        private static string goapSource = "loading";
+        private static string goapVersion = "loading";
         private static string collectionsVersion = "loading";
         
         private static ListRequest request;
@@ -55,6 +58,18 @@ namespace CrashKonijn.Goap.Editor
             
             var scrollView = new ScrollView();
             scrollView.verticalScrollerVisibility = ScrollerVisibility.Auto;
+            
+            scrollView.Add(new Card((card) =>
+            {
+                card.Add(new Label(this.GetText())
+                {
+                    style =
+                    {
+                        whiteSpace = WhiteSpace.Normal,
+                        overflow = Overflow.Hidden
+                    }
+                });
+            }));
 
             scrollView.Add(new Card((card) =>
             {
@@ -90,7 +105,7 @@ namespace CrashKonijn.Goap.Editor
 
         private void AddButtons(Card card)
         {
-            if (version == "loading" || collectionsVersion == "loading")
+            if (goapVersion == "loading" || collectionsVersion == "loading")
             {
                 card.Add(new Button(CheckProgress)
                 {
@@ -108,9 +123,20 @@ namespace CrashKonijn.Goap.Editor
         
         private string GetDebugText()
         {
-            var debug = $"GOAP Version:               {version}\nUnity Version:                {Application.unityVersion}\nCollections Version:       {collectionsVersion}";
+            return @$"GOAP Version:                  {goapVersion} ({goapSource})
+Unity Version:                   {Application.unityVersion}
+Collections Version:         {collectionsVersion}";
+        }
 
-            return debug;
+        private string GetText()
+        {
+            return $@"Thank you for trying out my GOAP package!
+
+If you have any questions or need help, please don't hesitate to contact us on Discord or check out the documentation.
+
+Please consider leaving a review on the Asset Store if you like it! 
+
+I hope you enjoy using the GOAP!";
         }
 
         public void CopyDebug()
@@ -121,19 +147,18 @@ namespace CrashKonijn.Goap.Editor
         private static void CheckProgress()
         {
             if (request == null)
-            {
                 request = Client.List();
-            }
-            
-            if (request.IsCompleted)
-            {
-                EditorApplication.update -= CheckProgress;
-                
-                version = request.Result.Where(x => x.name == "com.crashkonijn.goap").Select(x => x.version).FirstOrDefault();
-                collectionsVersion = request.Result.Where(x => x.name == "com.unity.collections").Select(x => x.version).FirstOrDefault();
 
-                instance.Render();
-            }
+            if (!request.IsCompleted)
+                return;
+            
+            EditorApplication.update -= CheckProgress;
+
+            goapSource = request.Result.Any(x => x.name == "com.crashkonijn.goap") ? "Git" : "Asset Store";
+            goapVersion = GoapEditorSettings.Version;
+            collectionsVersion = request.Result.Where(x => x.name == "com.unity.collections").Select(x => x.version).FirstOrDefault();
+
+            instance.Render();
         }
     }
 }
