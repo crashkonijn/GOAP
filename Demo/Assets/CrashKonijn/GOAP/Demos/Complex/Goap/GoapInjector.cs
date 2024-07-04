@@ -1,9 +1,10 @@
-﻿using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Goap
+namespace CrashKonijn.Goap.Demos.Complex.Goap
 {
     public class GoapInjector : MonoBehaviour, IGoapInjector
     {
@@ -11,22 +12,20 @@ namespace Demos.Complex.Goap
         public ItemCollection itemCollection;
         public InstanceHandler instanceHandler;
         
-        public void Inject(IActionBase action)
+        public void Inject(IAction action)
         {
             if (action is IInjectable injectable)
                 injectable.Inject(this);
         }
 
-        public void Inject(IGoalBase goal)
+        public void Inject(IGoal goal)
         {
         }
 
-        public void Inject(IWorldSensor worldSensor)
+        public void Inject(ISensor sensor)
         {
-        }
-
-        public void Inject(ITargetSensor targetSensor)
-        {
+            if (sensor is IInjectable injectable)
+                injectable.Inject(this);
         }
     }
 }

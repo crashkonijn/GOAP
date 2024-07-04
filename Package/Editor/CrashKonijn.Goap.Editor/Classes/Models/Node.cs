@@ -1,13 +1,13 @@
 using System;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core;
 
-namespace CrashKonijn.Goap.Editor.Classes.Models
+namespace CrashKonijn.Goap.Editor
 {
     public class Node
     {
         public Guid Guid => this.Action.Guid;
         
-        public IAction Action { get; set; }
+        public IConnectable Action { get; set; }
 
         public NodeEffect[] Effects { get; set; } = {};
         public NodeCondition[] Conditions { get; set; } = {};

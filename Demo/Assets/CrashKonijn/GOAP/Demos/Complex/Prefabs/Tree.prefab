@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4876422126054539695}
   - component: {fileID: 6662267371092280359}
   - component: {fileID: 6569304939479848932}
+  - component: {fileID: -506390149148084277}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -142,5 +143,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c56d2d74f74761af2d6f26f74f3d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applePrefab: {fileID: 255304345086756979, guid: e699bf8fa52b1514f85c74fd594544e2,
-    type: 3}
+--- !u!114 &-506390149148084277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8301084047492034763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2444d2358c024a6baed0de3bc255337e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -9,13 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2644901599046946488}
+  - component: {fileID: -5926512986792016431}
   - component: {fileID: 3664022629467210336}
   - component: {fileID: 2567974379695048867}
   - component: {fileID: 7347070554750064065}
   - component: {fileID: 7369353940263227564}
   - component: {fileID: 6363880960006864445}
-  - component: {fileID: 5491371223889494724}
-  - component: {fileID: 7310428640818895179}
+  - component: {fileID: -8236453178406737038}
+  - component: {fileID: -7415665032254531427}
   m_Layer: 0
   m_Name: ComplexAgent
   m_TagString: Untagged
@@ -40,6 +41,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5926512986792016431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31104030825128304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72344165e2cc41da93476bb1aa2cdd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LoggerConfig>k__BackingField:
+    <DebugMode>k__BackingField: 1
+    <MaxLogSize>k__BackingField: 20
+  <AgentTypeBehaviour>k__BackingField: {fileID: 0}
+  <DistanceMultiplier>k__BackingField: 1
 --- !u!114 &3664022629467210336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,7 +70,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cef53d855ccf0b46bcf004b27c4a52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goapSetBehaviour: {fileID: 0}
+  <ActionProviderBase>k__BackingField: {fileID: -5926512986792016431}
+  <LoggerConfig>k__BackingField:
+    <DebugMode>k__BackingField: 1
+    <MaxLogSize>k__BackingField: 20
 --- !u!114 &2567974379695048867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cdeda1dcec4564abef0effa9bfc4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5491371223889494724
+--- !u!114 &-8236453178406737038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,22 +132,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 31104030825128304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d675c4dfc70a41bb8e9de7f3a5bd75df, type: 3}
+  m_Script: {fileID: 11500000, guid: e4f9c9673b824324a8b19efe46ce4b91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7415665032254531427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31104030825128304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25f0a39bd484fa188fd01f9cb124b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hunger: 50
---- !u!114 &7310428640818895179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 31104030825128304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc89a1df52a4499a4efb85d8b5ad601, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1210546375148099049
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +253,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4214390246634792387
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +445,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0

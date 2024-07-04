@@ -1,11 +1,10 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Sensors;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 
-namespace Demos.Complex.Sensors.World
+namespace CrashKonijn.Goap.Demos.Complex.Sensors.World
 {
     public class IsHoldingSensor<T> : LocalWorldSensorBase
         where T : IHoldable
@@ -18,7 +17,7 @@ namespace Demos.Complex.Sensors.World
         {
         }
 
-        public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
+        public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
         {
             var inventory = references.GetCachedComponent<ComplexInventoryBehaviour>();
             

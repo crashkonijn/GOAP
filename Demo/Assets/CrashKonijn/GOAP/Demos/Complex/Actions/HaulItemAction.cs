@@ -1,18 +1,16 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Classes.Sources;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
+using CrashKonijn.Goap.Demos.Complex.Goap;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-namespace Demos.Complex.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class HaulItemAction : ActionBase<HaulItemAction.Data>, IInjectable
+    public class HaulItemAction : GoapActionBase<HaulItemAction.Data>, IInjectable
     {
         private ItemCollection itemCollection;
 
@@ -27,20 +25,26 @@ namespace Demos.Complex.Actions
         
         public override void Start(IMonoAgent agent, Data data)
         {
-            var item = this.itemCollection.Closest(agent.transform.position, false, false, false);
+            if (data.Target is not ItemTarget target)
+                return;
+
+            var item = target.Item;
             
             if (item is null)
                 return;
 
-            item.Claim();
+            item.Claim(agent.gameObject);
             
             data.Item = item;
             data.Target = new TransformTarget(data.Item.gameObject.transform);
             data.Timer = 0.5f;
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
+            if (!context.IsInRange)
+                return ActionRunState.Continue;
+            
             if (data.Item is null)
                 return ActionRunState.Stop;
             
@@ -49,13 +53,13 @@ namespace Demos.Complex.Actions
                 case State.MovingToItem:
                     return this.MoveToItem(agent, data);
                 case State.MovingToTarget:
-                    return this.MoveToTarget(data);
+                    return this.MoveToTarget(agent, data);
                 default:
                     return ActionRunState.Stop;
             }
         }
 
-        private ActionRunState MoveToItem(IMonoAgent agent, Data data)
+        private IActionRunState MoveToItem(IMonoAgent agent, Data data)
         {
             if (data.Target is null)
                 return ActionRunState.Stop;
@@ -86,10 +90,13 @@ namespace Demos.Complex.Actions
             return ActionRunState.Continue;
         }
         
-        private ActionRunState MoveToTarget(Data data)
+        private IActionRunState MoveToTarget(IMonoAgent agent, Data data)
         {
             if (data.Target is null)
                 return ActionRunState.Stop;
+            
+            if (agent.DistanceObserver.GetDistance(agent, data.Target, agent.Injector) > this.Config.StoppingDistance)
+                return ActionRunState.Continue;
             
             if (data.Timer > 0)
             {
@@ -105,7 +112,7 @@ namespace Demos.Complex.Actions
         
         private BoxSource GetClosestBox(IMonoAgent agent, Data data)
         {
-            var boxes = GameObject.FindObjectsOfType<BoxSource>();
+            var boxes = Object.FindObjectsOfType<BoxSource>();
             var typeBox = boxes.FirstOrDefault(x => x.ItemType != null && x.ItemType == data.Item.GetType());
             
             if (typeBox != null)
@@ -117,10 +124,14 @@ namespace Demos.Complex.Actions
             return box;
         }
 
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
         {
         }
-        
+
+        public override void Complete(IMonoAgent agent, Data data)
+        {
+        }
+
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
