@@ -128,7 +128,7 @@ namespace CrashKonijn.Goap.Runtime
 
         private bool IsGoalCompleted(IGoapActionProvider actionProvider)
         {
-            if (actionProvider.CurrentPlan == null)
+            if (actionProvider.CurrentPlan?.Goal == null)
                 return false;
             
             var conditionObserver = this.agentType.GoapConfig.ConditionObserver;

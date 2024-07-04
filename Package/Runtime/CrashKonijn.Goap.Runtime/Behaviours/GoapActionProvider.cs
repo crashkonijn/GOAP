@@ -31,7 +31,8 @@ namespace CrashKonijn.Goap.Runtime
                 this.Events.Bind(this, value.Events);
             }
         }
-        public IGoalResult CurrentPlan { get; private set; }
+
+        public IGoalResult CurrentPlan { get; private set; } = new GoalResult();
         public IGoalRequest GoalRequest { get; private set; }
 
         public ILocalWorldData WorldData { get; } = new LocalWorldData();
