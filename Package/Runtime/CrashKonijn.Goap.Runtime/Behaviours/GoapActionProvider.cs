@@ -81,6 +81,8 @@ namespace CrashKonijn.Goap.Runtime
         public void RequestGoal<TGoal>(bool resolve)
             where TGoal : IGoal
         {
+            this.ValidateSetup();
+            
             this.RequestGoal(new GoalRequest
             {
                 Goals = new IGoal[]
@@ -94,6 +96,8 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal1 : IGoal
             where TGoal2 : IGoal
         {
+            this.ValidateSetup();
+
             this.RequestGoal(new GoalRequest
             {
                 Goals = new IGoal[]
@@ -109,6 +113,8 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal2 : IGoal
             where TGoal3 : IGoal
         {
+            this.ValidateSetup();
+
             this.RequestGoal(new GoalRequest
             {
                 Goals = new IGoal[]
@@ -126,6 +132,8 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal3 : IGoal
             where TGoal4 : IGoal
         {
+            this.ValidateSetup();
+
             this.RequestGoal(new GoalRequest
             {
                 Goals = new IGoal[]
@@ -145,6 +153,8 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal4 : IGoal
             where TGoal5 : IGoal
         {
+            this.ValidateSetup();
+
             this.RequestGoal(new GoalRequest
             {
                 Goals = new IGoal[]
@@ -160,6 +170,8 @@ namespace CrashKonijn.Goap.Runtime
 
         public void RequestGoal(IGoal goal, bool resolve)
         {
+            this.ValidateSetup();
+
             this.RequestGoal(new GoalRequest
             {
                 Goals = new[] { goal }
@@ -168,6 +180,8 @@ namespace CrashKonijn.Goap.Runtime
 
         public void RequestGoal(IGoalRequest request, bool resolve)
         {
+            this.ValidateSetup();
+
             if (request == null)
                 return;
             
@@ -220,6 +234,8 @@ namespace CrashKonijn.Goap.Runtime
 
         public override void ResolveAction()
         {
+            this.ValidateSetup();
+            
             this.Events.Resolve();
             this.Receiver.Timers.Resolve.Touch();
         }
@@ -232,6 +248,15 @@ namespace CrashKonijn.Goap.Runtime
         public void SetDistanceMultiplierSpeed(float speed)
         {
             this.DistanceMultiplier = 1f / speed;
+        }
+
+        private void ValidateSetup()
+        {
+            if (this.AgentType == null)
+                throw new GoapException($"There is no AgentType assigned to the agent '{this.name}'! Please assign one in the inspector or through code in the Awake method.");
+
+            if (this.Receiver == null)
+                throw new GoapException($"There is no ActionReceiver assigned to the agent '{this.name}'! You're probably missing the ActionProvider on the AgentBehaviour.");
         }
     }
 }

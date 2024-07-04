@@ -53,7 +53,13 @@ namespace CrashKonijn.Agent.Runtime
         {
             this.Initialize();
         }
-        
+
+        private void Start()
+        {
+            if (this.ActionProvider == null)
+                throw new AgentException($"There is no ActionProvider assigned to the agent '{this.name}'! Please assign one in the inspector or through code in the Awake method.");
+        }
+
         public void Initialize()
         {
             this.Injector = new DataReferenceInjector(this);
