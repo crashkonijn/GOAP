@@ -1,4 +1,6 @@
-﻿namespace CrashKonijn.Agent.Core
+﻿using System;
+
+namespace CrashKonijn.Agent.Core
 {
     public interface IAgentEvents
     {
@@ -27,5 +29,10 @@
 
         event TargetDelegate OnMove;
         void Move(ITarget target);
+
+        [Obsolete("Use GoapActionProvider.Events.OnNoActionFound instead")]
+        event ActionDelegate OnNoActionFound;
+        [Obsolete("Use GoapActionProvider.Events.OnNoActionFound instead")]
+        event ActionDelegate OnGoalCompleted;
     }
 }

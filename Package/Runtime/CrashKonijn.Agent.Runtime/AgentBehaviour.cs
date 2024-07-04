@@ -48,6 +48,13 @@ namespace CrashKonijn.Agent.Runtime
         public Transform Transform => this.transform;
         
         private ActionRunner actionRunner;
+        
+#region Obsolete Methods
+        [Obsolete("Use GoapActionProvider.CurrentPlan.Goal instead")]
+        public object CurrentGoal { get; set; }
+        [Obsolete("Use GoapActionProvider.AgentType instead")]
+        public object GoapSet { get; set; }
+#endregion
 
         private void Awake()
         {
