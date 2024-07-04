@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Agent.Core;
+﻿using System;
+using CrashKonijn.Agent.Core;
 
 namespace CrashKonijn.Agent.Runtime
 {
@@ -58,12 +59,17 @@ namespace CrashKonijn.Agent.Runtime
         {
             this.OnMove?.Invoke(target);
         }
-        
+
         // General
         public event EmptyDelegate OnResolve;
         public void Resolve()
         {
             this.OnResolve?.Invoke();
         }
+
+        [Obsolete("Use GoapActionProvider.Events.OnNoActionFound instead")]
+        public event ActionDelegate OnNoActionFound;
+        [Obsolete("Use GoapActionProvider.Events.OnNoActionFound instead")]
+        public event ActionDelegate OnGoalCompleted;
     }
 }
