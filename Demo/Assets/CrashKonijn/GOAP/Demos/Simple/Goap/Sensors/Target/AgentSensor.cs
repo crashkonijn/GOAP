@@ -1,5 +1,4 @@
 ﻿using CrashKonijn.Agent.Core;
-using CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys;
 using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target

@@ -2,18 +2,18 @@
 
 namespace CrashKonijn.Agent.Runtime
 {
-    public class EmptyActionProperties : IActionProperties
-    {
-    }
-    
     // Backwards compatibility for old actions
-    public abstract class ActionBase<TActionData> : ActionBase<TActionData, EmptyActionProperties>
+    public abstract class AgentActionBase<TActionData> : AgentActionBase<TActionData, EmptyActionProperties>
         where TActionData : IActionData, new()
     {
  
     }
+    
+    public class EmptyActionProperties : IActionProperties
+    {
+    }
 
-    public abstract class ActionBase<TActionData, TActionProperties>
+    public abstract class AgentActionBase<TActionData, TActionProperties>
         where TActionData : IActionData, new()
         where TActionProperties : class, IActionProperties, new()
     {
