@@ -2,7 +2,7 @@
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class WaitThenCompleteActionRunState : IActionRunState
+    public class WaitThenCompleteActionRunState : ActionRunState
     {
         private float time;
         private readonly bool mayResolve;
@@ -13,32 +13,32 @@ namespace CrashKonijn.Goap.Runtime
             this.mayResolve = mayResolve;
         }
 
-        public void Update(IAgent agent, IActionContext context)
+        public override void Update(IAgent agent, IActionContext context)
         {
             this.time -= context.DeltaTime;
         }
 
-        public bool ShouldStop(IAgent agent)
+        public override bool ShouldStop(IAgent agent)
         {
             return false;
         }
 
-        public bool ShouldPerform(IAgent agent)
+        public override bool ShouldPerform(IAgent agent)
         {
             return false;
         }
 
-        public bool IsCompleted(IAgent agent)
+        public override bool IsCompleted(IAgent agent)
         {
             return this.time <= 0f;
         }
 
-        public bool MayResolve(IAgent agent)
+        public override bool MayResolve(IAgent agent)
         {
             return this.mayResolve;
         }
         
-        public bool IsRunning()
+        public override bool IsRunning()
         {
             return this.time > 0f;
         }

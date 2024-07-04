@@ -2,7 +2,7 @@
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class StopAndLog : IActionRunState
+    public class StopAndLog : ActionRunState
     {
         private readonly string message;
 
@@ -11,32 +11,32 @@ namespace CrashKonijn.Goap.Runtime
             this.message = message;
         }
         
-        public void Update(IAgent agent, IActionContext context)
+        public override void Update(IAgent agent, IActionContext context)
         {
         }
 
-        public bool ShouldStop(IAgent agent)
+        public override bool ShouldStop(IAgent agent)
         {
             agent.Logger.Log(this.message);
             return true;
         }
 
-        public bool ShouldPerform(IAgent agent)
+        public override bool ShouldPerform(IAgent agent)
         {
             return false;
         }
 
-        public bool IsCompleted(IAgent agent)
+        public override bool IsCompleted(IAgent agent)
         {
             return false;
         }
 
-        public bool MayResolve(IAgent agent)
+        public override bool MayResolve(IAgent agent)
         {
             return false;
         }
 
-        public bool IsRunning()
+        public override bool IsRunning()
         {
             return false;
         }

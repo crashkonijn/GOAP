@@ -1,5 +1,17 @@
 # Core changes for v3!
 
+## Goap Resolver
+
+For v3 the GOAP resolver has been greatly improved, resulting in even smarter AI!
+
+The following improvements have been made:
+
+- The resolver has improved heuristics, making it easier to find the best action to perform.
+- The resolver now also supports multiple goals at the same time! 
+- The resolver has improved handling of actions that require a target.
+- The resolver now supports disabling actions. These actions (and their children) will not be considered by the resolver.
+- The resolver now better calculates the distance cost between actions!
+
 ## Agents and Action Providers
 
 In v3, we've introduced the concept of **Agents** and **Action Providers**. Agents are the entities that perform actions on your behalf, while Action Providers are the entities that provide the actions that Agents can perform. In v2, these concepts were combined in the **AgentBehaviour**.
@@ -34,7 +46,7 @@ Scriptable **AgentTypes** not only allow you to define scriptable object **Capab
 
 Scriptable Capabilities are a new feature in v3. They allow you to define **Capabilities** in a scriptable object. This config file can configure multiple **Goals**, **Actions** and **Sensors** at the same time. This makes it easier to create and manage **Capabilities**.
 
-![../images/v3_capability_config.png](../images/v3_capability_config.png)
+![../images/v3_capability_inspector.gif](../images/v3_capability_inspector.gif)
 
 ## Boiler plate code generation
 
@@ -43,6 +55,19 @@ In v3, we've introduced a new code generation system. This system can boilerplat
 You also manually let it generate many classes for you easily by using the **GeneratorScriptable**.
 
 ![../images/v3_generator.png](../images/v3_generator.png)
+
+### GoapId
+
+In v3, we've introduced the concept of a **GoapId**. This is a unique identifier for each **Goal**, **Action** and **Sensor**. This makes it easier to reference these objects in the inspector. When a class has the `[GoapId]` attribute it will keep the reference to that object even if the class is moved to another namespace or renamed!
+
+A class reference in the inspector is now done by using the classname and the GoapId. As long as one of these matches a script the system can restore these references to the correct object. You can fix most issues by using the **Check Issues** and **Fix Issues** buttons in the inspector!
+
+```csharp
+[GoapId("HasApple-60e317a0-75e4-419c-8439-45873af983a2")]
+public class HasApple : WorldKeyBase {}
+```
+
+![../images/v3_inspector_class_reference.png](../images/v3_inspector_class_reference.png)
 
 
 ## Namespaces
@@ -138,7 +163,8 @@ public class ExampleAction : GoapActionBase<ExampleAction.Data>
 ```
 
 - The concept of an **IActionProperties** class has been introduced. This class can be used to store properties that are shared between all instances of an action. These properties can be set in the inspector or in the builder!
-- **ActionRunState** has been changed to **IActionRunState**. This interface can be used to create custom run states for actions. These determine when an action should be stopped, completed or even be updated at all.
+
+![../images/v3_action_props.png](../images/v3_action_props.png)
 
 ```csharp
 // Set the second generic type for the properties
@@ -186,6 +212,35 @@ public class WanderAction : GoapActionBase<WanderAction.Data, WanderAction.Props
 }
 ```
 
+- **ActionRunState** has been changed to **IActionRunState**. This interface can be used to create custom run states for actions. These determine when an action should be stopped, completed or even be updated at all.
+
+```csharp
+public interface IActionRunState
+{
+    void Update(IAgent agent, IActionContext context);
+    bool ShouldStop(IAgent agent);
+    bool ShouldPerform(IAgent agent);
+    bool IsCompleted(IAgent agent);
+    bool MayResolve(IAgent agent);
+    bool IsRunning();
+}
+```
+
+A couple different action run states have been provided out of the box:
+
+```csharp
+public static class ActionRunState {
+    public static readonly IActionRunState Continue = new ContinueActionRunState();
+    public static readonly IActionRunState ContinueOrResolve = new ContinueOrResolveActionRunState();
+    public static readonly IActionRunState Stop = new StopActionRunState();
+    public static readonly IActionRunState Completed = new CompletedActionRunState();
+    public static IActionRunState Wait(float time, bool mayResolve = false) => new WaitActionRunState(time, mayResolve);
+    public static IActionRunState WaitThenComplete(float time, bool mayResolve = false) => new WaitThenCompleteActionRunState(time, mayResolve);
+    public static IActionRunState WaitThenStop(float time, bool mayResolve = false) => new WaitThenStopActionRunState(time, mayResolve);
+    public static IActionRunState StopAndLog(string message) => new StopAndLog(message);
+}
+```
+
 ## All new Graph Viewer!
 
 In v3, we've introduced a new Graph Viewer. This viewer allows you to see the current state of the GOAP graph in real-time. You can see all the nodes and connections between them.
@@ -209,8 +264,142 @@ this.GetComponent<GoapActionProvider>().RequestGoal<CleanItemsGoal, FixHungerGoa
 
 ## Multi-Sensors
 
+In v3 we've introduced the concept of **Multi-Sensors**. A **Multi-Sensor** is a sensor that can return multiple values at the same time. This makes it easier to create sensors that return multiple values.
+
+```csharp
+public class AppleSensor : MultiSensorBase
+{
+    private AppleCollection apples;
+    private TreeBehaviour[] trees;
+
+    public override void Created()
+    {
+        this.apples = Object.FindObjectOfType<AppleCollection>();
+        this.trees = Object.FindObjectsOfType<TreeBehaviour>();
+    }
+
+    public override void Update()
+    {
+        
+    }
+
+    public AppleSensor()
+    {
+        this.AddLocalTargetSensor<ClosestApple>((agent, references) =>
+        {
+            var closestApple = this.apples.Get().Closest(agent.Transform.position);
+
+            if (closestApple is null)
+                return null;
+        
+            return new TransformTarget(closestApple.transform);
+        });
+        
+        this.AddLocalTargetSensor<ClosestTree>((agent, references) =>
+        {
+            return new TransformTarget(this.trees.Closest(agent.Transform.position).transform);
+        });
+        
+        this.AddLocalWorldSensor<HasApple>((agent, references) =>
+        {
+            var inventory = references.GetCachedComponent<InventoryBehaviour>();
+
+            if (inventory == null)
+                return false;
+            
+            return inventory.Apples.Count > 0;
+        });
+        
+        this.AddGlobalWorldSensor<ThereAreApples>(() =>
+        {
+            return this.apples.Any();
+        });
+    }
+}
+```
+
 ## Goap Controllers
 
-## Goap Resolver
+In v3 we've introduced the concept of **Goap Controllers**. A **Goap Controller** is a class that has controll over how the GOAP system is run. It handles when and how the sensors and resolver are run, enabling new kinds of behaviours!
+
+Each **GoapBehaviour** requires a **Goap Controller** to be set. This controller will determine how the GOAP system is run.
+
+We've introduced 3 different controllers:
+- **ReactiveController** - This controller handles sensors and the resolver equal to how it was done in v2. Whenever an agent needs a new action the resolver is called.
+- **ProactiveController** - This controller handles sensors and the resolver in a proactive way. It will run the sensors and resolver every x time, even if the agent doesn't need a new action. If another action is found, the agent will switch to that action.
+- **ManualController** - This controller allows you to manually run the sensors and resolver. This will immediately run the sensors and resolver whenever a resolve is requested by an agent. 
+
+```csharp
+public class ReactiveController : IGoapController
+{
+    private IGoap goap;
+    private Dictionary<IAgentType, HashSet<IMonoGoapActionProvider>> agents = new();
+
+    public void Initialize(IGoap goap)
+    {
+        this.goap = goap;
+        this.goap.Events.OnAgentResolve += this.OnAgentResolve;
+        this.goap.Events.OnNoActionFound += this.OnNoActionFound;
+    }
+
+    public void Disable()
+    {
+        this.goap.Events.OnAgentResolve -= this.OnAgentResolve;
+        this.goap.Events.OnNoActionFound -= this.OnNoActionFound;
+    }
+
+    public void OnUpdate()
+    {
+        foreach (var (type, runner) in this.goap.AgentTypeRunners)
+        {
+            var queue = this.GetQueue(type);
+            
+            runner.Run(queue);
+            
+            queue.Clear();
+        }
+        
+        foreach (var agent in this.goap.Agents)
+        {
+            if (agent.IsNull())
+                continue;
+            
+            if (agent.Receiver == null)
+                continue;
+            
+            // Update the action sensors for the agent
+            agent.AgentType.SensorRunner.SenseLocal(agent, agent.Receiver.ActionState.Action as IGoapAction);
+        }
+    }
+
+    public void OnLateUpdate()
+    {
+        foreach (var runner in this.goap.AgentTypeRunners.Values)
+        {
+            runner.Complete();
+        }
+    }
+
+    private void OnNoActionFound(IMonoGoapActionProvider actionProvider, IGoalRequest request)
+    {
+        this.GetQueue(actionProvider.AgentType).Add(actionProvider);
+    }
+
+    private void OnAgentResolve(IMonoGoapActionProvider actionProvider)
+    {
+        this.GetQueue(actionProvider.AgentType).Add(actionProvider);
+    }
+    
+    private HashSet<IMonoGoapActionProvider> GetQueue(IAgentType agentType)
+    {
+        if (!this.agents.ContainsKey(agentType))
+            this.agents.Add(agentType, new HashSet<IMonoGoapActionProvider>());
+        
+        return this.agents[agentType];
+    }
+}
+```
+
+
 
 ## 

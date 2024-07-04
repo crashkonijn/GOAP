@@ -2,34 +2,34 @@
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class CompletedActionRunState : IActionRunState
+    public class CompletedActionRunState : ActionRunState
     {
-        public void Update(IAgent agent, IActionContext context)
+        public override void Update(IAgent agent, IActionContext context)
         {
             
         }
 
-        public bool ShouldStop(IAgent agent)
+        public override bool ShouldStop(IAgent agent)
         {
             return false;
         }
 
-        public bool ShouldPerform(IAgent agent)
+        public override bool ShouldPerform(IAgent agent)
         {
             return false;
         }
 
-        public bool IsCompleted(IAgent agent)
+        public override bool IsCompleted(IAgent agent)
         {
             return true;
         }
 
-        public bool MayResolve(IAgent agent)
+        public override bool MayResolve(IAgent agent)
         {
             return false;
         }
         
-        public bool IsRunning()
+        public override bool IsRunning()
         {
             return false;
         }

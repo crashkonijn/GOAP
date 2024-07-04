@@ -33,6 +33,9 @@ namespace CrashKonijn.Goap.Runtime
 
         public List<IActionConfig> GetActions(GeneratorScriptable generator)
         {
+            if (generator == null)
+                return new List<IActionConfig>();
+            
             var actionClasses = generator.GetActions();
             var targetClasses = generator.GetTargetKeys();
             
@@ -63,6 +66,9 @@ namespace CrashKonijn.Goap.Runtime
 
         public List<IGoalConfig> GetGoals(GeneratorScriptable generator)
         {
+            if (generator == null)
+                return new List<IGoalConfig>();
+            
             var goalClasses = generator.GetGoals();
             
             return this.goals.Select(x => new GoalConfig
@@ -80,6 +86,9 @@ namespace CrashKonijn.Goap.Runtime
 
         public List<IWorldSensorConfig> GetWorldSensors(GeneratorScriptable generator)
         {
+            if (generator == null)
+                return new List<IWorldSensorConfig>();
+            
             var sensorClasses = generator.GetWorldSensors();
             
             return this.worldSensors.Select(x => new WorldSensorConfig
@@ -92,6 +101,9 @@ namespace CrashKonijn.Goap.Runtime
         
         public List<ITargetSensorConfig> GetTargetSensors(GeneratorScriptable generator)
         {
+            if (generator == null)
+                return new List<ITargetSensorConfig>();
+            
             var sensorClasses = generator.GetTargetSensors();
             
             return this.targetSensors.Select(x => new TargetSensorConfig
@@ -104,6 +116,9 @@ namespace CrashKonijn.Goap.Runtime
         
         public List<IMultiSensorConfig> GetMultiSensors(GeneratorScriptable generator)
         {
+            if (generator == null)
+                return new List<IMultiSensorConfig>();
+            
             var sensorClasses = generator.GetMultiSensors();
             
             return this.multiSensors.Select(x => new MultiSensorConfig
