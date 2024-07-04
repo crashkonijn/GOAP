@@ -79,13 +79,11 @@ namespace CrashKonijn.Agent.Runtime
 
         [Obsolete("'GetComponent<T>' is deprecated, please use 'GetCachedComponent<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
         public T GetComponent<T>()
-            where T : MonoBehaviour
         {
             return (T) this.GetCachedComponentReference(typeof(T));
         }
         
         public T GetCachedComponent<T>()
-            where T : MonoBehaviour
         {
             return (T)this.GetCachedComponentReference(typeof(T));
         }
@@ -102,13 +100,11 @@ namespace CrashKonijn.Agent.Runtime
 
         [Obsolete("'GetComponentInChildren<T>' is deprecated, please use 'GetCachedComponentInChildren<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
         public T GetComponentInChildren<T>()
-            where T : MonoBehaviour
         {
             return (T) this.GetCachedComponentInChildrenReference(typeof(T));
         }
         
         public T GetCachedComponentInChildren<T>()
-            where T : MonoBehaviour
         {
             return (T)this.GetCachedComponentInChildrenReference(typeof(T));
         }
@@ -123,7 +119,7 @@ namespace CrashKonijn.Agent.Runtime
             return this.references[type];
         }
 
-        public T GetCachedComponentInParent<T>() where T : MonoBehaviour
+        public T GetCachedComponentInParent<T>()
         {
             return (T)this.GetCachedComponentInParentReference(typeof(T));
         }

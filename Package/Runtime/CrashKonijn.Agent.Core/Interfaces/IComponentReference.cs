@@ -5,20 +5,15 @@ namespace CrashKonijn.Agent.Core
     public interface IComponentReference
     {
         [System.Obsolete("'GetComponent<T>' is deprecated, please use 'GetCachedComponent<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
-        T GetComponent<T>()
-            where T : MonoBehaviour;
+        T GetComponent<T>();
 
-        T GetCachedComponent<T>()
-            where T : MonoBehaviour;
+        T GetCachedComponent<T>();
 
         [System.Obsolete("'GetComponentInChildren<T>' is deprecated, please use 'GetCachedComponentInChildren<T>' instead.   Exact same functionality, name changed to better communicate code usage.")]
-        T GetComponentInChildren<T>()
-            where T : MonoBehaviour;
+        T GetComponentInChildren<T>();
 
-        T GetCachedComponentInChildren<T>()
-            where T : MonoBehaviour;
+        T GetCachedComponentInChildren<T>();
 
-        T GetCachedComponentInParent<T>()
-            where T : MonoBehaviour;
+        T GetCachedComponentInParent<T>();
     }
 }
