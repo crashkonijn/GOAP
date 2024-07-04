@@ -18,7 +18,18 @@ namespace CrashKonijn.Goap.Runtime
         {
             worldData.SetTarget(this.Key, this.Sense(agent, references));
         }
-        
-        public abstract ITarget Sense(IActionReceiver agent, IComponentReference references);
+
+        public virtual ITarget Sense(IActionReceiver agent, IComponentReference references)
+        {
+#pragma warning disable CS0618 // Type or member is obsolete
+            return this.Sense(agent as IMonoAgent, references);
+#pragma warning restore CS0618 // Type or member is obsolete
+        }
+
+        [Obsolete("This should not be called anymore! Use 'Sense(IActionReceiver agent, IComponentReference references)'")]
+        public virtual ITarget Sense(IMonoAgent agent, IComponentReference references)
+        {
+            throw new GoapException("This should not be called anymore!");
+        }
     }
 }
