@@ -125,7 +125,6 @@ namespace CrashKonijn.Goap.Editor
                 
                     this.Target.text = $"Target: {targetText}";
                 }
-                
             }).Every(33);
         }
 

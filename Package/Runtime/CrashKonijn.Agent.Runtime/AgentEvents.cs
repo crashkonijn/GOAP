@@ -34,7 +34,6 @@ namespace CrashKonijn.Agent.Runtime
             this.ActionEnd(action);
         }
         
-
         // Targets
         public event TargetDelegate OnTargetInRange;
         public void TargetInRange(ITarget target)

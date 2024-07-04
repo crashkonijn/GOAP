@@ -18,7 +18,6 @@ namespace CrashKonijn.Goap.Runtime
         public abstract ActionRunState Perform(IMonoAgent agent, TActionData data, ActionContext context);
     }
     
-    
     public abstract class GoapActionBase<TActionData> : GoapActionBase<TActionData, EmptyActionProperties>
         where TActionData : IActionData, new()
     {

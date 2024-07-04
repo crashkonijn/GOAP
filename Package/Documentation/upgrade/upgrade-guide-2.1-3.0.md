@@ -1,4 +1,4 @@
-# Upgrade guid v2 to v3
+# Upgrade guid v2.1 to v3
 
 Before upgrading, please make sure to read the **v3 Core Concepts**!
 

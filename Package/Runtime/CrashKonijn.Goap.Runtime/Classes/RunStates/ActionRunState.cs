@@ -10,7 +10,6 @@ namespace CrashKonijn.Goap.Runtime
         public abstract bool MayResolve(IAgent agent);
         public abstract bool IsRunning();
         
-        
         public static readonly ActionRunState Continue = new ContinueActionRunState();
         public static readonly ActionRunState ContinueOrResolve = new ContinueOrResolveActionRunState();
         public static readonly ActionRunState Stop = new StopActionRunState();

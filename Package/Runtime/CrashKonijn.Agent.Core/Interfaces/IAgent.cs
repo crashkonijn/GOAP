@@ -26,7 +26,6 @@ namespace CrashKonijn.Agent.Core
         void EnableAction<TAction>() where TAction : IAction;
         void DisableAction<TAction>() where TAction : IAction;
         
-        
         [Obsolete("Use GoapActionProvider.CurrentPlan.Goal instead")]
         object CurrentGoal { get; set; }
         [Obsolete("Use GoapActionProvider.AgentType instead")]

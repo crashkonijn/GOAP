@@ -167,7 +167,6 @@ namespace CrashKonijn.Goap.Runtime
 
         public BehaviourCondition()
         {
-            
         }
         
         public BehaviourCondition(string data)

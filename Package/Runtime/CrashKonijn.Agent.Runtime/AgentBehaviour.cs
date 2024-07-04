@@ -203,7 +203,6 @@ namespace CrashKonijn.Agent.Runtime
             this.CurrentTarget = null;
             this.MoveState = AgentMoveState.Idle;
         }
-
         
         public void EnableAction<TAction>()
             where TAction : IAction

@@ -25,7 +25,7 @@ namespace CrashKonijn.Goap.Runtime
 
         public override bool ShouldPerform(IAgent agent)
         {
-            return this.time <= 0f;;
+            return this.time <= 0f;
         }
 
         public override bool IsCompleted(IAgent agent)

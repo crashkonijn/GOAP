@@ -6,7 +6,6 @@ namespace CrashKonijn.Goap.Runtime
     {
         public override void Update(IAgent agent, IActionContext context)
         {
-            
         }
 
         public override bool ShouldStop(IAgent agent)

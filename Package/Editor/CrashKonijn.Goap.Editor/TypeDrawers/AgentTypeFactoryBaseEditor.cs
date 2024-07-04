@@ -13,7 +13,6 @@ namespace CrashKonijn.Goap.Editor
         {
             var factory = (AgentTypeFactoryBase) this.target;
             
-            
             var root = new VisualElement();
             
             var defaultInspector = new VisualElement();
