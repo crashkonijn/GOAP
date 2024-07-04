@@ -1,5 +1,9 @@
 # Core changes for v3!
 
+{% hint style="info" %}
+**Version** For v3 support for 2021.x is dropped. This package was build using unity 2022.2. Any newer version should work!
+{% endhint %}
+
 ## Goap Resolver
 
 For v3 the GOAP resolver has been greatly improved, resulting in even smarter AI!

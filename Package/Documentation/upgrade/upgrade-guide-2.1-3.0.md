@@ -2,6 +2,10 @@
 
 Before upgrading, please make sure to read the **v3 Core Concepts**!
 
+{% hint style="info" %}
+**Version** For v3 support for 2021.x is dropped. This package was build using unity 2022.2. Any newer version should work!
+{% endhint %}
+
 ## 1. The package
 - Remove the v2 package from your project!
 - Add the v3 package to your project.
