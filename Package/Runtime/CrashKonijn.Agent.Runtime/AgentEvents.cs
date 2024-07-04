@@ -71,5 +71,8 @@ namespace CrashKonijn.Agent.Runtime
         public event ActionDelegate OnNoActionFound;
         [Obsolete("Use GoapActionProvider.Events.OnNoActionFound instead")]
         public event ActionDelegate OnGoalCompleted;
+
+        [Obsolete("Use TargetNotInRange instead")]
+        public event TargetDelegate OnTargetOutOfRange;
     }
 }
