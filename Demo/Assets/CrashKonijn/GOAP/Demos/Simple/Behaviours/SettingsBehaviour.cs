@@ -63,7 +63,7 @@ namespace Demos.Simple.Behaviours
             if (this.debugToggle.isOn != value)
                 this.debugToggle.isOn = value;
             
-            foreach (var textBehaviour in FindObjectsOfType<TextBehaviour>())
+            foreach (var textBehaviour in Compatibility.FindObjectsOfType<TextBehaviour>())
             {
                 this.SetDebug(textBehaviour, value);
             }

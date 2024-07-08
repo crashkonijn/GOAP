@@ -21,7 +21,7 @@ namespace Demos
         public static T[] FindObjectsOfType<T>() where T : Object
         {
 #if UNITY_2023_1_OR_NEWER
-            return Object.FindObjectsByType<T>();
+            return Object.FindObjectsByType<T>(FindObjectsSortMode.None);
 #else 
             return (T[]) Object.FindObjectsOfType(typeof (T));
 #endif
