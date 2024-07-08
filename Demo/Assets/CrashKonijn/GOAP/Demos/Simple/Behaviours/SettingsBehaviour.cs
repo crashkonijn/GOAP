@@ -31,8 +31,8 @@ namespace Demos.Simple.Behaviours
         private void Awake()
         {
             this.agentPrefab.SetActive(false);
-            this.goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
-            this.apples = FindObjectOfType<AppleCollection>();
+            this.goapRunner = Compatibility.FindObjectOfType<GoapRunnerBehaviour>();
+            this.apples = Compatibility.FindObjectOfType<AppleCollection>();
         }
 
         private void Update()

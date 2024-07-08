@@ -14,7 +14,7 @@ namespace Demos.Simple.Sensors.Target
 
         public override void Created()
         {            
-            this.trees = GameObject.FindObjectsOfType<TreeBehaviour>();
+            this.trees = Compatibility.FindObjectsOfType<TreeBehaviour>();
         }
 
         public override void Update()

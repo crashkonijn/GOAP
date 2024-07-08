@@ -21,7 +21,7 @@ namespace Demos.Complex.Behaviours
             this.agent = this.GetComponent<AgentBehaviour>();
             this.hunger = this.GetComponent<HungerBehaviour>();
             this.inventory = this.GetComponent<ComplexInventoryBehaviour>();
-            this.itemCollection = FindObjectOfType<ItemCollection>();
+            this.itemCollection = Compatibility.FindObjectOfType<ItemCollection>();
         }
 
         private void OnEnable()

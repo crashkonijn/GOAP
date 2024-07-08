@@ -11,7 +11,7 @@ namespace Demos.Complex.Sensors.World
 
         public override void Created()
         {
-            this.collection = GameObject.FindObjectOfType<ItemCollection>();
+            this.collection = Compatibility.FindObjectOfType<ItemCollection>();
         }
 
         public override SenseValue Sense()

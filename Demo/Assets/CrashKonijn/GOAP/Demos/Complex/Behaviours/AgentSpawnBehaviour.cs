@@ -24,7 +24,7 @@ namespace Demos.Complex.Behaviours
 
         private void Awake()
         {
-            this.goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
+            this.goapRunner = Compatibility.FindObjectOfType<GoapRunnerBehaviour>();
             this.agentPrefab.SetActive(false);
         }
 

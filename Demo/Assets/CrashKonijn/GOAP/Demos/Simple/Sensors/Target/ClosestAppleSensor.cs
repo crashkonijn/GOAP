@@ -13,7 +13,7 @@ namespace Demos.Simple.Sensors.Target
 
         public override void Created()
         {
-            this.apples = GameObject.FindObjectOfType<AppleCollection>();
+            this.apples = Compatibility.FindObjectOfType<AppleCollection>();
         }
 
         public override void Update()

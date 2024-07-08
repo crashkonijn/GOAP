@@ -11,7 +11,7 @@ namespace Demos.Simple.Sensors.World
         
         public override void Created()
         {
-            this.apples = GameObject.FindObjectOfType<AppleCollection>();
+            this.apples = Compatibility.FindObjectOfType<AppleCollection>();
         }
 
         public override SenseValue Sense()
