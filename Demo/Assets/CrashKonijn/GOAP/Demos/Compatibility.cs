@@ -15,7 +15,6 @@ namespace Demos
 #endif
         }
         
-        
         // A simple helper method to find all components in the scene.
         // This supports the new Unity 2023.1 API.
         public static T[] FindObjectsOfType<T>() where T : Object
