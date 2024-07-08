@@ -20,7 +20,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             this.provider = this.GetComponent<GoapActionProvider>();
             this.complexHunger = this.GetComponent<ComplexHungerBehaviour>();
             this.inventory = this.GetComponent<ComplexInventoryBehaviour>();
-            this.itemCollection = FindObjectOfType<ItemCollection>();
+            this.itemCollection = Compatibility.FindObjectOfType<ItemCollection>();
         }
 
         private void OnEnable()
