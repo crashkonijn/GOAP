@@ -20,7 +20,7 @@ namespace Demos.Complex.Behaviours
 
         public void Awake()
         {
-            this.collection = FindObjectOfType<ItemCollection>();
+            this.collection = Compatibility.FindObjectOfType<ItemCollection>();
         }
 
         public void OnEnable()

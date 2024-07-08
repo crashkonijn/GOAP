@@ -18,7 +18,7 @@ namespace Demos.Complex.Sensors.Target
 
         public override void Created()
         {
-            this.collection = GameObject.FindObjectOfType<ItemCollection>();
+            this.collection = Compatibility.FindObjectOfType<ItemCollection>();
         }
 
         public override void Update()

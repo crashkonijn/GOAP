@@ -31,8 +31,8 @@ namespace Demos.Simple.Behaviours
         private void Awake()
         {
             this.agentPrefab.SetActive(false);
-            this.goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
-            this.apples = FindObjectOfType<AppleCollection>();
+            this.goapRunner = Compatibility.FindObjectOfType<GoapRunnerBehaviour>();
+            this.apples = Compatibility.FindObjectOfType<AppleCollection>();
         }
 
         private void Update()
@@ -63,7 +63,7 @@ namespace Demos.Simple.Behaviours
             if (this.debugToggle.isOn != value)
                 this.debugToggle.isOn = value;
             
-            foreach (var textBehaviour in FindObjectsOfType<TextBehaviour>())
+            foreach (var textBehaviour in Compatibility.FindObjectsOfType<TextBehaviour>())
             {
                 this.SetDebug(textBehaviour, value);
             }

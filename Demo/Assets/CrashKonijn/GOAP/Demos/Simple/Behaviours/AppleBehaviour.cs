@@ -12,7 +12,7 @@ namespace Demos.Simple.Behaviours
         private void Awake()
         {
             this.nutritionValue = Random.Range(80f, 150f);
-            this.appleCollection = FindObjectOfType<AppleCollection>();
+            this.appleCollection = Compatibility.FindObjectOfType<AppleCollection>();
         }
 
         private void OnEnable()

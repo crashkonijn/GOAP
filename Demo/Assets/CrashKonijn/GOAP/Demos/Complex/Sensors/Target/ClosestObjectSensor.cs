@@ -18,7 +18,7 @@ namespace Demos.Complex.Sensors.Target
 
         public override void Update()
         {
-            this.items = GameObject.FindObjectsOfType<T>();
+            this.items = Compatibility.FindObjectsOfType<T>();
         }
 
         public override ITarget Sense(IMonoAgent agent, IComponentReference references)
