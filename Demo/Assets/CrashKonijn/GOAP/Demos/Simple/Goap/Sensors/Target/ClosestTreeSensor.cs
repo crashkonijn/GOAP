@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target
 
         public override void Created()
         {            
-            this.trees = Object.FindObjectsOfType<TreeBehaviour>();
+            this.trees = Compatibility.FindObjectsOfType<TreeBehaviour>();
         }
 
         public override void Update()

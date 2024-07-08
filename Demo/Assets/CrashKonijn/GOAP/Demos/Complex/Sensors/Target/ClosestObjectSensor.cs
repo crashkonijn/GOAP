@@ -15,7 +15,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
 
         public override void Update()
         {
-            this.items = Object.FindObjectsOfType<T>();
+            this.items = Compatibility.FindObjectsOfType<T>();
         }
 
         public override ITarget Sense(IActionReceiver agent, IComponentReference references)

@@ -15,8 +15,8 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
 
         public override void Created()
         {
-            this.apples = Object.FindObjectOfType<AppleCollection>();
-            this.trees = Object.FindObjectsOfType<TreeBehaviour>();
+            this.apples = Compatibility.FindObjectOfType<AppleCollection>();
+            this.trees = Compatibility.FindObjectsOfType<TreeBehaviour>();
         }
 
         public override void Update()

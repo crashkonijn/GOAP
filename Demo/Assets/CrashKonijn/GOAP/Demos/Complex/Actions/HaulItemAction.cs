@@ -112,7 +112,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
         
         private BoxSource GetClosestBox(IMonoAgent agent, Data data)
         {
-            var boxes = Object.FindObjectsOfType<BoxSource>();
+            var boxes = Compatibility.FindObjectsOfType<BoxSource>();
             var typeBox = boxes.FirstOrDefault(x => x.ItemType != null && x.ItemType == data.Item.GetType());
             
             if (typeBox != null)

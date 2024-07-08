@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
         
         public override void Created()
         {
-            this.collection = Object.FindObjectsOfType<ItemSourceBase<T>>();
+            this.collection = Compatibility.FindObjectsOfType<ItemSourceBase<T>>();
         }
 
         public override void Update()

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Demos
+namespace CrashKonijn.Goap.Demos.Complex
 {
     public class Compatibility
     {

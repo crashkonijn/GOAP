@@ -64,7 +64,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
             if (this.debugToggle.isOn != value)
                 this.debugToggle.isOn = value;
             
-            foreach (var textBehaviour in FindObjectsOfType<SimpleTextBehaviour>())
+            foreach (var textBehaviour in Compatibility.FindObjectsOfType<SimpleTextBehaviour>())
             {
                 this.SetDebug(textBehaviour, value);
             }
