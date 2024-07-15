@@ -1,6 +1,6 @@
 ﻿using System;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using UnityEngine;
 
 namespace Demos.Shared.Behaviours
@@ -9,7 +9,7 @@ namespace Demos.Shared.Behaviours
     {
         private AgentBehaviour agent;
         private ITarget currentTarget;
-        private bool shouldMove;
+        public bool IsMoving { get; private set; }
 
         private void Awake()
         {
@@ -20,35 +20,35 @@ namespace Demos.Shared.Behaviours
         {
             this.agent.Events.OnTargetInRange += this.OnTargetInRange;
             this.agent.Events.OnTargetChanged += this.OnTargetChanged;
-            this.agent.Events.OnTargetOutOfRange += this.OnTargetOutOfRange;
+            this.agent.Events.OnTargetNotInRange += this.TargetNotInRange;
         }
 
         private void OnDisable()
         {
             this.agent.Events.OnTargetInRange -= this.OnTargetInRange;
             this.agent.Events.OnTargetChanged -= this.OnTargetChanged;
-            this.agent.Events.OnTargetOutOfRange -= this.OnTargetOutOfRange;
+            this.agent.Events.OnTargetNotInRange -= this.TargetNotInRange;
         }
 
         private void OnTargetInRange(ITarget target)
         {
-            this.shouldMove = false;
+            this.IsMoving = false;
         }
 
         private void OnTargetChanged(ITarget target, bool inRange)
         {
             this.currentTarget = target;
-            this.shouldMove = !inRange;
+            this.IsMoving = !inRange;
         }
 
-        private void OnTargetOutOfRange(ITarget target)
+        private void TargetNotInRange(ITarget target)
         {
-            this.shouldMove = true;
+            this.IsMoving = true;
         }
 
         public void Update()
         {
-            if (!this.shouldMove)
+            if (!this.IsMoving)
                 return;
             
             if (this.currentTarget == null)

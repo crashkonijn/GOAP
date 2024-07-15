@@ -5,6 +5,11 @@ on:
       version:
         description: 'Version number to check for draft release'
         required: true
+      build_demo:
+        description: 'Toggle the demo build step'
+        required: true
+        default: true
+        type: boolean
 
 jobs:
   update_versions:
@@ -69,6 +74,7 @@ jobs:
   build_demo_files:
     needs:
       - update_versions
+    if: ${{ github.event.inputs.build_demo == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       # write permission is required to create a github release

@@ -1,14 +1,10 @@
 #header {
-    font-size: 20px;
-    border-bottom-width: 1px;
-    border-bottom-color: #1e1e1e;
+    font-size: 16px;
+    /*border-bottom-width: 1px;*/
+    /*border-bottom-color: #1e1e1e;*/
     margin-top: 5px;
     margin-bottom: 5px;
     padding-bottom: 5px;
-}
-
-.unity-property-field {
-    margin-bottom: 10px;
 }
 
 #card {

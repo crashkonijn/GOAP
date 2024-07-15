@@ -1,4 +1,4 @@
-﻿namespace Demos.Complex.Classes
+﻿namespace CrashKonijn.Goap.Demos.Complex.Classes
 {
     public static class Targets
     {

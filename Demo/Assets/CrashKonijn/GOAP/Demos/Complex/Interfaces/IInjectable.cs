@@ -1,6 +1,6 @@
-﻿using Demos.Complex.Goap;
+﻿using CrashKonijn.Goap.Demos.Complex.Goap;
 
-namespace Demos.Complex.Interfaces
+namespace CrashKonijn.Goap.Demos.Complex.Interfaces
 {
     public interface IInjectable
     {

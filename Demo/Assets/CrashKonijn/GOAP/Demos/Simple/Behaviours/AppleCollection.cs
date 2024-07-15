@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Demos.Simple.Behaviours
+namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class AppleCollection : MonoBehaviour
     {
@@ -18,9 +18,9 @@ namespace Demos.Simple.Behaviours
             this.apples.Remove(apple);
         }
 
-        public AppleBehaviour[] Get()
+        public List<AppleBehaviour> Get()
         {
-            return this.apples.ToArray();
+            return this.apples;
         }
 
         public bool Any()

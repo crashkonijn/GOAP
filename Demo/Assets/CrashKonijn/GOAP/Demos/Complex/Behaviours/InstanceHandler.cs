@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class InstanceHandler : MonoBehaviour
     {

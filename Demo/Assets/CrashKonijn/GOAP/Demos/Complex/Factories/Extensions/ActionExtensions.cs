@@ -1,28 +1,19 @@
 ﻿using System;
-using CrashKonijn.Goap.Classes.Builders;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Resolver;
-using Demos.Complex.Actions;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Classes.Items;
-using Demos.Complex.Classes.Sources;
-using Demos.Complex.Interfaces;
-using Demos.Complex.Targets;
-using Demos.Complex.WorldKeys;
-using Demos.Shared.Actions;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Demos.Complex.Actions;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Classes.Items;
+using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Targets;
+using CrashKonijn.Goap.Demos.Complex.WorldKeys;
+using CrashKonijn.Goap.Runtime;
 
-namespace Demos.Complex.Factories.Extensions
+namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
 {
     public static class ActionExtensions
     {
-        public static void AddWanderAction(this GoapSetBuilder builder)
-        {
-            builder.AddAction<WanderAction>()
-                .SetTarget<WanderTarget>()
-                .AddEffect<IsWandering>(EffectType.Increase);
-        }
-        
-        public static void AddPickupItemAction<T>(this GoapSetBuilder builder)
+        public static void AddPickupItemAction<T>(this CapabilityBuilder builder)
             where T : class, IHoldable
         {
             builder.AddAction<PickupItemAction<T>>()
@@ -31,65 +22,52 @@ namespace Demos.Complex.Factories.Extensions
                 .AddCondition<IsInWorld<T>>(Comparison.GreaterThanOrEqual, 1);
         }
         
-        public static void AddGatherItemAction<TGatherable, TRequired>(this GoapSetBuilder builder)
+        public static void AddGatherItemAction<TGatherable, TRequired>(this CapabilityBuilder builder)
             where TGatherable : ItemBase, IGatherable
             where TRequired : IHoldable
         {
             builder.AddAction<GatherItemAction<TGatherable>>()
                 .SetTarget<ClosestSourceTarget<TGatherable>>()
                 .AddEffect<IsInWorld<TGatherable>>(EffectType.Increase)
-                .AddCondition<IsHolding<TRequired>>(Comparison.GreaterThanOrEqual, 1);
+                .AddCondition<IsHolding<TRequired>>(Comparison.GreaterThanOrEqual, 1)
+                .SetProperties(new GatherItemAction<TGatherable>.Props
+                {
+                    pickupItem = false,
+                    timer = 3
+                });
         }
         
-        public static void AddGatherItemSlowAction<TGatherable>(this GoapSetBuilder builder)
+        public static void AddGatherItemSlowAction<TGatherable>(this CapabilityBuilder builder)
             where TGatherable : ItemBase, IGatherable
         {
             builder.AddAction<GatherItemAction<TGatherable>>()
                 .SetTarget<ClosestSourceTarget<TGatherable>>()
                 .AddEffect<IsInWorld<TGatherable>>(EffectType.Increase)
-                .SetBaseCost(3);
+                .SetBaseCost(5)
+                .SetProperties(new GatherItemAction<TGatherable>.Props
+                {
+                    pickupItem = false,
+                    timer = 5
+                });
         }
         
-        public static void AddCreateItemAction<T>(this GoapSetBuilder builder)
+        public static void AddCreateItemAction<T>(this CapabilityBuilder builder, int requiredIron, int requiredWood)
             where T : ItemBase, ICreatable
         {
             var action = builder.AddAction<CreateItemAction<T>>()
                 .SetTarget<ClosestTarget<AnvilSource>>()
-                .AddEffect<CreatedItem<T>>(EffectType.Increase);
+                .AddEffect<CreatedItem<T>>(EffectType.Increase)
+                .SetProperties(new CreateItemAction<T>.Props
+                {
+                    requiredIron = requiredIron,
+                    requiredWood = requiredWood
+                });
             
-            if (typeof(T) == typeof(Axe))
-            {
-                action
-                    .AddCondition<IsHolding<Iron>>(Comparison.GreaterThanOrEqual, 1)
-                    .AddCondition<IsHolding<Wood>>(Comparison.GreaterThanOrEqual, 2);
-                return;
-            }
+            if (requiredIron > 0)
+                action.AddCondition<IsHolding<Iron>>(Comparison.GreaterThanOrEqual, requiredIron);
             
-            if (typeof(T) == typeof(Pickaxe))
-            {
-                action
-                    .AddCondition<IsHolding<Iron>>(Comparison.GreaterThanOrEqual, 2)
-                    .AddCondition<IsHolding<Wood>>(Comparison.GreaterThanOrEqual, 1);
-                return;
-            }
-
-            throw new Exception("No conditions set for this type of item!");
-        }
-        
-        public static void AddHaulItemAction(this GoapSetBuilder builder)
-        {
-            builder.AddAction<HaulItemAction>()
-                .SetTarget<TransformTarget>()
-                .AddEffect<ItemsOnFloor>(EffectType.Decrease)
-                .AddCondition<ItemsOnFloor>(Comparison.GreaterThanOrEqual, 1);
-        }
-        
-        public static void AddEatAction(this GoapSetBuilder builder)
-        {
-            builder.AddAction<EatAction>()
-                .SetTarget<TransformTarget>()
-                .AddEffect<IsHungry>(EffectType.Decrease)
-                .AddCondition<IsHolding<IEatable>>(Comparison.GreaterThanOrEqual, 1);
+            if (requiredWood > 0)
+                action.AddCondition<IsHolding<Wood>>(Comparison.GreaterThanOrEqual, requiredWood);
         }
     }
 }

@@ -1,16 +1,17 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
-using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Editor.Elements;
-using CrashKonijn.Goap.Scriptables;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.TypeDrawers
+namespace CrashKonijn.Goap.Editor
 {
     [CustomEditor(typeof(GoapSetConfigScriptable))]
+    [Obsolete("Use CapabilityConfigs instead!")]
     public class GoapSetConfigEditor : UnityEditor.Editor
     {
         private GoapSetConfigScriptable config;
@@ -24,9 +25,35 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss");
             root.styleSheets.Add(styleSheet);
             
-            root.Add(this.Group("Debugger", card =>
+            root.Add(this.Group("Upgrade", card =>
             {
-                card.Add(new PropertyField(this.serializedObject.FindProperty("debuggerClass")));
+                // CapabilityConfigScriptable capabilityScriptable = default;
+                //
+                // var input = new ObjectField("CapabilityConfigs")
+                // {
+                //     objectType = typeof(CapabilityConfigScriptable),
+                //     allowSceneObjects = false,
+                //     value = capabilityScriptable
+                // };
+                //
+                // input.RegisterValueChangedCallback(evt =>
+                // {
+                //     capabilityScriptable = (CapabilityConfigScriptable) evt.newValue;
+                // });
+                //
+                // card.Add(input);
+                
+                card.Add(new PropertyField(this.serializedObject.FindProperty("capabilityConfig")));
+                
+                var button = new Button(() =>
+                {
+                    this.Upgrade(this.config.capabilityConfig);
+                })
+                {
+                    text = "Upgrade to CapabilityConfigs"
+                };
+
+                card.Add(button);
             }));
 
             root.Add(this.Group("Goals and Actions", card =>
@@ -55,7 +82,7 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             var validateButton = new Button(() =>
             {
-                var validator = new GoapSetConfigValidatorRunner();
+                var validator = new AgentTypeConfigValidatorRunner();
                 var results = validator.Validate(this.config);
                 
                 foreach (var error in results.GetErrors())
@@ -77,6 +104,110 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             root.Add(validateButton);
 
             return root;
+        }
+
+        private void Upgrade(CapabilityConfigScriptable capabilityScriptable)
+        {
+            capabilityScriptable.goals.Clear();
+            foreach (var goalConfig in this.config.Goals)
+            {
+                capabilityScriptable.goals.Add(new BehaviourGoal
+                {
+                    goal = new ClassRef
+                    {
+                        Name = this.GetName(goalConfig.ClassType)
+                    },
+                    baseCost = goalConfig.BaseCost,
+                    conditions = goalConfig.Conditions.Select(x => new BehaviourCondition
+                    {
+                        worldKey = new ClassRef
+                        {
+                            Name = x.WorldKey.Name
+                        },
+                        comparison = x.Comparison,
+                        amount = x.Amount
+                    }).ToList()
+                });
+            }
+            
+            capabilityScriptable.actions.Clear();
+            foreach (var actionConfig in this.config.Actions)
+            {
+                capabilityScriptable.actions.Add(new BehaviourAction
+                {
+                    action = new ClassRef
+                    {
+                        Name = this.GetName(actionConfig.ClassType)
+                    },
+                    target = new ClassRef
+                    {
+                        Name = actionConfig.Target.Name
+                    },
+                    baseCost = actionConfig.BaseCost,
+                    stoppingDistance = actionConfig.StoppingDistance,
+                    conditions = actionConfig.Conditions.Select(x => new BehaviourCondition
+                    {
+                        worldKey = new ClassRef
+                        {
+                            Name = x.WorldKey.Name
+                        },
+                        comparison = x.Comparison,
+                        amount = x.Amount
+                    }).ToList(),
+                    effects = actionConfig.Effects.Select(x => new BehaviourEffect
+                    {
+                        worldKey = new ClassRef
+                        {
+                            Name = x.WorldKey.Name
+                        },
+                        effect = x.Increase ? EffectType.Increase : EffectType.Decrease,
+                    }).ToList()
+                });
+            }
+            
+            capabilityScriptable.worldSensors.Clear();
+            foreach (var worldSensorConfig in this.config.WorldSensors)
+            {
+                capabilityScriptable.worldSensors.Add(new BehaviourWorldSensor
+                {
+                    sensor = new ClassRef
+                    {
+                        Name = this.GetName(worldSensorConfig.ClassType)
+                    },
+                    worldKey = new ClassRef
+                    {
+                        Name = worldSensorConfig.Key.Name
+                    }
+                });
+            }
+            
+            capabilityScriptable.targetSensors.Clear();
+            foreach (var targetSensorConfig in this.config.TargetSensors)
+            {
+                capabilityScriptable.targetSensors.Add(new BehaviourTargetSensor
+                {
+                    sensor = new ClassRef
+                    {
+                        Name = this.GetName(targetSensorConfig.ClassType)
+                    },
+                    targetKey = new ClassRef
+                    {
+                        Name = targetSensorConfig.Key.Name
+                    }
+                });
+            }
+            
+            EditorUtility.SetDirty(capabilityScriptable);
+            AssetDatabase.SaveAssetIfDirty(capabilityScriptable);
+            // Set selected object to the new capability scriptable
+            // Selection.activeObject = capabilityScriptable;
+        }
+
+        private string GetName(string fullName)
+        {
+            var parts = fullName.Split(',').First();
+            
+            return parts.Split('.').Last();
         }
 
         private VisualElement Group(string title, Action<Card> callback)

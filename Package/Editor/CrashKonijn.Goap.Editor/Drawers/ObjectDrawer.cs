@@ -1,10 +1,10 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Reflection;
-using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Drawers
+namespace CrashKonijn.Goap.Editor
 {
     public class ObjectDrawer : VisualElement
     {
@@ -38,7 +38,7 @@ namespace CrashKonijn.Goap.Editor.Drawers
         {
             if (value == null)
                 return "null";
-
+            
             if (value is TransformTarget transformTarget)
             {
                 if (transformTarget.Transform == null)
@@ -49,7 +49,7 @@ namespace CrashKonijn.Goap.Editor.Drawers
             
             if (value is PositionTarget positionTarget)
                 return positionTarget.Position.ToString();
-
+            
             if (value is MonoBehaviour monoBehaviour)
             {
                 if (monoBehaviour == null)

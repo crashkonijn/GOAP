@@ -13,7 +13,7 @@ https://github.com/crashkonijn/GOAP.git?path=/Package#3.0.4-beta
 Alternatively install through [OpenUPM](https://openupm.com/packages/com.crashkonijn.goap/) or the [Unity Asset Store](https://assetstore.unity.com/packages/slug/252687).
 
 {% hint style="info" %}
-**Version** This package was build using unity 2022.2, but also confirmed to be working with 2021.3.
+**Version** This package was build using unity 2022.2. Any newer version should work!
 {% endhint %}
 
 ## Overview

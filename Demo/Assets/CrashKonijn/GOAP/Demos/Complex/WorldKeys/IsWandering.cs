@@ -1,6 +1,6 @@
-﻿using CrashKonijn.Goap.Behaviours;
+﻿using CrashKonijn.Goap.Runtime;
 
-namespace Demos.Complex.WorldKeys
+namespace CrashKonijn.Goap.Demos.Complex.WorldKeys
 {
     public class IsWandering : WorldKeyBase
     {

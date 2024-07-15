@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class ItemFactory : MonoBehaviour
     {
