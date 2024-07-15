@@ -27,7 +27,8 @@ namespace CrashKonijn.Goap.Resolver
                 NodeConditions = nodeConditions,
                 ConditionConnections = conditionConnections,
                 RunData = runData,
-                Result = new NativeList<NodeData>(Allocator.TempJob)
+                Result = new NativeList<NodeData>(Allocator.TempJob),
+                PickedGoal = new NativeList<NodeData>(Allocator.TempJob)
             };
         
             this.handle = this.job.Schedule();
