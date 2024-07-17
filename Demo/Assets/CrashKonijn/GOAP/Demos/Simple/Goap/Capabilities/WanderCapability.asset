@@ -52,6 +52,8 @@ MonoBehaviour:
       <Name>k__BackingField: WanderTarget
       <Id>k__BackingField: WanderTarget-ae7344be-5223-4260-acac-f33c9eb260f5
   multiSensors: []
+  generatorScriptable: {fileID: 11400000, guid: 5fccbb575a6ba23419aa4a61a7268fc2,
+    type: 2}
   references:
     version: 2
     RefIds:

@@ -1,4 +1,4 @@
-﻿
+﻿using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,13 +34,4 @@ namespace CrashKonijn.Goap.Editor
         }
     }
 #endif
- 
-    public class ButtonAttribute : PropertyAttribute
-    {
-        public string MethodName { get; }
-        public ButtonAttribute(string methodName)
-        {
-            this.MethodName = methodName;
-        }
-    }
 }

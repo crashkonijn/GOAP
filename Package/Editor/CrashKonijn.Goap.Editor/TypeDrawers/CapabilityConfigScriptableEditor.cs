@@ -28,7 +28,7 @@ namespace CrashKonijn.Goap.Editor
             
             
             // Create ListView
-            var generator = ClassScanner.GetGenerator(this.scriptable);
+            var generator = scriptable.GetGenerator();
             
             root.Add(new Header("Goals"));
             this.goalList = new GoalList(this.serializedObject, this.scriptable, generator);

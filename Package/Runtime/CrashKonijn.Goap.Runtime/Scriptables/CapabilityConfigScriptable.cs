@@ -17,6 +17,9 @@ namespace CrashKonijn.Goap.Runtime
         public List<BehaviourTargetSensor> targetSensors = new();
         public List<BehaviourMultiSensor> multiSensors = new();
 
+        [SerializeField]
+        public GeneratorScriptable generatorScriptable;
+
         public override ICapabilityConfig Create()
         {
             var generator = this.GetGenerator();
@@ -33,6 +36,8 @@ namespace CrashKonijn.Goap.Runtime
 
         public List<IActionConfig> GetActions(GeneratorScriptable generator)
         {
+            Debug.Log($"Generator: {generator}");
+            
             if (generator == null)
                 return new List<IActionConfig>();
             
@@ -126,6 +131,15 @@ namespace CrashKonijn.Goap.Runtime
                 Name = x.sensor.Name,
                 ClassType = x.sensor.GetScript(sensorClasses).GetFullName()
             }).Cast<IMultiSensorConfig>().ToList();
+        }
+        
+        public GeneratorScriptable GetGenerator()
+        {
+#if UNITY_EDITOR
+            this.generatorScriptable = ClassScanner.GetGenerator(this);
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif
+            return this.generatorScriptable;
         }
     }
 

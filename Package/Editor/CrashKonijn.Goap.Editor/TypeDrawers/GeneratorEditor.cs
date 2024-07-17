@@ -49,6 +49,8 @@ namespace CrashKonijn.Goap.Editor
 
             var check = new Button(() =>
             {
+                Debug.Log(scriptable.scripts.actions.Length);
+                
                 var classes = ClassScanner.GetClasses(scriptable.nameSpace, Path.GetDirectoryName(AssetDatabase.GetAssetPath(scriptable)));
 
                 Debug.Log("---Goals---");

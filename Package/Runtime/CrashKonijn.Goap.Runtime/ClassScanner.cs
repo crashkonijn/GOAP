@@ -1,4 +1,4 @@
-﻿using System;
+﻿#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -116,23 +116,5 @@ namespace CrashKonijn.Goap.Runtime
             return generators.ToArray();
         }
     }
-
-    public class Script
-    {
-        public string Name { get; set; }
-        public Type Type { get; set; }
-        public string Path { get; set; }
-        public string Id { get; set; }
-    }
-
-    public class Scripts
-    {
-        public Script[] goals;
-        public Script[] actions;
-        public Script[] worldSensors;
-        public Script[] worldKeys;
-        public Script[] targetSensors;
-        public Script[] targetKeys;
-        public Script[] multiSensors;
-    }
 }
+#endif
