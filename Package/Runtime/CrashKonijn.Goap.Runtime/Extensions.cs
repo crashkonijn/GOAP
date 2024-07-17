@@ -117,11 +117,6 @@ namespace CrashKonijn.Goap.Runtime
         {
             return script?.Type.AssemblyQualifiedName ?? "UNDEFINED";
         }
-
-        public static GeneratorScriptable GetGenerator(this ScriptableObject scriptable)
-        {
-            return ClassScanner.GetGenerator(scriptable);
-        }
         
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>
             (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)

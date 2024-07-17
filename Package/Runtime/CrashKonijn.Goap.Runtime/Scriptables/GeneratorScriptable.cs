@@ -9,7 +9,10 @@ namespace CrashKonijn.Goap.Runtime
         private readonly ClassGenerator generator = new();
         
         public string nameSpace = "CrashKonijn.Goap.GenTest";
+        [SerializeField]
+        public Scripts scripts = new();
         
+#if UNITY_EDITOR
         public Script CreateGoal(string name)
         {
             var assetPath = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this));
@@ -44,9 +47,18 @@ namespace CrashKonijn.Goap.Runtime
             
             return this.generator.CreateMultiSensor(assetPath, name, this.nameSpace);
         }
+#endif
 
-        public Scripts GetClasses() => ClassScanner.GetClasses(this.nameSpace,
-            Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this)));
+        public Scripts GetClasses()
+        {
+#if UNITY_EDITOR
+            
+            this.scripts = ClassScanner.GetClasses(this.nameSpace, Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(this)));
+            UnityEditor.EditorUtility.SetDirty(this);
+            // UnityEditor.AssetDatabase.SaveAssets();
+#endif
+            return this.scripts;
+        }
 
         public Script[] GetActions() => this.GetClasses().actions;
         public Script[] GetGoals() => this.GetClasses().goals;

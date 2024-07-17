@@ -134,6 +134,7 @@ namespace CrashKonijn.Goap.Runtime
 
         private Script Generate(GeneratorScriptable generator)
         {
+#if UNITY_EDITOR
             switch (this.type)
             {
                 case ClassRefType.Action:
@@ -153,7 +154,7 @@ namespace CrashKonijn.Goap.Runtime
                 case ClassRefType.MultiSensor:
                     return generator.CreateMultiSensor(this.reference.Name);
             }
-
+#endif
             return null;
         }
 
