@@ -10,6 +10,10 @@ on:
         required: true
         default: true
         type: boolean
+      branch:
+        description: 'Branch to checkout'
+        required: true
+        default: 'master'
 
 jobs:
   update_versions:
@@ -19,7 +23,7 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v2
         with:
-          ref: 'master'
+          ref: ${{ github.event.inputs.branch }}
           fetch-depth: 0 # ensure you have the full history for branch creation
           
       - name: Create new branch
