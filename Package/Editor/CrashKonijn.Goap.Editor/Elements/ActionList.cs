@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor
 {
-    public class ActionList : ListElementBase<BehaviourAction, CapabilityActionElement>
+    public class ActionList : ListElementBase<CapabilityAction, CapabilityActionElement>
     {
         private readonly SerializedObject serializedObject;
         private readonly CapabilityConfigScriptable scriptable;
@@ -20,12 +20,12 @@ namespace CrashKonijn.Goap.Editor
             this.Rebuild();
         }
 
-        protected override CapabilityActionElement CreateListItem(SerializedProperty property, BehaviourAction item)
+        protected override CapabilityActionElement CreateListItem(SerializedProperty property, CapabilityAction item)
         {
             return new CapabilityActionElement(this.serializedObject, property, this.scriptable, this.generator, item);
         }
 
-        protected override void BindListItem(SerializedProperty property, CapabilityActionElement element, BehaviourAction item, int index)
+        protected override void BindListItem(SerializedProperty property, CapabilityActionElement element, CapabilityAction item, int index)
         {
             element.Foldout.text = item.action.Name;
             

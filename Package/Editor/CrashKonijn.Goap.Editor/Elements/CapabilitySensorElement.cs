@@ -11,7 +11,7 @@ namespace CrashKonijn.Goap.Editor
 
         public Label LabelField { get; set; }
         
-        public CapabilitySensorElement(CapabilityConfigScriptable scriptable, GeneratorScriptable generator, BehaviourSensor sensor)
+        public CapabilitySensorElement(CapabilityConfigScriptable scriptable, GeneratorScriptable generator, CapabilitySensor sensor)
         {
             this.Foldout = new Foldout
             {
@@ -25,7 +25,7 @@ namespace CrashKonijn.Goap.Editor
                 this.SensorField = sensorLabel.Field;
                 card.Add(sensorLabel);
 
-                if (sensor is BehaviourMultiSensor)
+                if (sensor is CapabilityMultiSensor)
                 {
                     var sensorsLabel = new LabeledField<Label>("Keys");
                     this.LabelField = sensorsLabel.Field;

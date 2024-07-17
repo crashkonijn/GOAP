@@ -7,12 +7,12 @@ using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor
 {
-    public class ConditionList : ListElementBase<BehaviourCondition, CapabilityConditionElement>
+    public class ConditionList : ListElementBase<CapabilityCondition, CapabilityConditionElement>
     {
         private readonly CapabilityConfigScriptable scriptable;
         private readonly GeneratorScriptable generator;
 
-        public ConditionList(SerializedProperty serializedProperty, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<BehaviourCondition> conditions) : base(serializedProperty.FindPropertyRelative("conditions"), conditions)
+        public ConditionList(SerializedProperty serializedProperty, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<CapabilityCondition> conditions) : base(serializedProperty.FindPropertyRelative("conditions"), conditions)
         {
             this.scriptable = scriptable;
             this.generator = generator;
@@ -21,12 +21,12 @@ namespace CrashKonijn.Goap.Editor
         }
 
 
-        protected override CapabilityConditionElement CreateListItem(SerializedProperty property, BehaviourCondition item)
+        protected override CapabilityConditionElement CreateListItem(SerializedProperty property, CapabilityCondition item)
         {
             return new CapabilityConditionElement(this.scriptable, this.generator);
         }
 
-        protected override void BindListItem(SerializedProperty property,  CapabilityConditionElement element, BehaviourCondition item, int index)
+        protected override void BindListItem(SerializedProperty property,  CapabilityConditionElement element, CapabilityCondition item, int index)
         {
             element.Foldout.text = item.ToString();
             

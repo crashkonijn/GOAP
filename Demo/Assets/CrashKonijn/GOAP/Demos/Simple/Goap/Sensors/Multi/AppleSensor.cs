@@ -21,7 +21,6 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
 
         public override void Update()
         {
-            
         }
 
         public AppleSensor()

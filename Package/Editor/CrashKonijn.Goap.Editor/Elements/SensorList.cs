@@ -7,7 +7,7 @@ using UnityEditor;
 namespace CrashKonijn.Goap.Editor
 {
     public class SensorList<TSensorType> : ListElementBase<TSensorType, CapabilitySensorElement>
-        where TSensorType : BehaviourSensor, new()
+        where TSensorType : CapabilitySensor, new()
     {
         private readonly CapabilityConfigScriptable scriptable;
         private readonly GeneratorScriptable generator;
@@ -36,19 +36,19 @@ namespace CrashKonijn.Goap.Editor
         {
             switch (item)
             {
-                case BehaviourMultiSensor multiSensor:
+                case CapabilityMultiSensor multiSensor:
                     this.BindSensor(element, multiSensor);
                     break;
-                case BehaviourTargetSensor targetSensor:
+                case CapabilityTargetSensor targetSensor:
                     this.BindSensor(element, targetSensor);
                     break;
-                case BehaviourWorldSensor worldSensor:
+                case CapabilityWorldSensor worldSensor:
                     this.BindSensor(element, worldSensor);
                     break;
             }
         }
 
-        private void BindSensor(CapabilitySensorElement element, BehaviourWorldSensor item)
+        private void BindSensor(CapabilitySensorElement element, CapabilityWorldSensor item)
         {
             element.SensorField.Bind(this.scriptable, item.sensor, this.generator.GetWorldSensors(), classRef =>
             {
@@ -61,7 +61,7 @@ namespace CrashKonijn.Goap.Editor
             });
         }
 
-        private void BindSensor(CapabilitySensorElement element, BehaviourTargetSensor item)
+        private void BindSensor(CapabilitySensorElement element, CapabilityTargetSensor item)
         {
             element.SensorField.Bind(this.scriptable, item.sensor, this.generator.GetTargetSensors(), classRef =>
             {
@@ -74,7 +74,7 @@ namespace CrashKonijn.Goap.Editor
             });
         }
 
-        private void BindSensor(CapabilitySensorElement element, BehaviourMultiSensor item)
+        private void BindSensor(CapabilitySensorElement element, CapabilityMultiSensor item)
         {
             element.SensorField.Bind(this.scriptable, item.sensor, this.generator.GetMultiSensors(), classRef =>
             {
@@ -101,14 +101,14 @@ namespace CrashKonijn.Goap.Editor
             return instance.GetSensors();
         }
 
-        public string GetName(BehaviourSensor item)
+        public string GetName(CapabilitySensor item)
         {
-            if (item is BehaviourMultiSensor multiSensor)
+            if (item is CapabilityMultiSensor multiSensor)
             {
                 return multiSensor.ToString();
             }
 
-            if (item is BehaviourWorldSensor worldSensor)
+            if (item is CapabilityWorldSensor worldSensor)
             {
                 var scopes = new List<string>(){ worldSensor.worldKey.Name };
                 scopes.AddRange(this.GetScopes(worldSensor.sensor, this.generator.GetWorldSensors()));
@@ -116,7 +116,7 @@ namespace CrashKonijn.Goap.Editor
                 return $"{worldSensor.sensor.Name} ({string.Join(", ", scopes)})";
             }
 
-            if (item is BehaviourTargetSensor targetSensor)
+            if (item is CapabilityTargetSensor targetSensor)
             {
                 var scopes = new List<string>(){ targetSensor.targetKey.Name };
                 scopes.AddRange(this.GetScopes(targetSensor.sensor, this.generator.GetTargetSensors()));

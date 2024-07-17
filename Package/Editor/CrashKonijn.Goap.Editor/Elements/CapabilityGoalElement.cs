@@ -9,7 +9,7 @@ namespace CrashKonijn.Goap.Editor
         public Foldout Foldout { get; private set; }
         public ClassRefField Goal { get; private set; }
         
-        public CapabilityGoalElement(SerializedProperty serializedProperty, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, BehaviourGoal item)
+        public CapabilityGoalElement(SerializedProperty serializedProperty, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, CapabilityGoal item)
         {
             this.Foldout = new Foldout
             {

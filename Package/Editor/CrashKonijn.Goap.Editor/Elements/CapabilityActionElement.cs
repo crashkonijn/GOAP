@@ -23,7 +23,7 @@ namespace CrashKonijn.Goap.Editor
 
         
         public CapabilityActionElement(SerializedObject serializedObject, SerializedProperty serializedProperty,
-            CapabilityConfigScriptable scriptable, GeneratorScriptable generator, BehaviourAction item)
+            CapabilityConfigScriptable scriptable, GeneratorScriptable generator, CapabilityAction item)
         {
             this.Foldout = new Foldout
             {

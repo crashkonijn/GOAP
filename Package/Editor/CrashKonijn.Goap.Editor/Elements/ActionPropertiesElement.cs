@@ -20,7 +20,7 @@ namespace CrashKonijn.Goap.Editor
             this.serializedObject = serializedObject;
         }
 
-        public void Bind(SerializedProperty property, BehaviourAction action, Script[] actions)
+        public void Bind(SerializedProperty property, CapabilityAction action, Script[] actions)
         {
             this.validate(action, actions);
                 
@@ -68,7 +68,7 @@ namespace CrashKonijn.Goap.Editor
             card.Add(field);
         }
 
-        private void validate(BehaviourAction action, Script[] actions)
+        private void validate(CapabilityAction action, Script[] actions)
         {
             var (status, script) = action.action.GetMatch(actions);
 

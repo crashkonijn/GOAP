@@ -11,9 +11,9 @@ namespace CrashKonijn.Goap.Editor
         private CapabilityConfigScriptable scriptable;
         private GoalList goalList;
         private ActionList actionList;
-        private SensorList<BehaviourWorldSensor> worldSensorList;
-        private SensorList<BehaviourTargetSensor> targetSensorList;
-        private SensorList<BehaviourMultiSensor> multiSensorList;
+        private SensorList<CapabilityWorldSensor> worldSensorList;
+        private SensorList<CapabilityTargetSensor> targetSensorList;
+        private SensorList<CapabilityMultiSensor> multiSensorList;
 
         public override VisualElement CreateInspectorGUI()
         {
@@ -39,15 +39,15 @@ namespace CrashKonijn.Goap.Editor
             root.Add(this.actionList);
 
             root.Add(new Header("WorldSensors"));
-            this.worldSensorList = new SensorList<BehaviourWorldSensor>(this.serializedObject, this.scriptable, generator, this.scriptable.worldSensors, "worldSensors");
+            this.worldSensorList = new SensorList<CapabilityWorldSensor>(this.serializedObject, this.scriptable, generator, this.scriptable.worldSensors, "worldSensors");
             root.Add(this.worldSensorList);
 
             root.Add(new Header("TargetSensors"));
-            this.targetSensorList = new SensorList<BehaviourTargetSensor>(this.serializedObject, this.scriptable, generator, this.scriptable.targetSensors, "targetSensors");
+            this.targetSensorList = new SensorList<CapabilityTargetSensor>(this.serializedObject, this.scriptable, generator, this.scriptable.targetSensors, "targetSensors");
             root.Add(this.targetSensorList);
 
             root.Add(new Header("MultiSensors"));
-            this.multiSensorList = new SensorList<BehaviourMultiSensor>(this.serializedObject, this.scriptable, generator, this.scriptable.multiSensors, "multiSensors");
+            this.multiSensorList = new SensorList<CapabilityMultiSensor>(this.serializedObject, this.scriptable, generator, this.scriptable.multiSensors, "multiSensors");
             root.Add(this.multiSensorList);
 
             var checkButton = new Button(() =>

@@ -111,14 +111,14 @@ namespace CrashKonijn.Goap.Editor
             capabilityScriptable.goals.Clear();
             foreach (var goalConfig in this.config.Goals)
             {
-                capabilityScriptable.goals.Add(new BehaviourGoal
+                capabilityScriptable.goals.Add(new CapabilityGoal
                 {
                     goal = new ClassRef
                     {
                         Name = this.GetName(goalConfig.ClassType)
                     },
                     baseCost = goalConfig.BaseCost,
-                    conditions = goalConfig.Conditions.Select(x => new BehaviourCondition
+                    conditions = goalConfig.Conditions.Select(x => new CapabilityCondition
                     {
                         worldKey = new ClassRef
                         {
@@ -133,7 +133,7 @@ namespace CrashKonijn.Goap.Editor
             capabilityScriptable.actions.Clear();
             foreach (var actionConfig in this.config.Actions)
             {
-                capabilityScriptable.actions.Add(new BehaviourAction
+                capabilityScriptable.actions.Add(new CapabilityAction
                 {
                     action = new ClassRef
                     {
@@ -145,7 +145,7 @@ namespace CrashKonijn.Goap.Editor
                     },
                     baseCost = actionConfig.BaseCost,
                     stoppingDistance = actionConfig.StoppingDistance,
-                    conditions = actionConfig.Conditions.Select(x => new BehaviourCondition
+                    conditions = actionConfig.Conditions.Select(x => new CapabilityCondition
                     {
                         worldKey = new ClassRef
                         {
@@ -154,7 +154,7 @@ namespace CrashKonijn.Goap.Editor
                         comparison = x.Comparison,
                         amount = x.Amount
                     }).ToList(),
-                    effects = actionConfig.Effects.Select(x => new BehaviourEffect
+                    effects = actionConfig.Effects.Select(x => new CapabilityEffect
                     {
                         worldKey = new ClassRef
                         {
@@ -168,7 +168,7 @@ namespace CrashKonijn.Goap.Editor
             capabilityScriptable.worldSensors.Clear();
             foreach (var worldSensorConfig in this.config.WorldSensors)
             {
-                capabilityScriptable.worldSensors.Add(new BehaviourWorldSensor
+                capabilityScriptable.worldSensors.Add(new CapabilityWorldSensor
                 {
                     sensor = new ClassRef
                     {
@@ -184,7 +184,7 @@ namespace CrashKonijn.Goap.Editor
             capabilityScriptable.targetSensors.Clear();
             foreach (var targetSensorConfig in this.config.TargetSensors)
             {
-                capabilityScriptable.targetSensors.Add(new BehaviourTargetSensor
+                capabilityScriptable.targetSensors.Add(new CapabilityTargetSensor
                 {
                     sensor = new ClassRef
                     {

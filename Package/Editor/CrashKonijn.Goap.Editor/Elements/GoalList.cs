@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace CrashKonijn.Goap.Editor
 {
-    public class GoalList : ListElementBase<BehaviourGoal, CapabilityGoalElement>
+    public class GoalList : ListElementBase<CapabilityGoal, CapabilityGoalElement>
     {
         private readonly CapabilityConfigScriptable scriptable;
         private readonly GeneratorScriptable generator;
@@ -17,12 +17,12 @@ namespace CrashKonijn.Goap.Editor
             this.Rebuild();
         }
 
-        protected override CapabilityGoalElement CreateListItem(SerializedProperty property, BehaviourGoal item)
+        protected override CapabilityGoalElement CreateListItem(SerializedProperty property, CapabilityGoal item)
         {
             return new CapabilityGoalElement(property, this.scriptable, this.generator, item);
         }
 
-        protected override void BindListItem(SerializedProperty property, CapabilityGoalElement element, BehaviourGoal item, int index)
+        protected override void BindListItem(SerializedProperty property, CapabilityGoalElement element, CapabilityGoal item, int index)
         {
             element.Foldout.text = item.goal.Name;
             

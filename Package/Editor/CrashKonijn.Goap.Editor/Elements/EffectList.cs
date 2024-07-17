@@ -7,12 +7,12 @@ using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor
 {
-    public class EffectList : ListElementBase<BehaviourEffect, CapabilityEffectElement>
+    public class EffectList : ListElementBase<CapabilityEffect, CapabilityEffectElement>
     {
         private readonly CapabilityConfigScriptable scriptable;
         private readonly GeneratorScriptable generator;
 
-        public EffectList(SerializedProperty serializedProperty, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<BehaviourEffect> effects) : base(serializedProperty.FindPropertyRelative("effects"), effects)
+        public EffectList(SerializedProperty serializedProperty, CapabilityConfigScriptable scriptable, GeneratorScriptable generator, List<CapabilityEffect> effects) : base(serializedProperty.FindPropertyRelative("effects"), effects)
         {
             this.scriptable = scriptable;
             this.generator = generator;
@@ -20,12 +20,12 @@ namespace CrashKonijn.Goap.Editor
             this.Rebuild();
         }
 
-        protected override CapabilityEffectElement CreateListItem(SerializedProperty property, BehaviourEffect item)
+        protected override CapabilityEffectElement CreateListItem(SerializedProperty property, CapabilityEffect item)
         {
             return new CapabilityEffectElement(this.scriptable, this.generator);
         }
 
-        protected override void BindListItem(SerializedProperty property, CapabilityEffectElement element, BehaviourEffect item, int index)
+        protected override void BindListItem(SerializedProperty property, CapabilityEffectElement element, CapabilityEffect item, int index)
         {
             element.Foldout.text = item.ToString();
             

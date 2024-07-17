@@ -6,7 +6,6 @@ namespace CrashKonijn.Agent.Runtime
     public abstract class AgentActionBase<TActionData> : AgentActionBase<TActionData, EmptyActionProperties>
         where TActionData : IActionData, new()
     {
- 
     }
     
     public class EmptyActionProperties : IActionProperties
