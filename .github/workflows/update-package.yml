@@ -72,7 +72,7 @@ jobs:
           title: "Update package version to ${{ github.event.inputs.version }}"
           body: |
             Update package version to `${{ github.event.inputs.version }}`.
-          base: master # branch to create the PR against
+          base: ${{ github.event.inputs.branch }} # branch to create the PR against
           branch: update-version-${{ github.event.inputs.version }} # branch with your changes
           
   build_demo_files:
