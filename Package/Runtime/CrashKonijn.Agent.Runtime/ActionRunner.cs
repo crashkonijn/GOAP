@@ -34,6 +34,12 @@ namespace CrashKonijn.Agent.Runtime
 
         private bool RunIsValid()
         {
+            if (this.agent.ActionState?.Action == null)
+            {
+                this.agent.Logger.Warning("No action to run!");
+                return false;
+            }
+            
             var isValid = this.agent.ActionState.Action.IsValid(this.agent, this.agent.ActionState.Data);
             
             if (!isValid)
