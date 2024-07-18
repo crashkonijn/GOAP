@@ -198,13 +198,13 @@ public class CleanerAgentTypeFactory : AgentTypeFactoryBase
 
 ### GoapRunnerBehaviour
 - The **GoapRunnerBehaviour** has been renamed to **GoapBehaviour**. Make sure to replace it.
-- Each **GoapRunnerBehaviour** needs a **GoapController**. Add the **ReactiveController** or the **ProactiveController** to the same GameObject. The **ReactiveController** behaves the same as in v2.
+- Each **GoapBehaviour** needs a **GoapController**. Add the **ReactiveController** or the **ProactiveController** to the same GameObject. The **ReactiveController** behaves the same as in v2.
 - Remove your old **GoapSet** script from the GameObject.
-- Add your new **AgentTypeFactories**. It's adviced to use a single child GameObject per AgentType. This ensures you can preview them in the graph viewer.
+- Add your new **AgentTypeFactories**. It's advised to use a single child GameObject per AgentType. This ensures you can preview them in the graph viewer.
 
 ### GoapSetBehaviours (for scriptable configs)
-- Make sure you've added the **AgentTypeBehaviour** to any GameObject that has the GoapSetBehaviour.
-- Copy your settings to the new script. remove the **GoapSetBeahviour** scripts.
+- Make sure you've added the **AgentTypeBehaviour** to any GameObject that has the **GoapSetBehaviour** component.
+- Copy your settings to the new script and remove the **GoapSetBehaviour** scripts.
 - For each **AgentType**, create a scriptable **AgentTypeConfig** using `create > Goap > AgentTypeConfig`. Give the file the name of your new agent type.
 - Reference your new AgentType scriptable on the **AgentTypeBehaviour**
 
