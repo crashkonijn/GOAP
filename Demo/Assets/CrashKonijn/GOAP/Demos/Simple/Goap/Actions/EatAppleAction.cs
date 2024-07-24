@@ -20,9 +20,6 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
         
         public override bool IsValid(IActionReceiver agent, Data data)
         {
-            if (!base.IsValid(agent, data))
-                return false;
-            
             if (data.Apple == null)
                 return false;
             
@@ -34,8 +31,11 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Actions
 
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            if (data.Apple == null || data.SimpleHunger == null)
-                return ActionRunState.StopAndLog("Apple or SimpleHunger is null.");
+            if (data.Apple == null)
+                return ActionRunState.StopAndLog("Apple is null.");
+            
+            if (data.SimpleHunger == null)
+                return ActionRunState.StopAndLog("SimpleHunger is null.");
 
             var eatNutrition = context.DeltaTime * 20f;
 

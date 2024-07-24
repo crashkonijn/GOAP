@@ -15,7 +15,6 @@ namespace CrashKonijn.Goap.Editor
             
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
             
-            // root.Add(new PropertyField(this.serializedObject.FindProperty("agentTypeBehaviour")));
             root.Add(new PropertyField(this.serializedObject.FindProperty("<ActionProviderBase>k__BackingField")));
             root.Add(new PropertyField(this.serializedObject.FindProperty("<DistanceMultiplier>k__BackingField")));
             root.Add(new PropertyField(this.serializedObject.FindProperty("<LoggerConfig>k__BackingField")));
@@ -27,24 +26,9 @@ namespace CrashKonijn.Goap.Editor
             
             var currentAction = agent.ActionState.Action;
             var state = agent.State;
-            var moveState = agent.MoveState;
             
             root.Add(new Card((card) =>
             {
-                // card.Add(new Label(), (label) =>
-                // {
-                //     label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
-                //     
-                //     label.schedule.Execute(() =>
-                //     {
-                //         if (currentGoal == agent.CurrentGoal)
-                //             return;
-                //         
-                //         currentGoal = agent.CurrentGoal;
-                //         label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
-                //     }).Every(33);
-                // });
-                
                 card.Add(new Label(), (label) =>
                 {
                     label.text = "Action: " + agent.ActionState.Action?.GetType().GetGenericTypeName();
@@ -79,11 +63,7 @@ namespace CrashKonijn.Goap.Editor
                     
                     label.schedule.Execute(() =>
                     {
-                        if (moveState == agent.MoveState)
-                            return;
-                        
-                        moveState = agent.MoveState;
-                        label.text = "MoveState: " + agent.MoveState;
+                        label.text = $"MoveState: {agent.MoveState}\n   Distance: {agent.DistanceObserver.GetDistance(agent, agent.CurrentTarget, agent.Injector):0.00}\n   Stopping distance: {agent.ActionState.Action?.GetStoppingDistance():0.00}";
                     }).Every(33);
                 });
             }));
@@ -93,8 +73,6 @@ namespace CrashKonijn.Goap.Editor
                 card.Add(new ObjectDrawer(agent.ActionState.Data));
             }));
             
-            
-
             root.Add(new LogDrawer(agent.Logger));
 
             return root;

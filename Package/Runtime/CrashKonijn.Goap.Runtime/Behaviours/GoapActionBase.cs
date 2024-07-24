@@ -50,9 +50,14 @@ namespace CrashKonijn.Goap.Runtime
             return this.Config.MoveMode;
         }
 
+        public virtual float GetStoppingDistance()
+        {
+            return this.Config.StoppingDistance;
+        }
+
         public virtual bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references)
         {
-            return distance <= this.Config.StoppingDistance;
+            return distance <= this.GetStoppingDistance();
         }
 
         public bool IsValid(IActionReceiver agent, IActionData data)
