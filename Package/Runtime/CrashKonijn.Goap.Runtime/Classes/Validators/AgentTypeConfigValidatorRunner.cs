@@ -21,7 +21,9 @@ namespace CrashKonijn.Goap.Runtime
             new GoalConditionsValidator(),
             new GoalConditionKeyValidator(),
             new WorldSensorKeyValidator(),
-            new TargetSensorKeyValidator()
+            new TargetSensorKeyValidator(),
+            new DuplicateTargetSensorValidator(),
+            new DuplicateWorldSensorValidator(),
         };
         
         public IValidationResults Validate(IAgentTypeConfig agentTypeConfig)
