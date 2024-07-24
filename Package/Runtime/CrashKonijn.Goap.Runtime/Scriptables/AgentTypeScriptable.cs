@@ -16,16 +16,9 @@ namespace CrashKonijn.Goap.Runtime
 
         public IAgentTypeConfig Create()
         {
-            foreach (var capability in this.capabilities)
-            {
-                Debug.Log($"Creating capability: {capability.name}");
-            }
-            
             var configs = this.capabilities
                 .Select(behaviour => behaviour.Create())
                 .ToList();
-            
-            Debug.Log($"Goals: {configs.SelectMany(x => x.Goals).Count()}");
             
             return new AgentTypeConfig(this.name)
             {

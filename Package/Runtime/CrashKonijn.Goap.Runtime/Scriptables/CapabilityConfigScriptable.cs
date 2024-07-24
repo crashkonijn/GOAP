@@ -34,8 +34,6 @@ namespace CrashKonijn.Goap.Runtime
 
         public List<IActionConfig> GetActions(GeneratorScriptable generator)
         {
-            Debug.Log($"Generator: {generator}");
-            
             if (generator == null)
                 return new List<IActionConfig>();
             

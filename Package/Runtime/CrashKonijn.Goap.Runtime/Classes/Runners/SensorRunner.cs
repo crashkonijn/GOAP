@@ -24,14 +24,14 @@ namespace CrashKonijn.Goap.Runtime
             {
                 this.defaultSet.AddSensor(worldSensor);
                 
-                this.sensors.Add(worldSensor.Key.GetType(), worldSensor);
+                this.sensors.TryAdd(worldSensor.Key.GetType(), worldSensor);
             }
 
             foreach (var targetSensor in targetSensors)
             {
                 this.defaultSet.AddSensor(targetSensor);
                 
-                this.sensors.Add(targetSensor.Key.GetType(), targetSensor);
+                this.sensors.TryAdd(targetSensor.Key.GetType(), targetSensor);
             }
             
             foreach (var multiSensor in multiSensors)
@@ -40,7 +40,7 @@ namespace CrashKonijn.Goap.Runtime
                 
                 foreach (var key in multiSensor.GetKeys())
                 {
-                    this.sensors.Add(key, multiSensor);
+                    this.sensors.TryAdd(key, multiSensor);
                 }
             }
         }
