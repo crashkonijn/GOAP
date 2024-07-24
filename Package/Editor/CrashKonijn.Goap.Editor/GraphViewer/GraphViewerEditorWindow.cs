@@ -14,7 +14,7 @@ namespace CrashKonijn.Goap.Editor
         private IGraph graph;
         private EditorWindowValues values = new ();
 
-        [MenuItem("Tools/GOAP/Graph Viewer")]
+        [MenuItem("Tools/GOAP/Graph Viewer %g")]
         private static void ShowWindow()
         {
             var window = GetWindow<GraphViewerEditorWindow>();
