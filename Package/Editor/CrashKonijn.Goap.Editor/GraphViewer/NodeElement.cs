@@ -40,9 +40,32 @@ namespace CrashKonijn.Goap.Editor
             costWrapper.Add(this.Cost);
             
             this.Content.Add(new HorizontalSplitView(this.Title, costWrapper, 60));
+            
+            var targetWrapper = new VisualElement
+            {
+                style =
+                {
+                    flexDirection = FlexDirection.Row,
+                }
+            };
 
             this.Target = new Label();
-            this.Content.Add(this.Target);
+
+            if (graphNode.Action is IGoapAction)
+            {
+                this.TargetCircle = new Circle(Color.white, 10f)
+                {
+                    style =
+                    {
+                        marginRight = 4,
+                        marginTop = 2
+                    }
+                };
+                targetWrapper.Add(this.TargetCircle);
+                targetWrapper.Add(this.Target);
+            }
+            
+            this.Content.Add(targetWrapper);
             
             this.Conditions = new VisualElement();
             this.Conditions.AddToClassList("conditions");
@@ -90,6 +113,7 @@ namespace CrashKonijn.Goap.Editor
             {
                 if (graphNode.Action is IGoapAction goapAction)
                 {
+                    this.TargetCircle.SetColor(this.GetCircleColor(goapAction));
                     this.Target.text = $"Target: {goapAction.Config.Target?.GetType().GetGenericTypeName()}";
                     this.Cost.text = $"Cost: {goapAction.Config.BaseCost}";
                 }
@@ -120,12 +144,27 @@ namespace CrashKonijn.Goap.Editor
 
                 if (graphNode.Action is IGoapAction action)
                 {
+                    this.TargetCircle.SetColor(this.GetCircleColor(action));
                     var target = provider.WorldData.GetTarget(action);
                     var targetText = target != null ? target.Position.ToString() : "null";
                 
                     this.Target.text = $"Target: {targetText}";
                 }
             }).Every(33);
+        }
+        
+        private Color GetCircleColor(IGoapAction goapAction)
+        {
+            if (!Application.isPlaying)
+                return Color.white;
+            
+            if (!goapAction.Config.RequiresTarget)
+                return Color.green;
+            
+            if (goapAction.Config.Target == null)
+                return Color.red;
+            
+            return Color.green;
         }
 
         private void UpdateClasses(INode graphNode, IMonoGoapActionProvider provider)
@@ -146,7 +185,7 @@ namespace CrashKonijn.Goap.Editor
                 return;
             }
                 
-            if (provider.CurrentPlan != null && provider.CurrentPlan.Plan.Contains(this.GraphNode.Action))
+            if (provider.CurrentPlan?.Plan != null && provider.CurrentPlan.Plan.Contains(this.GraphNode.Action))
             {
                 this.Node.AddToClassList("path");
                 return;
@@ -163,6 +202,8 @@ namespace CrashKonijn.Goap.Editor
         }
 
         public Label Target { get; set; }
+
+        public Circle TargetCircle { get; set; }
 
         public Label Cost { get; set; }
 
