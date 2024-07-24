@@ -121,10 +121,7 @@ namespace CrashKonijn.Goap.Runtime
             {
                 set.Keys.Add(condition.WorldKey.GetType());
             }
-                
-            if (action.Config.Target != null)
-                set.Keys.Add(action.Config.Target.GetType());
-                
+            
             foreach (var key in set.Keys)
             {
                 if (this.sensors.TryGetValue(key, out var sensor))
