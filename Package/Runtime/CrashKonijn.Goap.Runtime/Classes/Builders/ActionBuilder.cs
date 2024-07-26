@@ -139,14 +139,16 @@ namespace CrashKonijn.Goap.Runtime
         {
             var baseType = this.actionType.BaseType;
             
-            if (baseType == null)
-                return null;
-            
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>)) 
-                return baseType.GetGenericArguments()[1];
-            
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<>)) 
-                return typeof(EmptyActionProperties);
+            while (baseType != null)
+            {
+                if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>))
+                    return baseType.GetGenericArguments()[1];
+                
+                if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<>))
+                    return typeof(EmptyActionProperties);
+                
+                baseType = baseType.BaseType;
+            }
             
             return null;
         }
