@@ -3,6 +3,7 @@
     public enum AgentState
     {
         NoAction,
+        StartingAction,
         PerformingAction,
         MovingToTarget,
         MovingWhilePerformingAction,
