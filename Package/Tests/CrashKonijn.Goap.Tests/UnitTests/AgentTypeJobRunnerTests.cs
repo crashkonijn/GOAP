@@ -399,5 +399,49 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             this.goapActionProvider.Received(0).SetAction(Arg.Any<IGoalResult>());
         }
+
+        [Test]
+        public void Run_WithMultipleGoals_DoesntResolveCompletedGoal()
+        {
+            // Arrange
+            var condition1 = Substitute.For<ICondition>();
+            var goal1 = Substitute.For<IGoal>();
+            goal1.Conditions.Returns(new [] { condition1 });
+            
+            var condition2 = Substitute.For<ICondition>();
+            var goal2 = Substitute.For<IGoal>();
+            goal2.Conditions.Returns(new [] { condition2 });
+            
+            var goalRequest = Substitute.For<IGoalRequest>();
+            goalRequest.Goals.Returns(new [] { goal1, goal2 });
+            
+            this.goapActionProvider.GoalRequest.Returns(goalRequest);
+            this.goapActionProvider.Receiver.ActionState.Action.ReturnsNull();
+            
+            var goapConfig = Substitute.For<IGoapConfig>();
+            goapConfig.ConditionObserver.IsMet(condition1).Returns(true);
+            goapConfig.ConditionObserver.IsMet(condition2).Returns(false);
+            
+            var sensorRunner = Substitute.For<ISensorRunner>();
+            
+            var agentType = Substitute.For<IAgentType>();
+            agentType.SensorRunner.Returns(sensorRunner);
+            agentType.GetAllNodes().Returns(new List<IConnectable> { goal1, goal2 });
+            agentType.GetActions().Returns(new List<IGoapAction>());
+            agentType.GetGoals().Returns(new List<IGoal>() { goal1, goal2 });
+            agentType.GoapConfig.Returns(goapConfig);
+            
+            var resolver = Substitute.For<IGraphResolver>();
+            
+            var runner = new AgentTypeJobRunner(agentType, resolver);
+            
+            // Act
+            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Dispose();
+            
+            // Assert
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
+            resolver.Received(1).StartResolve(Arg.Is<RunData>(x => x.StartIndex.Length == 1));
+        }
     }
 }

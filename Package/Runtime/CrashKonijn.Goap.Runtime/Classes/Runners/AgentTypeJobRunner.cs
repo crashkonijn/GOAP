@@ -19,6 +19,8 @@ namespace CrashKonijn.Goap.Runtime
         private readonly IPositionBuilder positionBuilder;
         private readonly ICostBuilder costBuilder;
         private readonly IConditionBuilder conditionBuilder;
+        
+        private List<int> goalIndexes = new();
 
         public AgentTypeJobRunner(IAgentType agentType, IGraphResolver graphResolver)
         {
@@ -68,13 +70,21 @@ namespace CrashKonijn.Goap.Runtime
             
             actionProvider.Logger.Log($"Trying to resolve goals {string.Join(", ", goalRequest.Goals.Select(goal => goal.GetType().GetGenericTypeName()))}");
             
-            var goalIndexes = goalRequest.Goals.Select(goal => this.resolver.GetIndex(goal)).ToArray();
+            this.goalIndexes.Clear();
+            
+            foreach (var goal in goalRequest.Goals)
+            {
+                if (this.IsGoalCompleted(actionProvider, goal))
+                    continue;
+                
+                this.goalIndexes.Add(this.resolver.GetIndex(goal));
+            }
             
             this.resolveHandles.Add(new JobRunHandle(actionProvider, goalRequest)
             {
                 Handle = this.resolver.StartResolve(new RunData
                 {
-                    StartIndex = new NativeArray<int>(goalIndexes, Allocator.TempJob),
+                    StartIndex = new NativeArray<int>(this.goalIndexes.ToArray(), Allocator.TempJob),
                     AgentPosition = actionProvider.Position,
                     IsEnabled = new NativeArray<bool>(this.enabledBuilder.Build(), Allocator.TempJob),
                     IsExecutable = new NativeArray<bool>(this.executableBuilder.Build(), Allocator.TempJob),
@@ -131,10 +141,18 @@ namespace CrashKonijn.Goap.Runtime
             if (actionProvider.CurrentPlan?.Goal == null)
                 return false;
             
+            return this.IsGoalCompleted(actionProvider, actionProvider.CurrentPlan.Goal);
+        }
+
+        private bool IsGoalCompleted(IGoapActionProvider actionProvider, IGoal goal)
+        {
+            if (goal == null)
+                return false;
+            
             var conditionObserver = this.agentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(actionProvider.WorldData);
             
-            foreach (var condition in actionProvider.CurrentPlan.Goal.Conditions)
+            foreach (var condition in goal.Conditions)
             {
                 if (!conditionObserver.IsMet(condition))
                     return false;
