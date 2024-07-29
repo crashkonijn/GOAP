@@ -126,6 +126,9 @@ namespace CrashKonijn.Agent.Runtime
             
             switch (state)
             {
+                case AgentMoveState.Idle:
+                    this.Events.TargetLost();
+                    break;
                 case AgentMoveState.InRange:
                     this.Events.TargetInRange(this.CurrentTarget);
                     break;
@@ -201,7 +204,7 @@ namespace CrashKonijn.Agent.Runtime
         {
             this.ActionState.Reset();
             this.CurrentTarget = null;
-            this.MoveState = AgentMoveState.Idle;
+            SetMoveState(AgentMoveState.Idle);
         }
         
         public void EnableAction<TAction>()

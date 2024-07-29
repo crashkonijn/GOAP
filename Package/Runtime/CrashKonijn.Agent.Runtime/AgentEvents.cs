@@ -53,6 +53,12 @@ namespace CrashKonijn.Agent.Runtime
             this.OnTargetChanged?.Invoke(target, inRange);
         }
 
+        public event EmptyDelegate OnTargetLost;
+        public void TargetLost()
+        {
+            this.OnTargetLost?.Invoke();
+        }
+
         public event TargetDelegate OnMove;
         public void Move(ITarget target)
         {
