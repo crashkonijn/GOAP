@@ -157,6 +157,8 @@ namespace CrashKonijn.Agent.Runtime
 
             this.ActionState.SetAction(action, data);
             this.Timers.Action.Touch();
+            
+            this.SetState(AgentState.StartingAction);
 
             action.Start(this, data);
             
