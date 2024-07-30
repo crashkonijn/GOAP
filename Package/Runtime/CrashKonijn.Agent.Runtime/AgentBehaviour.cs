@@ -99,14 +99,13 @@ namespace CrashKonijn.Agent.Runtime
             
             this.CurrentTarget = this.ActionState.Data?.Target;
             
-            if (this.CurrentTarget != null)
-            {
-                this.Events.TargetChanged(this.CurrentTarget, this.IsInRange());
-            }
-            else
+            if (this.CurrentTarget == null)
             {
                 this.Events.TargetLost();
+                return;
             }
+
+            this.Events.TargetChanged(this.CurrentTarget, this.IsInRange());
         }
 
         private void SetState(AgentState state)
