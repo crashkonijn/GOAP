@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class ComplexInventoryBehaviour : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace Demos.Complex.Behaviours
         public void Add<T>(T item)
             where T : IHoldable
         {
-            item.Pickup();
+            item.Pickup(this.gameObject);
             
             if (!this.items.Contains(item))
                 this.items.Add(item);
@@ -22,7 +22,7 @@ namespace Demos.Complex.Behaviours
         public void Hold<T>(T item)
             where T : IHoldable
         {
-            item.Pickup(true);
+            item.Pickup(this.gameObject, true);
 
             item.gameObject.transform.position = this.transform.position + new Vector3(0f, 0.1f, -0.2f);
             item.gameObject.transform.parent = this.transform;

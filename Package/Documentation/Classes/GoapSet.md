@@ -33,25 +33,3 @@ This is a list of `TargetSensorConfigs`, assisting the agent in determining key 
 This property holds a list of `WorldSensorConfigs`, enabling the agent to gather data about the game's current state.
 
 By configuring the `GoapSetConfig` appropriately, you can tailor the behavior and capabilities of agents, ensuring they act and react in ways that suit the game's requirements.
-
----
-
-## Agent Debugger Class
-By defining an agent debugger class you can customize the data show in the node viewer in the `Agent data` box. The agent debugger class must inherit from `IAgentDebugger` and be assigned to the property.
-
-{% code title="AgentDebugger.cs" lineNumbers="true" %}
-```csharp
-using CrashKonijn.Goap.Interfaces;
-using Demos.Shared.Behaviours;
-
-public class AgentDebugger : IAgentDebugger
-{
-    public string GetInfo(IMonoAgent agent, IComponentReference references)
-    {
-        var hunger = references.GetCachedComponent<HungerBehaviour>();
-        
-        return $"Hunger: {hunger.hunger}";
-    }
-}
-```
-{% endcode %}

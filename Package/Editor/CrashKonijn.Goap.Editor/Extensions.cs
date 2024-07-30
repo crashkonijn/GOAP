@@ -1,4 +1,7 @@
 ﻿using System;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor
@@ -12,6 +15,21 @@ namespace CrashKonijn.Goap.Editor
             callback?.Invoke(child);
             
             return child;
+        }
+
+        public static float GetCost(this INode node, IActionReceiver agent)
+        {
+            if (node.Action is IAction action)
+            {
+                return action.GetCost(agent, agent.Injector);
+            }
+            
+            if (node.Action is IGoal goal)
+            {
+                return goal.GetCost(agent, agent.Injector);
+            }
+            
+            return 0;
         }
     }
 }

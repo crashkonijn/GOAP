@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.UnitTests.Data
 {
@@ -22,6 +22,11 @@ namespace CrashKonijn.Goap.UnitTests.Data
                 return this.metConditionActions.Contains(testConnection.GetKey());
             
             throw new Exception("Invalid condition");
+        }
+
+        public void SetWorldData(IWorldData worldData)
+        {
+            throw new NotImplementedException();
         }
 
         public bool IsMet(IEffect effect)

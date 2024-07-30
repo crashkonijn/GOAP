@@ -1,7 +1,0 @@
-#right-panel {
-    background-color: var(--unity-colors-alternated_rows-background);
-    background-image: url('../Textures/background_grid.png');
-    background-position: 0 0;
-    background-repeat: repeat;
-    background-size: 100px 100px;
-}

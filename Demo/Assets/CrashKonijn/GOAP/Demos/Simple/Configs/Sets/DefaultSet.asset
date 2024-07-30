@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539bc3388ee5fe4418e66a11759478e5, type: 3}
   m_Name: DefaultSet
   m_EditorClassIdentifier: 
+  capabilityConfig: {fileID: 11400000, guid: 04c6790c733a2ac49a08cb220b33311b, type: 2}
   actions:
   - {fileID: 11400000, guid: a5ec52e35b7cd0b4088f9677cc010ed3, type: 2}
   - {fileID: 11400000, guid: 0972539c19d955a438d6b3c030deb8e7, type: 2}

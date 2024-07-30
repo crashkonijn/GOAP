@@ -1,23 +1,28 @@
-﻿using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Sensors;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-namespace Demos.Complex.Sensors.World
+namespace CrashKonijn.Goap.Demos.Complex.Sensors.World
 {
-    public class IsInWorldSensor<T> : GlobalWorldSensorBase where T : IHoldable
+    public class IsInWorldSensor<T> : LocalWorldSensorBase where T : IHoldable
     {
         private ItemCollection collection;
 
         public override void Created()
         {
-            this.collection = Compatibility.FindObjectOfType<ItemCollection>();
+            this.collection = Object.FindObjectOfType<ItemCollection>();
         }
 
-        public override SenseValue Sense()
+        public override void Update()
         {
-            return this.collection.GetFiltered<T>(false, true, false).Length;
+        }
+
+        public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
+        {
+            return this.collection.GetFiltered<T>(false, true, agent.Transform.gameObject).Length;
         }
     }
 }

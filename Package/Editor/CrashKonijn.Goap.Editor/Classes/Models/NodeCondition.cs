@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
 
-namespace CrashKonijn.Goap.Editor.Classes.Models
+namespace CrashKonijn.Goap.Editor
 {
     public class NodeCondition
     {

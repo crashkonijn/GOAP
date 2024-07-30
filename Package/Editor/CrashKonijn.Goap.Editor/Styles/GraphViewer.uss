@@ -1,0 +1,227 @@
+﻿.node {
+    border-color: black;
+    border-width: 1px;
+    border-radius: 5px;
+    
+    display: flex;
+    flex-direction: column; /* Align children horizontally */
+    flex-shrink: 0; /* Don’t shrink smaller than content */
+    
+    /*background-color: #2f2f2f;*/
+    background-color: var(--unity-colors-tooltip-background);
+}
+
+.node.active {
+    border-color: #1A9018;
+    border-width: 2px;
+} 
+
+.node.path {
+    border-color: #009dff;
+    border-width: 2px;
+}
+
+.node.disabled {
+    border-color: #ff3c00;
+    border-width: 2px;
+}
+
+.node.collapsed .effects {
+    /*min-height: 40px;*/
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+    /*opacity: 0;*/
+    /*visibility: hidden;*/
+    display: none;
+
+    /*border-color: blue;*/
+    /*border-width: 1px;*/
+}
+
+.node.collapsed .conditions {
+    /*min-height: 40px;*/
+    /*max-height: 0;*/
+    margin: 0;
+    margin-top: -5px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    /*opacity: 0;*/
+    /*visibility: hidden;*/
+    /*display: none;*/
+
+    /*border-color: red;*/
+    /*border-width: 1px;*/
+
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    flex-grow: 1;
+    flex-shrink: 0;
+
+    padding: 0;
+}
+
+.node.collapsed .condition {
+    max-width: 20px;
+    /*border-color: blue;*/
+    /*border-width: 1px;*/
+    margin: 0;
+    padding: 0;
+}
+
+.node.collapsed .conditions Label, .node.collapsed .effects Label {
+    display: none;
+    max-height: 0;
+}
+
+.node.collapsed .conditions Circle {
+    margin: 0;
+    padding: 0;
+}
+
+.node .content {
+    flex-grow: 1; /* Grow to fill available space */
+    flex-shrink: 1; /* Shrink smaller than content */
+    padding: 10px;
+    min-width: 200px;
+}
+
+.node .conditions {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    flex-shrink: 0; /* Don’t shrink smaller than content */
+    
+    padding: 10px;
+    min-width: 30px;
+    /*border-color: aqua;*/
+    /*border-width: 1px;*/
+}
+
+.node .conditions .condition {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    flex-grow: 1;
+    flex-shrink: 0;
+    
+    padding: 5px 0;
+    
+    /*border-color: blue;*/
+    /*border-width: 1px;*/
+}
+
+.node .conditions Circle {
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+.node .effects {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    flex-shrink: 0; /* Don’t shrink smaller than content */
+    padding: 10px;
+    
+    min-width: 30px;
+    /*border-color: aqua;*/
+    /*border-width: 1px;*/
+}
+
+.node .effects .effect {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    flex-grow: 1;
+    flex-shrink: 0;
+
+    padding: 5px 0;
+    
+    /*border-color: blue;*/
+    /*border-width: 1px;*/
+}
+
+.drag-root {
+    flex-grow: 1;
+    overflow: hidden;
+    
+    /*border-color: red;*/
+    /*border-width: 1px;*/
+}
+
+.node-root {
+    display: flex;
+    flex-direction: column; /* Align children horizontally */
+    justify-content: flex-start;
+
+    flex-shrink: 0; /* Don’t shrink smaller than content */
+    flex-grow: 0; /* Don’t grow larger than content */
+
+    /*border-color: blue;*/
+    /*border-width: 1px;*/
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    justify-content: flex-start;
+    
+    flex-shrink: 0; /* Don’t shrink smaller than content */
+    flex-grow: 0; /* Don’t grow larger than content */
+
+    /*border-color: blue;*/
+    /*border-width: 1px;*/
+    
+    margin: 0 0;
+}
+
+.wrapper .wrapper {
+    margin: 0;
+    padding: 0;
+    
+    border-width: 0;
+
+    flex-grow: 0; /* Don’t grow larger than content */
+
+    /*border-color: red;*/
+    /*border-width: 1px;*/
+}
+
+.node-wrapper, .child-wrapper {
+    flex-grow: 0; /* Don’t grow larger than content */
+    flex-shrink: 0; /* Don’t shrink smaller than content */
+
+    margin: 10px 20px;
+
+    /*border-color: red;*/
+    /*border-width: 1px;*/
+}
+
+.node-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center children vertically */
+    align-items: center; /* Center children horizontally */
+    flex-shrink: 0; /* Don’t shrink smaller than content */
+
+    /*border-color: green;*/
+    /*border-width: 1px;*/
+}
+
+.bezier-wrapper {
+    position: relative;
+}
+
+.bezier-drawer {
+    max-width: 0;
+    max-height: 0;
+}
+
+.distance-cost {
+    color: white;
+    
+    padding: 5px;
+    margin-top: -10px;
+    /*margin-left: -15px;*/
+
+    background-color: var(--unity-colors-tooltip-background);
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: var(--unity-colors-default-border);
+}

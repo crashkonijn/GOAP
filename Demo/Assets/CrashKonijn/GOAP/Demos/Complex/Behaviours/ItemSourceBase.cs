@@ -1,7 +1,7 @@
-﻿using Demos.Complex.Interfaces;
+﻿using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Behaviours
+namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 {
     public class ItemSourceBase<T> : MonoBehaviour, ISource<T>
         where T : IGatherable
