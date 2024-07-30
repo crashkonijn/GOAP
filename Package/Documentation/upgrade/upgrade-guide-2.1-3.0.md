@@ -216,6 +216,9 @@ public class CleanerAgentTypeFactory : AgentTypeFactoryBase
 ## Remove the UpgradeExtensions file
 At this point the UpgradeExtensions should not be needed anymore, please remove it.
 
+## MoveBehaviour
+In v2 the `OnTargetChanged` event would also be called with null, in v3 the `OnTargetLost` event gets called instead if the target is null. You should implement this event on your move script.
+
 ## Generator
 The generator can help you quickly boilerplate your new classes. To use the generator please make sure to follow these steps:
 
