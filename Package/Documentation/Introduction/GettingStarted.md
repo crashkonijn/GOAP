@@ -7,7 +7,7 @@
 ## Installation
 Add the package to your project using the package manager. Add the following URL to the package manager:
 ```
-https://github.com/crashkonijn/GOAP.git?path=/Package#3.0.9-beta
+https://github.com/crashkonijn/GOAP.git?path=/Package#3.0.10-beta
 ```
 
 Alternatively install through [OpenUPM](https://openupm.com/packages/com.crashkonijn.goap/) or the [Unity Asset Store](https://assetstore.unity.com/packages/slug/252687).
