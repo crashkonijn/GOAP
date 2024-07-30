@@ -85,10 +85,7 @@ namespace CrashKonijn.Agent.Runtime
         public void Run()
         {
             if (this.ActionState.Action == null)
-            {
-                this.SetState(AgentState.NoAction);
                 return;
-            }
             
             this.UpdateTarget();
 
@@ -101,6 +98,13 @@ namespace CrashKonijn.Agent.Runtime
                 return;
             
             this.CurrentTarget = this.ActionState.Data?.Target;
+            
+            if (this.CurrentTarget == null)
+            {
+                this.Events.TargetLost();
+                return;
+            }
+
             this.Events.TargetChanged(this.CurrentTarget, this.IsInRange());
         }
 
@@ -202,8 +206,9 @@ namespace CrashKonijn.Agent.Runtime
         private void ResetAction()
         {
             this.ActionState.Reset();
-            this.CurrentTarget = null;
-            this.MoveState = AgentMoveState.Idle;
+            this.SetState(AgentState.NoAction);
+            this.SetMoveState(AgentMoveState.Idle);
+            this.UpdateTarget();
         }
         
         public void EnableAction<TAction>()

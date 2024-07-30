@@ -26,7 +26,10 @@ namespace CrashKonijn.Agent.Core
         
         event TargetRangeDelegate OnTargetChanged;
         void TargetChanged(ITarget target, bool inRange);
-
+        
+        event EmptyDelegate OnTargetLost;
+        void TargetLost();
+        
         event TargetDelegate OnMove;
         void Move(ITarget target);
 
