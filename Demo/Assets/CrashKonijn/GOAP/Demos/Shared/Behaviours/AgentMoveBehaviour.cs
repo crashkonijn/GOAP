@@ -21,6 +21,7 @@ namespace Demos.Shared.Behaviours
             this.agent.Events.OnTargetInRange += this.OnTargetInRange;
             this.agent.Events.OnTargetChanged += this.OnTargetChanged;
             this.agent.Events.OnTargetNotInRange += this.TargetNotInRange;
+            this.agent.Events.OnTargetLost += this.TargetLost;
         }
 
         private void OnDisable()
@@ -28,6 +29,13 @@ namespace Demos.Shared.Behaviours
             this.agent.Events.OnTargetInRange -= this.OnTargetInRange;
             this.agent.Events.OnTargetChanged -= this.OnTargetChanged;
             this.agent.Events.OnTargetNotInRange -= this.TargetNotInRange;
+            this.agent.Events.OnTargetLost -= this.TargetLost;
+        }
+
+        private void TargetLost()
+        {
+            this.currentTarget = null;
+            this.IsMoving = false;
         }
 
         private void OnTargetInRange(ITarget target)

@@ -20,6 +20,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
             this.agent.Events.OnTargetInRange += this.OnTargetInRange;
             this.agent.Events.OnTargetChanged += this.OnTargetChanged;
             this.agent.Events.OnTargetNotInRange += this.TargetNotInRange;
+            this.agent.Events.OnTargetLost += this.TargetLost;
         }
 
         private void OnDisable()
@@ -27,6 +28,13 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
             this.agent.Events.OnTargetInRange -= this.OnTargetInRange;
             this.agent.Events.OnTargetChanged -= this.OnTargetChanged;
             this.agent.Events.OnTargetNotInRange -= this.TargetNotInRange;
+            this.agent.Events.OnTargetLost -= this.TargetLost;
+        }
+        
+        private void TargetLost()
+        {
+            this.currentTarget = null;
+            this.shouldMove = false;
         }
 
         private void OnTargetInRange(ITarget target)
