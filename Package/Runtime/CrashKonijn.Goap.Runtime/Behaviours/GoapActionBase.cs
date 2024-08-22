@@ -79,7 +79,7 @@ namespace CrashKonijn.Goap.Runtime
                 return false;
             }
 
-            return base.IsValid(agent, (TActionData) data);
+            return this.IsValid(agent, (TActionData) data);
         }
         
         public bool IsExecutable(IActionReceiver agent, bool conditionsMet)
