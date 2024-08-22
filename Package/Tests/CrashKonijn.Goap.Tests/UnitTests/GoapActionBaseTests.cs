@@ -36,7 +36,7 @@ namespace CrashKonijn.Goap.UnitTests
 
         [TestCase(false)]
         [TestCase(true)]
-        public void Test(bool shouldBe)
+        public void IsValid_ShouldCall_CustomIsValid(bool shouldBe)
         {
             var gameObject = new GameObject();
             var goapActionProvider = gameObject.AddComponent<GoapActionProvider>();
