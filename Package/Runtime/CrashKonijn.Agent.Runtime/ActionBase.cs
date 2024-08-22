@@ -33,11 +33,6 @@ namespace CrashKonijn.Agent.Runtime
         public void Start(IMonoAgent agent, IActionData data) => this.Start(agent, (TActionData) data);
         
         public virtual void Start(IMonoAgent agent, TActionData data) {}
-
-        public virtual bool IsValid(IActionReceiver agent, TActionData data)
-        {
-            return true;
-        }
         
         public bool IsEnabled(IActionReceiver agent)
         {

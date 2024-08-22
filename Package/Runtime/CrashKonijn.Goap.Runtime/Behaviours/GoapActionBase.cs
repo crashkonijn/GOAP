@@ -82,6 +82,11 @@ namespace CrashKonijn.Goap.Runtime
             return this.IsValid(agent, (TActionData) data);
         }
         
+        public virtual bool IsValid(IActionReceiver agent, TActionData data)
+        {
+            return true;
+        }
+        
         public bool IsExecutable(IActionReceiver agent, bool conditionsMet)
         {
             var goapAgent = agent.Injector.GetCachedComponent<GoapActionProvider>();
