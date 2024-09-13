@@ -1,4 +1,8 @@
-﻿# FAQ
+# FAQ
+
+{% hint style="warning" %}
+V3 is currently stable, but still in beta because the docs are still those of v2.
+{% endhint %}
 
 ## Why does each action need a target?
 
@@ -16,5 +20,4 @@ This does make the graph much smaller. However each action would require logic f
 
 This is the option this project uses. This uses a smaller graph than option 1. This doesn't need to perform movement in an action, keeping them simpler. The graph calculates distance between two actions, adding that cost automatically. Actions don't need to be aware of each other, or their relative position in the graph, making them simpler.
 
-![With move actions](../images/faq_target_with_move_actions.png)
-![Without move actions](../images/faq_target_without_move_action.png)
+![With move actions](../images/faq\_target\_with\_move\_actions.png) ![Without move actions](../images/faq\_target\_without\_move\_action.png)

@@ -1,11 +1,20 @@
 # Getting Started
 
+##
+
+{% hint style="warning" %}
+V3 is currently stable, but still in beta because the docs are still those of v2.
+{% endhint %}
+
 ## Tutorials
-- **[YouTube tutorials](https://www.youtube.com/playlist?list=PLZWmMt_TbeYeatHa9hntDPu4zGEBAFffn)** on how to use the library.
-- **[YouTube references](https://www.youtube.com/playlist?list=PLZWmMt_TbeYdBZKvlsRuuOubPTTfPuZot)** discussing GOAP in general.
+
+* [**YouTube tutorials**](https://www.youtube.com/playlist?list=PLZWmMt\_TbeYeatHa9hntDPu4zGEBAFffn) on how to use the library.
+* [**YouTube references**](https://www.youtube.com/playlist?list=PLZWmMt\_TbeYdBZKvlsRuuOubPTTfPuZot) discussing GOAP in general.
 
 ## Installation
+
 Add the package to your project using the package manager. Add the following URL to the package manager:
+
 ```
 https://github.com/crashkonijn/GOAP.git?path=/Package#3.0.12-beta
 ```
@@ -17,15 +26,16 @@ Alternatively install through [OpenUPM](https://openupm.com/packages/com.crashko
 {% endhint %}
 
 ## Overview
+
 Below is a quick overview of the different components of classes and how they are connected to an Action.
 
-![Class overview](../images/class_overview.png)
+![Class overview](../images/class\_overview.png)
 
 ## Setup in Unity
 
 1. Create a class called `WanderGoal` that extends `GoalBase`.
 
-{% code title="WanderGoal.cs" lang="csharp" %}
+{% code title="WanderGoal.cs" %}
 ```csharp
 using CrashKonijn.Goap.Behaviours;
 
@@ -37,7 +47,7 @@ public class WanderGoal : GoalBase
 
 2. Create a class called `WanderAction` that extends `ActionBase`. The generic value of the class is the type of the data class used in this goal.
 
-{% code title="WanderAction.cs" lang="csharp" %}
+{% code title="WanderAction.cs" %}
 ```csharp
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
@@ -89,7 +99,7 @@ public class WanderAction : ActionBase<WanderAction.Data>
 
 3. Create a class called `WanderTargetSensor` that extends `LocalTargetSensorBase`. The generic value of the class is the type of the data class used in this goal.
 
-{% code title="WanderTargetSensor.cs" lang="csharp" %}
+{% code title="WanderTargetSensor.cs" %}
 ```csharp
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
@@ -130,7 +140,7 @@ public class WanderTargetSensor : LocalTargetSensorBase
 
 4. Create a class called `AgentMoveBehaviour`. This class will be called by the `AgentBehaviour` to move the agent to a target.
 
-{% code title="AgentMoveBehaviour.cs" lang="csharp" %}
+{% code title="AgentMoveBehaviour.cs" %}
 ```csharp
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Interfaces;
@@ -193,7 +203,7 @@ public class AgentMoveBehaviour : MonoBehaviour
 
 5. Create a script called `AgentBrain`.
 
-{% code title="AgentBrain.cs" lang="csharp" %}
+{% code title="AgentBrain.cs" %}
 ```csharp
 using CrashKonijn.Goap.Behaviours;
 using UnityEngine;
@@ -216,4 +226,5 @@ public class AgentBrain : MonoBehaviour
 {% endcode %}
 
 ## Choose your config style
+
 Either continue the getting started by using `Code` or `ScriptableObjects`.
