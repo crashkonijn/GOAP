@@ -2,7 +2,6 @@
 {
     public interface IAction
     {
-        float GetCost(IActionReceiver agent, IComponentReference references);
         ActionMoveMode GetMoveMode(IMonoAgent agent);
         float GetStoppingDistance();
         bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references);
