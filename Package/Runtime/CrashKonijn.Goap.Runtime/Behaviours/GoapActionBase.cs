@@ -40,7 +40,13 @@ namespace CrashKonijn.Goap.Runtime
             this.Config = config;
         }
         
+        [Obsolete("Use GetCost(IActionReceiver agent, IComponentReference references, ITarget target) instead")]
         public virtual float GetCost(IActionReceiver agent, IComponentReference references)
+        {
+            return this.Config.BaseCost;
+        }
+        
+        public virtual float GetCost(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             return this.Config.BaseCost;
         }

@@ -140,7 +140,7 @@ namespace CrashKonijn.Goap.Editor
                 
                 this.UpdateClasses(graphNode, provider);
                 
-                this.Cost.text = $"Cost: {graphNode.GetCost(provider.Receiver):0.00}";
+                this.Cost.text = $"Cost: {graphNode.GetCost(provider):0.00}";
 
                 if (graphNode.Action is IGoapAction action)
                 {

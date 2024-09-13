@@ -17,11 +17,13 @@ namespace CrashKonijn.Goap.Editor
             return child;
         }
 
-        public static float GetCost(this INode node, IActionReceiver agent)
+        public static float GetCost(this INode node, IGoapActionProvider provider)
         {
-            if (node.Action is IAction action)
+            var agent = provider.Receiver;
+            
+            if (node.Action is IGoapAction action)
             {
-                return action.GetCost(agent, agent.Injector);
+                return action.GetCost(agent, agent.Injector, provider.WorldData.GetTarget(action));
             }
             
             if (node.Action is IGoal goal)
