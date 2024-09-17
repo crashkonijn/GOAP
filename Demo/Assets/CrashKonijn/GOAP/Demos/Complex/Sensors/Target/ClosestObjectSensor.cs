@@ -18,12 +18,16 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
             this.items = Compatibility.FindObjectsOfType<T>();
         }
 
-        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             var closest = this.items.Closest(agent.Transform.position);
             
             if (closest == null)
                 return null;
+            
+            // Re-use the target if it already exists
+            if (target is TransformTarget transformTarget)
+                return transformTarget.SetTransform(closest.transform);
             
             return new TransformTarget(closest.transform);
         }

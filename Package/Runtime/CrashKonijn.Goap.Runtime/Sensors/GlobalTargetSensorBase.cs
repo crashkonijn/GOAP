@@ -16,9 +16,9 @@ namespace CrashKonijn.Goap.Runtime
 
         public void Sense(IWorldData worldData)
         {
-            worldData.SetTarget(this.Key, this.Sense());
+            worldData.SetTarget(this.Key, this.Sense(worldData.GetTargetValue(this.Key.GetType())));
         }
-        
-        public abstract ITarget Sense();
+
+        public abstract ITarget Sense(ITarget target);
     }
 }

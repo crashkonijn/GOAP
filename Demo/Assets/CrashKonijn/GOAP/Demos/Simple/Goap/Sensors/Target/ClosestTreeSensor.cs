@@ -2,7 +2,6 @@
 using CrashKonijn.Goap.Demos.Simple.Behaviours;
 using CrashKonijn.Goap.Runtime;
 using Demos;
-using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target
 {
@@ -20,7 +19,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             return new TransformTarget(this.trees.Closest(agent.Transform.position).transform);
         }

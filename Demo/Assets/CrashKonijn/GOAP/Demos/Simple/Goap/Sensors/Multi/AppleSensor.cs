@@ -25,19 +25,32 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi
 
         public AppleSensor()
         {
-            this.AddLocalTargetSensor<ClosestApple>((agent, references) =>
+            this.AddLocalTargetSensor<ClosestApple>((agent, references, target) =>
             {
                 var closestApple = this.apples.Get().Closest(agent.Transform.position);
 
                 if (closestApple is null)
                     return null;
+                
+                // Re-use the target if it already exists
+                if (target is TransformTarget transformTarget)
+                    return transformTarget.SetTransform(closestApple.transform);
             
                 return new TransformTarget(closestApple.transform);
             });
             
-            this.AddLocalTargetSensor<ClosestTree>((agent, references) =>
+            this.AddLocalTargetSensor<ClosestTree>((agent, references, target) =>
             {
-                return new TransformTarget(this.trees.Closest(agent.Transform.position).transform);
+                var closetTree = this.trees.Closest(agent.Transform.position);
+                
+                if (closetTree is null)
+                    return null;
+                
+                // Re-use the target if it already exists
+                if (target is TransformTarget transformTarget)
+                    return transformTarget.SetTransform(closetTree.transform);
+                
+                return new TransformTarget(closetTree.transform);
             });
             
             this.AddLocalWorldSensor<HasApple>((agent, references) =>

@@ -21,12 +21,16 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             var closest = this.collection.GetFiltered<T>(false, true, agent.Transform.gameObject).Cast<ItemBase>().Closest(agent.Transform.position);
             
             if (closest == null)
                 return null;
+            
+            // Re-use the existing target if the target exists
+            if (target is TransformTarget targetTransform)
+                return targetTransform.SetTransform(closest.transform);
             
             return new TransformTarget(closest.transform);
         }
