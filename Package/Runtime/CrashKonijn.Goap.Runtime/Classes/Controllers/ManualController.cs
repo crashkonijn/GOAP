@@ -32,7 +32,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             var runner = this.GetRunner(actionProvider);
             
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { actionProvider as IMonoGoapActionProvider });
+            runner.Run(new [] { actionProvider as IMonoGoapActionProvider });
             runner.Complete();
         }
 

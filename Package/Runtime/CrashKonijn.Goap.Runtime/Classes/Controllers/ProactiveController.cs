@@ -6,7 +6,6 @@ namespace CrashKonijn.Goap.Runtime
     public class ProactiveController : IGoapController
     {
         private IGoap goap;
-        private Dictionary<IAgentType, HashSet<IMonoGoapActionProvider>> agents = new();
         
         public float ResolveTime { get; set; } = 1f;
 
@@ -38,11 +37,9 @@ namespace CrashKonijn.Goap.Runtime
             
             foreach (var (type, runner) in this.goap.AgentTypeRunners)
             {
-                var queue = this.GetQueue(type);
+                var queue = type.Agents.GetQueue();
                 
                 runner.Run(queue);
-                
-                queue.Clear();
             }
             
             foreach (var agent in this.goap.Agents)
@@ -70,20 +67,17 @@ namespace CrashKonijn.Goap.Runtime
         
         private void OnNoActionFound(IMonoGoapActionProvider actionProvider, IGoalRequest request)
         {
-            this.GetQueue(actionProvider.AgentType).Add(actionProvider);
+            this.Enqueue(actionProvider);
         }
 
         private void OnAgentResolve(IMonoGoapActionProvider actionProvider)
         {
-            this.GetQueue(actionProvider.AgentType).Add(actionProvider);
+            this.Enqueue(actionProvider);
         }
         
-        private HashSet<IMonoGoapActionProvider> GetQueue(IAgentType agentType)
+        private void Enqueue(IMonoGoapActionProvider actionProvider)
         {
-            if (!this.agents.ContainsKey(agentType))
-                this.agents.Add(agentType, new HashSet<IMonoGoapActionProvider>());
-            
-            return this.agents[agentType];
+            actionProvider.AgentType?.Agents.Enqueue(actionProvider);
         }
     }
 }

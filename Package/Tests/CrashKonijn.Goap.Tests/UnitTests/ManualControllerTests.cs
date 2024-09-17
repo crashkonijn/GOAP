@@ -46,7 +46,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.goap.Events.OnAgentResolve += Raise.Event<GoapAgentDelegate>(agent);
             
             // Assert
-            jobRunner.Received(1).Run(Arg.Any<HashSet<IMonoGoapActionProvider>>());
+            jobRunner.Received(1).Run(Arg.Any<IMonoGoapActionProvider[]>());
             jobRunner.Received(1).Complete();
         }
     }

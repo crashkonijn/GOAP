@@ -34,7 +34,7 @@ namespace CrashKonijn.Goap.Runtime
             this.conditionBuilder = this.resolver.GetConditionBuilder();
         }
 
-        public void Run(HashSet<IMonoGoapActionProvider> queue)
+        public void Run(IMonoGoapActionProvider[] queue)
         {
             this.resolveHandles.Clear();
             

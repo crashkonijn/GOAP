@@ -4,6 +4,7 @@
     {
         bool HasPerformed { get; }
         IAction Action { get; }
+        public IAction PreviousAction { get; }
         IActionRunState RunState { get; set; }
         IActionData Data { get; }
 
