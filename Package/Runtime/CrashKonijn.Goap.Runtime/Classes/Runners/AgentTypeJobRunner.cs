@@ -32,6 +32,8 @@ namespace CrashKonijn.Goap.Runtime
             this.positionBuilder = this.resolver.GetPositionBuilder();
             this.costBuilder = this.resolver.GetCostBuilder();
             this.conditionBuilder = this.resolver.GetConditionBuilder();
+
+            agentType.SensorRunner.InitializeGraph(graphResolver.GetGraph());
         }
 
         public void Run(IMonoGoapActionProvider[] queue)
@@ -52,8 +54,6 @@ namespace CrashKonijn.Goap.Runtime
             if (actionProvider.IsNull())
                 return;
 
-            this.agentType.SensorRunner.SenseLocal(actionProvider);
-
             if (this.IsGoalCompleted(actionProvider))
             {
                 var goal = actionProvider.CurrentPlan;
@@ -65,6 +65,8 @@ namespace CrashKonijn.Goap.Runtime
             
             if (goalRequest == null)
                 return;
+            
+            this.agentType.SensorRunner.SenseLocal(actionProvider, goalRequest.Goals);
 
             this.FillBuilders(actionProvider);
             
@@ -136,10 +138,12 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
-        private bool IsGoalCompleted(IGoapActionProvider actionProvider)
+        private bool IsGoalCompleted(IMonoGoapActionProvider actionProvider)
         {
             if (actionProvider.CurrentPlan?.Goal == null)
                 return false;
+            
+            this.agentType.SensorRunner.SenseLocal(actionProvider, actionProvider.CurrentPlan.Goal);
             
             return this.IsGoalCompleted(actionProvider, actionProvider.CurrentPlan.Goal);
         }
