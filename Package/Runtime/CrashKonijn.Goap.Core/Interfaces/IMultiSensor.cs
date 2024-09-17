@@ -6,8 +6,6 @@ namespace CrashKonijn.Goap.Core
     public interface IMultiSensor : IHasConfig<IMultiSensorConfig>, ILocalSensor, IGlobalSensor
     {
         string[] GetSensors();
-        void Sense(IWorldData data, Type[] keys);
-        void Sense(IWorldData data, IActionReceiver agent, IComponentReference references, Type[] keys);
     }
 
     public interface ISensor

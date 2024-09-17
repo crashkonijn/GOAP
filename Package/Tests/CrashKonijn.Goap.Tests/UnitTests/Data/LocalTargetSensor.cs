@@ -13,7 +13,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
         {
         }
 
-        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             return default;
         }

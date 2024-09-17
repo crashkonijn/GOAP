@@ -16,9 +16,13 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             var random = this.GetRandomPosition(agent);
+            
+            // If we already have a target, update it with the new position
+            if (target is PositionTarget positionTarget)
+                return positionTarget.SetPosition(random);
             
             return new PositionTarget(random);
         }

@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             var random = this.GetRandomPosition(agent);
             

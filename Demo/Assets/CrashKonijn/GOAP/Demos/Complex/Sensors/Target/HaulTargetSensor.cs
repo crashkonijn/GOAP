@@ -24,12 +24,16 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             var item = this.itemCollection.Closest(agent.Transform.position, false, false, agent.Transform.gameObject);
             
             if (item is null)
                 return default;
+            
+            // Re-use the current ItemTarget if it exists
+            if (target is ItemTarget itemTarget)
+                return itemTarget.SetItem(item);
 
             return new ItemTarget(item);
         }

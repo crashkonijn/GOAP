@@ -102,7 +102,7 @@ namespace CrashKonijn.Goap.Runtime
             });
         }
 
-        public void AddLocalTargetSensor<TKey>(Func<IActionReceiver, IComponentReference, ITarget> sense)
+        public void AddLocalTargetSensor<TKey>(Func<IActionReceiver, IComponentReference, ITarget, ITarget> sense)
             where TKey : ITargetKey
         {
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
@@ -110,12 +110,12 @@ namespace CrashKonijn.Goap.Runtime
                 Key = typeof(TKey),
                 Sense = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
                 {
-                    data.SetTarget<TKey>(sense(agent, references));
+                    data.SetTarget<TKey>(sense(agent, references, data.GetTargetValue(typeof(TKey))));
                 }
             });
         }
 
-        public void AddGlobalTargetSensor<TKey>(Func<ITarget> sense)
+        public void AddGlobalTargetSensor<TKey>(Func<ITarget, ITarget> sense)
             where TKey : ITargetKey
         {
             this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
@@ -123,7 +123,7 @@ namespace CrashKonijn.Goap.Runtime
                 Key = typeof(TKey),
                 Sense = (IWorldData data) =>
                 {
-                    data.SetTarget<TKey>(sense());
+                    data.SetTarget<TKey>(sense(data.GetTargetValue(typeof(TKey))));
                 }
             });
         }

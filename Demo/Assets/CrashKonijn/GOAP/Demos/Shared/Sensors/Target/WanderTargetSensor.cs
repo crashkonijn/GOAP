@@ -1,5 +1,4 @@
 ﻿using CrashKonijn.Agent.Core;
-using CrashKonijn.Goap;
 using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
@@ -17,9 +16,14 @@ namespace Demos.Simple.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IActionReceiver agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             var random = this.GetRandomPosition(agent);
+            
+            if (target is PositionTarget positionTarget)
+            {
+                return positionTarget.SetPosition(random);
+            }
             
             return new PositionTarget(random);
         }

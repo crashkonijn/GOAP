@@ -5,7 +5,7 @@ namespace CrashKonijn.Goap.Runtime
 {
     public class TransformTarget : ITarget
     {
-        public Transform Transform { get; }
+        public Transform Transform { get; private set; }
 
         public Vector3 Position
         {
@@ -21,6 +21,12 @@ namespace CrashKonijn.Goap.Runtime
         public TransformTarget(Transform transform)
         {
             this.Transform = transform;
+        }
+
+        public TransformTarget SetTransform(Transform transform)
+        {
+            this.Transform = transform;
+            return this;
         }
     }
 }

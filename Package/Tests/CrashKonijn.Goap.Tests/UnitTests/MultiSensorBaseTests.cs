@@ -46,8 +46,8 @@ namespace CrashKonijn.Goap.UnitTests
         public void AddLocalAndGlobalTargetSensor_AddsSensorsCorrectly()
         {
             // Act
-            this.multiSensorBase.AddLocalTargetSensor<ITargetKey>((_, _) => null);
-            this.multiSensorBase.AddGlobalTargetSensor<ITargetKey>(() => null);
+            this.multiSensorBase.AddLocalTargetSensor<ITargetKey>((_, _, _) => null);
+            this.multiSensorBase.AddGlobalTargetSensor<ITargetKey>((_) => null);
 
             // Assert
             Assert.AreEqual(1, this.multiSensorBase.LocalSensors.Count);
@@ -97,7 +97,7 @@ namespace CrashKonijn.Goap.UnitTests
             var targetValue = Substitute.For<ITarget>();
 
             this.multiSensorBase.AddLocalWorldSensor<IWorldKey>((_, _) => worldValue);
-            this.multiSensorBase.AddLocalTargetSensor<ITargetKey>((_, _) => targetValue);
+            this.multiSensorBase.AddLocalTargetSensor<ITargetKey>((_, _, _) => targetValue);
 
             // Act
             this.multiSensorBase.Sense(this.mockWorldData, this.mockMonoAgent, this.mockComponentReference);
@@ -115,7 +115,7 @@ namespace CrashKonijn.Goap.UnitTests
             var targetValue = Substitute.For<ITarget>();
 
             this.multiSensorBase.AddGlobalWorldSensor<IWorldKey>(() => worldValue);
-            this.multiSensorBase.AddGlobalTargetSensor<ITargetKey>(() => targetValue);
+            this.multiSensorBase.AddGlobalTargetSensor<ITargetKey>((_) => targetValue);
 
             // Act
             this.multiSensorBase.Sense(this.mockWorldData);
