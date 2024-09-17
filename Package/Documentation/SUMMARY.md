@@ -3,6 +3,7 @@
 * [Introduction](README.md)
   * [What is Goap?](Introduction/Theory.md)
   * [Getting Started](Introduction/GettingStarted.md)
+    * [Setup](readme/gettingstarted/setup.md)
     * [Code](Introduction/Code.md)
     * [ScriptableObjects](Introduction/ScriptableObjects.md)
   * [FAQ](Introduction/FAQ.md)
