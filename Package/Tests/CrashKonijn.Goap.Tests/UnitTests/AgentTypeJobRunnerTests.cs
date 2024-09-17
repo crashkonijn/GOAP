@@ -161,7 +161,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider, Arg.Any<IGoal[]>());
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
 
@@ -198,7 +198,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider, goalRequest.Goals);
             resolver.Received(1).StartResolve(Arg.Is<RunData>(x => x.StartIndex.Length == 2));
         }
         
@@ -232,7 +232,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider, Arg.Any<IGoal[]>());
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
         }
 
@@ -272,7 +272,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider, goal);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
             this.goapActionProvider.Events.Received(1).GoalCompleted(goal);
         }
@@ -309,7 +309,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider, goal);
             resolver.Received(1).StartResolve(Arg.Any<RunData>());
             this.goapActionProvider.Events.Received(0).GoalCompleted(goal);
         }
@@ -354,7 +354,6 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Complete();
             
             // Assert
-            // this.goapActionProvider.Received(1).SetAction(goal, action, Arg.Any<IConnectable[]>());
             this.goapActionProvider.Received(1).SetAction(Arg.Any<IGoalResult>());
         }
         
@@ -441,7 +440,7 @@ namespace CrashKonijn.Goap.UnitTests
             runner.Dispose();
             
             // Assert
-            sensorRunner.Received(1).SenseLocal(this.goapActionProvider);
+            sensorRunner.Received(1).SenseLocal(this.goapActionProvider, goalRequest.Goals);
             resolver.Received(1).StartResolve(Arg.Is<RunData>(x => x.StartIndex.Length == 1));
         }
     }
