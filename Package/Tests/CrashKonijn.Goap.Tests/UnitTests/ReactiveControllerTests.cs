@@ -51,7 +51,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.controller.OnUpdate();
         
             // Assert
-            this.runner.Received().Run(Arg.Any<HashSet<IMonoGoapActionProvider>>());
+            this.runner.Received().Run(Arg.Any<IMonoGoapActionProvider[]>());
         }
         
         [Test]

@@ -61,12 +61,13 @@ namespace CrashKonijn.Goap.Runtime
                 return;
             
             this.AgentType.Register(this);
+            
+            if (this.GoalRequest != null)
+                this.ResolveAction();
         }
 
         private void OnDisable()
         {
-            this.StopAction(false);
-
             if (this.AgentType == null)
                 return;
             
@@ -217,9 +218,10 @@ namespace CrashKonijn.Goap.Runtime
             this.Receiver.SetAction(this, result.Action, this.WorldData.GetTarget(result.Action));
         }
 
+        [Obsolete("Use agent.StopAction() instead")]
         public void StopAction(bool resolveAction = true)
         {
-            this.Receiver.StopAction(resolveAction);
+            this.Receiver?.StopAction(resolveAction);
         }
 
         private IActionReceiver receiver;

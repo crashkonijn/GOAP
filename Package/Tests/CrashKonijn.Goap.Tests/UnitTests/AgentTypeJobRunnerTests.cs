@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Resolver;
@@ -45,7 +46,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
@@ -67,7 +68,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>());
+            runner.Run(Array.Empty<IMonoGoapActionProvider>());
             runner.Dispose();
             
             // Assert
@@ -91,7 +92,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
@@ -118,7 +119,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>());
+            runner.Run(Array.Empty<IMonoGoapActionProvider>());
             runner.Dispose();
             
             // Assert
@@ -156,7 +157,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
@@ -193,7 +194,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
@@ -227,7 +228,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
@@ -267,7 +268,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
@@ -304,7 +305,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Dispose();
             
             // Assert
@@ -349,7 +350,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Complete();
             
             // Assert
@@ -393,7 +394,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Complete();
             
             // Assert
@@ -436,7 +437,7 @@ namespace CrashKonijn.Goap.UnitTests
             var runner = new AgentTypeJobRunner(agentType, resolver);
             
             // Act
-            runner.Run(new HashSet<IMonoGoapActionProvider>() { this.goapActionProvider });
+            runner.Run(new [] { this.goapActionProvider });
             runner.Dispose();
             
             // Assert

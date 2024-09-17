@@ -354,7 +354,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.InsertAction(action);
             
             // Act
-            this.provider.StopAction();
+            this.agent.StopAction();
             
             // Assert
             action.Received(1).Stop(this.agent, Arg.Any<IActionData>());
@@ -375,7 +375,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Action = Substitute.For<IGoapAction>()
             });
             
-            this.provider.StopAction();
+            this.agent.StopAction();
             
             // Assert
             this.provider.Receiver.ActionState.Action.Should().BeNull();
@@ -395,7 +395,7 @@ namespace CrashKonijn.Goap.UnitTests
                 Plan = Array.Empty<IConnectable>(),
                 Action = Substitute.For<IGoapAction>()
             });
-            this.provider.StopAction();
+            this.agent.StopAction();
             
             // Assert
             this.provider.Receiver.ActionState.Data.Should().BeNull();
@@ -411,7 +411,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.MockEvents();
             
             // Act
-            this.provider.StopAction();
+            this.agent.StopAction();
             
             // Assert
             this.provider.Events.Received(1).Resolve();
@@ -435,7 +435,7 @@ namespace CrashKonijn.Goap.UnitTests
             });
 
             // Act
-            this.provider.StopAction();
+            this.agent.StopAction();
             
             // Assert
             this.agent.Events.Received(1).ActionStop(action);

@@ -37,6 +37,9 @@ namespace CrashKonijn.Goap.Runtime
 
         public void Enqueue(IMonoGoapActionProvider actionProvider)
         {
+            if (!this.agents.Contains(actionProvider))
+                return;
+            
             this.queue.Add(actionProvider);
         }
         

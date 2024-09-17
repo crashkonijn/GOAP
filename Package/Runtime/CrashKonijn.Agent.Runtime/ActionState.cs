@@ -6,6 +6,7 @@ namespace CrashKonijn.Agent.Runtime
     {
         public bool HasPerformed => this.RunState != null;
         public IAction Action { get; private set; }
+        public IAction PreviousAction { get; private set; }
         public IActionRunState RunState { get; set; }
         public IActionData Data { get; private set; }
         
@@ -18,6 +19,7 @@ namespace CrashKonijn.Agent.Runtime
 
         public void Reset()
         {
+            this.PreviousAction = this.Action;
             this.Action = null;
             this.RunState = null;
             this.Data = null;
