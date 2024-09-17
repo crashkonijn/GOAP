@@ -113,7 +113,7 @@ namespace CrashKonijn.Goap.Editor
             {
                 if (graphNode.Action is IGoapAction goapAction)
                 {
-                    this.TargetCircle.SetColor(this.GetCircleColor(goapAction));
+                    this.TargetCircle.SetColor(this.GetCircleColor(goapAction, null));
                     this.Target.text = $"Target: {goapAction.Config.Target?.GetType().GetGenericTypeName()}";
                     this.Cost.text = $"Cost: {goapAction.Config.BaseCost}";
                 }
@@ -144,7 +144,7 @@ namespace CrashKonijn.Goap.Editor
 
                 if (graphNode.Action is IGoapAction action)
                 {
-                    this.TargetCircle.SetColor(this.GetCircleColor(action));
+                    this.TargetCircle.SetColor(this.GetCircleColor(action, provider));
                     var target = provider.WorldData.GetTarget(action);
                     var targetText = target != null ? target.Position.ToString() : "null";
                 
@@ -153,7 +153,7 @@ namespace CrashKonijn.Goap.Editor
             }).Every(33);
         }
         
-        private Color GetCircleColor(IGoapAction goapAction)
+        private Color GetCircleColor(IGoapAction goapAction, IMonoGoapActionProvider provider)
         {
             if (!Application.isPlaying)
                 return Color.white;
@@ -161,7 +161,7 @@ namespace CrashKonijn.Goap.Editor
             if (!goapAction.Config.RequiresTarget)
                 return Color.green;
             
-            if (goapAction.Config.Target == null)
+            if (provider.WorldData.GetTarget(goapAction) == null)
                 return Color.red;
             
             return Color.green;
