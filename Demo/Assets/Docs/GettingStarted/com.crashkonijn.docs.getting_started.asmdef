@@ -1,0 +1,14 @@
+{
+    "name": "com.crashkonijn.docs.getting_started",
+    "rootNamespace": "CrashKonijn.Docs.GettingStarted",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

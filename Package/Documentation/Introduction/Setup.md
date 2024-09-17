@@ -1,11 +1,5 @@
 # Setup
 
-## Overview
-
-Below is a quick overview of the different components of classes and how they are connected to an Action.
-
-![Class overview](../../images/class\_overview.png)
-
 ## Setup in Unity
 
 1. Create a class called `WanderGoal` that extends `GoalBase`.
