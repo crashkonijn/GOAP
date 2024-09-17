@@ -8,5 +8,8 @@
         void SenseGlobal(IGoapAction action);
         void SenseLocal(IMonoGoapActionProvider actionProvider);
         void SenseLocal(IMonoGoapActionProvider actionProvider, IGoapAction action);
+        void SenseLocal(IMonoGoapActionProvider actionProvider, IGoal goal);
+        void SenseLocal(IMonoGoapActionProvider actionProvider, IGoal[] goals);
+        void InitializeGraph(IGraph graph);
     }
 }

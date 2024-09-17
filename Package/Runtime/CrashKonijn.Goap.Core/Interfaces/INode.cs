@@ -10,5 +10,6 @@ namespace CrashKonijn.Goap.Core
         List<INodeEffect> Effects { get; set; }
         List<INodeCondition> Conditions { get; set; }
         bool IsRootNode { get; }
+        void GetActions(List<IGoapAction> actions);
     }
 }
