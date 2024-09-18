@@ -203,6 +203,10 @@ namespace CrashKonijn.Docs.GettingStarted.AgentTypes
 
 2. In the open scene, add a child GameObject to the GOAP called `ScriptDemoAgent`
 3. Add the newly created `DemoAgentTypeFactory` script to the `ScriptDemoAgent` GameObject.
+4. On the `GOAP` GameObject, add the `ScriptDemoAgent` GameObject to the `Agent Type Config Factories` list.
+
+   ![GOAP Behaviour](../images/getting_started/goap_behaviour_script.png)
+
 4. With the `ScriptDemoAgent` GameObject selected, you can now open up the `Graph Viewer` to view the generated graph for this `AgentType`. You can open the `Graph Viewer` by going to `Tools > GOAP > Graph Viewer`, or by pressing the shortcut `Ctrl + G` or `Cmd + G` (on Mac)
 
 {% endtab %}
@@ -210,8 +214,14 @@ namespace CrashKonijn.Docs.GettingStarted.AgentTypes
 {% tab title="Scriptables" %}
 1. In our newly create folder lets create a scriptable object called `DemoAgentTypeConfig`. Right-click on the folder and go to `Create > GOAP > Agent Type Config`. Call the scriptable object `DemoAgentTypeConfig`.
 2. Select the newly created `DemoAgentTypeConfig` and add a new `Capability` to the `Capabilities` list. Set the `Capability` to `IdleCapabilityConfig`.
-3. With the `DemoAgentTypeConfig` still selected, you can now open up the `Graph Viewer` to view the generated graph for this `AgentType`. You can open the `Graph Viewer` by going to `Tools > GOAP > Graph Viewer`, or by pressing the shortcut `Ctrl + G` or `Cmd + G` (on Mac)
-4. 
+![Agent Type config](../images/getting_started/demo_agent_type_config_idle.png)
+
+3. In the open scene, add a child GameObject to the GOAP called `DemoAgentConfig`. Add the `AgentTypeBehaviour` to the `DemoAgentConfig` GameObject.
+4. In the `AgentTypeBehaviour` set the `AgentTypeConfig` to the `DemoAgentTypeConfig`.
+5. As the Runner, select the `GOAP` GameObject.
+3. With the `DemoAgentTypeConfig` GameObject still selected, you can now open up the `Graph Viewer` to view the generated graph for this `AgentType`. You can open the `Graph Viewer` by going to `Tools > GOAP > Graph Viewer`, or by pressing the shortcut `Ctrl + G` or `Cmd + G` (on Mac)
+
+
 {% endtab %}
 {% endtabs %}
 
@@ -221,210 +231,158 @@ namespace CrashKonijn.Docs.GettingStarted.AgentTypes
 1. Let's create a sphere in the scene and call it `Agent`. (GameObject > 3D Object > Sphere) This will be our agent that will wander around.
 2. For this demo we won't use any physics. You can remove the `Sphere Collider` from the `Agent`.
 3. Each agent always needs an `AgentBehaviour` component. Add the `AgentBehaviour` component to the `Agent`.
+4. Each agent also needs an `ActionProvider`, let's add the `GoapActionProvider` to the `Agent`.
+5. On the `AgentBehaviour`, set the `Action Provider Base` value to that of the `GoapActionProvider` on the same GameObject.
 
 {% tabs %}
-
-{% tab title="Code" %} Here are the instructions for Windows {% endtab %}
-{% tab title="Scriptables" %} Here are the instructions for macOS {% endtab %}
+{% tab title="Code" %}
+No further steps required for code.
+{% endtab %}
+{% tab title="Scriptables" %}
+1. On the `GoapActionProvider`, set the `AgentTypeBehaviour` to the `DemoAgentTypeConfig` GameObject.
+{% endtab %}
 
 {% endtabs %}
 
+## Moving the agent
+In order to move the agent you can use the `events` on the `AgentBehaviour`. These events are called when the agent is in range of a target, when the target changes and when the target is no in range. Based on these events you can determine when and where to move the agent.
 
----------------------------------------
-## Setup in Unity
-
-1. Create a class called `WanderGoal` that extends `GoalBase`.
-
-{% code title="WanderGoal.cs" %}
-```csharp
-using CrashKonijn.Goap.Behaviours;
-
-public class WanderGoal : GoalBase
-{
-}
-```
-{% endcode %}
-
-2. Create a class called `WanderAction` that extends `ActionBase`. The generic value of the class is the type of the data class used in this goal.
-
-{% code title="WanderAction.cs" %}
-```csharp
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using UnityEngine;
-
-public class WanderAction : ActionBase<WanderAction.Data>
-{
-    // Called when the class is created.
-    public override void Created()
-    {
-    }
-
-    // Called when the action is started for a specific agent.
-    public override void Start(IMonoAgent agent, Data data)
-    {
-        // When the agent is at the target, wait a random amount of time before moving again.
-        data.Timer = Random.Range(0.3f, 1f);
-    }
-
-    // Called each frame when the action needs to be performed. It is only called when the agent is in range of it's target.
-    public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
-    {
-        // Update timer.
-        data.Timer -= context.DeltaTime;
-        
-        // If the timer is still higher than 0, continue next frame.
-        if (data.Timer > 0)
-            return ActionRunState.Continue;
-        
-        // This action is done, return stop. This will trigger the resolver for a new action.
-        return ActionRunState.Stop;
-    }
-
-    // Called when the action is ended for a specific agent.
-    public override void End(IMonoAgent agent, Data data)
-    {
-    }
-
-    public class Data : IActionData
-    {
-        public ITarget Target { get; set; }
-        public float Timer { get; set; }
-    }
-}
-```
-{% endcode %}
-
-3. Create a class called `WanderTargetSensor` that extends `LocalTargetSensorBase`. The generic value of the class is the type of the data class used in this goal.
-
-{% code title="WanderTargetSensor.cs" %}
-```csharp
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Sensors;
-using UnityEngine;
-
-public class WanderTargetSensor : LocalTargetSensorBase
-{
-    // Called when the class is created.
-    public override void Created()
-    {
-    }
-
-    // Called each frame. This can be used to gather data from the world before the sense method is called.
-    // This can be used to gather 'base data' that is the same for all agents, and otherwise would be performed multiple times during the Sense method.
-    public override void Update()
-    {
-    }
-
-    // Called when the sensor needs to sense a target for a specific agent.
-    public override ITarget Sense(IMonoAgent agent, IComponentReference references)
-    {
-        var random = this.GetRandomPosition(agent);
-        
-        return new PositionTarget(random);
-    }
-
-    private Vector3 GetRandomPosition(IMonoAgent agent)
-    {
-        var random =  Random.insideUnitCircle * 5f;
-        var position = agent.transform.position + new Vector3(random.x, 0f, random.y);
-
-        return position;
-    }
-}
-```
-{% endcode %}
-
-4. Create a class called `AgentMoveBehaviour`. This class will be called by the `AgentBehaviour` to move the agent to a target.
+1. Let's create a new folder in the `Getting Started` folder called `Behaviours`.
+2. In the `Behaviours` folder create a new script called `AgentMoveBehaviour`.
 
 {% code title="AgentMoveBehaviour.cs" %}
 ```csharp
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using UnityEngine;
 
-public class AgentMoveBehaviour : MonoBehaviour
+namespace CrashKonijn.Docs.GettingStarted.Behaviours
 {
-    private AgentBehaviour agent;
-    private ITarget currentTarget;
-    private bool shouldMove;
-
-    private void Awake()
+    public class AgentMoveBehaviour : MonoBehaviour
     {
-        this.agent = this.GetComponent<AgentBehaviour>();
-    }
+        private AgentBehaviour agent;
+        private ITarget currentTarget;
+        private bool shouldMove;
 
-    private void OnEnable()
-    {
-        this.agent.Events.OnTargetInRange += this.OnTargetInRange;
-        this.agent.Events.OnTargetChanged += this.OnTargetChanged;
-        this.agent.Events.OnTargetOutOfRange += this.OnTargetOutOfRange;
-    }
+        private void Awake()
+        {
+            this.agent = this.GetComponent<AgentBehaviour>();
+        }
 
-    private void OnDisable()
-    {
-        this.agent.Events.OnTargetInRange -= this.OnTargetInRange;
-        this.agent.Events.OnTargetChanged -= this.OnTargetChanged;
-        this.agent.Events.OnTargetOutOfRange -= this.OnTargetOutOfRange;
-    }
+        private void OnEnable()
+        {
+            this.agent.Events.OnTargetInRange += this.OnTargetInRange;
+            this.agent.Events.OnTargetChanged += this.OnTargetChanged;
+            this.agent.Events.OnTargetNotInRange += this.TargetNotInRange;
+            this.agent.Events.OnTargetLost += this.TargetLost;
+        }
 
-    private void OnTargetInRange(ITarget target)
-    {
-        this.shouldMove = false;
-    }
-
-    private void OnTargetChanged(ITarget target, bool inRange)
-    {
-        this.currentTarget = target;
-        this.shouldMove = !inRange;
-    }
-
-    private void OnTargetOutOfRange(ITarget target)
-    {
-        this.shouldMove = true;
-    }
-
-    public void Update()
-    {
-        if (!this.shouldMove)
-            return;
+        private void OnDisable()
+        {
+            this.agent.Events.OnTargetInRange -= this.OnTargetInRange;
+            this.agent.Events.OnTargetChanged -= this.OnTargetChanged;
+            this.agent.Events.OnTargetNotInRange -= this.TargetNotInRange;
+            this.agent.Events.OnTargetLost -= this.TargetLost;
+        }
         
-        if (this.currentTarget == null)
-            return;
-        
-        this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(this.currentTarget.Position.x, this.transform.position.y, this.currentTarget.Position.z), Time.deltaTime);
+        private void TargetLost()
+        {
+            this.currentTarget = null;
+            this.shouldMove = false;
+        }
+
+        private void OnTargetInRange(ITarget target)
+        {
+            this.shouldMove = false;
+        }
+
+        private void OnTargetChanged(ITarget target, bool inRange)
+        {
+            this.currentTarget = target;
+            this.shouldMove = !inRange;
+        }
+
+        private void TargetNotInRange(ITarget target)
+        {
+            this.shouldMove = true;
+        }
+
+        public void Update()
+        {
+            if (!this.shouldMove)
+                return;
+            
+            if (this.currentTarget == null)
+                return;
+            
+            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(this.currentTarget.Position.x, this.transform.position.y, this.currentTarget.Position.z), Time.deltaTime);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (this.currentTarget == null)
+                return;
+            
+            Gizmos.DrawLine(this.transform.position, this.currentTarget.Position);
+        }
     }
 }
 ```
 {% endcode %}
 
-5. Create a script called `AgentBrain`.
+3. Add the `AgentMoveBehaviour` to the `Agent` GameObject.
+
+## Deciding what goal to perform
+
+Deciding what goal to perform is very game specific and can be done in many different ways. For this demo we will use a simple 'FSM' script that I like to call a `Brain`. The `Brain` will decide what goal to perform based on the current state of the agent.
+
+1. Let's create a script called `AgentBrain` that extends `MonoBehaviour`.
 
 {% code title="AgentBrain.cs" %}
 ```csharp
-using CrashKonijn.Goap.Behaviours;
+using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-public class AgentBrain : MonoBehaviour
+namespace CrashKonijn.Docs.GettingStarted.Behaviours
 {
-    private AgentBehaviour agent;
-
-    private void Awake()
+    public class BrainBehaviour : MonoBehaviour
     {
-        this.agent = this.GetComponent<AgentBehaviour>();
-    }
+        private AgentBehaviour agent;
+        private GoapActionProvider provider;
+        private GoapBehaviour goap;
+        
+        private void Awake()
+        {
+            this.goap = FindObjectOfType<GoapBehaviour>();
+            this.agent = this.GetComponent<AgentBehaviour>();
+            this.provider = this.GetComponent<GoapActionProvider>();
+            
+            // This only applies sto the code demo
+            if (this.provider.AgentTypeBehaviour == null)
+                this.provider.AgentType = this.goap.GetAgentType("DemoAgent");
+        }
 
-    private void Start()
-    {
-        this.agent.SetGoal<WanderGoal>(false);
+        private void Start()
+        {
+            this.provider.RequestGoal<IdleGoal>();
+        }
     }
 }
 ```
 {% endcode %}
+2. Add it to the `Agent` GameObject.
 
-## Choose your config style
+## Play the scene!
 
-Either continue the getting started by using `Code` or `ScriptableObjects`.
+When you play the scene, your freshly created agent should start moving around!
+
+{% tabs %}
+{% tab title="Code" %}
+1. In the `Behaviours` folder, create a new script called `AgentBrain`.
+{% endtab %}
+{% tab title="Scriptables" %}
+1. On the `GoapActionProvider`, set the `AgentTypeBehaviour` to the `DemoAgentTypeConfig` GameObject.
+{% endtab %}
+
+{% endtabs %}

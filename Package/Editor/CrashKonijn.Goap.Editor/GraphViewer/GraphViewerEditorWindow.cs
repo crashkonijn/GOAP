@@ -79,6 +79,12 @@ namespace CrashKonijn.Goap.Editor
                 return (new AgentTypeFactory(GoapConfig.Default).Create(typeFactory.Create(), false), selectedObject);
             }
             
+            var agentTypeBehaviour = gameObject.GetComponent<AgentTypeBehaviour>();
+            if (agentTypeBehaviour != null)
+            {
+                return (new AgentTypeFactory(GoapConfig.Default).Create(agentTypeBehaviour.Config.Create(), false), selectedObject);
+            }
+            
             var provider = gameObject.GetComponent<GoapActionProvider>();
             if (provider == null)
                 return default;

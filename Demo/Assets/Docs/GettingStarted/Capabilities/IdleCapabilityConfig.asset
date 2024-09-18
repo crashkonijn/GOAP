@@ -12,12 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
   m_Name: IdleCapabilityConfig
   m_EditorClassIdentifier: 
-  goals: []
-  actions: []
+  goals:
+  - goal:
+      <Name>k__BackingField: IdleGoal
+      <Id>k__BackingField: Idle-cceefde8-f09d-41ee-83a6-44d7358b7ad7
+    baseCost: 1
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: IsIdle
+        <Id>k__BackingField: IsIdle-d947b161-94e6-40e4-8d81-12d48d548aeb
+      comparison: 3
+      amount: 1
+  actions:
+  - action:
+      <Name>k__BackingField: IdleAction
+      <Id>k__BackingField: Idle-ccc6f46c-1626-44aa-b90d-1b2741642166
+    target:
+      <Name>k__BackingField: IdleTarget
+      <Id>k__BackingField: IdleTarget-28399af6-ad14-4084-ba49-968fa8941e51
+    properties:
+      rid: 4217533508436099072
+    baseCost: 1
+    stoppingDistance: 0.1
+    requiresTarget: 1
+    validateConditions: 1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: IsIdle
+        <Id>k__BackingField: IsIdle-d947b161-94e6-40e4-8d81-12d48d548aeb
+      effect: 1
   worldSensors: []
-  targetSensors: []
+  targetSensors:
+  - sensor:
+      <Name>k__BackingField: IdleTargetSensor
+      <Id>k__BackingField: 
+    targetKey:
+      <Name>k__BackingField: IdleTarget
+      <Id>k__BackingField: IdleTarget-28399af6-ad14-4084-ba49-968fa8941e51
   multiSensors: []
-  generatorScriptable: {fileID: 0}
+  generatorScriptable: {fileID: 11400000, guid: 88ea9e1341906b64f96efb539becac2a,
+    type: 2}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4217533508436099072
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Agent.Runtime, asm: CrashKonijn.Agent.Runtime}
