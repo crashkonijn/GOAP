@@ -19,9 +19,6 @@ namespace CrashKonijn.Goap.Runtime
         
         public void Add(IMonoGoapActionProvider actionProvider)
         {
-            if (!actionProvider.isActiveAndEnabled)
-                return;
-            
             if (this.agents.Contains(actionProvider))
                 return;
             
