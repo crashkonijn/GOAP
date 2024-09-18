@@ -1,4 +1,4 @@
-using CrashKonijn.Agent.Core;
+﻿using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Runtime;
 using Random = UnityEngine.Random;
 

@@ -377,12 +377,80 @@ namespace CrashKonijn.Docs.GettingStarted.Behaviours
 
 When you play the scene, your freshly created agent should start moving around!
 
-{% tabs %}
-{% tab title="Code" %}
-1. In the `Behaviours` folder, create a new script called `AgentBrain`.
-{% endtab %}
-{% tab title="Scriptables" %}
-1. On the `GoapActionProvider`, set the `AgentTypeBehaviour` to the `DemoAgentTypeConfig` GameObject.
-{% endtab %}
+You can open up the `Graph Viewer` and select the agent in the scene to see what it's doing!
 
-{% endtabs %}
+![First idle run](../images/getting_started/first_idle_run.gif)
+
+## Updating the IdleAction
+
+Currently, our idle action works because it's target is a random position. The agent will move in range of that target, then start performing the action. By default, the action script immediately completes the action and the resolver will kick off again. This will result in the agent moving to a new random position.
+
+Let's update the `IdleAction` to actually wait for a few seconds before completing the action.
+
+1. The `Generator` created a boilerplate including all the possible method you can use. We only use the `Start` and `Perform` methods right now. The other ones can be removed.
+2. Update the `Data` subclass to include a `public float Timer { get; set; }` property.
+3. In the `Start` method, let's initialize the `Timer` to a random value between 0.5f and 1.5f.
+```csharp
+data.Timer = Random.Range(0.5f, 1.5f); 
+```
+4. In the `Perform` method, let's update the `Timer` and check if it's below 0. If it is, we can complete the action.
+```csharp
+if (data.Timer <= 0f)
+    // Return completed to stop the action
+    return ActionRunState.Completed;
+
+// Lower the timer for the next frame
+data.Timer -= context.DeltaTime;
+
+// Return continue to keep the action running
+return ActionRunState.Continue;
+```
+
+Your `IdleAction` should now look like this:
+
+{% code title="IdleAction.cs" %}
+```csharp
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
+using Random = UnityEngine.Random;
+
+namespace CrashKonijn.Docs.GettingStarted.Actions
+{
+    // The GoapId attribute is used to identify the action, even when you change the name
+    // This is used when using the Scriptable Object method of configuring actions
+    [GoapId("Idle-ccc6f46c-1626-44aa-b90d-1b2741642166")]
+    public class IdleAction : GoapActionBase<IdleAction.Data>
+    {
+        // This method is called when the action is started
+        // This method is optional and can be removed
+        public override void Start(IMonoAgent agent, Data data)
+        {
+            data.Timer = Random.Range(0.5f, 1.5f);
+        }
+
+        // This method is called every frame while the action is running
+        // This method is required
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        {
+            if (data.Timer <= 0f)
+                // Return completed to stop the action
+                return ActionRunState.Completed;
+            
+            // Lower the timer for the next frame
+            data.Timer -= context.DeltaTime;
+            
+            // Return continue to keep the action running
+            return ActionRunState.Continue;
+        }
+        
+        // The action class itself must be stateless!
+        // All data should be stored in the data class
+        public class Data : IActionData
+        {
+            public ITarget Target { get; set; }
+            public float Timer { get; set; }
+        }
+    }
+}
+```
+When playing the scene the agent will now wait for a while before moving to a new position!
