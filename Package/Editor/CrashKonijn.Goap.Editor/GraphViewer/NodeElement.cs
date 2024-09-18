@@ -134,8 +134,11 @@ namespace CrashKonijn.Goap.Editor
             {
                 if (!Application.isPlaying)
                     return;
-
+                
                 if (values.SelectedObject is not IMonoGoapActionProvider provider)
+                    return;
+
+                if (!provider.isActiveAndEnabled)
                     return;
                 
                 this.UpdateClasses(graphNode, provider);
