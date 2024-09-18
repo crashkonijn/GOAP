@@ -453,4 +453,8 @@ namespace CrashKonijn.Docs.GettingStarted.Actions
     }
 }
 ```
+{% endcode %}
+
 When playing the scene the agent will now wait for a while before moving to a new position!
+
+![Second idle run](../images/getting_started/second_idle_run.gif)
