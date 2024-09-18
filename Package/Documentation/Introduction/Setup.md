@@ -154,7 +154,9 @@ namespace CrashKonijn.Docs.GettingStarted.Capabilities
 1. In our newly created folder lets create a scriptable object called `IdleCapabilityConfig`. Right-click on the folder and go to `Create > GOAP > Capability Config`. Call the scriptable object `IdleCapabilityConfig`.
 2. In the inspector of the `IdleCapabilityConfig`, add a new `Goal` to the `Goals` list. Set the `Goal` to `IdleGoal` using the button next to the `Goal` field.
 3. Add a condition to the goal and set the `Key` to `IsIdle`, the `Comparison` to `GreaterThanOrEqual` and the `Value` to `1`.
+
    ![Idle Goal](../images/getting_started/idle_goal_config.gif)
+
 4. Add a new action. Select the `IdleAction` and the `IdleTarget`. Add an effect to the action and set the `Key` to `IsIdle` and the `Effect` to `Increase`.
 5. Add a new target sensor. Select the `IdleTargetSensor` and the `IdleTarget`.
 6. Click the `Check Issues` button to see if your config has any issues.
@@ -197,19 +199,19 @@ namespace CrashKonijn.Docs.GettingStarted.AgentTypes
     }
 }
 ```
+{% endcode %}
 
 2. In the open scene, add a child GameObject to the GOAP called `ScriptDemoAgent`
 3. Add the newly created `DemoAgentTypeFactory` script to the `ScriptDemoAgent` GameObject.
 4. With the `ScriptDemoAgent` GameObject selected, you can now open up the `Graph Viewer` to view the generated graph for this `AgentType`. You can open the `Graph Viewer` by going to `Tools > GOAP > Graph Viewer`, or by pressing the shortcut `Ctrl + G` or `Cmd + G` (on Mac)
 
-{% hint style="info" %}
-{% endcode %}
 {% endtab %}
 
 {% tab title="Scriptables" %}
 1. In our newly create folder lets create a scriptable object called `DemoAgentTypeConfig`. Right-click on the folder and go to `Create > GOAP > Agent Type Config`. Call the scriptable object `DemoAgentTypeConfig`.
 2. Select the newly created `DemoAgentTypeConfig` and add a new `Capability` to the `Capabilities` list. Set the `Capability` to `IdleCapabilityConfig`.
 3. With the `DemoAgentTypeConfig` still selected, you can now open up the `Graph Viewer` to view the generated graph for this `AgentType`. You can open the `Graph Viewer` by going to `Tools > GOAP > Graph Viewer`, or by pressing the shortcut `Ctrl + G` or `Cmd + G` (on Mac)
+4. 
 {% endtab %}
 {% endtabs %}
 
@@ -226,6 +228,7 @@ namespace CrashKonijn.Docs.GettingStarted.AgentTypes
 {% tab title="Scriptables" %} Here are the instructions for macOS {% endtab %}
 
 {% endtabs %}
+
 
 ---------------------------------------
 ## Setup in Unity
