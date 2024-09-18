@@ -90,10 +90,6 @@ Sensors can work in two scopes: `Global` or `Local`.
 
 ![Sensor data flow](../images/sensor_flow.png)
 
-|           | Local                 | Global                 |
-|-----------|-----------------------|------------------------|
-| WorldKey  | LocalWorldSensorBase  | GlobalWorldSensorBase  |
-| TargetKey | LocalTargetSensorBase | GlobalTargetSensorBase |
 
 ## Action Provider
 An `ActionProvider` (in this case always the `GoapActionProvider`) is a class that uses the `Resolver` to determine the best action to perform based on the current `WorldState` and the currently requested `Action(s)`. The `ActionProvider` then sets the `Action` that the `Agent` should perform.
