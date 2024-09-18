@@ -77,7 +77,11 @@ There are two types of keys that can be used in the `WorldState`:
 - **TargetKey**: A TargetKey references a position in the world. For example `AppleTree`. All positions must be represented by `Vector3`.
 
 ## Sensors
-A `Sensor` is a class that reads the current state of the world and provides this information to the `WorldState` when it's needed. The `Resolver` uses this information to determine the best action to perform based on the current state of the world.
+A `Sensor` is a class that reads the current state of the world and provides this information to the `WorldState` when it's needed.  The `Resolver` uses this information to determine the best action to perform based on the current state of the world.
+
+Sensors can provide the values for two types of data/keys:
+- **WorldKey**: A WorldKey references a value in the world. For example `AppleCount`. All values must be represented by `ints`.
+- **TargetKey**: A TargetKey references a position in the world. For example `AppleTree`. All positions must be represented by `Vector3`.
 
 Sensors can work in two scopes: `Global` or `Local`.
 
@@ -85,6 +89,11 @@ Sensors can work in two scopes: `Global` or `Local`.
 - **Local**: They give information for just one agent. For example, `ClosestAppleSensor` finds the nearest apple for a specific agent.
 
 ![Sensor data flow](../images/sensor_flow.png)
+
+|           | Local                 | Global                 |
+|-----------|-----------------------|------------------------|
+| WorldKey  | LocalWorldSensorBase  | GlobalWorldSensorBase  |
+| TargetKey | LocalTargetSensorBase | GlobalTargetSensorBase |
 
 ## Action Provider
 An `ActionProvider` (in this case always the `GoapActionProvider`) is a class that uses the `Resolver` to determine the best action to perform based on the current `WorldState` and the currently requested `Action(s)`. The `ActionProvider` then sets the `Action` that the `Agent` should perform.
