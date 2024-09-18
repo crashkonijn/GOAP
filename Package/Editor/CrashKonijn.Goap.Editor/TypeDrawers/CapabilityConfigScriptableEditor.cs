@@ -93,6 +93,5 @@ namespace CrashKonijn.Goap.Editor
             
             return root;
         }
-        
     }
 }

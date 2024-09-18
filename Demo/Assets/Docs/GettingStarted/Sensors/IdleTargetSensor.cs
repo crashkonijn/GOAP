@@ -11,7 +11,6 @@ namespace CrashKonijn.Docs.GettingStarted.Sensors
         // Is called when this script is initialzed
         public override void Created()
         {
-            
         }
 
         // Is called every frame that an agent of an `AgentType` that uses this sensor needs it.
@@ -19,7 +18,6 @@ namespace CrashKonijn.Docs.GettingStarted.Sensors
         // Eg look up all the trees in the scene, and then find the closest one in the Sense method.
         public override void Update()
         {
-            
         }
 
         public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget)
