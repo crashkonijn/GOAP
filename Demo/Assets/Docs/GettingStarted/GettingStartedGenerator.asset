@@ -22,7 +22,7 @@ MonoBehaviour:
       <Id>k__BackingField: Idle-cceefde8-f09d-41ee-83a6-44d7358b7ad7
     actions:
     - <Name>k__BackingField: IdleAction
-      fullName: CrashKonijn.Docs.GettingStarted.IdleAction, com.crashkonijn.docs.getting_started,
+      fullName: CrashKonijn.Docs.GettingStarted.Actions.IdleAction, com.crashkonijn.docs.getting_started,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       <Path>k__BackingField: Assets/Docs/GettingStarted/Actions/IdleAction.cs
       <Id>k__BackingField: Idle-ccc6f46c-1626-44aa-b90d-1b2741642166
