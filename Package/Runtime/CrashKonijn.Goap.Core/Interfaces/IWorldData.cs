@@ -6,8 +6,8 @@ namespace CrashKonijn.Goap.Core
 {
     public interface IWorldData
     {
-        Dictionary<Type, int> States { get; }
-        Dictionary<Type, ITarget> Targets { get; }
+        Dictionary<Type, IWorldDataState<int>> States { get; }
+        Dictionary<Type, IWorldDataState<ITarget>> Targets { get; }
         ITarget GetTarget(IGoapAction action);
         void SetState(IWorldKey key, int state);
         void SetState<TKey>(int state) where TKey : IWorldKey;
@@ -18,5 +18,13 @@ namespace CrashKonijn.Goap.Core
         (bool Exists, int Value) GetWorldValue<TKey>(TKey worldKey) where TKey : IWorldKey;
         (bool Exists, int Value) GetWorldValue(Type worldKey);
         ITarget GetTargetValue(Type targetKey);
+        IWorldDataState<ITarget> GetTargetState(Type targetKey);
+        IWorldDataState<int> GetWorldState(Type worldKey);
+    }
+
+    public interface IWorldDataState<T>
+    {
+        public T Value { get; set; }
+        public ITimer Timer { get; }
     }
 }
