@@ -65,6 +65,9 @@ namespace CrashKonijn.Goap.Runtime
         {
             var set = this.GetSet(action);
             
+            if (set == null)
+                return;
+            
             foreach (var localSensor in set.LocalSensors)
             {
                 localSensor.Update();
@@ -74,6 +77,9 @@ namespace CrashKonijn.Goap.Runtime
         public void Update(IGoal[] goals)
         {
             var set = this.GetSet(goals);
+            
+            if (set == null)
+                return;
             
             foreach (var localSensor in set.LocalSensors)
             {
@@ -92,6 +98,9 @@ namespace CrashKonijn.Goap.Runtime
         public void SenseGlobal(IGoapAction action)
         {
             var set = this.GetSet(action);
+            
+            if (set == null)
+                return;
             
             foreach (var globalSensor in set.GlobalSensors)
             {
@@ -132,6 +141,9 @@ namespace CrashKonijn.Goap.Runtime
                 return;
             
             var set = this.GetSet(goal);
+            
+            if (set == null)
+                return;
             
             foreach (var localSensor in set.LocalSensors)
             {
@@ -290,6 +302,9 @@ namespace CrashKonijn.Goap.Runtime
 
         public void Merge(SensorSet set)
         {
+            if (set == null)
+                return;
+            
             this.Keys.UnionWith(set.Keys);
             this.LocalSensors.UnionWith(set.LocalSensors);
             this.GlobalSensors.UnionWith(set.GlobalSensors);
