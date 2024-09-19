@@ -1,7 +1,7 @@
 # Setup
 
 ## Goal
-In this tutorial we will create a simple GOAP system that will make an agent wander around when idle. The agent can also pickup apples and eat them. The agent will only eat apples when it's hungry.
+In this tutorial we will create a simple GOAP system that will make an agent wander around when idle. The agent can also pick up apples and eat them. The agent will only eat apples when it's hungry.
 
 ## Setup in Unity
 
@@ -87,7 +87,7 @@ namespace CrashKonijn.Docs.GettingStarted.Sensors
         {
             while (true)
             {
-                var random = Random.insideUnitCircle * 5f;
+                var random = Random.insideUnitCircle * 3f;
                 var position = agent.Transform.position + new Vector3(random.x, 0f, random.y);
 
                 if (position.x > -Bounds.x && position.x < Bounds.x && position.z > -Bounds.y && position.z < Bounds.y)
@@ -135,7 +135,8 @@ namespace CrashKonijn.Docs.GettingStarted.Capabilities
             var builder = new CapabilityBuilder("IdleCapability");
 
             builder.AddGoal<IdleGoal>()
-                .AddCondition<IsIdle>(Comparison.GreaterThanOrEqual, 1);
+                .AddCondition<IsIdle>(Comparison.GreaterThanOrEqual, 1)
+                .SetBaseCost(2);
 
             builder.AddAction<IdleAction>()
                 .AddEffect<IsIdle>(EffectType.Increase)

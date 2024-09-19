@@ -12,7 +12,8 @@ namespace CrashKonijn.Docs.GettingStarted.Capabilities
             var builder = new CapabilityBuilder("IdleCapability");
 
             builder.AddGoal<IdleGoal>()
-                .AddCondition<IsIdle>(Comparison.GreaterThanOrEqual, 1);
+                .AddCondition<IsIdle>(Comparison.GreaterThanOrEqual, 1)
+                .SetBaseCost(2);
 
             builder.AddAction<IdleAction>()
                 .AddEffect<IsIdle>(EffectType.Increase)

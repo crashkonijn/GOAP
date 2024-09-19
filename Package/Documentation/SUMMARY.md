@@ -2,8 +2,10 @@
 
 * [Introduction](README.md)
   * [What is Goap?](Introduction/Theory.md)
-  * [Getting Started](Introduction/GettingStarted.md)
-    * [Setup](Introduction/Setup.md)
+  * [Getting Started]
+    * [0. Getting Started](Introduction/GettingStarted.md)
+    * [1. Idle](Introduction/Setup.md)
+    * [2. Apples](Introduction/Pears)
   * [FAQ](Introduction/FAQ.md)
 * [Upgrading](upgrading/README.md)
   * [V3.0 Changes](upgrade/core-concepts.md)

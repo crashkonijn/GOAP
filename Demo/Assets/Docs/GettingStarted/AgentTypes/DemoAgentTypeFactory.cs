@@ -11,6 +11,7 @@ namespace CrashKonijn.Docs.GettingStarted.AgentTypes
             var factory = new AgentTypeBuilder("DemoAgent");
             
             factory.AddCapability<IdleCapabilityFactory>();
+            factory.AddCapability<PearCapability>();
 
             return factory.Build();
         }
