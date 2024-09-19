@@ -11,7 +11,9 @@ In this tutorial we will create a simple GOAP system that will make an agent wan
    
    ![Getting Started Generator](../images/getting_started/generator_namespace.png)
 
-4. If you like using assembly definitions you can add it to the `Getting Started` folder. Please make sure to also set the `Root Namespace` to `CrashKonijn.Docs.GettingStarted`. Also make sure to include the ``
+4. If you like using assembly definitions you can add it to the `Getting Started` folder. Please make sure to also set the `Root Namespace` to `CrashKonijn.Docs.GettingStarted`. Also make sure to include the `com.crashkonijn.goap.core`, `com.crashkonijn.goap.runtime`, `com.crashkonijn.agent.core` and `com.crashkonijn.agent.runtime` assemblies.
+
+   ![Assembly Definition](../images/getting_started/assembly_definition.png)
 
 ## Generating classes
 1. Let's generate the required `Goals`, `Actions`, `WorldKeys` and `TargetKeys` using the generator. In the inspector of the `GettingStartedGenerator` please fill in the following classes in their respective fields:
