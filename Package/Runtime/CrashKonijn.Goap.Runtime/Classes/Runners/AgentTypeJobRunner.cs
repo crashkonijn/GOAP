@@ -53,6 +53,9 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (actionProvider.IsNull())
                 return;
+            
+            if (actionProvider.AgentType != this.agentType)
+                return;
 
             if (this.IsGoalCompleted(actionProvider))
             {
@@ -170,6 +173,9 @@ namespace CrashKonijn.Goap.Runtime
             foreach (var resolveHandle in this.resolveHandles)
             {
                 var result = resolveHandle.Handle.Complete();
+                
+                if (resolveHandle.ActionProvider.GoalRequest != resolveHandle.GoalRequest)
+                    continue;
 
                 if (resolveHandle.ActionProvider.IsNull())
                     continue;
