@@ -24,8 +24,14 @@ namespace CrashKonijn.Goap.Runtime
             get => this.agentType;
             set
             {
+                if (this.agentType != null)
+                    this.agentType.Unregister(this);
+                
                 this.agentType = value;
                 this.WorldData.SetParent(value.WorldData);
+                this.GoalRequest = null;
+                this.CurrentPlan = null;
+                
                 value.Register(this);
                 
                 this.Events.Bind(this, value.Events);
