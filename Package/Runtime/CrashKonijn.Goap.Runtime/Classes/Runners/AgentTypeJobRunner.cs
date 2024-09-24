@@ -69,7 +69,7 @@ namespace CrashKonijn.Goap.Runtime
             if (goalRequest == null)
                 return;
             
-            this.agentType.SensorRunner.SenseLocal(actionProvider, goalRequest.Goals);
+            this.agentType.SensorRunner.SenseLocal(actionProvider, goalRequest);
 
             this.FillBuilders(actionProvider);
             

@@ -69,16 +69,6 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
-        public void Update(IGoal[] goals)
-        {
-            var set = this.GetSet(goals);
-            
-            foreach (var localSensor in set.LocalSensors)
-            {
-                localSensor.Update();
-            }
-        }
-
         public void SenseGlobal()
         {
             foreach (var globalSensor in this.defaultSet.GlobalSensors)
@@ -137,15 +127,15 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
-        public void SenseLocal(IMonoGoapActionProvider actionProvider, IGoal[] goals)
+        public void SenseLocal(IMonoGoapActionProvider actionProvider, IGoalRequest goalRequest)
         {
             if (actionProvider.IsNull())
                 return;
 
-            if (!goals.Any())
+            if (!goalRequest.Goals.Any())
                 return;
             
-            var set = this.GetSet(goals);
+            var set = this.GetSet(goalRequest);
             
             foreach (var localSensor in set.LocalSensors)
             {
@@ -181,14 +171,15 @@ namespace CrashKonijn.Goap.Runtime
             return this.goalSets.GetValueOrDefault(goal);
         }
 
-        private SensorSet GetSet(IGoal[] goals)
+        private SensorSet GetSet(IGoalRequest goalRequest)
         {
-            var key = this.GetSetKey(goals);
+            if (string.IsNullOrEmpty(goalRequest.Key))
+                goalRequest.Key = this.GetSetKey(goalRequest.Goals);
             
-            if (this.goalsSets.TryGetValue(key, out var existingSet))
+            if (this.goalsSets.TryGetValue(goalRequest.Key, out var existingSet))
                 return existingSet;
             
-            return this.CreateSet(goals);
+            return this.CreateSet(goalRequest);
         }
         
         private string GetSetKey(IGoal[] goals)
@@ -225,17 +216,17 @@ namespace CrashKonijn.Goap.Runtime
             return set;
         }
         
-        private SensorSet CreateSet(IGoal[] goals)
+        private SensorSet CreateSet(IGoalRequest goalRequest)
         {
             var set = new SensorSet();
             
-            foreach (var goal in goals)
+            foreach (var goal in goalRequest.Goals)
             {
                 var goalSet = this.GetSet(goal);
                 set.Merge(goalSet);
             }
             
-            this.goalsSets[this.GetSetKey(goals)] = set;
+            this.goalsSets[goalRequest.Key] = set;
 
             return set;
         }
@@ -246,6 +237,18 @@ namespace CrashKonijn.Goap.Runtime
             node.GetActions(actions);
             
             var set = new SensorSet();
+            
+            foreach (var condition in node.Conditions.Select(x => x.Condition))
+            {
+                var key = condition.WorldKey.GetType();
+                
+                set.Keys.Add(key);
+                
+                if (this.sensors.TryGetValue(key, out var sensor))
+                {
+                    set.AddSensor(sensor);
+                }
+            }
             
             foreach (var action in actions.Distinct())
             {

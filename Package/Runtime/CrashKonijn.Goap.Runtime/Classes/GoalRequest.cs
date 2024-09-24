@@ -5,6 +5,7 @@ namespace CrashKonijn.Goap.Runtime
     public class GoalRequest : IGoalRequest
     {
         public IGoal[] Goals { get; set; }
+        public string Key { get; set; }
     }
     
     public class GoalResult : IGoalResult

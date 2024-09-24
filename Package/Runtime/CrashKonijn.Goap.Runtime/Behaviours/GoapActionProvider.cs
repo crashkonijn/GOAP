@@ -182,7 +182,7 @@ namespace CrashKonijn.Goap.Runtime
 
             this.RequestGoal(new GoalRequest
             {
-                Goals = new[] { goal }
+                Goals = new[] { goal },
             }, resolve);
         }
 
