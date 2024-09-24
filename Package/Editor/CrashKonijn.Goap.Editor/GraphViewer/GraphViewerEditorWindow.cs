@@ -158,7 +158,7 @@ namespace CrashKonijn.Goap.Editor
             
             dragRoot.RegisterCallback<WheelEvent>((evt) =>
             {
-                this.values.UpdateZoom(2 * (int) evt.delta.y);
+                this.values.UpdateZoom(2 * (int) -evt.delta.y);
             });
 
             foreach (var rootNode in graph.RootNodes)
