@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Core;
+﻿using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {

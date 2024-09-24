@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Core;
+﻿using System;
+using CrashKonijn.Goap.Core;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Runtime
@@ -6,12 +7,16 @@ namespace CrashKonijn.Goap.Runtime
     public class ProactiveControllerBehaviour : MonoBehaviour, IGoapController
     {
         private ProactiveController controller = new();
-        
-        public float ResolveTime {
-            get => this.controller.ResolveTime;
-            set => this.controller.ResolveTime = value;
+
+        [Tooltip("Only updates during Awake")]
+        [SerializeField]
+        private float resolveTime = 1f;
+
+        public void Awake()
+        {
+            this.controller.ResolveTime = this.resolveTime;
         }
-        
+
         public void Initialize(IGoap goap)
         {
             this.controller.Initialize(goap);
