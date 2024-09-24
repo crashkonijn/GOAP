@@ -6,6 +6,7 @@ namespace CrashKonijn.Goap.Runtime
 {
     public class LocalWorldData : WorldDataBase, ILocalWorldData
     {
+        protected override bool IsLocal => true;
         public IGlobalWorldData GlobalData { get; private set; }
         
         public void SetParent(IGlobalWorldData globalData)

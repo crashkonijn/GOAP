@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Resolver;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -76,54 +77,82 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
-        public void AddLocalWorldSensor<TKey>(Func<IActionReceiver, IComponentReference, SenseValue> sense)
+        public void AddLocalWorldSensor<TKey>(Func<IActionReceiver, IComponentReference, SenseValue> sense, ISensorTimer timer = null)
             where TKey : IWorldKey
         {
+            timer ??= SensorTimer.Always;
+            
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
                 Sense = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
                 {
+                    var state = data.GetWorldState(typeof(TKey));
+                    
+                    if (!timer.ShouldSense(state?.Timer))
+                        return;
+                    
                     data.SetState<TKey>(sense(agent, references));
                 }
             });
         }
 
-        public void AddGlobalWorldSensor<TKey>(Func<SenseValue> sense)
+        public void AddGlobalWorldSensor<TKey>(Func<SenseValue> sense, ISensorTimer timer = null)
             where TKey : IWorldKey
         {
+            timer ??= SensorTimer.Always;
+            
             this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
             {
                 Key = typeof(TKey),
                 Sense = (IWorldData data) =>
                 {
+                    var state = data.GetWorldState(typeof(TKey));
+                    
+                    if (!timer.ShouldSense(state?.Timer))
+                        return;
+                    
                     data.SetState<TKey>(sense());
                 }
             });
         }
 
-        public void AddLocalTargetSensor<TKey>(Func<IActionReceiver, IComponentReference, ITarget, ITarget> sense)
+        public void AddLocalTargetSensor<TKey>(Func<IActionReceiver, IComponentReference, ITarget, ITarget> sense, ISensorTimer timer = null)
             where TKey : ITargetKey
         {
+            timer ??= SensorTimer.Always;
+            
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
                 Sense = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
                 {
-                    data.SetTarget<TKey>(sense(agent, references, data.GetTargetValue(typeof(TKey))));
+                    var state = data.GetTargetState(typeof(TKey));
+                    
+                    if (!timer.ShouldSense(state?.Timer))
+                        return;
+                    
+                    data.SetTarget<TKey>(sense(agent, references, state?.Value));
                 }
             });
         }
 
-        public void AddGlobalTargetSensor<TKey>(Func<ITarget, ITarget> sense)
+        public void AddGlobalTargetSensor<TKey>(Func<ITarget, ITarget> sense, ISensorTimer timer = null)
             where TKey : ITargetKey
         {
+            timer ??= SensorTimer.Always;
+            
             this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
             {
                 Key = typeof(TKey),
                 Sense = (IWorldData data) =>
                 {
-                    data.SetTarget<TKey>(sense(data.GetTargetValue(typeof(TKey))));
+                    var state = data.GetTargetState(typeof(TKey));
+                    
+                    if (!timer.ShouldSense(state?.Timer))
+                        return;
+                    
+                    data.SetTarget<TKey>(sense(state?.Value));
                 }
             });
         }

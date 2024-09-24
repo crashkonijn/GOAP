@@ -24,6 +24,8 @@ namespace CrashKonijn.Goap.Core
 
     public interface IWorldDataState<T>
     {
+        public bool IsLocal { get; }
+        public Type Key { get; }
         public T Value { get; set; }
         public ITimer Timer { get; }
     }

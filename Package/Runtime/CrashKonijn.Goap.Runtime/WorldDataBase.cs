@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 namespace CrashKonijn.Goap.Runtime
 {
     public abstract class WorldDataBase : IWorldData
     {
+        protected abstract bool IsLocal { get; }
         public Dictionary<Type, IWorldDataState<int>> States { get; } = new();
         public Dictionary<Type, IWorldDataState<ITarget>> Targets { get; } = new();
 
@@ -78,7 +80,9 @@ namespace CrashKonijn.Goap.Runtime
             
             this.States.Add(key, new WorldDataState<int>
             {
-                Value = state
+                Key = key,
+                Value = state,
+                IsLocal = this.IsLocal,
             });
         }
         
@@ -106,7 +110,9 @@ namespace CrashKonijn.Goap.Runtime
             
             this.Targets.Add(key, new WorldDataState<ITarget>
             {
-                Value = target
+                Key = key,
+                Value = target,
+                IsLocal = this.IsLocal,
             });
         }
 
@@ -120,6 +126,8 @@ namespace CrashKonijn.Goap.Runtime
 
     public class WorldDataState<T> : IWorldDataState<T>
     {
+        public bool IsLocal { get; set;  }
+        public Type Key { get; set; }
         public T Value { get; set; }
         public ITimer Timer { get; } = new Timer();
     }

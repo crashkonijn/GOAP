@@ -6,6 +6,8 @@ namespace CrashKonijn.Goap.Runtime
 {
     public class GlobalWorldData : WorldDataBase, IGlobalWorldData
     {
+        protected override bool IsLocal => false;
+
         public override (bool Exists, int Value) GetWorldValue(Type worldKey)
         {
             if (!this.States.ContainsKey(worldKey))
