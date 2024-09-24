@@ -12,12 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
   m_Name: EatCapabilityConfig
   m_EditorClassIdentifier: 
-  goals: []
-  actions: []
+  goals:
+  - goal:
+      <Name>k__BackingField: EatGoal
+      <Id>k__BackingField: Eat-40037932-c408-4c8c-b823-0e2ebfc058b0
+    baseCost: 1
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: Hunger
+        <Id>k__BackingField: Hunger-2301b1b5-3508-464a-95fa-1c5c557c09e7
+      comparison: 1
+      amount: 0
+  actions:
+  - action:
+      <Name>k__BackingField: EatAction
+      <Id>k__BackingField: Eat-b235695c-727b-41a5-aa66-4757ce65719d
+    target:
+      <Name>k__BackingField: 
+      <Id>k__BackingField: 
+    properties:
+      rid: 4217533508436099074
+    baseCost: 1
+    stoppingDistance: 0.1
+    requiresTarget: 0
+    validateConditions: 1
+    moveMode: 0
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: PearCount
+        <Id>k__BackingField: PearCount-ca904c38-dd66-4927-aded-def418fcad6d
+      comparison: 3
+      amount: 1
+    effects:
+    - worldKey:
+        <Name>k__BackingField: Hunger
+        <Id>k__BackingField: Hunger-2301b1b5-3508-464a-95fa-1c5c557c09e7
+      effect: 0
   worldSensors: []
   targetSensors: []
   multiSensors: []
-  generatorScriptable: {fileID: 0}
+  generatorScriptable: {fileID: 11400000, guid: 88ea9e1341906b64f96efb539becac2a,
+    type: 2}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4217533508436099074
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Agent.Runtime, asm: CrashKonijn.Agent.Runtime}
