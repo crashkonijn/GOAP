@@ -57,9 +57,7 @@ namespace CrashKonijn.Goap.Runtime
 
         public bool IsValid(IActionReceiver agent, IActionData data)
         {
-            var goapAgent = agent.Injector.GetCachedComponent<GoapActionProvider>();
-            
-            if (goapAgent == null)
+            if (agent.ActionProvider is not GoapActionProvider goapAgent)
                 return false;
             
             if (this.Config.ValidateConditions && !goapAgent.AgentType.AllConditionsMet(goapAgent, this))
@@ -68,9 +66,15 @@ namespace CrashKonijn.Goap.Runtime
                 return false;
             }
 
-            if (this.Config.RequiresTarget && goapAgent.WorldData.GetTarget(this) == null)
+            if (this.Config.RequiresTarget && data.Target == null)
             {
                 agent.Logger.Warning($"No target found for: {this.Config.Name}");
+                return false;
+            }
+
+            if (this.Config.RequiresTarget && !data.Target.IsValid())
+            {
+                agent.Logger.Warning($"Target became invalid: {this.Config.Name}");
                 return false;
             }
 

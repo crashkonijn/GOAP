@@ -10,6 +10,7 @@ namespace CrashKonijn.Agent.Core
         ILogger<IMonoAgent> Logger { get; }
         IAgentEvents Events { get; }
         Transform Transform { get; }
+        IActionProvider ActionProvider { get; }
         void SetAction(IActionProvider actionProvider, IAction action, ITarget target);
         void StopAction(bool resolveAction = true);
     }

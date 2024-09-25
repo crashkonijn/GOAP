@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
     public class GuidCacheKey
     {
+        private static SHA256 _sha256 = SHA256.Create();
+        
         /// <summary>
         /// Generates a unique, order-independent key from a list of Guids.
         /// No LINQ is used, and minimal garbage collection occurs during execution.
         /// </summary>
         /// <param name="guids">The list of Guids.</param>
         /// <returns>A unique hash string based on the sorted Guids.</returns>
-        public static string GenerateKey(List<Guid> guids)
+        public static string GenerateKey(List<IGoal> guids)
         {
             if (guids == null || guids.Count == 0)
                 throw new ArgumentException("Guid list must not be null or empty.");
@@ -28,7 +31,7 @@ namespace CrashKonijn.Goap.Runtime
             foreach (var guid in guids)
             {
                 // Append each Guid as a string without allocating new memory each time
-                stringBuilder.Append(guid.ToString("N")); // "N" format avoids hyphens and produces 32-character strings
+                stringBuilder.Append(guid.Guid.ToString("N")); // "N" format avoids hyphens and produces 32-character strings
             }
 
             // Get the final concatenated string of sorted Guids
@@ -45,23 +48,20 @@ namespace CrashKonijn.Goap.Runtime
         /// <returns>A hexadecimal string representing the SHA-256 hash.</returns>
         private static string ComputeSha256Hash(string input)
         {
-            using (var sha256 = SHA256.Create())
+            // Convert input string to byte array
+            var inputBytes = Encoding.UTF8.GetBytes(input);
+
+            // Compute the SHA-256 hash
+            var hashBytes = _sha256.ComputeHash(inputBytes);
+
+            // Convert the hash bytes into a hexadecimal string
+            var result = new StringBuilder(hashBytes.Length * 2);
+            foreach (var b in hashBytes)
             {
-                // Convert input string to byte array
-                var inputBytes = Encoding.UTF8.GetBytes(input);
-
-                // Compute the SHA-256 hash
-                var hashBytes = sha256.ComputeHash(inputBytes);
-
-                // Convert the hash bytes into a hexadecimal string
-                var result = new StringBuilder(hashBytes.Length * 2);
-                foreach (var b in hashBytes)
-                {
-                    result.Append(b.ToString("x2"));
-                }
-
-                return result.ToString();
+                result.Append(b.ToString("x2"));
             }
+
+            return result.ToString();
         }
 
         /// <summary>
@@ -70,10 +70,10 @@ namespace CrashKonijn.Goap.Runtime
         /// <param name="g1">The first Guid.</param>
         /// <param name="g2">The second Guid.</param>
         /// <returns>An integer indicating the relative order of the two Guids.</returns>
-        private static int CompareGuids(Guid g1, Guid g2)
+        private static int CompareGuids(IConnectable g1, IConnectable g2)
         {
-            var g1Bytes = g1.ToByteArray();
-            var g2Bytes = g2.ToByteArray();
+            var g1Bytes = g1.Guid.ToByteArray();
+            var g2Bytes = g2.Guid.ToByteArray();
 
             for (var i = 0; i < 16; i++)
             {

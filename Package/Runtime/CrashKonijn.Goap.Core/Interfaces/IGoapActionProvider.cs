@@ -45,7 +45,7 @@ namespace CrashKonijn.Goap.Core
             where TGoal5 : IGoal;
 
         void RequestGoal(IGoal goal, bool endAction);
-        void RequestGoal(IGoalRequest request, bool endAction);
+        void InternalRequestGoal(IGoalRequest request, bool endAction);
         
         void SetAction(IGoalResult result);
         void ClearGoal();

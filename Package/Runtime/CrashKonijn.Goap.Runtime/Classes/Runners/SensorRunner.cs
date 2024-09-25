@@ -14,9 +14,6 @@ namespace CrashKonijn.Goap.Runtime
         private Dictionary<Type, ISensor> sensors = new();
 
         private IGlobalWorldData worldData;
-        
-        // Caching
-        private List<Guid> keyCache = new ();
 
         public SensorRunner(
             IEnumerable<IWorldSensor> worldSensors,
@@ -44,9 +41,14 @@ namespace CrashKonijn.Goap.Runtime
             {
                 this.defaultSet.AddSensor(multiSensor);
                 
-                foreach (var key in multiSensor.GetKeys())
+                foreach (var (key, value) in multiSensor.LocalSensors)
                 {
-                    this.sensors.TryAdd(key, multiSensor);
+                    this.sensors.TryAdd(key, value);
+                }
+                
+                foreach (var (key, value) in multiSensor.GlobalSensors)
+                {
+                    this.sensors.TryAdd(key, value);
                 }
             }
         }
@@ -132,7 +134,7 @@ namespace CrashKonijn.Goap.Runtime
             if (actionProvider.IsNull())
                 return;
 
-            if (!goalRequest.Goals.Any())
+            if (goalRequest.Goals.Count == 0)
                 return;
             
             var set = this.GetSet(goalRequest);
@@ -174,24 +176,12 @@ namespace CrashKonijn.Goap.Runtime
         private SensorSet GetSet(IGoalRequest goalRequest)
         {
             if (string.IsNullOrEmpty(goalRequest.Key))
-                goalRequest.Key = this.GetSetKey(goalRequest.Goals);
+                goalRequest.Key = GuidCacheKey.GenerateKey(goalRequest.Goals);
             
             if (this.goalsSets.TryGetValue(goalRequest.Key, out var existingSet))
                 return existingSet;
             
             return this.CreateSet(goalRequest);
-        }
-        
-        private string GetSetKey(IGoal[] goals)
-        {
-            this.keyCache.Clear();
-            
-            foreach (var goal in goals)
-            {
-                this.keyCache.Add(goal.Guid);
-            }
-
-            return GuidCacheKey.GenerateKey(this.keyCache);
         }
 
         private SensorSet CreateSet(IGoapAction action)

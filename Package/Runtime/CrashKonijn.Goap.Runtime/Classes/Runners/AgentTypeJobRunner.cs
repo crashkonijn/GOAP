@@ -73,7 +73,16 @@ namespace CrashKonijn.Goap.Runtime
 
             this.FillBuilders(actionProvider);
             
-            actionProvider.Logger.Log($"Trying to resolve goals {string.Join(", ", goalRequest.Goals.Select(goal => goal.GetType().GetGenericTypeName()))}");
+            actionProvider.Logger.Log((builder) =>
+            {
+                builder.Append("Trying to resolve goals ");
+                
+                foreach (var goal in goalRequest.Goals)
+                {
+                    builder.Append(goal.GetType().GetGenericTypeName());
+                    builder.Append(", ");
+                }
+            });
             
             this.goalIndexes.Clear();
             

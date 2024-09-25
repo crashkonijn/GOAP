@@ -1,10 +1,11 @@
-﻿using CrashKonijn.Goap.Core;
+﻿using System.Collections.Generic;
+using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
     public class GoalRequest : IGoalRequest
     {
-        public IGoal[] Goals { get; set; }
+        public List<IGoal> Goals { get; set; } = new ();
         public string Key { get; set; }
     }
     

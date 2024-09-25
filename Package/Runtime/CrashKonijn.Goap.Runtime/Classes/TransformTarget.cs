@@ -28,5 +28,10 @@ namespace CrashKonijn.Goap.Runtime
             this.Transform = transform;
             return this;
         }
+
+        public bool IsValid()
+        {
+            return this.Transform != null;
+        }
     }
 }

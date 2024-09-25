@@ -4,7 +4,7 @@ namespace CrashKonijn.Goap.Core
 {
     public interface IGoalRequest
     {
-        IGoal[] Goals { get; }
+        List<IGoal> Goals { get; }
         public string Key { get; set; }
     }
 

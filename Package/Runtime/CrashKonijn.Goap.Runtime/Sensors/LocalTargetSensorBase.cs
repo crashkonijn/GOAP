@@ -8,6 +8,7 @@ namespace CrashKonijn.Goap.Runtime
     {
         public ITargetKey Key => this.Config.Key;
         public ITargetSensorConfig Config { get; private set; }
+        public virtual ISensorTimer Timer => SensorTimer.Always;
         public void SetConfig(ITargetSensorConfig config) => this.Config = config;
         
         public abstract void Created();
@@ -16,7 +17,12 @@ namespace CrashKonijn.Goap.Runtime
 
         public void Sense(IWorldData worldData, IActionReceiver agent, IComponentReference references)
         {
-            worldData.SetTarget(this.Key, this.Sense(agent, references, worldData.GetTargetValue(this.Key.GetType())));
+            var state = worldData.GetTargetState(this.Key.GetType());
+            
+            if (!this.Timer.ShouldSense(state?.Timer))
+                return;
+            
+            worldData.SetTarget(this.Key, this.Sense(agent, references, state?.Value));
         }
 
         public abstract ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget);

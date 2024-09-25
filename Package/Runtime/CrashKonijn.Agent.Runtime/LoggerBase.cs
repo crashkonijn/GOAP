@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using CrashKonijn.Agent.Core;
 
 namespace CrashKonijn.Agent.Runtime
@@ -8,7 +10,7 @@ namespace CrashKonijn.Agent.Runtime
         protected ILoggerConfig config;
         protected TObj source;
         protected abstract string Name { get; }
-        public List<string> Logs { get; } = new();
+        public List<IRawLog> Logs { get; } = new();
 
         public void Initialize(ILoggerConfig config, TObj source)
         {
@@ -22,21 +24,42 @@ namespace CrashKonijn.Agent.Runtime
         public void Log(string message)
         {
 #if UNITY_EDITOR
-            this.Handle(message, DebugSeverity.Log);
+            this.Handle((builder) => builder.Append(message), DebugSeverity.Log);
 #endif
         }
-        
+
+        public void Log(Action<StringBuilder> callback)
+        {
+#if UNITY_EDITOR
+            this.Handle(callback, DebugSeverity.Log);
+#endif
+        }
+
         public void Warning(string message)
         {
 #if UNITY_EDITOR
-            this.Handle(message, DebugSeverity.Warning);
+            this.Handle((builder) => builder.Append(message), DebugSeverity.Warning);
 #endif
         }
-        
+
+        public void Warning(Action<StringBuilder> callback)
+        {
+#if UNITY_EDITOR
+            this.Handle(callback, DebugSeverity.Warning);
+#endif
+        }
+
         public void Error(string message)
         {
 #if UNITY_EDITOR
-            this.Handle(message, DebugSeverity.Error);
+            this.Handle((builder) => builder.Append(message), DebugSeverity.Error);
+#endif
+        }
+
+        public void Error(Action<StringBuilder> callback)
+        {
+#if UNITY_EDITOR
+            this.Handle(callback, DebugSeverity.Error);
 #endif
         }
 
@@ -62,56 +85,70 @@ namespace CrashKonijn.Agent.Runtime
             }
         }
         
-        private string FormatConsole(string message)
+        private string FormatConsole(IRawLog log)
         {
-            return $"{this.Name}: {message}";
+            return $"{this.Name}: {log.Message}";
         }
 
-        protected void Handle(string message, DebugSeverity severity)
+        protected void Handle(Action<StringBuilder> message, DebugSeverity severity)
         {
             switch (this.config.DebugMode)
             {
                 case DebugMode.None:
                     break;
                 case DebugMode.Log:
-                    this.Store(this.FormatLog(message, severity));
+                    this.Store(message, severity);
                     break;
                 case DebugMode.Console:
-                    this.Store(this.FormatLog(message, severity));
-                    this.AddToConsole(this.FormatConsole(message), severity);
+                    var log = this.Store(message, severity);
+                    
+                    if (log == null)
+                        return;
+                    
+                    this.AddToConsole(log);
                     break;
             }
         }
         
-        private void AddToConsole(string message, DebugSeverity severity)
+        private void AddToConsole(IRawLog log)
         {
-            switch (severity)
+            switch (log.Severity)
             {
                 case DebugSeverity.Log:
-                    UnityEngine.Debug.Log(this.FormatConsole(message));
+                    UnityEngine.Debug.Log(this.FormatConsole(log));
                     break;
                 case DebugSeverity.Warning:
-                    UnityEngine.Debug.LogWarning(this.FormatConsole(message));
+                    UnityEngine.Debug.LogWarning(this.FormatConsole(log));
                     break;
                 case DebugSeverity.Error:
-                    UnityEngine.Debug.LogError(this.FormatConsole(message));
+                    UnityEngine.Debug.LogError(this.FormatConsole(log));
                     break;
             }
         }
         
-        private void Store(string message)
+        private IRawLog Store(Action<StringBuilder> message, DebugSeverity severity)
         {
             if (this.config.MaxLogSize == 0)
             {
-                return;
+                return null;
             }
+
+            IRawLog log = null;
             
             if (this.Logs.Count >= this.config.MaxLogSize)
             {
+                log = this.Logs[0];
                 this.Logs.RemoveAt(0);
             }
             
-            this.Logs.Add(message);
+            log ??= new RawLog();
+            
+            log.Callback = message;
+            log.Severity = severity;
+            
+            this.Logs.Add(log);
+
+            return log;
         }
 
         protected abstract void RegisterEvents();
@@ -120,6 +157,45 @@ namespace CrashKonijn.Agent.Runtime
         ~LoggerBase()
         {
             this.UnregisterEvents();
+        }
+
+        private class RawLog : IRawLog
+        {
+            private static StringBuilder builder = new();
+            
+            private Action<StringBuilder> callback;
+            public Action<StringBuilder> Callback
+            {
+                get => this.callback;
+                set
+                {
+                    this.callback = value;
+                    this.message = null;
+                }
+            }
+            
+            public DebugSeverity Severity { get; set; }
+
+            private string message = null;
+            public string Message
+            {
+                get
+                {
+                    if (this.message != null)
+                        return this.message;
+
+                    builder.Clear();
+                    this.callback(builder);
+                    this.message = builder.ToString();
+
+                    return this.message;
+                }
+            }
+
+            public override string ToString()
+            {
+                return this.Message;
+            }
         }
     }
 }
