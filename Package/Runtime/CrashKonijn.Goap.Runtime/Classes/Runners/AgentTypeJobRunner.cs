@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Resolver;
@@ -73,16 +75,7 @@ namespace CrashKonijn.Goap.Runtime
 
             this.FillBuilders(actionProvider);
             
-            actionProvider.Logger.Log((builder) =>
-            {
-                builder.Append("Trying to resolve goals ");
-                
-                foreach (var goal in goalRequest.Goals)
-                {
-                    builder.Append(goal.GetType().GetGenericTypeName());
-                    builder.Append(", ");
-                }
-            });
+            this.LogRequest(actionProvider, goalRequest);
             
             this.goalIndexes.Clear();
             
@@ -216,6 +209,28 @@ namespace CrashKonijn.Goap.Runtime
             }
             
             this.resolveHandles.Clear();
+        }
+
+        private void LogRequest(IGoapActionProvider actionProvider, IGoalRequest request)
+        {
+#if UNITY_EDITOR
+            if (actionProvider.Logger == null)
+                return;
+            
+            if (!actionProvider.Logger.ShouldLog())
+                return;
+            
+            var builder = new StringBuilder();
+            builder.Append("Trying to resolve goals ");
+                
+            foreach (var goal in request.Goals)
+            {
+                builder.Append(goal.GetType().GetGenericTypeName());
+                builder.Append(", ");
+            }
+            
+            actionProvider.Logger.Log(builder.ToString());
+#endif
         }
 
         public void Dispose()

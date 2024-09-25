@@ -26,17 +26,28 @@ namespace CrashKonijn.Agent.Runtime
             this.source.Events.OnActionComplete -= this.ActionComplete;
         }
         
-        private void ActionStart(IAction action) => this.Log((builder) =>
+        private void ActionStart(IAction action)
         {
-            builder.Append($"Action {action?.GetType().GetGenericTypeName()} started");
-        });
-        private void ActionStop(IAction action) => this.Log((builder) =>
+            if (this.config.DebugMode == DebugMode.None)
+                return;
+            
+            this.Log($"Action {action?.GetType().GetGenericTypeName()} started");
+        }
+
+        private void ActionStop(IAction action)
         {
-            builder.Append($"Action {action?.GetType().GetGenericTypeName()} stopped");
-        });
-        private void ActionComplete(IAction action) => this.Log((builder) =>
+            if (this.config.DebugMode == DebugMode.None)
+                return;
+            
+            this.Log($"Action {action?.GetType().GetGenericTypeName()} stopped");
+        }
+
+        private void ActionComplete(IAction action)
         {
-            builder.Append($"Action {action?.GetType().GetGenericTypeName()} completed");
-        });
+            if (this.config.DebugMode == DebugMode.None)
+                return;
+            
+            this.Log($"Action {action?.GetType().GetGenericTypeName()} completed");
+        }
     }
 }

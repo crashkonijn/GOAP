@@ -283,7 +283,11 @@ namespace CrashKonijn.Goap.Runtime
 
         public void SetAction(IGoalResult result)
         {
-            this.Logger.Log($"Setting action '{result.Action.GetType().GetGenericTypeName()}' for goal '{result.Goal.GetType().GetGenericTypeName()}'.");
+            if (result == null)
+                return;
+            
+            if (this.Logger.ShouldLog())
+                this.Logger.Log($"Setting action '{result.Action.GetType().GetGenericTypeName()}' for goal '{result.Goal.GetType().GetGenericTypeName()}'.");
             
             var currentGoal = this.CurrentPlan?.Goal;
             

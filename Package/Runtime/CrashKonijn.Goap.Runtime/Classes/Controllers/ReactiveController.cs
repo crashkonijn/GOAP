@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Core;
+﻿using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -16,6 +15,9 @@ namespace CrashKonijn.Goap.Runtime
 
         public void Disable()
         {
+            if (this.goap?.Events == null)
+                return;
+            
             this.goap.Events.OnAgentResolve -= this.OnAgentResolve;
             this.goap.Events.OnNoActionFound -= this.OnNoActionFound;
         }

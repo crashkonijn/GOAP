@@ -7,6 +7,7 @@ namespace CrashKonijn.Goap.Runtime
 {
     public abstract class GoalBase : IGoal
     {
+        public int Index { get; set; }
         private IGoalConfig config;
         public IGoalConfig Config => this.config;
         
