@@ -44,6 +44,11 @@ namespace CrashKonijn.Goap.UnitTests
             this.agentType.GetActions().Returns(new List<IGoapAction>());
             this.agentType.GetGoals().Returns(new List<IGoal>());
 
+            var goalRequest = Substitute.For<IGoalRequest>();
+            goalRequest.Goals.Returns(new List<IGoal>());
+            
+            this.goapActionProvider.GoalRequest.Returns(goalRequest);
+            
             var resolver = Substitute.For<IGraphResolver>();
             
             var runner = new AgentTypeJobRunner(this.agentType, resolver);
@@ -87,6 +92,11 @@ namespace CrashKonijn.Goap.UnitTests
             this.agentType.GetActions().Returns(new List<IGoapAction>());
             this.agentType.GetGoals().Returns(new List<IGoal>());
             this.agentType.GoapConfig.Returns(GoapConfig.Default);
+
+            var goalRequest = Substitute.For<IGoalRequest>();
+            goalRequest.Goals.Returns(new List<IGoal>());
+            
+            this.goapActionProvider.GoalRequest.Returns(goalRequest);
             
             var resolver = Substitute.For<IGraphResolver>();
             
@@ -138,7 +148,7 @@ namespace CrashKonijn.Goap.UnitTests
             goalResult.Goal.Returns(goal);
             
             var request = Substitute.For<IGoalRequest>();
-            request.Goals.Returns(new [] { goal });
+            request.Goals.Returns(new List<IGoal> { goal });
             
             this.goapActionProvider.CurrentPlan.Returns(goalResult);
             this.goapActionProvider.GoalRequest.Returns(request);
@@ -175,7 +185,7 @@ namespace CrashKonijn.Goap.UnitTests
             goal2.Conditions.Returns(new [] { Substitute.For<ICondition>() });
             
             var goalRequest = Substitute.For<IGoalRequest>();
-            goalRequest.Goals.Returns(new [] { goal1, goal2 });
+            goalRequest.Goals.Returns(new List<IGoal> { goal1, goal2 });
             
             this.goapActionProvider.GoalRequest.Returns(goalRequest);
             this.goapActionProvider.Receiver.ActionState.Action.ReturnsNull();
@@ -209,7 +219,11 @@ namespace CrashKonijn.Goap.UnitTests
             
             var goalResult = Substitute.For<IGoalResult>();
             goalResult.Goal.Returns(goal);
+            
+            var goalRequest = Substitute.For<IGoalRequest>();
+            goalRequest.Goals.Returns(new List<IGoal> { goal });
 
+            this.goapActionProvider.GoalRequest.Returns(goalRequest);
             this.goapActionProvider.CurrentPlan.Returns(goalResult);
             this.goapActionProvider.Receiver.ActionState.Action.Returns(Substitute.For<IAction>());
             
@@ -244,7 +258,7 @@ namespace CrashKonijn.Goap.UnitTests
             goalResult.Goal.Returns(goal);
             
             var request = Substitute.For<IGoalRequest>();
-            request.Goals.Returns(new [] { goal });
+            request.Goals.Returns(new List<IGoal> { goal });
 
             this.goapActionProvider.GoalRequest.Returns(request);
             this.goapActionProvider.CurrentPlan.Returns(goalResult);
@@ -282,7 +296,11 @@ namespace CrashKonijn.Goap.UnitTests
             
             var goalResult = Substitute.For<IGoalResult>();
             goalResult.Goal.Returns(goal);
+            
+            var request = Substitute.For<IGoalRequest>();
+            request.Goals.Returns(new List<IGoal> { goal });
 
+            this.goapActionProvider.GoalRequest.Returns(request);
             this.goapActionProvider.CurrentPlan.Returns(goalResult);
             this.goapActionProvider.Receiver.ActionState.Action.ReturnsNull();
             
@@ -321,6 +339,10 @@ namespace CrashKonijn.Goap.UnitTests
             var goalResult = Substitute.For<IGoalResult>();
             goalResult.Goal.Returns(goal);
             
+            var goalRequest = Substitute.For<IGoalRequest>();
+            goalRequest.Goals.Returns(new List<IGoal> { goal });
+            
+            this.goapActionProvider.GoalRequest.Returns(goalRequest);
             this.goapActionProvider.CurrentPlan.Returns(goalResult);
             this.goapActionProvider.Receiver.ActionState.Action.ReturnsNull();
             
@@ -363,6 +385,10 @@ namespace CrashKonijn.Goap.UnitTests
             var goalResult = Substitute.For<IGoalResult>();
             goalResult.Goal.Returns(goal);
             
+            var goalRequest = Substitute.For<IGoalRequest>();
+            goalRequest.Goals.Returns(new List<IGoal> { goal });
+            
+            this.goapActionProvider.GoalRequest.Returns(goalRequest);
             this.goapActionProvider.CurrentPlan.Returns(goalResult);
             this.goapActionProvider.Receiver.ActionState.Action.Returns(action);
             
@@ -406,7 +432,7 @@ namespace CrashKonijn.Goap.UnitTests
             goal2.Conditions.Returns(new [] { condition2 });
             
             var goalRequest = Substitute.For<IGoalRequest>();
-            goalRequest.Goals.Returns(new [] { goal1, goal2 });
+            goalRequest.Goals.Returns(new List<IGoal>() { goal1, goal2 });
             
             this.goapActionProvider.GoalRequest.Returns(goalRequest);
             this.goapActionProvider.Receiver.ActionState.Action.ReturnsNull();
@@ -447,7 +473,7 @@ namespace CrashKonijn.Goap.UnitTests
             goalResult.Goal.Returns(goal);
             
             var request = Substitute.For<IGoalRequest>();
-            request.Goals.Returns(new [] { goal });
+            request.Goals.Returns(new List<IGoal>() { goal });
             
             this.goapActionProvider.CurrentPlan.Returns(goalResult);
             this.goapActionProvider.GoalRequest.Returns(request);

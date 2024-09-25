@@ -10,14 +10,15 @@ namespace CrashKonijn.Goap.Runtime
     {
         public IMultiSensorConfig Config { get; private set; }
 
-        public Dictionary<Type, LocalSensor> LocalSensors { get; private set; } = new();
-        public Dictionary<Type, GlobalSensor> GlobalSensors { get; private set; } = new();
+        public Dictionary<Type, ILocalSensor> LocalSensors { get; private set; } = new();
+        public Dictionary<Type, IGlobalSensor> GlobalSensors { get; private set; } = new();
 
         public void SetConfig(IMultiSensorConfig config)
         {
             this.Config = config;
         }
 
+        public Type Key { get; set; }
         public abstract void Created();
 
         public abstract void Update();
@@ -26,14 +27,14 @@ namespace CrashKonijn.Goap.Runtime
         {
             var keys = new List<Type>();
             
-            foreach (var sensor in this.LocalSensors.Values)
+            foreach (var sensor in this.LocalSensors.Keys)
             {
-                keys.Add(sensor.Key);
+                keys.Add(sensor);
             }
             
-            foreach (var sensor in this.GlobalSensors.Values)
+            foreach (var sensor in this.GlobalSensors.Keys)
             {
-                keys.Add(sensor.Key);
+                keys.Add(sensor);
             }
 
             return keys.ToArray();
@@ -85,7 +86,7 @@ namespace CrashKonijn.Goap.Runtime
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
-                Sense = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
+                SenseMethod = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
                 {
                     var state = data.GetWorldState(typeof(TKey));
                     
@@ -105,7 +106,7 @@ namespace CrashKonijn.Goap.Runtime
             this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
             {
                 Key = typeof(TKey),
-                Sense = (IWorldData data) =>
+                SenseMethod = (IWorldData data) =>
                 {
                     var state = data.GetWorldState(typeof(TKey));
                     
@@ -125,7 +126,7 @@ namespace CrashKonijn.Goap.Runtime
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
-                Sense = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
+                SenseMethod = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
                 {
                     var state = data.GetTargetState(typeof(TKey));
                     
@@ -145,7 +146,7 @@ namespace CrashKonijn.Goap.Runtime
             this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
             {
                 Key = typeof(TKey),
-                Sense = (IWorldData data) =>
+                SenseMethod = (IWorldData data) =>
                 {
                     var state = data.GetTargetState(typeof(TKey));
                     
@@ -161,29 +162,41 @@ namespace CrashKonijn.Goap.Runtime
         {
             var sensors = new List<string>();
             
-            foreach (var sensor in this.LocalSensors.Values)
+            foreach (var sensor in this.LocalSensors.Keys)
             {
-                sensors.Add($"{sensor.Key.Name} (local)");
+                sensors.Add($"{sensor.Name} (local)");
             }
             
-            foreach (var sensor in this.GlobalSensors.Values)
+            foreach (var sensor in this.GlobalSensors.Keys)
             {
-                sensors.Add($"{sensor.Key.Name} (global)");
+                sensors.Add($"{sensor.Name} (global)");
             }
 
             return sensors.ToArray();
         }
     }
 
-    public class GlobalSensor
+    public class GlobalSensor : IGlobalSensor
     {
-        public Type Key;
-        public Action<IWorldData> Sense;
+        public Action<IWorldData> SenseMethod;
+        public Type Key { get; set; }
+        public void Created() {}
+
+        public Type[] GetKeys() => new[] { this.Key };
+
+        public void Sense(IWorldData data) => this.SenseMethod(data);
     }
 
-    public class LocalSensor
+    public class LocalSensor : ILocalSensor
     {
-        public Type Key;
-        public Action<IWorldData, IActionReceiver, IComponentReference> Sense;
+        public Action<IWorldData, IActionReceiver, IComponentReference> SenseMethod;
+        public Type Key { get; set; }
+
+        public Type[] GetKeys() => new[] { this.Key };
+        public void Created() {}
+
+        public void Update() {}
+
+        public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references) => this.SenseMethod(data, agent, references);
     }
 }

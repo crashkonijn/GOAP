@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 
 namespace CrashKonijn.Goap.Core
@@ -6,6 +7,8 @@ namespace CrashKonijn.Goap.Core
     public interface IMultiSensor : IHasConfig<IMultiSensorConfig>, ILocalSensor, IGlobalSensor
     {
         string[] GetSensors();
+        Dictionary<Type, ILocalSensor> LocalSensors { get; }
+        Dictionary<Type, IGlobalSensor> GlobalSensors { get; }
     }
 
     public interface ISensor

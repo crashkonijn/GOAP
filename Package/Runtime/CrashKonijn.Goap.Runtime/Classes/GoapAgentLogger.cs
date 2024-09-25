@@ -30,10 +30,29 @@ namespace CrashKonijn.Goap.Runtime
             this.source.Events.OnGoalStart -= this.GoalStart;
             this.source.Events.OnGoalCompleted -= this.GoalCompleted;
         }
-        
-        private void NoActionFound(IGoalRequest request) => this.Handle($"No action found for goals {string.Join(", ", request.Goals.Select(x => x.GetType().GetGenericTypeName()))}", DebugSeverity.Warning);
-        private void GoalStart(IGoal goal) => this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} started", DebugSeverity.Log);
-        private void GoalCompleted(IGoal goal) => this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} completed", DebugSeverity.Log);
 
+        private void NoActionFound(IGoalRequest request)
+        {
+            if (this.config.DebugMode == DebugMode.None)
+                return;
+            
+            this.Handle($"No action found for goals {string.Join(", ", request.Goals.Select(x => x.GetType().GetGenericTypeName()))}", DebugSeverity.Warning);
+        }
+
+        private void GoalStart(IGoal goal)
+        {
+            if (this.config.DebugMode == DebugMode.None)
+                return;
+            
+            this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} started", DebugSeverity.Log);
+        }
+
+        private void GoalCompleted(IGoal goal)
+        {
+            if (this.config.DebugMode == DebugMode.None)
+                return;
+            
+            this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} completed", DebugSeverity.Log);
+        }
     }
 }

@@ -40,6 +40,15 @@ namespace CrashKonijn.Agent.Runtime
 #endif
         }
 
+        public bool ShouldLog()
+        {
+#if UNITY_EDITOR
+            return this.config.DebugMode != DebugMode.None;
+#endif
+            
+            return false;
+        }
+
         private string FormatLog(string message, DebugSeverity severity)
         {
             var formattedTime = System.DateTime.Now.ToString("HH:mm:ss");

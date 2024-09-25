@@ -6,6 +6,7 @@ namespace CrashKonijn.Goap.Runtime
 {
     public abstract class GlobalTargetSensorBase : IGlobalTargetSensor
     {
+        private Type key;
         public ITargetKey Key => this.Config.Key;
         public virtual ISensorTimer Timer => SensorTimer.Always;
         public ITargetSensorConfig Config { get; private set; }

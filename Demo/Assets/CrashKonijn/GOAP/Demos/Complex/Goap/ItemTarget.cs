@@ -19,5 +19,10 @@ namespace CrashKonijn.Goap.Demos.Complex.Goap
             this.Item = item;
             return this;
         }
+        
+        public bool IsValid()
+        {
+            return this.Item != null;
+        }
     }
 }

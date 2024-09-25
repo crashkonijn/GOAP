@@ -16,6 +16,9 @@ namespace CrashKonijn.Agent.Runtime
             get => this.actionProvider;
             set
             {
+                if (this.actionProvider == value)
+                    return;
+                
                 this.actionProvider = value;
                 this.actionProvider.Receiver = this;
             }

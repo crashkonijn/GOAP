@@ -75,9 +75,13 @@ namespace CrashKonijn.Goap.Runtime
         {
             var goals = this.classResolver.Load<IGoal, IGoalConfig>(config.Goals.DistinctBy(x => x.ClassType));
             var injector = this.goapConfig.GoapInjector;
+            var index = 0;
             
             goals.ForEach(x =>
             {
+                x.Index = index;
+                index++;
+                
                 injector.Inject(x);
             });
 

@@ -6,7 +6,6 @@ namespace CrashKonijn.Goap.Runtime
     public class PositionTarget : ITarget
     {
         public Vector3 Position { get; private set; }
-
         public PositionTarget(Vector3 position)
         {
             this.Position = position;
@@ -16,6 +15,11 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.Position = position;
             return this;
+        }
+        
+        public bool IsValid()
+        {
+            return true;
         }
     }
 }

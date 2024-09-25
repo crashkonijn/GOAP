@@ -13,5 +13,6 @@ namespace CrashKonijn.Agent.Core
         void Log(string message);
         void Warning(string message);
         void Error(string message);
+        bool ShouldLog();
     }
 }

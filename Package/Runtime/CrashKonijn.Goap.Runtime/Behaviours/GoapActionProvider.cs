@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
@@ -40,6 +41,7 @@ namespace CrashKonijn.Goap.Runtime
 
         public IGoalResult CurrentPlan { get; private set; } = new GoalResult();
         public IGoalRequest GoalRequest { get; private set; }
+        private IGoalRequest requestCache = new GoalRequest();
 
         public ILocalWorldData WorldData { get; } = new LocalWorldData();
         public IGoapAgentEvents Events { get; } = new GoapAgentEvents();
@@ -86,18 +88,27 @@ namespace CrashKonijn.Goap.Runtime
         [Obsolete("Use RequestGoal instead.")]
         public void SetGoal(IGoal goal, bool endAction = false) => this.RequestGoal(goal, endAction);
 
+        private IGoalRequest GetRequestCache()
+        {
+            if (this.requestCache == null)
+                this.requestCache = new GoalRequest();
+            
+            this.requestCache.Goals.Clear();
+            this.requestCache.Key = string.Empty;
+            
+            return this.requestCache;
+        }
+        
         public void RequestGoal<TGoal>(bool resolve = true)
             where TGoal : IGoal
         {
             this.ValidateSetup();
             
-            this.RequestGoal(new GoalRequest
-            {
-                Goals = new IGoal[]
-                {
-                    this.AgentType.ResolveGoal<TGoal>()
-                }
-            }, resolve);
+            var request = this.GetRequestCache();
+            request.Goals.Clear();
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal>());
+            
+            this.RequestGoal(request, resolve);
         }
 
         public void RequestGoal<TGoal1, TGoal2>(bool resolve = true)
@@ -105,15 +116,13 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal2 : IGoal
         {
             this.ValidateSetup();
-
-            this.RequestGoal(new GoalRequest
-            {
-                Goals = new IGoal[]
-                {
-                    this.AgentType.ResolveGoal<TGoal1>(),
-                    this.AgentType.ResolveGoal<TGoal2>()
-                }
-            }, resolve);
+            
+            var request = this.GetRequestCache();
+            request.Goals.Clear();
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal1>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
+            
+            this.RequestGoal(request, resolve);
         }
         
         public void RequestGoal<TGoal1, TGoal2, TGoal3>(bool resolve = true)
@@ -122,16 +131,14 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal3 : IGoal
         {
             this.ValidateSetup();
-
-            this.RequestGoal(new GoalRequest
-            {
-                Goals = new IGoal[]
-                {
-                    this.AgentType.ResolveGoal<TGoal1>(),
-                    this.AgentType.ResolveGoal<TGoal2>(),
-                    this.AgentType.ResolveGoal<TGoal3>()
-                }
-            }, resolve);
+            
+            var request = this.GetRequestCache();
+            request.Goals.Clear();
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal1>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal3>());
+            
+            this.RequestGoal(request, resolve);
         }
         
         public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4>(bool resolve = true)
@@ -142,16 +149,14 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.ValidateSetup();
 
-            this.RequestGoal(new GoalRequest
-            {
-                Goals = new IGoal[]
-                {
-                    this.AgentType.ResolveGoal<TGoal1>(),
-                    this.AgentType.ResolveGoal<TGoal2>(),
-                    this.AgentType.ResolveGoal<TGoal3>(),
-                    this.AgentType.ResolveGoal<TGoal4>()
-                }
-            }, resolve);
+            var request = this.GetRequestCache();
+            request.Goals.Clear();
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal1>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal3>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal4>());
+            
+            this.RequestGoal(request, resolve);
         }
         
         public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4, TGoal5>(bool resolve = true)
@@ -162,52 +167,72 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal5 : IGoal
         {
             this.ValidateSetup();
-
-            this.RequestGoal(new GoalRequest
-            {
-                Goals = new IGoal[]
-                {
-                    this.AgentType.ResolveGoal<TGoal1>(),
-                    this.AgentType.ResolveGoal<TGoal2>(),
-                    this.AgentType.ResolveGoal<TGoal3>(),
-                    this.AgentType.ResolveGoal<TGoal4>(),
-                    this.AgentType.ResolveGoal<TGoal5>()
-                }
-            }, resolve);
+            
+            var request = this.GetRequestCache();
+            
+            request.Goals.Clear();
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal1>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal3>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal4>());
+            request.Goals.Add(this.AgentType.ResolveGoal<TGoal5>());
+            
+            this.RequestGoal(request, resolve);
         }
 
         public void RequestGoal(IGoal goal, bool resolve)
         {
             this.ValidateSetup();
-
-            this.RequestGoal(new GoalRequest
-            {
-                Goals = new[] { goal },
-            }, resolve);
+            
+            var request = this.GetRequestCache();
+            request.Goals.Clear();
+            
+            request.Goals.Add(goal);
+            
+            this.RequestGoal(request, resolve);
         }
 
         public void RequestGoal(IGoalRequest request, bool resolve = true)
         {
             this.ValidateSetup();
-
+            
             if (request == null)
                 return;
             
-            if (this.GoalRequest?.Goals.SequenceEqual(request.Goals) ?? false)
+            if (AreEqual(this.GoalRequest?.Goals ?? new List<IGoal>(), request.Goals))
                 return;
             
+            this.requestCache = this.GoalRequest;
             this.GoalRequest = request;
-
+            
             if (this.Receiver == null)
                 return;
-
+            
             if (resolve)
                 this.ResolveAction();
+        }
+        
+        public static bool AreEqual<T>(List<T> array1, List<T> array2)
+            where T : class
+        {
+            if (array1.Count != array2.Count)
+                return false;
+
+            for (var i = 0; i < array1.Count; i++)
+            {
+                if (array1[i] != array2[i])
+                    return false;
+            }
+            return true;
         }
 
         public void SetAction(IGoalResult result)
         {
-            this.Logger.Log($"Setting action '{result.Action.GetType().GetGenericTypeName()}' for goal '{result.Goal.GetType().GetGenericTypeName()}'.");
+            if (result == null)
+                return;
+            
+            if (this.Logger.ShouldLog())
+                this.Logger.Log($"Setting action '{result.Action.GetType().GetGenericTypeName()}' for goal '{result.Goal.GetType().GetGenericTypeName()}'.");
             
             var currentGoal = this.CurrentPlan?.Goal;
             

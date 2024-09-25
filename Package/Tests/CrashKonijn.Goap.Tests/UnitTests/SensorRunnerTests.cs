@@ -44,6 +44,8 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var sensor = Substitute.For<IMultiSensor>();
+            sensor.LocalSensors.Returns(new System.Collections.Generic.Dictionary<System.Type, ILocalSensor>());
+            sensor.GlobalSensors.Returns(new System.Collections.Generic.Dictionary<System.Type, IGlobalSensor>());
             
             var runner = new SensorRunner(new IWorldSensor[] {  }, new ITargetSensor[] { }, new IMultiSensor[] { sensor }, Substitute.For<IGlobalWorldData>());
             
@@ -95,6 +97,8 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var sensor = Substitute.For<IMultiSensor>();
+            sensor.LocalSensors.Returns(new System.Collections.Generic.Dictionary<System.Type, ILocalSensor>());
+            sensor.GlobalSensors.Returns(new System.Collections.Generic.Dictionary<System.Type, IGlobalSensor>());
             
             var runner = new SensorRunner(new IWorldSensor[] {  }, new ITargetSensor[] { }, new IMultiSensor[] { sensor }, Substitute.For<IGlobalWorldData>());
             
