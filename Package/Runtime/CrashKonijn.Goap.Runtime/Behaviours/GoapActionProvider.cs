@@ -108,15 +108,7 @@ namespace CrashKonijn.Goap.Runtime
             request.Goals.Clear();
             request.Goals.Add(this.AgentType.ResolveGoal<TGoal>());
             
-            this.InternalRequestGoal(request, resolve);
-            
-            // this.InternalRequestGoal(new GoalRequest
-            // {
-            //     Goals = new IGoal[]
-            //     {
-            //         this.AgentType.ResolveGoal<TGoal>()
-            //     }
-            // }, resolve);
+            this.RequestGoal(request, resolve);
         }
 
         public void RequestGoal<TGoal1, TGoal2>(bool resolve = true)
@@ -130,16 +122,7 @@ namespace CrashKonijn.Goap.Runtime
             request.Goals.Add(this.AgentType.ResolveGoal<TGoal1>());
             request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
             
-            this.InternalRequestGoal(request, resolve);
-
-            // this.InternalRequestGoal(new GoalRequest
-            // {
-            //     Goals = new IGoal[]
-            //     {
-            //         this.AgentType.ResolveGoal<TGoal1>(),
-            //         this.AgentType.ResolveGoal<TGoal2>()
-            //     }
-            // }, resolve);
+            this.RequestGoal(request, resolve);
         }
         
         public void RequestGoal<TGoal1, TGoal2, TGoal3>(bool resolve = true)
@@ -155,17 +138,7 @@ namespace CrashKonijn.Goap.Runtime
             request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
             request.Goals.Add(this.AgentType.ResolveGoal<TGoal3>());
             
-            this.InternalRequestGoal(request, resolve);
-
-            // this.InternalRequestGoal(new GoalRequest
-            // {
-            //     Goals = new IGoal[]
-            //     {
-            //         this.AgentType.ResolveGoal<TGoal1>(),
-            //         this.AgentType.ResolveGoal<TGoal2>(),
-            //         this.AgentType.ResolveGoal<TGoal3>()
-            //     }
-            // }, resolve);
+            this.RequestGoal(request, resolve);
         }
         
         public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4>(bool resolve = true)
@@ -183,18 +156,7 @@ namespace CrashKonijn.Goap.Runtime
             request.Goals.Add(this.AgentType.ResolveGoal<TGoal3>());
             request.Goals.Add(this.AgentType.ResolveGoal<TGoal4>());
             
-            this.InternalRequestGoal(request, resolve);
-            
-            // this.InternalRequestGoal(new GoalRequest
-            // {
-            //     Goals = new IGoal[]
-            //     {
-            //         this.AgentType.ResolveGoal<TGoal1>(),
-            //         this.AgentType.ResolveGoal<TGoal2>(),
-            //         this.AgentType.ResolveGoal<TGoal3>(),
-            //         this.AgentType.ResolveGoal<TGoal4>()
-            //     }
-            // }, resolve);
+            this.RequestGoal(request, resolve);
         }
         
         public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4, TGoal5>(bool resolve = true)
@@ -215,19 +177,7 @@ namespace CrashKonijn.Goap.Runtime
             request.Goals.Add(this.AgentType.ResolveGoal<TGoal4>());
             request.Goals.Add(this.AgentType.ResolveGoal<TGoal5>());
             
-            this.InternalRequestGoal(request, resolve);
-
-            // this.InternalRequestGoal(new GoalRequest
-            // {
-            //     Goals = new IGoal[]
-            //     {
-            //         this.AgentType.ResolveGoal<TGoal1>(),
-            //         this.AgentType.ResolveGoal<TGoal2>(),
-            //         this.AgentType.ResolveGoal<TGoal3>(),
-            //         this.AgentType.ResolveGoal<TGoal4>(),
-            //         this.AgentType.ResolveGoal<TGoal5>()
-            //     }
-            // }, resolve);
+            this.RequestGoal(request, resolve);
         }
 
         public void RequestGoal(IGoal goal, bool resolve)
@@ -239,15 +189,10 @@ namespace CrashKonijn.Goap.Runtime
             
             request.Goals.Add(goal);
             
-            this.InternalRequestGoal(request, resolve);
-
-            // this.InternalRequestGoal(new GoalRequest
-            // {
-            //     Goals = new[] { goal },
-            // }, resolve);
+            this.RequestGoal(request, resolve);
         }
 
-        public void InternalRequestGoal(IGoalRequest request, bool resolve = true)
+        public void RequestGoal(IGoalRequest request, bool resolve = true)
         {
             this.ValidateSetup();
             
