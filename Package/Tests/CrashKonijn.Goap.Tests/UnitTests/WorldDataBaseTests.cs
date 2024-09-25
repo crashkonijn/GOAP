@@ -70,7 +70,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             Assert.AreEqual(1, this.worldDataBase.States.Count);
             Assert.IsTrue(this.worldDataBase.States.ContainsKey(typeof(WorldKey)));
-            Assert.AreEqual(1, this.worldDataBase.States[typeof(WorldKey)]);
+            Assert.AreEqual(1, this.worldDataBase.States[typeof(WorldKey)].Value);
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             Assert.AreEqual(1, this.worldDataBase.States.Count);
             Assert.IsTrue(this.worldDataBase.States.ContainsKey(typeof(WorldKey)));
-            Assert.AreEqual(1, this.worldDataBase.States[typeof(WorldKey)]);
+            Assert.AreEqual(1, this.worldDataBase.States[typeof(WorldKey)].Value);
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             Assert.AreEqual(1, this.worldDataBase.Targets.Count);
             Assert.IsTrue(this.worldDataBase.Targets.ContainsKey(typeof(TargetKey)));
-            Assert.AreEqual(mockTarget, this.worldDataBase.Targets[typeof(TargetKey)]);
+            Assert.AreEqual(mockTarget, this.worldDataBase.Targets[typeof(TargetKey)].Value);
         }
 
         [Test]
@@ -112,7 +112,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             Assert.AreEqual(1, this.worldDataBase.Targets.Count);
             Assert.IsTrue(this.worldDataBase.Targets.ContainsKey(typeof(TargetKey)));
-            Assert.AreEqual(mockTarget, this.worldDataBase.Targets[typeof(TargetKey)]);
+            Assert.AreEqual(mockTarget, this.worldDataBase.Targets[typeof(TargetKey)].Value);
         }
 
         [Test]

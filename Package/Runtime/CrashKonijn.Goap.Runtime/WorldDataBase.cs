@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 namespace CrashKonijn.Goap.Runtime
 {
     public abstract class WorldDataBase : IWorldData
     {
-        public Dictionary<Type, int> States { get; } = new();
-        public Dictionary<Type, ITarget> Targets { get; } = new();
+        protected abstract bool IsLocal { get; }
+        public Dictionary<Type, IWorldDataState<int>> States { get; } = new();
+        public Dictionary<Type, IWorldDataState<ITarget>> Targets { get; } = new();
 
         public ITarget GetTarget(IGoapAction action)
         {
@@ -70,11 +73,17 @@ namespace CrashKonijn.Goap.Runtime
 
             if (this.States.ContainsKey(key))
             {
-                this.States[key] = state;
+                this.States[key].Value = state;
+                this.States[key].Timer.Touch();
                 return;
             }
             
-            this.States.Add(key, state);
+            this.States.Add(key, new WorldDataState<int>
+            {
+                Key = key,
+                Value = state,
+                IsLocal = this.IsLocal,
+            });
         }
         
         public void SetTarget(ITargetKey key, ITarget target)
@@ -94,16 +103,32 @@ namespace CrashKonijn.Goap.Runtime
 
             if (this.Targets.ContainsKey(key))
             {
-                this.Targets[key] = target;
+                this.Targets[key].Value = target;
+                this.Targets[key].Timer.Touch();
                 return;
             }
             
-            this.Targets.Add(key, target);
+            this.Targets.Add(key, new WorldDataState<ITarget>
+            {
+                Key = key,
+                Value = target,
+                IsLocal = this.IsLocal,
+            });
         }
 
         public (bool Exists, int Value) GetWorldValue<TKey>(TKey worldKey) where TKey : IWorldKey => this.GetWorldValue(worldKey.GetType());
 
         public abstract (bool Exists, int Value) GetWorldValue(Type worldKey);
         public abstract ITarget GetTargetValue(Type targetKey);
+        public abstract IWorldDataState<ITarget> GetTargetState(Type targetKey);
+        public abstract IWorldDataState<int> GetWorldState(Type worldKey);
+    }
+
+    public class WorldDataState<T> : IWorldDataState<T>
+    {
+        public bool IsLocal { get; set;  }
+        public Type Key { get; set; }
+        public T Value { get; set; }
+        public ITimer Timer { get; } = new Timer();
     }
 }
