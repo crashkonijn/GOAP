@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -17,10 +16,10 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (action == null)
                 return null;
-            
+
             if (action.Config.Target == null)
                 return null;
-            
+
             return this.GetTargetValue(action.Config.Target.GetType());
         }
 
@@ -37,7 +36,7 @@ namespace CrashKonijn.Goap.Runtime
         public bool IsTrue(Type worldKey, Comparison comparison, int value)
         {
             var (exists, state) = this.GetWorldValue(worldKey);
-            
+
             if (!exists)
                 return false;
 
@@ -77,7 +76,7 @@ namespace CrashKonijn.Goap.Runtime
                 this.States[key].Timer.Touch();
                 return;
             }
-            
+
             this.States.Add(key, new WorldDataState<int>
             {
                 Key = key,
@@ -85,7 +84,7 @@ namespace CrashKonijn.Goap.Runtime
                 IsLocal = this.IsLocal,
             });
         }
-        
+
         public void SetTarget(ITargetKey key, ITarget target)
         {
             this.SetTarget(key.GetType(), target);
@@ -95,7 +94,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.SetTarget(typeof(TKey), target);
         }
-        
+
         private void SetTarget(Type key, ITarget target)
         {
             if (key == null)
@@ -107,7 +106,7 @@ namespace CrashKonijn.Goap.Runtime
                 this.Targets[key].Timer.Touch();
                 return;
             }
-            
+
             this.Targets.Add(key, new WorldDataState<ITarget>
             {
                 Key = key,
@@ -126,7 +125,7 @@ namespace CrashKonijn.Goap.Runtime
 
     public class WorldDataState<T> : IWorldDataState<T>
     {
-        public bool IsLocal { get; set;  }
+        public bool IsLocal { get; set; }
         public Type Key { get; set; }
         public T Value { get; set; }
         public ITimer Timer { get; } = new Timer();
