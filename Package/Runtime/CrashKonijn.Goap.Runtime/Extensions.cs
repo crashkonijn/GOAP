@@ -12,7 +12,7 @@ namespace CrashKonijn.Goap.Runtime
     {
         public static bool IsNull(this IMonoAgent agent)
             => agent is MonoBehaviour mono && mono == null;
-        
+
         public static bool IsNull(this IMonoGoapActionProvider actionProvider)
             => actionProvider is MonoBehaviour mono && mono == null;
 
@@ -24,10 +24,10 @@ namespace CrashKonijn.Goap.Runtime
                 Comparison.SmallerThanOrEqual => "<=",
                 Comparison.GreaterThan => ">",
                 Comparison.GreaterThanOrEqual => ">=",
-                _ => throw new System.NotImplementedException()
+                _ => throw new NotImplementedException(),
             };
         }
-        
+
         public static Comparison FromName(this string comparison)
         {
             return comparison switch
@@ -36,31 +36,31 @@ namespace CrashKonijn.Goap.Runtime
                 "<=" => Comparison.SmallerThanOrEqual,
                 ">" => Comparison.GreaterThan,
                 ">=" => Comparison.GreaterThanOrEqual,
-                _ => throw new System.NotImplementedException()
+                _ => throw new NotImplementedException(),
             };
         }
-        
+
         public static string ToName(this EffectType type)
         {
             return type switch
             {
                 EffectType.Increase => "++",
                 EffectType.Decrease => "--",
-                _ => throw new System.NotImplementedException()
+                _ => throw new NotImplementedException(),
             };
         }
-        
+
         public static ClassRefStatus GetStatus(this IClassRef classRef, Script[] scripts)
         {
             var (status, match) = classRef.GetMatch(scripts);
-            
+
             return status;
         }
 
         public static Script GetScript(this IClassRef classRef, Script[] scripts)
         {
             var (status, match) = classRef.GetMatch(scripts);
-            
+
             return match;
         }
 
@@ -70,25 +70,25 @@ namespace CrashKonijn.Goap.Runtime
             {
                 return (ClassRefStatus.Empty, null);
             }
-            
+
             // Full match
             if (scripts.Any(x => x.Id == classRef.Id && x.Type.Name == classRef.Name))
             {
                 return (ClassRefStatus.Full, scripts.First(x => x.Id == classRef.Id && x.Type.Name == classRef.Name));
             }
-            
+
             // Id Match
             if (scripts.Any(x => x.Id == classRef.Id))
             {
                 return (ClassRefStatus.Id, scripts.First(x => x.Id == classRef.Id));
             }
-            
+
             // Name Match
             if (scripts.Any(x => x.Type.Name == classRef.Name))
             {
                 return (ClassRefStatus.Name, scripts.First(x => x.Type.Name == classRef.Name));
             }
-            
+
             return (ClassRefStatus.None, null);
         }
 
@@ -97,7 +97,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (script?.Type == null)
                 return null;
-            
+
             var instance = Activator.CreateInstance(script.Type);
 
             if (instance is TargetKeyBase targetKey)
@@ -109,7 +109,7 @@ namespace CrashKonijn.Goap.Runtime
             {
                 worldKey.Name = script.Type.Name;
             }
-            
+
             return instance as T;
         }
 
@@ -117,7 +117,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             return script?.Type.AssemblyQualifiedName ?? "UNDEFINED";
         }
-        
+
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>
             (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
@@ -130,7 +130,7 @@ namespace CrashKonijn.Goap.Runtime
                 }
             }
         }
-        
+
         public static IWorldKey[] GetWorldKeys(this IAgentTypeConfig agentTypeConfig)
         {
             return agentTypeConfig.Actions
@@ -143,7 +143,7 @@ namespace CrashKonijn.Goap.Runtime
                 .Distinct()
                 .ToArray();
         }
-        
+
         public static ITargetKey[] GetTargetKeys(this IAgentTypeConfig agentTypeConfig)
         {
             return agentTypeConfig.Actions

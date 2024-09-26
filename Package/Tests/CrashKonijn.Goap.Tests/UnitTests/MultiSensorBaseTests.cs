@@ -1,15 +1,16 @@
-﻿using NUnit.Framework;
-using NSubstitute;
-using CrashKonijn.Goap.Core;
-using System;
+﻿using System;
 using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
+using NSubstitute;
+using NUnit.Framework;
 
 namespace CrashKonijn.Goap.UnitTests
 {
     public class TestMultiSensorBase : MultiSensorBase
     {
         public override void Created() { }
+
         public override void Update() { }
     }
 
@@ -60,7 +61,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var localSensor = Substitute.For<Func<IActionReceiver, IComponentReference, SenseValue>>();
             var globalSensor = Substitute.For<Func<SenseValue>>();
-            
+
             this.multiSensorBase.AddLocalWorldSensor<IWorldKey>(localSensor);
             this.multiSensorBase.AddGlobalWorldSensor<IWorldKey>(globalSensor);
 
@@ -79,7 +80,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             this.multiSensorBase.AddLocalWorldSensor<IWorldKey>((_, _) => new SenseValue());
             this.multiSensorBase.AddGlobalWorldSensor<IWorldKey>(() => new SenseValue());
-            
+
             // Act
             var sensorNames = this.multiSensorBase.GetSensors();
 
@@ -88,7 +89,7 @@ namespace CrashKonijn.Goap.UnitTests
             Assert.AreEqual("IWorldKey (local)", sensorNames[0]);
             Assert.AreEqual("IWorldKey (global)", sensorNames[1]);
         }
-        
+
         [Test]
         public void Sense_AddsLocalDataCorrectly()
         {
@@ -106,7 +107,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.mockWorldData.Received(1).SetState<IWorldKey>(worldValue);
             this.mockWorldData.Received(1).SetTarget<ITargetKey>(targetValue);
         }
-        
+
         [Test]
         public void Sense_AddsGlobalDataCorrectly()
         {

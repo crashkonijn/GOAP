@@ -7,7 +7,7 @@ namespace CrashKonijn.Agent.Runtime
     [Serializable]
     public class LoggerConfig : ILoggerConfig
     {
-        [field:SerializeField]
+        [field: SerializeField]
         public DebugMode DebugMode { get; set; } = DebugMode.Log;
 
         [field: SerializeField]

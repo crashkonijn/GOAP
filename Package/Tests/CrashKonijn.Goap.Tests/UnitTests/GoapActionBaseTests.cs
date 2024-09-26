@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Agent.Core;
+﻿using System;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 using NSubstitute;
@@ -12,7 +13,7 @@ namespace CrashKonijn.Goap.UnitTests
         private class ValidAction : GoapActionBase<ValidAction.Data>
         {
             private bool isValid = true;
-            
+
             public ValidAction(bool isValid)
             {
                 this.isValid = isValid;
@@ -25,19 +26,19 @@ namespace CrashKonijn.Goap.UnitTests
 
             public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
-            
+
             public class Data : IActionData
             {
                 public ITarget Target { get; set; }
             }
         }
-        
+
         private class CostAction : GoapActionBase<CostAction.Data>
         {
             private float cost;
-            
+
             public CostAction(float cost)
             {
                 this.cost = cost;
@@ -50,9 +51,9 @@ namespace CrashKonijn.Goap.UnitTests
 
             public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
-            
+
             public class Data : IActionData
             {
                 public ITarget Target { get; set; }
@@ -65,17 +66,17 @@ namespace CrashKonijn.Goap.UnitTests
         {
             var gameObject = new GameObject();
             var goapActionProvider = gameObject.AddComponent<GoapActionProvider>();
-            
+
             var injector = Substitute.For<IDataReferenceInjector>();
             injector.GetCachedComponent<GoapActionProvider>().Returns(goapActionProvider);
-            
+
             var actionReceiver = Substitute.For<IActionReceiver>();
             actionReceiver.Injector.Returns(injector);
-            
+
             var config = Substitute.For<IActionConfig>();
             config.RequiresTarget.Returns(false);
             config.ValidateConditions.Returns(false);
-            
+
             var actionData = new ValidAction.Data();
             var action = new ValidAction(shouldBe);
             action.SetConfig(config);
@@ -91,17 +92,17 @@ namespace CrashKonijn.Goap.UnitTests
         {
             var gameObject = new GameObject();
             var goapActionProvider = gameObject.AddComponent<GoapActionProvider>();
-            
+
             var injector = Substitute.For<IDataReferenceInjector>();
             injector.GetCachedComponent<GoapActionProvider>().Returns(goapActionProvider);
-            
+
             var actionReceiver = Substitute.For<IActionReceiver>();
             actionReceiver.Injector.Returns(injector);
-            
+
             var config = Substitute.For<IActionConfig>();
             config.RequiresTarget.Returns(false);
             config.ValidateConditions.Returns(false);
-            
+
             var action = new CostAction(cost);
             action.SetConfig(config);
 

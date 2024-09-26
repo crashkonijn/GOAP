@@ -12,17 +12,17 @@ namespace CrashKonijn.Goap.Runtime
 
         public abstract void Created();
         public Type[] GetKeys() => new[] { this.Key.GetType() };
-        
+
         public void Sense(IWorldData data)
         {
             var state = data.GetWorldState(this.Key.GetType());
-            
+
             if (!this.Timer.ShouldSense(state?.Timer))
                 return;
-            
+
             data.SetState(this.Key, this.Sense());
         }
-        
+
         public abstract SenseValue Sense();
     }
 }

@@ -11,17 +11,17 @@ namespace CrashKonijn.Goap.Runtime
             where TKey : TInterface
         {
             var type = typeof(TKey);
-            
+
             if (this.keys.TryGetValue(type, out var key))
             {
                 return key;
             }
 
             key = (TInterface) Activator.CreateInstance(type);
-            
+
             this.InjectData(key);
             this.keys.Add(type, key);
-            
+
             return key;
         }
 

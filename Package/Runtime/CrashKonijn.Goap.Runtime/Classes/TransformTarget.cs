@@ -11,10 +11,10 @@ namespace CrashKonijn.Goap.Runtime
         {
             get
             {
-               if (this.Transform == null)
-                   return Vector3.zero;
+                if (this.Transform == null)
+                    return Vector3.zero;
 
-               return this.Transform.position;
+                return this.Transform.position;
             }
         }
 

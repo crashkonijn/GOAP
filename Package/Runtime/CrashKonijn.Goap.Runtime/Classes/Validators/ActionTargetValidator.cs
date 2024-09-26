@@ -8,10 +8,10 @@ namespace CrashKonijn.Goap.Runtime
         public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
             var missing = agentTypeConfig.Actions.Where(x => x.Target == null).ToArray();
-            
+
             if (!missing.Any())
                 return;
-            
+
             results.AddWarning($"Actions without Target: {string.Join(", ", missing.Select(x => x.Name))}");
         }
     }

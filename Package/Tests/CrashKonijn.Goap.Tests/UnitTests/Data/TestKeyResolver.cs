@@ -9,7 +9,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
         {
             if (condition is StringCondition stringCondition)
                 return stringCondition.GetKey();
-            
+
             if (condition is TestConnection testConnection)
                 return testConnection.GetKey();
 
@@ -20,15 +20,13 @@ namespace CrashKonijn.Goap.UnitTests.Data
         {
             if (effect is StringEffect stringEffect)
                 return stringEffect.GetKey();
-            
+
             if (effect is TestConnection testConnection)
                 return testConnection.GetKey();
 
             throw new Exception("Should not happen");
         }
 
-        public void SetWorldData(IWorldData globalWorldData)
-        {
-        }
+        public void SetWorldData(IWorldData globalWorldData) { }
     }
 }

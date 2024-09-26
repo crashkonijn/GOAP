@@ -11,7 +11,7 @@ namespace CrashKonijn.Agent.Runtime
             {
                 return 0f;
             }
-            
+
             return Vector3.Distance(agent.transform.position, target.Position);
         }
     }

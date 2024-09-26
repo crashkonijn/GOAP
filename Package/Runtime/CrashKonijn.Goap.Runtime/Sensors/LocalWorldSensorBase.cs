@@ -12,17 +12,17 @@ namespace CrashKonijn.Goap.Runtime
         public void SetConfig(IWorldSensorConfig config) => this.Config = config;
 
         public abstract void Created();
-        
+
         public abstract void Update();
         public Type[] GetKeys() => new[] { this.Key.GetType() };
 
         public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references)
         {
             var state = data.GetWorldState(this.Key.GetType());
-            
+
             if (!this.Timer.ShouldSense(state?.Timer))
                 return;
-            
+
             data.SetState(this.Key, this.Sense(agent, references));
         }
 

@@ -7,12 +7,12 @@ namespace CrashKonijn.Goap.Runtime
     {
         public abstract ICapabilityConfig Create();
     }
-    
+
     public abstract class MonoCapabilityFactoryBase : MonoBehaviour
     {
         public abstract ICapabilityConfig Create();
     }
-    
+
     public abstract class ScriptableCapabilityFactoryBase : ScriptableObject
     {
         public abstract ICapabilityConfig Create();

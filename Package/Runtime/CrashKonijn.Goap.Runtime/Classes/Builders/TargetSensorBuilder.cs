@@ -14,7 +14,7 @@ namespace CrashKonijn.Goap.Runtime
             this.config = new TargetSensorConfig()
             {
                 Name = type.Name,
-                ClassType = type.AssemblyQualifiedName
+                ClassType = type.AssemblyQualifiedName,
             };
         }
 
@@ -22,10 +22,10 @@ namespace CrashKonijn.Goap.Runtime
             where TTarget : ITargetKey
         {
             this.config.Key = this.targetKeyBuilder.GetKey<TTarget>();
-            
+
             return this;
         }
-        
+
         public ITargetSensorConfig Build()
         {
             return this.config;

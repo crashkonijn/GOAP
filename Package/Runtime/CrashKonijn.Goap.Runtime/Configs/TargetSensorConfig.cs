@@ -10,7 +10,7 @@ namespace CrashKonijn.Goap.Runtime
             this.Name = typeof(TSensor).Name;
             this.ClassType = typeof(TSensor).AssemblyQualifiedName;
         }
-        
+
         public TargetSensorConfig(string name)
         {
             this.Name = name;

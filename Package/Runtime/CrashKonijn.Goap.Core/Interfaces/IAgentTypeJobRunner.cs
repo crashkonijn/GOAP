@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CrashKonijn.Goap.Core
+﻿namespace CrashKonijn.Goap.Core
 {
     public interface IAgentTypeJobRunner
     {

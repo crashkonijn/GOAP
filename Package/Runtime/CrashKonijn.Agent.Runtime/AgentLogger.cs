@@ -10,27 +10,27 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (this.source == null)
                 return;
-            
+
             this.source.Events.OnActionStart += this.ActionStart;
             this.source.Events.OnActionStop += this.ActionStop;
             this.source.Events.OnActionComplete += this.ActionComplete;
         }
-        
+
         protected override void UnregisterEvents()
         {
             if (this.source == null)
                 return;
-            
+
             this.source.Events.OnActionStart -= this.ActionStart;
             this.source.Events.OnActionStop -= this.ActionStop;
             this.source.Events.OnActionComplete -= this.ActionComplete;
         }
-        
+
         private void ActionStart(IAction action)
         {
             if (this.config.DebugMode == DebugMode.None)
                 return;
-            
+
             this.Log($"Action {action?.GetType().GetGenericTypeName()} started");
         }
 
@@ -38,7 +38,7 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (this.config.DebugMode == DebugMode.None)
                 return;
-            
+
             this.Log($"Action {action?.GetType().GetGenericTypeName()} stopped");
         }
 
@@ -46,7 +46,7 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (this.config.DebugMode == DebugMode.None)
                 return;
-            
+
             this.Log($"Action {action?.GetType().GetGenericTypeName()} completed");
         }
     }

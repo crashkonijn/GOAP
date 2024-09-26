@@ -19,7 +19,7 @@ namespace CrashKonijn.Goap.Runtime
             var configs = this.capabilities
                 .Select(behaviour => behaviour.Create())
                 .ToList();
-            
+
             return new AgentTypeConfig(this.name)
             {
                 Goals = configs.SelectMany(x => x.Goals).ToList(),

@@ -3,7 +3,6 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {
@@ -22,7 +21,7 @@ namespace CrashKonijn.Goap.Resolver
         public float H;
         public int ParentIndex;
         public float3 Position;
-        
+
         public float F => this.G + this.H;
     }
 
@@ -60,25 +59,31 @@ namespace CrashKonijn.Goap.Resolver
         // Graph specific
 #if UNITY_COLLECTIONS_2_1
         // Dictionary<ActionIndex, ConditionIndex[]>
-        [ReadOnly] public NativeParallelMultiHashMap<int, int> NodeConditions;
-        // Dictionary<ConditionIndex, NodeIndex[]>
-        [ReadOnly] public NativeParallelMultiHashMap<int, int> ConditionConnections;
-#else
-        // Dictionary<ActionIndex, ConditionIndex[]>
-        [ReadOnly] public NativeMultiHashMap<int, int> NodeConditions;
+        [ReadOnly]
+        public NativeParallelMultiHashMap<int, int> NodeConditions;
 
         // Dictionary<ConditionIndex, NodeIndex[]>
-        [ReadOnly] public NativeMultiHashMap<int, int> ConditionConnections;
+        [ReadOnly]
+        public NativeParallelMultiHashMap<int, int> ConditionConnections;
+#else
+        // Dictionary<ActionIndex, ConditionIndex[]>
+        [ReadOnly]
+        public NativeMultiHashMap<int, int> NodeConditions;
+
+        // Dictionary<ConditionIndex, NodeIndex[]>
+        [ReadOnly]
+        public NativeMultiHashMap<int, int> ConditionConnections;
 #endif
 
         // Resolve specific
-        [ReadOnly] public RunData RunData;
+        [ReadOnly]
+        public RunData RunData;
 
         // Results
         public NativeList<NodeData> Result;
         public NativeList<NodeData> PickedGoal;
 
-        public static readonly float3 InvalidPosition = new float3(float.MaxValue, float.MaxValue, float.MaxValue);
+        public static readonly float3 InvalidPosition = new(float.MaxValue, float.MaxValue, float.MaxValue);
 
         [BurstCompile]
         public void Execute()
@@ -99,7 +104,7 @@ namespace CrashKonijn.Goap.Resolver
                     P = this.RunData.Costs[i],
                     H = int.MaxValue,
                     ParentIndex = -1,
-                    Position = InvalidPosition
+                    Position = InvalidPosition,
                 };
 
                 // We're assuming the start node is always a goal, and as such not executable
@@ -139,8 +144,10 @@ namespace CrashKonijn.Goap.Resolver
             closedSet.Dispose();
         }
 
-        private void AddConnections(RunData runData, ref NativeHashMap<int, NodeData> openSet,
-            ref NativeHashMap<int, NodeData> closedSet, NodeData currentNode)
+        private void AddConnections(
+            RunData runData, ref NativeHashMap<int, NodeData> openSet,
+            ref NativeHashMap<int, NodeData> closedSet, NodeData currentNode
+        )
         {
             foreach (var conditionIndex in this.NodeConditions.GetValuesForKey(currentNode.Index))
             {
@@ -179,7 +186,7 @@ namespace CrashKonijn.Goap.Resolver
                             G = newG,
                             H = this.GetHeuristic(neighborIndex),
                             ParentIndex = currentNode.Index,
-                            Position = neighborPosition
+                            Position = neighborPosition,
                         };
                         openSet.Add(neighborIndex, neighbor);
                         continue;
@@ -208,12 +215,12 @@ namespace CrashKonijn.Goap.Resolver
 
         private float GetHeuristic(int neighborIndex)
         {
-            return UnmetConditionCost(neighborIndex);
+            return this.UnmetConditionCost(neighborIndex);
         }
 
         private float GetDistanceCost(NodeData previousNode, float3 currentPosition)
         {
-            return GetDistanceCost(previousNode.Position, currentPosition);
+            return this.GetDistanceCost(previousNode.Position, currentPosition);
         }
 
         private float GetDistanceCost(float3 previousPosition, float3 currentPosition)
@@ -279,7 +286,7 @@ namespace CrashKonijn.Goap.Resolver
 
             return cost;
         }
-        
+
         private float GetCheapestCostForCondition(int conditionIndex)
         {
             var cost = float.MaxValue;

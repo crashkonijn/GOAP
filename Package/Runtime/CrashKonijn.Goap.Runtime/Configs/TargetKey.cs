@@ -8,7 +8,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.Name = name;
         }
-        
+
         public string Name { get; }
     }
 }

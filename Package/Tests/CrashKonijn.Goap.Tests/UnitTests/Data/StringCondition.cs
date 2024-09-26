@@ -10,7 +10,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
         {
             this.key = key;
         }
-        
+
         public string GetKey()
         {
             return this.key;

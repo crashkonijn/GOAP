@@ -15,12 +15,12 @@ namespace CrashKonijn.Agent.Runtime
             this.agent = agent;
             this.proxy = proxy;
         }
-        
+
         public void Run()
         {
             if (!this.RunIsValid())
                 return;
-            
+
             switch (this.agent.ActionState.Action.GetMoveMode(this.agent))
             {
                 case ActionMoveMode.MoveBeforePerforming:
@@ -39,9 +39,9 @@ namespace CrashKonijn.Agent.Runtime
                 this.agent.Logger.Warning("No action to run!");
                 return false;
             }
-            
+
             var isValid = this.agent.ActionState.Action.IsValid(this.agent, this.agent.ActionState.Data);
-            
+
             if (!isValid)
             {
                 this.agent.Logger.Warning($"Action {this.agent.ActionState.Action.GetType().GetGenericTypeName()} is not valid!");
@@ -61,7 +61,7 @@ namespace CrashKonijn.Agent.Runtime
                 this.PerformAction();
                 return;
             }
-                
+
             this.proxy.SetState(AgentState.MovingWhilePerformingAction);
             this.proxy.SetMoveState(AgentMoveState.NotInRange);
             this.Move();
@@ -87,7 +87,7 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (this.agent.CurrentTarget == null)
                 return;
-            
+
             this.agent.Events.Move(this.agent.CurrentTarget);
         }
 
@@ -95,15 +95,15 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (!this.ShouldContinue())
                 return;
-            
+
             this.context.DeltaTime = Time.deltaTime;
             this.context.IsInRange = this.proxy.IsInRange();
-            
+
             if (!this.agent.ActionState.HasPerformed)
                 this.agent.ActionState.Action.BeforePerform(this.agent, this.agent.ActionState.Data);
-            
+
             var state = this.agent.ActionState.Action.Perform(this.agent, this.agent.ActionState.Data, this.context);
-            
+
             if (state.IsCompleted(this.agent))
             {
                 this.agent.CompleteAction();
@@ -115,7 +115,7 @@ namespace CrashKonijn.Agent.Runtime
                 this.agent.StopAction();
                 return;
             }
-            
+
             this.proxy.SetRunState(state);
         }
 
@@ -123,15 +123,15 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (this.agent.ActionState.RunState == null)
                 return true;
-            
+
             this.agent.ActionState.RunState.Update(this.agent, this.context);
-            
+
             if (this.agent.ActionState.RunState.IsCompleted(this.agent))
             {
                 this.agent.CompleteAction();
                 return false;
             }
-            
+
             if (this.agent.ActionState.RunState.ShouldStop(this.agent))
             {
                 this.agent.StopAction();

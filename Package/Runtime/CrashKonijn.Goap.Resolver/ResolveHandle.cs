@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CrashKonijn.Goap.Core;
 using Unity.Collections;
 using Unity.Jobs;
-using UnityEngine;
 
 namespace CrashKonijn.Goap.Resolver
 {
@@ -30,14 +28,13 @@ namespace CrashKonijn.Goap.Resolver
                 Result = new NativeList<NodeData>(Allocator.TempJob),
                 PickedGoal = new NativeList<NodeData>(Allocator.TempJob)
             };
-        
+
             this.handle = this.job.Schedule();
 
             return this;
         }
 #else
-        public ResolveHandle Start(NativeMultiHashMap<int, int> nodeConditions,
-            NativeMultiHashMap<int, int> conditionConnections, RunData runData)
+        public ResolveHandle Start(NativeMultiHashMap<int, int> nodeConditions, NativeMultiHashMap<int, int> conditionConnections, RunData runData)
         {
             this.job = new GraphResolverJob
             {
@@ -45,7 +42,7 @@ namespace CrashKonijn.Goap.Resolver
                 ConditionConnections = conditionConnections,
                 RunData = runData,
                 Result = new NativeList<NodeData>(Allocator.TempJob),
-                PickedGoal = new NativeList<NodeData>(Allocator.TempJob)
+                PickedGoal = new NativeList<NodeData>(Allocator.TempJob),
             };
 
             this.handle = this.job.Schedule();
@@ -85,7 +82,7 @@ namespace CrashKonijn.Goap.Resolver
             return new JobResult
             {
                 Actions = this.results.ToArray(),
-                Goal = goal
+                Goal = goal,
             };
         }
     }

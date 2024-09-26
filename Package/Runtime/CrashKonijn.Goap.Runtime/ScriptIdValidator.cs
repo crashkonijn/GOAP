@@ -11,52 +11,52 @@ namespace CrashKonijn.Goap.Runtime
         {
             var generator = capabilityConfig.GetGenerator();
             var classes = generator.GetClasses();
-            
+
             var issues = new List<IClassReferenceIssue>();
-            
+
             capabilityConfig.goals.ForEach(goal =>
             {
                 issues.Add(this.CheckReference(goal.goal, classes.goals, ClassRefType.Goal));
-                
+
                 goal.conditions.ForEach(condition =>
                 {
                     issues.Add(this.CheckReference(condition.worldKey, classes.worldKeys, ClassRefType.WorldKey));
                 });
             });
-            
+
             capabilityConfig.actions.ForEach(action =>
             {
                 issues.Add(this.CheckReference(action.action, classes.actions, ClassRefType.Action));
                 issues.Add(this.CheckReference(action.target, classes.targetKeys, ClassRefType.TargetKey));
-                
+
                 action.conditions.ForEach(condition =>
                 {
                     issues.Add(this.CheckReference(condition.worldKey, classes.worldKeys, ClassRefType.WorldKey));
                 });
-                
+
                 action.effects.ForEach(effect =>
                 {
                     issues.Add(this.CheckReference(effect.worldKey, classes.worldKeys, ClassRefType.WorldKey));
                 });
             });
-            
+
             capabilityConfig.worldSensors.ForEach(sensor =>
             {
                 issues.Add(this.CheckReference(sensor.sensor, classes.worldSensors, ClassRefType.WorldSensor));
                 issues.Add(this.CheckReference(sensor.worldKey, classes.worldKeys, ClassRefType.WorldKey));
             });
-            
+
             capabilityConfig.targetSensors.ForEach(sensor =>
             {
                 issues.Add(this.CheckReference(sensor.sensor, classes.targetSensors, ClassRefType.TargetSensor));
                 issues.Add(this.CheckReference(sensor.targetKey, classes.targetKeys, ClassRefType.TargetKey));
             });
-            
+
             capabilityConfig.multiSensors.ForEach(sensor =>
             {
                 issues.Add(this.CheckReference(sensor.sensor, classes.multiSensors, ClassRefType.MultiSensor));
             });
-            
+
             return issues.Where(x => x != null).ToArray();
         }
 
@@ -85,7 +85,7 @@ namespace CrashKonijn.Goap.Runtime
         void Fix(GeneratorScriptable generator);
         string GetMessage();
     }
-    
+
     public class EmptyClassReferenceIssue : IClassReferenceIssue
     {
         private readonly ClassRef reference;
@@ -122,13 +122,13 @@ namespace CrashKonijn.Goap.Runtime
         public void Fix(GeneratorScriptable generator)
         {
             var result = this.Generate(generator);
-            
+
             if (result == null)
                 return;
-            
+
             this.reference.Id = result.Id;
             this.reference.Name = result.Name;
-            
+
             Debug.Log($"Generated {result.Path}");
         }
 
@@ -163,7 +163,7 @@ namespace CrashKonijn.Goap.Runtime
             return $"Class does not exist: {this.reference.Name} ({this.type})";
         }
     }
-    
+
     public class NameClassReferenceIssue : IClassReferenceIssue
     {
         private readonly ClassRef reference;
@@ -186,7 +186,7 @@ namespace CrashKonijn.Goap.Runtime
             return $"Reference matched by name, but not by id: {this.reference.Name} ({this.script.Type.Name})";
         }
     }
-    
+
     public class IdClassReferenceIssue : IClassReferenceIssue
     {
         private readonly ClassRef reference;
@@ -209,6 +209,15 @@ namespace CrashKonijn.Goap.Runtime
             return $"Reference matched by id, but not by name: {this.reference.Id} ({this.script.Type.Name})";
         }
     }
-    
-    public enum ClassRefType { Goal, Action, TargetKey, WorldKey, TargetSensor, WorldSensor, MultiSensor }
+
+    public enum ClassRefType
+    {
+        Goal,
+        Action,
+        TargetKey,
+        WorldKey,
+        TargetSensor,
+        WorldSensor,
+        MultiSensor,
+    }
 }

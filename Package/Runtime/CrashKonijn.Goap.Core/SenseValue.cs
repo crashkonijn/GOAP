@@ -3,12 +3,12 @@
     public struct SenseValue
     {
         private readonly int value;
-        
+
         public SenseValue(int value)
         {
             this.value = value;
         }
-        
+
         public SenseValue(bool value)
         {
             this.value = value ? 1 : 0;

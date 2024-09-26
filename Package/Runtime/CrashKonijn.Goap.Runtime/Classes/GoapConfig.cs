@@ -7,12 +7,12 @@ namespace CrashKonijn.Goap.Runtime
         public IConditionObserver ConditionObserver { get; set; }
         public IKeyResolver KeyResolver { get; set; }
         public IGoapInjector GoapInjector { get; set; }
-        
-        public static GoapConfig Default => new GoapConfig
+
+        public static GoapConfig Default => new()
         {
             ConditionObserver = new ConditionObserver(),
             KeyResolver = new KeyResolver(),
-            GoapInjector = new DefaultGoapInjector()
+            GoapInjector = new DefaultGoapInjector(),
         };
     }
 }

@@ -10,10 +10,10 @@ namespace CrashKonijn.Goap.Runtime
     {
         public ClassRef action = new();
         public ClassRef target = new();
-        
+
         [SerializeReference]
         public IActionProperties properties;
-        
+
         public float baseCost = 1;
         public float stoppingDistance = 0.1f;
         public bool requiresTarget = true;

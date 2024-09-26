@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Core;
+﻿using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -18,21 +17,15 @@ namespace CrashKonijn.Goap.Runtime
             this.goap.Events.OnAgentResolve -= this.OnAgentResolve;
         }
 
-        public void OnUpdate()
-        {
-            
-        }
+        public void OnUpdate() { }
 
-        public void OnLateUpdate()
-        {
-            
-        }
+        public void OnLateUpdate() { }
 
         private void OnAgentResolve(IGoapActionProvider actionProvider)
         {
             var runner = this.GetRunner(actionProvider);
-            
-            runner.Run(new [] { actionProvider as IMonoGoapActionProvider });
+
+            runner.Run(new[] { actionProvider as IMonoGoapActionProvider });
             runner.Complete();
         }
 

@@ -9,7 +9,7 @@ namespace CrashKonijn.Agent.Runtime
         public IAction PreviousAction { get; private set; }
         public IActionRunState RunState { get; set; }
         public IActionData Data { get; private set; }
-        
+
         public void SetAction(IAction action, IActionData data)
         {
             this.Action = action;

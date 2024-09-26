@@ -8,7 +8,7 @@ namespace CrashKonijn.Goap.Runtime
     {
         protected override bool IsLocal => true;
         public IGlobalWorldData GlobalData { get; private set; }
-        
+
         public void SetParent(IGlobalWorldData globalData)
         {
             this.GlobalData = globalData;
@@ -18,7 +18,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (this.States.TryGetValue(worldKey, out var state))
                 return (true, state.Value);
-            
+
             return this.GlobalData.GetWorldValue(worldKey);
         }
 
@@ -26,7 +26,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (this.Targets.TryGetValue(targetKey, out var value))
                 return value.Value;
-            
+
             return this.GlobalData.GetTargetValue(targetKey);
         }
 
@@ -34,7 +34,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (this.Targets.TryGetValue(targetKey, out var value))
                 return value;
-            
+
             return this.GlobalData.GetTargetState(targetKey);
         }
 
@@ -42,7 +42,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (this.States.TryGetValue(worldKey, out var state))
                 return state;
-            
+
             return this.GlobalData.GetWorldState(worldKey);
         }
     }

@@ -5,7 +5,7 @@ namespace CrashKonijn.Goap.Runtime
     public class ProactiveController : IGoapController
     {
         private IGoap goap;
-        
+
         public float ResolveTime { get; set; } = 1f;
 
         public void Initialize(IGoap goap)
@@ -33,25 +33,25 @@ namespace CrashKonijn.Goap.Runtime
                     agent.ResolveAction();
                 }
             }
-            
+
             foreach (var (type, runner) in this.goap.AgentTypeRunners)
             {
                 var queue = type.Agents.GetQueue();
-                
+
                 runner.Run(queue);
             }
-            
+
             foreach (var agent in this.goap.Agents)
             {
                 if (agent.IsNull())
                     continue;
-                
+
                 if (agent.Receiver == null)
                     continue;
-                
+
                 // Update the action sensors for the agent
                 agent.AgentType.SensorRunner.SenseLocal(agent, agent.Receiver.ActionState.Action as IGoapAction);
-                
+
                 // agent.Agent.Run();
             }
         }
@@ -63,7 +63,7 @@ namespace CrashKonijn.Goap.Runtime
                 runner.Complete();
             }
         }
-        
+
         private void OnNoActionFound(IMonoGoapActionProvider actionProvider, IGoalRequest request)
         {
             this.Enqueue(actionProvider);
@@ -73,7 +73,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.Enqueue(actionProvider);
         }
-        
+
         private void Enqueue(IMonoGoapActionProvider actionProvider)
         {
             actionProvider.AgentType?.Agents.Enqueue(actionProvider);

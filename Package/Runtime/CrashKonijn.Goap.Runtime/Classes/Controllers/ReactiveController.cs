@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (this.goap?.Events == null)
                 return;
-            
+
             this.goap.Events.OnAgentResolve -= this.OnAgentResolve;
             this.goap.Events.OnNoActionFound -= this.OnNoActionFound;
         }
@@ -27,18 +27,18 @@ namespace CrashKonijn.Goap.Runtime
             foreach (var (type, runner) in this.goap.AgentTypeRunners)
             {
                 var queue = type.Agents.GetQueue();
-                
+
                 runner.Run(queue);
             }
-            
+
             foreach (var agent in this.goap.Agents)
             {
                 if (agent.IsNull())
                     continue;
-                
+
                 if (agent.Receiver == null)
                     continue;
-                
+
                 // Update the action sensors for the agent
                 agent.AgentType.SensorRunner.SenseLocal(agent, agent.Receiver.ActionState.Action as IGoapAction);
             }
@@ -61,7 +61,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.Enqueue(actionProvider);
         }
-        
+
         private void Enqueue(IMonoGoapActionProvider actionProvider)
         {
             actionProvider.AgentType?.Agents.Enqueue(actionProvider);

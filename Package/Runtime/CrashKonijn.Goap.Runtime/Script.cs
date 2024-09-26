@@ -8,27 +8,30 @@ namespace CrashKonijn.Goap.Runtime
     {
         [field: SerializeField]
         public string Name { get; set; }
-        
+
         [SerializeField]
         private string fullName;
+
         private Type type;
+
         public Type Type
         {
             get
             {
-                if (type == null)
-                    type = Type.GetType(fullName);
-                
-                return type;
+                if (this.type == null) this.type = Type.GetType(this.fullName);
+
+                return this.type;
             }
             set
             {
-                type = value;
-                fullName = value.AssemblyQualifiedName;
+                this.type = value;
+                this.fullName = value.AssemblyQualifiedName;
             }
         }
+
         [field: SerializeField]
         public string Path { get; set; }
+
         [field: SerializeField]
         public string Id { get; set; }
     }

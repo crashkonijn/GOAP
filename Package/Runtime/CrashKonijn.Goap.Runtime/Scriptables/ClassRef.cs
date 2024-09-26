@@ -9,7 +9,8 @@ namespace CrashKonijn.Goap.Runtime
     {
         [field: SerializeField]
         public string Name { get; set; }
+
         [field: SerializeField]
-        public string Id  { get; set; }
+        public string Id { get; set; }
     }
 }

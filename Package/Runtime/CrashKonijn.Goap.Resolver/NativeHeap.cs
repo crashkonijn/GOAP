@@ -20,24 +20,21 @@ namespace CrashKonijn.Goap.Resolver
     }
 
     /// <summary>
-    /// This is a basic implementation of the MinHeap/MaxHeap data structure.  It allows you
-    /// to insert objects into the container with a O(log(n)) cost per item, and it allows you
-    /// to extract the min/max from the container with a O(log(n)) cost per item.
-    /// 
-    /// This implementation provides the ability to remove items from the middle of the container
-    /// as well.  This is a critical operation when implementing algorithms like a-star.  When an
-    /// item is added to the container, an index is returned which can be used to later remove
-    /// the item no matter where it is in the heap, for the same cost of removing it if it was
-    /// popped normally.
-    /// 
-    /// This container is parameterized with a comparator type that defines the ordering of the
-    /// container.  The default form of the comparator can be used, or you can specify your own.
-    /// The item that comes first in the ordering is the one that will be returned by the Pop
-    /// operation.  This allows you to use the comparator to parameterize this collection into a 
-    /// MinHeap, MaxHeap, or other type of ordered heap using your own custom type.
-    /// 
-    /// For convenience, this library contains the Min and Max comparator, which provide
-    /// comparisons for all built in primitives.
+    ///     This is a basic implementation of the MinHeap/MaxHeap data structure.  It allows you
+    ///     to insert objects into the container with a O(log(n)) cost per item, and it allows you
+    ///     to extract the min/max from the container with a O(log(n)) cost per item.
+    ///     This implementation provides the ability to remove items from the middle of the container
+    ///     as well.  This is a critical operation when implementing algorithms like a-star.  When an
+    ///     item is added to the container, an index is returned which can be used to later remove
+    ///     the item no matter where it is in the heap, for the same cost of removing it if it was
+    ///     popped normally.
+    ///     This container is parameterized with a comparator type that defines the ordering of the
+    ///     container.  The default form of the comparator can be used, or you can specify your own.
+    ///     The item that comes first in the ordering is the one that will be returned by the Pop
+    ///     operation.  This allows you to use the comparator to parameterize this collection into a
+    ///     MinHeap, MaxHeap, or other type of ordered heap using your own custom type.
+    ///     For convenience, this library contains the Min and Max comparator, which provide
+    ///     comparisons for all built in primitives.
     /// </summary>
     [NativeContainer]
     [DebuggerDisplay("Count = {Count}")]
@@ -52,8 +49,8 @@ namespace CrashKonijn.Goap.Resolver
         public const int DEFAULT_CAPACITY = 128;
 
         /// <summary>
-        /// Returns the number of elements that this collection can hold before the internal structures
-        /// need to be reallocated.
+        ///     Returns the number of elements that this collection can hold before the internal structures
+        ///     need to be reallocated.
         /// </summary>
         public int Capacity
         {
@@ -79,28 +76,28 @@ namespace CrashKonijn.Goap.Resolver
                             $"Capacity of {value} cannot be smaller than count of {this.Data->Count}.");
                     }
 #endif
-                    TableValue* newTable = (TableValue*)Malloc(SizeOf<TableValue>() * value, AlignOf<TableValue>(),
+                    var newTable = (TableValue*) Malloc(SizeOf<TableValue>() * value, AlignOf<TableValue>(),
                         this.Allocator);
-                    HeapNode<T>* newHeap = (HeapNode<T>*)Malloc(SizeOf<HeapNode<T>>() * value, AlignOf<HeapNode<T>>(),
+                    var newHeap = (HeapNode<T>*) Malloc(SizeOf<HeapNode<T>>() * value, AlignOf<HeapNode<T>>(),
                         this.Allocator);
 
-                    int toCopy = this.Data->Capacity < value ? this.Data->Capacity : value;
+                    var toCopy = this.Data->Capacity < value ? this.Data->Capacity : value;
                     MemCpy(newTable, this.Data->Table, toCopy * SizeOf<TableValue>());
                     MemCpy(newHeap, this.Data->Heap, toCopy * SizeOf<HeapNode<T>>());
 
-                    for (int i = 0; i < value - this.Data->Capacity; i++)
+                    for (var i = 0; i < value - this.Data->Capacity; i++)
                     {
                         //For each new heap node, make sure that it has a new unique index
                         newHeap[i + this.Data->Capacity] = new HeapNode<T>()
                         {
-                            TableIndex = i + this.Data->Capacity
+                            TableIndex = i + this.Data->Capacity,
                         };
 
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                         //For each new table value, make sure it has a specific version
                         newTable[i + this.Data->Capacity] = new TableValue()
                         {
-                            Version = 1
+                            Version = 1,
                         };
 #endif
                     }
@@ -117,7 +114,7 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Returns the number of elements currently contained inside this collection.
+        ///     Returns the number of elements currently contained inside this collection.
         /// </summary>
         public int Count
         {
@@ -134,8 +131,8 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Gets or sets the comparator used for this Heap. Note that you can only set the comparator
-        /// when the Heap is empty.
+        ///     Gets or sets the comparator used for this Heap. Note that you can only set the comparator
+        ///     when the Heap is empty.
         /// </summary>
         public U Comparator
         {
@@ -168,29 +165,26 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Constructs a new NativeHeap using the given Allocator.  You must call Dispose on this collection
-        /// when you are finished with it.
+        ///     Constructs a new NativeHeap using the given Allocator.  You must call Dispose on this collection
+        ///     when you are finished with it.
         /// </summary>
         /// <param name="allocator">
-        /// You must specify an allocator to use for the creation of the internal data structures.
+        ///     You must specify an allocator to use for the creation of the internal data structures.
         /// </param>
         /// <param name="initialCapacity">
-        /// You can optionally specify the default number of elements this collection can contain before the internal
-        /// data structures need to be re-allocated.
+        ///     You can optionally specify the default number of elements this collection can contain before the internal
+        ///     data structures need to be re-allocated.
         /// </param>
         /// <param name="comparator">
-        /// You can optionally specify the comparator used to order the elements in this collection.  The Pop operation will
-        /// always return the smallest element according to the ordering specified by this comparator.
+        ///     You can optionally specify the comparator used to order the elements in this collection.  The Pop operation will
+        ///     always return the smallest element according to the ordering specified by this comparator.
         /// </param>
         public NativeHeap(Allocator allocator, int initialCapacity = DEFAULT_CAPACITY, U comparator = default) :
-            this(initialCapacity, comparator, allocator, disposeSentinelStackDepth: 1)
-        {
-        }
+            this(initialCapacity, comparator, allocator, disposeSentinelStackDepth: 1) { }
 
         /// <summary>
-        /// Disposes of this container and deallocates its memory immediately.
-        /// 
-        /// Any NativeHeapIndex structures obtained will be invalidated and cannot be used again.
+        ///     Disposes of this container and deallocates its memory immediately.
+        ///     Any NativeHeapIndex structures obtained will be invalidated and cannot be used again.
         /// </summary>
         public void Dispose()
         {
@@ -210,8 +204,8 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Removes all elements from this container.  Any NativeHeapIndex structures obtained will be
-        /// invalidated and cannot be used again.
+        ///     Removes all elements from this container.  Any NativeHeapIndex structures obtained will be
+        ///     invalidated and cannot be used again.
         /// </summary>
         public void Clear()
         {
@@ -220,7 +214,7 @@ namespace CrashKonijn.Goap.Resolver
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 AtomicSafetyHandle.CheckWriteAndThrow(this.m_Safety);
 
-                for (int i = 0; i < this.Data->Count; i++)
+                for (var i = 0; i < this.Data->Count; i++)
                 {
                     var node = this.Data->Heap[i];
                     this.Data->Table[node.TableIndex].Version++;
@@ -232,10 +226,9 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Returns whether or not the given NativeHeapIndex is a valid index for this container.  If true,
-        /// that index can be used to Remove the element tied to that index from the container.
-        /// 
-        /// This method will always return true if Unity safety checks is turned off.
+        ///     Returns whether or not the given NativeHeapIndex is a valid index for this container.  If true,
+        ///     that index can be used to Remove the element tied to that index from the container.
+        ///     This method will always return true if Unity safety checks is turned off.
         /// </summary>
         public bool IsValidIndex(NativeHeapIndex index)
         {
@@ -246,9 +239,8 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Throws an ArgumentException if the provided NativeHeapIndex is not valid for this container.
-        /// 
-        /// This method will never throw if Unity safety checks is turned off.
+        ///     Throws an ArgumentException if the provided NativeHeapIndex is not valid for this container.
+        ///     This method will never throw if Unity safety checks is turned off.
         /// </summary>
         [Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
         public void AssertValidIndex(NativeHeapIndex index)
@@ -275,12 +267,10 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Returns the next element that would be obtained if Pop was called.  This is the first/smallest
-        /// item according to the ordering specified by the comparator.
-        /// 
-        /// This method is an O(1) operation.
-        /// 
-        /// This method will throw an InvalidOperationException if the collection is empty.
+        ///     Returns the next element that would be obtained if Pop was called.  This is the first/smallest
+        ///     item according to the ordering specified by the comparator.
+        ///     This method is an O(1) operation.
+        ///     This method will throw an InvalidOperationException if the collection is empty.
         /// </summary>
         public T Peek()
         {
@@ -288,7 +278,7 @@ namespace CrashKonijn.Goap.Resolver
             AtomicSafetyHandle.CheckReadAndThrow(this.m_Safety);
 #endif
 
-            if (!this.TryPeek(out T t))
+            if (!this.TryPeek(out var t))
             {
                 throw new InvalidOperationException("Cannot Peek NativeHeap when the count is zero.");
             }
@@ -297,12 +287,10 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Returns the next element that would be obtained if Pop was called.  This is the first/smallest
-        /// item according to the ordering specified by the comparator.
-        /// 
-        /// This method is an O(1) operation.
-        /// 
-        /// This method will return true if an element could be obtained, or false if the container is empty.
+        ///     Returns the next element that would be obtained if Pop was called.  This is the first/smallest
+        ///     item according to the ordering specified by the comparator.
+        ///     This method is an O(1) operation.
+        ///     This method will return true if an element could be obtained, or false if the container is empty.
         /// </summary>
         public bool TryPeek(out T t)
         {
@@ -329,11 +317,9 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Removes the first/smallest element from the container and returns it.
-        /// 
-        /// This method is an O(log(n)) operation.
-        /// 
-        /// This method will throw an InvalidOperationException if the collection is empty.
+        ///     Removes the first/smallest element from the container and returns it.
+        ///     This method is an O(log(n)) operation.
+        ///     This method will throw an InvalidOperationException if the collection is empty.
         /// </summary>
         public T Pop()
         {
@@ -341,7 +327,7 @@ namespace CrashKonijn.Goap.Resolver
             AtomicSafetyHandle.CheckWriteAndThrow(this.m_Safety);
 #endif
 
-            if (!this.TryPop(out T t))
+            if (!this.TryPop(out var t))
             {
                 throw new InvalidOperationException("Cannot Pop NativeHeap when the count is zero.");
             }
@@ -350,11 +336,9 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Removes the first/smallest element from the container and returns it.
-        /// 
-        /// This method is an O(log(n)) operation.
-        /// 
-        /// This method will return true if an element could be obtained, or false if the container is empty.
+        ///     Removes the first/smallest element from the container and returns it.
+        ///     This method is an O(log(n)) operation.
+        ///     This method will return true if an element could be obtained, or false if the container is empty.
         /// </summary>
         public bool TryPop(out T t)
         {
@@ -378,7 +362,7 @@ namespace CrashKonijn.Goap.Resolver
 #endif
 
                 //Grab the last node off the end and remove it
-                int lastNodeIndex = --this.Data->Count;
+                var lastNodeIndex = --this.Data->Count;
                 var lastNode = this.Data->Heap[lastNodeIndex];
 
                 //Move the previous root to the end of the array to fill the space we just made
@@ -393,16 +377,14 @@ namespace CrashKonijn.Goap.Resolver
         }
 
         /// <summary>
-        /// Inserts the provided element into the container.  It may later be removed by a call to Pop,
-        /// TryPop, or Remove.
-        /// 
-        /// This method returns a NativeHeapIndex.  This index can later be used to Remove the item from
-        /// the collection.  Once the item is removed by any means, this NativeHeapIndex will become invalid.
-        /// If an item is re-added to the collection after it has been removed, Insert will return a NEW
-        /// index that is distinct from the previous index.  Each index can only be used exactly once to
-        /// remove a single item.
-        /// 
-        /// This method is an O(log(n)) operation.
+        ///     Inserts the provided element into the container.  It may later be removed by a call to Pop,
+        ///     TryPop, or Remove.
+        ///     This method returns a NativeHeapIndex.  This index can later be used to Remove the item from
+        ///     the collection.  Once the item is removed by any means, this NativeHeapIndex will become invalid.
+        ///     If an item is re-added to the collection after it has been removed, Insert will return a NEW
+        ///     index that is distinct from the previous index.  Each index can only be used exactly once to
+        ///     remove a single item.
+        ///     This method is an O(log(n)) operation.
         /// </summary>
         public NativeHeapIndex Insert(in T t)
         {
@@ -429,21 +411,19 @@ namespace CrashKonijn.Goap.Resolver
                     TableIndex = node.TableIndex,
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                     Version = this.Data->Table[node.TableIndex].Version,
-                    StructureId = this.Id
+                    StructureId = this.Id,
 #endif
                 };
             }
         }
 
         /// <summary>
-        /// Removes the element tied to this NativeHeapIndex from the container.  The NativeHeapIndex must be
-        /// the result of a previous call to Insert on this container.  If the item has already been removed by
-        /// any means, this method will throw an ArgumentException.
-        /// 
-        /// This method will invalidate the provided index.  If you re-insert the removed object, you must use
-        /// the NEW index to remove it again.
-        /// 
-        /// This method is an O(log(n)) operation.
+        ///     Removes the element tied to this NativeHeapIndex from the container.  The NativeHeapIndex must be
+        ///     the result of a previous call to Insert on this container.  If the item has already been removed by
+        ///     any means, this method will throw an ArgumentException.
+        ///     This method will invalidate the provided index.  If you re-insert the removed object, you must use
+        ///     the NEW index to remove it again.
+        ///     This method is an O(log(n)) operation.
         /// </summary>
         public T Remove(NativeHeapIndex index)
         {
@@ -454,22 +434,22 @@ namespace CrashKonijn.Goap.Resolver
 
                 this.AssertValidIndex(index);
 #endif
-                int indexToRemove = this.Data->Table[index.TableIndex].HeapIndex;
+                var indexToRemove = this.Data->Table[index.TableIndex].HeapIndex;
 
-                HeapNode<T> toRemove = this.Data->Heap[indexToRemove];
+                var toRemove = this.Data->Heap[indexToRemove];
 
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 this.Data->Table[toRemove.TableIndex].Version++;
 #endif
 
-                HeapNode<T> lastNode = this.Data->Heap[--this.Data->Count];
+                var lastNode = this.Data->Heap[--this.Data->Count];
 
                 //First we move the node to remove to the end of the heap
                 WriteArrayElement(this.Data->Heap, this.Data->Count, toRemove);
 
                 if (indexToRemove != 0)
                 {
-                    int parentIndex = (indexToRemove - 1) / 2;
+                    var parentIndex = (indexToRemove - 1) / 2;
                     var parentNode = this.Data->Heap[parentIndex];
                     if (this.Data->Comparator.Compare(lastNode.Item, parentNode.Item) < 0)
                     {
@@ -499,14 +479,19 @@ namespace CrashKonijn.Goap.Resolver
 
         internal unsafe AtomicSafetyHandle m_Safety;
 
-        [NativeSetClassTypeToNullOnSchedule] internal unsafe DisposeSentinel m_DisposeSentinel;
+        [NativeSetClassTypeToNullOnSchedule]
+        internal unsafe DisposeSentinel m_DisposeSentinel;
 #endif
 
-        [NativeDisableUnsafePtrRestriction] internal unsafe HeapData<T, U>* Data;
+        [NativeDisableUnsafePtrRestriction]
+        internal unsafe HeapData<T, U>* Data;
+
         internal unsafe Allocator Allocator;
 
-        internal unsafe NativeHeap(int initialCapacity, U comparator, Allocator allocator,
-            int disposeSentinelStackDepth)
+        internal unsafe NativeHeap(
+            int initialCapacity, U comparator, Allocator allocator,
+            int disposeSentinelStackDepth
+        )
         {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
             if (initialCapacity <= 0)
@@ -527,24 +512,24 @@ namespace CrashKonijn.Goap.Resolver
             this.Id = Interlocked.Increment(ref NextId);
 #endif
 
-            this.Data = (HeapData<T, U>*)Malloc(SizeOf<HeapData<T, U>>(), AlignOf<HeapData<T, U>>(), allocator);
-            this.Data->Heap = (HeapNode<T>*)Malloc(SizeOf<HeapNode<T>>() * initialCapacity, AlignOf<HeapNode<T>>(),
+            this.Data = (HeapData<T, U>*) Malloc(SizeOf<HeapData<T, U>>(), AlignOf<HeapData<T, U>>(), allocator);
+            this.Data->Heap = (HeapNode<T>*) Malloc(SizeOf<HeapNode<T>>() * initialCapacity, AlignOf<HeapNode<T>>(),
                 allocator);
             this.Data->Table =
-                (TableValue*)Malloc(SizeOf<TableValue>() * initialCapacity, AlignOf<TableValue>(), allocator);
+                (TableValue*) Malloc(SizeOf<TableValue>() * initialCapacity, AlignOf<TableValue>(), allocator);
 
             this.Allocator = allocator;
 
-            for (int i = 0; i < initialCapacity; i++)
+            for (var i = 0; i < initialCapacity; i++)
             {
                 this.Data->Heap[i] = new HeapNode<T>()
                 {
-                    TableIndex = i
+                    TableIndex = i,
                 };
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
                 this.Data->Table[i] = new TableValue()
                 {
-                    Version = 1
+                    Version = 1,
                 };
 #endif
             }
@@ -558,8 +543,8 @@ namespace CrashKonijn.Goap.Resolver
         {
             while (true)
             {
-                int indexL = insertIndex * 2 + 1;
-                int indexR = insertIndex * 2 + 2;
+                var indexL = insertIndex * 2 + 1;
+                var indexR = insertIndex * 2 + 2;
 
                 //If the left index is off the end, we are finished
                 if (indexL >= this.Data->Count)
@@ -608,7 +593,7 @@ namespace CrashKonijn.Goap.Resolver
         {
             while (insertIndex != 0)
             {
-                int parentIndex = (insertIndex - 1) / 2;
+                var parentIndex = (insertIndex - 1) / 2;
                 var parentNode = this.Data->Heap[parentIndex];
 
                 //If parent is actually less or equal to us, we are ok and can break out
@@ -650,7 +635,7 @@ namespace CrashKonijn.Goap.Resolver
                 return;
             }
 
-            TableValue tableValue = this.Data->Table[index.TableIndex];
+            var tableValue = this.Data->Table[index.TableIndex];
             if (tableValue.Version != index.Version)
             {
                 errorCode = VALIDATION_ERROR_REMOVED;
@@ -682,8 +667,8 @@ namespace CrashKonijn.Goap.Resolver
         {
             get
             {
-                T[] items = new T[this._heap.Count];
-                for (int i = 0; i < items.Length; i++)
+                var items = new T[this._heap.Count];
+                for (var i = 0; i < items.Length; i++)
                 {
                     unsafe
                     {

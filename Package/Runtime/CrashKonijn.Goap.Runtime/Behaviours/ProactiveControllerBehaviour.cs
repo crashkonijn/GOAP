@@ -1,5 +1,4 @@
-﻿using System;
-using CrashKonijn.Goap.Core;
+﻿using CrashKonijn.Goap.Core;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.Runtime
@@ -21,17 +20,17 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.controller.Initialize(goap);
         }
-        
+
         private void OnDisable()
         {
             this.controller.Disable();
         }
-        
+
         public void OnUpdate()
         {
             this.controller.OnUpdate();
         }
-        
+
         public void OnLateUpdate()
         {
             this.controller.OnLateUpdate();

@@ -14,7 +14,7 @@ namespace CrashKonijn.Goap.Runtime
             this.config = new MultiSensorConfig()
             {
                 Name = type.Name,
-                ClassType = type.AssemblyQualifiedName
+                ClassType = type.AssemblyQualifiedName,
             };
         }
 

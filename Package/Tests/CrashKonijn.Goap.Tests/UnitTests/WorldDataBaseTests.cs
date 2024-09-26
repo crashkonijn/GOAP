@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using NSubstitute;
-using System;
+﻿using System;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
+using NSubstitute;
+using NUnit.Framework;
 
 namespace CrashKonijn.Goap.UnitTests
 {
@@ -40,10 +40,10 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.worldDataBase.SetState<WorldKey>(1);
-            
+
             // Act
             var result = this.worldDataBase.IsTrue<WorldKey>(Comparison.GreaterThan, 0);
-            
+
             // Assert
             Assert.IsTrue(result);
         }
@@ -53,10 +53,10 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             this.worldDataBase.SetState<WorldKey>(1);
-            
+
             // Act
             var result = this.worldDataBase.IsTrue(new WorldKey("example"), Comparison.GreaterThan, 0);
-            
+
             // Assert
             Assert.IsTrue(result);
         }
@@ -77,7 +77,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void SetState_Instance_AddsStateCorrectly()
         {
             // Act
-            this.worldDataBase.SetState(new WorldKey("example"),1);
+            this.worldDataBase.SetState(new WorldKey("example"), 1);
 
             // Assert
             Assert.AreEqual(1, this.worldDataBase.States.Count);
@@ -90,7 +90,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var mockTarget = Substitute.For<ITarget>();
-            
+
             // Act
             this.worldDataBase.SetTarget<TargetKey>(mockTarget);
 
@@ -105,7 +105,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var mockTarget = Substitute.For<ITarget>();
-            
+
             // Act
             this.worldDataBase.SetTarget(new TargetKey("example"), mockTarget);
 

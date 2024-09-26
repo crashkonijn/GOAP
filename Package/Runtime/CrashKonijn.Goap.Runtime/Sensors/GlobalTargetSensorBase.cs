@@ -18,10 +18,10 @@ namespace CrashKonijn.Goap.Runtime
         public void Sense(IWorldData worldData)
         {
             var state = worldData.GetTargetState(this.Key.GetType());
-            
+
             if (!this.Timer.ShouldSense(state?.Timer))
                 return;
-            
+
             worldData.SetTarget(this.Key, this.Sense(state?.Value));
         }
 

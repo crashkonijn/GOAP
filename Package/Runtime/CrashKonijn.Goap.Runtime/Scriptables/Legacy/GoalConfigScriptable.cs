@@ -11,6 +11,7 @@ namespace CrashKonijn.Goap.Runtime
     {
         [GoalClass]
         public string classType;
+
         public float baseCost = 1;
         public List<SerializableCondition> conditions;
 

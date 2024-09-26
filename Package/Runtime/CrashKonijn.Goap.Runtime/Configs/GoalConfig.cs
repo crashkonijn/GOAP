@@ -7,11 +7,8 @@ namespace CrashKonijn.Goap.Runtime
     [Serializable]
     public class GoalConfig : IGoalConfig
     {
-        public GoalConfig()
-        {
-            
-        }
-        
+        public GoalConfig() { }
+
         public GoalConfig(Type type)
         {
             this.Name = type.Name;
@@ -22,7 +19,7 @@ namespace CrashKonijn.Goap.Runtime
         public string ClassType { get; set; }
         public float BaseCost { get; set; }
         public List<ICondition> Conditions { get; set; } = new();
-        
+
         public static GoalConfig Create<TGoal>()
             where TGoal : IGoal
         {

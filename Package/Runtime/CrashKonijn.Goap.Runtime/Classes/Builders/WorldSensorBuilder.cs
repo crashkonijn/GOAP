@@ -14,16 +14,16 @@ namespace CrashKonijn.Goap.Runtime
             this.config = new WorldSensorConfig()
             {
                 Name = type.Name,
-                ClassType = type.AssemblyQualifiedName
+                ClassType = type.AssemblyQualifiedName,
             };
         }
-        
+
         public WorldSensorBuilder SetKey<TWorldKey>()
             where TWorldKey : IWorldKey
         {
             this.config.Key = this.worldKeyBuilder.GetKey<TWorldKey>();
-            
-            return this; 
+
+            return this;
         }
 
         public IWorldSensorConfig Build()
