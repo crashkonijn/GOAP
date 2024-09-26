@@ -22,7 +22,7 @@ namespace CrashKonijn.Goap.Runtime
             var agentType = new AgentTypeFactory(this.runner.Config).Create(config);
 
             this.runner.Register(agentType);
-            
+
             this.AgentType = agentType;
         }
     }

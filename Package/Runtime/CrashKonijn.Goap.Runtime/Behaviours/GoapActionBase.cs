@@ -8,10 +8,8 @@ namespace CrashKonijn.Goap.Runtime
     // Backwards compatability for v2 actions
 
     public abstract class GoapActionBase<TActionData> : GoapActionBase<TActionData, EmptyActionProperties>
-        where TActionData : IActionData, new()
-    {
-    }
-    
+        where TActionData : IActionData, new() { }
+
     public abstract class GoapActionBase<TActionData, TActionProperties> : AgentActionBase<TActionData, TActionProperties>, IGoapAction
         where TActionData : IActionData, new()
         where TActionProperties : class, IActionProperties, new()
@@ -21,20 +19,20 @@ namespace CrashKonijn.Goap.Runtime
         public Guid Guid { get; } = Guid.NewGuid();
         public IEffect[] Effects => this.Config.Effects;
         public ICondition[] Conditions => this.Config.Conditions;
-        
+
         public override TActionProperties Properties => this.Config.Properties as TActionProperties;
 
         public void SetConfig(IActionConfig config)
         {
             this.Config = config;
         }
-        
+
         [Obsolete("Use GetCost(IActionReceiver agent, IComponentReference references, ITarget target) instead")]
         public virtual float GetCost(IActionReceiver agent, IComponentReference references)
         {
             return this.Config.BaseCost;
         }
-        
+
         public virtual float GetCost(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             return this.Config.BaseCost;
@@ -59,7 +57,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (agent.ActionProvider is not GoapActionProvider goapAgent)
                 return false;
-            
+
             if (this.Config.ValidateConditions && !goapAgent.AgentType.AllConditionsMet(goapAgent, this))
             {
                 agent.Logger.Warning($"Conditions not met: {this.Config.Name}");
@@ -80,22 +78,22 @@ namespace CrashKonijn.Goap.Runtime
 
             return this.IsValid(agent, (TActionData) data);
         }
-        
+
         public virtual bool IsValid(IActionReceiver agent, TActionData data)
         {
             return true;
         }
-        
+
         public bool IsExecutable(IActionReceiver agent, bool conditionsMet)
         {
             var goapAgent = agent.Injector.GetCachedComponent<GoapActionProvider>();
-            
+
             if (goapAgent == null)
                 return false;
-            
+
             if (!conditionsMet)
                 return false;
-            
+
             if (this.Config.RequiresTarget && goapAgent.WorldData.GetTarget(this) == null)
                 return false;
 

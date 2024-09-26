@@ -11,6 +11,7 @@ namespace CrashKonijn.Agent.Runtime
         public ActionProviderBase ActionProviderBase { get; set; }
 
         private IActionProvider actionProvider;
+
         public IActionProvider ActionProvider
         {
             get => this.actionProvider;
@@ -18,27 +19,30 @@ namespace CrashKonijn.Agent.Runtime
             {
                 if (this.actionProvider == value)
                     return;
-                
+
                 this.actionProvider = value;
                 this.actionProvider.Receiver = this;
             }
         }
 
         [field: SerializeField]
-        public LoggerConfig LoggerConfig { get; set; } = new LoggerConfig();
-        
+        public LoggerConfig LoggerConfig { get; set; } = new();
+
         public AgentState State { get; private set; } = AgentState.NoAction;
         public AgentMoveState MoveState { get; private set; } = AgentMoveState.Idle;
-        public List<Type> DisabledActions { get; } = new ();
-        
+        public List<Type> DisabledActions { get; } = new();
+
         [Obsolete("Use ActionState.Action instead.")]
         public IAction CurrentAction => this.ActionState.Action;
+
         [Obsolete("Use ActionState.Data instead.")]
         public IActionData CurrentActionData => this.ActionState.Data;
+
         [Obsolete("Use ActionState.RunState instead.")]
         public IActionRunState RunState => this.ActionState.RunState;
+
         public IActionState ActionState { get; } = new ActionState();
-        
+
         public IAgentEvents Events { get; } = new AgentEvents();
         public IDataReferenceInjector Injector { get; private set; }
         public IAgentDistanceObserver DistanceObserver { get; set; } = new VectorDistanceObserver();
@@ -47,17 +51,20 @@ namespace CrashKonijn.Agent.Runtime
         public IAgentTimers Timers { get; } = new AgentTimers();
 
         public ITarget CurrentTarget { get; private set; }
-        
+
         public Transform Transform => this.transform;
-        
+
         private ActionRunner actionRunner;
-        
-#region Obsolete Methods
+
+        #region Obsolete Methods
+
         [Obsolete("Use GoapActionProvider.CurrentPlan.Goal instead")]
         public object CurrentGoal { get; set; }
+
         [Obsolete("Use GoapActionProvider.AgentType instead")]
         public object GoapSet { get; set; }
-#endregion
+
+        #endregion
 
         private void Awake()
         {
@@ -86,7 +93,7 @@ namespace CrashKonijn.Agent.Runtime
             this.Injector = new DataReferenceInjector(this);
             this.actionRunner = new ActionRunner(this, new AgentProxy(this.SetState, this.SetMoveState, (state) => this.ActionState.RunState = state, this.IsInRange));
             this.Logger.Initialize(this.LoggerConfig, this);
-            
+
             if (this.ActionProviderBase != null)
                 this.ActionProvider = this.ActionProviderBase;
         }
@@ -100,19 +107,19 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (this.ActionState.Action == null)
                 return;
-            
+
             this.UpdateTarget();
 
             this.actionRunner.Run();
         }
-        
+
         private void UpdateTarget()
         {
             if (this.CurrentTarget == this.ActionState.Data?.Target)
                 return;
-            
+
             this.CurrentTarget = this.ActionState.Data?.Target;
-            
+
             if (this.CurrentTarget == null)
             {
                 this.Events.TargetLost();
@@ -126,7 +133,7 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (this.State == state)
                 return;
-            
+
             this.State = state;
 
             if (state is AgentState.PerformingAction or AgentState.MovingWhilePerformingAction)
@@ -139,9 +146,9 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (this.MoveState == state)
                 return;
-            
+
             this.MoveState = state;
-            
+
             switch (state)
             {
                 case AgentMoveState.InRange:
@@ -156,42 +163,42 @@ namespace CrashKonijn.Agent.Runtime
         private bool IsInRange()
         {
             var distance = this.DistanceObserver.GetDistance(this, this.ActionState.Data?.Target, this.Injector);
-            
+
             return this.ActionState.Action.IsInRange(this, distance, this.ActionState.Data, this.Injector);
         }
-        
+
         public void SetAction(IActionProvider actionProvider, IAction action, ITarget target)
         {
             this.ActionProvider = actionProvider;
-            
+
             if (this.ActionState.Action != null)
             {
                 this.StopAction(false);
             }
-            
+
             var data = action.GetData();
             this.Injector.Inject(data);
             data.Target = target;
 
             this.ActionState.SetAction(action, data);
             this.Timers.Action.Touch();
-            
+
             this.SetState(AgentState.StartingAction);
 
             action.Start(this, data);
-            
+
             this.Events.ActionStart(action);
         }
-        
+
         public void StopAction(bool resolveAction = true)
         {
             var action = this.ActionState.Action;
-            
+
             action?.Stop(this, this.ActionState.Data);
             this.ResetAction();
-            
+
             this.Events.ActionStop(action);
-            
+
             if (resolveAction)
                 this.ResolveAction();
         }
@@ -199,12 +206,12 @@ namespace CrashKonijn.Agent.Runtime
         public void CompleteAction(bool resolveAction = true)
         {
             var action = this.ActionState.Action;
-            
+
             action?.Complete(this, this.ActionState.Data);
             this.ResetAction();
-            
+
             this.Events.ActionComplete(action);
-            
+
             if (resolveAction)
                 this.ResolveAction();
         }
@@ -213,7 +220,7 @@ namespace CrashKonijn.Agent.Runtime
         {
             if (this.ActionProvider == null)
                 throw new AgentException("No action provider found!");
-            
+
             this.ActionProvider.ResolveAction();
         }
 
@@ -224,22 +231,22 @@ namespace CrashKonijn.Agent.Runtime
             this.SetMoveState(AgentMoveState.Idle);
             this.UpdateTarget();
         }
-        
+
         public void EnableAction<TAction>()
             where TAction : IAction
         {
             if (!this.DisabledActions.Contains(typeof(TAction)))
                 return;
-            
+
             this.DisabledActions.Remove(typeof(TAction));
         }
-        
+
         public void DisableAction<TAction>()
             where TAction : IAction
         {
             if (this.DisabledActions.Contains(typeof(TAction)))
                 return;
-            
+
             this.DisabledActions.Add(typeof(TAction));
         }
     }

@@ -12,9 +12,11 @@ namespace CrashKonijn.Goap.Runtime
 
         /** GC caches **/
         private List<IMonoGoapActionProvider> agentsGC = new();
+
         /** **/
-        
+
         public IGoapEvents Events { get; } = new GoapEvents();
+
         public Dictionary<IAgentType, IAgentTypeJobRunner> AgentTypeRunners { get; private set; } = new();
 
         public float RunTime { get; private set; }
@@ -27,12 +29,13 @@ namespace CrashKonijn.Goap.Runtime
             this.Controller = controller;
             this.Config = GoapConfig.Default;
         }
-        
-        public void Register(IAgentType agentType) {
+
+        public void Register(IAgentType agentType)
+        {
             this.AgentTypeRunners.Add(agentType, new AgentTypeJobRunner(agentType, new GraphResolver(agentType.GetAllNodes().ToArray(), agentType.GoapConfig.KeyResolver)));
 
             agentType.Events.Bind(this.Events);
-            
+
             this.Events.AgentTypeRegistered(agentType);
         }
 
@@ -57,8 +60,8 @@ namespace CrashKonijn.Goap.Runtime
         private float GetElapsedMs()
         {
             this.stopwatch.Stop();
-            
-            return (float) ((double)this.stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000);
+
+            return (float) ((double) this.stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000);
         }
 
         public IGraph GetGraph(IAgentType agentType) => this.AgentTypeRunners[agentType].GetGraph();
@@ -66,10 +69,12 @@ namespace CrashKonijn.Goap.Runtime
 
         public List<IMonoGoapActionProvider> Agents
         {
-            get {
+            get
+            {
                 this.agentsGC.Clear();
-                
-                foreach (var runner in this.AgentTypeRunners.Keys) {
+
+                foreach (var runner in this.AgentTypeRunners.Keys)
+                {
                     this.agentsGC.AddRange(runner.Agents.All());
                 }
 

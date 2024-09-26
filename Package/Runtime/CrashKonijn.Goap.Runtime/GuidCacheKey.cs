@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Text;
 using CrashKonijn.Goap.Core;
 
@@ -8,7 +7,7 @@ namespace CrashKonijn.Goap.Runtime
 {
     public static class GuidCacheKey
     {
-        private static readonly StringBuilder StringBuilder = new StringBuilder();
+        private static readonly StringBuilder StringBuilder = new();
 
         public static string GenerateKey(List<IGoal> guids)
         {
@@ -32,7 +31,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             var g1Bytes = g1.Index;
             var g2Bytes = g2.Index;
-            
+
             if (g1Bytes < g2Bytes)
                 return -1;
 

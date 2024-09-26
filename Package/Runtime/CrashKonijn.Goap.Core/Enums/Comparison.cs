@@ -5,6 +5,6 @@
         SmallerThan,
         SmallerThanOrEqual,
         GreaterThan,
-        GreaterThanOrEqual
+        GreaterThanOrEqual,
     }
 }

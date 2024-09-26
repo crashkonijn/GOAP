@@ -37,7 +37,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             return this.mayResolve;
         }
-        
+
         public override bool IsRunning()
         {
             return this.time > 0f;

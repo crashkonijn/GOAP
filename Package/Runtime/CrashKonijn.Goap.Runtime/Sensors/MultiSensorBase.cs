@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
-using CrashKonijn.Goap.Resolver;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -22,16 +21,16 @@ namespace CrashKonijn.Goap.Runtime
         public abstract void Created();
 
         public abstract void Update();
-        
+
         public Type[] GetKeys()
         {
             var keys = new List<Type>();
-            
+
             foreach (var sensor in this.LocalSensors.Keys)
             {
                 keys.Add(sensor);
             }
-            
+
             foreach (var sensor in this.GlobalSensors.Keys)
             {
                 keys.Add(sensor);
@@ -39,7 +38,7 @@ namespace CrashKonijn.Goap.Runtime
 
             return keys.ToArray();
         }
-        
+
         public void Sense(IWorldData data)
         {
             foreach (var sensor in this.GlobalSensors.Values)
@@ -66,7 +65,7 @@ namespace CrashKonijn.Goap.Runtime
                 sensor.Sense(data, agent, references);
             }
         }
-        
+
         public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references, Type[] keys)
         {
             foreach (var key in keys)
@@ -82,19 +81,19 @@ namespace CrashKonijn.Goap.Runtime
             where TKey : IWorldKey
         {
             timer ??= SensorTimer.Always;
-            
+
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
                 SenseMethod = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
                 {
                     var state = data.GetWorldState(typeof(TKey));
-                    
+
                     if (!timer.ShouldSense(state?.Timer))
                         return;
-                    
+
                     data.SetState<TKey>(sense(agent, references));
-                }
+                },
             });
         }
 
@@ -102,19 +101,19 @@ namespace CrashKonijn.Goap.Runtime
             where TKey : IWorldKey
         {
             timer ??= SensorTimer.Always;
-            
+
             this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
             {
                 Key = typeof(TKey),
                 SenseMethod = (IWorldData data) =>
                 {
                     var state = data.GetWorldState(typeof(TKey));
-                    
+
                     if (!timer.ShouldSense(state?.Timer))
                         return;
-                    
+
                     data.SetState<TKey>(sense());
-                }
+                },
             });
         }
 
@@ -122,19 +121,19 @@ namespace CrashKonijn.Goap.Runtime
             where TKey : ITargetKey
         {
             timer ??= SensorTimer.Always;
-            
+
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
             {
                 Key = typeof(TKey),
                 SenseMethod = (IWorldData data, IActionReceiver agent, IComponentReference references) =>
                 {
                     var state = data.GetTargetState(typeof(TKey));
-                    
+
                     if (!timer.ShouldSense(state?.Timer))
                         return;
-                    
+
                     data.SetTarget<TKey>(sense(agent, references, state?.Value));
-                }
+                },
             });
         }
 
@@ -142,31 +141,31 @@ namespace CrashKonijn.Goap.Runtime
             where TKey : ITargetKey
         {
             timer ??= SensorTimer.Always;
-            
+
             this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
             {
                 Key = typeof(TKey),
                 SenseMethod = (IWorldData data) =>
                 {
                     var state = data.GetTargetState(typeof(TKey));
-                    
+
                     if (!timer.ShouldSense(state?.Timer))
                         return;
-                    
+
                     data.SetTarget<TKey>(sense(state?.Value));
-                }
+                },
             });
         }
-        
+
         public string[] GetSensors()
         {
             var sensors = new List<string>();
-            
+
             foreach (var sensor in this.LocalSensors.Keys)
             {
                 sensors.Add($"{sensor.Name} (local)");
             }
-            
+
             foreach (var sensor in this.GlobalSensors.Keys)
             {
                 sensors.Add($"{sensor.Name} (global)");
@@ -180,7 +179,8 @@ namespace CrashKonijn.Goap.Runtime
     {
         public Action<IWorldData> SenseMethod;
         public Type Key { get; set; }
-        public void Created() {}
+
+        public void Created() { }
 
         public Type[] GetKeys() => new[] { this.Key };
 
@@ -193,9 +193,10 @@ namespace CrashKonijn.Goap.Runtime
         public Type Key { get; set; }
 
         public Type[] GetKeys() => new[] { this.Key };
-        public void Created() {}
 
-        public void Update() {}
+        public void Created() { }
+
+        public void Update() { }
 
         public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references) => this.SenseMethod(data, agent, references);
     }

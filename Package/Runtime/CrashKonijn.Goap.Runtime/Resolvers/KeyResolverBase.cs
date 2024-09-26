@@ -12,7 +12,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.WorldData = globalWorldData;
         }
-        
+
         public string GetKey(IConnectable action, ICondition condition)
         {
             if (action is IAction tAction)

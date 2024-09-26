@@ -10,10 +10,8 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.message = message;
         }
-        
-        public override void Update(IAgent agent, IActionContext context)
-        {
-        }
+
+        public override void Update(IAgent agent, IActionContext context) { }
 
         public override bool ShouldStop(IAgent agent)
         {

@@ -9,7 +9,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.Name = name;
         }
-        
+
         public string Name { get; }
 
         public List<IActionConfig> Actions { get; set; }
@@ -18,14 +18,14 @@ namespace CrashKonijn.Goap.Runtime
         public List<IWorldSensorConfig> WorldSensors { get; set; }
         public List<IMultiSensorConfig> MultiSensors { get; set; }
     }
-    
+
     public class CapabilityConfig : ICapabilityConfig
     {
         public CapabilityConfig(string name)
         {
             this.Name = name;
         }
-        
+
         public string Name { get; }
 
         public List<IActionConfig> Actions { get; set; }

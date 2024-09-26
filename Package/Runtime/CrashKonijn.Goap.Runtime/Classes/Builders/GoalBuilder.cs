@@ -16,29 +16,29 @@ namespace CrashKonijn.Goap.Runtime
             this.config = new GoalConfig(type)
             {
                 BaseCost = 1,
-                ClassType = type.AssemblyQualifiedName
+                ClassType = type.AssemblyQualifiedName,
             };
         }
-        
+
         public GoalBuilder SetBaseCost(float baseCost)
         {
             this.config.BaseCost = baseCost;
             return this;
         }
-        
+
         public GoalBuilder AddCondition<TWorldKey>(Comparison comparison, int amount)
             where TWorldKey : IWorldKey
         {
             this.conditions.Add(new Condition(this.worldKeyBuilder.GetKey<TWorldKey>(), comparison, amount));
             return this;
         }
-        
+
         public IGoalConfig Build()
         {
             this.config.Conditions = this.conditions;
             return this.config;
         }
-        
+
         public static GoalBuilder Create<TGoal>(WorldKeyBuilder worldKeyBuilder)
             where TGoal : IGoal
         {

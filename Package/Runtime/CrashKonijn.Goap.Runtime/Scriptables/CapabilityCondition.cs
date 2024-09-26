@@ -10,10 +10,8 @@ namespace CrashKonijn.Goap.Runtime
         public Comparison comparison;
         public int amount;
 
-        public CapabilityCondition()
-        {
-        }
-        
+        public CapabilityCondition() { }
+
         public CapabilityCondition(string data)
         {
             var split = data.Split(' ');

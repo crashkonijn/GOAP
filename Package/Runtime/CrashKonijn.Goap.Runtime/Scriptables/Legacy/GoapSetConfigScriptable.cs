@@ -10,13 +10,13 @@ namespace CrashKonijn.Goap.Runtime
     public class GoapSetConfigScriptable : ScriptableObject, IAgentTypeConfig
     {
         public CapabilityConfigScriptable capabilityConfig;
-        
-        public List<ActionConfigScriptable> actions = new List<ActionConfigScriptable>();
-        public List<GoalConfigScriptable> goals = new List<GoalConfigScriptable>();
 
-        public List<TargetSensorConfigScriptable> targetSensors = new List<TargetSensorConfigScriptable>();
-        public List<WorldSensorConfigScriptable> worldSensors = new List<WorldSensorConfigScriptable>();
-        
+        public List<ActionConfigScriptable> actions = new();
+        public List<GoalConfigScriptable> goals = new();
+
+        public List<TargetSensorConfigScriptable> targetSensors = new();
+        public List<WorldSensorConfigScriptable> worldSensors = new();
+
         public string Name => this.name;
         public List<IActionConfig> Actions => this.actions.Cast<IActionConfig>().ToList();
         public List<IGoalConfig> Goals => this.goals.Cast<IGoalConfig>().ToList();

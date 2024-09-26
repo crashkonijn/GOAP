@@ -12,7 +12,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (!this.States.ContainsKey(worldKey))
                 return (false, 0);
-            
+
             return (true, this.States[worldKey].Value);
         }
 
@@ -20,7 +20,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (!this.Targets.ContainsKey(targetKey))
                 return null;
-            
+
             return this.Targets[targetKey].Value;
         }
 
@@ -28,7 +28,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (!this.Targets.ContainsKey(targetKey))
                 return null;
-            
+
             return this.Targets[targetKey];
         }
 
@@ -36,7 +36,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (!this.States.ContainsKey(worldKey))
                 return null;
-            
+
             return this.States[worldKey];
         }
     }

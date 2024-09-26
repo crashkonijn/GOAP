@@ -4,9 +4,7 @@ namespace CrashKonijn.Goap.Runtime
 {
     public class ContinueOrResolveActionRunState : ActionRunState
     {
-        public override void Update(IAgent agent, IActionContext context)
-        {
-        }
+        public override void Update(IAgent agent, IActionContext context) { }
 
         public override bool ShouldStop(IAgent agent)
         {
@@ -27,7 +25,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             return true;
         }
-        
+
         public override bool IsRunning()
         {
             return false;

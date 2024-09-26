@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Agent.Core;
+﻿using System.Reflection;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
@@ -13,40 +14,40 @@ namespace CrashKonijn.Goap.UnitTests.Support
             where T : MonoBehaviour
         {
             var method = typeof(T)
-                .GetMethod("Awake", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-            
+                .GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic);
+
             method.Invoke(behaviour, null);
         }
-        
+
         public static void CallAwake(this IMonoBehaviour behaviour)
         {
             if (behaviour is not MonoBehaviour monoBehaviour)
                 return;
-            
+
             monoBehaviour.CallAwake();
         }
-        
+
         public static void CallStart<T>(this T behaviour)
             where T : MonoBehaviour
         {
             typeof(T)
-                .GetMethod("Start", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+                .GetMethod("Start", BindingFlags.Instance | BindingFlags.NonPublic)!
                 .Invoke(behaviour, null);
         }
-        
+
         public static void CallOnEnable<T>(this T behaviour)
             where T : MonoBehaviour
         {
             typeof(T)
-                .GetMethod("OnEnable", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+                .GetMethod("OnEnable", BindingFlags.Instance | BindingFlags.NonPublic)!
                 .Invoke(behaviour, null);
         }
-        
+
         public static void CallOnDisable<T>(this T behaviour)
             where T : MonoBehaviour
         {
             typeof(T)
-                .GetMethod("OnDisable", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+                .GetMethod("OnDisable", BindingFlags.Instance | BindingFlags.NonPublic)!
                 .Invoke(behaviour, null);
         }
 
@@ -55,7 +56,7 @@ namespace CrashKonijn.Goap.UnitTests.Support
             var events = Substitute.For<IGoapAgentEvents>();
             // Set Events property through reflection
             typeof(GoapActionProvider)
-                .GetField("<Events>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                .GetField("<Events>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance)!
                 .SetValue(actionProvider, events);
 
             return events;
@@ -66,7 +67,7 @@ namespace CrashKonijn.Goap.UnitTests.Support
             var events = Substitute.For<IAgentEvents>();
             // Set Events property through reflection
             typeof(AgentBehaviour)
-                .GetField("<Events>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                .GetField("<Events>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance)!
                 .SetValue(agent, events);
 
             return events;
@@ -81,10 +82,10 @@ namespace CrashKonijn.Goap.UnitTests.Support
         {
             var actionState = new ActionState();
             actionState.SetAction(action, action.GetData());
-            
+
             // Set Action property through reflection
             typeof(AgentBehaviour)
-                .GetField("<ActionState>k__BackingField", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                .GetField("<ActionState>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance)!
                 .SetValue(agent, actionState);
         }
     }

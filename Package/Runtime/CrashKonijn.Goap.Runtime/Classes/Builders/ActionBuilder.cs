@@ -20,9 +20,9 @@ namespace CrashKonijn.Goap.Runtime
             this.actionType = actionType;
             this.worldKeyBuilder = worldKeyBuilder;
             this.targetKeyBuilder = targetKeyBuilder;
-            
+
             var propType = this.GetPropertiesType();
-            
+
             this.config = new ActionConfig
             {
                 Name = actionType.Name,
@@ -31,7 +31,7 @@ namespace CrashKonijn.Goap.Runtime
                 StoppingDistance = 0.5f,
                 RequiresTarget = true,
                 ValidateConditions = true,
-                Properties = (IActionProperties)Activator.CreateInstance(propType)
+                Properties = (IActionProperties) Activator.CreateInstance(propType),
             };
         }
 
@@ -47,32 +47,32 @@ namespace CrashKonijn.Goap.Runtime
             this.config.BaseCost = baseCost;
             return this;
         }
-        
+
         public ActionBuilder SetRequiresTarget(bool requiresTarget)
         {
             this.config.RequiresTarget = requiresTarget;
             return this;
         }
-        
+
         public ActionBuilder SetValidateConditions(bool validate)
         {
             this.config.ValidateConditions = validate;
             return this;
         }
-        
+
         public ActionBuilder SetStoppingDistance(float inRange)
         {
             this.config.StoppingDistance = inRange;
             return this;
         }
-        
+
         [Obsolete("Use `SetStoppingDistance(float inRange)` instead.")]
         public ActionBuilder SetInRange(float inRange)
         {
             this.config.StoppingDistance = inRange;
             return this;
         }
-        
+
         public ActionBuilder SetMoveMode(ActionMoveMode moveMode)
         {
             this.config.MoveMode = moveMode;
@@ -88,7 +88,7 @@ namespace CrashKonijn.Goap.Runtime
                 Comparison = comparison,
                 Amount = amount,
             });
-            
+
             return this;
         }
 
@@ -99,9 +99,9 @@ namespace CrashKonijn.Goap.Runtime
             this.effects.Add(new Effect
             {
                 WorldKey = this.worldKeyBuilder.GetKey<TWorldKey>(),
-                Increase = increase
+                Increase = increase,
             });
-            
+
             return this;
         }
 
@@ -111,16 +111,16 @@ namespace CrashKonijn.Goap.Runtime
             this.effects.Add(new Effect
             {
                 WorldKey = this.worldKeyBuilder.GetKey<TWorldKey>(),
-                Increase = type == EffectType.Increase
+                Increase = type == EffectType.Increase,
             });
-            
+
             return this;
         }
 
         public ActionBuilder SetProperties(IActionProperties properties)
         {
             this.ValidateProperties(properties);
-            
+
             this.config.Properties = properties;
             return this;
         }
@@ -128,28 +128,28 @@ namespace CrashKonijn.Goap.Runtime
         private void ValidateProperties(IActionProperties properties)
         {
             var actionPropsType = this.GetPropertiesType();
-            
+
             if (actionPropsType == properties.GetType())
                 return;
-                
+
             throw new ArgumentException($"The provided properties do not match the expected type '{actionPropsType.Name}'.", nameof(properties));
         }
-        
+
         private Type GetPropertiesType()
         {
             var baseType = this.actionType.BaseType;
-            
+
             while (baseType != null)
             {
                 if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>))
                     return baseType.GetGenericArguments()[1];
-                
+
                 if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<>))
                     return typeof(EmptyActionProperties);
-                
+
                 baseType = baseType.BaseType;
             }
-            
+
             return null;
         }
 
@@ -157,10 +157,10 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.config.Conditions = this.conditions.ToArray();
             this.config.Effects = this.effects.ToArray();
-            
+
             return this.config;
         }
-        
+
         public static ActionBuilder Create<TAction>(WorldKeyBuilder worldKeyBuilder, TargetKeyBuilder targetKeyBuilder)
             where TAction : IAction
         {

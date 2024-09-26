@@ -16,10 +16,10 @@ namespace CrashKonijn.Goap.Runtime
 
             if (!duplicates.Any())
                 return;
-            
+
             results.AddWarning($"Duplicate world sensor keys: {string.Join(", ", duplicates)}");
         }
-        
+
         private string[] GetWorldSensorKeys(IAgentTypeConfig agentTypeConfig)
         {
             return agentTypeConfig.WorldSensors
@@ -28,11 +28,11 @@ namespace CrashKonijn.Goap.Runtime
                 .Distinct()
                 .ToArray();
         }
-        
-        private string [] GetMultiSensorKeys(IAgentTypeConfig agentTypeConfig)
+
+        private string[] GetMultiSensorKeys(IAgentTypeConfig agentTypeConfig)
         {
             var temp = new ClassResolver().Load<IMultiSensor, IMultiSensorConfig>(agentTypeConfig.MultiSensors);
-            
+
             return temp
                 .SelectMany(x => x.GetKeys())
                 .Select(x => x.Name)

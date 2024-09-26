@@ -27,7 +27,7 @@ namespace CrashKonijn.Goap.Runtime
             this.goalsLookup = goals.ToDictionary(x => x.GetType());
             this.actions = actions;
             this.WorldData = worldData;
-            
+
             this.Agents = new AgentCollection(this);
         }
 
@@ -46,7 +46,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (this.goalsLookup.TryGetValue(typeof(TGoal), out var result))
                 return (TGoal) result;
-            
+
             throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");
         }
 
@@ -54,7 +54,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             var conditionObserver = this.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(actionProvider.WorldData);
-            
+
             foreach (var condition in action.Conditions)
             {
                 if (!conditionObserver.IsMet(condition))

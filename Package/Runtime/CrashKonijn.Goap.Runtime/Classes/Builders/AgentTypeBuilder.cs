@@ -41,46 +41,46 @@ namespace CrashKonijn.Goap.Runtime
         {
             this.capabilityConfigs.Add(new TCapability().Create());
         }
-        
+
         public void AddCapability(CapabilityFactoryBase capabilityFactory)
         {
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
-        
+
         public void AddCapability(MonoCapabilityFactoryBase capabilityFactory)
         {
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
-        
+
         public void AddCapability(ScriptableCapabilityFactoryBase capabilityFactory)
         {
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
-        
+
         public void AddCapability(CapabilityBuilder capabilityBuilder)
         {
             this.capabilityConfigs.Add(capabilityBuilder.Build());
         }
-        
+
         public void AddCapability(ICapabilityConfig capabilityConfig)
         {
             this.capabilityConfigs.Add(capabilityConfig);
         }
-        
+
         public AgentTypeConfig Build()
         {
             this.capabilityConfigs.AddRange(this.capabilityBuilders.Select(x => x.Build()));
-            
+
             this.agentTypeConfig.Actions = this.capabilityConfigs.SelectMany(x => x.Actions).ToList();
             this.agentTypeConfig.Goals = this.capabilityConfigs.SelectMany(x => x.Goals).ToList();
             this.agentTypeConfig.TargetSensors = this.capabilityConfigs.SelectMany(x => x.TargetSensors).ToList();
             this.agentTypeConfig.WorldSensors = this.capabilityConfigs.SelectMany(x => x.WorldSensors).ToList();
             this.agentTypeConfig.MultiSensors = this.capabilityConfigs.SelectMany(x => x.MultiSensors).ToList();
-            
+
             return this.agentTypeConfig;
         }
     }
-    
+
     public class CapabilityBuilder
     {
         private readonly CapabilityConfig capabilityConfig;
@@ -91,59 +91,59 @@ namespace CrashKonijn.Goap.Runtime
         private readonly List<MultiSensorBuilder> multiSensorBuilders = new();
         private readonly WorldKeyBuilder worldKeyBuilder = new();
         private readonly TargetKeyBuilder targetKeyBuilder = new();
-        
+
         public CapabilityBuilder(string name)
         {
             this.capabilityConfig = new CapabilityConfig(name);
         }
-        
+
         public ActionBuilder AddAction<TAction>()
             where TAction : IAction
         {
             var actionBuilder = ActionBuilder.Create<TAction>(this.worldKeyBuilder, this.targetKeyBuilder);
-            
+
             this.actionBuilders.Add(actionBuilder);
-            
+
             return actionBuilder;
         }
-        
+
         public GoalBuilder AddGoal<TGoal>()
             where TGoal : IGoal
         {
             var goalBuilder = GoalBuilder.Create<TGoal>(this.worldKeyBuilder);
 
             this.goalBuilders.Add(goalBuilder);
-            
+
             return goalBuilder;
         }
-        
+
         public WorldSensorBuilder AddWorldSensor<TWorldSensor>()
             where TWorldSensor : IWorldSensor
         {
             var worldSensorBuilder = WorldSensorBuilder.Create<TWorldSensor>(this.worldKeyBuilder);
 
             this.worldSensorBuilders.Add(worldSensorBuilder);
-            
+
             return worldSensorBuilder;
         }
-        
+
         public TargetSensorBuilder AddTargetSensor<TTargetSensor>()
             where TTargetSensor : ITargetSensor
         {
             var targetSensorBuilder = TargetSensorBuilder.Create<TTargetSensor>(this.targetKeyBuilder);
 
             this.targetSensorBuilders.Add(targetSensorBuilder);
-            
+
             return targetSensorBuilder;
         }
-        
+
         public MultiSensorBuilder AddMultiSensor<TMultiSensor>()
             where TMultiSensor : IMultiSensor
         {
             var multiSensorBuilder = MultiSensorBuilder.Create<TMultiSensor>(this.worldKeyBuilder);
 
             this.multiSensorBuilders.Add(multiSensorBuilder);
-            
+
             return multiSensorBuilder;
         }
 
@@ -151,7 +151,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             return this.worldKeyBuilder;
         }
-        
+
         public CapabilityConfig Build()
         {
             this.capabilityConfig.Actions = this.actionBuilders.Select(x => x.Build()).ToList();
@@ -159,7 +159,7 @@ namespace CrashKonijn.Goap.Runtime
             this.capabilityConfig.TargetSensors = this.targetSensorBuilders.Select(x => x.Build()).ToList();
             this.capabilityConfig.WorldSensors = this.worldSensorBuilders.Select(x => x.Build()).ToList();
             this.capabilityConfig.MultiSensors = this.multiSensorBuilders.Select(x => x.Build()).ToList();
-            
+
             return this.capabilityConfig;
         }
     }

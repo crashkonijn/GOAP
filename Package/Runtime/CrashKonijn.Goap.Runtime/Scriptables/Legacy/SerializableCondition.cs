@@ -11,11 +11,11 @@ namespace CrashKonijn.Goap.Runtime
         public WorldKeyScriptable worldKey;
 
         public IWorldKey WorldKey => this.worldKey;
-        
-        [field:SerializeField]
+
+        [field: SerializeField]
         public Comparison Comparison { get; set; }
-        
-        [field:SerializeField]
+
+        [field: SerializeField]
         public int Amount { get; set; }
     }
 }

@@ -10,10 +10,10 @@ namespace CrashKonijn.Goap.Runtime
             foreach (var configAction in agentTypeConfig.Actions)
             {
                 var missing = configAction.Conditions.Where(x => x.WorldKey == null).ToArray();
-                
+
                 if (!missing.Any())
                     continue;
-                
+
                 results.AddError($"Action {configAction.Name} has conditions without WorldKey");
             }
         }

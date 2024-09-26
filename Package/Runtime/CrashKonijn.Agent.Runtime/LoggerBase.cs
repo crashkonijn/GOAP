@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
+using UnityEngine;
 
 namespace CrashKonijn.Agent.Runtime
 {
@@ -13,8 +15,8 @@ namespace CrashKonijn.Agent.Runtime
         public void Initialize(ILoggerConfig config, TObj source)
         {
             this.config = config;
-            this.source = source; 
-            
+            this.source = source;
+
             this.UnregisterEvents();
             this.RegisterEvents();
         }
@@ -25,14 +27,14 @@ namespace CrashKonijn.Agent.Runtime
             this.Handle(message, DebugSeverity.Log);
 #endif
         }
-        
+
         public void Warning(string message)
         {
 #if UNITY_EDITOR
             this.Handle(message, DebugSeverity.Warning);
 #endif
         }
-        
+
         public void Error(string message)
         {
 #if UNITY_EDITOR
@@ -45,17 +47,17 @@ namespace CrashKonijn.Agent.Runtime
 #if UNITY_EDITOR
             return this.config.DebugMode != DebugMode.None;
 #endif
-            
+
             return false;
         }
 
         private string FormatLog(string message, DebugSeverity severity)
         {
-            var formattedTime = System.DateTime.Now.ToString("HH:mm:ss");
-            
+            var formattedTime = DateTime.Now.ToString("HH:mm:ss");
+
             return $"<color={this.GetColor(severity)}>[{formattedTime}]</color>: {message}";
         }
-        
+
         private string GetColor(DebugSeverity severity)
         {
             switch (severity)
@@ -70,7 +72,7 @@ namespace CrashKonijn.Agent.Runtime
                     return "white";
             }
         }
-        
+
         private string FormatConsole(string message)
         {
             return $"{this.Name}: {message}";
@@ -91,41 +93,41 @@ namespace CrashKonijn.Agent.Runtime
                     break;
             }
         }
-        
+
         private void AddToConsole(string message, DebugSeverity severity)
         {
             switch (severity)
             {
                 case DebugSeverity.Log:
-                    UnityEngine.Debug.Log(this.FormatConsole(message));
+                    Debug.Log(this.FormatConsole(message));
                     break;
                 case DebugSeverity.Warning:
-                    UnityEngine.Debug.LogWarning(this.FormatConsole(message));
+                    Debug.LogWarning(this.FormatConsole(message));
                     break;
                 case DebugSeverity.Error:
-                    UnityEngine.Debug.LogError(this.FormatConsole(message));
+                    Debug.LogError(this.FormatConsole(message));
                     break;
             }
         }
-        
+
         private void Store(string message)
         {
             if (this.config.MaxLogSize == 0)
             {
                 return;
             }
-            
+
             if (this.Logs.Count >= this.config.MaxLogSize)
             {
                 this.Logs.RemoveAt(0);
             }
-            
+
             this.Logs.Add(message);
         }
 
         protected abstract void RegisterEvents();
         protected abstract void UnregisterEvents();
-        
+
         ~LoggerBase()
         {
             this.UnregisterEvents();

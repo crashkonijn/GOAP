@@ -10,7 +10,7 @@ namespace CrashKonijn.Goap.Runtime
         public ITargetSensorConfig Config { get; private set; }
         public virtual ISensorTimer Timer => SensorTimer.Always;
         public void SetConfig(ITargetSensorConfig config) => this.Config = config;
-        
+
         public abstract void Created();
         public abstract void Update();
         public Type[] GetKeys() => new[] { this.Key.GetType() };
@@ -18,15 +18,15 @@ namespace CrashKonijn.Goap.Runtime
         public void Sense(IWorldData worldData, IActionReceiver agent, IComponentReference references)
         {
             var state = worldData.GetTargetState(this.Key.GetType());
-            
+
             if (!this.Timer.ShouldSense(state?.Timer))
                 return;
-            
+
             worldData.SetTarget(this.Key, this.Sense(agent, references, state?.Value));
         }
 
         public abstract ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget);
-        
+
         [Obsolete("This should not be used anymore! Use 'Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget) instead'")]
         public virtual ITarget Sense(IActionReceiver agent, IComponentReference references)
         {

@@ -24,15 +24,15 @@ namespace CrashKonijn.Goap.Resolver
                 Action = action,
                 Conditions = action.Conditions?.Select(y => new NodeCondition
                 {
-                    Condition = y
+                    Condition = y,
                 }).Cast<INodeCondition>().ToList() ?? new List<INodeCondition>(),
                 Effects = action.Effects?.Select(y => new NodeEffect
                 {
-                    Effect = y
-                }).Cast<INodeEffect>().ToList() ?? new List<INodeEffect>()
+                    Effect = y,
+                }).Cast<INodeEffect>().ToList() ?? new List<INodeEffect>(),
             };
         }
-        
+
         public static string GetGenericTypeName(this Type type)
         {
             var typeName = type.Name;

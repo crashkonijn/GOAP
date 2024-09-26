@@ -1,6 +1,4 @@
-﻿using CrashKonijn.Goap.Core;
-
-namespace CrashKonijn.Goap.Resolver
+﻿namespace CrashKonijn.Goap.Resolver
 {
     public interface IResolveHandle
     {

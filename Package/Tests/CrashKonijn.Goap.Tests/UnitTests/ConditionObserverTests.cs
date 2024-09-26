@@ -13,15 +13,15 @@ namespace CrashKonijn.Goap.UnitTests
             var key = new WorldKey("world-key");
             var worldData = new GlobalWorldData();
             worldData.SetState(key, 1);
-            
+
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
-        
+
             var condition = new Condition
             {
                 Comparison = Comparison.GreaterThanOrEqual,
                 Amount = 1,
-                WorldKey = key
+                WorldKey = key,
             };
 
             // Act
@@ -30,7 +30,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             Assert.IsTrue(result);
         }
-    
+
         [Test]
         public void IsMet_Positive_IsNotPresent()
         {
@@ -39,12 +39,12 @@ namespace CrashKonijn.Goap.UnitTests
             var worldData = new GlobalWorldData();
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
-        
+
             var condition = new Condition
             {
                 Comparison = Comparison.GreaterThanOrEqual,
                 Amount = 1,
-                WorldKey = key
+                WorldKey = key,
             };
 
             // Act
@@ -53,7 +53,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             Assert.IsFalse(result);
         }
-    
+
         [Test]
         public void IsMet_Negative_IsPresent()
         {
@@ -61,15 +61,15 @@ namespace CrashKonijn.Goap.UnitTests
             var key = new WorldKey("world-key");
             var worldData = new GlobalWorldData();
             worldData.SetState(key, 1);
-            
+
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
-        
+
             var condition = new Condition
             {
                 Comparison = Comparison.SmallerThan,
                 Amount = 1,
-                WorldKey = key
+                WorldKey = key,
             };
 
             // Act
@@ -78,7 +78,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             Assert.IsFalse(result);
         }
-    
+
         [Test]
         public void IsMet_Negative_IsNotPresent()
         {
@@ -87,12 +87,12 @@ namespace CrashKonijn.Goap.UnitTests
             var worldData = new GlobalWorldData();
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
-        
+
             var condition = new Condition
             {
                 Comparison = Comparison.SmallerThanOrEqual,
                 Amount = 0,
-                WorldKey = key
+                WorldKey = key,
             };
 
             // Act

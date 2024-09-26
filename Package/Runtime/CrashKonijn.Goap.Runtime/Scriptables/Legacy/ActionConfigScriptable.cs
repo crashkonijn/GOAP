@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -13,11 +12,12 @@ namespace CrashKonijn.Goap.Runtime
         [Header("Settings")]
         [ActionClass]
         public string actionClass;
+
         public TargetKeyScriptable target;
-                
+
         [field: SerializeField]
         public float BaseCost { get; set; } = 1;
-        
+
         [field: SerializeField]
         public float StoppingDistance { get; set; } = 0.1f;
 
@@ -27,15 +27,16 @@ namespace CrashKonijn.Goap.Runtime
         [field: SerializeField]
         public bool ValidateConditions { get; set; } = true;
 
-        [field:SerializeField]
+        [field: SerializeField]
         public ActionMoveMode MoveMode { get; set; }
 
         public IActionProperties Properties { get; }
 
         [Header("Conditions and Effects")]
         public List<SerializableCondition> conditions;
+
         public List<SerializableEffect> effects;
-        
+
         public string ClassType
         {
             get => this.actionClass;

@@ -19,10 +19,10 @@ namespace CrashKonijn.Goap.Resolver
         {
             if (actions.Contains(this.Action as IGoapAction))
                 return;
-            
+
             if (this.Action is IGoapAction goapAction)
                 actions.Add(goapAction);
-            
+
             foreach (var condition in this.Conditions)
             {
                 foreach (var connection in condition.Connections)

@@ -1,5 +1,4 @@
-﻿
-namespace CrashKonijn.Goap.Core
+﻿namespace CrashKonijn.Goap.Core
 {
     public interface IConditionObserver
     {

@@ -27,24 +27,24 @@ namespace CrashKonijn.Goap.Runtime
                 targetKeys = scripts.Where(x => typeof(ITargetKey).IsAssignableFrom(x.Type)).ToArray(),
             };
         }
-        
+
         public static List<Script> GetDerivedClassNames(string namespaceName, string folder)
         {
             var classNames = new List<Script>();
 
             // Get all scripts in the /Assets folder
             var scriptGuids = AssetDatabase.FindAssets("t:script", new[] { folder });
-            
+
             foreach (var scriptGuid in scriptGuids)
             {
                 var scriptPath = AssetDatabase.GUIDToAssetPath(scriptGuid);
-                
+
                 // Load the script asset
                 var script = GetScript(scriptPath, namespaceName);
-                
+
                 if (script == null)
                     continue;
-                
+
                 classNames.Add(script);
             }
 
@@ -57,10 +57,10 @@ namespace CrashKonijn.Goap.Runtime
             var script = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
             if (script == null)
                 return null;
-                
+
             // Get the type represented by the script
             var scriptType = script.GetClass();
-            
+
             if (scriptType?.Namespace == null)
                 return null;
 
@@ -71,26 +71,26 @@ namespace CrashKonijn.Goap.Runtime
                 return null;
 
             var id = scriptType.GetCustomAttribute<GoapIdAttribute>();
-            
+
             return new Script
             {
                 Name = scriptType.Name,
                 Type = scriptType,
                 Path = path,
-                Id = id?.Id
+                Id = id?.Id,
             };
         }
 
         public static GeneratorScriptable GetGenerator(ScriptableObject scriptable)
         {
             var assetPath = AssetDatabase.GetAssetPath(scriptable);
-            
+
             if (string.IsNullOrEmpty(assetPath))
                 return null;
-            
+
             var path = Path.GetDirectoryName(AssetDatabase.GetAssetPath(scriptable));
             var generators = GetGenerators();
-            
+
             foreach (var generator in generators)
             {
                 if (path.StartsWith(Path.GetDirectoryName(AssetDatabase.GetAssetPath(generator))))
@@ -110,7 +110,7 @@ namespace CrashKonijn.Goap.Runtime
         public static GeneratorScriptable[] GetGenerators()
         {
             var assets = AssetDatabase.FindAssets($"t:{nameof(GeneratorScriptable)}");
-            
+
             var generators = assets.Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<GeneratorScriptable>);
 
             return generators.ToArray();

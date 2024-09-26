@@ -10,14 +10,14 @@ namespace CrashKonijn.Goap.Runtime
             this.Name = typeof(TSensor).Name;
             this.ClassType = typeof(TSensor).AssemblyQualifiedName;
         }
-        
+
         public WorldSensorConfig(string name)
         {
             this.Name = name;
             this.ClassType = typeof(TSensor).AssemblyQualifiedName;
         }
     }
-    
+
     public class WorldSensorConfig : IWorldSensorConfig
     {
         public string Name { get; set; }

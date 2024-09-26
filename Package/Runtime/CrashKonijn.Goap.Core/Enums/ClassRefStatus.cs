@@ -6,6 +6,6 @@
         None,
         Name,
         Id,
-        Full
+        Full,
     }
 }

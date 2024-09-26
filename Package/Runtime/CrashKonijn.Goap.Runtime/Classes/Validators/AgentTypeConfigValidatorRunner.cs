@@ -5,7 +5,7 @@ namespace CrashKonijn.Goap.Runtime
 {
     public class AgentTypeConfigValidatorRunner : IAgentTypeConfigValidatorRunner
     {
-        private readonly List<IValidator<IAgentTypeConfig>> validators = new ()
+        private readonly List<IValidator<IAgentTypeConfig>> validators = new()
         {
             new WorldKeySensorsValidator(),
             new TargetKeySensorsValidator(),
@@ -25,11 +25,11 @@ namespace CrashKonijn.Goap.Runtime
             new DuplicateTargetSensorValidator(),
             new DuplicateWorldSensorValidator(),
         };
-        
+
         public IValidationResults Validate(IAgentTypeConfig agentTypeConfig)
         {
             var results = new ValidationResults(agentTypeConfig.Name);
-            
+
             foreach (var validator in this.validators)
             {
                 validator.Validate(agentTypeConfig, results);

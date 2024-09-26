@@ -11,8 +11,8 @@ namespace CrashKonijn.Goap.Runtime
         public WorldKeyScriptable worldKey;
 
         public IWorldKey WorldKey => this.worldKey;
-        
-        [field:SerializeField]
+
+        [field: SerializeField]
         public bool Increase { get; set; }
     }
 }

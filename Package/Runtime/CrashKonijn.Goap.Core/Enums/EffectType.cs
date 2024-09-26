@@ -3,6 +3,6 @@
     public enum EffectType
     {
         Decrease = 0,
-        Increase = 1
+        Increase = 1,
     }
 }

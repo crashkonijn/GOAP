@@ -4,6 +4,6 @@
     {
         None,
         Log,
-        Console
+        Console,
     }
 }

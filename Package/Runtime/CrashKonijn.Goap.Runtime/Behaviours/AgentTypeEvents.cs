@@ -12,13 +12,15 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public event GoapAgentActionDelegate OnActionStart;
+
         public void ActionStart(IMonoGoapActionProvider actionProvider, IGoapAction action)
         {
             this.OnActionStart?.Invoke(actionProvider, action);
             this.goapEvents?.ActionStart(actionProvider, action);
         }
-        
+
         public event GoapAgentActionDelegate OnActionEnd;
+
         public void ActionEnd(IMonoGoapActionProvider actionProvider, IGoapAction action)
         {
             this.OnActionEnd?.Invoke(actionProvider, action);
@@ -26,6 +28,7 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public event GoapAgentActionDelegate OnActionStop;
+
         public void ActionStop(IMonoGoapActionProvider actionProvider, IGoapAction action)
         {
             this.OnActionStop?.Invoke(actionProvider, action);
@@ -33,6 +36,7 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public event GoapAgentActionDelegate OnActionComplete;
+
         public void ActionComplete(IMonoGoapActionProvider actionProvider, IGoapAction action)
         {
             this.OnActionComplete?.Invoke(actionProvider, action);
@@ -40,6 +44,7 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public event AgentGoalRequestDelegate OnNoActionFound;
+
         public void NoActionFound(IMonoGoapActionProvider actionProvider, IGoalRequest request)
         {
             this.OnNoActionFound?.Invoke(actionProvider, request);
@@ -47,6 +52,7 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public event AgentGoalDelegate OnGoalStart;
+
         public void GoalStart(IMonoGoapActionProvider actionProvider, IGoal goal)
         {
             this.OnGoalStart?.Invoke(actionProvider, goal);
@@ -54,6 +60,7 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public event AgentGoalDelegate OnGoalCompleted;
+
         public void GoalCompleted(IMonoGoapActionProvider actionProvider, IGoal goal)
         {
             this.OnGoalCompleted?.Invoke(actionProvider, goal);
@@ -61,6 +68,7 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public event GoapAgentDelegate OnAgentResolve;
+
         public void AgentResolve(IMonoGoapActionProvider actionProvider)
         {
             this.OnAgentResolve?.Invoke(actionProvider);
@@ -68,6 +76,7 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public event GoapAgentDelegate OnAgentRegistered;
+
         public void AgentRegistered(IMonoGoapActionProvider actionProvider)
         {
             this.OnAgentRegistered?.Invoke(actionProvider);
@@ -75,6 +84,7 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         public event GoapAgentDelegate OnAgentUnregistered;
+
         public void AgentUnregistered(IMonoGoapActionProvider actionProvider)
         {
             this.OnAgentUnregistered?.Invoke(actionProvider);

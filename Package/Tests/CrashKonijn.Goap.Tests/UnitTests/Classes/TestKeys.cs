@@ -2,6 +2,7 @@
 
 namespace CrashKonijn.Goap.UnitTests.Classes
 {
-    public class TestKey1 : WorldKeyBase {}
-    public class TestKey2 : WorldKeyBase {}
+    public class TestKey1 : WorldKeyBase { }
+
+    public class TestKey2 : WorldKeyBase { }
 }
