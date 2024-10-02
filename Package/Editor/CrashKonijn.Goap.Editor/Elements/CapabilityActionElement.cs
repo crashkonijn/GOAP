@@ -3,6 +3,10 @@ using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEngine.UIElements;
 
+#if UNITY_2021
+using UnityEditor.UIElements;
+#endif
+
 namespace CrashKonijn.Goap.Editor
 {
     public class CapabilityActionElement : VisualElement, IFoldable
