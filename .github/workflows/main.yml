@@ -1,12 +1,15 @@
 name: Test project
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
+      - feature/v2.2
   pull_request_target:
     branches:
       - master
+      - feature/v2.2
 
 jobs:
   authorize:
@@ -19,38 +22,63 @@ jobs:
       - run: true
 
   testAllModes:
-    name: Test in ${{ matrix.testMode }}
+    name: Test in ${{ matrix.unityVersion }} ${{ matrix.testMode }}
     needs: authorize
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         projectPath:
-          - Demo
+          - Package
         testMode:
 #          - playmode
           - editmode
+        unityVersion:
+          - '2021.3.42f1'
+          - '2022.2.8f1'
+          - '2023.2.20f1'
+          - '6000.0.21f1'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           lfs: false
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
+
+      # Step to modify Packages/manifest.json to add multiple dependencies
+      - name: Add Unity package dependencies
+        run: |
+          echo "Adding required Unity dependencies to manifest.json..."
+          # Add multiple dependencies using sed
+          sed -i '/"dependencies": {/a\    "com.boundfoxstudios.fluentassertions": "6.8.0",' Package/package.json
+          sed -i '/"dependencies": {/a\    "net.tnrd.nsubstitute": "4.4.0",' Package/package.json
+
+      # Step to log the contents of the modified manifest.json
+      - name: Log modified manifest.json
+        run: |
+          echo "Logging modified manifest.json file:"
+          cat Package/package.json
 #      - uses: actions/cache@v3
 #        with:
 #          path: ${{ matrix.projectPath }}/Library
 #          key: Library-${{ matrix.projectPath }}
 #          restore-keys: |
 #            Library-
-      - uses: game-ci/unity-test-runner@v3
+      - uses: game-ci/unity-test-runner@v4
         id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
+          scopedRegistryUrl: https://package.openupm.com
+          registryScopes: 'com.boundfoxstudios.fluentassertions, net.tnrd.nsubstitute'
+          packageMode: true
           projectPath: ${{ matrix.projectPath }}
           testMode: ${{ matrix.testMode }}
+          unityVersion: ${{ matrix.unityVersion }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: ${{ matrix.testMode }} Test Results
+          checkName: ${{ matrix.unityVersion }} ${{ matrix.testMode }} Test Results
 #          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport'
       - uses: actions/upload-artifact@v3
         if: always()
