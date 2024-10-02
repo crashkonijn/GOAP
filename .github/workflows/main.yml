@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "Adding required Unity dependencies to manifest.json..."
           # Add multiple dependencies using sed
-          sed -i '/"dependencies": {/a\    "com.boundfoxstudios.fluentassertions": "6.6.0",' Package/package.json
+          sed -i '/"dependencies": {/a\    "com.boundfoxstudios.fluentassertions": "6.8.0",' Package/package.json
           sed -i '/"dependencies": {/a\    "net.tnrd.nsubstitute": "4.4.0",' Package/package.json
 
       # Step to log the contents of the modified manifest.json
