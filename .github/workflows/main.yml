@@ -48,8 +48,8 @@ jobs:
         run: |
           echo "Adding required Unity dependencies to manifest.json..."
           # Add multiple dependencies using sed
-          sed -i '/"dependencies": {/a\    "com.boundfoxstudios.fluentassertions": "https://github.com/BoundfoxStudios/fluentassertions-unity.git#upm",' Package/package.json
-          sed -i '/"dependencies": {/a\    "net.tnrd.nsubstitute": "https://github.com/Thundernerd/Unity3D-NSubstitute.git",' Package/package.json
+          sed -i '/"dependencies": {/a\    "com.boundfoxstudios.fluentassertions": "6.6.0",' Package/package.json
+          sed -i '/"dependencies": {/a\    "net.tnrd.nsubstitute": "4.4.0",' Package/package.json
 
       # Step to log the contents of the modified manifest.json
       - name: Log modified manifest.json
@@ -69,6 +69,8 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
+          scopedRegistryUrl: https://package.openupm.com
+          registryScopes: 'com.boundfoxstudios.fluentassertions, net.tnrd.nsubstitute'
           packageMode: true
           projectPath: ${{ matrix.projectPath }}
           testMode: ${{ matrix.testMode }}
