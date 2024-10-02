@@ -22,7 +22,7 @@ jobs:
       - run: true
 
   testAllModes:
-    name: Test in ${{ matrix.testMode }}
+    name: Test in ${{ matrix.unityVersion }} ${{ matrix.testMode }}
     needs: authorize
     runs-on: ubuntu-latest
     strategy:
@@ -34,7 +34,7 @@ jobs:
 #          - playmode
           - editmode
         unityVersion:
-          - '2021.3.44f1'
+          - '2021.3.42f1'
           - '2022.2.8f1'
           - '2023.2.20f1'
     steps:
@@ -42,6 +42,20 @@ jobs:
         with:
           lfs: false
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
+
+      # Step to modify Packages/manifest.json to add multiple dependencies
+      - name: Add Unity package dependencies
+        run: |
+          echo "Adding required Unity dependencies to manifest.json..."
+          # Add multiple dependencies using sed
+          sed -i '/"dependencies": {/a\    "com.boundfoxstudios.fluentassertions": "https://github.com/BoundfoxStudios/fluentassertions-unity.git#upm",' Package/package.json
+          sed -i '/"dependencies": {/a\    "net.tnrd.nsubstitute": "https://github.com/Thundernerd/Unity3D-NSubstitute.git",' Package/package.json
+
+      # Step to log the contents of the modified manifest.json
+      - name: Log modified manifest.json
+        run: |
+          echo "Logging modified manifest.json file:"
+          cat Package/package.json
 #      - uses: actions/cache@v3
 #        with:
 #          path: ${{ matrix.projectPath }}/Library
