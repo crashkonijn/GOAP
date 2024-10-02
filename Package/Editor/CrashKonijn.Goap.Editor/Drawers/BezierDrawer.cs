@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
+#if UNITY_2021
+using System.Collections.Generic;
+#endif
+
 namespace CrashKonijn.Goap.Editor
 {
     public class BezierDrawer : VisualElement
