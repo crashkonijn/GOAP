@@ -37,6 +37,7 @@ jobs:
           - '2021.3.42f1'
           - '2022.2.8f1'
           - '2023.2.20f1'
+          - '6000.0.21f1'
     steps:
       - uses: actions/checkout@v4
         with:
