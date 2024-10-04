@@ -4,6 +4,7 @@ using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 using NSubstitute;
 using NUnit.Framework;
+using Unity.Collections;
 using UnityEngine;
 
 namespace CrashKonijn.Goap.UnitTests
@@ -58,6 +59,15 @@ namespace CrashKonijn.Goap.UnitTests
             {
                 public ITarget Target { get; set; }
             }
+        }
+        
+        [SetUp]
+        public void Init()
+        {
+            // Unity sometimes thinks that a temporary job is leaking memory
+            // This is not the case, so we ignore the message
+            // This can trigger in any test, even the ones that don't use the Job system
+            NativeLeakDetection.Mode = NativeLeakDetectionMode.Disabled;
         }
 
         [TestCase(false)]
