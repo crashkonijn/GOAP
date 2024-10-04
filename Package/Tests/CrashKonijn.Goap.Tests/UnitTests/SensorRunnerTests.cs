@@ -7,11 +7,21 @@ using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
+using UnityEngine.TestTools;
 
 namespace CrashKonijn.Goap.UnitTests
 {
     public class SensorRunnerTests
     {
+        [SetUp]
+        public void Setup()
+        {
+            // Unity sometimes thinks that a temporary job is leaking memory
+            // This is not the case, so we ignore the message
+            // This can trigger in any test, even the ones that don't use the Job system
+            LogAssert.ignoreFailingMessages = true;
+        }
+        
         // Global
         [Test]
         public void SenseGlobal_WithPositiveWorldSense_IsPresentInStates()

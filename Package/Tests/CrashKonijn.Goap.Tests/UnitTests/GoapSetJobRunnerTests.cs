@@ -7,12 +7,23 @@ using CrashKonijn.Goap.Resolver.Interfaces;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
 using ICondition = CrashKonijn.Goap.Interfaces.ICondition;
 
 namespace CrashKonijn.Goap.UnitTests
 {
     public class GoapSetJobRunnerTests
     {
+        [SetUp]
+        public void Setup()
+        {
+            // Unity sometimes thinks that a temporary job is leaking memory
+            // This is not the case, so we ignore the message
+            // This can trigger in any test, even the ones that don't use the Job system
+            LogAssert.ignoreFailingMessages = true;
+        }
+        
         [Test]
         public void Run_UpdatesSensorRunner()
         {
@@ -252,6 +263,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Act
             runner.Run();
             runner.Complete();
+            runner.Dispose();
             
             // Assert
             agent.Received(1).SetAction(action, Arg.Any<List<IActionBase>>(), Arg.Any<ITarget>());
@@ -289,6 +301,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Act
             runner.Run();
             runner.Complete();
+            runner.Dispose();
             
             // Assert
             agent.Received(0).SetAction(Arg.Any<IActionBase>(), Arg.Any<List<IActionBase>>(), Arg.Any<ITarget>());

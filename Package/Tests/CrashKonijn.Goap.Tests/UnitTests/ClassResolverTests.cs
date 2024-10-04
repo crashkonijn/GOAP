@@ -7,6 +7,7 @@ using CrashKonijn.Goap.UnitTests.Data;
 using CrashKonijn.Goap.UnitTests.Support;
 using FluentAssertions;
 using NUnit.Framework;
+using UnityEngine.TestTools;
 
 namespace CrashKonijn.Goap.UnitTests
 {
@@ -18,6 +19,11 @@ namespace CrashKonijn.Goap.UnitTests
         public void Init()
         {
             this.factory.Setup<ClassResolver>();
+            
+            // Unity sometimes thinks that a temporary job is leaking memory
+            // This is not the case, so we ignore the message
+            // This can trigger in any test, even the ones that don't use the Job system
+            LogAssert.ignoreFailingMessages = true;
         }
         
         [Test]

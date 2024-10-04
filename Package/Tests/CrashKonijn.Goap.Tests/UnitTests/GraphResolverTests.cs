@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace CrashKonijn.Goap.UnitTests
 {
@@ -24,6 +25,15 @@ namespace CrashKonijn.Goap.UnitTests
             {
                 this.Name = name;
             }
+        }
+        
+        [SetUp]
+        public void Setup()
+        {
+            // Unity sometimes thinks that a temporary job is leaking memory
+            // This is not the case, so we ignore the message
+            // This can trigger in any test, even the ones that don't use the Job system
+            LogAssert.ignoreFailingMessages = true;
         }
         
         [Test]
