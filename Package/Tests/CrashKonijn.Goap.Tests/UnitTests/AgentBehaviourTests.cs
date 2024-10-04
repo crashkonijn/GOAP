@@ -9,12 +9,24 @@ using CrashKonijn.Goap.UnitTests.Support;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace CrashKonijn.Goap.UnitTests
 {
     public class AgentBehaviourTests
     {
+        [SetUp]
+        public void Setup()
+        {
+            // Unity sometimes thinks that a temporary job is leaking memory
+            // This is not the case, so we ignore the message
+            // This can trigger in any test, even the ones that don't use the Job system
+            LogAssert.ignoreFailingMessages = true;
+            NativeLeakDetection.Mode = NativeLeakDetectionMode.Disabled;
+        }
+
         [Test]
         public void OnEnable_CallsRegister()
         {
@@ -33,10 +45,10 @@ namespace CrashKonijn.Goap.UnitTests
             goapSet.Received(1).Register(agent);
 
             act();
-            
+
             goapSet.Received(2).Register(agent);
         }
-        
+
         [Test]
         public void OnDisable_CallsUnregister()
         {
@@ -44,30 +56,30 @@ namespace CrashKonijn.Goap.UnitTests
             var goapSet = Substitute.For<IGoapSet>();
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.GoapSet = goapSet;
-            
+
             // Act
             Action act = () =>
             {
                 agent.CallOnDisable();
             };
-            
+
             // Assert
             goapSet.Received(0).Unregister(agent);
-            
+
             act();
-            
+
             goapSet.Received(1).Unregister(agent);
         }
-        
+
         [Test]
         public void Run_WithoutAction_SetsStateToNoAction()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
-            
+
             // Act
             agent.Run();
-            
+
             // Assert
             agent.State.Should().Be(AgentState.NoAction);
         }
@@ -82,10 +94,10 @@ namespace CrashKonijn.Goap.UnitTests
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
-            
+
             // Act
             agent.Run();
-            
+
             // Assert
             agent.State.Should().Be(AgentState.MovingToTarget);
         }
@@ -101,10 +113,10 @@ namespace CrashKonijn.Goap.UnitTests
             action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
             agent.MockEvents();
-            
+
             // Act
             agent.Run();
-            
+
             // Assert
             agent.Events.Received(1).Move(Arg.Any<ITarget>());
             action.Received(0).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
@@ -116,17 +128,17 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
+
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.MoveBeforePerforming);
             action.IsInRange(agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Continue);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
             agent.MockEvents();
-            
+
             // Act
             agent.Run();
-            
+
             // Assert
             agent.Events.Received(0).Move(Arg.Any<ITarget>());
             action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
@@ -139,14 +151,14 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
+
             var action = Substitute.For<IActionBase>();
             action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
-            
+
             // Act
             agent.Run();
-            
+
             // Assert
             agent.State.Should().Be(AgentState.MovingWhilePerformingAction);
         }
@@ -162,10 +174,10 @@ namespace CrashKonijn.Goap.UnitTests
             action.Config.MoveMode.Returns(ActionMoveMode.PerformWhileMoving);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.up * 100f));
             agent.MockEvents();
-            
+
             // Act
             agent.Run();
-            
+
             // Assert
             agent.Events.Received(1).Move(Arg.Any<ITarget>());
             action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
@@ -184,10 +196,10 @@ namespace CrashKonijn.Goap.UnitTests
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Continue);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
             agent.MockEvents();
-            
+
             // Act
             agent.Run();
-            
+
             // Assert
             agent.Events.Received(0).Move(Arg.Any<ITarget>());
             action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
@@ -202,15 +214,15 @@ namespace CrashKonijn.Goap.UnitTests
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.GoapSet = goapSet;
             agent.CallAwake();
-            
+
             var action = Substitute.For<IActionBase>();
             action.IsInRange(agent, Arg.Any<float>(), Arg.Any<IActionData>(), Arg.Any<IDataReferenceInjector>()).Returns(true);
             action.Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>()).Returns(ActionRunState.Stop);
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
-            
+
             // Act
             agent.Run();
-            
+
             // Assert
             action.Received(1).Perform(agent, Arg.Any<IActionData>(), Arg.Any<ActionContext>());
             action.Received(1).End(agent, Arg.Any<IActionData>());
@@ -222,13 +234,13 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.ResolveGoal<TestGoal>().Returns(new TestGoal());
-            
+
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.GoapSet = goapSet;
-            
+
             // Act
             agent.SetGoal<TestGoal>(false);
-            
+
             // Assert
             agent.CurrentGoal.Should().BeOfType<TestGoal>();
         }
@@ -239,13 +251,13 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.ResolveGoal<TestGoal>().Returns(new TestGoal());
-            
+
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.GoapSet = goapSet;
-            
+
             // Act
             agent.SetGoal<TestGoal>(false);
-            
+
             // Assert
             goapSet.Agents.Received(1).Enqueue(agent);
         }
@@ -256,76 +268,76 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.ResolveGoal<TestGoal>().Returns(new TestGoal());
-            
+
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.GoapSet = goapSet;
             agent.MockEvents();
-            
+
             // Act
             agent.SetGoal<TestGoal>(false);
-            
+
             // Assert
             agent.Events.Received(1).GoalStart(Arg.Any<IGoalBase>());
         }
-        
+
         [Test]
         public void SetGoal_EndActionFalse_DoesntCallEnd()
         {
             // Arrange
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.ResolveGoal<TestGoal>().Returns(new TestGoal());
-            
+
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.GoapSet = goapSet;
-            
+
             // Set Action property through reflection
             var action = Substitute.For<IActionBase>();
             agent.InsertAction(action);
-            
+
             // Act
             agent.SetGoal<TestGoal>(false);
-            
+
             // Assert
             action.Received(0).End(Arg.Any<IMonoAgent>(), Arg.Any<IActionData>());
         }
-        
+
         [Test]
         public void SetGoal_EndActionTrue_DoesCallEnd()
         {
             // Arrange
             var goapSet = Substitute.For<IGoapSet>();
             goapSet.ResolveGoal<TestGoal>().Returns(new TestGoal());
-            
+
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.GoapSet = goapSet;
-            
+
             // Set Action property through reflection
             var action = Substitute.For<IActionBase>();
             agent.InsertAction(action);
-            
+
             // Act
             agent.SetGoal<TestGoal>(true);
-            
+
             // Assert
             action.Received(1).End(Arg.Any<IMonoAgent>(), Arg.Any<IActionData>());
         }
-        
+
         [Test]
         public void SetAction_SetsAction()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
+
             var action = Substitute.For<IActionBase>();
-            
+
             // Act
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
-            
+
             // Assert
             agent.CurrentAction.Should().Be(action);
         }
-        
+
         [Test]
         public void SetAction_CallsEndOnOldAction()
         {
@@ -336,108 +348,108 @@ namespace CrashKonijn.Goap.UnitTests
             agent.CallAwake();
 
             var action = Substitute.For<IActionBase>();
-            
+
             // Set Action property through reflection
             var oldAction = Substitute.For<IActionBase>();
             agent.InsertAction(oldAction);
-            
+
             // Act
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
-            
+
             // Assert
             oldAction.Received(1).End(agent, Arg.Any<IActionData>());
         }
-        
+
         [Test]
         public void SetAction_CallsGetData()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
+
             var action = Substitute.For<IActionBase>();
-            
+
             // Act
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
-            
+
             // Assert
             action.Received(1).GetData();
         }
-        
+
         [Test]
         public void SetAction_StoresData()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
+
             var actionData = Substitute.For<IActionData>();
             var action = Substitute.For<IActionBase>();
             action.GetData().Returns(actionData);
-            
+
             // Act
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
-            
+
             // Assert
             agent.CurrentActionData.Should().Be(actionData);
         }
-        
+
         [Test]
         public void SetAction_SetsDataTarget()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
+
             var actionData = Substitute.For<IActionData>();
             var action = Substitute.For<IActionBase>();
             action.GetData().Returns(actionData);
 
             var target = new PositionTarget(Vector3.zero);
-            
+
             // Act
             agent.SetAction(action, new List<IActionBase>(), target);
-            
+
             // Assert
             actionData.Target.Should().Be(target);
         }
-        
+
         [Test]
         public void SetAction_CallsStartOnAction()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
+
             var action = Substitute.For<IActionBase>();
 
             // Act
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
-            
+
             // Assert
             action.Received(1).Start(agent, Arg.Any<IActionData>());
         }
-        
+
         [Test]
         public void SetAction_StoresPath()
         {
             // Arrange
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
-            
+
             var action = Substitute.For<IActionBase>();
             var path = new List<IActionBase>
             {
-                Substitute.For<IActionBase>()
+                Substitute.For<IActionBase>(),
             };
-            
+
             // Act
             agent.SetAction(action, path, new PositionTarget(Vector3.zero));
-            
+
             // Assert
             agent.CurrentActionPath.Should().BeSameAs(path);
         }
-        
+
         [Test]
         public void SetAction_CallsActionStartEvent()
         {
@@ -447,14 +459,14 @@ namespace CrashKonijn.Goap.UnitTests
             agent.MockEvents();
 
             var action = Substitute.For<IActionBase>();
-            
+
             // Act
             agent.SetAction(action, new List<IActionBase>(), new PositionTarget(Vector3.zero));
-            
+
             // Assert
             agent.Events.Received(1).ActionStart(action);
         }
-        
+
         [Test]
         public void EndAction_CallsEndOnAction()
         {
@@ -463,17 +475,17 @@ namespace CrashKonijn.Goap.UnitTests
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
             agent.GoapSet = set;
-            
+
             var action = Substitute.For<IActionBase>();
             agent.InsertAction(action);
-            
+
             // Act
             agent.EndAction();
-            
+
             // Assert
             action.Received(1).End(agent, Arg.Any<IActionData>());
         }
-        
+
         [Test]
         public void EndAction_ClearsAction()
         {
@@ -486,11 +498,11 @@ namespace CrashKonijn.Goap.UnitTests
             // Act
             agent.SetAction(Substitute.For<IActionBase>(), new List<IActionBase>(), new PositionTarget(Vector3.zero));
             agent.EndAction();
-            
+
             // Assert
             agent.CurrentAction.Should().BeNull();
         }
-        
+
         [Test]
         public void EndAction_ClearsActionData()
         {
@@ -503,7 +515,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Act
             agent.SetAction(Substitute.For<IActionBase>(), new List<IActionBase>(), new PositionTarget(Vector3.zero));
             agent.EndAction();
-            
+
             // Assert
             agent.CurrentActionData.Should().BeNull();
         }
@@ -516,14 +528,14 @@ namespace CrashKonijn.Goap.UnitTests
             var agent = new GameObject("Agent").AddComponent<AgentBehaviour>();
             agent.CallAwake();
             agent.GoapSet = set;
-            
+
             // Act
             agent.EndAction();
-            
+
             // Assert
             set.Agents.Received(1).Enqueue(agent);
         }
-        
+
         [Test]
         public void EndAction_CallsActionEndEvent()
         {
@@ -539,7 +551,7 @@ namespace CrashKonijn.Goap.UnitTests
 
             // Act
             agent.EndAction();
-            
+
             // Assert
             agent.Events.Received(1).ActionStop(action);
         }
