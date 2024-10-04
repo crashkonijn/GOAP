@@ -6,11 +6,21 @@ using CrashKonijn.Goap.Runtime;
 using CrashKonijn.Goap.UnitTests.Classes;
 using NSubstitute;
 using NUnit.Framework;
+using Unity.Collections;
 
 namespace CrashKonijn.Goap.UnitTests
 {
     public class SensorRunnerTests
     {
+        [SetUp]
+        public void Init()
+        {
+            // Unity sometimes thinks that a temporary job is leaking memory
+            // This is not the case, so we ignore the message
+            // This can trigger in any test, even the ones that don't use the Job system
+            NativeLeakDetection.Mode = NativeLeakDetectionMode.Disabled;
+        }
+        
         [Test]
         public void SenseGlobal_GlobalSensor_CallsSense()
         {

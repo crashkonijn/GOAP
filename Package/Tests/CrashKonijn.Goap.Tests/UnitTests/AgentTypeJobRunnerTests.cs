@@ -7,6 +7,7 @@ using CrashKonijn.Goap.Runtime;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
+using Unity.Collections;
 using UnityEngine;
 using ICondition = CrashKonijn.Goap.Core.ICondition;
 
@@ -30,6 +31,11 @@ namespace CrashKonijn.Goap.UnitTests
             this.agentType = Substitute.For<IAgentType>();
 
             this.goapActionProvider.AgentType.Returns(this.agentType);
+            
+            // Unity sometimes thinks that a temporary job is leaking memory
+            // This is not the case, so we ignore the message
+            // This can trigger in any test, even the ones that don't use the Job system
+            NativeLeakDetection.Mode = NativeLeakDetectionMode.Disabled;
         }
 
         [Test]

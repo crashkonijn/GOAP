@@ -68,6 +68,15 @@ namespace CrashKonijn.Goap.UnitTests
             }
         }
 
+        [SetUp]
+        public void Init()
+        {
+            // Unity sometimes thinks that a temporary job is leaking memory
+            // This is not the case, so we ignore the message
+            // This can trigger in any test, even the ones that don't use the Job system
+            NativeLeakDetection.Mode = NativeLeakDetectionMode.Disabled;
+        }
+        
         [Test]
         public void Resolve_WithNoActions_ReturnsEmptyList()
         {
