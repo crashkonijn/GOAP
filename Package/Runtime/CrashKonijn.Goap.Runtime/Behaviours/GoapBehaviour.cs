@@ -71,10 +71,13 @@ namespace CrashKonijn.Goap.Runtime
         {
             var agentTypeFactory = new AgentTypeFactory(this.Config);
 
-            this.agentTypeConfigFactories.ForEach(factory =>
+            foreach (var factory in this.agentTypeConfigFactories)
             {
+                if (factory == null)
+                    continue;
+
                 this.Register(agentTypeFactory.Create(factory.Create()));
-            });
+            }
         }
 
         public IGoapEvents Events => this.goap.Events;
