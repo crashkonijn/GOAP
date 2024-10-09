@@ -7,7 +7,7 @@ namespace CrashKonijn.Goap.Runtime
     {
         public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
-            var missing = agentTypeConfig.Actions.Where(x => x.Target == null).ToArray();
+            var missing = agentTypeConfig.Actions.Where(x => x.RequiresTarget && x.Target == null).ToArray();
 
             if (!missing.Any())
                 return;
