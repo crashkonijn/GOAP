@@ -62,6 +62,28 @@ namespace CrashKonijn.Goap.UnitTests.Support
             return events;
         }
 
+        public static ILogger<IMonoGoapActionProvider> MockLogger(this IGoapActionProvider actionProvider)
+        {
+            var logger = Substitute.For<ILogger<IMonoGoapActionProvider>>();
+            // Set Events property through reflection
+            typeof(GoapActionProvider)
+                .GetField("<Logger>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance)!
+                .SetValue(actionProvider, logger);
+
+            return logger;
+        }
+
+        public static ILocalWorldData MockWorldData(this IGoapActionProvider actionProvider)
+        {
+            var worldData = Substitute.For<ILocalWorldData>();
+            // Set Events property through reflection
+            typeof(GoapActionProvider)
+                .GetField("<WorldData>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance)!
+                .SetValue(actionProvider, worldData);
+
+            return worldData;
+        }
+
         public static IAgentEvents MockEvents(this IAgent agent)
         {
             var events = Substitute.For<IAgentEvents>();
