@@ -1,16 +1,17 @@
-﻿using CrashKonijn.Goap.Resolver.Models;
+﻿using CrashKonijn.Goap.Core;
 
-namespace CrashKonijn.Goap.Resolver.Interfaces
+namespace CrashKonijn.Goap.Resolver
 {
     public interface IGraphResolver
     {
         IResolveHandle StartResolve(RunData runData);
+        IEnabledBuilder GetEnabledBuilder();
         IExecutableBuilder GetExecutableBuilder();
         IPositionBuilder GetPositionBuilder();
         ICostBuilder GetCostBuilder();
-        Graph GetGraph();
-        int GetIndex(IAction action);
-        IAction GetAction(int index);
+        IGraph GetGraph();
+        int GetIndex(IConnectable action);
+        IGoapAction GetAction(int index);
         void Dispose();
         IConditionBuilder GetConditionBuilder();
     }

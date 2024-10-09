@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
+  m_Name: PearCapabilityConfig
+  m_EditorClassIdentifier: 
+  goals:
+  - goal:
+      <Name>k__BackingField: PickupPearGoal
+      <Id>k__BackingField: PickupPear-33d601c2-5a97-44cd-899a-83260d097bff
+    baseCost: 1
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: PearCount
+        <Id>k__BackingField: PearCount-ca904c38-dd66-4927-aded-def418fcad6d
+      comparison: 3
+      amount: 3
+  actions:
+  - action:
+      <Name>k__BackingField: PickupPearAction
+      <Id>k__BackingField: PickupPear-06ef21a4-059b-4314-800a-e7c2622637fb
+    target:
+      <Name>k__BackingField: ClosestPear
+      <Id>k__BackingField: ClosestPear-e8700fd5-8bfc-4b64-968b-218693a4201c
+    properties:
+      rid: 4217533508436099073
+    baseCost: 1
+    stoppingDistance: 0.1
+    requiresTarget: 1
+    validateConditions: 1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: PearCount
+        <Id>k__BackingField: PearCount-ca904c38-dd66-4927-aded-def418fcad6d
+      effect: 1
+  worldSensors: []
+  targetSensors: []
+  multiSensors:
+  - sensor:
+      <Name>k__BackingField: PearSensor
+      <Id>k__BackingField: 
+  generatorScriptable: {fileID: 11400000, guid: 88ea9e1341906b64f96efb539becac2a,
+    type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 4217533508436099073
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Agent.Runtime, asm: CrashKonijn.Agent.Runtime}

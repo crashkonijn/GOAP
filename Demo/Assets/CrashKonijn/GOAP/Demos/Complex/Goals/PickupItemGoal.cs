@@ -1,7 +1,7 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using Demos.Complex.Interfaces;
+﻿using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 
-namespace Demos.Complex.Goals
+namespace CrashKonijn.Goap.Demos.Complex.Goals
 {
     public class PickupItemGoal<THoldable> : GoalBase
         where THoldable : IHoldable

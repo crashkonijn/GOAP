@@ -1,13 +1,9 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Sensors;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Interfaces;
-using UnityEngine;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 
-namespace Demos.Complex.Sensors.Target
+namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
 {
     public class ClosestSourceSensor<T> : LocalTargetSensorBase
         where T : IGatherable
@@ -23,12 +19,16 @@ namespace Demos.Complex.Sensors.Target
         {
         }
 
-        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
-            var closest = this.collection.Closest(agent.transform.position);
+            var closest = this.collection.Closest(agent.Transform.position);
             
             if (closest == null)
                 return null;
+            
+            // Re-use the current target instance
+            if (target is TransformTarget transformTarget)
+                return transformTarget.SetTransform(closest.transform);
             
             return new TransformTarget(closest.transform);
         }

@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0857b2a53377458ebec6c4b1179e3c5a, type: 3}
+  m_Name: GOAP
+  m_EditorClassIdentifier: 
+  nameSpace: CrashKonijn.Goap.Demos.Simple.Goap
+  scripts:
+    goals:
+    - <Name>k__BackingField: FixHungerGoal
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Goals.FixHungerGoal, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Goals/FixHungerGoal.cs
+      <Id>k__BackingField: Simple-FixHungerGoal
+    - <Name>k__BackingField: WanderGoal
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Goals.WanderGoal, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Goals/WanderGoal.cs
+      <Id>k__BackingField: Simple-WanderGoal
+    actions:
+    - <Name>k__BackingField: EatAppleAction
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Actions.EatAppleAction, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Actions/EatAppleAction.cs
+      <Id>k__BackingField: Simple-EatAppleAction
+    - <Name>k__BackingField: PickupAppleAction
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Actions.PickupAppleAction, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Actions/PickupAppleAction.cs
+      <Id>k__BackingField: Simple-PickupAppleAction
+    - <Name>k__BackingField: PluckAppleAction
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Actions.PluckAppleAction, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Actions/PluckAppleAction.cs
+      <Id>k__BackingField: Simple-PluckAppleAction
+    - <Name>k__BackingField: WanderAction
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Actions.WanderAction, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Actions/WanderAction.cs
+      <Id>k__BackingField: Simple-WanderAction
+    worldSensors:
+    - <Name>k__BackingField: IsAliveSensor
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Sensors.World.IsAliveSensor, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Sensors/World/IsAliveSensor.cs
+      <Id>k__BackingField: Simple-IsAliveSensor
+    - <Name>k__BackingField: IsHungrySensor
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Sensors.World.IsHungrySensor,
+        com.crashkonijn.goap.demos.simple, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Sensors/World/IsHungrySensor.cs
+      <Id>k__BackingField: Simple-IsHungrySensor
+    - <Name>k__BackingField: ThereAreApplesSensor
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Sensors.World.ThereAreApplesSensor,
+        com.crashkonijn.goap.demos.simple, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Sensors/World/ThereAreApplesSensor.cs
+      <Id>k__BackingField: Simple-ThereAreApplesSensor
+    worldKeys:
+    - <Name>k__BackingField: HasApple
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.WorldKeys.HasApple, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/WorldKeys/HasApple.cs
+      <Id>k__BackingField: HasApple-60e317a0-75e4-419c-8439-45873af983a2
+    - <Name>k__BackingField: IsHungry
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.WorldKeys.IsHungry, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/WorldKeys/IsHungry.cs
+      <Id>k__BackingField: IsHungry-7bd10ff3-6bac-42d4-83fc-51aa6495e68a
+    - <Name>k__BackingField: IsWandering
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.WorldKeys.IsWandering, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/WorldKeys/IsWandering.cs
+      <Id>k__BackingField: IsWandering-b0925b8a-5c98-4777-a174-8f8ad1655f20
+    - <Name>k__BackingField: ThereAreApples
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.WorldKeys.ThereAreApples, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/WorldKeys/ThereAreApples.cs
+      <Id>k__BackingField: ThereAreApples-ceaefcd0-d32f-4a3c-aafe-0ff1ac343717
+    targetSensors:
+    - <Name>k__BackingField: AgentSensor
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target.AgentSensor, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Sensors/Target/AgentSensor.cs
+      <Id>k__BackingField: Simple-TransformSensor
+    - <Name>k__BackingField: ClosestTreeSensor
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target.ClosestTreeSensor,
+        com.crashkonijn.goap.demos.simple, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Sensors/Target/ClosestTreeSensor.cs
+      <Id>k__BackingField: Simple-ClosestTreeSensor
+    - <Name>k__BackingField: WanderTargetSensor
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target.WanderTargetSensor,
+        com.crashkonijn.goap.demos.simple, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Sensors/Target/WanderTargetSensor.cs
+      <Id>k__BackingField: Simple-WanderTargetSensor
+    targetKeys:
+    - <Name>k__BackingField: AgentTarget
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys.AgentTarget, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/TargetKeys/AgentTarget.cs
+      <Id>k__BackingField: AgentTarget-425903d7-8429-4cb6-b3ce-76d1a541a2b6
+    - <Name>k__BackingField: ClosestApple
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys.ClosestApple, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/TargetKeys/ClosestApple.cs
+      <Id>k__BackingField: ClosestApple-db0ac42c-0b6a-4039-94e8-85379a627188
+    - <Name>k__BackingField: ClosestTree
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys.ClosestTree, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/TargetKeys/ClosestTree.cs
+      <Id>k__BackingField: ClosestTree-9490cf35-0b94-4fec-a69f-f75dddc1dae0
+    - <Name>k__BackingField: WanderTarget
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.TargetKeys.WanderTarget, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/TargetKeys/WanderTarget.cs
+      <Id>k__BackingField: WanderTarget-ae7344be-5223-4260-acac-f33c9eb260f5
+    multiSensors:
+    - <Name>k__BackingField: AppleSensor
+      fullName: CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Multi.AppleSensor, com.crashkonijn.goap.demos.simple,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/CrashKonijn/GOAP/Demos/Simple/Goap/Sensors/Multi/AppleSensor.cs
+      <Id>k__BackingField: Simple-AppleSensor

@@ -1,0 +1,7 @@
+﻿using CrashKonijn.Goap.Runtime;
+
+namespace {{namespace}}
+{
+    [GoapId("{{id}}")]
+    public class {{name}} : TargetKeyBase {}
+}

@@ -114,13 +114,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4823857909233374360}
+  - component: {fileID: -2073804781843839524}
   - component: {fileID: 7404671039891351144}
   - component: {fileID: 4823857909233374367}
   - component: {fileID: 271546477}
-  - component: {fileID: 271546478}
   - component: {fileID: 271546485}
   - component: {fileID: 2244658486073197407}
   - component: {fileID: 8736771272127560358}
+  - component: {fileID: 898294010904684375}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -145,6 +146,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2073804781843839524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823857909233374357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72344165e2cc41da93476bb1aa2cdd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LoggerConfig>k__BackingField:
+    <DebugMode>k__BackingField: 0
+    <MaxLogSize>k__BackingField: 20
+  <AgentTypeBehaviour>k__BackingField: {fileID: 0}
+  <DistanceMultiplier>k__BackingField: 1
 --- !u!114 &7404671039891351144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cef53d855ccf0b46bcf004b27c4a52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goapSet: {fileID: 0}
+  <ActionProviderBase>k__BackingField: {fileID: -2073804781843839524}
+  <LoggerConfig>k__BackingField:
+    <DebugMode>k__BackingField: 0
+    <MaxLogSize>k__BackingField: 20
 --- !u!114 &4823857909233374367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,19 +203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004fde275ed946039d2f1484a14bac33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &271546478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4823857909233374357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d675c4dfc70a41bb8e9de7f3a5bd75df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hunger: 50
 --- !u!114 &271546485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,9 +237,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4823857909233374357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc89a1df52a4499a4efb85d8b5ad601, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d55e9c9be4438343b6c311bdbc1b549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &898294010904684375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823857909233374357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9a0debda8ebff408d031936d30cd99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hunger: 50
+  enableButton: 0
+  disableButton: 0
 --- !u!1 &6891310210966789274
 GameObject:
   m_ObjectHideFlags: 0

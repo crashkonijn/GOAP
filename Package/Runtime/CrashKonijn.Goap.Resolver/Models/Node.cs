@@ -1,19 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core;
 
-namespace CrashKonijn.Goap.Resolver.Models
+namespace CrashKonijn.Goap.Resolver
 {
-    public class Node
+    public class Node : INode
     {
         public Guid Guid { get; } = Guid.NewGuid();
-        
-        public IAction Action { get; set; }
 
-        public List<NodeEffect> Effects { get; set; } = new List<NodeEffect>();
-        public List<NodeCondition> Conditions { get; set; } = new List<NodeCondition>();
+        public IConnectable Action { get; set; }
 
-        public bool IsRootNode => this.Action.Effects == null || !this.Action.Effects.Any();
+        public List<INodeEffect> Effects { get; set; } = new();
+        public List<INodeCondition> Conditions { get; set; } = new();
+
+        public bool IsRootNode => this.Action is IGoal;
+
+        public void GetActions(List<IGoapAction> actions)
+        {
+            if (actions.Contains(this.Action as IGoapAction))
+                return;
+
+            if (this.Action is IGoapAction goapAction)
+                actions.Add(goapAction);
+
+            foreach (var condition in this.Conditions)
+            {
+                foreach (var connection in condition.Connections)
+                {
+                    connection.GetActions(actions);
+                }
+            }
+        }
     }
 }

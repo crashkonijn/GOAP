@@ -1,7 +1,6 @@
-﻿using CrashKonijn.Goap.Editor.Classes.Models;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CrashKonijn.Goap.Editor.Classes
+namespace CrashKonijn.Goap.Editor
 {
     public class RenderNode
     {

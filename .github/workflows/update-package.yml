@@ -5,6 +5,15 @@ on:
       version:
         description: 'Version number to check for draft release'
         required: true
+      build_demo:
+        description: 'Toggle the demo build step'
+        required: true
+        default: true
+        type: boolean
+      branch:
+        description: 'Branch to checkout'
+        required: true
+        default: 'master'
 
 jobs:
   update_versions:
@@ -14,7 +23,7 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v2
         with:
-          ref: 'master'
+          ref: ${{ github.event.inputs.branch }}
           fetch-depth: 0 # ensure you have the full history for branch creation
           
       - name: Create new branch
@@ -63,12 +72,13 @@ jobs:
           title: "Update package version to ${{ github.event.inputs.version }}"
           body: |
             Update package version to `${{ github.event.inputs.version }}`.
-          base: master # branch to create the PR against
+          base: ${{ github.event.inputs.branch }} # branch to create the PR against
           branch: update-version-${{ github.event.inputs.version }} # branch with your changes
           
   build_demo_files:
     needs:
       - update_versions
+    if: ${{ github.event.inputs.build_demo == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       # write permission is required to create a github release

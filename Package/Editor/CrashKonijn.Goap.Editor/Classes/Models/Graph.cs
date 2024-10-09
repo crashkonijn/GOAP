@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CrashKonijn.Goap.Editor.Classes.Models
+namespace CrashKonijn.Goap.Editor
 {
     public class Graph
     {
