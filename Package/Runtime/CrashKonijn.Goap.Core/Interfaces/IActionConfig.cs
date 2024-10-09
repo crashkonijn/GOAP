@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Agent.Core;
+﻿using System;
+using CrashKonijn.Agent.Core;
 
 namespace CrashKonijn.Goap.Core
 {
@@ -13,5 +14,10 @@ namespace CrashKonijn.Goap.Core
         IEffect[] Effects { get; }
         public ActionMoveMode MoveMode { get; }
         public IActionProperties Properties { get; }
+    }
+
+    public interface IClassCallbackConfig
+    {
+        public Action<object> Callback { get; }
     }
 }

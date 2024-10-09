@@ -3,14 +3,24 @@ using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
+    public class MultiSensorBuilder<T> : MultiSensorBuilder
+        where T : IMultiSensor
+    {
+        public MultiSensorBuilder() : base(typeof(T)) { }
+        
+        public MultiSensorBuilder<T> SetCallback(Action<T> callback)
+        {
+            this.config.Callback = (obj) => callback((T) obj);
+            return this;
+        }
+    }
+
     public class MultiSensorBuilder
     {
-        private readonly WorldKeyBuilder worldKeyBuilder;
-        private readonly MultiSensorConfig config;
+        protected readonly MultiSensorConfig config;
 
-        public MultiSensorBuilder(Type type, WorldKeyBuilder worldKeyBuilder)
+        public MultiSensorBuilder(Type type)
         {
-            this.worldKeyBuilder = worldKeyBuilder;
             this.config = new MultiSensorConfig()
             {
                 Name = type.Name,
@@ -23,10 +33,10 @@ namespace CrashKonijn.Goap.Runtime
             return this.config;
         }
 
-        public static MultiSensorBuilder Create<TMultiSensor>(WorldKeyBuilder worldKeyBuilder)
+        public static MultiSensorBuilder<TMultiSensor> Create<TMultiSensor>()
             where TMultiSensor : IMultiSensor
         {
-            return new MultiSensorBuilder(typeof(TMultiSensor), worldKeyBuilder);
+            return new MultiSensorBuilder<TMultiSensor>();
         }
     }
 }

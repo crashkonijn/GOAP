@@ -64,6 +64,9 @@ namespace CrashKonijn.Goap.Runtime
 
             actions.ForEach(x =>
             {
+                if (x.Config is IClassCallbackConfig classCallbackConfig)
+                    classCallbackConfig.Callback?.Invoke(x);
+
                 injector.Inject(x);
                 x.Created();
             });
@@ -79,6 +82,9 @@ namespace CrashKonijn.Goap.Runtime
 
             goals.ForEach(x =>
             {
+                if (x.Config is IClassCallbackConfig classCallbackConfig)
+                    classCallbackConfig.Callback?.Invoke(x);
+                
                 x.Index = index;
                 index++;
 
@@ -95,6 +101,9 @@ namespace CrashKonijn.Goap.Runtime
 
             worldSensors.ForEach(x =>
             {
+                if (x.Config is IClassCallbackConfig classCallbackConfig)
+                    classCallbackConfig.Callback?.Invoke(x);
+                
                 injector.Inject(x);
                 x.Created();
             });
@@ -109,6 +118,9 @@ namespace CrashKonijn.Goap.Runtime
 
             targetSensors.ForEach(x =>
             {
+                if (x.Config is IClassCallbackConfig classCallbackConfig)
+                    classCallbackConfig.Callback?.Invoke(x);
+                
                 injector.Inject(x);
                 x.Created();
             });
@@ -123,6 +135,9 @@ namespace CrashKonijn.Goap.Runtime
 
             multiSensor.ForEach(x =>
             {
+                if (x.Config is IClassCallbackConfig classCallbackConfig)
+                    classCallbackConfig.Callback?.Invoke(x);
+                
                 injector.Inject(x);
                 x.Created();
             });

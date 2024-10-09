@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Goap.Core;
+﻿using System;
+using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -18,10 +19,11 @@ namespace CrashKonijn.Goap.Runtime
         }
     }
 
-    public class WorldSensorConfig : IWorldSensorConfig
+    public class WorldSensorConfig : IWorldSensorConfig, IClassCallbackConfig
     {
         public string Name { get; set; }
         public string ClassType { get; set; }
         public IWorldKey Key { get; set; }
+        public Action<object> Callback { get; set; }
     }
 }

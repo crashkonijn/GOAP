@@ -1,9 +1,10 @@
-﻿using CrashKonijn.Agent.Core;
+﻿using System;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class ActionConfig : IActionConfig
+    public class ActionConfig : IActionConfig, IClassCallbackConfig
     {
         public string Name { get; set; }
         public string ClassType { get; set; }
@@ -16,5 +17,6 @@ namespace CrashKonijn.Goap.Runtime
         public ICondition[] Conditions { get; set; }
         public IEffect[] Effects { get; set; }
         public ActionMoveMode MoveMode { get; set; } = ActionMoveMode.MoveBeforePerforming;
+        public Action<object> Callback { get; set; }
     }
 }
