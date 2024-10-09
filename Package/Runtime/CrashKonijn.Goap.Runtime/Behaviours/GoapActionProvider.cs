@@ -246,7 +246,7 @@ namespace CrashKonijn.Goap.Runtime
             this.Receiver.Timers.Goal.Touch();
 
             if (currentGoal != result.Goal)
-                this.Events.GoalStart(currentGoal);
+                this.Events.GoalStart(result.Goal);
 
             this.Receiver.SetAction(this, result.Action, this.WorldData.GetTarget(result.Action));
         }
