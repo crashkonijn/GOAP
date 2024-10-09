@@ -97,7 +97,7 @@ namespace CrashKonijn.Goap.Runtime
             this.capabilityConfig = new CapabilityConfig(name);
         }
 
-        public ActionBuilder AddAction<TAction>()
+        public ActionBuilder<TAction> AddAction<TAction>()
             where TAction : IAction
         {
             var actionBuilder = ActionBuilder.Create<TAction>(this.worldKeyBuilder, this.targetKeyBuilder);
@@ -107,7 +107,7 @@ namespace CrashKonijn.Goap.Runtime
             return actionBuilder;
         }
 
-        public GoalBuilder AddGoal<TGoal>()
+        public GoalBuilder<TGoal> AddGoal<TGoal>()
             where TGoal : IGoal
         {
             var goalBuilder = GoalBuilder.Create<TGoal>(this.worldKeyBuilder);
@@ -117,7 +117,7 @@ namespace CrashKonijn.Goap.Runtime
             return goalBuilder;
         }
 
-        public WorldSensorBuilder AddWorldSensor<TWorldSensor>()
+        public WorldSensorBuilder<TWorldSensor> AddWorldSensor<TWorldSensor>()
             where TWorldSensor : IWorldSensor
         {
             var worldSensorBuilder = WorldSensorBuilder.Create<TWorldSensor>(this.worldKeyBuilder);
@@ -127,7 +127,7 @@ namespace CrashKonijn.Goap.Runtime
             return worldSensorBuilder;
         }
 
-        public TargetSensorBuilder AddTargetSensor<TTargetSensor>()
+        public TargetSensorBuilder<TTargetSensor> AddTargetSensor<TTargetSensor>()
             where TTargetSensor : ITargetSensor
         {
             var targetSensorBuilder = TargetSensorBuilder.Create<TTargetSensor>(this.targetKeyBuilder);
@@ -137,10 +137,10 @@ namespace CrashKonijn.Goap.Runtime
             return targetSensorBuilder;
         }
 
-        public MultiSensorBuilder AddMultiSensor<TMultiSensor>()
+        public MultiSensorBuilder<TMultiSensor> AddMultiSensor<TMultiSensor>()
             where TMultiSensor : IMultiSensor
         {
-            var multiSensorBuilder = MultiSensorBuilder.Create<TMultiSensor>(this.worldKeyBuilder);
+            var multiSensorBuilder = MultiSensorBuilder.Create<TMultiSensor>();
 
             this.multiSensorBuilders.Add(multiSensorBuilder);
 

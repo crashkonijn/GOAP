@@ -5,7 +5,7 @@ using CrashKonijn.Goap.Core;
 namespace CrashKonijn.Goap.Runtime
 {
     [Serializable]
-    public class GoalConfig : IGoalConfig
+    public class GoalConfig : IGoalConfig, IClassCallbackConfig
     {
         public GoalConfig() { }
 
@@ -19,6 +19,7 @@ namespace CrashKonijn.Goap.Runtime
         public string ClassType { get; set; }
         public float BaseCost { get; set; }
         public List<ICondition> Conditions { get; set; } = new();
+        public Action<object> Callback { get; set; }
 
         public static GoalConfig Create<TGoal>()
             where TGoal : IGoal

@@ -3,10 +3,30 @@ using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
+    public class TargetSensorBuilder<T> : TargetSensorBuilder
+        where T : ITargetSensor
+    {
+        public TargetSensorBuilder(TargetKeyBuilder targetKeyBuilder) : base(typeof(T), targetKeyBuilder) { }
+        
+        public TargetSensorBuilder<T> SetTarget<TTarget>()
+            where TTarget : ITargetKey
+        {
+            this.config.Key = this.targetKeyBuilder.GetKey<TTarget>();
+
+            return this;
+        }
+        
+        public TargetSensorBuilder<T> SetCallback(Action<T> callback)
+        {
+            this.config.Callback = (obj) => callback((T) obj);
+            return this;
+        }
+    }
+    
     public class TargetSensorBuilder
     {
-        private readonly TargetKeyBuilder targetKeyBuilder;
-        private readonly TargetSensorConfig config;
+        protected readonly TargetKeyBuilder targetKeyBuilder;
+        protected readonly TargetSensorConfig config;
 
         public TargetSensorBuilder(Type type, TargetKeyBuilder targetKeyBuilder)
         {
@@ -18,22 +38,14 @@ namespace CrashKonijn.Goap.Runtime
             };
         }
 
-        public TargetSensorBuilder SetTarget<TTarget>()
-            where TTarget : ITargetKey
-        {
-            this.config.Key = this.targetKeyBuilder.GetKey<TTarget>();
-
-            return this;
-        }
-
         public ITargetSensorConfig Build()
         {
             return this.config;
         }
 
-        public static TargetSensorBuilder Create<TTargetSensor>(TargetKeyBuilder targetKeyBuilder) where TTargetSensor : ITargetSensor
+        public static TargetSensorBuilder<TTargetSensor> Create<TTargetSensor>(TargetKeyBuilder targetKeyBuilder) where TTargetSensor : ITargetSensor
         {
-            return new TargetSensorBuilder(typeof(TTargetSensor), targetKeyBuilder);
+            return new TargetSensorBuilder<TTargetSensor>(targetKeyBuilder);
         }
     }
 }
