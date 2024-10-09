@@ -1,6 +1,6 @@
 {
   "name": "com.crashkonijn.goap",
-  "version": "3.0.19-beta",
+  "version": "3.0.20-beta",
   "displayName": "Unity GOAP Framework",
   "description": "A comprehensive, multi-threaded Goal Oriented Action Planning (GOAP) system for Unity, designed to facilitate complex AI behaviors in games.",
   "unity": "2022.2",
