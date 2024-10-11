@@ -1,9 +1,5 @@
 # FAQ
 
-{% hint style="warning" %}
-V3 is currently stable, but still in beta because the docs are still those of v2.
-{% endhint %}
-
 ## Why does each action need a target?
 
 Unless you're creating a 0 dimension game, there are actions that take place at a specific position. When there are actions that require positions there a 3 possible solutions for handling the movement.

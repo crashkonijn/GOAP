@@ -4,11 +4,12 @@ In the GOAP system, an action represents a discrete step an agent can undertake 
 
 ## Components of an Action
 
-Actions are composed of three primary parts:
+Actions are composed of four primary parts:
 
 1. **Config**: Configuration settings for the action.
 2. **Action Class**: The logic and behavior of the action.
 3. **Action Data**: Temporary data storage for the action's state.
+4. **Action Props**: Additional properties for the action.
 
 ## Action Config
 
@@ -30,7 +31,7 @@ This represents the inherent cost of executing the action, excluding any additio
 
 Every action has an associated target position. Before executing the action, the agent will move towards this target, depending on the `MoveMode`. Targets are identified using `TargetKey`, such as `ClosestApple` or `ClosestEnemy`.
 
-### InRange
+### StopppingDistance
 
 This value specifies the proximity required between the agent and the target position before the action can commence.
 
@@ -44,6 +45,21 @@ This value specifies the proximity required between the agent and the target pos
 ## Action Data
 
 Action data provides temporary storage for the action's state for an individual agent. This data is not shared across agents or across multiple invocations of the same action.
+
+## Action Props
+
+Action props are additional properties that can be used to customize the action's behavior. They are defined as fields in the action class and can be set as configuration values on ScriptableObjects or through code.
+
+{% code lineNumbers="true" %}
+```csharp
+[Serializable]
+public class Props : IActionProperties
+{
+    public float minTimer;
+    public float maxTimer;
+}
+```
+{% endcode %}
 
 ### Action Data Injection
 
@@ -65,67 +81,134 @@ public class Data : IActionData
 
 The action class defines the behavior of the action. It should be stateless since a single instance might be used to execute the same action on different agents. The class inherits from `ActionBase<TData>`, where `TData` is the action data class.
 
-### ActionRunState
+### IActionRunState Interface
 
-This enum indicates the action's current state:
+The `IActionRunState` interface is a crucial component in the GOAP system. It defines the contract for action run states, which are responsible for determining the behavior of actions during their execution. These states decide when an action should be updated, stopped, performed, completed, or even resolved. They can also be used to 'pause' running an action, and come back later to continue it.
 
-- **Continue**: The action will persist and be re-evaluated in the next frame.
-- **Stop**: The action will terminate, and control will revert to the planner.
+#### Methods
+
+- `void Update(IAgent agent, IActionContext context)`: Updates the state of the action based on the current context and agent state. This method is called every frame during the action's execution.
+
+- `bool ShouldStop(IAgent agent)`: Determines whether the action should be stopped. If this method returns `true`, the action will be stopped.
+
+- `bool ShouldPerform(IAgent agent)`: Determines whether the action should continue performing. If this method returns `true`, the action will continue its execution.
+
+- `bool IsCompleted(IAgent agent)`: Checks if the action has been completed. If this method returns `true`, the action is considered completed.
+
+- `bool MayResolve(IAgent agent)`: Determines whether the action may resolve based on the current state of the agent. This is used for actions that have conditional completion criteria.
+
+- `bool IsRunning()`: Indicates whether the action is currently running. This can be used to check the state of the action outside of the usual update cycle.
+
+#### Usage
+
+`IActionRunState` allows for the creation of custom run states for actions, providing flexibility in how actions are executed within the GOAP system. By implementing this interface, developers can define custom logic for when actions should start, stop, or update, allowing for complex behavior patterns.
+
+Several predefined action run states are provided out of the box, such as `Continue`, `Stop`, `Completed`, and various `Wait` states, to cover common use cases.
+
+#### Example
+
+Here's a simple example of a custom action run state that stops the action after a certain time has elapsed:
+
+```csharp
+public class TimedStopActionRunState : IActionRunState
+{
+    private float startTime;
+    private float duration;
+
+    public TimedStopActionRunState(float duration)
+    {
+        this.duration = duration;
+    }
+
+    public void Update(IAgent agent, IActionContext context)
+    {
+        if (startTime == 0)
+            startTime = Time.time;
+    }
+
+    public bool ShouldStop(IAgent agent)
+    {
+        return Time.time - startTime >= duration;
+    }
+
+    public bool ShouldPerform(IAgent agent) => true;
+    public bool IsCompleted(IAgent agent) => false;
+    public bool MayResolve(IAgent agent) => true;
+    public bool IsRunning() => true;
+}
+```
 
 ### Examples
 
 The provided examples illustrate how to implement specific functionalities within the action class and action data. They've been retained in their original form for clarity.
 
 ### Examples
-{% code title="WanderAction.cs" lineNumbers="true" %}
+{% code title="ExampleAction.cs" lineNumbers="true" %}
 ```csharp
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-namespace Demos.Actions
+namespace CrashKonijn.Goap.Demos.Complex
 {
-    public class WanderAction : ActionBase<WanderAction.Data>
+    [GoapId("Example-93edf472-9fb5-4c55-84fa-5f6671992a6a")]
+    public class ExampleAction : GoapActionBase<ExampleAction.Data>
     {
-        // You can implement a custom cost function. This is useful if you want to add dynamic costs to the action.
-        public override float GetCost(IMonoAgent agent, IComponentReference references)
-        {
-            return 5f;
-        }
-        
-        // This method is called to determine if the agent is in range for the action. It is called every frame while the action is running.
-        // This could be used to perform a physics check to actually guarantee line of sight for example.
-        public virtual bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references)
-        {
-            return distance <= this.config.InRange;
-        }
-    
-        // This methods is called when the action is created. It is used to initialize the action.
+        // This method is called when the action is created
+        // This method is optional and can be removed
         public override void Created()
         {
         }
-    
-        // This method is called when the action is started. It is used to initialize the action.
+
+        // This method is called every frame before the action is performed
+        // If this method returns false, the action will be stopped
+        // This method is optional and can be removed
+        public override bool IsValid(IActionReceiver agent, Data data)
+        {
+            return true;
+        }
+
+        // This method is called when the action is started
+        // This method is optional and can be removed
         public override void Start(IMonoAgent agent, Data data)
         {
         }
 
-        // This method is called every frame while the action is running. It is used to perform the action.
-        public override ActionRunState OnPerform(IMonoAgent agent, Data data, ActionContext context)
+        // This method is called once before the action is performed
+        // This method is optional and can be removed
+        public override void BeforePerform(IMonoAgent agent, Data data)
         {
-            return ActionRunState.Stop;
         }
 
-        // This method is called when the action is stopped. It is used to clean up the action.
+        // This method is called every frame while the action is running
+        // This method is required
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        {
+            return ActionRunState.Completed;
+        }
+
+        // This method is called when the action is completed
+        // This method is optional and can be removed
+        public override void Complete(IMonoAgent agent, Data data)
+        {
+        }
+
+        // This method is called when the action is stopped
+        // This method is optional and can be removed
+        public override void Stop(IMonoAgent agent, Data data)
+        {
+        }
+
+        // This method is called when the action is completed or stopped
+        // This method is optional and can be removed
         public override void End(IMonoAgent agent, Data data)
         {
         }
 
-        // Action data class. It stores the state of the action for a single agent. This data is not persistent between agents or between multiple runs of the same action.
+        // The action class itself must be stateless!
+        // All data should be stored in the data class
         public class Data : IActionData
         {
-            // The target position of the action. This is set by the planner.
             public ITarget Target { get; set; }
         }
     }
@@ -133,72 +216,55 @@ namespace Demos.Actions
 ```
 {% endcode %}
 
-{% code title="EatAppleAction.cs" lineNumbers="true" %}
+{% code title="WanderAction.cs" lineNumbers="true" %}
 ```csharp
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Shared.Behaviours;
-using Demos.Simple.Behaviours;
-using UnityEngine;
+using System;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
+using Random = UnityEngine.Random;
 
-namespace Demos.Simple.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class EatAppleAction : ActionBase<EatAppleAction.Data>
+    public class WanderAction : GoapActionBase<WanderAction.Data, WanderAction.Props>
     {
         public override void Created()
         {
         }
-    
-        public override void OnStart(IMonoAgent agent, Data data)
+
+        public override void Start(IMonoAgent agent, Data data)
         {
-            if (data.Target is not TransformTarget)
-                return;
-
-            var inventory = agent.GetComponent<InventoryBehaviour>();
-
-            if (inventory == null)
-                return;
+            var wait = Random.Range(this.Properties.minTimer, this.Properties.maxTimer);
             
-            data.Apple =  inventory.Get();
-            data.Hunger = agent.GetComponent<HungerBehaviour>();
+            data.Timer = ActionRunState.Wait(wait);
         }
 
-        public override ActionRunState OnPerform(IMonoAgent agent, Data data, ActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            if (data.Apple == null || data.Hunger == null)
-                return ActionRunState.Stop;
-
-            var eatNutrition = context.DeltaTime * 20f;
-
-            data.Apple.nutritionValue -= eatNutrition;
-            data.Hunger.hunger -= eatNutrition;
+            if (data.Timer.IsRunning())
+                return data.Timer;
             
-            if (data.Apple.nutritionValue <= 0)
-                GameObject.Destroy(data.Apple.gameObject);
-            
-            return ActionRunState.Continue;
+            return ActionRunState.Completed;
         }
-        
-        public override void OnEnd(IMonoAgent agent, Data data)
+
+        public override void Stop(IMonoAgent agent, Data data)
         {
-            if (data.Apple == null)
-                return;
-            
-            var inventory = agent.GetComponent<InventoryBehaviour>();
-
-            if (inventory == null)
-                return;
-            
-            inventory.Put(data.Apple);
         }
-        
+
+        public override void Complete(IMonoAgent agent, Data data)
+        {
+        }
+
+        [Serializable]
+        public class Props : IActionProperties
+        {
+            public float minTimer;
+            public float maxTimer;
+        }
+
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
-            public AppleBehaviour Apple { get; set; }
-            public HungerBehaviour Hunger { get; set; }
+            public IActionRunState Timer { get; set; }
         }
     }
 }

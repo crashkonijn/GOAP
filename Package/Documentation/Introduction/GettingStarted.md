@@ -1,9 +1,5 @@
 # Getting Started
 
-{% hint style="warning" %}
-V3 is currently stable, but still in beta because the docs are still those of v2.
-{% endhint %}
-
 ## Tutorials
 
 * [**YouTube tutorials**](https://www.youtube.com/playlist?list=PLZWmMt\_TbeYeatHa9hntDPu4zGEBAFffn) on how to use the library.

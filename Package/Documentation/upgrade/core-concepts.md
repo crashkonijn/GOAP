@@ -266,6 +266,50 @@ Main changes:
 this.GetComponent<GoapActionProvider>().RequestGoal<CleanItemsGoal, FixHungerGoal, WanderGoal>(true);
 ```
 
+## Sensor runner
+The sensor runner has been upgraded, it now only runs the sensors that are required for the currently requested goals!
+
+## Sensors
+Sensor have been improved in v3, giving you more control over how they work!
+
+### Sensor Timer
+In v3 you can now set a timer for each sensor. This timer determines how often the sensor should be run. This makes it easier to create sensors that don't need to be run every frame.
+
+By default three timers are available:
+
+```csharp
+public static class SensorTimer
+{
+    public static AlwaysSensorTimer Always { get; } = new(); // Runs every time it is called
+    public static OnceSensorTimer Once { get; } = new(); // Runs only once
+    public static IntervalSensorTimer Interval(float interval) => new(interval); // Runs every x seconds
+}
+```
+
+```csharp
+public class AgentSensor : LocalTargetSensorBase
+{
+    // You can override the timer for the sensor
+    public override ISensorTimer Timer { get; } = SensorTimer.Once;
+
+    public override void Created()
+    {
+    }
+
+    public override void Update()
+    {
+    }
+
+    public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
+    {
+        return new TransformTarget(agent.Transform);
+    }
+}
+```
+
+### Previous Target
+In v3 you now get access to the previous `ITarget` instance that was returned in the target sense method, allowing you to re-use it in the next frame!
+
 ## Multi-Sensors
 
 In v3 we've introduced the concept of **Multi-Sensors**. A **Multi-Sensor** is a sensor that can return multiple values at the same time. This makes it easier to create sensors that return multiple values.
