@@ -7,8 +7,8 @@ In version 3 (v3) of the GOAP framework, significant architectural changes have 
 The AgentBehaviour component is responsible for the execution of actions. It acts as the executor that takes an action provided by the GoapActionProvider and performs it. The AgentBehaviour is designed to be agnostic of the decision-making process, focusing solely on action execution.
 
 ### Key Responsibilities
-Action Execution: Takes an action from the GoapActionProvider and executes it.
-Event Handling: Can subscribe to and trigger events related to action execution, such as OnActionStart, OnActionEnd, and OnActionComplete.
+- **Action Execution**: Takes an action from the GoapActionProvider and executes it.
+- **Event Handling**: Can subscribe to and trigger events related to action execution, such as OnActionStart, OnActionEnd, and OnActionComplete.
 
 ### Relationship with GoapActionProvider
 The AgentBehaviour does not directly interact with the GoapActionProvider for decision-making. It only knows about a simple IActionProvider interface, which abstracts the source of actions.
@@ -17,9 +17,9 @@ The AgentBehaviour does not directly interact with the GoapActionProvider for de
 The GoapActionProvider is a new addition in v3, designed to handle the decision-making process for the agent. It decides which actions to perform and when to perform them, based on the goals set and the current state of the world.
 
 ### Key Responsibilities
-Action Decision: Decides which actions are suitable for execution based on the current goals and state.
-Goal Management: Manages goals for the agent, including setting new goals and prioritizing between multiple goals.
-GOAP Methods: Contains all GOAP-related methods that were previously part of the AgentBehaviour, such as goal setting and action planning.
+- **Action Decision**: Decides which actions are suitable for execution based on the current goals and state.
+- **Goal Management**: Manages goals for the agent, including setting new goals and prioritizing between multiple goals.
+- **GOAP Methods**: Contains all GOAP-related methods that were previously part of the AgentBehaviour, such as goal setting and action planning.
 
 ### Relationship with AgentBehaviour
 The GoapActionProvider does not know about the AgentBehaviour. It interacts with the agent through a simple IActionReceiver interface, focusing on the decision-making process without concerning itself with how actions are executed.

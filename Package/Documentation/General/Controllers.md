@@ -10,13 +10,13 @@ A GOAP Controller determines the operational flow of the GOAP system, including 
 The framework introduces three distinct types of controllers, each designed to handle the GOAP system's operations in a unique manner:
 
 ### ReactiveController
-**Description**: The ReactiveController operates similarly to the system's behavior in previous version. It activates sensors and the action resolver only when an agent requires a new action. This approach is straightforward and effective for scenarios where agents react to changes in their environment.
-**Usage**: Ideal for agents that operate based on immediate needs or react to changes in the environment.
+- **Description**: The ReactiveController operates similarly to the system's behavior in previous version. It activates sensors and the action resolver only when an agent requires a new action. This approach is straightforward and effective for scenarios where agents react to changes in their environment.
+- **Usage**: Ideal for agents that operate based on immediate needs or react to changes in the environment.
 
 ### ProactiveController
-**Description**: Unlike the ReactiveController, the ProactiveController takes a more forward-looking approach. It periodically runs sensors and the action resolver, even if the agent does not currently need a new action. This proactive behavior can lead to the discovery of more optimal actions or the anticipation of future needs.
-**Usage**: Best suited for agents that benefit from planning ahead or those operating in rapidly changing environments where early action can lead to better outcomes.
+- **Description**: Unlike the ReactiveController, the ProactiveController takes a more forward-looking approach. It periodically runs sensors and the action resolver, even if the agent does not currently need a new action. This proactive behavior can lead to the discovery of more optimal actions or the anticipation of future needs.
+- **Usage**: Best suited for agents that benefit from planning ahead or those operating in rapidly changing environments where early action can lead to better outcomes.
 
 ### ManualController
-***Description**: The ManualController provides the highest level of control, allowing for the manual execution of sensors and the action resolver. This controller is triggered explicitly by the agent, offering precise control over when the GOAP system is engaged.
-**Usage**: Useful for agents that require direct control over their planning process, such as those in scenarios where timing and precision are critical.
+- **Description**: The ManualController provides the highest level of control, allowing for the manual execution of sensors and the action resolver. This controller is triggered explicitly by the agent, offering precise control over when the GOAP system is engaged.
+- **Usage**: Useful for agents that require direct control over their planning process, such as those in scenarios where timing and precision are critical.
