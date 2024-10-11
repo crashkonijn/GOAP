@@ -76,10 +76,23 @@ namespace CrashKonijn.Docs.GettingStarted.Capabilities
 ```
 {% endcode %}
 
+### Callbacks
+In v3 you can add a callback to your builder methods, giving you access to the instance of each class. This allows you to set extra data.
+
+{% code lineNumbers="true" %}
+```csharp
+capability.AddAction<HaulItemAction>()
+    .SetCallback((action) =>
+    {
+        action.CustomData = "Example";
+    });
+```
+{% endcode %}
+
 ### Adding the set to GOAP
 Add the created class to a GameObject in the scene. Add it to the list on the `GoapBehaviour` component. This will initialize the set.
 
-![Goap Runner Behaviour component](../images/scripts_goap_runner_behaviour.png)
+![Goap Behaviour component](../images/scripts_goap_behaviour.png)
 
 ### Adding the set to the agent.
 Using a script, set the `AgentType` property on an agent.
