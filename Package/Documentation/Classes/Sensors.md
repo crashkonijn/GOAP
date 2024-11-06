@@ -290,20 +290,12 @@ public class AgentSensor : LocalTargetSensorBase
 ```csharp
 public class PearSensor : MultiSensorBase
 {
-    // A cache of all the pears in the world
-    private PearBehaviour[] pears;
-
-    // The Created method is called when the sensor is created
-    // You must use this method to register all the sensors
     public override void Created()
     {
         // You can set the timer for each sensor individually in the second parameter
         this.AddLocalWorldSensor<PearCount>((agent, references) =>
         {
-            // Get a cached reference to the DataBehaviour on the agent
-            var data = references.GetCachedComponent<DataBehaviour>();
-
-            return data.pearCount;
+            return 0;
         }, SensorTimer.Once);
     }
 }
