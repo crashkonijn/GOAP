@@ -32,12 +32,12 @@ namespace CrashKonijn.Goap.Runtime
 
         private void Update()
         {
-            this.goap.OnUpdate();
+            this.goap?.OnUpdate();
         }
 
         private void LateUpdate()
         {
-            this.goap.OnLateUpdate();
+            this.goap?.OnLateUpdate();
         }
 
         private void OnDestroy()

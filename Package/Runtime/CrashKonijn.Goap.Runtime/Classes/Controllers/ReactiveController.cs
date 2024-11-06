@@ -15,6 +15,9 @@ namespace CrashKonijn.Goap.Runtime
 
         public void Disable()
         {
+            if (this.goap.IsNull())
+                return;
+            
             if (this.goap?.Events == null)
                 return;
 

@@ -10,12 +10,14 @@ namespace CrashKonijn.Goap.Runtime
 {
     public static class Extensions
     {
-        public static bool IsNull(this IMonoAgent agent)
-            => agent is MonoBehaviour mono && mono == null;
+        public static bool IsNull(this object obj)
+        {
+            if (obj is not MonoBehaviour mono)
+                return obj == null;
 
-        public static bool IsNull(this IMonoGoapActionProvider actionProvider)
-            => actionProvider is MonoBehaviour mono && mono == null;
-
+            return mono == null;
+        }
+        
         public static string ToName(this Comparison comparison)
         {
             return comparison switch
