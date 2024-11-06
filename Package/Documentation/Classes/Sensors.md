@@ -150,3 +150,162 @@ namespace CrashKonijn.Goap.Demos.Simple.Goap.Sensors.Target
 }
 ```
 {% endcode %}
+
+## MultiSensor
+
+`MultiSensor` is a sensor that combines multiple sensors. It can be used to combine multiple sensors into one sensor class. This can make it easier to manage multiple values that come from the same source.
+
+### Example
+
+{% code title="MultiSensor.cs" %}
+```csharp
+using System;
+using System.Collections.Generic;
+using CrashKonijn.Docs.GettingStarted.Behaviours;
+using CrashKonijn.Goap.Runtime;
+using UnityEngine;
+
+namespace CrashKonijn.Docs.GettingStarted.Sensors
+{
+    public class PearSensor : MultiSensorBase
+    {
+        // A cache of all the pears in the world
+        private PearBehaviour[] pears;
+
+        // The Created method is called when the sensor is created
+        // You must use this method to register all the sensors
+        public override void Created()
+        {
+            this.AddLocalWorldSensor<PearCount>((agent, references) =>
+            {
+                // Get a cached reference to the DataBehaviour on the agent
+                var data = references.GetCachedComponent<DataBehaviour>();
+
+                return data.pearCount;
+            });
+            
+            this.AddLocalWorldSensor<Hunger>((agent, references) =>
+            {
+                // Get a cached reference to the DataBehaviour on the agent
+                var data = references.GetCachedComponent<DataBehaviour>();
+
+                // We need to cast the float to an int, because the hunger is an int
+                // We will lose the decimal values, but we don't need them for this example
+                return (int) data.hunger;
+            });
+            
+            this.AddLocalTargetSensor<ClosestPear>((agent, references, target) =>
+            {
+                // Use the cashed pears list to find the closest pear
+                var closestPear = this.Closest(this.pears, agent.Transform.position);
+                
+                if (closestPear == null)
+                    return null;
+                
+                // If the target is a transform target, set the target to the closest pear
+                if (target is TransformTarget transformTarget)
+                    return transformTarget.SetTransform(closestPear.transform);
+                
+                return new TransformTarget(closestPear.transform);
+            });
+        }
+        
+        // This method is equal to the Update method of a local sensor.
+        // It can be used to cache data, like gathering a list of all pears in the scene.
+        public override void Update()
+        {
+            this.pears = GameObject.FindObjectsOfType<PearBehaviour>();
+        }
+
+        // Returns the closest item in a list
+        private T Closest<T>(IEnumerable<T> list, Vector3 position)
+            where T : MonoBehaviour
+        {
+            T closest = null;
+            var closestDistance = float.MaxValue; // Start with the largest possible distance
+
+            foreach (var item in list)
+            {
+                var distance = Vector3.Distance(item.gameObject.transform.position, position);
+                
+                if (!(distance < closestDistance))
+                    continue;
+                
+                closest = item;
+                closestDistance = distance;
+            }
+
+            return closest;
+        }
+    }
+}
+```
+{% endcode %}
+
+## Sensor Timer
+
+You can set a timer for a sensor to update at a specific interval. This can be useful when you want to update a sensor every few seconds instead of every frame, or when you want to update a sensor just a single time.
+
+By default the following timers are provided, but custom implementations of `ISensorTimer` can be made.
+
+{% code title="SensorTimer.cs" %}
+```csharp
+public static class SensorTimer
+{
+    public static AlwaysSensorTimer Always { get; } = new();
+    public static OnceSensorTimer Once { get; } = new();
+    public static IntervalSensorTimer Interval(float interval) => new(interval);
+}
+```
+{% endcode %}
+
+### World and Target Sensors
+
+{% code title="SensorTimer.cs" %}
+```csharp
+public class AgentSensor : LocalTargetSensorBase
+{
+    // Set the timer to update the sensor once
+    public override ISensorTimer Timer { get; } = SensorTimer.Once;
+
+    public override void Created()
+    {
+    }
+
+    public override void Update()
+    {
+    }
+
+    public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
+    {
+        return new TransformTarget(agent.Transform);
+    }
+}
+```
+{% endcode %}
+
+### Multi Sensors
+
+{% code title="SensorTimer.cs" %}
+```csharp
+public class PearSensor : MultiSensorBase
+{
+    // A cache of all the pears in the world
+    private PearBehaviour[] pears;
+
+    // The Created method is called when the sensor is created
+    // You must use this method to register all the sensors
+    public override void Created()
+    {
+        // You can set the timer for each sensor individually in the second parameter
+        this.AddLocalWorldSensor<PearCount>((agent, references) =>
+        {
+            // Get a cached reference to the DataBehaviour on the agent
+            var data = references.GetCachedComponent<DataBehaviour>();
+
+            return data.pearCount;
+        }, SensorTimer.Once);
+    }
+}
+```
+{% endcode %}
