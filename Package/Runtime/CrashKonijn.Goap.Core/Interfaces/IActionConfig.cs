@@ -8,6 +8,7 @@ namespace CrashKonijn.Goap.Core
         float BaseCost { get; }
         ITargetKey Target { get; }
         float StoppingDistance { get; }
+        bool ValidateTarget { get; }
         bool RequiresTarget { get; }
         bool ValidateConditions { get; }
         ICondition[] Conditions { get; }

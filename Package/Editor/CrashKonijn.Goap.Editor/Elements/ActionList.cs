@@ -70,6 +70,13 @@ namespace CrashKonijn.Goap.Editor
                 EditorUtility.SetDirty(this.scriptable);
             });
             
+            element.ValidateTargetField.value = item.validateTarget;
+            element.ValidateTargetField.RegisterValueChangedCallback(evt =>
+            {
+                item.validateTarget = evt.newValue;
+                EditorUtility.SetDirty(this.scriptable);
+            });
+            
             element.MoveModeField.value = item.moveMode;
             element.MoveModeField.RegisterValueChangedCallback(evt =>
             {

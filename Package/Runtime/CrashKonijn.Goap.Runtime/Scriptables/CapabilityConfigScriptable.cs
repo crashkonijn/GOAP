@@ -47,6 +47,7 @@ namespace CrashKonijn.Goap.Runtime
                 BaseCost = x.baseCost,
                 Target = x.target.GetScript(targetClasses).GetInstance<ITargetKey>(),
                 StoppingDistance = x.stoppingDistance,
+                ValidateTarget = x.validateTarget,
                 RequiresTarget = x.requiresTarget,
                 ValidateConditions = x.validateConditions,
                 Conditions = x.conditions.Select(y => new Condition

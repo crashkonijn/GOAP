@@ -12,6 +12,7 @@ namespace CrashKonijn.Goap.Runtime
         public float BaseCost { get; set; }
         public ITargetKey Target { get; set; }
         public float StoppingDistance { get; set; }
+        public bool ValidateTarget { get; set; }
         public bool RequiresTarget { get; set; }
         public bool ValidateConditions { get; set; }
         public ICondition[] Conditions { get; set; }

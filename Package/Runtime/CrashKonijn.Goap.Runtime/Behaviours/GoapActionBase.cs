@@ -64,16 +64,19 @@ namespace CrashKonijn.Goap.Runtime
                 return false;
             }
 
-            if (this.Config.RequiresTarget && data.Target == null)
+            if (this.Config.ValidateTarget && this.Config.RequiresTarget)
             {
-                agent.Logger.Warning($"No target found for: {this.Config.Name}");
-                return false;
-            }
+                if (data.Target == null)
+                {
+                    agent.Logger.Warning($"No target found for: {this.Config.Name}");
+                    return false;
+                }
 
-            if (this.Config.RequiresTarget && !data.Target.IsValid())
-            {
-                agent.Logger.Warning($"Target became invalid: {this.Config.Name}");
-                return false;
+                if (!data.Target.IsValid())
+                {
+                    agent.Logger.Warning($"Target became invalid: {this.Config.Name}");
+                    return false;
+                }
             }
 
             return this.IsValid(agent, (TActionData) data);
