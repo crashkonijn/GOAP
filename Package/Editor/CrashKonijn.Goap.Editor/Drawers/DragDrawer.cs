@@ -17,13 +17,14 @@ namespace CrashKonijn.Goap.Editor
             this.callback = callback;
             this.target = target;
         }
-        
+
         protected override void RegisterCallbacksOnTarget()
         {
             this.target.RegisterCallback<PointerDownEvent>(this.PointerDownHandler);
             this.target.RegisterCallback<PointerMoveEvent>(this.PointerMoveHandler);
             this.target.RegisterCallback<PointerUpEvent>(this.PointerUpHandler);
             this.target.RegisterCallback<PointerCaptureOutEvent>(this.PointerCaptureOutHandler);
+            this.target.RegisterCallback<PointerLeaveEvent>(this.PointerLeveHandler);
         }
 
         protected override void UnregisterCallbacksFromTarget()
@@ -33,26 +34,36 @@ namespace CrashKonijn.Goap.Editor
             this.target.UnregisterCallback<PointerUpEvent>(this.PointerUpHandler);
             this.target.UnregisterCallback<PointerCaptureOutEvent>(this.PointerCaptureOutHandler);
         }
-        
+
         private void PointerDownHandler(PointerDownEvent evt)
         {
             this.enabled = true;
         }
-        
+
         private void PointerMoveHandler(PointerMoveEvent evt)
         {
             if (!this.enabled)
                 return;
-            
-            this.delta += (Vector2)evt.deltaPosition;
+
+            this.delta += (Vector2) evt.deltaPosition;
             this.callback(this.offset + this.delta);
         }
-        
+
         private void PointerUpHandler(PointerUpEvent evt)
         {
             if (!this.enabled)
                 return;
-            
+
+            this.enabled = false;
+            this.offset += this.delta;
+            this.delta = Vector2.zero;
+        }
+
+        private void PointerLeveHandler(PointerLeaveEvent evt)
+        {
+            if (!this.enabled)
+                return;
+
             this.enabled = false;
             this.offset += this.delta;
             this.delta = Vector2.zero;
@@ -62,7 +73,7 @@ namespace CrashKonijn.Goap.Editor
         {
             if (!this.enabled)
                 return;
-            
+
             this.enabled = false;
             this.offset += this.delta;
             this.delta = Vector2.zero;
@@ -73,7 +84,7 @@ namespace CrashKonijn.Goap.Editor
             this.enabled = false;
             this.offset = Vector2.zero;
             this.delta = Vector2.zero;
-            
+
             this.callback(Vector2.zero);
         }
     }
