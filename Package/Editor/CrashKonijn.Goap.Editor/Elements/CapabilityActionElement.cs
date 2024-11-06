@@ -19,6 +19,7 @@ namespace CrashKonijn.Goap.Editor
         public FloatField InRangeField { get; set; }
 
         public Toggle ValidateConditionsField { get; set; }
+        public Toggle ValidateTargetField { get; set; }
 
         public Toggle RequiresTargetField { get; set; }
 
@@ -60,6 +61,10 @@ namespace CrashKonijn.Goap.Editor
                 var validateConditions = new LabeledField<Toggle>("Validate Conditions", new Toggle());
                 this.ValidateConditionsField = validateConditions.Field;
                 card.Add(validateConditions);
+                
+                var validateTarget = new LabeledField<Toggle>("Validate Target", new Toggle());
+                this.ValidateTargetField = validateTarget.Field;
+                card.Add(validateTarget);
 
                 var moveMode = new LabeledField<EnumField>("Move Mode", new EnumField(ActionMoveMode.MoveBeforePerforming));
                 this.MoveModeField = moveMode.Field;
@@ -86,5 +91,6 @@ namespace CrashKonijn.Goap.Editor
                 // this.parent.parent.MarkDirtyRepaint();
             });
         }
+
     }
 }

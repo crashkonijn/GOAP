@@ -35,6 +35,18 @@ Every action has an associated target position. Before executing the action, the
 
 This value specifies the proximity required between the agent and the target position before the action can commence.
 
+### RequiresTarget
+
+This value determines if a valid Target is required for the action to be executable.
+
+### ValidateTarget
+
+This value determines if the target is validated whilst running.
+
+### ValidateConditions
+
+This determines if the conditions of this action are validated whilst running.
+
 ## MoveMode
 
 `MoveMode` determines how the action and movement are coordinated:

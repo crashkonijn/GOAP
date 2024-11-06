@@ -16,6 +16,7 @@ namespace CrashKonijn.Goap.Runtime
 
         public float baseCost = 1;
         public float stoppingDistance = 0.1f;
+        public bool validateTarget = true;
         public bool requiresTarget = true;
         public bool validateConditions = true;
         public ActionMoveMode moveMode;
