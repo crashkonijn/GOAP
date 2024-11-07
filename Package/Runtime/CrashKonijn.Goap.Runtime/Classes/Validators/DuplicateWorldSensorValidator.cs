@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
@@ -35,7 +36,7 @@ namespace CrashKonijn.Goap.Runtime
 
             return temp
                 .SelectMany(x => x.GetKeys())
-                .Select(x => x.Name)
+                .Select(x => x.GetGenericTypeName())
                 .Distinct()
                 .ToArray();
         }

@@ -8,13 +8,6 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
 {
     public static class TargetSensorExtensions
     {
-        public static void AddClosestItemTargetSensor<T>(this CapabilityBuilder builder)
-            where T : class, IHoldable
-        {
-            builder.AddTargetSensor<ClosestItemSensor<T>>()
-                .SetTarget<ClosestTarget<T>>();
-        }
-        
         public static void AddClosestObjectTargetSensor<T>(this CapabilityBuilder builder)
             where T : MonoBehaviour
         {

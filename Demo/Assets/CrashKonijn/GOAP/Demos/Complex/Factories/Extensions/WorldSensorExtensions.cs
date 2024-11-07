@@ -13,12 +13,5 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories.Extensions
             builder.AddWorldSensor<IsHoldingSensor<THoldable>>()
                 .SetKey<IsHolding<THoldable>>();
         }
-        
-        public static void AddIsInWorldSensor<THoldable>(this CapabilityBuilder builder)
-            where THoldable : IHoldable
-        {
-            builder.AddWorldSensor<IsInWorldSensor<THoldable>>()
-                .SetKey<IsInWorld<THoldable>>();
-        }
     }
 }

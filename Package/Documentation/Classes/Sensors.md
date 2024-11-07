@@ -172,9 +172,9 @@ namespace CrashKonijn.Docs.GettingStarted.Sensors
         // A cache of all the pears in the world
         private PearBehaviour[] pears;
 
-        // The Created method is called when the sensor is created
-        // You must use this method to register all the sensors
-        public override void Created()
+        // You must use the constructor to register all the sensors
+        // This can also be called outside of the gameplay loop to validate the configuration
+        public PearSensor()
         {
             this.AddLocalWorldSensor<PearCount>((agent, references) =>
             {
@@ -208,6 +208,12 @@ namespace CrashKonijn.Docs.GettingStarted.Sensors
                 
                 return new TransformTarget(closestPear.transform);
             });
+        }
+
+        // The Created method is called when the sensor is created
+        // This can be used to gather references to objects in the scene
+        public override void Created()
+        {
         }
         
         // This method is equal to the Update method of a local sensor.
@@ -290,7 +296,7 @@ public class AgentSensor : LocalTargetSensorBase
 ```csharp
 public class PearSensor : MultiSensorBase
 {
-    public override void Created()
+    public PearSensor()
     {
         // You can set the timer for each sensor individually in the second parameter
         this.AddLocalWorldSensor<PearCount>((agent, references) =>
