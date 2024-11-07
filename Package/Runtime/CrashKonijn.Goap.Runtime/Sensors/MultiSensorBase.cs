@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 
@@ -80,6 +82,8 @@ namespace CrashKonijn.Goap.Runtime
         public void AddLocalWorldSensor<TKey>(Func<IActionReceiver, IComponentReference, SenseValue> sense, ISensorTimer timer = null)
             where TKey : IWorldKey
         {
+            this.ValidateCalledFromConstructor();
+
             timer ??= SensorTimer.Always;
 
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
@@ -100,6 +104,8 @@ namespace CrashKonijn.Goap.Runtime
         public void AddGlobalWorldSensor<TKey>(Func<SenseValue> sense, ISensorTimer timer = null)
             where TKey : IWorldKey
         {
+            this.ValidateCalledFromConstructor();
+
             timer ??= SensorTimer.Always;
 
             this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
@@ -120,6 +126,8 @@ namespace CrashKonijn.Goap.Runtime
         public void AddLocalTargetSensor<TKey>(Func<IActionReceiver, IComponentReference, ITarget, ITarget> sense, ISensorTimer timer = null)
             where TKey : ITargetKey
         {
+            this.ValidateCalledFromConstructor();
+
             timer ??= SensorTimer.Always;
 
             this.LocalSensors.Add(typeof(TKey), new LocalSensor
@@ -140,6 +148,8 @@ namespace CrashKonijn.Goap.Runtime
         public void AddGlobalTargetSensor<TKey>(Func<ITarget, ITarget> sense, ISensorTimer timer = null)
             where TKey : ITargetKey
         {
+            this.ValidateCalledFromConstructor();
+
             timer ??= SensorTimer.Always;
 
             this.GlobalSensors.Add(typeof(TKey), new GlobalSensor
@@ -172,6 +182,23 @@ namespace CrashKonijn.Goap.Runtime
             }
 
             return sensors.ToArray();
+        }
+
+        private void ValidateCalledFromConstructor()
+        {
+#if UNITY_EDITOR
+            var stackTrace = new StackTrace();
+            var frames = stackTrace.GetFrames();
+
+            // Check if any of the frames belong to the constructor of this class
+            var calledFromConstructor = frames != null && frames.Any(f =>
+                f.GetMethod() is { IsConstructor: true } &&
+                typeof(MultiSensorBase).IsAssignableFrom(f.GetMethod().DeclaringType)
+            );
+
+            if (!calledFromConstructor)
+                throw new InvalidOperationException("Multi sensor registration must be added from the constructor of the sensor, not the Created method.");
+#endif
         }
     }
 

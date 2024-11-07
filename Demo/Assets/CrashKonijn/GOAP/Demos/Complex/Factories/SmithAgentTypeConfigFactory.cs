@@ -4,6 +4,7 @@ using CrashKonijn.Goap.Demos.Complex.Classes.Items;
 using CrashKonijn.Goap.Demos.Complex.Classes.Sources;
 using CrashKonijn.Goap.Demos.Complex.Factories.Capabilities;
 using CrashKonijn.Goap.Demos.Complex.Factories.Extensions;
+using CrashKonijn.Goap.Demos.Complex.Sensors.Multi;
 using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.Demos.Complex.Factories
@@ -13,7 +14,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
         public override IAgentTypeConfig Create()
         {
             var builder = new AgentTypeBuilder(SetIds.Smith);
-            
+
             builder.AddCapability<BaseCapability>();
             builder.AddCapability<WanderCapability>();
             builder.AddCapability<HungerCapability>();
@@ -34,9 +35,6 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
                 // TargetSensors
                 capability.AddClosestObjectTargetSensor<AnvilSource>();
 
-                capability.AddClosestItemTargetSensor<Iron>();
-                capability.AddClosestItemTargetSensor<Wood>();
-
                 capability.AddClosestSourceTargetSensor<Iron>();
                 capability.AddClosestSourceTargetSensor<Wood>();
 
@@ -44,10 +42,11 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
                 capability.AddIsHoldingSensor<Wood>();
                 capability.AddIsHoldingSensor<Iron>();
 
-                capability.AddIsInWorldSensor<Axe>();
-                capability.AddIsInWorldSensor<Pickaxe>();
-                capability.AddIsInWorldSensor<Wood>();
-                capability.AddIsInWorldSensor<Iron>();
+                // Multi sensor
+                capability.AddMultiSensor<ItemSensor<Axe>>();
+                capability.AddMultiSensor<ItemSensor<Pickaxe>>();
+                capability.AddMultiSensor<ItemSensor<Wood>>();
+                capability.AddMultiSensor<ItemSensor<Iron>>();
             });
 
             return builder.Build();

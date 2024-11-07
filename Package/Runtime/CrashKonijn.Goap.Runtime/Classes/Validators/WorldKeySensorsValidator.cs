@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
@@ -29,11 +30,11 @@ namespace CrashKonijn.Goap.Runtime
 
         private string[] GetMultiSensorKeys(IAgentTypeConfig agentTypeConfig)
         {
-            var temp = new ClassResolver().Load<IMultiSensor, IMultiSensorConfig>(agentTypeConfig.MultiSensors);
+            var sensors = new ClassResolver().Load<IMultiSensor, IMultiSensorConfig>(agentTypeConfig.MultiSensors);
 
-            return temp
+            return sensors
                 .SelectMany(x => x.GetKeys())
-                .Select(x => x.Name)
+                .Select(x => x.GetGenericTypeName())
                 .Distinct()
                 .ToArray();
         }
