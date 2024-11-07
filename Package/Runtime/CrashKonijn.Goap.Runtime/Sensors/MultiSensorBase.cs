@@ -197,7 +197,7 @@ namespace CrashKonijn.Goap.Runtime
             );
 
             if (!calledFromConstructor)
-                throw new InvalidOperationException("Multi sensor registration must be added from the constructor of the sensor, not the Created method.");
+                UnityEngine.Debug.LogWarning("Multi sensor registration must be added from the constructor of the sensor, not the Created method.");
 #endif
         }
     }
