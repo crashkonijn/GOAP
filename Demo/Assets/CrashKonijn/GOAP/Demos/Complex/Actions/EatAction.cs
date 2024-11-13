@@ -5,7 +5,6 @@ using CrashKonijn.Goap.Demos.Complex.Behaviours;
 using CrashKonijn.Goap.Demos.Complex.Goap;
 using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using CrashKonijn.Goap.Runtime;
-using UnityEngine;
 
 namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
@@ -17,10 +16,8 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
         {
             this.instanceHandler = injector.instanceHandler;
         }
-        
-        public override void Created()
-        {
-        }
+
+        public override void Created() { }
 
         public override void Start(IMonoAgent agent, Data data)
         {
@@ -32,7 +29,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
         {
             if (data.Eatable == null)
                 return false;
-            
+
             return true;
         }
 
@@ -47,18 +44,20 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
 
             if (data.Eatable.NutritionValue > 0)
                 return ActionRunState.Continue;
-            
+
             data.Inventory.Remove(data.Eatable);
             this.instanceHandler.QueueForDestroy(data.Eatable);
-            
+
             return ActionRunState.Completed;
         }
 
         public override void End(IMonoAgent agent, Data data)
         {
+            this.Disable(ActionDisabler.ForTime(5f));
+
             if (data.Eatable == null)
                 return;
-            
+
             if (data.Eatable.NutritionValue > 0)
                 data.Inventory.Add(data.Eatable);
         }
@@ -67,10 +66,10 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
         {
             public ITarget Target { get; set; }
             public IEatable Eatable { get; set; }
-            
+
             [GetComponent]
             public ComplexInventoryBehaviour Inventory { get; set; }
-            
+
             [GetComponent]
             public ComplexHungerBehaviour ComplexHunger { get; set; }
         }

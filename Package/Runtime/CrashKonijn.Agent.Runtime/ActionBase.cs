@@ -6,6 +6,8 @@ namespace CrashKonijn.Agent.Runtime
         where TActionData : IActionData, new()
         where TActionProperties : class, IActionProperties, new()
     {
+        private IActionDisabler disabler;
+
         public IActionData GetData()
         {
             return this.CreateData();
@@ -29,11 +31,28 @@ namespace CrashKonijn.Agent.Runtime
             return this.IsEnabled(agent, agent.Injector);
         }
 
+        public void Enable()
+        {
+            this.disabler = null;
+        }
+
+        public void Disable(IActionDisabler disabler)
+        {
+            this.disabler = disabler;
+        }
+
         public virtual bool IsEnabled(IActionReceiver receiver, IComponentReference references)
         {
-            if (receiver is IMonoAgent agent)
-                return !agent.DisabledActions.Contains(this.GetType());
+            if (this.disabler == null)
+                return true;
 
+            if (receiver is not IMonoAgent agent)
+                return true;
+
+            if (this.disabler.IsDisabled(agent))
+                return false;
+
+            this.Enable();
             return true;
         }
 

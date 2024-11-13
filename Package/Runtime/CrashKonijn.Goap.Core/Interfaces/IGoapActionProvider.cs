@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using UnityEngine;
 
@@ -53,6 +54,7 @@ namespace CrashKonijn.Goap.Core
         void ClearGoal();
         void StopAction(bool resolveAction = true);
         void SetDistanceMultiplierSpeed(float speed);
+        List<TAction> GetActions<TAction>() where TAction : IGoapAction;
 
         #region Obsolete
 

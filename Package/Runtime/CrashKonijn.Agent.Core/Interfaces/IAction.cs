@@ -44,5 +44,7 @@
 
         bool IsExecutable(IActionReceiver agent, bool conditionsMet);
         bool IsEnabled(IActionReceiver agent);
+        void Enable();
+        void Disable(IActionDisabler disabler);
     }
 }
