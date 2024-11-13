@@ -23,6 +23,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void Setup()
         {
             this.agent = Substitute.For<IMonoAgent>();
+            this.agent.ActionState.RunState.MayResolve(this.agent).Returns(true);
 
             this.goapActionProvider = Substitute.For<IMonoGoapActionProvider>();
             this.goapActionProvider.Receiver.Returns(this.agent);
