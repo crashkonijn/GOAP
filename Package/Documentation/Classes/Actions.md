@@ -97,6 +97,44 @@ The action class defines the behavior of the action. It should be stateless sinc
 
 The `IActionRunState` interface is a crucial component in the GOAP system. It defines the contract for action run states, which are responsible for determining the behavior of actions during their execution. These states decide when an action should be updated, stopped, performed, completed, or even resolved. They can also be used to 'pause' running an action, and come back later to continue it.
 
+### Enabling/Disabling Actions
+Each action can be enabled or disabled using the `action.Enable()` or `action.Disable(IActionDisabler)` methods. By default the following disablers are available:
+
+{% code lineNumbers="true" %}
+```csharp
+public static class ActionDisabler
+{
+    public static IActionDisabler Forever => new ForeverActionDisabler();
+    public static IActionDisabler ForTime(float time) => new ForTimeActionDisabler(time);
+}
+```
+{% endcode %}
+
+#### Examples
+
+{% code lineNumbers="true" %}
+```csharp
+foreach (var pickupAppleAction in this.actionProvider.GetActions<PickupAppleAction>())
+{
+    pickupAppleAction.Disable(ActionDisabler.Forever);
+}
+```
+{% endcode %}
+
+{% code  lineNumbers="true" %}
+```csharp
+public class EatAction : GoapActionBase<EatAction.Data>
+{
+    // Other methods omitted for brevity
+    public override void End(IMonoAgent agent, Data data)
+    {
+        // This will disable the action for 5 seconds
+        this.Disable(ActionDisabler.ForTime(5f));
+    }
+}
+```
+{% endcode %}
+
 #### Methods
 
 - `void Update(IAgent agent, IActionContext context)`: Updates the state of the action based on the current context and agent state. This method is called every frame during the action's execution.

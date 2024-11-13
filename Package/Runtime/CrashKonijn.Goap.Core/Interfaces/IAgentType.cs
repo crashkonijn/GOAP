@@ -14,6 +14,7 @@ namespace CrashKonijn.Goap.Core
         void Unregister(IMonoGoapActionProvider actionProvider);
         List<IConnectable> GetAllNodes();
         List<IGoapAction> GetActions();
+        List<TAction> GetActions<TAction>() where TAction : IGoapAction;
         List<IGoal> GetGoals();
 
         TGoal ResolveGoal<TGoal>()

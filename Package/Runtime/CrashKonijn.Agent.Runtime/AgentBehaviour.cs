@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using UnityEngine;
 
@@ -30,7 +29,6 @@ namespace CrashKonijn.Agent.Runtime
 
         public AgentState State { get; private set; } = AgentState.NoAction;
         public AgentMoveState MoveState { get; private set; } = AgentMoveState.Idle;
-        public List<Type> DisabledActions { get; } = new();
 
         [Obsolete("Use ActionState.Action instead.")]
         public IAction CurrentAction => this.ActionState.Action;
@@ -232,22 +230,18 @@ namespace CrashKonijn.Agent.Runtime
             this.UpdateTarget();
         }
 
+        [Obsolete("Enable actions from within the action itself, or disable using actionProvider.GetActions<TAction>.ForEach((action) => action.Enable(IActionDisabler))")]
         public void EnableAction<TAction>()
             where TAction : IAction
         {
-            if (!this.DisabledActions.Contains(typeof(TAction)))
-                return;
-
-            this.DisabledActions.Remove(typeof(TAction));
+            throw new Exception("Enable actions from within the action itself, or disable using actionProvider.GetActions<TAction>.ForEach((action) => action.Enable(IActionDisabler))");
         }
 
+        [Obsolete("Disable actions from within the action itself, or disable using actionProvider.GetActions<TAction>.ForEach((action) => action.Disable(IActionDisabler))")]
         public void DisableAction<TAction>()
             where TAction : IAction
         {
-            if (this.DisabledActions.Contains(typeof(TAction)))
-                return;
-
-            this.DisabledActions.Add(typeof(TAction));
+            throw new Exception("Disable actions from within the action itself, or disable using actionProvider.GetActions<TAction>.ForEach((action) => action.Disable(IActionDisabler))");
         }
     }
 }

@@ -7,19 +7,19 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 {
     public class SimpleHungerBehaviour : MonoBehaviour
     {
-        private AgentBehaviour agent;
+        private GoapActionProvider actionProvider;
         public float hunger = 50;
 
         [Button(nameof(EnablePickup))]
         public int enableButton;
-        
+
         [Button(nameof(DisablePickup))]
         public int disableButton;
 
         private void Awake()
         {
             this.hunger = Random.Range(0, 100f);
-            this.agent = this.GetComponent<AgentBehaviour>();
+            this.actionProvider = this.GetComponent<GoapActionProvider>();
         }
 
         private void FixedUpdate()
@@ -29,12 +29,18 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 
         public void EnablePickup()
         {
-            this.agent.EnableAction<PickupAppleAction>();
+            foreach (var pickupAppleAction in this.actionProvider.GetActions<PickupAppleAction>())
+            {
+                pickupAppleAction.Enable();
+            }
         }
 
         public void DisablePickup()
         {
-            this.agent.DisableAction<PickupAppleAction>();
+            foreach (var pickupAppleAction in this.actionProvider.GetActions<PickupAppleAction>())
+            {
+                pickupAppleAction.Disable(ActionDisabler.ForTime(1f));
+            }
         }
     }
 }

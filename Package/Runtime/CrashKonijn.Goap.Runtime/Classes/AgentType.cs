@@ -66,6 +66,7 @@ namespace CrashKonijn.Goap.Runtime
 
         public List<IConnectable> GetAllNodes() => this.actions.Cast<IConnectable>().Concat(this.goals).ToList();
         public List<IGoapAction> GetActions() => this.actions;
+        public List<TAction> GetActions<TAction>() where TAction : IGoapAction => this.actions.OfType<TAction>().ToList();
         public List<IGoal> GetGoals() => this.goals;
     }
 }

@@ -296,6 +296,8 @@ namespace CrashKonijn.Goap.Runtime
                 throw new GoapException($"There is no ActionReceiver assigned to the agent '{this.name}'! You're probably missing the ActionProvider on the AgentBehaviour.");
         }
 
+        public List<TAction> GetActions<TAction>() where TAction : IGoapAction => this.AgentType.GetActions<TAction>();
+
         #region Obsolete Methods
 
         [Obsolete("Use CurrentPlan.Goal instead")]
