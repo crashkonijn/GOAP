@@ -17,6 +17,22 @@ The framework introduces three distinct types of controllers, each designed to h
 - **Description**: Unlike the ReactiveController, the ProactiveController takes a more forward-looking approach. It periodically runs sensors and the action resolver, even if the agent does not currently need a new action. This proactive behavior can lead to the discovery of more optimal actions or the anticipation of future needs.
 - **Usage**: Best suited for agents that benefit from planning ahead or those operating in rapidly changing environments where early action can lead to better outcomes.
 
+#### MayResolve
+When using the ProactiveController, sometimes you don't want to re-resolve when certain actions are running. The `IActionRunState` interface implements the `MayResolve` method, which allows you to specify if the resolver may run during this run state.
+
+{% code line_number=true %} 
+```csharp
+public static readonly ActionRunState Continue = new ContinueActionRunState();
+public static readonly ActionRunState ContinueOrResolve = new ContinueOrResolveActionRunState();
+public static readonly ActionRunState Stop = new StopActionRunState();
+public static readonly ActionRunState Completed = new CompletedActionRunState();
+public static ActionRunState Wait(float time, bool mayResolve = false) => new WaitActionRunState(time, mayResolve);
+public static ActionRunState WaitThenComplete(float time, bool mayResolve = false) => new WaitThenCompleteActionRunState(time, mayResolve);
+public static ActionRunState WaitThenStop(float time, bool mayResolve = false) => new WaitThenStopActionRunState(time, mayResolve);
+public static ActionRunState StopAndLog(string message) => new StopAndLog(message);
+```
+{% endcode %}
+
 ### ManualController
 - **Description**: The ManualController provides the highest level of control, allowing for the manual execution of sensors and the action resolver. This controller is triggered explicitly by the agent, offering precise control over when the GOAP system is engaged.
 - **Usage**: Useful for agents that require direct control over their planning process, such as those in scenarios where timing and precision are critical.
