@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Resolver;
@@ -64,6 +65,9 @@ namespace CrashKonijn.Goap.Runtime
                 actionProvider.ClearGoal();
                 actionProvider.Events.GoalCompleted(goal.Goal);
             }
+
+            if (!this.MayResolve(actionProvider))
+                return;
 
             var goalRequest = actionProvider.GoalRequest;
 
@@ -167,6 +171,17 @@ namespace CrashKonijn.Goap.Runtime
             }
 
             return true;
+        }
+
+        private bool MayResolve(IGoapActionProvider actionProvider)
+        {
+            if (actionProvider.Receiver.ActionState?.RunState == null)
+                return true;
+
+            if (actionProvider.Receiver is not IAgent agent)
+                return true;
+
+            return actionProvider.Receiver.ActionState.RunState.MayResolve(agent);
         }
 
         public void Complete()
