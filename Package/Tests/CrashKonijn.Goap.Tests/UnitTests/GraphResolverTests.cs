@@ -76,7 +76,7 @@ namespace CrashKonijn.Goap.UnitTests
             // This can trigger in any test, even the ones that don't use the Job system
             NativeLeakDetection.Mode = NativeLeakDetectionMode.Disabled;
         }
-        
+
         [Test]
         public void Resolve_WithNoActions_ReturnsEmptyList()
         {
@@ -1026,6 +1026,78 @@ namespace CrashKonijn.Goap.UnitTests
             // Assert
             result.Actions.Should().HaveCount(1);
             result.Actions.Should().Equal(expensiveAction);
+        }
+
+        [TestCase(true, 1f)]
+        [TestCase(true, 0f)]
+        [TestCase(false, 1f)]
+        [TestCase(false, 0f)]
+        // Validating against a strange behaviour where the first item in the list is always picked
+        // Turned out due to another bug the distanceMultiplier got set to infinite which cause the issue
+        // Leaving the test here for future reference
+        public void Resolve_ShouldNot_PickFirstItem(bool cheapFirst, float distanceMultiplier)
+        {
+            // Arrange
+            var rootConnection = new TestConnection("Root");
+
+            var goal = new TestGoal("goal")
+            {
+                Conditions = new ICondition[] { rootConnection },
+            }.ToMock();
+            var expensiveAction = new TestAction("expensiveAction")
+            {
+                Effects = new IEffect[] { rootConnection },
+            }.ToMock();
+            var cheapAction = new TestAction("cheapAction")
+            {
+                Effects = new IEffect[] { rootConnection },
+            }.ToMock();
+
+            var actions = new IConnectable[] { goal, expensiveAction, cheapAction };
+
+            if (cheapFirst)
+                actions = new IConnectable[] { goal, cheapAction, expensiveAction };
+
+            var resolver = new GraphResolver(actions, new TestKeyResolver());
+
+            var executableBuilder = resolver.GetExecutableBuilder();
+            executableBuilder
+                .SetExecutable(expensiveAction, true)
+                .SetExecutable(cheapAction, true);
+
+            var positionBuilder = resolver.GetPositionBuilder()
+                .SetPosition(cheapAction, new float3(2, 0, 0))
+                .SetPosition(expensiveAction, new float3(2, 0, 0));
+
+            var costBuilder = resolver.GetCostBuilder();
+            costBuilder
+                .SetCost(expensiveAction, 10f)
+                .SetCost(cheapAction, 1f);
+
+            var conditionBuilder = resolver.GetConditionBuilder();
+            var enabledBuilder = resolver.GetEnabledBuilder();
+
+            // Act
+            var handle = resolver.StartResolve(new RunData
+            {
+                StartIndex = new NativeArray<int>(new[] { 0 }, Allocator.TempJob),
+                AgentPosition = Vector3.one,
+                IsEnabled = new NativeArray<bool>(enabledBuilder.Build(), Allocator.TempJob),
+                IsExecutable = new NativeArray<bool>(executableBuilder.Build(), Allocator.TempJob),
+                Positions = new NativeArray<float3>(positionBuilder.Build(), Allocator.TempJob),
+                Costs = new NativeArray<float>(costBuilder.Build(), Allocator.TempJob),
+                ConditionsMet = new NativeArray<bool>(conditionBuilder.Build(), Allocator.TempJob),
+                DistanceMultiplier = distanceMultiplier,
+            });
+
+            var result = handle.Complete();
+
+            // Cleanup
+            resolver.Dispose();
+
+            // Assert
+            result.Actions.Should().HaveCount(1);
+            result.Actions.Should().Equal(cheapAction);
         }
     }
 }

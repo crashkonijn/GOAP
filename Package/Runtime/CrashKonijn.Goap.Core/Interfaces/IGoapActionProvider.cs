@@ -53,6 +53,7 @@ namespace CrashKonijn.Goap.Core
         void SetAction(IGoalResult result);
         void ClearGoal();
         void StopAction(bool resolveAction = true);
+        void SetDistanceMultiplier(float multiplier);
         void SetDistanceMultiplierSpeed(float speed);
         List<TAction> GetActions<TAction>() where TAction : IGoapAction;
 
