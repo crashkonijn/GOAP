@@ -10,32 +10,32 @@ namespace CrashKonijn.Goap.Editor
     public class AboutEditorWindow : EditorWindow
     {
         private const int Version = 1;
-        
+
         private static string goapSource = "loading";
         private static string goapVersion = "loading";
         private static string collectionsVersion = "loading";
-        
+
         private static ListRequest request;
         private static AboutEditorWindow instance;
-        
+
         [MenuItem("Tools/GOAP/About")]
         private static void ShowWindow()
         {
             var window = GetWindow<AboutEditorWindow>();
             window.titleContent = new GUIContent("GOAP (About)");
             window.Show();
-            
+
             instance = window;
-            
+
             CheckProgress();
-            
+
             EditorApplication.update += CheckProgress;
         }
-        
+
         private void OnFocus()
         {
             instance = GetWindow<AboutEditorWindow>();
-            
+
             CheckProgress();
             this.Render();
         }
@@ -43,22 +43,22 @@ namespace CrashKonijn.Goap.Editor
         private void Render()
         {
             this.rootVisualElement.Clear();
-            
+
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss");
             this.rootVisualElement.styleSheets.Add(styleSheet);
-            
+
             styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/About.uss");
             this.rootVisualElement.styleSheets.Add(styleSheet);
-            
+
             // Add image
             this.rootVisualElement.Add(new Image
             {
-                image = AssetDatabase.LoadAssetAtPath<Texture2D>(GoapEditorSettings.BasePath + "/Textures/goap_header.png")
+                image = AssetDatabase.LoadAssetAtPath<Texture2D>(GoapEditorSettings.BasePath + "/Textures/goap_header.png"),
             });
-            
+
             var scrollView = new ScrollView();
             scrollView.verticalScrollerVisibility = ScrollerVisibility.Auto;
-            
+
             scrollView.Add(new Card((card) =>
             {
                 card.Add(new Label(this.GetText())
@@ -66,32 +66,42 @@ namespace CrashKonijn.Goap.Editor
                     style =
                     {
                         whiteSpace = WhiteSpace.Normal,
-                        overflow = Overflow.Hidden
-                    }
+                        overflow = Overflow.Hidden,
+                    },
                 });
             }));
 
             scrollView.Add(new Card((card) =>
             {
                 card.Add(new Label(this.GetDebugText()));
-                
+
                 this.AddButtons(card);
             }));
 
             scrollView.Add(new Card((card) =>
             {
+                card.Add(new Label("Links"));
+
                 this.AddLink(card, "Documentation", "https://goap.crashkonijn.com");
                 this.AddLink(card, "Discord", "https://discord.gg/dCPnHaYNrm");
                 this.AddLink(card, "Asset Store", "https://assetstore.unity.com/packages/slug/252687");
                 this.AddLink(card, "GitHub", "https://github.com/crashkonijn/GOAP");
-                
+
                 this.AddLink(card, "Tutorials", "https://www.youtube.com/playlist?list=PLZWmMt_TbeYeatHa9hntDPu4zGEBAFffn");
                 this.AddLink(card, "General References", "https://www.youtube.com/playlist?list=PLZWmMt_TbeYdBZKvlsRuuOubPTTfPuZot");
             }));
-            
+
+            scrollView.Add(new Card((card) =>
+            {
+                card.Add(new Label("Sponsor the project"));
+
+                this.AddLink(card, "GitHub Sponsors", "https://github.com/sponsors/crashkonijn");
+                this.AddLink(card, "Support Edition", "https://assetstore.unity.com/packages/slug/298995");
+            }));
+
             this.rootVisualElement.Add(scrollView);
         }
-        
+
         private void AddLink(VisualElement parent, string text, string url)
         {
             parent.Add(new Button(() =>
@@ -99,7 +109,7 @@ namespace CrashKonijn.Goap.Editor
                 Application.OpenURL(url);
             })
             {
-                text = text
+                text = text,
             });
         }
 
@@ -109,18 +119,18 @@ namespace CrashKonijn.Goap.Editor
             {
                 card.Add(new Button(CheckProgress)
                 {
-                    text = "Refresh"
+                    text = "Refresh",
                 });
-                
+
                 return;
             }
 
             card.Add(new Button(this.CopyDebug)
             {
-                text = "Copy debug to Clipboard"
+                text = "Copy debug to Clipboard",
             });
         }
-        
+
         private string GetDebugText()
         {
             return @$"GOAP Version:                  {goapVersion} ({goapSource})
@@ -143,7 +153,7 @@ I hope you enjoy using the GOAP!";
         {
             EditorGUIUtility.systemCopyBuffer = this.GetDebugText();
         }
-        
+
         private static void CheckProgress()
         {
             if (request == null)
@@ -151,7 +161,7 @@ I hope you enjoy using the GOAP!";
 
             if (!request.IsCompleted)
                 return;
-            
+
             EditorApplication.update -= CheckProgress;
 
             goapSource = request.Result.Any(x => x.name == "com.crashkonijn.goap") ? "Git" : "Asset Store";
