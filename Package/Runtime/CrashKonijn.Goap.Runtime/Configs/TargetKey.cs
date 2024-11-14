@@ -1,7 +1,9 @@
-﻿using CrashKonijn.Goap.Core;
+﻿using System;
+using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
+    [Obsolete("Use your own implementation of ITargetKey instead!")]
     public class TargetKey : ITargetKey
     {
         public TargetKey(string name)

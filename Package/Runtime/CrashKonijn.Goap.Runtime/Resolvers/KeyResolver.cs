@@ -8,17 +8,17 @@ namespace CrashKonijn.Goap.Runtime
     {
         protected override string GetKey(IAction action, ICondition condition)
         {
-            return condition.WorldKey.Name + this.GetText(condition.Comparison);
+            return condition.WorldKey.GetName() + this.GetText(condition.Comparison);
         }
 
         protected override string GetKey(IAction action, IEffect effect)
         {
-            return effect.WorldKey.Name + this.GetText(effect.Increase);
+            return effect.WorldKey.GetName() + this.GetText(effect.Increase);
         }
 
         protected override string GetKey(IGoal action, ICondition condition)
         {
-            return condition.WorldKey.Name + this.GetText(condition.Comparison);
+            return condition.WorldKey.GetName() + this.GetText(condition.Comparison);
         }
 
         private string GetText(bool value)

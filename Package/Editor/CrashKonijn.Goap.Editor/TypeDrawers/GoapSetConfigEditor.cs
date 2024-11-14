@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
@@ -15,16 +14,16 @@ namespace CrashKonijn.Goap.Editor
     public class GoapSetConfigEditor : UnityEditor.Editor
     {
         private GoapSetConfigScriptable config;
-        
+
         public override VisualElement CreateInspectorGUI()
         {
             this.config = (GoapSetConfigScriptable) this.target;
-            
+
             var root = new VisualElement();
-            
+
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss");
             root.styleSheets.Add(styleSheet);
-            
+
             root.Add(this.Group("Upgrade", card =>
             {
                 // CapabilityConfigScriptable capabilityScriptable = default;
@@ -42,15 +41,15 @@ namespace CrashKonijn.Goap.Editor
                 // });
                 //
                 // card.Add(input);
-                
+
                 card.Add(new PropertyField(this.serializedObject.FindProperty("capabilityConfig")));
-                
+
                 var button = new Button(() =>
                 {
                     this.Upgrade(this.config.capabilityConfig);
                 })
                 {
-                    text = "Upgrade to CapabilityConfigs"
+                    text = "Upgrade to CapabilityConfigs",
                 };
 
                 card.Add(button);
@@ -61,44 +60,44 @@ namespace CrashKonijn.Goap.Editor
                 card.Add(new PropertyField(this.serializedObject.FindProperty("actions")));
                 card.Add(new PropertyField(this.serializedObject.FindProperty("goals")));
             }));
-            
+
             root.Add(this.Group("World Keys", card =>
             {
                 card.Add(new PropertyField(this.serializedObject.FindProperty("worldSensors")));
                 card.Add(this.SimpleLabelView("World keys", this.config.GetWorldKeys(), (label, key) =>
                 {
-                    label.text = key.Name;
+                    label.text = key.GetName();
                 }));
             }));
-            
+
             root.Add(this.Group("Targets", card =>
             {
                 card.Add(new PropertyField(this.serializedObject.FindProperty("targetSensors")));
                 card.Add(this.SimpleLabelView("Target keys", this.config.GetTargetKeys(), (label, key) =>
                 {
-                    label.text = key.Name;
+                    label.text = key.GetName();
                 }));
             }));
-            
+
             var validateButton = new Button(() =>
             {
                 var validator = new AgentTypeConfigValidatorRunner();
                 var results = validator.Validate(this.config);
-                
+
                 foreach (var error in results.GetErrors())
                 {
                     Debug.LogError(error);
                 }
-            
+
                 foreach (var warning in results.GetWarnings())
                 {
                     Debug.LogWarning(warning);
                 }
-                
+
                 if (!results.HasErrors() && !results.HasWarnings())
                     Debug.Log("No errors or warnings found!");
             });
-            
+
             validateButton.Add(new Label("Validate"));
 
             root.Add(validateButton);
@@ -115,21 +114,21 @@ namespace CrashKonijn.Goap.Editor
                 {
                     goal = new ClassRef
                     {
-                        Name = this.GetName(goalConfig.ClassType)
+                        Name = this.GetName(goalConfig.ClassType),
                     },
                     baseCost = goalConfig.BaseCost,
                     conditions = goalConfig.Conditions.Select(x => new CapabilityCondition
                     {
                         worldKey = new ClassRef
                         {
-                            Name = x.WorldKey.Name
+                            Name = x.WorldKey.GetName(),
                         },
                         comparison = x.Comparison,
-                        amount = x.Amount
-                    }).ToList()
+                        amount = x.Amount,
+                    }).ToList(),
                 });
             }
-            
+
             capabilityScriptable.actions.Clear();
             foreach (var actionConfig in this.config.Actions)
             {
@@ -137,11 +136,11 @@ namespace CrashKonijn.Goap.Editor
                 {
                     action = new ClassRef
                     {
-                        Name = this.GetName(actionConfig.ClassType)
+                        Name = this.GetName(actionConfig.ClassType),
                     },
                     target = new ClassRef
                     {
-                        Name = actionConfig.Target.Name
+                        Name = actionConfig.Target.GetName(),
                     },
                     baseCost = actionConfig.BaseCost,
                     stoppingDistance = actionConfig.StoppingDistance,
@@ -149,22 +148,22 @@ namespace CrashKonijn.Goap.Editor
                     {
                         worldKey = new ClassRef
                         {
-                            Name = x.WorldKey.Name
+                            Name = x.WorldKey.GetName(),
                         },
                         comparison = x.Comparison,
-                        amount = x.Amount
+                        amount = x.Amount,
                     }).ToList(),
                     effects = actionConfig.Effects.Select(x => new CapabilityEffect
                     {
                         worldKey = new ClassRef
                         {
-                            Name = x.WorldKey.Name
+                            Name = x.WorldKey.GetName(),
                         },
                         effect = x.Increase ? EffectType.Increase : EffectType.Decrease,
-                    }).ToList()
+                    }).ToList(),
                 });
             }
-            
+
             capabilityScriptable.worldSensors.Clear();
             foreach (var worldSensorConfig in this.config.WorldSensors)
             {
@@ -172,15 +171,15 @@ namespace CrashKonijn.Goap.Editor
                 {
                     sensor = new ClassRef
                     {
-                        Name = this.GetName(worldSensorConfig.ClassType)
+                        Name = this.GetName(worldSensorConfig.ClassType),
                     },
                     worldKey = new ClassRef
                     {
-                        Name = worldSensorConfig.Key.Name
-                    }
+                        Name = worldSensorConfig.Key.GetName(),
+                    },
                 });
             }
-            
+
             capabilityScriptable.targetSensors.Clear();
             foreach (var targetSensorConfig in this.config.TargetSensors)
             {
@@ -188,15 +187,15 @@ namespace CrashKonijn.Goap.Editor
                 {
                     sensor = new ClassRef
                     {
-                        Name = this.GetName(targetSensorConfig.ClassType)
+                        Name = this.GetName(targetSensorConfig.ClassType),
                     },
                     targetKey = new ClassRef
                     {
-                        Name = targetSensorConfig.Key.Name
-                    }
+                        Name = targetSensorConfig.Key.GetName(),
+                    },
                 });
             }
-            
+
             EditorUtility.SetDirty(capabilityScriptable);
             AssetDatabase.SaveAssetIfDirty(capabilityScriptable);
             // Set selected object to the new capability scriptable
@@ -206,7 +205,7 @@ namespace CrashKonijn.Goap.Editor
         private string GetName(string fullName)
         {
             var parts = fullName.Split(',').First();
-            
+
             return parts.Split('.').Last();
         }
 
@@ -230,7 +229,7 @@ namespace CrashKonijn.Goap.Editor
                 {
                     bind(element as Label, list[index]);
                 },
-                selectionType = SelectionType.None
+                selectionType = SelectionType.None,
             };
             listView.AddToClassList("card");
             foldout.Add(listView);

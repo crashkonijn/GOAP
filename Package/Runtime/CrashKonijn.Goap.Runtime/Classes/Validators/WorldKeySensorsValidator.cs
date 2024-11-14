@@ -8,7 +8,7 @@ namespace CrashKonijn.Goap.Runtime
     {
         public void Validate(IAgentTypeConfig agentTypeConfig, IValidationResults results)
         {
-            var required = agentTypeConfig.GetWorldKeys().Select(x => x.Name).Distinct();
+            var required = agentTypeConfig.GetWorldKeys().Select(x => x.GetName()).Distinct();
             var provided = this.GetWorldSensorKeys(agentTypeConfig).Concat(this.GetMultiSensorKeys(agentTypeConfig));
 
             var missing = required.Except(provided).ToHashSet();
@@ -23,7 +23,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             return agentTypeConfig.WorldSensors
                 .Where(x => x.Key != null)
-                .Select(x => x.Key.Name)
+                .Select(x => x.Key.GetName())
                 .Distinct()
                 .ToArray();
         }

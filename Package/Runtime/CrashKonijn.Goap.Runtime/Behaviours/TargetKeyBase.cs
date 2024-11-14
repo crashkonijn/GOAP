@@ -2,8 +2,5 @@
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public abstract class TargetKeyBase : ITargetKey
-    {
-        public string Name { get; set; }
-    }
+    public abstract class TargetKeyBase : ITargetKey { }
 }
