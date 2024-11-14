@@ -282,8 +282,19 @@ namespace CrashKonijn.Goap.Runtime
             this.CurrentPlan = null;
         }
 
+        public void SetDistanceMultiplier(float multiplier)
+        {
+            if (multiplier < 0f)
+                throw new GoapException("The distance multiplier must be >= 0.");
+
+            this.DistanceMultiplier = multiplier;
+        }
+
         public void SetDistanceMultiplierSpeed(float speed)
         {
+            if (speed <= 0f)
+                throw new GoapException("The speed value must be greater than 0. To disable the distance multiplier, use SetDistanceMultiplier(0f).");
+
             this.DistanceMultiplier = 1f / speed;
         }
 
