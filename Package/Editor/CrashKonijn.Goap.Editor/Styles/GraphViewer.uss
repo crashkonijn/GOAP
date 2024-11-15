@@ -184,8 +184,8 @@
 }
 
 .node-wrapper, .child-wrapper {
-    /*flex-grow: 0; !* Don’t grow larger than content *!*/
-    /*flex-shrink: 0; !* Don’t shrink smaller than content *!*/
+    flex-grow: 0; /* Don’t grow larger than content */
+    flex-shrink: 0; /* Don’t shrink smaller than content */
 
     margin: 10px 20px;
 
