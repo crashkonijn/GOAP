@@ -1,18 +1,18 @@
-﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Classes.Items;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
+﻿using System;
+using System.Linq;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Classes.Items;
+using CrashKonijn.Goap.Demos.Complex.Goap;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-namespace Demos.Complex.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class CreateItemAction<TCreatable> : ActionBase<CreateItemAction<TCreatable>.Data>, IInjectable
+    public class CreateItemAction<TCreatable> : GoapActionBase<CreateItemAction<TCreatable>.Data, CreateItemAction<TCreatable>.Props>, IInjectable
         where TCreatable : ItemBase, ICreatable
     {
         private ItemFactory itemFactory;
@@ -30,59 +30,49 @@ namespace Demos.Complex.Actions
         
         public override void Start(IMonoAgent agent, Data data)
         {
-            data.Timer = 5f;
-            data.RequiredWood = this.GetRequiredWood();
-            data.RequiredIron = this.GetRequiredIron();
+            data.WaitState = ActionRunState.Wait(5f);
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override void BeforePerform(IMonoAgent agent, Data data)
         {
-            if (data.State == State.NotStarted)
+            this.RemoveRequiredResources(data);
+        }
+
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        {
+            if (data.WaitState.IsRunning())
             {
-                data.State = State.Started;
-                this.RemoveRequiredResources(data);
+                return data.WaitState;
             }
             
-            data.Timer -= context.DeltaTime;
-            
-            if (data.Timer > 0)
-                return ActionRunState.Continue;
-            
-            var item = this.itemFactory.Instantiate<TCreatable>();
-            item.transform.position = this.GetRandomPosition(agent);
-            
-            return ActionRunState.Stop;
+            return ActionRunState.Completed;
         }
 
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
         {
+        }
+
+        public override void Complete(IMonoAgent agent, Data data)
+        {
+            var item = this.itemFactory.Instantiate<TCreatable>();
+            item.transform.position = this.GetRandomPosition(agent);
         }
 
         private void RemoveRequiredResources(Data data)
         {
-            for (var i = 0; i < data.RequiredIron; i++)
+            for (var i = 0; i < this.Properties.requiredIron; i++)
             {
                 var iron = data.Inventory.Get<Iron>().FirstOrDefault();
                 data.Inventory.Remove(iron);
                 this.instanceHandler.QueueForDestroy(iron);
             }
             
-            for (var j = 0; j < data.RequiredWood; j++)
+            for (var j = 0; j < this.Properties.requiredWood; j++)
             {
                 var wood = data.Inventory.Get<Wood>().FirstOrDefault();
                 data.Inventory.Remove(wood);
                 this.instanceHandler.QueueForDestroy(wood);
             }
-        }
-
-        private int GetRequiredWood()
-        {
-            return this.Config.Conditions.FirstOrDefault(x => x.WorldKey.Name == "IsHolding<Wood>")!.Amount;
-        }
-
-        private int GetRequiredIron()
-        {
-            return this.Config.Conditions.FirstOrDefault(x => x.WorldKey.Name == "IsHolding<Iron>")!.Amount;
         }
         
         private Vector3 GetRandomPosition(IMonoAgent agent)
@@ -92,22 +82,20 @@ namespace Demos.Complex.Actions
             return agent.transform.position + new Vector3(pos.x, 0f, pos.y);
         }
         
+        [Serializable]
+        public class Props : IActionProperties
+        {
+            public int requiredWood;
+            public int requiredIron;
+        }
+        
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
-            public int RequiredWood { get; set; }
-            public int RequiredIron { get; set; }
-            public State State { get; set; } = State.NotStarted;
-            public float Timer { get; set; }
+            public IActionRunState WaitState { get; set; }
             
             [GetComponent]
             public ComplexInventoryBehaviour Inventory { get; set; }
-        }
-
-        public enum State
-        {
-            NotStarted,
-            Started
         }
     }
 }

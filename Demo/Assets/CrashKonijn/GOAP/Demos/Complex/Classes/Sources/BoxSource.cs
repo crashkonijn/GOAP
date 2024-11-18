@@ -1,8 +1,8 @@
 ﻿using System;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
 using UnityEngine;
 
-namespace Demos.Complex.Classes.Sources
+namespace CrashKonijn.Goap.Demos.Complex.Classes.Sources
 {
     public class BoxSource : MonoBehaviour
     {

@@ -1,4 +1,10 @@
-﻿# FAQ
+# FAQ
+
+## How can I support this project?
+
+The best way to support this project is to use it, and provide feedback. If you find a bug, or have a feature request, please create an issue on the [GitHub repository](https://github.com/crashkonijn/GOAP). Making your own contributions is also a great way to support the project. This can be done by creating a pull request on the [GitHub repository](https://github.com/crashkonijn/GOAP).
+
+If you want to support the project financially, you can do so by donating to the [GitHub Sponsor](https://github.com/sponsors/crashkonijn) page or by buying the [Support Edition](https://assetstore.unity.com/packages/slug/298995) on the Unity Asset Store.
 
 ## Why does each action need a target?
 
@@ -16,5 +22,4 @@ This does make the graph much smaller. However each action would require logic f
 
 This is the option this project uses. This uses a smaller graph than option 1. This doesn't need to perform movement in an action, keeping them simpler. The graph calculates distance between two actions, adding that cost automatically. Actions don't need to be aware of each other, or their relative position in the graph, making them simpler.
 
-![With move actions](../images/faq_target_with_move_actions.png)
-![Without move actions](../images/faq_target_without_move_action.png)
+![With move actions](../images/faq\_target\_with\_move\_actions.png) ![Without move actions](../images/faq\_target\_without\_move\_action.png)

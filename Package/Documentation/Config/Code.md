@@ -10,81 +10,98 @@ Setting up your GOAP system using code is the most flexible way to configure you
 **Example** The complex demo uses code as the configuration method.
 {% endhint %}
 
-## Sets
+## AgentType
 
-To create a set, you must create a class that inherits from `GoapSetFactoryBase`. This class must implement the `Create` method which returns a `IGoapSetConfig`. To make building the set easier, you can use the `GoapSetBuilder` class.
+To create an agent type, you must create a class that inherits from `AgentTypeFactoryBase`. This class must implement the `Create` method which returns a `IAgentTypeConfig`. To make building the set easier, you can use the `AgentTypeBuilder` class.
 
 {% code title="GoapSetConfigFactory.cs" lineNumbers="true" %}
 ```csharp
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.Builders;
-using CrashKonijn.Goap.Configs.Interfaces;
-using Demos.Complex.Classes;
-using Demos.Complex.Classes.Items;
-using Demos.Complex.Factories.Extensions;
-using Demos.Complex.Interfaces;
-using Demos.Shared;
+using CrashKonijn.Docs.GettingStarted.Capabilities;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 
-public class GoapSetConfigFactory : GoapSetFactoryBase
+namespace CrashKonijn.Docs.GettingStarted.AgentTypes
 {
-    public override IGoapSetConfig Create()
+    public class DemoAgentTypeFactory : AgentTypeFactoryBase
     {
-        var builder = new GoapSetBuilder("ComplexSet");
-        
-        // Goals
-        builder.AddGoal<WanderGoal>()
-            .AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
+        public override IAgentTypeConfig Create()
+        {
+            var factory = new AgentTypeBuilder("DemoAgent");
+            
+            factory.AddCapability<IdleCapabilityFactory>();
+            factory.AddCapability<PearCapability>();
 
-        builder.AddGoal<FixHungerGoal>()
-            .AddCondition<IsHungry>(Comparison.SmallerThanOrEqual, 0);
+            return factory.Build();
+        }
+    }
+}
 
-        // Actions
-        builder.AddAction<WanderAction>()
-            .SetTarget<WanderTarget>()
-            .AddEffect<IsWandering>(true)
-            .SetBaseCost(1f)
-            .SetInRange(0.3f);
+```
+{% endcode %}
 
-        builder.AddAction<PickupItemAction<IEatable>>()
-            .SetTarget<ClosestTarget<IEatable>>()
-            .AddEffect<IsHolding<IEatable>>(true)
-            .AddCondition<IsInWorld<IEatable>>(Comparison.GreaterThanOrEqual, 1)
-            .SetBaseCost(1f)
-            .SetInRange(0.3f);
+## Capabilities
 
-        // Target Sensors
-        builder.AddTargetSensor<WanderTargetSensor>()
-            .SetTarget<WanderTarget>();
+To create a capability, you must create a class that inherits from `CapabilityFactoryBase`. This class must implement the `Create` method which returns a `ICapabilityConfig`. To make building the set easier, you can use the `CapabilityBuilder` class.
 
-        builder.AddTargetSensor<ClosestItemSensor<IEatable>>()
-            .SetTarget<ClosestTarget<IEatable>>();
+{% code title="IdleCapabilityFactory.cs" lineNumbers="true" %}
+```csharp
+using CrashKonijn.Docs.GettingStarted.Actions;
+using CrashKonijn.Docs.GettingStarted.Sensors;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 
-        // World Sensors
-        builder.AddWorldSensor<IsHoldingSensor<IEatable>>()
-            .SetKey<IsHolding<IEatable>>());
+namespace CrashKonijn.Docs.GettingStarted.Capabilities
+{
+    public class IdleCapabilityFactory : CapabilityFactoryBase
+    {
+        public override ICapabilityConfig Create()
+        {
+            var builder = new CapabilityBuilder("IdleCapability");
 
-        builder.AddWorldSensor<IsInWorldSensor<IEatable>>()
-            .SetKey<IsInWorld<IEatable>>();
+            builder.AddGoal<IdleGoal>()
+                .AddCondition<IsIdle>(Comparison.GreaterThanOrEqual, 1)
+                .SetBaseCost(2);
 
-        return builder.Build();
+            builder.AddAction<IdleAction>()
+                .AddEffect<IsIdle>(EffectType.Increase)
+                .SetTarget<IdleTarget>();
+
+            builder.AddTargetSensor<IdleTargetSensor>()
+                .SetTarget<IdleTarget>();
+            
+            return builder.Build();
+        }
     }
 }
 ```
 {% endcode %}
 
-### Adding the set to GOAP
-Add the created class to a GameObject in the scene. Add it to the list on the `GoapRunnerBehaviour` component. This will initialize the set.
-
-![Goap Runner Behaviour component](../images/scripts_goap_runner_behaviour.png)
-
-### Adding the set to the agent.
-Using a script, set the `GoapSet` property on an agent.
+### Callbacks
+In v3 you can add a callback to your builder methods, giving you access to the instance of each class. This allows you to set extra data.
 
 {% code lineNumbers="true" %}
 ```csharp
-var goapRunner = FindObjectOfType<GoapRunnerBehaviour>();
-var set = goapRunner.GetSet("ComplexSet");
+capability.AddAction<HaulItemAction>()
+    .SetCallback((action) =>
+    {
+        action.CustomData = "Example";
+    });
+```
+{% endcode %}
 
-agent.GetComponent<AgentBehaviour>.GoapSet = set;
+### Adding the set to GOAP
+Add the created class to a GameObject in the scene. Add it to the list on the `GoapBehaviour` component. This will initialize the set.
+
+![Goap Behaviour component](../images/scripts_goap_behaviour.png)
+
+### Adding the set to the agent.
+Using a script, set the `AgentType` property on an agent.
+
+{% code lineNumbers="true" %}
+```csharp
+var goap = FindObjectOfType<GoapBehaviour>();
+var type = goap.GetAgentType("DemoAgent");
+
+agent.GetComponent<GoapActionProvider>.AgentType = type;
 ```
 {% endcode %}

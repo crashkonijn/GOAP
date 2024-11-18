@@ -1,5 +1,6 @@
 using System.Collections;
 using NUnit.Framework;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 namespace Tests.PlayMode
@@ -9,7 +10,7 @@ namespace Tests.PlayMode
         [OneTimeSetUp]
         public void LoadScene()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("SimpleDemoScene");
+            SceneManager.LoadScene("SimpleDemoScene");
         }
 
         [UnityTest]
@@ -21,6 +22,12 @@ namespace Tests.PlayMode
             }
             
             LogAssert.NoUnexpectedReceived();
+        }
+        
+        [OneTimeTearDown]
+        public void UnloadScene()
+        {
+            SceneManager.LoadScene("EmptyScene");
         }
     }
 }

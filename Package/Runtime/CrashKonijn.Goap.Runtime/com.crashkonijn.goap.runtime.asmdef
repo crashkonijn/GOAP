@@ -1,0 +1,20 @@
+{
+    "name": "CrashKonijn.Goap.Runtime",
+    "rootNamespace": "CrashKonijn.Goap.Runtime",
+    "references": [
+        "GUID:e52adf591423434e8c16eeb452c84a82",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:1492f7fc38ce464dae5c20df05fd22e3",
+        "GUID:0d347051544a4880a72466503e27985a",
+        "GUID:4d9088d80ac84f52b9b07421f95af69c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

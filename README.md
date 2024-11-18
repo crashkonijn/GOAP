@@ -30,7 +30,7 @@ Integrate GOAP into your Unity project using one of the following methods:
 - **Unity Package Manager**:
 Add the package via the package manager using this URL:
 ```
-https://github.com/crashkonijn/GOAP.git?path=/Package#2.1.22
+https://github.com/crashkonijn/GOAP.git?path=/Package#3.0.23-beta
 ```
 
 - **OpenUPM**:
@@ -47,6 +47,9 @@ Visualize your GOAP nodes and their interactions with our intuitive Node Viewer.
 ## Documentation and Examples
 - **Documentation**: Access comprehensive guides and API references in the `Package/Documentation` folder or visit [goap.crashkonijn.com](https://goap.crashkonijn.com/).
 - **Demos**: Explore practical implementations in the Demo folder. Simply clone this repository and open the Demo project in Unity to get started.
+
+## Sponsoring
+If you'd like to sponsor the project, this can be done through my [GitHub Sponsor](https://github.com/sponsors/crashkonijn) page or by buying the [Support Edition](https://assetstore.unity.com/packages/slug/298995) on the Unity Asset Store.
 
 ## References
 - **[YouTube tutorials](https://www.youtube.com/playlist?list=PLZWmMt_TbeYeatHa9hntDPu4zGEBAFffn)** on how to use the library.

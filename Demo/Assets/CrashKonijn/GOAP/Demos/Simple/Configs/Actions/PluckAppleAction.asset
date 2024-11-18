@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84dc95c722d24e5db52864cbbff874fb, type: 3}
   m_Name: PluckAppleAction
   m_EditorClassIdentifier: 
-  actionClass: Demos.Simple.Actions.PluckAppleAction, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
+  actionClass: CrashKonijn.Goap.Demos.Simple.Goap.Actions.PluckAppleAction, com.crashkonijn.goap.demos.simple,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   target: {fileID: 11400000, guid: 7d42444bc4dd1734fad0e940217b6957, type: 2}
+  <BaseCost>k__BackingField: 1
+  <StoppingDistance>k__BackingField: 0.1
+  <RequiresTarget>k__BackingField: 1
+  <ValidateConditions>k__BackingField: 1
+  <MoveMode>k__BackingField: 0
   conditions: []
   effects:
   - worldKey: {fileID: 11400000, guid: 4cc9aaaf590d3e346947382bd8b9fd0c, type: 2}
     <Increase>k__BackingField: 1
-  <BaseCost>k__BackingField: 1
-  <InRange>k__BackingField: 0.1

@@ -1,11 +1,9 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
+﻿using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.UnitTests.Classes
 {
-    public class TestAction : ActionBase<TestAction.Data>
+    public class TestAction : GoapActionBase<TestAction.Data>
     {
         public override void Created()
         {
@@ -15,15 +13,19 @@ namespace CrashKonijn.Goap.UnitTests.Classes
         {
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
             return ActionRunState.Continue;
         }
 
-        public override void End(IMonoAgent agent, Data data)
+        public override void Stop(IMonoAgent agent, Data data)
         {
         }
-        
+
+        public override void Complete(IMonoAgent agent, Data data)
+        {
+        }
+
         public class Data : IActionData
         {
             public ITarget Target { get; set; }

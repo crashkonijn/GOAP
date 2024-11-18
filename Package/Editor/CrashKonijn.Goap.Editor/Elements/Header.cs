@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class Header : VisualElement
     {

@@ -1,0 +1,20 @@
+{
+    "name": "com.crashkonijn.goap.demos.turn-based",
+    "rootNamespace": "CrashKonijn.Goap.Demos.TurnBased",
+    "references": [
+        "GUID:6eb7f39de256eea4bb8708df2c32e1ba",
+        "GUID:1492f7fc38ce464dae5c20df05fd22e3",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:0d347051544a4880a72466503e27985a",
+        "GUID:4d9088d80ac84f52b9b07421f95af69c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,4 +1,4 @@
-﻿# Theory
+# What is Goap?
 
 Goal Oriented Action Planning (GOAP) is a technique commonly used in game AI to create agents that can autonomously determine their actions and achieve specific goals within the game environment. GOAP can be used to create complex and adaptive behavior for non-player characters (NPCs) in a game.
 

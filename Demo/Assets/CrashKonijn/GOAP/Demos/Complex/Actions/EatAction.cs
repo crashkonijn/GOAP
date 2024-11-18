@@ -1,17 +1,14 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Interfaces;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Goap;
-using Demos.Complex.Interfaces;
-using Demos.Shared.Behaviours;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Goap;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 
-namespace Demos.Complex.Actions
+namespace CrashKonijn.Goap.Demos.Complex.Actions
 {
-    public class EatAction : ActionBase<EatAction.Data>, IInjectable
+    public class EatAction : GoapActionBase<EatAction.Data>, IInjectable
     {
         private InstanceHandler instanceHandler;
 
@@ -20,9 +17,7 @@ namespace Demos.Complex.Actions
             this.instanceHandler = injector.instanceHandler;
         }
 
-        public override void Created()
-        {
-        }
+        public override void Created() { }
 
         public override void Start(IMonoAgent agent, Data data)
         {
@@ -30,49 +25,53 @@ namespace Demos.Complex.Actions
             data.Inventory.Hold(data.Eatable);
         }
 
-        public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
+        public override bool IsValid(IActionReceiver agent, Data data)
         {
             if (data.Eatable == null)
-                return ActionRunState.Stop;
-            
+                return false;
+
+            return true;
+        }
+
+        public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+        {
             var eatNutrition = context.DeltaTime * 20f;
             data.Eatable.NutritionValue -= eatNutrition;
-            data.Hunger.hunger -= eatNutrition;
+            data.ComplexHunger.hunger -= eatNutrition;
 
-            if (data.Hunger.hunger <= 20f)
-                return ActionRunState.Stop;
+            if (data.ComplexHunger.hunger <= 20f)
+                return ActionRunState.Completed;
 
             if (data.Eatable.NutritionValue > 0)
                 return ActionRunState.Continue;
 
-            if (data.Eatable == null)
-                return ActionRunState.Stop;
-            
             data.Inventory.Remove(data.Eatable);
             this.instanceHandler.QueueForDestroy(data.Eatable);
-            
-            return ActionRunState.Stop;
+
+            return ActionRunState.Completed;
         }
 
         public override void End(IMonoAgent agent, Data data)
         {
+            this.Disable(ActionDisabler.ForTime(5f));
+
             if (data.Eatable == null)
                 return;
-            
+
             if (data.Eatable.NutritionValue > 0)
                 data.Inventory.Add(data.Eatable);
         }
-        
+
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
             public IEatable Eatable { get; set; }
-            
+
             [GetComponent]
             public ComplexInventoryBehaviour Inventory { get; set; }
-            
+
             [GetComponent]
-            public HungerBehaviour Hunger { get; set; }
+            public ComplexHungerBehaviour ComplexHunger { get; set; }
         }
     }
 }

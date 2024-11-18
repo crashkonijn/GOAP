@@ -1,7 +1,7 @@
 using System;
-using CrashKonijn.Goap.Resolver.Interfaces;
+using CrashKonijn.Goap.Core;
 
-namespace CrashKonijn.Goap.Editor.Classes.Models
+namespace CrashKonijn.Goap.Editor
 {
     public class NodeEffect
     {

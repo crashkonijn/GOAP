@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Configs.Interfaces;
-using CrashKonijn.Goap.Interfaces;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
@@ -19,27 +18,27 @@ namespace CrashKonijn.Goap.UnitTests.Validators
 
             var condition = Substitute.For<ICondition>();
             condition.WorldKey.Returns(Substitute.For<IWorldKey>());
-            
+
             var action = Substitute.For<IActionConfig>();
             action.Conditions.Returns(new[] { condition });
-            
-            var config = Substitute.For<IGoapSetConfig>();
+
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>
             {
-                action
+                action,
             });
             config.WorldSensors.Returns(new List<IWorldSensorConfig>());
-            
+
             var validator = new WorldKeySensorsValidator();
-            
+
             // Act
             validator.Validate(config, results);
-            
+
             // Assert
             results.HasWarnings().Should().BeTrue();
             results.HasErrors().Should().BeFalse();
         }
-        
+
         [Test]
         public void Validate_NoMissingSensor_ShouldReturnNoWarning()
         {
@@ -47,33 +46,33 @@ namespace CrashKonijn.Goap.UnitTests.Validators
             var results = new ValidationResults("test");
 
             var worldKey = Substitute.For<IWorldKey>();
-            
+
             var condition = Substitute.For<ICondition>();
             condition.WorldKey.Returns(worldKey);
-            
+
             var sensor = Substitute.For<IWorldSensorConfig>();
             sensor.Key.Returns(worldKey);
-            
+
             var action = Substitute.For<IActionConfig>();
             action.Conditions.Returns(new[] { condition });
-            
-            var config = Substitute.For<IGoapSetConfig>();
+
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>
             {
-                action
+                action,
             });
-            config.WorldSensors.Returns(new List<IWorldSensorConfig>{ sensor });
-            
+            config.WorldSensors.Returns(new List<IWorldSensorConfig> { sensor });
+
             var validator = new WorldKeySensorsValidator();
-            
+
             // Act
             validator.Validate(config, results);
-            
+
             // Assert
             results.HasWarnings().Should().BeFalse();
             results.HasErrors().Should().BeFalse();
         }
-        
+
         [Test]
         // This test breaks if the validator doesn't handle null values properly.
         public void Validate_WithNullWorldKey_ShouldReturnNoWarnings()
@@ -83,27 +82,27 @@ namespace CrashKonijn.Goap.UnitTests.Validators
 
             var condition = Substitute.For<ICondition>();
             condition.WorldKey.ReturnsNull();
-            
+
             var action = Substitute.For<IActionConfig>();
             action.Conditions.Returns(new[] { condition });
-            
-            var config = Substitute.For<IGoapSetConfig>();
+
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>
             {
-                action
+                action,
             });
             config.WorldSensors.Returns(new List<IWorldSensorConfig>());
-            
+
             var validator = new WorldKeySensorsValidator();
-            
+
             // Act
             validator.Validate(config, results);
-            
+
             // Assert
             results.HasWarnings().Should().BeFalse();
             results.HasErrors().Should().BeFalse();
         }
-        
+
         [Test]
         public void Validate_WithNullSensorWorldKey_ShouldReturnNoWarnings()
         {
@@ -112,16 +111,16 @@ namespace CrashKonijn.Goap.UnitTests.Validators
 
             var sensor = Substitute.For<IWorldSensorConfig>();
             sensor.Key.ReturnsNull();
-            
-            var config = Substitute.For<IGoapSetConfig>();
+
+            var config = Substitute.For<IAgentTypeConfig>();
             config.Actions.Returns(new List<IActionConfig>());
-            config.WorldSensors.Returns(new List<IWorldSensorConfig>{ sensor });
-            
+            config.WorldSensors.Returns(new List<IWorldSensorConfig> { sensor });
+
             var validator = new WorldKeySensorsValidator();
-            
+
             // Act
             validator.Validate(config, results);
-            
+
             // Assert
             results.HasWarnings().Should().BeFalse();
             results.HasErrors().Should().BeFalse();

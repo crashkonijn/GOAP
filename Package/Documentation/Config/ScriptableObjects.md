@@ -10,35 +10,16 @@ The ScriptableObjects are the main way to configure the GOAP system. They are us
 **Example** The simple demo uses the ScriptableObjects configuration method.
 {% endhint %}
 
+## AgentType
+
+To create an agent type, you must create a new `AgentTypeScriptable` asset in the Unity Editor. This asset contains the configuration for the agent type, including the capabilities it has.
+
+To create a new `AgentTypeScriptable`, right-click in the Project window and select `Create > GOAP > Agent Type`. This will create a new asset that you can customize in the Inspector.
+
+## Capability
+
+To create a capability, you must create a new `CapabilityScriptable` asset in the Unity Editor. This asset contains the configuration for the capability, including the actions, sensors, world keys and target keys it has.
+
+To create a new `CapabilityScriptable`, right-click in the Project window and select `Create > GOAP > Capability`. This will create a new asset that you can customize in the Inspector.
+
 ![scriptable_configs.png](../images/scriptable_configs.png)
-
-## Sets
-To create a set, right click in the project window and select `Create > Goap > Goap Set Config`. This will create a new set config. On this config you must reference all other configs that are part of this set.
-
-![goap-set.png](../images/goap-set.png)
-
-## Goals
-To create a goal, right click in the project window and select `Create > Goap > Goal Config`. This will create a new goal config.
-
-![goal-config.png](../images/scriptable_goal.png)
-
-## Actions
-To create an action, right click in the project window and select `Create > Goap > Action Config`. This will create a new action config.
-
-![action-config.png](../images/scriptable_action.png)
-
-## World Keys
-To create an world key, right click in the project window and select `Create > Goap > World Key`. This will create a new world key.
-
-## World Sensors
-To create an world sensor, right click in the project window and select `Create > Goap > World Sensor Config`. This will create a new world sensor config.
-
-![world-sensor-config.png](../images/scriptable_world_sensor.png)
-
-## Target Keys
-To create an action, right click in the project window and select `Create > Goap > Target Key`. This will create a new world key.
-
-## Target Sensors
-To create a target sensor, right click in the project window and select `Create > Goap > Target Sensor Config`. This will create a new world sensor config.
-
-![target-sensor-config.png](../images/scriptable_target_sensor.png)

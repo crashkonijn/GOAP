@@ -18,7 +18,7 @@ namespace CrashKonijn.Goap.Editor
                 return Path.GetDirectoryName(AssetDatabase.GUIDToAssetPath(assets[0]));
             }
         }
-
-        public const string Version = "2.1.22";
+      
+        public const string Version = "3.0.23-beta";
     }
 }

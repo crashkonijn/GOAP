@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.Elements
+namespace CrashKonijn.Goap.Editor
 {
     public class Card : VisualElement
     {

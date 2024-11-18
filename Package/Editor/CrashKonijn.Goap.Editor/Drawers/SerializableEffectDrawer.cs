@@ -1,11 +1,13 @@
-﻿using CrashKonijn.Goap.Enums;
-using CrashKonijn.Goap.Serializables;
+﻿using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEditor;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.Editor.TypeDrawers
+namespace CrashKonijn.Goap.Editor
 {
+#pragma warning disable CS0618 // Type or member is obsolete
     [CustomPropertyDrawer(typeof(SerializableEffect))]
+#pragma warning restore CS0618 // Type or member is obsolete
     public class SerializableEffectDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

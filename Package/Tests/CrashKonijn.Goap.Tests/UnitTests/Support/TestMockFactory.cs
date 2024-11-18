@@ -14,7 +14,7 @@ namespace CrashKonijn.Goap.UnitTests.Support
         {
             if (this.mocks.ContainsKey(typeof(T)))
                 return this.Get<T>();
-            
+
             if (typeof(T).IsInterface)
             {
                 this.CreateInterface<T>();
@@ -73,7 +73,7 @@ namespace CrashKonijn.Goap.UnitTests.Support
         public T Get<T>() where T : class
         {
             if (this.mocks.ContainsKey(typeof(T)))
-                return (T)this.mocks[typeof(T)];
+                return (T) this.mocks[typeof(T)];
 
             return this.Create<T>();
         }

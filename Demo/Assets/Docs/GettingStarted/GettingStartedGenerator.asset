@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0857b2a53377458ebec6c4b1179e3c5a, type: 3}
+  m_Name: GettingStartedGenerator
+  m_EditorClassIdentifier: 
+  nameSpace: CrashKonijn.Docs.GettingStarted
+  scripts:
+    goals:
+    - <Name>k__BackingField: EatGoal
+      fullName: CrashKonijn.Docs.GettingStarted.EatGoal, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/Goals/EatGoal.cs
+      <Id>k__BackingField: Eat-40037932-c408-4c8c-b823-0e2ebfc058b0
+    - <Name>k__BackingField: IdleGoal
+      fullName: CrashKonijn.Docs.GettingStarted.IdleGoal, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/Goals/IdleGoal.cs
+      <Id>k__BackingField: Idle-cceefde8-f09d-41ee-83a6-44d7358b7ad7
+    - <Name>k__BackingField: PickupPearGoal
+      fullName: CrashKonijn.Docs.GettingStarted.PickupPearGoal, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/Goals/PickupPearGoal.cs
+      <Id>k__BackingField: PickupPear-33d601c2-5a97-44cd-899a-83260d097bff
+    actions:
+    - <Name>k__BackingField: EatAction
+      fullName: CrashKonijn.Docs.GettingStarted.Actions.EatAction, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/Actions/EatAction.cs
+      <Id>k__BackingField: Eat-b235695c-727b-41a5-aa66-4757ce65719d
+    - <Name>k__BackingField: IdleAction
+      fullName: CrashKonijn.Docs.GettingStarted.Actions.IdleAction, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/Actions/IdleAction.cs
+      <Id>k__BackingField: Idle-ccc6f46c-1626-44aa-b90d-1b2741642166
+    - <Name>k__BackingField: PickupPearAction
+      fullName: CrashKonijn.Docs.GettingStarted.Actions.PickupPearAction, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/Actions/PickupPearAction.cs
+      <Id>k__BackingField: PickupPear-06ef21a4-059b-4314-800a-e7c2622637fb
+    worldSensors: []
+    worldKeys:
+    - <Name>k__BackingField: Hunger
+      fullName: CrashKonijn.Docs.GettingStarted.Hunger, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/WorldKeys/Hunger.cs
+      <Id>k__BackingField: Hunger-2301b1b5-3508-464a-95fa-1c5c557c09e7
+    - <Name>k__BackingField: IsIdle
+      fullName: CrashKonijn.Docs.GettingStarted.IsIdle, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/WorldKeys/IsIdle.cs
+      <Id>k__BackingField: IsIdle-d947b161-94e6-40e4-8d81-12d48d548aeb
+    - <Name>k__BackingField: PearCount
+      fullName: CrashKonijn.Docs.GettingStarted.PearCount, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/WorldKeys/PearCount.cs
+      <Id>k__BackingField: PearCount-ca904c38-dd66-4927-aded-def418fcad6d
+    targetSensors:
+    - <Name>k__BackingField: IdleTargetSensor
+      fullName: CrashKonijn.Docs.GettingStarted.Sensors.IdleTargetSensor, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/Sensors/IdleTargetSensor.cs
+      <Id>k__BackingField: 
+    targetKeys:
+    - <Name>k__BackingField: ClosestPear
+      fullName: CrashKonijn.Docs.GettingStarted.ClosestPear, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/TargetKeys/ClosestPear.cs
+      <Id>k__BackingField: ClosestPear-e8700fd5-8bfc-4b64-968b-218693a4201c
+    - <Name>k__BackingField: IdleTarget
+      fullName: CrashKonijn.Docs.GettingStarted.IdleTarget, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/TargetKeys/IdleTarget.cs
+      <Id>k__BackingField: IdleTarget-28399af6-ad14-4084-ba49-968fa8941e51
+    multiSensors:
+    - <Name>k__BackingField: PearSensor
+      fullName: CrashKonijn.Docs.GettingStarted.Sensors.PearSensor, com.crashkonijn.docs.getting_started,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Docs/GettingStarted/Sensors/PearSensor.cs
+      <Id>k__BackingField: 

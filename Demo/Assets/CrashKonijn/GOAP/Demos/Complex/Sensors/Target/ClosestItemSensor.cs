@@ -1,37 +1,36 @@
 ﻿using System.Linq;
-using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes;
-using CrashKonijn.Goap.Classes.References;
-using CrashKonijn.Goap.Interfaces;
-using CrashKonijn.Goap.Sensors;
-using Demos.Complex.Behaviours;
-using Demos.Complex.Interfaces;
+using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Demos.Complex.Behaviours;
+using CrashKonijn.Goap.Demos.Complex.Interfaces;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-namespace Demos.Complex.Sensors.Target
+namespace CrashKonijn.Goap.Demos.Complex.Sensors.Target
 {
     public class ClosestItemSensor<T> : LocalTargetSensorBase
         where T : IHoldable
     {
         private ItemCollection collection;
-        private T[] items;
 
         public override void Created()
         {
-            this.collection = Compatibility.FindObjectOfType<ItemCollection>();
+            this.collection = Object.FindObjectOfType<ItemCollection>();
         }
 
         public override void Update()
         {
-            this.items = this.collection.GetFiltered<T>(false, true, false);
         }
 
-        public override ITarget Sense(IMonoAgent agent, IComponentReference references)
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget target)
         {
-            var closest = this.items.Cast<ItemBase>().Closest(agent.transform.position);
+            var closest = this.collection.GetFiltered<T>(false, true, agent.Transform.gameObject).Cast<ItemBase>().Closest(agent.Transform.position);
             
             if (closest == null)
                 return null;
+            
+            // Re-use the existing target if the target exists
+            if (target is TransformTarget targetTransform)
+                return targetTransform.SetTransform(closest.transform);
             
             return new TransformTarget(closest.transform);
         }

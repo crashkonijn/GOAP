@@ -1,4 +1,4 @@
-﻿using CrashKonijn.Goap.Behaviours;
+﻿using CrashKonijn.Goap.Runtime;
 
 namespace CrashKonijn.Goap.UnitTests.Classes
 {

@@ -1,13 +1,10 @@
-﻿using CrashKonijn.Goap.Behaviours;
-using CrashKonijn.Goap.Classes.Validators;
-using CrashKonijn.Goap.Editor.Drawers;
-using CrashKonijn.Goap.Editor.Elements;
+﻿using CrashKonijn.Agent.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CrashKonijn.Goap.Editor.TypeDrawers
+namespace CrashKonijn.Goap.Editor
 {
     [CustomEditor(typeof(AgentBehaviour))]
     public class AgentEditor : UnityEditor.Editor
@@ -18,46 +15,31 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
             
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>($"{GoapEditorSettings.BasePath}/Styles/Generic.uss"));
             
-            root.Add(new PropertyField(this.serializedObject.FindProperty("goapSetBehaviour")));
+            root.Add(new PropertyField(this.serializedObject.FindProperty("<ActionProviderBase>k__BackingField")));
             root.Add(new PropertyField(this.serializedObject.FindProperty("<DistanceMultiplier>k__BackingField")));
+            root.Add(new PropertyField(this.serializedObject.FindProperty("<LoggerConfig>k__BackingField")));
             
             if (!Application.isPlaying)
                 return root;
             
             var agent = (AgentBehaviour) this.target;
             
-            var currentGoal = agent.CurrentGoal;
-            var currentAction = agent.CurrentAction;
+            var currentAction = agent.ActionState.Action;
             var state = agent.State;
-            var moveState = agent.MoveState;
             
             root.Add(new Card((card) =>
             {
                 card.Add(new Label(), (label) =>
                 {
-                    label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
+                    label.text = "Action: " + agent.ActionState.Action?.GetType().GetGenericTypeName();
                     
                     label.schedule.Execute(() =>
                     {
-                        if (currentGoal == agent.CurrentGoal)
+                        if (currentAction == agent.ActionState.Action)
                             return;
                         
-                        currentGoal = agent.CurrentGoal;
-                        label.text = "Goal: " + agent.CurrentGoal?.GetType().GetGenericTypeName();
-                    }).Every(33);
-                });
-                
-                card.Add(new Label(), (label) =>
-                {
-                    label.text = "Action: " + agent.CurrentAction?.GetType().GetGenericTypeName();
-                    
-                    label.schedule.Execute(() =>
-                    {
-                        if (currentAction == agent.CurrentAction)
-                            return;
-                        
-                        currentAction = agent.CurrentAction;
-                        label.text = "Action: " + agent.CurrentAction?.GetType().GetGenericTypeName();
+                        currentAction = agent.ActionState.Action;
+                        label.text = "Action: " + agent.ActionState.Action?.GetType().GetGenericTypeName();
                     }).Every(33);
                 });
                 
@@ -81,19 +63,17 @@ namespace CrashKonijn.Goap.Editor.TypeDrawers
                     
                     label.schedule.Execute(() =>
                     {
-                        if (moveState == agent.MoveState)
-                            return;
-                        
-                        moveState = agent.MoveState;
-                        label.text = "MoveState: " + agent.MoveState;
+                        label.text = $"MoveState: {agent.MoveState}\n   Distance: {agent.DistanceObserver.GetDistance(agent, agent.CurrentTarget, agent.Injector):0.00}\n   Stopping distance: {agent.ActionState.Action?.GetStoppingDistance():0.00}";
                     }).Every(33);
                 });
             }));
             
             root.Add(new Card((card) =>
             {
-                card.Add(new ObjectDrawer(agent.CurrentActionData));
+                card.Add(new ObjectDrawer(agent.ActionState.Data));
             }));
+            
+            root.Add(new LogDrawer(agent.Logger));
 
             return root;
         }

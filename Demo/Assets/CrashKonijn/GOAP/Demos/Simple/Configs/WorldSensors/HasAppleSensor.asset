@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826454e3c7f400943baf947860d47a92, type: 3}
   m_Name: HasAppleSensor
   m_EditorClassIdentifier: 
-  classType: Demos.Simple.Sensors.World.HasAppleSensor, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
+  classType: 
   key: {fileID: 11400000, guid: 4cc9aaaf590d3e346947382bd8b9fd0c, type: 2}

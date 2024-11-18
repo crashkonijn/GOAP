@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
+  m_Name: WanderCapability
+  m_EditorClassIdentifier: 
+  goals:
+  - goal:
+      <Name>k__BackingField: WanderGoal
+      <Id>k__BackingField: Simple-WanderGoal
+    baseCost: 1
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: IsWandering
+        <Id>k__BackingField: IsWandering-b0925b8a-5c98-4777-a174-8f8ad1655f20
+      comparison: 3
+      amount: 1
+  actions:
+  - action:
+      <Name>k__BackingField: WanderAction
+      <Id>k__BackingField: Simple-WanderAction
+    target:
+      <Name>k__BackingField: WanderTarget
+      <Id>k__BackingField: WanderTarget-ae7344be-5223-4260-acac-f33c9eb260f5
+    properties:
+      rid: 5955038660131291139
+    baseCost: 1
+    stoppingDistance: 0.1
+    requiresTarget: 1
+    validateConditions: 1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: IsWandering
+        <Id>k__BackingField: IsWandering-b0925b8a-5c98-4777-a174-8f8ad1655f20
+      effect: 1
+  worldSensors: []
+  targetSensors:
+  - sensor:
+      <Name>k__BackingField: WanderTargetSensor
+      <Id>k__BackingField: Simple-WanderTargetSensor
+    targetKey:
+      <Name>k__BackingField: WanderTarget
+      <Id>k__BackingField: WanderTarget-ae7344be-5223-4260-acac-f33c9eb260f5
+  multiSensors: []
+  generatorScriptable: {fileID: 11400000, guid: 5fccbb575a6ba23419aa4a61a7268fc2,
+    type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 5955038660131291139
+      type: {class: WanderAction/Props, ns: CrashKonijn.Goap.Demos.Simple.Goap.Actions,
+        asm: com.crashkonijn.goap.demos.simple}
+      data:
+        minTimer: 0.5
+        maxTimer: 1
