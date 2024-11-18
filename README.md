@@ -48,6 +48,9 @@ Visualize your GOAP nodes and their interactions with our intuitive Node Viewer.
 - **Documentation**: Access comprehensive guides and API references in the `Package/Documentation` folder or visit [goap.crashkonijn.com](https://goap.crashkonijn.com/).
 - **Demos**: Explore practical implementations in the Demo folder. Simply clone this repository and open the Demo project in Unity to get started.
 
+## Sponsoring
+If you'd like to sponsor the project, this can be done through my [GitHub Sponsor](https://github.com/sponsors/crashkonijn) page or by buying the [Support Edition](https://assetstore.unity.com/packages/slug/298995) on the Unity Asset Store.
+
 ## References
 - **[YouTube tutorials](https://www.youtube.com/playlist?list=PLZWmMt_TbeYeatHa9hntDPu4zGEBAFffn)** on how to use the library.
 - **[YouTube references](https://www.youtube.com/playlist?list=PLZWmMt_TbeYdBZKvlsRuuOubPTTfPuZot)** discussing GOAP in general.

@@ -1,5 +1,11 @@
 # FAQ
 
+## How can I support this project?
+
+The best way to support this project is to use it, and provide feedback. If you find a bug, or have a feature request, please create an issue on the [GitHub repository](https://github.com/crashkonijn/GOAP). Making your own contributions is also a great way to support the project. This can be done by creating a pull request on the [GitHub repository](https://github.com/crashkonijn/GOAP).
+
+If you want to support the project financially, you can do so by donating to the [GitHub Sponsor](https://github.com/sponsors/crashkonijn) page or by buying the [Support Edition](https://assetstore.unity.com/packages/slug/298995) on the Unity Asset Store.
+
 ## Why does each action need a target?
 
 Unless you're creating a 0 dimension game, there are actions that take place at a specific position. When there are actions that require positions there a 3 possible solutions for handling the movement.
