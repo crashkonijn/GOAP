@@ -225,6 +225,8 @@ namespace CrashKonijn.Docs.GettingStarted.Capabilities
                 .AddEffect<PearCount>(EffectType.Increase)
                 .SetTarget<ClosestPear>();
 
+            builder.AddMultiSensor<PearSensor>();
+
             return builder.Build();
         }
     }
