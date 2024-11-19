@@ -25,7 +25,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             return agentTypeConfig.WorldSensors
                 .Where(x => x.Key != null)
-                .Select(x => x.Key.Name)
+                .Select(x => x.Key.GetName())
                 .Distinct()
                 .ToArray();
         }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -22,7 +23,7 @@ namespace CrashKonijn.Goap.Editor
 
             this.Circle = new Circle(this.GetCircleColor(graphCondition), 10f);
             this.Add(this.Circle);
-            
+
             this.Label = new Label(this.GetText(graphCondition.Condition));
             this.Add(this.Label);
 
@@ -37,10 +38,10 @@ namespace CrashKonijn.Goap.Editor
         {
             if (Application.isPlaying)
                 return this.GetLiveColor();
-            
+
             if (!condition.Connections.Any())
                 return Color.red;
-            
+
             return Color.green;
         }
 
@@ -48,36 +49,36 @@ namespace CrashKonijn.Goap.Editor
         {
             if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
                 return Color.white;
-            
+
             if (agent.AgentType == null)
                 return Color.white;
-                
+
             var conditionObserver = agent.AgentType.GoapConfig.ConditionObserver;
             conditionObserver.SetWorldData(agent.WorldData);
-            
+
             return conditionObserver.IsMet(this.GraphCondition.Condition) ? Color.green : Color.red;
         }
-        
+
         private string GetText(ICondition condition)
         {
             var suffix = this.GetSuffix(condition);
-            
-            return $"{condition.WorldKey.Name} {this.GetText(condition.Comparison)} {condition.Amount} {suffix}";
+
+            return $"{condition.WorldKey.GetName()} {this.GetText(condition.Comparison)} {condition.Amount} {suffix}";
         }
 
         private string GetSuffix(ICondition condition)
         {
             if (!Application.isPlaying)
                 return "";
-            
+
             if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
                 return "";
-            
+
             var (exists, value) = agent.WorldData.GetWorldValue(condition.WorldKey);
-            
+
             return "(" + (exists ? value.ToString() : "-") + ")";
         }
-        
+
         private string GetText(Comparison comparison)
         {
             switch (comparison)
@@ -91,7 +92,7 @@ namespace CrashKonijn.Goap.Editor
                 case Comparison.SmallerThanOrEqual:
                     return "<=";
             }
-            
+
             return "";
         }
     }

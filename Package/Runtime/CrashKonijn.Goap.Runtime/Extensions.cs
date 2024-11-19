@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Runtime
 
             return mono == null;
         }
-        
+
         public static string ToName(this Comparison comparison)
         {
             return comparison switch
@@ -102,16 +102,6 @@ namespace CrashKonijn.Goap.Runtime
 
             var instance = Activator.CreateInstance(script.Type);
 
-            if (instance is TargetKeyBase targetKey)
-            {
-                targetKey.Name = script.Type.Name;
-            }
-
-            if (instance is WorldKeyBase worldKey)
-            {
-                worldKey.Name = script.Type.Name;
-            }
-
             return instance as T;
         }
 
@@ -153,6 +143,22 @@ namespace CrashKonijn.Goap.Runtime
                 .Select(x => x.Target)
                 .Distinct()
                 .ToArray();
+        }
+
+        public static string GetName(this IWorldKey key)
+        {
+            if (key == null)
+                return "UNDEFINED";
+
+            return key.GetType().GetGenericTypeName();
+        }
+
+        public static string GetName(this ITargetKey key)
+        {
+            if (key == null)
+                return "UNDEFINED";
+
+            return key.GetType().GetGenericTypeName();
         }
     }
 }

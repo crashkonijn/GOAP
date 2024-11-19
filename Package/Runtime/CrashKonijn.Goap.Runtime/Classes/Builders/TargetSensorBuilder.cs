@@ -6,7 +6,9 @@ namespace CrashKonijn.Goap.Runtime
     public class TargetSensorBuilder<T> : TargetSensorBuilder
         where T : ITargetSensor
     {
-        public TargetSensorBuilder(TargetKeyBuilder targetKeyBuilder) : base(typeof(T), targetKeyBuilder) { }
+        public TargetSensorBuilder(TargetKeyBuilder targetKeyBuilder) : base(typeof(T), targetKeyBuilder)
+        {
+        }
         
         public TargetSensorBuilder<T> SetTarget<TTarget>()
             where TTarget : ITargetKey
@@ -36,6 +38,9 @@ namespace CrashKonijn.Goap.Runtime
                 Name = type.Name,
                 ClassType = type.AssemblyQualifiedName,
             };
+            
+            if (typeof(ITargetKey).IsAssignableFrom(type))
+                this.config.Key = this.targetKeyBuilder.GetKey(type);
         }
 
         public ITargetSensorConfig Build()

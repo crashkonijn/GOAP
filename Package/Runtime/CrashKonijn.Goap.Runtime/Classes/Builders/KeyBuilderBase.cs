@@ -10,8 +10,11 @@ namespace CrashKonijn.Goap.Runtime
         public TInterface GetKey<TKey>()
             where TKey : TInterface
         {
-            var type = typeof(TKey);
+            return this.GetKey(typeof(TKey));
+        }
 
+        public TInterface GetKey(Type type)
+        {
             if (this.keys.TryGetValue(type, out var key))
             {
                 return key;
@@ -19,12 +22,9 @@ namespace CrashKonijn.Goap.Runtime
 
             key = (TInterface) Activator.CreateInstance(type);
 
-            this.InjectData(key);
             this.keys.Add(type, key);
 
             return key;
         }
-
-        protected abstract void InjectData(TInterface key);
     }
 }

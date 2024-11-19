@@ -36,6 +36,9 @@ namespace CrashKonijn.Goap.Runtime
                 Name = type.Name,
                 ClassType = type.AssemblyQualifiedName,
             };
+            
+            if (typeof(IWorldKey).IsAssignableFrom(type))
+                this.config.Key = this.worldKeyBuilder.GetKey(type);
         }
 
         public IWorldSensorConfig Build()
