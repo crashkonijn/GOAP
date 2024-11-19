@@ -30,7 +30,7 @@ namespace CrashKonijn.Goap.Editor
             {
                 return;
             }
-            
+
             for (var i = 0; i < this.property.arraySize; i++)
             {
                 this.CreateElement(i);
@@ -38,20 +38,20 @@ namespace CrashKonijn.Goap.Editor
 
             if (this.buttonContainer is not null)
                 return;
-            
+
             this.buttonContainer = new VisualElement();
             this.buttonContainer.style.flexDirection = FlexDirection.Row;
             this.buttonContainer.style.justifyContent = Justify.FlexEnd;
 
             var addButton = new Button(this.AddItem)
             {
-                text = "+"
+                text = "+",
             };
             this.buttonContainer.Add(addButton);
 
             var removeButton = new Button(this.RemoveSelectedItem)
             {
-                text = "-"
+                text = "-",
             };
             this.buttonContainer.Add(removeButton);
 
@@ -60,16 +60,19 @@ namespace CrashKonijn.Goap.Editor
 
         private void CreateElement(int i)
         {
+            if (i < 0 || i >= this.list.Count)
+                return;
+
             var value = this.list[i];
             var prop = this.property.GetArrayElementAtIndex(i);
-            
+
             var element = this.CreateListItem(prop, value);
             element.RegisterCallback<ClickEvent>(evt =>
             {
                 this.selectedItemIndex = i;
             });
             this.elementsRoot.Add(element);
-                
+
             this.BindListItem(prop, element, value, i);
         }
 
@@ -79,46 +82,62 @@ namespace CrashKonijn.Goap.Editor
         {
             this.BindListItem(property, element as TRenderType, this.list[index], index);
         }
-        
+
         protected abstract void BindListItem(SerializedProperty property, TRenderType element, TItemType item, int index);
-        
+
         private void AddItem()
         {
             // Add your item to the scriptable's list
             // Example: scriptable.items.Add(newItem);
             this.property.arraySize++;
-            
+
             // var element = this.property.GetArrayElementAtIndex(this.property.arraySize -1);
             // element.managedReferenceValue = new TItemType();
-            
+
             this.list.Add(new TItemType());
-            
-            this.CreateElement(this.property.arraySize -1);
+
+            this.CreateElement(this.property.arraySize - 1);
 
             this.CloseAll();
-            
-            this.GetFoldable(this.property.arraySize -1).Foldout.value = true;
-            
-            // this.Rebuild(); // Refresh the ListView
+
+            var foldable = this.GetFoldable(this.property.arraySize - 1);
+
+            if (foldable is null)
+                return;
+
+            foldable.Foldout.value = true;
+
+            this.Rebuild(); // Refresh the ListView
         }
 
         private void RemoveSelectedItem()
         {
+            if (this.selectedItemIndex < 0 || this.selectedItemIndex >= this.property.arraySize)
+                return;
+
             this.list.RemoveAt(this.selectedItemIndex);
-            
+
             this.Rebuild();
         }
 
         private void CloseAll()
         {
-            for (int i = 0; i < this.property.arraySize; i++)
+            for (var i = 0; i < this.property.arraySize; i++)
             {
-                this.GetFoldable(i).Foldout.value = false;
+                var foldable = this.GetFoldable(i);
+
+                if (foldable is null)
+                    continue;
+
+                foldable.Foldout.value = false;
             }
         }
-        
+
         private IFoldable GetFoldable(int index)
         {
+            if (index < 0 || index >= this.elementsRoot.childCount)
+                return null;
+
             return this.elementsRoot.ElementAt(index) as IFoldable;
         }
     }
