@@ -101,6 +101,9 @@ namespace CrashKonijn.Agent.Runtime
             this.Run();
         }
 
+        /// <summary>
+        ///     Runs the current action. This is called in the Update method.
+        /// </summary>
         public void Run()
         {
             if (this.ActionState.Action == null)
@@ -165,6 +168,12 @@ namespace CrashKonijn.Agent.Runtime
             return this.ActionState.Action.IsInRange(this, distance, this.ActionState.Data, this.Injector);
         }
 
+        /// <summary>
+        ///     Sets the action for the agent. This is mostly used by the action provider.
+        /// </summary>
+        /// <param name="actionProvider">The action provider.</param>
+        /// <param name="action">The action to set.</param>
+        /// <param name="target">The target of the action.</param>
         public void SetAction(IActionProvider actionProvider, IAction action, ITarget target)
         {
             this.ActionProvider = actionProvider;
@@ -188,6 +197,10 @@ namespace CrashKonijn.Agent.Runtime
             this.Events.ActionStart(action);
         }
 
+        /// <summary>
+        ///     Stops the current action.
+        /// </summary>
+        /// <param name="resolveAction">Whether to resolve for a new action after stopping.</param>
         public void StopAction(bool resolveAction = true)
         {
             var action = this.ActionState.Action;
@@ -201,6 +214,10 @@ namespace CrashKonijn.Agent.Runtime
                 this.ResolveAction();
         }
 
+        /// <summary>
+        ///     Completes the current action.
+        /// </summary>
+        /// <param name="resolveAction">Whether to resolve for a new action after completing.</param>
         public void CompleteAction(bool resolveAction = true)
         {
             var action = this.ActionState.Action;
@@ -214,6 +231,9 @@ namespace CrashKonijn.Agent.Runtime
                 this.ResolveAction();
         }
 
+        /// <summary>
+        ///     Will trigger try and resolve a new action from the action provider.
+        /// </summary>
         public void ResolveAction()
         {
             if (this.ActionProvider == null)

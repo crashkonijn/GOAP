@@ -9,11 +9,25 @@ namespace CrashKonijn.Goap.Runtime
     {
         public GoalBuilder(WorldKeyBuilder worldKeyBuilder) : base(typeof(T), worldKeyBuilder) { }
 
+        /// <summary>
+        /// Sets the base cost for the goal.
+        /// </summary>
+        /// <param name="baseCost">The base cost.</param>
+        /// <returns>The current instance of <see cref="GoalBuilder{T}"/>.</returns>
+
         public GoalBuilder<T> SetBaseCost(float baseCost)
         {
             this.config.BaseCost = baseCost;
             return this;
         }
+
+        /// <summary>
+        /// Adds a condition to the goal.
+        /// </summary>
+        /// <typeparam name="TWorldKey">The type of the world key.</typeparam>
+        /// <param name="comparison">The comparison type.</param>
+        /// <param name="amount">The amount for the condition.</param>
+        /// <returns>The current instance of <see cref="GoalBuilder{T}"/>.</returns>
 
         public GoalBuilder<T> AddCondition<TWorldKey>(Comparison comparison, int amount)
             where TWorldKey : IWorldKey
@@ -21,6 +35,12 @@ namespace CrashKonijn.Goap.Runtime
             this.conditions.Add(new Condition(this.worldKeyBuilder.GetKey<TWorldKey>(), comparison, amount));
             return this;
         }
+
+        /// <summary>
+        /// Sets the callback for the goal. This will be called when the goal is created.
+        /// </summary>
+        /// <param name="callback">The callback action.</param>
+        /// <returns>The current instance of <see cref="GoalBuilder{T}"/>.</returns>
 
         public GoalBuilder<T> SetCallback(Action<T> callback)
         {
@@ -44,6 +64,11 @@ namespace CrashKonijn.Goap.Runtime
                 ClassType = type.AssemblyQualifiedName,
             };
         }
+
+        /// <summary>
+        /// Builds the goal configuration.
+        /// </summary>
+        /// <returns>The built <see cref="IGoalConfig"/>.</returns>
 
         public IGoalConfig Build()
         {
