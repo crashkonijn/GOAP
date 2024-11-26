@@ -10,11 +10,10 @@ namespace CrashKonijn.Goap.Runtime
         public GoalBuilder(WorldKeyBuilder worldKeyBuilder) : base(typeof(T), worldKeyBuilder) { }
 
         /// <summary>
-        /// Sets the base cost for the goal.
+        ///     Sets the base cost for the goal.
         /// </summary>
         /// <param name="baseCost">The base cost.</param>
-        /// <returns>The current instance of <see cref="GoalBuilder{T}"/>.</returns>
-
+        /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
         public GoalBuilder<T> SetBaseCost(float baseCost)
         {
             this.config.BaseCost = baseCost;
@@ -22,13 +21,12 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         /// <summary>
-        /// Adds a condition to the goal.
+        ///     Adds a condition to the goal.
         /// </summary>
         /// <typeparam name="TWorldKey">The type of the world key.</typeparam>
         /// <param name="comparison">The comparison type.</param>
         /// <param name="amount">The amount for the condition.</param>
-        /// <returns>The current instance of <see cref="GoalBuilder{T}"/>.</returns>
-
+        /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
         public GoalBuilder<T> AddCondition<TWorldKey>(Comparison comparison, int amount)
             where TWorldKey : IWorldKey
         {
@@ -37,11 +35,10 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         /// <summary>
-        /// Sets the callback for the goal. This will be called when the goal is created.
+        ///     Sets the callback for the goal. This will be called when the goal is created.
         /// </summary>
         /// <param name="callback">The callback action.</param>
-        /// <returns>The current instance of <see cref="GoalBuilder{T}"/>.</returns>
-
+        /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
         public GoalBuilder<T> SetCallback(Action<T> callback)
         {
             this.config.Callback = (obj) => callback((T) obj);
@@ -66,10 +63,9 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         /// <summary>
-        /// Builds the goal configuration.
+        ///     Builds the goal configuration.
         /// </summary>
-        /// <returns>The built <see cref="IGoalConfig"/>.</returns>
-
+        /// <returns>The built <see cref="IGoalConfig" />.</returns>
         public IGoalConfig Build()
         {
             this.config.Conditions = this.conditions;
