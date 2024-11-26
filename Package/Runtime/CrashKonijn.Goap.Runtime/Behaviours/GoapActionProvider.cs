@@ -100,6 +100,11 @@ namespace CrashKonijn.Goap.Runtime
             return this.requestCache;
         }
 
+        /// <summary>
+        ///     Requests a goal of type TGoal.
+        /// </summary>
+        /// <typeparam name="TGoal">The type of the goal.</typeparam>
+        /// <param name="resolve">Whether to resolve the action after requesting the goal. Defaults to true.</param>
         public void RequestGoal<TGoal>(bool resolve = true)
             where TGoal : IGoal
         {
@@ -112,6 +117,12 @@ namespace CrashKonijn.Goap.Runtime
             this.RequestGoal(request, resolve);
         }
 
+        /// <summary>
+        ///     Requests two goals of types TGoal1 and TGoal2.
+        /// </summary>
+        /// <typeparam name="TGoal1">The type of the first goal.</typeparam>
+        /// <typeparam name="TGoal2">The type of the second goal.</typeparam>
+        /// <param name="resolve">Whether to resolve the action after requesting the goals. Defaults to true.</param>
         public void RequestGoal<TGoal1, TGoal2>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
@@ -126,6 +137,13 @@ namespace CrashKonijn.Goap.Runtime
             this.RequestGoal(request, resolve);
         }
 
+        /// <summary>
+        ///     Requests three goals of types TGoal1, TGoal2, and TGoal3.
+        /// </summary>
+        /// <typeparam name="TGoal1">The type of the first goal.</typeparam>
+        /// <typeparam name="TGoal2">The type of the second goal.</typeparam>
+        /// <typeparam name="TGoal3">The type of the third goal.</typeparam>
+        /// <param name="resolve">Whether to resolve the action after requesting the goals. Defaults to true.</param>
         public void RequestGoal<TGoal1, TGoal2, TGoal3>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
@@ -142,6 +160,14 @@ namespace CrashKonijn.Goap.Runtime
             this.RequestGoal(request, resolve);
         }
 
+        /// <summary>
+        ///     Requests four goals of types TGoal1, TGoal2, TGoal3, and TGoal4.
+        /// </summary>
+        /// <typeparam name="TGoal1">The type of the first goal.</typeparam>
+        /// <typeparam name="TGoal2">The type of the second goal.</typeparam>
+        /// <typeparam name="TGoal3">The type of the third goal.</typeparam>
+        /// <typeparam name="TGoal4">The type of the fourth goal.</typeparam>
+        /// <param name="resolve">Whether to resolve the action after requesting the goals. Defaults to true.</param>
         public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
@@ -160,6 +186,15 @@ namespace CrashKonijn.Goap.Runtime
             this.RequestGoal(request, resolve);
         }
 
+        /// <summary>
+        ///     Requests five goals of types TGoal1, TGoal2, TGoal3, TGoal4, and TGoal5.
+        /// </summary>
+        /// <typeparam name="TGoal1">The type of the first goal.</typeparam>
+        /// <typeparam name="TGoal2">The type of the second goal.</typeparam>
+        /// <typeparam name="TGoal3">The type of the third goal.</typeparam>
+        /// <typeparam name="TGoal4">The type of the fourth goal.</typeparam>
+        /// <typeparam name="TGoal5">The type of the fifth goal.</typeparam>
+        /// <param name="resolve">Whether to resolve the action after requesting the goals. Defaults to true.</param>
         public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4, TGoal5>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
@@ -181,6 +216,11 @@ namespace CrashKonijn.Goap.Runtime
             this.RequestGoal(request, resolve);
         }
 
+        /// <summary>
+        ///     Requests a specific goal.
+        /// </summary>
+        /// <param name="goal">The goal to request.</param>
+        /// <param name="resolve">Whether to resolve the action after requesting the goal.</param>
         public void RequestGoal(IGoal goal, bool resolve)
         {
             this.ValidateSetup();
@@ -193,6 +233,11 @@ namespace CrashKonijn.Goap.Runtime
             this.RequestGoal(request, resolve);
         }
 
+        /// <summary>
+        ///     Requests a goal based on the provided goal request. This will allow you to request multiple goals at once.
+        /// </summary>
+        /// <param name="request">The goal request.</param>
+        /// <param name="resolve">Whether to resolve the action after requesting the goal.</param>
         public void RequestGoal(IGoalRequest request, bool resolve = true)
         {
             this.ValidateSetup();
@@ -228,6 +273,10 @@ namespace CrashKonijn.Goap.Runtime
             return true;
         }
 
+        /// <summary>
+        ///     Sets the action based on the provided goal result. This method is called by the resolver.
+        /// </summary>
+        /// <param name="result">The goal result.</param>
         public void SetAction(IGoalResult result)
         {
             if (result == null)
@@ -269,6 +318,9 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
+        /// <summary>
+        ///     Will try and resolve for a new action based on the current goal request.
+        /// </summary>
         public override void ResolveAction()
         {
             this.ValidateSetup();
@@ -277,11 +329,19 @@ namespace CrashKonijn.Goap.Runtime
             this.Receiver.Timers.Resolve.Touch();
         }
 
+        /// <summary>
+        ///     Clears the current goal.
+        /// </summary>
         public void ClearGoal()
         {
             this.CurrentPlan = null;
         }
 
+        /// <summary>
+        ///     Sets the distance multiplier for the agent. This is used by the resolver to calculate the cost of distance between
+        ///     actions.
+        /// </summary>
+        /// <param name="multiplier">The distance multiplier.</param>
         public void SetDistanceMultiplier(float multiplier)
         {
             if (multiplier < 0f)
@@ -290,6 +350,12 @@ namespace CrashKonijn.Goap.Runtime
             this.DistanceMultiplier = multiplier;
         }
 
+        /// <summary>
+        ///     Sets the distance multiplier for the agent based on speed, based on the assumption that speed is in units per
+        ///     second and cost is similar to a second.
+        ///     This is used by the resolver to calculate the cost of distance between actions.
+        /// </summary>
+        /// <param name="multiplier">The distance multiplier.</param>
         public void SetDistanceMultiplierSpeed(float speed)
         {
             if (speed <= 0f)
@@ -307,6 +373,11 @@ namespace CrashKonijn.Goap.Runtime
                 throw new GoapException($"There is no ActionReceiver assigned to the agent '{this.name}'! You're probably missing the ActionProvider on the AgentBehaviour.");
         }
 
+        /// <summary>
+        ///     Gets the actions of the specified type.
+        /// </summary>
+        /// <typeparam name="TAction">The type of the actions.</typeparam>
+        /// <returns>A list of actions of the specified type.</returns>
         public List<TAction> GetActions<TAction>() where TAction : IGoapAction => this.AgentType.GetActions<TAction>();
 
         #region Obsolete Methods
