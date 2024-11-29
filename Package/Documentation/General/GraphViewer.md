@@ -12,4 +12,8 @@ The `Graph Viewer` can be used to visualize the following selected items:
 - **AgentTypeBehaviour**
 - **GoapActionProvider**
 
+{% hint style="info" %}
+The views look different when selecting a config, or when you select an agent during play. When viewing an agent during play certain information (effects, targetname) is ommitted to save space.
+{% endhint %}
+
 ![Screenshot of NodeViewer](../images/goap-viewer.png)
