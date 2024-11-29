@@ -1,7 +1,7 @@
 # Core changes for v3!
 
 {% hint style="info" %}
-**Version** For v3 support for 2021.x is dropped. This package was build using unity 2022.2. Any newer version should work!
+V3 has been tested with all major versions of Unity 2021.3 and newer!
 {% endhint %}
 
 ## Goap Resolver
