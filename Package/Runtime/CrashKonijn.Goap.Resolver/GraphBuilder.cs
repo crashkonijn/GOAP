@@ -38,8 +38,10 @@ namespace CrashKonijn.Goap.Resolver
             return graph;
         }
 
-        private void ConnectNodes(INode node, Dictionary<string, List<INode>> effectMap,
-            Dictionary<string, List<INode>> conditionMap, IGraph graph)
+        private void ConnectNodes(
+            INode node, Dictionary<string, List<INode>> effectMap,
+            Dictionary<string, List<INode>> conditionMap, IGraph graph
+        )
         {
             if (!graph.ChildNodes.Contains(node) && !node.IsRootNode)
                 graph.ChildNodes.Add(node);
@@ -49,17 +51,19 @@ namespace CrashKonijn.Goap.Resolver
                 if (actionNodeCondition.Connections.Any())
                     continue;
 
-                var key = this.keyResolver.GetKey(node.Action, actionNodeCondition.Condition);
+                var key = this.keyResolver.GetKey(actionNodeCondition.Condition);
 
                 if (!effectMap.ContainsKey(key))
                     continue;
 
-                actionNodeCondition.Connections = effectMap[key].ToArray();
+                var connections = effectMap[key].Where(x => !this.HasConflictingConditions(node, x)).ToArray();
+
+                actionNodeCondition.Connections = connections;
 
                 foreach (var connection in actionNodeCondition.Connections)
                 {
-                    connection.Effects.First(x => this.keyResolver.GetKey(connection.Action, x.Effect) == key)
-                        .Connections = conditionMap[key].ToArray();
+                    connection.Effects.First(x => this.keyResolver.GetKey(x.Effect) == key)
+                        .Connections = conditionMap[key].Where(x => !this.HasConflictingConditions(node, x)).ToArray();
                 }
 
                 foreach (var subNode in actionNodeCondition.Connections)
@@ -67,6 +71,20 @@ namespace CrashKonijn.Goap.Resolver
                     this.ConnectNodes(subNode, effectMap, conditionMap, graph);
                 }
             }
+        }
+
+        private bool HasConflictingConditions(INode node, INode otherNode)
+        {
+            foreach (var condition in node.Conditions)
+            {
+                foreach (var otherEffects in otherNode.Effects)
+                {
+                    if (this.keyResolver.AreConflicting(otherEffects.Effect, condition.Condition))
+                        return true;
+                }
+            }
+
+            return false;
         }
 
         private Dictionary<string, List<INode>> GetEffectMap(INode[] actionNodes)
@@ -77,7 +95,7 @@ namespace CrashKonijn.Goap.Resolver
             {
                 foreach (var actionNodeEffect in actionNode.Effects)
                 {
-                    var key = this.keyResolver.GetKey(actionNode.Action, actionNodeEffect.Effect);
+                    var key = this.keyResolver.GetKey(actionNodeEffect.Effect);
 
                     if (!map.ContainsKey(key))
                         map[key] = new List<INode>();
@@ -97,7 +115,7 @@ namespace CrashKonijn.Goap.Resolver
             {
                 foreach (var actionNodeConditions in actionNode.Conditions)
                 {
-                    var key = this.keyResolver.GetKey(actionNode.Action, actionNodeConditions.Condition);
+                    var key = this.keyResolver.GetKey(actionNodeConditions.Condition);
 
                     if (!map.ContainsKey(key))
                         map[key] = new List<INode>();
