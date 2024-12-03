@@ -114,20 +114,20 @@ namespace CrashKonijn.Goap.Editor
                 if (graphNode.Action is IGoapAction goapAction)
                 {
                     this.TargetCircle.SetColor(this.GetCircleColor(goapAction, null));
-                    this.Target.text = $"Target: {goapAction.Config.Target?.GetType().GetGenericTypeName()}";
+                    this.Target.text = this.Target.text = this.GetTargetText(values, null, goapAction);
                     this.Cost.text = $"Cost: {goapAction.Config.BaseCost}";
                 }
+            }
 
-                this.Effects = new VisualElement();
-                this.Effects.AddToClassList("effects");
-                this.Effects.Add(new Label("Effects"));
-                this.Node.Add(this.Effects);
+            this.Effects = new VisualElement();
+            this.Effects.AddToClassList("effects");
+            this.Effects.Add(new Label("Effects"));
+            this.Node.Add(this.Effects);
 
-                foreach (var effect in graphNode.Effects)
-                {
-                    var effectElement = new EffectElement(effect);
-                    this.Effects.Add(effectElement);
-                }
+            foreach (var effect in graphNode.Effects)
+            {
+                var effectElement = new EffectElement(effect);
+                this.Effects.Add(effectElement);
             }
 
             this.schedule.Execute(() =>
@@ -144,19 +144,32 @@ namespace CrashKonijn.Goap.Editor
                 if (!provider.isActiveAndEnabled)
                     return;
 
-                this.UpdateClasses(graphNode, provider);
+                this.UpdateClasses(values, graphNode, provider);
 
                 this.Cost.text = $"Cost: {graphNode.GetCost(provider):0.00}";
 
                 if (graphNode.Action is IGoapAction action)
                 {
                     this.TargetCircle.SetColor(this.GetCircleColor(action, provider));
-                    var target = provider.WorldData.GetTarget(action);
-                    var targetText = target != null ? target.Position.ToString() : "null";
-
-                    this.Target.text = $"Target: {targetText}";
+                    this.Target.text = this.GetTargetText(values, provider, action);
                 }
             }).Every(33);
+        }
+
+        private string GetTargetText(EditorWindowValues values, IMonoGoapActionProvider provider, IGoapAction action)
+        {
+            var targetConfig = action.Config.Target?.GetType().GetGenericTypeName();
+
+            if (!Application.isPlaying || provider == null)
+                return $"Target: {targetConfig}";
+
+            var target = provider.WorldData.GetTarget(action);
+            var targetText = target != null ? target.Position.ToString() : "null";
+
+            if (values.ShowConfig)
+                return $"Target: {targetText} ({targetConfig})";
+
+            return $"Target: {targetText}";
         }
 
         private Color GetCircleColor(IGoapAction goapAction, IMonoGoapActionProvider provider)
@@ -173,11 +186,17 @@ namespace CrashKonijn.Goap.Editor
             return Color.green;
         }
 
-        private void UpdateClasses(INode graphNode, IMonoGoapActionProvider provider)
+        private void UpdateClasses(EditorWindowValues values, INode graphNode, IMonoGoapActionProvider provider)
         {
             this.Node.RemoveFromClassList("active");
             this.Node.RemoveFromClassList("disabled");
             this.Node.RemoveFromClassList("path");
+            this.Node.RemoveFromClassList("hide-effects");
+
+            if (!values.ShowConfig)
+            {
+                this.Node.AddToClassList("hide-effects");
+            }
 
             if (provider.CurrentPlan?.Goal == this.GraphNode.Action)
             {

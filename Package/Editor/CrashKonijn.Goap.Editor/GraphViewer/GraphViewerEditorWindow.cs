@@ -26,6 +26,8 @@ namespace CrashKonijn.Goap.Editor
 
         private void OnPlayModeChange(PlayModeStateChange obj)
         {
+            this.values.ShowConfig = obj != PlayModeStateChange.EnteredPlayMode;
+
             this.OnSelectionChange();
         }
 

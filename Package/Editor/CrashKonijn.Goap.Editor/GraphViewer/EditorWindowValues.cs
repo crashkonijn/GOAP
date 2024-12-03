@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 namespace CrashKonijn.Goap.Editor
 {
@@ -8,8 +9,9 @@ namespace CrashKonijn.Goap.Editor
         public int Zoom { get; set; } = 100;
         public VisualElement RootElement { get; set; }
         public DragDrawer DragDrawer { get; set; }
-        public UnityEngine.Object SelectedObject { get; set; }
-        
+        public Object SelectedObject { get; set; }
+        public bool ShowConfig { get; set; }
+
         public void UpdateZoom(int zoom)
         {
             if (zoom > 0)
@@ -17,13 +19,14 @@ namespace CrashKonijn.Goap.Editor
                 this.Zoom = Math.Min(100, this.Zoom + zoom);
                 return;
             }
-            
+
             this.Zoom = Math.Max(50, this.Zoom + zoom);
         }
 
         public delegate void UpdateEvent();
+
         public event UpdateEvent OnUpdate;
-        
+
         public void Update()
         {
             this.OnUpdate?.Invoke();

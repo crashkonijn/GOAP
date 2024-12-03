@@ -13,9 +13,9 @@ namespace CrashKonijn.Goap.Editor
                 Selection.activeObject = values.SelectedObject;
             })
             {
-                text = values.SelectedObject.name
+                text = values.SelectedObject.name,
             });
-            
+
             this.Add(new ToolbarButton(() =>
             {
                 var elementsWithClass = values.RootElement.Query<VisualElement>(className: "node").ToList();
@@ -26,9 +26,9 @@ namespace CrashKonijn.Goap.Editor
                 }
             })
             {
-                text = "collapse"
+                text = "collapse",
             });
-            
+
             this.Add(new ToolbarButton(() =>
             {
                 var elementsWithClass = values.RootElement.Query<VisualElement>(className: "node").ToList();
@@ -39,26 +39,38 @@ namespace CrashKonijn.Goap.Editor
                 }
             })
             {
-                text = "open"
+                text = "open",
             });
-            
+
+            ToolbarButton configToggle = null;
+            configToggle = new ToolbarButton(() =>
+            {
+                values.ShowConfig = !values.ShowConfig;
+                configToggle.text = values.ShowConfig ? "Config (true)" : "Config (false)";
+            })
+            {
+                text = "toggle config",
+            };
+
+            this.Add(configToggle);
+
             var spacer = new VisualElement();
             spacer.style.flexGrow = 1; // This makes the spacer flexible, filling available space
             this.Add(spacer);
-            
+
             this.Add(new ToolbarButton(() =>
             {
                 values.UpdateZoom(10);
             })
             {
-                text = "+"
+                text = "+",
             });
             this.Add(new ToolbarButton(() =>
             {
                 values.UpdateZoom(-10);
             })
             {
-                text = "-"
+                text = "-",
             });
             this.Add(new ToolbarButton(() =>
             {
@@ -66,7 +78,7 @@ namespace CrashKonijn.Goap.Editor
                 values.DragDrawer.Reset();
             })
             {
-                text = "reset"
+                text = "reset",
             });
         }
     }
