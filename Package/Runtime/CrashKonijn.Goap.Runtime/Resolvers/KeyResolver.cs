@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Runtime
 
         public override bool AreConflicting(IEffect effect, ICondition condition)
         {
-            if (effect.WorldKey != condition.WorldKey)
+            if (effect.WorldKey.Name != condition.WorldKey.Name)
                 return false;
 
             if (this.GetText(effect.Increase) == this.GetText(condition.Comparison))

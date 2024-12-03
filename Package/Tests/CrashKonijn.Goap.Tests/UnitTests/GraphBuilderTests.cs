@@ -116,7 +116,7 @@ namespace CrashKonijn.Goap.UnitTests
             // Arrange
             var isHungryKey = new IsHungryKey();
             var hasAppleKey = new HasAppleKey();
-            
+
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new ICondition[]
             {
@@ -127,7 +127,7 @@ namespace CrashKonijn.Goap.UnitTests
                     Amount = 1,
                 },
             });
-            
+
             var pickupAppleAction = Substitute.For<IGoapAction>();
             pickupAppleAction.Effects.Returns(new IEffect[]
             {
@@ -137,11 +137,11 @@ namespace CrashKonijn.Goap.UnitTests
                     Increase = true,
                 },
             });
-            
+
             var actions = new List<IConnectable>
             {
                 goal,
-                pickupAppleAction
+                pickupAppleAction,
             };
 
             var keyResolver = new KeyResolver();
@@ -149,7 +149,7 @@ namespace CrashKonijn.Goap.UnitTests
 
             // Act
             var graph = graphBuilder.Build(actions);
-            
+
             // Assert
             Assert.IsNotNull(graph);
             Assert.IsNotNull(graph.RootNodes);
@@ -158,7 +158,7 @@ namespace CrashKonijn.Goap.UnitTests
             Assert.AreEqual(0, graph.ChildNodes.Count);
             Assert.IsNotNull(graph.UnconnectedNodes);
             Assert.AreEqual(1, graph.UnconnectedNodes.Length);
-            
+
             Assert.AreEqual(goal, graph.RootNodes[0].Action);
             Assert.AreEqual(pickupAppleAction, graph.UnconnectedNodes[0].Action);
         }
@@ -168,7 +168,7 @@ namespace CrashKonijn.Goap.UnitTests
         {
             // Arrange
             var isHungryKey = new IsHungryKey();
-            
+
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new ICondition[]
             {
@@ -179,7 +179,7 @@ namespace CrashKonijn.Goap.UnitTests
                     Amount = 1,
                 },
             });
-            
+
             var starveAction = Substitute.For<IGoapAction>();
             starveAction.Effects.Returns(new IEffect[]
             {
@@ -189,19 +189,19 @@ namespace CrashKonijn.Goap.UnitTests
                     Increase = true,
                 },
             });
-            
+
             var actions = new List<IConnectable>
             {
                 goal,
-                starveAction
+                starveAction,
             };
-            
+
             var keyResolver = new KeyResolver();
             var graphBuilder = new GraphBuilder(keyResolver);
-            
+
             // Act
             var graph = graphBuilder.Build(actions);
-            
+
             // Assert
             Assert.IsNotNull(graph);
             Assert.IsNotNull(graph.RootNodes);
@@ -210,7 +210,7 @@ namespace CrashKonijn.Goap.UnitTests
             Assert.AreEqual(0, graph.ChildNodes.Count);
             Assert.IsNotNull(graph.UnconnectedNodes);
             Assert.AreEqual(1, graph.UnconnectedNodes.Length);
-            
+
             Assert.AreEqual(goal, graph.RootNodes[0].Action);
             Assert.AreEqual(starveAction, graph.UnconnectedNodes[0].Action);
         }
@@ -238,14 +238,14 @@ namespace CrashKonijn.Goap.UnitTests
                 new Condition
                 {
                     WorldKey = lowOnMoneyKey,
-                    Comparison = Comparison.SmallerThan,
-                    Amount = 1,
+                    Comparison = Comparison.SmallerThanOrEqual,
+                    Amount = 0,
                 },
                 new Condition
                 {
                     WorldKey = crimeCommittedKey,
-                    Comparison = Comparison.SmallerThan,
-                    Amount = 1,
+                    Comparison = Comparison.SmallerThanOrEqual,
+                    Amount = 0,
                 },
             });
 
@@ -254,13 +254,13 @@ namespace CrashKonijn.Goap.UnitTests
             {
                 new Effect
                 {
-                    WorldKey = lowOnMoneyKey,
-                    Increase = false,
+                    WorldKey = crimeCommittedKey,
+                    Increase = true,
                 },
                 new Effect
                 {
-                    WorldKey = crimeCommittedKey,
-                    Increase = true,
+                    WorldKey = lowOnMoneyKey,
+                    Increase = false,
                 },
             });
 
