@@ -26,7 +26,11 @@
     border-width: 2px;
 }
 
-.node.collapsed .effects {
+.node.hide-effects .effects {
+    display: none;
+}
+
+.node.collapsed .effects{
     /*min-height: 40px;*/
     max-height: 0;
     margin: 0;
