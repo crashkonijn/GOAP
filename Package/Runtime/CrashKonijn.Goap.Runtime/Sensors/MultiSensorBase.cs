@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
+using Debug = UnityEngine.Debug;
 
 namespace CrashKonijn.Goap.Runtime
 {
@@ -14,16 +15,31 @@ namespace CrashKonijn.Goap.Runtime
         public Dictionary<Type, ILocalSensor> LocalSensors { get; private set; } = new();
         public Dictionary<Type, IGlobalSensor> GlobalSensors { get; private set; } = new();
 
+        /// <summary>
+        ///     Sets the configuration for the multi-sensor.
+        /// </summary>
+        /// <param name="config">The multi-sensor configuration.</param>
         public void SetConfig(IMultiSensorConfig config)
         {
             this.Config = config;
         }
 
         public Type Key { get; set; }
+
+        /// <summary>
+        ///     Called when the sensor is created. Don't use this method to add sensors, use the constructor instead.
+        /// </summary>
         public abstract void Created();
 
+        /// <summary>
+        ///     Called when the sensor should update. Use this for caching or other performance optimizations.
+        /// </summary>
         public abstract void Update();
 
+        /// <summary>
+        ///     Gets the keys of the sensors.
+        /// </summary>
+        /// <returns>An array of sensor keys.</returns>
         public Type[] GetKeys()
         {
             var keys = new List<Type>();
@@ -41,6 +57,10 @@ namespace CrashKonijn.Goap.Runtime
             return keys.ToArray();
         }
 
+        /// <summary>
+        ///     Senses the world data using global sensors.
+        /// </summary>
+        /// <param name="data">The world data.</param>
         public void Sense(IWorldData data)
         {
             foreach (var sensor in this.GlobalSensors.Values)
@@ -49,6 +69,11 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
+        /// <summary>
+        ///     Senses the world data using specific global sensors.
+        /// </summary>
+        /// <param name="data">The world data.</param>
+        /// <param name="keys">The keys of the sensors to use.</param>
         public void Sense(IWorldData data, Type[] keys)
         {
             foreach (var key in keys)
@@ -60,6 +85,12 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
+        /// <summary>
+        ///     Senses the world data using local sensors.
+        /// </summary>
+        /// <param name="data">The world data.</param>
+        /// <param name="agent">The action receiver.</param>
+        /// <param name="references">The component references.</param>
         public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references)
         {
             foreach (var sensor in this.LocalSensors.Values)
@@ -68,6 +99,13 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
+        /// <summary>
+        ///     Senses the world data using specific local sensors.
+        /// </summary>
+        /// <param name="data">The world data.</param>
+        /// <param name="agent">The action receiver.</param>
+        /// <param name="references">The component references.</param>
+        /// <param name="keys">The keys of the sensors to use.</param>
         public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references, Type[] keys)
         {
             foreach (var key in keys)
@@ -79,6 +117,12 @@ namespace CrashKonijn.Goap.Runtime
             }
         }
 
+        /// <summary>
+        ///     Adds a local world sensor.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the world key.</typeparam>
+        /// <param name="sense">The sense function.</param>
+        /// <param name="timer">The sensor timer.</param>
         public void AddLocalWorldSensor<TKey>(Func<IActionReceiver, IComponentReference, SenseValue> sense, ISensorTimer timer = null)
             where TKey : IWorldKey
         {
@@ -101,6 +145,12 @@ namespace CrashKonijn.Goap.Runtime
             });
         }
 
+        /// <summary>
+        ///     Adds a global world sensor.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the world key.</typeparam>
+        /// <param name="sense">The sense function.</param>
+        /// <param name="timer">The sensor timer.</param>
         public void AddGlobalWorldSensor<TKey>(Func<SenseValue> sense, ISensorTimer timer = null)
             where TKey : IWorldKey
         {
@@ -123,6 +173,12 @@ namespace CrashKonijn.Goap.Runtime
             });
         }
 
+        /// <summary>
+        ///     Adds a local target sensor.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the target key.</typeparam>
+        /// <param name="sense">The sense function.</param>
+        /// <param name="timer">The sensor timer.</param>
         public void AddLocalTargetSensor<TKey>(Func<IActionReceiver, IComponentReference, ITarget, ITarget> sense, ISensorTimer timer = null)
             where TKey : ITargetKey
         {
@@ -145,6 +201,12 @@ namespace CrashKonijn.Goap.Runtime
             });
         }
 
+        /// <summary>
+        ///     Adds a global target sensor.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the target key.</typeparam>
+        /// <param name="sense">The sense function.</param>
+        /// <param name="timer">The sensor timer.</param>
         public void AddGlobalTargetSensor<TKey>(Func<ITarget, ITarget> sense, ISensorTimer timer = null)
             where TKey : ITargetKey
         {
@@ -167,6 +229,10 @@ namespace CrashKonijn.Goap.Runtime
             });
         }
 
+        /// <summary>
+        ///     Gets the names of the sensors.
+        /// </summary>
+        /// <returns>An array of sensor names.</returns>
         public string[] GetSensors()
         {
             var sensors = new List<string>();
@@ -197,34 +263,8 @@ namespace CrashKonijn.Goap.Runtime
             );
 
             if (!calledFromConstructor)
-                UnityEngine.Debug.LogWarning("Multi sensor registration must be added from the constructor of the sensor, not the Created method.");
+                Debug.LogWarning("Multi sensor registration must be added from the constructor of the sensor, not the Created method.");
 #endif
         }
-    }
-
-    public class GlobalSensor : IGlobalSensor
-    {
-        public Action<IWorldData> SenseMethod;
-        public Type Key { get; set; }
-
-        public void Created() { }
-
-        public Type[] GetKeys() => new[] { this.Key };
-
-        public void Sense(IWorldData data) => this.SenseMethod(data);
-    }
-
-    public class LocalSensor : ILocalSensor
-    {
-        public Action<IWorldData, IActionReceiver, IComponentReference> SenseMethod;
-        public Type Key { get; set; }
-
-        public Type[] GetKeys() => new[] { this.Key };
-
-        public void Created() { }
-
-        public void Update() { }
-
-        public void Sense(IWorldData data, IActionReceiver agent, IComponentReference references) => this.SenseMethod(data, agent, references);
     }
 }
