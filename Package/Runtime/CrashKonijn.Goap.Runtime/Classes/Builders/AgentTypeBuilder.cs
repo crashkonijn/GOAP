@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
@@ -18,6 +17,11 @@ namespace CrashKonijn.Goap.Runtime
             this.agentTypeConfig = new AgentTypeConfig(name);
         }
 
+        /// <summary>
+        ///     Creates a new capability with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the capability.</param>
+        /// <returns>A new instance of <see cref="CapabilityBuilder" />.</returns>
         public CapabilityBuilder CreateCapability(string name)
         {
             var capabilityBuilder = new CapabilityBuilder(name);
@@ -27,6 +31,11 @@ namespace CrashKonijn.Goap.Runtime
             return capabilityBuilder;
         }
 
+        /// <summary>
+        ///     Creates a new capability with the specified name and applies the given callback.
+        /// </summary>
+        /// <param name="name">The name of the capability.</param>
+        /// <param name="callback">The callback to apply to the capability builder.</param>
         public void CreateCapability(string name, Action<CapabilityBuilder> callback)
         {
             var capabilityBuilder = new CapabilityBuilder(name);
@@ -36,37 +45,65 @@ namespace CrashKonijn.Goap.Runtime
             this.capabilityBuilders.Add(capabilityBuilder);
         }
 
+        /// <summary>
+        ///     Adds a capability of the specified type.
+        /// </summary>
+        /// <typeparam name="TCapability">The type of the capability.</typeparam>
         public void AddCapability<TCapability>()
             where TCapability : CapabilityFactoryBase, new()
         {
             this.capabilityConfigs.Add(new TCapability().Create());
         }
 
+        /// <summary>
+        ///     Adds a capability using the specified capability factory.
+        /// </summary>
+        /// <param name="capabilityFactory">The capability factory.</param>
         public void AddCapability(CapabilityFactoryBase capabilityFactory)
         {
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
 
+        /// <summary>
+        ///     Adds a capability using the specified mono capability factory.
+        /// </summary>
+        /// <param name="capabilityFactory">The mono capability factory.</param>
         public void AddCapability(MonoCapabilityFactoryBase capabilityFactory)
         {
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
 
+        /// <summary>
+        ///     Adds a capability using the specified scriptable capability factory.
+        /// </summary>
+        /// <param name="capabilityFactory">The scriptable capability factory.</param>
         public void AddCapability(ScriptableCapabilityFactoryBase capabilityFactory)
         {
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
 
+        /// <summary>
+        ///     Adds a capability using the specified capability builder.
+        /// </summary>
+        /// <param name="capabilityBuilder">The capability builder.</param>
         public void AddCapability(CapabilityBuilder capabilityBuilder)
         {
             this.capabilityConfigs.Add(capabilityBuilder.Build());
         }
 
+        /// <summary>
+        ///     Adds a capability using the specified capability config.
+        /// </summary>
+        /// <param name="capabilityConfig">The capability config.</param>
         public void AddCapability(ICapabilityConfig capabilityConfig)
         {
             this.capabilityConfigs.Add(capabilityConfig);
         }
 
+        /// <summary>
+        ///     Builds the agent type configuration.
+        /// </summary>
+        /// <returns>The built <see cref="AgentTypeConfig" />.</returns>
         public AgentTypeConfig Build()
         {
             this.capabilityConfigs.AddRange(this.capabilityBuilders.Select(x => x.Build()));
@@ -78,89 +115,6 @@ namespace CrashKonijn.Goap.Runtime
             this.agentTypeConfig.MultiSensors = this.capabilityConfigs.SelectMany(x => x.MultiSensors).ToList();
 
             return this.agentTypeConfig;
-        }
-    }
-
-    public class CapabilityBuilder
-    {
-        private readonly CapabilityConfig capabilityConfig;
-        private readonly List<ActionBuilder> actionBuilders = new();
-        private readonly List<GoalBuilder> goalBuilders = new();
-        private readonly List<TargetSensorBuilder> targetSensorBuilders = new();
-        private readonly List<WorldSensorBuilder> worldSensorBuilders = new();
-        private readonly List<MultiSensorBuilder> multiSensorBuilders = new();
-        private readonly WorldKeyBuilder worldKeyBuilder = new();
-        private readonly TargetKeyBuilder targetKeyBuilder = new();
-
-        public CapabilityBuilder(string name)
-        {
-            this.capabilityConfig = new CapabilityConfig(name);
-        }
-
-        public ActionBuilder<TAction> AddAction<TAction>()
-            where TAction : IAction
-        {
-            var actionBuilder = ActionBuilder.Create<TAction>(this.worldKeyBuilder, this.targetKeyBuilder);
-
-            this.actionBuilders.Add(actionBuilder);
-
-            return actionBuilder;
-        }
-
-        public GoalBuilder<TGoal> AddGoal<TGoal>()
-            where TGoal : IGoal
-        {
-            var goalBuilder = GoalBuilder.Create<TGoal>(this.worldKeyBuilder);
-
-            this.goalBuilders.Add(goalBuilder);
-
-            return goalBuilder;
-        }
-
-        public WorldSensorBuilder<TWorldSensor> AddWorldSensor<TWorldSensor>()
-            where TWorldSensor : IWorldSensor
-        {
-            var worldSensorBuilder = WorldSensorBuilder.Create<TWorldSensor>(this.worldKeyBuilder);
-
-            this.worldSensorBuilders.Add(worldSensorBuilder);
-
-            return worldSensorBuilder;
-        }
-
-        public TargetSensorBuilder<TTargetSensor> AddTargetSensor<TTargetSensor>()
-            where TTargetSensor : ITargetSensor
-        {
-            var targetSensorBuilder = TargetSensorBuilder.Create<TTargetSensor>(this.targetKeyBuilder);
-
-            this.targetSensorBuilders.Add(targetSensorBuilder);
-
-            return targetSensorBuilder;
-        }
-
-        public MultiSensorBuilder<TMultiSensor> AddMultiSensor<TMultiSensor>()
-            where TMultiSensor : IMultiSensor
-        {
-            var multiSensorBuilder = MultiSensorBuilder.Create<TMultiSensor>();
-
-            this.multiSensorBuilders.Add(multiSensorBuilder);
-
-            return multiSensorBuilder;
-        }
-
-        public WorldKeyBuilder GetWorldKeyBuilder()
-        {
-            return this.worldKeyBuilder;
-        }
-
-        public CapabilityConfig Build()
-        {
-            this.capabilityConfig.Actions = this.actionBuilders.Select(x => x.Build()).ToList();
-            this.capabilityConfig.Goals = this.goalBuilders.Select(x => x.Build()).ToList();
-            this.capabilityConfig.TargetSensors = this.targetSensorBuilders.Select(x => x.Build()).ToList();
-            this.capabilityConfig.WorldSensors = this.worldSensorBuilders.Select(x => x.Build()).ToList();
-            this.capabilityConfig.MultiSensors = this.multiSensorBuilders.Select(x => x.Build()).ToList();
-
-            return this.capabilityConfig;
         }
     }
 }

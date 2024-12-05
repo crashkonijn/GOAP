@@ -22,6 +22,10 @@ namespace CrashKonijn.Goap.Runtime
 
         public override TActionProperties Properties => this.Config.Properties as TActionProperties;
 
+        /// <summary>
+        ///     Sets the configuration for the action.
+        /// </summary>
+        /// <param name="config">The action configuration.</param>
         public void SetConfig(IActionConfig config)
         {
             this.Config = config;
@@ -33,26 +37,57 @@ namespace CrashKonijn.Goap.Runtime
             return this.Config.BaseCost;
         }
 
+        /// <summary>
+        ///     Returns the cost of the action.
+        /// </summary>
+        /// <param name="agent">The action receiver.</param>
+        /// <param name="references">The component references.</param>
+        /// <param name="target">The target of the action.</param>
+        /// <returns>The cost of the action.</returns>
         public virtual float GetCost(IActionReceiver agent, IComponentReference references, ITarget target)
         {
             return this.Config.BaseCost;
         }
 
+        /// <summary>
+        ///     Gets the move mode for the action.
+        /// </summary>
+        /// <param name="agent">The agent.</param>
+        /// <returns>The move mode for the action.</returns>
         public ActionMoveMode GetMoveMode(IMonoAgent agent)
         {
             return this.Config.MoveMode;
         }
 
+        /// <summary>
+        ///     Gets the stopping distance for the action.
+        /// </summary>
+        /// <returns>The stopping distance for the action.</returns>
         public virtual float GetStoppingDistance()
         {
             return this.Config.StoppingDistance;
         }
 
+        /// <summary>
+        ///     Determines whether the agent is in range for the action.
+        /// </summary>
+        /// <param name="agent">The agent.</param>
+        /// <param name="distance">The distance to the target.</param>
+        /// <param name="data">The action data.</param>
+        /// <param name="references">The component references.</param>
+        /// <returns>True if the agent is in range, otherwise false.</returns>
         public virtual bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references)
         {
             return distance <= this.GetStoppingDistance();
         }
 
+        /// <summary>
+        ///     Determines whether the action is valid. Don't override this method, use IsValid(IActionReceiver agent, TActionData
+        ///     data) instead.
+        /// </summary>
+        /// <param name="agent">The action receiver.</param>
+        /// <param name="data">The action data.</param>
+        /// <returns>True if the action is valid, otherwise false.</returns>
         public bool IsValid(IActionReceiver agent, IActionData data)
         {
             if (agent.ActionProvider is not GoapActionProvider goapAgent)
@@ -82,11 +117,24 @@ namespace CrashKonijn.Goap.Runtime
             return this.IsValid(agent, (TActionData) data);
         }
 
+        /// <summary>
+        ///     Determines whether the action is valid with the specified action data. This is the method you should overwrite (in
+        ///     most instances).
+        /// </summary>
+        /// <param name="agent">The action receiver.</param>
+        /// <param name="data">The action data.</param>
+        /// <returns>True if the action is valid, otherwise false.</returns>
         public virtual bool IsValid(IActionReceiver agent, TActionData data)
         {
             return true;
         }
 
+        /// <summary>
+        ///     Determines whether the action is executable.
+        /// </summary>
+        /// <param name="agent">The action receiver.</param>
+        /// <param name="conditionsMet">Whether the conditions are met.</param>
+        /// <returns>True if the action is executable, otherwise false.</returns>
         public bool IsExecutable(IActionReceiver agent, bool conditionsMet)
         {
             var goapAgent = agent.Injector.GetCachedComponent<GoapActionProvider>();

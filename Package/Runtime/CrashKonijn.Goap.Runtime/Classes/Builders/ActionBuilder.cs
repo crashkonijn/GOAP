@@ -11,6 +11,11 @@ namespace CrashKonijn.Goap.Runtime
     {
         public ActionBuilder(WorldKeyBuilder worldKeyBuilder, TargetKeyBuilder targetKeyBuilder) : base(typeof(T), worldKeyBuilder, targetKeyBuilder) { }
 
+        /// <summary>
+        ///     Sets the target key for the action.
+        /// </summary>
+        /// <typeparam name="TTargetKey">The type of the target key.</typeparam>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> SetTarget<TTargetKey>()
             where TTargetKey : ITargetKey
         {
@@ -18,30 +23,56 @@ namespace CrashKonijn.Goap.Runtime
             return this;
         }
 
+        /// <summary>
+        ///     Sets the base cost for the action.
+        /// </summary>
+        /// <param name="baseCost">The base cost.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> SetBaseCost(float baseCost)
         {
             this.config.BaseCost = baseCost;
             return this;
         }
 
+        /// <summary>
+        ///     Sets whether the target should be validated when running the action.
+        /// </summary>
+        /// <param name="validate">True if the target should be validated; otherwise, false.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> SetValidateTarget(bool validate)
         {
             this.config.ValidateTarget = validate;
             return this;
         }
 
+        /// <summary>
+        ///     Sets whether the action requires a target.
+        /// </summary>
+        /// <param name="requiresTarget">True if the action requires a target; otherwise, false.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> SetRequiresTarget(bool requiresTarget)
         {
             this.config.RequiresTarget = requiresTarget;
             return this;
         }
 
+        /// <summary>
+        ///     Sets whether the conditions should be validated when running the action.
+        /// </summary>
+        /// <param name="validate">True if the conditions should be validated; otherwise, false.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> SetValidateConditions(bool validate)
         {
             this.config.ValidateConditions = validate;
             return this;
         }
 
+        /// <summary>
+        ///     Sets the stopping distance for the action. This is the distance at which the action will stop moving towards the
+        ///     target.
+        /// </summary>
+        /// <param name="inRange">The stopping distance.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> SetStoppingDistance(float inRange)
         {
             this.config.StoppingDistance = inRange;
@@ -55,12 +86,24 @@ namespace CrashKonijn.Goap.Runtime
             return this;
         }
 
+        /// <summary>
+        ///     Sets the move mode for the action.
+        /// </summary>
+        /// <param name="moveMode">The move mode.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> SetMoveMode(ActionMoveMode moveMode)
         {
             this.config.MoveMode = moveMode;
             return this;
         }
 
+        /// <summary>
+        ///     Adds a condition to the action.
+        /// </summary>
+        /// <typeparam name="TWorldKey">The type of the world key.</typeparam>
+        /// <param name="comparison">The comparison type.</param>
+        /// <param name="amount">The amount for the condition.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> AddCondition<TWorldKey>(Comparison comparison, int amount)
             where TWorldKey : IWorldKey
         {
@@ -87,6 +130,12 @@ namespace CrashKonijn.Goap.Runtime
             return this;
         }
 
+        /// <summary>
+        ///     Adds an effect to the action.
+        /// </summary>
+        /// <typeparam name="TWorldKey">The type of the world key.</typeparam>
+        /// <param name="type">The effect type.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> AddEffect<TWorldKey>(EffectType type)
             where TWorldKey : IWorldKey
         {
@@ -99,6 +148,11 @@ namespace CrashKonijn.Goap.Runtime
             return this;
         }
 
+        /// <summary>
+        ///     Sets the properties for the action.
+        /// </summary>
+        /// <param name="properties">The action properties.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> SetProperties(IActionProperties properties)
         {
             this.ValidateProperties(properties);
@@ -107,6 +161,11 @@ namespace CrashKonijn.Goap.Runtime
             return this;
         }
 
+        /// <summary>
+        ///     Sets the callback for when the action is created. This can be used to set up the action with custom data.
+        /// </summary>
+        /// <param name="callback">The callback action.</param>
+        /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         public ActionBuilder<T> SetCallback(Action<T> callback)
         {
             this.config.Callback = (obj) => callback((T) obj);

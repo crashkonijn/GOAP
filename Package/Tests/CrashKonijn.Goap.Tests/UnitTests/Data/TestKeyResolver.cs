@@ -5,7 +5,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
 {
     public class TestKeyResolver : IKeyResolver
     {
-        public string GetKey(IConnectable action, ICondition condition)
+        public string GetKey(ICondition condition)
         {
             if (condition is StringCondition stringCondition)
                 return stringCondition.GetKey();
@@ -16,7 +16,7 @@ namespace CrashKonijn.Goap.UnitTests.Data
             throw new Exception("Should not happen");
         }
 
-        public string GetKey(IConnectable action, IEffect effect)
+        public string GetKey(IEffect effect)
         {
             if (effect is StringEffect stringEffect)
                 return stringEffect.GetKey();
@@ -25,6 +25,11 @@ namespace CrashKonijn.Goap.UnitTests.Data
                 return testConnection.GetKey();
 
             throw new Exception("Should not happen");
+        }
+
+        public bool AreConflicting(IEffect effect, ICondition condition)
+        {
+            return false;
         }
 
         public void SetWorldData(IWorldData globalWorldData) { }

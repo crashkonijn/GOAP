@@ -2,8 +2,9 @@
 {
     public interface IKeyResolver
     {
-        string GetKey(IConnectable action, ICondition condition);
-        string GetKey(IConnectable action, IEffect effect);
+        string GetKey(ICondition condition);
+        string GetKey(IEffect effect);
+        bool AreConflicting(IEffect effect, ICondition condition);
         void SetWorldData(IWorldData globalWorldData);
     }
 }
