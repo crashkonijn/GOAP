@@ -142,7 +142,7 @@ namespace CrashKonijn.Goap.Runtime
                 this.enabledBuilder.SetEnabled(node, node.IsEnabled(actionProvider.Receiver));
                 this.costBuilder.SetCost(node, node.GetCost(actionProvider.Receiver, actionProvider.Receiver.Injector, target));
 
-                this.positionBuilder.SetPosition(node, target?.Position);
+                this.positionBuilder.SetPosition(node, target?.GetValidPosition());
             }
         }
 

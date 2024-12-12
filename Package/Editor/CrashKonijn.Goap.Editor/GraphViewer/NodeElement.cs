@@ -164,7 +164,7 @@ namespace CrashKonijn.Goap.Editor
                 return $"Target: {targetConfig}";
 
             var target = provider.WorldData.GetTarget(action);
-            var targetText = target != null ? target.Position.ToString() : "null";
+            var targetText = target?.GetValidPosition()?.ToString() ?? "null";
 
             if (values.ShowConfig)
                 return $"Target: {targetText} ({targetConfig})";

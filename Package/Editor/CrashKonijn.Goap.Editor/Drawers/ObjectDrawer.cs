@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Reflection;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,9 +13,9 @@ namespace CrashKonijn.Goap.Editor
         {
             if (obj is null)
                 return;
-            
+
             var properties = obj.GetType().GetProperties();
-            
+
             var label = new Label();
             label.text = this.GetLabelText(properties, obj);
             this.Add(label);
@@ -38,23 +39,23 @@ namespace CrashKonijn.Goap.Editor
         {
             if (value == null)
                 return "null";
-            
+
             if (value is TransformTarget transformTarget)
             {
                 if (transformTarget.Transform == null)
                     return "null";
-                
+
                 return transformTarget.Transform.name;
             }
-            
+
             if (value is PositionTarget positionTarget)
-                return positionTarget.Position.ToString();
-            
+                return positionTarget.GetValidPosition().ToString();
+
             if (value is MonoBehaviour monoBehaviour)
             {
                 if (monoBehaviour == null)
                     return "null";
-                
+
                 return monoBehaviour.name;
             }
 
