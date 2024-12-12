@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
@@ -14,26 +13,26 @@ namespace CrashKonijn.Goap.Editor
         public WorldDataDrawer(ILocalWorldData worldData)
         {
             this.name = "world-data";
-            
+
             var card = new Card((card) =>
             {
                 card.Add(new Header("World Data"));
-                
+
                 var root = new VisualElement();
-                
+
                 var scrollView = new ScrollView(ScrollViewMode.VerticalAndHorizontal);
                 scrollView.Add(root);
-                
+
                 card.schedule.Execute(() =>
                 {
                     root.Clear();
-                    
+
                     root.Add(this.CreateTable(new string[] { "Key", "Value", "Age" }, this.GetValues(worldData)));
                 }).Every(500);
-                
+
                 card.Add(scrollView);
             });
-            
+
             this.Add(card);
         }
 
@@ -55,19 +54,19 @@ namespace CrashKonijn.Goap.Editor
         private string[] GetValues<T>(Type key, IWorldDataState<T> dataState)
         {
             var local = dataState.IsLocal ? "Local" : "Global";
-            
+
             return new string[]
             {
                 $"{key.GetGenericTypeName()} ({local})",
                 this.GetValueText(dataState),
-                this.GetText(dataState.Timer)
+                this.GetText(dataState.Timer),
             };
         }
 
         private string GetText(ITimer timer)
         {
             var secondsAgo = timer.GetElapsed();
-            
+
             return $"{secondsAgo:0.00}s";
         }
 
@@ -77,15 +76,15 @@ namespace CrashKonijn.Goap.Editor
             {
                 return $"{intValue}";
             }
-            
+
             if (dataState.Value is ITarget target)
             {
-                return $"{target.Position}";
+                return $"{target.GetValidPosition()}";
             }
 
             return "";
         }
-        
+
         private VisualElement CreateTable(string[] headers, string[][] rows)
         {
             var tableContainer = new VisualElement();
@@ -107,14 +106,14 @@ namespace CrashKonijn.Goap.Editor
             for (var i = 0; i < headers.Length; i++)
             {
                 var headerLabel = new Label(headers[i]);
-                headerLabel.style.width = columnWidths[i];  // Set fixed width for each column
+                headerLabel.style.width = columnWidths[i]; // Set fixed width for each column
                 headerLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
                 headerLabel.style.color = Color.white;
                 headerLabel.style.paddingLeft = 10;
                 headerLabel.style.paddingRight = 10;
                 // headerLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
                 // headerLabel.style.flexWrap = Wrap.Wrap;
-                headerLabel.style.flexGrow = 1;  // Allow columns to expand equally
+                headerLabel.style.flexGrow = 1; // Allow columns to expand equally
                 headerRow.Add(headerLabel);
             }
 
@@ -135,7 +134,7 @@ namespace CrashKonijn.Goap.Editor
                 for (var i = 0; i < row.Length; i++)
                 {
                     var dataLabel = new Label(row[i]);
-                    dataLabel.style.width = columnWidths[i];  // Set fixed width for each column
+                    dataLabel.style.width = columnWidths[i]; // Set fixed width for each column
                     dataLabel.style.paddingLeft = 10;
                     dataLabel.style.paddingRight = 10;
                     dataLabel.style.flexWrap = Wrap.Wrap;
