@@ -30,8 +30,8 @@ namespace CrashKonijn.Goap.Runtime
 
                 this.agentType = value;
                 this.WorldData.SetParent(value.WorldData);
-                this.GoalRequest = null;
-                this.CurrentPlan = null;
+                this.ClearGoalRequest();
+                this.ClearPlan();
 
                 value.Register(this);
 
@@ -329,12 +329,27 @@ namespace CrashKonijn.Goap.Runtime
             this.Receiver.Timers.Resolve.Touch();
         }
 
-        /// <summary>
-        ///     Clears the current goal.
-        /// </summary>
+
+        [Obsolete("Use ClearPlan or ClearGoalRequest instead.")]
         public void ClearGoal()
         {
             this.CurrentPlan = null;
+        }
+
+        /// <summary>
+        ///     Clears the current plan.
+        /// </summary>
+        public void ClearPlan()
+        {
+            this.CurrentPlan = null;
+        }
+
+        /// <summary>
+        ///     Clears the current goal request.
+        /// </summary>
+        public void ClearGoalRequest()
+        {
+            this.GoalRequest = null;
         }
 
         /// <summary>

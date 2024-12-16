@@ -51,7 +51,12 @@ namespace CrashKonijn.Goap.Core
         void RequestGoal(IGoalRequest request, bool endAction);
 
         void SetAction(IGoalResult result);
+
+        [Obsolete("Use ClearPlan or ClearGoalRequest instead.")]
         void ClearGoal();
+
+        void ClearPlan();
+        void ClearGoalRequest();
         void StopAction(bool resolveAction = true);
         void SetDistanceMultiplier(float multiplier);
         void SetDistanceMultiplierSpeed(float speed);
