@@ -31,7 +31,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
         {
             foreach (var pickupAppleAction in this.actionProvider.GetActions<PickupAppleAction>())
             {
-                pickupAppleAction.Enable();
+                this.actionProvider.Enable(pickupAppleAction);
             }
         }
 
@@ -39,7 +39,7 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
         {
             foreach (var pickupAppleAction in this.actionProvider.GetActions<PickupAppleAction>())
             {
-                pickupAppleAction.Disable(ActionDisabler.ForTime(1f));
+                this.actionProvider.Disable(pickupAppleAction, ActionDisabler.ForTime(1f));
             }
         }
     }

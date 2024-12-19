@@ -43,8 +43,5 @@
         void Complete(IMonoAgent agent, IActionData data);
 
         bool IsExecutable(IActionReceiver agent, bool conditionsMet);
-        bool IsEnabled(IActionReceiver agent);
-        void Enable();
-        void Disable(IActionDisabler disabler);
     }
 }

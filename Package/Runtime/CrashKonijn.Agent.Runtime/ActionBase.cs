@@ -6,8 +6,6 @@ namespace CrashKonijn.Agent.Runtime
         where TActionData : IActionData, new()
         where TActionProperties : class, IActionProperties, new()
     {
-        private IActionDisabler disabler;
-
         /// <summary>
         ///     Gets the action data.
         /// </summary>
@@ -49,54 +47,6 @@ namespace CrashKonijn.Agent.Runtime
         /// <param name="agent">The agent.</param>
         /// <param name="data">The action data.</param>
         public virtual void Start(IMonoAgent agent, TActionData data) { }
-
-        /// <summary>
-        ///     Determines whether the action is enabled. This is used by the planner.
-        /// </summary>
-        /// <param name="agent">The action receiver.</param>
-        /// <returns>True if the action is enabled, otherwise false.</returns>
-        public bool IsEnabled(IActionReceiver agent)
-        {
-            return this.IsEnabled(agent, agent.Injector);
-        }
-
-        /// <summary>
-        ///     Determines whether the action is enabled. This is used by the planner.
-        /// </summary>
-        /// <param name="receiver">The action receiver.</param>
-        /// <param name="references">The component references.</param>
-        /// <returns>True if the action is enabled, otherwise false.</returns>
-        public virtual bool IsEnabled(IActionReceiver receiver, IComponentReference references)
-        {
-            if (this.disabler == null)
-                return true;
-
-            if (receiver is not IMonoAgent agent)
-                return true;
-
-            if (this.disabler.IsDisabled(agent))
-                return false;
-
-            this.Enable();
-            return true;
-        }
-
-        /// <summary>
-        ///     Enables the action.
-        /// </summary>
-        public void Enable()
-        {
-            this.disabler = null;
-        }
-
-        /// <summary>
-        ///     Disables the action.
-        /// </summary>
-        /// <param name="disabler">The action disabler.</param>
-        public void Disable(IActionDisabler disabler)
-        {
-            this.disabler = disabler;
-        }
 
         /// <summary>
         ///     Called once before performing the action. Don't override this method, override the other BeforePerform method
