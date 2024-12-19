@@ -39,7 +39,6 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
         {
             foreach (var pickupAppleAction in this.actionProvider.GetActions<PickupAppleAction>())
             {
-                
                 this.actionProvider.Disable(pickupAppleAction, ActionDisabler.ForTime(1f));
             }
         }
