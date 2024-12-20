@@ -150,7 +150,7 @@ namespace CrashKonijn.Goap.Runtime
 
             return true;
         }
-        
+
         /// <summary>
         ///     Determines whether the action is enabled. This is used by the planner.
         /// </summary>
@@ -172,12 +172,24 @@ namespace CrashKonijn.Goap.Runtime
             return !receiver.ActionProvider.IsDisabled(this);
         }
 
+        [Obsolete("Use Enable(IActionReceiver receiver) instead")]
+        public void Enable()
+        {
+            throw new Exception("Use Enable(IActionReceiver receiver) instead");
+        }
+
         /// <summary>
         ///     Enables the action.
         /// </summary>
         public void Enable(IActionReceiver receiver)
         {
             receiver.ActionProvider.Enable(this);
+        }
+
+        [Obsolete("Use Disable(IActionReceiver receiver, IActionDisabler disabler) instead")]
+        public void Disable(IActionDisabler disabler)
+        {
+            throw new Exception("Use Disable(IActionReceiver receiver, IActionDisabler disabler) instead");
         }
 
         /// <summary>
