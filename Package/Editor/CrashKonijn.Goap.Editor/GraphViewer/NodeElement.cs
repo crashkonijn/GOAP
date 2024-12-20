@@ -216,7 +216,7 @@ namespace CrashKonijn.Goap.Editor
                 return;
             }
 
-            if (graphNode.Action is not IAction action)
+            if (graphNode.Action is not IGoapAction action)
                 return;
 
             if (!action.IsEnabled(provider.Receiver))

@@ -150,5 +150,56 @@ namespace CrashKonijn.Goap.Runtime
 
             return true;
         }
+
+        /// <summary>
+        ///     Determines whether the action is enabled. This is used by the planner.
+        /// </summary>
+        /// <param name="agent">The action receiver.</param>
+        /// <returns>True if the action is enabled, otherwise false.</returns>
+        public bool IsEnabled(IActionReceiver agent)
+        {
+            return this.IsEnabled(agent, agent.Injector);
+        }
+
+        /// <summary>
+        ///     Determines whether the action is enabled. This is used by the planner.
+        /// </summary>
+        /// <param name="receiver">The action receiver.</param>
+        /// <param name="references">The component references.</param>
+        /// <returns>True if the action is enabled, otherwise false.</returns>
+        public virtual bool IsEnabled(IActionReceiver receiver, IComponentReference references)
+        {
+            return !receiver.ActionProvider.IsDisabled(this);
+        }
+
+        [Obsolete("Use Enable(IActionReceiver receiver) instead")]
+        public void Enable()
+        {
+            throw new Exception("Use Enable(IActionReceiver receiver) instead");
+        }
+
+        /// <summary>
+        ///     Enables the action.
+        /// </summary>
+        public void Enable(IActionReceiver receiver)
+        {
+            receiver.ActionProvider.Enable(this);
+        }
+
+        [Obsolete("Use Disable(IActionReceiver receiver, IActionDisabler disabler) instead")]
+        public void Disable(IActionDisabler disabler)
+        {
+            throw new Exception("Use Disable(IActionReceiver receiver, IActionDisabler disabler) instead");
+        }
+
+        /// <summary>
+        ///     Disables the action.
+        /// </summary>
+        /// <param name="receiver">The action receiver</param>
+        /// <param name="disabler">The action disabler.</param>
+        public void Disable(IActionReceiver receiver, IActionDisabler disabler)
+        {
+            receiver.ActionProvider.Disable(this, disabler);
+        }
     }
 }

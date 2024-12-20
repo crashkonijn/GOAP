@@ -53,7 +53,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Actions
 
         public override void End(IMonoAgent agent, Data data)
         {
-            this.Disable(ActionDisabler.ForTime(5f));
+            this.Disable(agent, ActionDisabler.ForTime(5f));
 
             if (data.Eatable == null)
                 return;
