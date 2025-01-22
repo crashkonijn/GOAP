@@ -4,7 +4,7 @@ namespace CrashKonijn.Agent.Runtime
 {
     public class AgentLogger : LoggerBase<IMonoAgent>
     {
-        protected override string Name => this.source.name;
+        public override string Name => this.source.name;
 
         protected override void RegisterEvents()
         {

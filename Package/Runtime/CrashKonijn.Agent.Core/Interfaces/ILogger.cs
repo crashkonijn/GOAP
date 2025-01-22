@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CrashKonijn.Agent.Core
 {
@@ -7,7 +8,7 @@ namespace CrashKonijn.Agent.Core
         void Initialize(ILoggerConfig config, TObj obj);
     }
 
-    public interface ILogger
+    public interface ILogger : IDisposable
     {
         List<string> Logs { get; }
         void Log(string message);

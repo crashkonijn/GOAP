@@ -250,6 +250,11 @@ namespace CrashKonijn.Agent.Runtime
             this.UpdateTarget();
         }
 
+        private void OnDestroy()
+        {
+            this.Logger.Dispose();
+        }
+
         [Obsolete("Enable actions from within the action itself, or disable using actionProvider.GetActions<TAction>.ForEach((action) => action.Enable(IActionDisabler))")]
         public void EnableAction<TAction>()
             where TAction : IAction
