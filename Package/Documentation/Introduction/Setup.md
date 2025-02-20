@@ -16,6 +16,10 @@ In this tutorial we will create a simple GOAP system that will make an agent wan
    ![Assembly Definition](../images/getting_started/assembly_definition.png)
 
 ## Generating classes
+{% hint style="info" %}
+**Namespace** Don't forget to set the namespace you want to use. All classes must be in this namespace in order for the generator/system to find them. The tutorial uses `CrashKonijn.Docs.GettingStarted`.
+{% endhint %}
+
 1. Let's generate the required `Goals`, `Actions`, `WorldKeys` and `TargetKeys` using the generator. In the inspector of the `GettingStartedGenerator` please fill in the following classes in their respective fields:
    - Goals: `IdleGoal`
    - Actions: `IdleAction`
