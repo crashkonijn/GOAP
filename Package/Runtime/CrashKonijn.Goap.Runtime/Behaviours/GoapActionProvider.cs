@@ -101,6 +101,41 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         /// <summary>
+        /// Request goals of the specified types.
+        /// </summary>
+        /// <param name="resolve"></param>
+        /// <param name="goalTypes"></param>
+        public void RequestGoal(Type[] goalTypes, bool resolve = true)
+        {
+            this.ValidateSetup();
+
+            var request = this.GetRequestCache();
+            request.Goals.Clear();
+            foreach (var goalType in goalTypes)
+            {
+                request.Goals.Add(this.AgentType.ResolveGoal(goalType));
+            }
+
+            this.RequestGoal(request, resolve);
+        }
+
+        /// <summary>
+        /// Request goals of the specified type.
+        /// </summary>
+        /// <param name="resolve"></param>
+        /// <param name="goalType"></param>
+        public void RequestGoal(Type goalType, bool resolve = true)
+        {
+            this.ValidateSetup();
+
+            var request = this.GetRequestCache();
+            request.Goals.Clear();
+            request.Goals.Add(this.AgentType.ResolveGoal(goalType));
+
+            this.RequestGoal(request, resolve);
+        }
+
+        /// <summary>
         ///     Requests a goal of type TGoal.
         /// </summary>
         /// <typeparam name="TGoal">The type of the goal.</typeparam>
@@ -108,13 +143,7 @@ namespace CrashKonijn.Goap.Runtime
         public void RequestGoal<TGoal>(bool resolve = true)
             where TGoal : IGoal
         {
-            this.ValidateSetup();
-
-            var request = this.GetRequestCache();
-            request.Goals.Clear();
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal>());
-
-            this.RequestGoal(request, resolve);
+            this.RequestGoal(typeof(TGoal), resolve);
         }
 
         /// <summary>
@@ -127,14 +156,11 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal1 : IGoal
             where TGoal2 : IGoal
         {
-            this.ValidateSetup();
-
-            var request = this.GetRequestCache();
-            request.Goals.Clear();
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal1>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
-
-            this.RequestGoal(request, resolve);
+            this.RequestGoal(new []
+            {
+                typeof(TGoal1),
+                typeof(TGoal2)
+            }, resolve);
         }
 
         /// <summary>
@@ -149,15 +175,12 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal2 : IGoal
             where TGoal3 : IGoal
         {
-            this.ValidateSetup();
-
-            var request = this.GetRequestCache();
-            request.Goals.Clear();
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal1>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal3>());
-
-            this.RequestGoal(request, resolve);
+            this.RequestGoal(new []
+            {
+                typeof(TGoal1),
+                typeof(TGoal2),
+                typeof(TGoal3)
+            }, resolve);
         }
 
         /// <summary>
@@ -174,16 +197,13 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal3 : IGoal
             where TGoal4 : IGoal
         {
-            this.ValidateSetup();
-
-            var request = this.GetRequestCache();
-            request.Goals.Clear();
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal1>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal3>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal4>());
-
-            this.RequestGoal(request, resolve);
+            this.RequestGoal(new []
+            {
+                typeof(TGoal1),
+                typeof(TGoal2),
+                typeof(TGoal3),
+                typeof(TGoal4)
+            }, resolve);
         }
 
         /// <summary>
@@ -202,18 +222,14 @@ namespace CrashKonijn.Goap.Runtime
             where TGoal4 : IGoal
             where TGoal5 : IGoal
         {
-            this.ValidateSetup();
-
-            var request = this.GetRequestCache();
-
-            request.Goals.Clear();
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal1>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal2>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal3>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal4>());
-            request.Goals.Add(this.AgentType.ResolveGoal<TGoal5>());
-
-            this.RequestGoal(request, resolve);
+            this.RequestGoal(new []
+            {
+                typeof(TGoal1),
+                typeof(TGoal2),
+                typeof(TGoal3),
+                typeof(TGoal4),
+                typeof(TGoal5)
+            }, resolve);
         }
 
         /// <summary>

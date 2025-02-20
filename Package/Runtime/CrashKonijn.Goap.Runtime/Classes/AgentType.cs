@@ -50,6 +50,14 @@ namespace CrashKonijn.Goap.Runtime
             throw new KeyNotFoundException($"No action found of type {typeof(TGoal)}");
         }
 
+        public IGoal ResolveGoal(Type goalType)
+        {
+            if (this.goalsLookup.TryGetValue(goalType, out var result))
+                return result;
+
+            throw new KeyNotFoundException($"No action found of type {goalType}");
+        }
+
         public bool AllConditionsMet(IGoapActionProvider actionProvider, IGoapAction action)
         {
             var conditionObserver = this.GoapConfig.ConditionObserver;
