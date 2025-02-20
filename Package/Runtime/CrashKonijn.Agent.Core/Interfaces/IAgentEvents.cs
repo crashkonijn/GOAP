@@ -33,6 +33,12 @@ namespace CrashKonijn.Agent.Core
         event TargetDelegate OnMove;
         void Move(ITarget target);
 
+        event EmptyDelegate OnPause;
+        void Pause();
+
+        event EmptyDelegate OnResume;
+        void Resume();
+
         [Obsolete("Use GoapActionProvider.Events.OnNoActionFound instead")]
         event ActionDelegate OnNoActionFound;
 

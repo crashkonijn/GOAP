@@ -1,5 +1,4 @@
-﻿using System;
-using CrashKonijn.Agent.Core;
+﻿using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using UnityEngine;
 
@@ -56,12 +55,15 @@ namespace Demos.Shared.Behaviours
 
         public void Update()
         {
+            if (this.agent.IsPaused)
+                return;
+
             if (!this.IsMoving)
                 return;
-            
+
             if (this.currentTarget == null)
                 return;
-            
+
             this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(this.currentTarget.Position.x, this.transform.position.y, this.currentTarget.Position.z), Time.deltaTime);
         }
 
@@ -69,7 +71,7 @@ namespace Demos.Shared.Behaviours
         {
             if (this.currentTarget == null)
                 return;
-            
+
             Gizmos.DrawLine(this.transform.position, this.currentTarget.Position);
         }
     }

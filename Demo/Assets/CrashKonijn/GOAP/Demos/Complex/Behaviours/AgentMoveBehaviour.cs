@@ -30,7 +30,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
             this.agent.Events.OnTargetNotInRange -= this.TargetNotInRange;
             this.agent.Events.OnTargetLost -= this.TargetLost;
         }
-        
+
         private void TargetLost()
         {
             this.currentTarget = null;
@@ -55,12 +55,15 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
 
         public void Update()
         {
+            if (this.agent.IsPaused)
+                return;
+
             if (!this.shouldMove)
                 return;
-            
+
             if (this.currentTarget == null)
                 return;
-            
+
             this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(this.currentTarget.Position.x, this.transform.position.y, this.currentTarget.Position.z), Time.deltaTime);
         }
 
@@ -68,7 +71,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
         {
             if (this.currentTarget == null)
                 return;
-            
+
             Gizmos.DrawLine(this.transform.position, this.currentTarget.Position);
         }
     }

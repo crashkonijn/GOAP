@@ -175,6 +175,9 @@ namespace CrashKonijn.Goap.Runtime
 
         private bool MayResolve(IGoapActionProvider actionProvider)
         {
+            if (actionProvider.Receiver.IsPaused)
+                return false;
+
             if (actionProvider.Receiver.ActionState?.RunState == null)
                 return true;
 

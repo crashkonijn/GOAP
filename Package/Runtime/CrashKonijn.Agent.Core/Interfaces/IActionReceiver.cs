@@ -11,6 +11,7 @@ namespace CrashKonijn.Agent.Core
         IAgentEvents Events { get; }
         Transform Transform { get; }
         IActionProvider ActionProvider { get; }
+        bool IsPaused { get; set; }
         void SetAction(IActionProvider actionProvider, IAction action, ITarget target);
         void StopAction(bool resolveAction = true);
     }

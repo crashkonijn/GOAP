@@ -24,6 +24,9 @@ namespace CrashKonijn.Goap.Demos.Simple.Behaviours
 
         private void FixedUpdate()
         {
+            if (this.actionProvider.Receiver.IsPaused)
+                return;
+
             this.hunger += Time.fixedDeltaTime * 2f;
         }
 
