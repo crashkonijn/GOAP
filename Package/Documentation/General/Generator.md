@@ -11,5 +11,9 @@ To use the generator, add a new one to your project by right-clicking in the Pro
 
 All scripts created by the generator will be placed in subfolders according to their types.
 
+{% hint style="info" %}
+**Namespace** Don't forget to set the namespace you want to use. All classes must be in this namespace in order for the generator/system to find them.
+{% endhint %}
+
 ![generator_folder.png](../images/generator_folder.png)
 ![generator_scriptable.png](../images/generator_scriptable.png)
