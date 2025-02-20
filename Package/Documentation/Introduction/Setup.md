@@ -312,6 +312,9 @@ namespace CrashKonijn.Docs.GettingStarted.Behaviours
 
         public void Update()
         {
+          if (this.agent.IsPaused)
+                return;
+
             if (!this.shouldMove)
                 return;
             

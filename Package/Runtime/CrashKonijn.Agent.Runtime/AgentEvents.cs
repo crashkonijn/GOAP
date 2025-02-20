@@ -82,6 +82,20 @@ namespace CrashKonijn.Agent.Runtime
             this.OnResolve?.Invoke();
         }
 
+        public event EmptyDelegate OnPause;
+
+        public void Pause()
+        {
+            this.OnPause?.Invoke();
+        }
+
+        public event EmptyDelegate OnResume;
+
+        public void Resume()
+        {
+            this.OnResume?.Invoke();
+        }
+
         [Obsolete("Use GoapActionProvider.Events.OnNoActionFound instead")]
         public event ActionDelegate OnNoActionFound;
 

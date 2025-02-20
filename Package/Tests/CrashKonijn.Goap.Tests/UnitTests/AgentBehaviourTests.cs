@@ -255,28 +255,6 @@ namespace CrashKonijn.Goap.UnitTests
             this.provider.Receiver.ActionState.Data.Should().Be(actionData);
         }
 
-        // TODO
-        // [Test]
-        // public void SetAction_SetsDataTarget()
-        // {
-        //     // Arrange
-        //     var agent = new GameObject("Agent").AddComponent<GoapAgentBehaviour>();
-        //     agent.CallAwake();
-        //     agent.Agent.Initialize();
-        //     
-        //     var actionData = Substitute.For<IActionData>();
-        //     var action = Substitute.For<IGoapAction>();
-        //     action.GetData().Returns(actionData);
-        //
-        //     var target = new PositionTarget(Vector3.zero);
-        //     
-        //     // Act
-        //     agent.SetAction(action, Array.Empty<IConnectable>(), target);
-        //     
-        //     // Assert
-        //     actionData.Target.Should().Be(target);
-        // }
-
         [Test]
         public void SetAction_CallsStartOnAction()
         {
@@ -445,6 +423,36 @@ namespace CrashKonijn.Goap.UnitTests
 
             // Assert
             this.agent.Events.Received(1).ActionStop(action);
+        }
+
+        [Test]
+        public void Pause_CallsPauseEvent()
+        {
+            // Arrange
+            this.agent.Initialize();
+            this.agent.MockEvents();
+            
+            // Act
+            this.agent.IsPaused = true;
+            
+            // Assert
+            this.agent.Events.Received(1).Pause();
+        }
+
+        [Test]
+        public void Pause_CallsUnpauseEvent()
+        {
+            // Arrange
+            this.agent.Initialize();
+            this.agent.MockEvents();
+            this.agent.IsPaused = true;
+            
+            // Act
+            this.agent.Events.Received(0).Resume();
+            this.agent.IsPaused = false;
+            
+            // Assert
+            this.agent.Events.Received(1).Resume();
         }
     }
 }
