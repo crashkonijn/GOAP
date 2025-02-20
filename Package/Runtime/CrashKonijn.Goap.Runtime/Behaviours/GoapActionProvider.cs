@@ -101,6 +101,25 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         /// <summary>
+        /// Request goals of the specified types.
+        /// </summary>
+        /// <param name="resolve"></param>
+        /// <param name="goalTypes"></param>
+        public void RequestGoal(Type[] goalTypes, bool resolve = true)
+        {
+            this.ValidateSetup();
+
+            var request = this.GetRequestCache();
+            request.Goals.Clear();
+            foreach (var goalType in goalTypes)
+            {
+                request.Goals.Add(this.AgentType.ResolveGoal(goalType));
+            }
+
+            this.RequestGoal(request, resolve);
+        }
+
+        /// <summary>
         ///     Requests a goal of type TGoal.
         /// </summary>
         /// <typeparam name="TGoal">The type of the goal.</typeparam>
