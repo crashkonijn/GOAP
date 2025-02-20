@@ -79,10 +79,10 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.unityVersion }} ${{ matrix.testMode }} Test Results
 #          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport'
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Test results for ${{ matrix.testMode }}
+          name: Test results for ${{ matrix.unityVersion }} ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
 #      - uses: actions/upload-artifact@v3
 #        if: always()
