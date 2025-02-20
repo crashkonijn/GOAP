@@ -111,7 +111,7 @@ namespace CrashKonijn.Goap.UnitTests
         public void RequestGoal_SetsGoalRequest()
         {
             // Arrange
-            this.agentType.ResolveGoal<TestGoal>().Returns(new TestGoal());
+            this.agentType.ResolveGoal(Arg.Any<Type>()).Returns(new TestGoal());
 
             this.provider.AgentType = this.agentType;
 
