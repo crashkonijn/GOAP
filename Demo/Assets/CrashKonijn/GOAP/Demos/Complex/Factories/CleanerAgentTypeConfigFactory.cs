@@ -34,6 +34,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
                     .AddEffect<ItemsOnFloor>(EffectType.Decrease)
                     .AddCondition<ItemsOnFloor>(Comparison.GreaterThanOrEqual, 1)
                     .SetMoveMode(ActionMoveMode.PerformWhileMoving)
+                    .SetValidateConditions(false)
                     .SetCallback((action) =>
                     {
                         Debug.Log($"Action callback: {action}");

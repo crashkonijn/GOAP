@@ -22,33 +22,36 @@ namespace CrashKonijn.Goap.Core
         [Obsolete("Use RequestGoal instead.")]
         void SetGoal(IGoal goal, bool endAction);
 
-        void RequestGoal<TGoal>(bool endAction)
+        void RequestGoal(Type[] goalTypes, bool resolve = true);
+        void RequestGoal(Type goalType, bool resolve = true);
+
+        void RequestGoal<TGoal>(bool resolve = true)
             where TGoal : IGoal;
 
-        void RequestGoal<TGoal1, TGoal2>(bool endAction)
+        void RequestGoal<TGoal1, TGoal2>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal;
 
-        void RequestGoal<TGoal1, TGoal2, TGoal3>(bool endAction)
+        void RequestGoal<TGoal1, TGoal2, TGoal3>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
             where TGoal3 : IGoal;
 
-        void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4>(bool endAction)
+        void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
             where TGoal3 : IGoal
             where TGoal4 : IGoal;
 
-        public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4, TGoal5>(bool endAction)
+        public void RequestGoal<TGoal1, TGoal2, TGoal3, TGoal4, TGoal5>(bool resolve = true)
             where TGoal1 : IGoal
             where TGoal2 : IGoal
             where TGoal3 : IGoal
             where TGoal4 : IGoal
             where TGoal5 : IGoal;
 
-        void RequestGoal(IGoal goal, bool endAction);
-        void RequestGoal(IGoalRequest request, bool endAction);
+        void RequestGoal(IGoal goal, bool resolve = true);
+        void RequestGoal(IGoalRequest request, bool resolve = true);
 
         void SetAction(IGoalResult result);
         void ClearGoal();
