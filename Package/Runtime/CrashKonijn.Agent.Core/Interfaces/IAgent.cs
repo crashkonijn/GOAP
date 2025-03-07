@@ -4,6 +4,7 @@ namespace CrashKonijn.Agent.Core
 {
     public interface IAgent : IActionReceiver
     {
+        public bool IsPaused { get; set; }
         AgentState State { get; }
         AgentMoveState MoveState { get; }
 

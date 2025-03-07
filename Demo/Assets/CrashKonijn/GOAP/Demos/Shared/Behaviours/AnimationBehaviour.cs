@@ -18,15 +18,21 @@ namespace Demos.Shared.Behaviours
             this.animator = this.GetComponentInChildren<Animator>();
             this.agent = this.GetComponent<AgentBehaviour>();
             this.moveBehaviour = this.GetComponent<AgentMoveBehaviour>();
-            
+
             // Random y offset to prevent clipping
             this.animator.transform.localPosition = new Vector3(0, Random.Range(-0.1f, 0.1f), 0);
         }
 
         private void Update()
         {
+            this.UpdatePaused();
             this.UpdateAnimation();
             this.UpdateScale();
+        }
+
+        private void UpdatePaused()
+        {
+            this.animator.speed = this.agent.IsPaused ? 0 : 1;
         }
 
         private void UpdateAnimation()
@@ -37,7 +43,7 @@ namespace Demos.Shared.Behaviours
                 return;
 
             this.isWalking = shouldWalk;
-            
+
             this.animator.SetBool(Walking, shouldWalk);
         }
 
@@ -45,14 +51,14 @@ namespace Demos.Shared.Behaviours
         {
             if (!this.isWalking)
                 return;
-            
+
             var shouldMoveLeft = this.IsMovingLeft();
 
             if (this.isMovingLeft == shouldMoveLeft)
                 return;
 
             this.isMovingLeft = shouldMoveLeft;
-            
+
             this.animator.transform.localScale = new Vector3(shouldMoveLeft ? -1 : 1, 1, 1);
         }
 
@@ -60,12 +66,12 @@ namespace Demos.Shared.Behaviours
         {
             if (this.agent.ActionState.Data == null)
                 return false;
-            
+
             if (this.agent.ActionState.Data.Target == null)
                 return false;
-            
+
             var target = this.agent.ActionState.Data.Target.Position;
-            
+
             return this.transform.position.x > target.x;
         }
     }
