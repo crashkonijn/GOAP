@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using CrashKonijn.Docs.GettingStarted.Behaviours;
 using CrashKonijn.Goap.Runtime;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace CrashKonijn.Docs.GettingStarted.Sensors
 {
+    // Defining a GoapId is only necessary when using the ScriptableObject configuration method.
+    [GoapId("PearSensor-d68c875d-29c0-43f3-9d79-054d4cc6505d")]
     public class PearSensor : MultiSensorBase
     {
         // A cache of all the pears in the world
