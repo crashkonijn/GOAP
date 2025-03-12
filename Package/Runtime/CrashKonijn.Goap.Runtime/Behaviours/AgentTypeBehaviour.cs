@@ -7,15 +7,15 @@ namespace CrashKonijn.Goap.Runtime
     public class AgentTypeBehaviour : MonoBehaviour
     {
         [SerializeField]
-        private AgentTypeScriptable config;
+        protected AgentTypeScriptable config;
 
         [SerializeField]
-        private GoapBehaviour runner;
+        protected GoapBehaviour runner;
 
         public IAgentType AgentType { get; private set; }
         public AgentTypeScriptable Config => this.config;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             var config = this.config.Create();
 
