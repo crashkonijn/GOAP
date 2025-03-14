@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CrashKonijn.Goap.Core
 {
@@ -19,6 +20,7 @@ namespace CrashKonijn.Goap.Core
 
         TGoal ResolveGoal<TGoal>()
             where TGoal : IGoal;
+        IGoal ResolveGoal(Type goalType);
 
         bool AllConditionsMet(IGoapActionProvider actionProvider, IGoapAction action);
     }

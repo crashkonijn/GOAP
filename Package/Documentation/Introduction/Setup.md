@@ -16,6 +16,10 @@ In this tutorial we will create a simple GOAP system that will make an agent wan
    ![Assembly Definition](../images/getting_started/assembly_definition.png)
 
 ## Generating classes
+{% hint style="info" %}
+**Namespace** Don't forget to set the namespace you want to use. All classes must be in this namespace in order for the generator/system to find them. The tutorial uses `CrashKonijn.Docs.GettingStarted`.
+{% endhint %}
+
 1. Let's generate the required `Goals`, `Actions`, `WorldKeys` and `TargetKeys` using the generator. In the inspector of the `GettingStartedGenerator` please fill in the following classes in their respective fields:
    - Goals: `IdleGoal`
    - Actions: `IdleAction`
@@ -52,47 +56,43 @@ using UnityEngine;
 
 namespace CrashKonijn.Docs.GettingStarted.Sensors
 {
+    // Defining a GoapId is only necessary when using the ScriptableObject configuration method.
+    [GoapId("IdleTargetSensor-c34e9575-d171-4044-9b83-a91a1c32e214")]
     public class IdleTargetSensor : LocalTargetSensorBase
     {
-        private static readonly Vector2 Bounds = new Vector2(15, 8);
-        
+        private static readonly Bounds Bounds = new(Vector3.zero, new Vector2(15, 8));
+
         // Is called when this script is initialzed
-        public override void Created()
-        {
-            
-        }
+        public override void Created() { }
 
         // Is called every frame that an agent of an `AgentType` that uses this sensor needs it.
         // This can be used to 'cache' data that is used in the `Sense` method.
         // Eg look up all the trees in the scene, and then find the closest one in the Sense method.
-        public override void Update()
-        {
-            
-        }
+        public override void Update() { }
 
         public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget)
         {
             var random = this.GetRandomPosition(agent);
-            
+
             // If the existing target is a `PositionTarget`, we can reuse it and just update the position.
             if (existingTarget is PositionTarget positionTarget)
             {
                 return positionTarget.SetPosition(random);
             }
-            
+
             return new PositionTarget(random);
         }
-        
+
         private Vector3 GetRandomPosition(IActionReceiver agent)
         {
-            while (true)
-            {
-                var random = Random.insideUnitCircle * 3f;
-                var position = agent.Transform.position + new Vector3(random.x, 0f, random.y);
+            var random = Random.insideUnitCircle * 3f;
+            var position = agent.Transform.position + new Vector3(random.x, 0f, random.y);
 
-                if (position.x > -Bounds.x && position.x < Bounds.x && position.z > -Bounds.y && position.z < Bounds.y)
-                    return position;
-            }
+            // Check if the position is within the bounds of the world.
+            if (Bounds.Contains(position))
+                return position;
+
+            return Bounds.ClosestPoint(position);
         }
     }
 }
@@ -232,10 +232,11 @@ namespace CrashKonijn.Docs.GettingStarted.AgentTypes
 
 ## Creating the agent
 1. Let's create a sphere in the scene and call it `Agent`. (GameObject > 3D Object > Sphere) This will be our agent that will wander around.
-2. For this demo we won't use any physics. You can remove the `Sphere Collider` from the `Agent`.
-3. Each agent always needs an `AgentBehaviour` component. Add the `AgentBehaviour` component to the `Agent`.
-4. Each agent also needs an `ActionProvider`, let's add the `GoapActionProvider` to the `Agent`.
-5. On the `AgentBehaviour`, set the `Action Provider Base` value to that of the `GoapActionProvider` on the same GameObject.
+2. Make sure the `Agent` is at the position `(0, 0, 0)`, or at least withing the bounds defined in the `IdleTargetSensor`.
+3. For this demo we won't use any physics. You can remove the `Sphere Collider` from the `Agent`.
+4. Each agent always needs an `AgentBehaviour` component. Add the `AgentBehaviour` component to the `Agent`.
+5. Each agent also needs an `ActionProvider`, let's add the `GoapActionProvider` to the `Agent`.
+6. On the `AgentBehaviour`, set the `Action Provider Base` value to that of the `GoapActionProvider` on the same GameObject.
 
 {% tabs %}
 {% tab title="Code" %}
@@ -312,6 +313,9 @@ namespace CrashKonijn.Docs.GettingStarted.Behaviours
 
         public void Update()
         {
+          if (this.agent.IsPaused)
+                return;
+
             if (!this.shouldMove)
                 return;
             

@@ -13,7 +13,7 @@ Each agent has 2 base goals: `WanderGoal` and `FixHungerGoal`. The `WanderGoal` 
 ## Cleaner
 The goap set builder can be found in `Demos/Complex/Factories/CleanerGoapSetConfigFactory.cs`.
 
-![Clenaer graph](../images/demo_complex_cleaner_graph.png)
+![Cleaner graph](../images/demo_complex_cleaner_graph.png)
 
 ## Smith
 The goap set builder can be found in `Demos/Complex/Factories/SmithGoapSetConfigFactory.cs`.
@@ -28,4 +28,4 @@ The goap set builder can be found in `Demos/Complex/Factories/WoodCutterGoapSetC
 ## Miner
 The goap set builder can be found in `Demos/Complex/Factories/MinerGoapSetConfigFactory.cs`.
 
-![Wood Cutter graph](../images/demo_complex_miner_graph.png)
+![Miner graph](../images/demo_complex_miner_graph.png)

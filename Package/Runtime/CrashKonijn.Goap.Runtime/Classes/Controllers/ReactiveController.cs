@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (this.goap.IsNull())
                 return;
-            
+
             if (this.goap?.Events == null)
                 return;
 
@@ -40,6 +40,9 @@ namespace CrashKonijn.Goap.Runtime
                     continue;
 
                 if (agent.Receiver == null)
+                    continue;
+
+                if (agent.Receiver.IsPaused)
                     continue;
 
                 // Update the action sensors for the agent

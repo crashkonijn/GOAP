@@ -19,10 +19,10 @@ namespace CrashKonijn.Goap.Runtime
         {
             if (this.goap.IsNull())
                 return;
-            
+
             if (this.goap?.Events == null)
                 return;
-            
+
             this.goap.Events.OnAgentResolve -= this.OnAgentResolve;
             this.goap.Events.OnNoActionFound -= this.OnNoActionFound;
         }
@@ -32,6 +32,9 @@ namespace CrashKonijn.Goap.Runtime
             foreach (var agent in this.goap.Agents)
             {
                 if (agent.IsNull())
+                    continue;
+
+                if (agent.Receiver.IsPaused)
                     continue;
 
                 if (agent.Receiver.Timers.Resolve.IsRunningFor(this.ResolveTime))
@@ -53,6 +56,9 @@ namespace CrashKonijn.Goap.Runtime
                     continue;
 
                 if (agent.Receiver == null)
+                    continue;
+
+                if (agent.Receiver.IsPaused)
                     continue;
 
                 // Update the action sensors for the agent

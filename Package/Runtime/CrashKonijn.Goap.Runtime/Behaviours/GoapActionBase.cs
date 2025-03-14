@@ -76,11 +76,23 @@ namespace CrashKonijn.Goap.Runtime
         /// <param name="data">The action data.</param>
         /// <param name="references">The component references.</param>
         /// <returns>True if the agent is in range, otherwise false.</returns>
-        public virtual bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references)
+        public bool IsInRange(IMonoAgent agent, float distance, IActionData data, IComponentReference references)
+        {
+            return IsInRange(agent, distance, (TActionData)data, references);   
+        }
+
+        /// <summary>
+        ///     Determines whether the agent is in range for the action.
+        /// </summary>
+        /// <param name="agent">The agent.</param>
+        /// <param name="distance">The distance to the target.</param>
+        /// <param name="data">The action data.</param>
+        /// <param name="references">The component references.</param>
+        /// <returns>True if the agent is in range, otherwise false.</returns>
+        public virtual bool IsInRange(IMonoAgent agent, float distance, TActionData data, IComponentReference references)
         {
             return distance <= this.GetStoppingDistance();
         }
-
         /// <summary>
         ///     Determines whether the action is valid. Don't override this method, use IsValid(IActionReceiver agent, TActionData
         ///     data) instead.

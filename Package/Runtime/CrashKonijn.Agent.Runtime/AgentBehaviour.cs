@@ -9,6 +9,29 @@ namespace CrashKonijn.Agent.Runtime
         [field: SerializeField]
         public ActionProviderBase ActionProviderBase { get; set; }
 
+        [SerializeField]
+        private bool isPaused = false;
+
+        public bool IsPaused
+        {
+            get { return this.isPaused; }
+            set
+            {
+                if (value == this.isPaused)
+                    return;
+
+                this.isPaused = value;
+
+                if (value)
+                {
+                    this.Events.Pause();
+                    return;
+                }
+
+                this.Events.Resume();
+            }
+        }
+
         private IActionProvider actionProvider;
 
         public IActionProvider ActionProvider
@@ -106,6 +129,9 @@ namespace CrashKonijn.Agent.Runtime
         /// </summary>
         public void Run()
         {
+            if (this.IsPaused)
+                return;
+
             if (this.ActionState.Action == null)
                 return;
 

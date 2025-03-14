@@ -1,4 +1,5 @@
-﻿using CrashKonijn.Agent.Core;
+﻿using System.Linq;
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Demos.Complex.Classes.Items;
 using CrashKonijn.Goap.Demos.Complex.Goals;
@@ -56,7 +57,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Behaviours
         {
             this.UpdateHunger();
             
-            if (this.provider.CurrentPlan.Goal is FixHungerGoal)
+            if (this.provider.GoalRequest.Goals.OfType<FixHungerGoal>().Any())
                 return;
             
             this.DetermineGoal();
