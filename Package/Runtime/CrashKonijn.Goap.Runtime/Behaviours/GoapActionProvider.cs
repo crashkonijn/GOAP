@@ -396,6 +396,11 @@ namespace CrashKonijn.Goap.Runtime
         /// <returns>A list of actions of the specified type.</returns>
         public List<TAction> GetActions<TAction>() where TAction : IGoapAction => this.AgentType.GetActions<TAction>();
 
+        private void OnDestroy()
+        {
+            this.Logger.Dispose();
+        }
+
         #region Obsolete Methods
 
         [Obsolete("Use CurrentPlan.Goal instead")]

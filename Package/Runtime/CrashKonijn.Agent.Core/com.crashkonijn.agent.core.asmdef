@@ -1,7 +1,7 @@
 {
     "name": "CrashKonijn.Agent.Core",
     "rootNamespace": "CrashKonijn.Agent.Core",
-    "references": [],
+    "references": ["GUID:905ad4c0c55c4e05bf319903fe4d0bd4"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

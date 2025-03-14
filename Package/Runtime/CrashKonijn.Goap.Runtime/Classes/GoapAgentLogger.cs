@@ -7,7 +7,7 @@ namespace CrashKonijn.Goap.Runtime
 {
     public class GoapAgentLogger : LoggerBase<IMonoGoapActionProvider>
     {
-        protected override string Name => this.source.name;
+        public override string Name => this.source.name;
 
         protected override void RegisterEvents()
         {
@@ -36,7 +36,7 @@ namespace CrashKonijn.Goap.Runtime
             if (this.config.DebugMode == DebugMode.None)
                 return;
 
-            this.Handle($"No action found for goals {string.Join(", ", request.Goals.Select(x => x.GetType().GetGenericTypeName()))}", DebugSeverity.Warning);
+            this.Warning($"No action found for goals {string.Join(", ", request.Goals.Select(x => x.GetType().GetGenericTypeName()))}");
         }
 
         private void GoalStart(IGoal goal)
@@ -44,7 +44,7 @@ namespace CrashKonijn.Goap.Runtime
             if (this.config.DebugMode == DebugMode.None)
                 return;
 
-            this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} started", DebugSeverity.Log);
+            this.Log($"Goal {goal?.GetType().GetGenericTypeName()} started");
         }
 
         private void GoalCompleted(IGoal goal)
@@ -52,7 +52,7 @@ namespace CrashKonijn.Goap.Runtime
             if (this.config.DebugMode == DebugMode.None)
                 return;
 
-            this.Handle($"Goal {goal?.GetType().GetGenericTypeName()} completed", DebugSeverity.Log);
+            this.Log($"Goal {goal?.GetType().GetGenericTypeName()} completed");
         }
     }
 }
