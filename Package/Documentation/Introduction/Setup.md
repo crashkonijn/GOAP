@@ -15,6 +15,12 @@ In this tutorial we will create a simple GOAP system that will make an agent wan
 
    ![Assembly Definition](../images/getting_started/assembly_definition.png)
 
+{% hint style="info" %}
+**Generator** For setup through scriptable objects the generator is required!
+
+The generator is a scoped entrypoint (when using ScriptableObjects) that will keep track of all available GOAP classes within it's scope. All classes (`goals`, `actions`, `sensors` and `keys`) and SO Configs (`Capabilities` and `Agent Types`) must be in subfolders of a generator.
+{% endhint %}
+
 ## Generating classes
 {% hint style="info" %}
 **Namespace** Don't forget to set the namespace you want to use. All classes must be in this namespace in order for the generator/system to find them. The tutorial uses `CrashKonijn.Docs.GettingStarted`.

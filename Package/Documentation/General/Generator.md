@@ -1,5 +1,11 @@
 # GOAP Generator
 
+{% hint style="info" %}
+**Generator** For setup through scriptable objects the generator is required!
+
+The generator is a scoped entrypoint (when using ScriptableObjects) that will keep track of all available GOAP classes within it's scope. All classes (`goals`, `actions`, `sensors` and `keys`) and SO Configs (`Capabilities` and `Agent Types`) must be in subfolders of a generator.
+{% endhint %}
+
 The GOAP Generator is a core component of the GOAP framework, designed to facilitate the quick creation of goals, actions, and target keys within the system. It is implemented as a `ScriptableObject` in Unity, allowing developers to easily create and manage instances within the Unity Editor.
 
 ## Overview
