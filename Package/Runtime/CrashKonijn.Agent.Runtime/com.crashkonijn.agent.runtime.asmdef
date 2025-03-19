@@ -2,7 +2,8 @@
     "name": "CrashKonijn.Agent.Runtime",
     "rootNamespace": "CrashKonijn.Agent.Runtime",
     "references": [
-    "GUID:0d347051544a4880a72466503e27985a"],
+    "GUID:0d347051544a4880a72466503e27985a",
+    "GUID:905ad4c0c55c4e05bf319903fe4d0bd4"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
