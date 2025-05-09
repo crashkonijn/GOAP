@@ -100,13 +100,26 @@ namespace CrashKonijn.Goap.Editor
             if (baseType == null)
                 return null;
             
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>)) 
+            // recursively find the base type that is a GoapActionBase<,> or GoapActionBase<>
+            while (!IsGoapActionBase(baseType))
+            {
+                if (baseType.BaseType == null)
+                    return null;
+                baseType = baseType.BaseType;
+            }
+
+            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>))
                 return baseType.GetGenericArguments()[1];
             
             if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<>)) 
                 return typeof(EmptyActionProperties);
             
             return null;
+        }
+
+        private bool IsGoapActionBase(Type type)
+        {
+            return type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(GoapActionBase<,>) || type.GetGenericTypeDefinition() == typeof(GoapActionBase<>));
         }
     }
 }
