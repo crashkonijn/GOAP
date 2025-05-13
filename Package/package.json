@@ -1,6 +1,6 @@
 {
   "name": "com.crashkonijn.goap",
-  "version": "3.0.31",
+  "version": "3.0.32",
   "displayName": "CrashKonijn's GOAP",
   "description": "A comprehensive, multi-threaded Goal Oriented Action Planning (GOAP) system, designed to facilitate complex AI behaviors in games.",
   "unity": "2022.2",

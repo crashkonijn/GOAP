@@ -30,7 +30,7 @@ Integrate GOAP into your Unity project using one of the following methods:
 - **Unity Package Manager**:
 Add the package via the package manager using this URL:
 ```
-https://github.com/crashkonijn/GOAP.git?path=/Package#3.0.31
+https://github.com/crashkonijn/GOAP.git?path=/Package#3.0.32
 ```
 
 - **OpenUPM**:
