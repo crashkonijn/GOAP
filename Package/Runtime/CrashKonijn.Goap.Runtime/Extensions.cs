@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -17,7 +17,7 @@ namespace CrashKonijn.Goap.Runtime
 
             return mono == null;
         }
-        
+
         public static string ToName(this Comparison comparison)
         {
             return comparison switch
@@ -153,6 +153,24 @@ namespace CrashKonijn.Goap.Runtime
                 .Select(x => x.Target)
                 .Distinct()
                 .ToArray();
+        }
+
+        public static Type GetPropertiesType(this Type type)
+        {
+            var baseType = type;
+
+            while (baseType != null)
+            {
+                if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>))
+                    return baseType.GetGenericArguments()[1];
+
+                if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<>))
+                    return typeof(EmptyActionProperties);
+
+                baseType = baseType.BaseType;
+            }
+
+            return null;
         }
     }
 }

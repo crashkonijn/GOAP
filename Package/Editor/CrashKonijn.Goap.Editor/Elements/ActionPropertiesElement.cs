@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using CrashKonijn.Agent.Core;
-using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 using UnityEditor;
@@ -23,22 +22,22 @@ namespace CrashKonijn.Goap.Editor
         public void Bind(SerializedProperty property, CapabilityAction action, Script[] actions)
         {
             this.validate(action, actions);
-                
+
             this.Render(action.properties, property.FindPropertyRelative("properties"));
         }
 
         private void Render(IActionProperties props, SerializedProperty property)
         {
             this.Clear();
-            
+
             if (props == null)
                 return;
-            
+
             var type = props.GetType();
 
             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
-            
+
             this.Add(new Label("Action props"));
             this.Add(new Card((card) =>
             {
@@ -47,12 +46,12 @@ namespace CrashKonijn.Goap.Editor
                     card.Add(new Label("No properties"));
                     return;
                 }
-                
+
                 foreach (var propertyInfo in properties)
                 {
                     this.AddProp(card, property.FindPropertyRelative(propertyInfo.Name));
                 }
-            
+
                 foreach (var propertyInfo in fields)
                 {
                     this.AddProp(card, property.FindPropertyRelative(propertyInfo.Name));
@@ -74,18 +73,18 @@ namespace CrashKonijn.Goap.Editor
 
             if (status != ClassRefStatus.Full)
                 return;
-            
+
             var type = this.GetPropertiesType(script);
-            
+
             if (type == null)
                 return;
-            
+
 
             if (action.properties?.GetType() == type)
             {
                 return;
             }
-            
+
             action.properties = (IActionProperties) Activator.CreateInstance(type);
         }
 
@@ -93,20 +92,11 @@ namespace CrashKonijn.Goap.Editor
         {
             if (script == null)
                 return null;
-            
-            var type = script.Type;
-            var baseType = type.BaseType;
-            
-            if (baseType == null)
+
+            if (script.Type == null)
                 return null;
-            
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>)) 
-                return baseType.GetGenericArguments()[1];
-            
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<>)) 
-                return typeof(EmptyActionProperties);
-            
-            return null;
+
+            return script.Type.GetPropertiesType();
         }
     }
 }
