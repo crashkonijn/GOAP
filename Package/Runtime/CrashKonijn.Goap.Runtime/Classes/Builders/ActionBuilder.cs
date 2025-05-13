@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
-using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
@@ -188,7 +187,7 @@ namespace CrashKonijn.Goap.Runtime
             this.worldKeyBuilder = worldKeyBuilder;
             this.targetKeyBuilder = targetKeyBuilder;
 
-            var propType = this.GetPropertiesType();
+            var propType = this.actionType.GetPropertiesType();
 
             this.config = new ActionConfig
             {
@@ -205,30 +204,12 @@ namespace CrashKonijn.Goap.Runtime
 
         protected void ValidateProperties(IActionProperties properties)
         {
-            var actionPropsType = this.GetPropertiesType();
+            var actionPropsType = this.actionType.GetPropertiesType();
 
             if (actionPropsType == properties.GetType())
                 return;
 
             throw new ArgumentException($"The provided properties do not match the expected type '{actionPropsType.Name}'.", nameof(properties));
-        }
-
-        protected Type GetPropertiesType()
-        {
-            var baseType = this.actionType.BaseType;
-
-            while (baseType != null)
-            {
-                if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<,>))
-                    return baseType.GetGenericArguments()[1];
-
-                if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(GoapActionBase<>))
-                    return typeof(EmptyActionProperties);
-
-                baseType = baseType.BaseType;
-            }
-
-            return null;
         }
 
         public IActionConfig Build()
