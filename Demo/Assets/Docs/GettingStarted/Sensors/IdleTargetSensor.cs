@@ -8,7 +8,7 @@ namespace CrashKonijn.Docs.GettingStarted.Sensors
     [GoapId("IdleTargetSensor-c34e9575-d171-4044-9b83-a91a1c32e214")]
     public class IdleTargetSensor : LocalTargetSensorBase
     {
-        private static readonly Bounds Bounds = new(Vector3.zero, new Vector2(15, 8));
+        private static readonly Bounds Bounds = new(Vector3.zero, new Vector3(15, 0, 8));
 
         // Is called when this script is initialzed
         public override void Created() { }

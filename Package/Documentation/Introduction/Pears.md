@@ -25,11 +25,10 @@ namespace CrashKonijn.Docs.GettingStarted.Behaviours
 ```
 {% endcode %}
 
-3. In our scene, create a new GameObject using `GameObject > 3D Object > Sphere`. Rename the object to `Pear` and add the `PearBehaviour` component to it. Pears are generally smaller than agents, so let's adjust the scale to `0.5` on all axes. You can remove the collider as we won't need it.
+3. In our scene, create a new GameObject using `GameObject > 3D Object > Sphere`. Rename the object to `Pear` and add the `PearBehaviour` component to it. Pears are generally smaller than agents, so let's adjust the scale to `0.5` on all axes. You can remove the collider as we won't need it. 
 4. Let's create a new material for the pear. Right-click in the `Assets` folder and select `Create > Material`. Rename the material to `PearMaterial` and change the color to a nice yellow/green. Drag the material onto the `Pear` object.
 5. In the `GettingStarted` folder let's create a new folder called `Prefabs`. Drag the `Pear` object into this folder to create a prefab.
-6. Let's duplicate the pear a couple of times in the scene and place them in different locations.
-
+6. Let's duplicate the pear a couple of times in the scene and place them in different locations. Please make sure al your pears are on 0 on the y-axis of their positions.
 7. For these actions we need data that represents the `PearCount` and `Hunger` values. The **source of truth** for these values must be our own `MonoBehaviours`. Let's create a script called `DataBehaviour` in the `Behaviours` folder and add the following code:
 
 {% code title="DataBehaviour.cs" %}
