@@ -119,6 +119,11 @@ namespace CrashKonijn.Goap.Runtime
             foreach (var goal in this.agentType.GetGoals())
             {
                 this.costBuilder.SetCost(goal, goal.GetCost(actionProvider.Receiver, actionProvider.Receiver.Injector));
+
+                foreach (var condition in goal.Conditions)
+                {
+                    this.conditionBuilder.SetConditionMet(condition, conditionObserver.IsMet(condition));
+                }
             }
 
             foreach (var node in this.agentType.GetActions())
