@@ -28,7 +28,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories.Capabilities
                 .SetTarget<TransformTarget>()
                 .AddEffect<Hunger>(EffectType.Decrease)
                 .AddCondition<IsHolding<IEatable>>(Comparison.GreaterThanOrEqual, 1)
-                .AddCondition<Hunger>(Comparison.GreaterThanOrEqual, 30)
+                .AddCondition<Hunger, LowHunger>(Comparison.GreaterThanOrEqual)
                 .SetValidateConditions(false); // We don't need to validate conditions for this action, or it will stop when becoming below 80 hunger
 
             builder.AddAction<GatherItemAction<Apple>>()
@@ -50,6 +50,8 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories.Capabilities
             builder.AddIsHoldingSensor<IEatable>();
             builder.AddWorldSensor<HungerSensor>()
                 .SetKey<Hunger>();
+            builder.AddWorldSensor<LowHungerSensor>()
+                .SetKey<LowHunger>();
 
             // Multi sensor
             builder.AddMultiSensor<ItemSensor<IEatable>>();

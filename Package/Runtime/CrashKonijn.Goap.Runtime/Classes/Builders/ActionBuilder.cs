@@ -106,13 +106,28 @@ namespace CrashKonijn.Goap.Runtime
         public ActionBuilder<T> AddCondition<TWorldKey>(Comparison comparison, int amount)
             where TWorldKey : IWorldKey
         {
-            this.conditions.Add(new Condition
+            this.conditions.Add(new ValueCondition
             {
                 WorldKey = this.worldKeyBuilder.GetKey<TWorldKey>(),
                 Comparison = comparison,
                 Amount = amount,
             });
 
+            return this;
+        }
+        
+        /// <summary>
+        ///     Adds a reference condition to the action.
+        /// </summary>
+        /// <typeparam name="TWorldKey">The type of the world key.</typeparam>
+        /// <typeparam name="TValueKey">The type of the value world key reference.</typeparam>
+        /// <param name="comparison">The comparison type.</param>
+        /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
+        public ActionBuilder<T> AddCondition<TWorldKey, TValueKey>(Comparison comparison)
+            where TWorldKey : IWorldKey
+            where TValueKey : IWorldKey
+        {
+            this.conditions.Add(new ReferenceCondition(this.worldKeyBuilder.GetKey<TWorldKey>(), comparison, this.worldKeyBuilder.GetKey<TValueKey>()));
             return this;
         }
 

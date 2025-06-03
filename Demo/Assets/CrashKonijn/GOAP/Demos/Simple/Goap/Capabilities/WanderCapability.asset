@@ -34,6 +34,7 @@ MonoBehaviour:
       rid: 5955038660131291139
     baseCost: 1
     stoppingDistance: 0.1
+    validateTarget: 1
     requiresTarget: 1
     validateConditions: 1
     moveMode: 0

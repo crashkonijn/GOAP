@@ -21,7 +21,7 @@ namespace CrashKonijn.Goap.Runtime
         }
 
         /// <summary>
-        ///     Adds a condition to the goal.
+        ///     Adds a value condition to the goal.
         /// </summary>
         /// <typeparam name="TWorldKey">The type of the world key.</typeparam>
         /// <param name="comparison">The comparison type.</param>
@@ -30,7 +30,22 @@ namespace CrashKonijn.Goap.Runtime
         public GoalBuilder<T> AddCondition<TWorldKey>(Comparison comparison, int amount)
             where TWorldKey : IWorldKey
         {
-            this.conditions.Add(new Condition(this.worldKeyBuilder.GetKey<TWorldKey>(), comparison, amount));
+            this.conditions.Add(new ValueCondition(this.worldKeyBuilder.GetKey<TWorldKey>(), comparison, amount));
+            return this;
+        }
+
+        /// <summary>
+        ///     Adds a reference condition to the goal.
+        /// </summary>
+        /// <typeparam name="TWorldKey">The type of the world key.</typeparam>
+        /// <typeparam name="TValueKey">The type of the value world key reference.</typeparam>
+        /// <param name="comparison">The comparison type.</param>
+        /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
+        public GoalBuilder<T> AddCondition<TWorldKey, TValueKey>(Comparison comparison)
+            where TWorldKey : IWorldKey
+            where TValueKey : IWorldKey
+        {
+            this.conditions.Add(new ReferenceCondition(this.worldKeyBuilder.GetKey<TWorldKey>(), comparison, this.worldKeyBuilder.GetKey<TValueKey>()));
             return this;
         }
 

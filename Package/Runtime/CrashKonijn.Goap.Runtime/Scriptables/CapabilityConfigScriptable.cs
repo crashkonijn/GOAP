@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Goap.Core;
 using UnityEditor;
@@ -50,7 +51,7 @@ namespace CrashKonijn.Goap.Runtime
                 ValidateTarget = x.validateTarget,
                 RequiresTarget = x.requiresTarget,
                 ValidateConditions = x.validateConditions,
-                Conditions = x.conditions.Select(y => new Condition
+                Conditions = x.conditions.Select(y => new ValueCondition
                 {
                     WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
                     Comparison = y.comparison,
@@ -77,7 +78,7 @@ namespace CrashKonijn.Goap.Runtime
             {
                 Name = x.goal.Name,
                 ClassType = x.goal.GetScript(goalClasses).GetFullName(),
-                Conditions = x.conditions.Select(y => new Condition
+                Conditions = x.conditions.Select(y => new ValueCondition
                 {
                     WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
                     Comparison = y.comparison,
@@ -137,6 +138,34 @@ namespace CrashKonijn.Goap.Runtime
             EditorUtility.SetDirty(this);
 #endif
             return this.generatorScriptable;
+        }
+
+        public void FixIssues()
+        {
+#if UNITY_EDITOR
+            var validator = new ScriptReferenceValidator();
+                
+            var issues = validator.CheckAll(this);
+                
+            if (issues.Length == 0)
+            {
+                Debug.Log("No issues found!");
+                return;
+            }
+           
+            foreach (var issue in issues)
+            {
+                issue.Fix(this.GetGenerator());
+            }
+                
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssetIfDirty(this);
+#endif
+        }
+
+        private void OnValidate()
+        {
+            this.FixIssues();
         }
     }
 }

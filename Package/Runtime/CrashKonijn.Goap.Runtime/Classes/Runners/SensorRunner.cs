@@ -192,6 +192,9 @@ namespace CrashKonijn.Goap.Runtime
             foreach (var condition in action.Conditions)
             {
                 set.Keys.Add(condition.WorldKey.GetType());
+                
+                if (condition is IReferenceCondition referenceCondition)
+                    set.Keys.Add(referenceCondition.ValueKey.GetType());
             }
 
             foreach (var key in set.Keys)
@@ -238,6 +241,17 @@ namespace CrashKonijn.Goap.Runtime
                 if (this.sensors.TryGetValue(key, out var sensor))
                 {
                     set.AddSensor(sensor);
+                }
+
+                if (condition is IReferenceCondition referenceCondition)
+                {
+                    var referenceKey = referenceCondition.ValueKey.GetType();
+                    set.Keys.Add(referenceKey);
+                    
+                    if (this.sensors.TryGetValue(referenceKey, out var referenceSensor))
+                    {
+                        set.AddSensor(referenceSensor);
+                    }
                 }
             }
 

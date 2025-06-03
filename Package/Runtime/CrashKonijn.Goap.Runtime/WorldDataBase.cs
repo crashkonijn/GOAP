@@ -33,6 +33,21 @@ namespace CrashKonijn.Goap.Runtime
             return this.IsTrue(worldKey.GetType(), comparison, value);
         }
 
+        public bool IsTrue(IWorldKey worldKey, Comparison comparison, IWorldKey valueKey)
+        {
+            return this.IsTrue(worldKey.GetType(), comparison, valueKey.GetType());
+        }
+
+        public bool IsTrue(Type worldKey, Comparison comparison, Type valueKey)
+        {
+            var (exists, valueState) = this.GetWorldValue(valueKey);
+
+            if (!exists)
+                return false;
+            
+            return this.IsTrue(worldKey, comparison, valueState);
+        }
+
         public bool IsTrue(Type worldKey, Comparison comparison, int value)
         {
             var (exists, state) = this.GetWorldValue(worldKey);
