@@ -116,8 +116,16 @@ public static class ActionDisabler
 ```csharp
 foreach (var pickupAppleAction in this.actionProvider.GetActions<PickupAppleAction>())
 {
-    pickupAppleAction.Disable(ActionDisabler.Forever);
+    this.actionProvider.Disable(pickupAppleAction, ActionDisabler.Forever);
+    this.actionProvider.Enable(pickupAppleAction);
 }
+```
+{% endcode %}
+
+{% code lineNumbers="true" %}
+```csharp
+this.actionProvider.Disable<PickupAppleAction>();
+this.actionProvider.Enable<PickupAppleAction>();
 ```
 {% endcode %}
 
@@ -129,7 +137,7 @@ public class EatAction : GoapActionBase<EatAction.Data>
     public override void End(IMonoAgent agent, Data data)
     {
         // This will disable the action for 5 seconds
-        this.Disable(ActionDisabler.ForTime(5f));
+        this.Disable(agent, ActionDisabler.ForTime(5f));
     }
 }
 ```
