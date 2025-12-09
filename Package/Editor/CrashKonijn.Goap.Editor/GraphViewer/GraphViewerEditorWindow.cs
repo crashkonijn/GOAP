@@ -10,8 +10,8 @@ namespace CrashKonijn.Goap.Editor
 {
     public class GraphViewerEditorWindow : EditorWindow
     {
-        private IGraph graph;
         private readonly EditorWindowValues values = new();
+        private IGraph graph;
 
         private void OnFocus()
         {
@@ -56,11 +56,14 @@ namespace CrashKonijn.Goap.Editor
 
         private (IAgentType agentType, Object obj) GetAgentType(Object selectedObject)
         {
-            if (selectedObject is AgentTypeScriptable agentTypeScriptable) return (new AgentTypeFactory(GoapConfig.Default).Create(agentTypeScriptable.Create(), false), selectedObject);
+            if (selectedObject is AgentTypeScriptable agentTypeScriptable)
+                return (new AgentTypeFactory(GoapConfig.Default).Create(agentTypeScriptable.Create(), false), selectedObject);
 
-            if (selectedObject is CapabilityConfigScriptable capabilityConfigScriptable) return (new AgentTypeFactory(GoapConfig.Default).Create(capabilityConfigScriptable.Create(), false), selectedObject);
+            if (selectedObject is CapabilityConfigScriptable capabilityConfigScriptable)
+                return (new AgentTypeFactory(GoapConfig.Default).Create(capabilityConfigScriptable.Create(), false), selectedObject);
 
-            if (selectedObject is ScriptableCapabilityFactoryBase capabilityFactoryScriptable) return (new AgentTypeFactory(GoapConfig.Default).Create(capabilityFactoryScriptable.Create(), false), selectedObject);
+            if (selectedObject is ScriptableCapabilityFactoryBase capabilityFactoryScriptable)
+                return (new AgentTypeFactory(GoapConfig.Default).Create(capabilityFactoryScriptable.Create(), false), selectedObject);
 
             if (selectedObject is not GameObject gameObject)
                 return default;
@@ -73,7 +76,8 @@ namespace CrashKonijn.Goap.Editor
             }
 
             var agentTypeBehaviour = gameObject.GetComponent<AgentTypeBehaviour>();
-            if (agentTypeBehaviour != null) return (new AgentTypeFactory(GoapConfig.Default).Create(agentTypeBehaviour.Config.Create(), false), selectedObject);
+            if (agentTypeBehaviour != null)
+                return (new AgentTypeFactory(GoapConfig.Default).Create(agentTypeBehaviour.Config.Create(), false), selectedObject);
 
             var provider = gameObject.GetComponent<GoapActionProvider>();
             if (provider == null)
