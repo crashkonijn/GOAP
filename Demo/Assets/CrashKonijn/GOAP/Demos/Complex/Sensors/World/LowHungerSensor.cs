@@ -10,12 +10,10 @@ namespace CrashKonijn.Goap.Demos.Complex.Sensors.World
 
         public override void Created()
         {
-            
         }
 
         public override void Update()
         {
-            
         }
 
         public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
