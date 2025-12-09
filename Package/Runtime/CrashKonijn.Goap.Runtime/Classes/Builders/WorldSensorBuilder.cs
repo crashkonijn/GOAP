@@ -3,38 +3,39 @@ using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class WorldSensorBuilder<T> : WorldSensorBuilder
-        where T : IWorldSensor
+    public class WorldSensorBuilder<T> : WorldSensorBuilder, IWorldSensorBuilder<T> where T : IWorldSensor
     {
-        public WorldSensorBuilder(WorldKeyBuilder worldKeyBuilder) : base(typeof(T), worldKeyBuilder) { }
-        
-        public WorldSensorBuilder<T> SetKey<TWorldKey>()
+        public WorldSensorBuilder(WorldKeyBuilder worldKeyBuilder) : base(typeof(T), worldKeyBuilder)
+        {
+        }
+
+        public IWorldSensorBuilder<T> SetKey<TWorldKey>()
             where TWorldKey : IWorldKey
         {
             this.config.Key = this.worldKeyBuilder.GetKey<TWorldKey>();
 
             return this;
         }
-        
-        public WorldSensorBuilder<T> SetCallback(Action<T> callback)
+
+        public IWorldSensorBuilder<T> SetCallback(Action<T> callback)
         {
-            this.config.Callback = (obj) => callback((T) obj);
+            this.config.Callback = obj => callback((T)obj);
             return this;
         }
     }
-    
+
     public class WorldSensorBuilder
     {
-        protected readonly WorldKeyBuilder worldKeyBuilder;
         protected readonly WorldSensorConfig config;
+        protected readonly WorldKeyBuilder worldKeyBuilder;
 
         public WorldSensorBuilder(Type type, WorldKeyBuilder worldKeyBuilder)
         {
             this.worldKeyBuilder = worldKeyBuilder;
-            this.config = new WorldSensorConfig()
+            this.config = new WorldSensorConfig
             {
                 Name = type.Name,
-                ClassType = type.AssemblyQualifiedName,
+                ClassType = type.AssemblyQualifiedName
             };
         }
 

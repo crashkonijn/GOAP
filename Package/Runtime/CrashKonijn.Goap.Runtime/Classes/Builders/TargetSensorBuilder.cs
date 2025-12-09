@@ -3,38 +3,39 @@ using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class TargetSensorBuilder<T> : TargetSensorBuilder
-        where T : ITargetSensor
+    public class TargetSensorBuilder<T> : TargetSensorBuilder, ITargetSensorBuilder<T> where T : ITargetSensor
     {
-        public TargetSensorBuilder(TargetKeyBuilder targetKeyBuilder) : base(typeof(T), targetKeyBuilder) { }
-        
-        public TargetSensorBuilder<T> SetTarget<TTarget>()
+        public TargetSensorBuilder(TargetKeyBuilder targetKeyBuilder) : base(typeof(T), targetKeyBuilder)
+        {
+        }
+
+        public ITargetSensorBuilder<T> SetTarget<TTarget>()
             where TTarget : ITargetKey
         {
             this.config.Key = this.targetKeyBuilder.GetKey<TTarget>();
 
             return this;
         }
-        
-        public TargetSensorBuilder<T> SetCallback(Action<T> callback)
+
+        public ITargetSensorBuilder<T> SetCallback(Action<T> callback)
         {
-            this.config.Callback = (obj) => callback((T) obj);
+            this.config.Callback = obj => callback((T)obj);
             return this;
         }
     }
-    
+
     public class TargetSensorBuilder
     {
-        protected readonly TargetKeyBuilder targetKeyBuilder;
         protected readonly TargetSensorConfig config;
+        protected readonly TargetKeyBuilder targetKeyBuilder;
 
         public TargetSensorBuilder(Type type, TargetKeyBuilder targetKeyBuilder)
         {
             this.targetKeyBuilder = targetKeyBuilder;
-            this.config = new TargetSensorConfig()
+            this.config = new TargetSensorConfig
             {
                 Name = type.Name,
-                ClassType = type.AssemblyQualifiedName,
+                ClassType = type.AssemblyQualifiedName
             };
         }
 

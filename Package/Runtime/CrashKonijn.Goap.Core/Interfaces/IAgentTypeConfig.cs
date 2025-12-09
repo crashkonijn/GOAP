@@ -11,6 +11,4 @@ namespace CrashKonijn.Goap.Core
         public List<IWorldSensorConfig> WorldSensors { get; }
         public List<IMultiSensorConfig> MultiSensors { get; }
     }
-
-    public interface ICapabilityConfig : IAgentTypeConfig { }
 }
