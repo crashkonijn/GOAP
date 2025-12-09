@@ -128,11 +128,22 @@ namespace CrashKonijn.Goap.Editor
             nodeRoot.AddToClassList("node-root");
             dragRoot.Add(nodeRoot);
 
-            nodeRoot.schedule.Execute(() => { nodeRoot.transform.scale = new Vector3(this.values.Zoom / 100f, this.values.Zoom / 100f, 1); }).Every(33);
+            nodeRoot.schedule.Execute(() =>
+            {
+#if UNITY_6000_3_OR_NEWER
+                nodeRoot.style.scale = new Vector2(this.values.Zoom / 100f, this.values.Zoom / 100f);
+#else
+                nodeRoot.transform.scale = new Vector3(this.values.Zoom / 100f, this.values.Zoom / 100f, 1);
+#endif
+            }).Every(33);
 
             this.values.DragDrawer = new DragDrawer(dragRoot, offset =>
             {
+#if UNITY_6000_3_OR_NEWER
+                nodeRoot.style.translate = offset;
+#else
                 nodeRoot.transform.position = offset;
+#endif
 
                 this.values.Update();
 

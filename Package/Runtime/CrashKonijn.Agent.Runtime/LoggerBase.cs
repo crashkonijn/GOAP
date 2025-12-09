@@ -94,9 +94,14 @@ namespace CrashKonijn.Agent.Runtime
         {
 #if UNITY_EDITOR
             return this.config.DebugMode != DebugMode.None;
-#endif
-
+#else
             return false;
+#endif
+        }
+
+        public void Dispose()
+        {
+            this.UnregisterEvents();
         }
 
         private string FormatLog(string message, DebugSeverity severity)
@@ -161,14 +166,10 @@ namespace CrashKonijn.Agent.Runtime
         private void Store(string message)
         {
             if (this.config.MaxLogSize == 0)
-            {
                 return;
-            }
 
             if (this.Logs.Count >= this.config.MaxLogSize)
-            {
                 this.Logs.RemoveAt(0);
-            }
 
             this.Logs.Add(message);
         }
@@ -177,11 +178,6 @@ namespace CrashKonijn.Agent.Runtime
         protected abstract void UnregisterEvents();
 
         ~LoggerBase()
-        {
-            this.UnregisterEvents();
-        }
-
-        public void Dispose()
         {
             this.UnregisterEvents();
         }
