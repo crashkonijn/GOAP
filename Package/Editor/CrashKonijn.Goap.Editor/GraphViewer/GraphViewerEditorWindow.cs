@@ -137,12 +137,14 @@ namespace CrashKonijn.Goap.Editor
 
             nodeRoot.schedule.Execute(() =>
             {
-                nodeRoot.transform.scale = new Vector3(this.values.Zoom / 100f, this.values.Zoom / 100f, 1);
+                var scale = nodeRoot.style.scale;
+                scale.value = new Vector2(this.values.Zoom / 100f, this.values.Zoom / 100f);
             }).Every(33);
 
             this.values.DragDrawer = new DragDrawer(dragRoot, (offset) =>
             {
-                nodeRoot.transform.position = offset;
+                var translate = nodeRoot.style.translate;
+                translate.value = new Translate(offset.x, offset.y);
 
                 this.values.Update();
 
