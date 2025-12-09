@@ -30,5 +30,17 @@ namespace CrashKonijn.GOAP.Demos.TurnBased.Behaviours
             if (sensor is IInjectable injectable)
                 injectable.Inject(this);
         }
+
+        public void Inject(IAgentTypeFactory factory)
+        {
+            if (factory is IInjectable injectable)
+                injectable.Inject(this);
+        }
+
+        public void Inject(ICapabilityFactory factory)
+        {
+            if (factory is IInjectable injectable)
+                injectable.Inject(this);
+        }
     }
 }

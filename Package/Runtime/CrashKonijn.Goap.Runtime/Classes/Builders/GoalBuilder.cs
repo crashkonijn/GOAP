@@ -4,17 +4,18 @@ using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class GoalBuilder<T> : GoalBuilder
-        where T : IGoal
+    public class GoalBuilder<T> : GoalBuilder, IGoalBuilder<T> where T : IGoal
     {
-        public GoalBuilder(WorldKeyBuilder worldKeyBuilder) : base(typeof(T), worldKeyBuilder) { }
+        public GoalBuilder(WorldKeyBuilder worldKeyBuilder) : base(typeof(T), worldKeyBuilder)
+        {
+        }
 
         /// <summary>
         ///     Sets the base cost for the goal.
         /// </summary>
         /// <param name="baseCost">The base cost.</param>
         /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
-        public GoalBuilder<T> SetBaseCost(float baseCost)
+        public IGoalBuilder<T> SetBaseCost(float baseCost)
         {
             this.config.BaseCost = baseCost;
             return this;
@@ -27,7 +28,7 @@ namespace CrashKonijn.Goap.Runtime
         /// <param name="comparison">The comparison type.</param>
         /// <param name="amount">The amount for the condition.</param>
         /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
-        public GoalBuilder<T> AddCondition<TWorldKey>(Comparison comparison, int amount)
+        public IGoalBuilder<T> AddCondition<TWorldKey>(Comparison comparison, int amount)
             where TWorldKey : IWorldKey
         {
             this.conditions.Add(new Condition(this.worldKeyBuilder.GetKey<TWorldKey>(), comparison, amount));
@@ -39,17 +40,17 @@ namespace CrashKonijn.Goap.Runtime
         /// </summary>
         /// <param name="callback">The callback action.</param>
         /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
-        public GoalBuilder<T> SetCallback(Action<T> callback)
+        public IGoalBuilder<T> SetCallback(Action<T> callback)
         {
-            this.config.Callback = (obj) => callback((T) obj);
+            this.config.Callback = obj => callback((T)obj);
             return this;
         }
     }
 
     public class GoalBuilder
     {
-        protected readonly GoalConfig config;
         protected readonly List<ICondition> conditions = new();
+        protected readonly GoalConfig config;
         protected readonly WorldKeyBuilder worldKeyBuilder;
 
         public GoalBuilder(Type type, WorldKeyBuilder worldKeyBuilder)
@@ -58,7 +59,7 @@ namespace CrashKonijn.Goap.Runtime
             this.config = new GoalConfig(type)
             {
                 BaseCost = 1,
-                ClassType = type.AssemblyQualifiedName,
+                ClassType = type.AssemblyQualifiedName
             };
         }
 

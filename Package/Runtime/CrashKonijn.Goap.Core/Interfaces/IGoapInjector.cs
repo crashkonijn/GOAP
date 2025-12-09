@@ -7,5 +7,7 @@ namespace CrashKonijn.Goap.Core
         void Inject(IAction action);
         void Inject(IGoal goal);
         void Inject(ISensor sensor);
+        void Inject(IAgentTypeFactory factory);
+        void Inject(ICapabilityFactory factory);
     }
 }

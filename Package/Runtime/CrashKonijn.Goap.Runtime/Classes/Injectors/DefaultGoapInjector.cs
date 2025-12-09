@@ -16,5 +16,13 @@ namespace CrashKonijn.Goap.Runtime
         public void Inject(ISensor sensor)
         {
         }
+
+        public void Inject(IAgentTypeFactory factory)
+        {
+        }
+
+        public void Inject(ICapabilityFactory factory)
+        {
+        }
     }
 }

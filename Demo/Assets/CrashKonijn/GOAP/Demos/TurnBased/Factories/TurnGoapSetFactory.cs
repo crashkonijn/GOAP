@@ -10,9 +10,9 @@ namespace CrashKonijn.GOAP.Demos.TurnBased.Factories
     {
         public override IAgentTypeConfig Create()
         {
-            var builder = new AgentTypeBuilder("TurnBased");
+            var builder = this.CreateBuilder("TurnBased");
 
-            builder.CreateCapability("turn-based-capability", (capability) =>
+            builder.CreateCapability("turn-based-capability", capability =>
             {
                 capability
                     .AddGoal<WanderGoal>()

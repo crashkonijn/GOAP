@@ -3,14 +3,15 @@ using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class MultiSensorBuilder<T> : MultiSensorBuilder
-        where T : IMultiSensor
+    public class MultiSensorBuilder<T> : MultiSensorBuilder, IMultiSensorBuilder<T> where T : IMultiSensor
     {
-        public MultiSensorBuilder() : base(typeof(T)) { }
-        
-        public MultiSensorBuilder<T> SetCallback(Action<T> callback)
+        public MultiSensorBuilder() : base(typeof(T))
         {
-            this.config.Callback = (obj) => callback((T) obj);
+        }
+
+        public IMultiSensorBuilder<T> SetCallback(Action<T> callback)
+        {
+            this.config.Callback = obj => callback((T)obj);
             return this;
         }
     }
@@ -21,10 +22,10 @@ namespace CrashKonijn.Goap.Runtime
 
         public MultiSensorBuilder(Type type)
         {
-            this.config = new MultiSensorConfig()
+            this.config = new MultiSensorConfig
             {
                 Name = type.Name,
-                ClassType = type.AssemblyQualifiedName,
+                ClassType = type.AssemblyQualifiedName
             };
         }
 
