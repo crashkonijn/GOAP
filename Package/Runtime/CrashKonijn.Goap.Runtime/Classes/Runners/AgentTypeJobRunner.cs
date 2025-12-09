@@ -13,16 +13,16 @@ namespace CrashKonijn.Goap.Runtime
     public class AgentTypeJobRunner : IAgentTypeJobRunner
     {
         private readonly IAgentType agentType;
+        private readonly IConditionBuilder conditionBuilder;
+        private readonly ICostBuilder costBuilder;
+        private readonly IEnabledBuilder enabledBuilder;
+        private readonly IExecutableBuilder executableBuilder;
+        private readonly IPositionBuilder positionBuilder;
         private readonly IGraphResolver resolver;
 
-        private List<JobRunHandle> resolveHandles = new();
-        private readonly IExecutableBuilder executableBuilder;
-        private readonly IEnabledBuilder enabledBuilder;
-        private readonly IPositionBuilder positionBuilder;
-        private readonly ICostBuilder costBuilder;
-        private readonly IConditionBuilder conditionBuilder;
+        private readonly List<int> goalIndexes = new();
 
-        private List<int> goalIndexes = new();
+        private readonly List<JobRunHandle> resolveHandles = new();
 
         public AgentTypeJobRunner(IAgentType agentType, IGraphResolver graphResolver)
         {
@@ -49,6 +49,60 @@ namespace CrashKonijn.Goap.Runtime
             {
                 this.Run(agent);
             }
+        }
+
+        public void Complete()
+        {
+            foreach (var resolveHandle in this.resolveHandles)
+            {
+                var result = resolveHandle.Handle.Complete();
+
+                if (resolveHandle.ActionProvider.GoalRequest != resolveHandle.GoalRequest)
+                    continue;
+
+                if (resolveHandle.ActionProvider.IsNull())
+                    continue;
+
+                var goal = result.Goal;
+                if (goal == null)
+                {
+                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.GoalRequest);
+                    continue;
+                }
+
+                var action = result.Actions.FirstOrDefault() as IGoapAction;
+
+                if (action is null)
+                {
+                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.GoalRequest);
+                    continue;
+                }
+
+                if (action != resolveHandle.ActionProvider.Receiver.ActionState.Action)
+                    resolveHandle.ActionProvider.SetAction(new GoalResult
+                    {
+                        Goal = goal,
+                        Plan = result.Actions,
+                        Action = action
+                    });
+            }
+
+            this.resolveHandles.Clear();
+        }
+
+        public void Dispose()
+        {
+            foreach (var resolveHandle in this.resolveHandles)
+            {
+                resolveHandle.Handle.Complete();
+            }
+
+            this.resolver.Dispose();
+        }
+
+        public IGraph GetGraph()
+        {
+            return this.resolver.GetGraph();
         }
 
         private void Run(IMonoGoapActionProvider actionProvider)
@@ -101,8 +155,8 @@ namespace CrashKonijn.Goap.Runtime
                     Positions = new NativeArray<float3>(this.positionBuilder.Build(), Allocator.TempJob),
                     Costs = new NativeArray<float>(this.costBuilder.Build(), Allocator.TempJob),
                     ConditionsMet = new NativeArray<bool>(this.conditionBuilder.Build(), Allocator.TempJob),
-                    DistanceMultiplier = actionProvider.DistanceMultiplier,
-                }),
+                    DistanceMultiplier = actionProvider.DistanceMultiplier
+                })
             });
         }
 
@@ -144,8 +198,12 @@ namespace CrashKonijn.Goap.Runtime
                 var target = actionProvider.WorldData.GetTarget(node);
 
                 this.executableBuilder.SetExecutable(node, node.IsExecutable(actionProvider.Receiver, allMet));
-                this.enabledBuilder.SetEnabled(node, node.IsEnabled(actionProvider.Receiver));
-                this.costBuilder.SetCost(node, node.GetCost(actionProvider.Receiver, actionProvider.Receiver.Injector, target));
+
+                var isEnabled = node.IsEnabled(actionProvider.Receiver);
+                var cost = isEnabled ? node.GetCost(actionProvider.Receiver, actionProvider.Receiver.Injector, target) : 0f;
+
+                this.enabledBuilder.SetEnabled(node, isEnabled);
+                this.costBuilder.SetCost(node, cost);
 
                 this.positionBuilder.SetPosition(node, target?.GetValidPosition());
             }
@@ -192,47 +250,6 @@ namespace CrashKonijn.Goap.Runtime
             return actionProvider.Receiver.ActionState.RunState.MayResolve(agent);
         }
 
-        public void Complete()
-        {
-            foreach (var resolveHandle in this.resolveHandles)
-            {
-                var result = resolveHandle.Handle.Complete();
-
-                if (resolveHandle.ActionProvider.GoalRequest != resolveHandle.GoalRequest)
-                    continue;
-
-                if (resolveHandle.ActionProvider.IsNull())
-                    continue;
-
-                var goal = result.Goal;
-                if (goal == null)
-                {
-                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.GoalRequest);
-                    continue;
-                }
-
-                var action = result.Actions.FirstOrDefault() as IGoapAction;
-
-                if (action is null)
-                {
-                    resolveHandle.ActionProvider.Events.NoActionFound(resolveHandle.GoalRequest);
-                    continue;
-                }
-
-                if (action != resolveHandle.ActionProvider.Receiver.ActionState.Action)
-                {
-                    resolveHandle.ActionProvider.SetAction(new GoalResult
-                    {
-                        Goal = goal,
-                        Plan = result.Actions,
-                        Action = action,
-                    });
-                }
-            }
-
-            this.resolveHandles.Clear();
-        }
-
         private void LogRequest(IGoapActionProvider actionProvider, IGoalRequest request)
         {
 #if UNITY_EDITOR
@@ -255,29 +272,17 @@ namespace CrashKonijn.Goap.Runtime
 #endif
         }
 
-        public void Dispose()
-        {
-            foreach (var resolveHandle in this.resolveHandles)
-            {
-                resolveHandle.Handle.Complete();
-            }
-
-            this.resolver.Dispose();
-        }
-
         private class JobRunHandle
         {
-            public IMonoGoapActionProvider ActionProvider { get; }
-            public IResolveHandle Handle { get; set; }
-            public IGoalRequest GoalRequest { get; set; }
-
             public JobRunHandle(IMonoGoapActionProvider actionProvider, IGoalRequest goalRequest)
             {
                 this.ActionProvider = actionProvider;
                 this.GoalRequest = goalRequest;
             }
-        }
 
-        public IGraph GetGraph() => this.resolver.GetGraph();
+            public IMonoGoapActionProvider ActionProvider { get; }
+            public IResolveHandle Handle { get; set; }
+            public IGoalRequest GoalRequest { get; }
+        }
     }
 }
