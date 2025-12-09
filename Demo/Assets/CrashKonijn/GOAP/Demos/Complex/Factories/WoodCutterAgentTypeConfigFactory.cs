@@ -12,13 +12,13 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
     {
         public override IAgentTypeConfig Create()
         {
-            var builder = new AgentTypeBuilder(SetIds.WoodCutter);
+            var builder = this.CreateBuilder(SetIds.WoodCutter);
 
             builder.AddCapability<BaseCapability>();
             builder.AddCapability<WanderCapability>();
             builder.AddCapability<HungerCapability>();
 
-            builder.CreateCapability("WoodCutterCapability", (capability) =>
+            builder.CreateCapability("WoodCutterCapability", capability =>
             {
                 // Goals
                 capability.AddPickupItemGoal<Axe>();

@@ -5,16 +5,16 @@ using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class CapabilityBuilder
+    public class CapabilityBuilder : ICapabilityBuilder
     {
-        private readonly CapabilityConfig capabilityConfig;
         private readonly List<ActionBuilder> actionBuilders = new();
+        private readonly CapabilityConfig capabilityConfig;
         private readonly List<GoalBuilder> goalBuilders = new();
-        private readonly List<TargetSensorBuilder> targetSensorBuilders = new();
-        private readonly List<WorldSensorBuilder> worldSensorBuilders = new();
         private readonly List<MultiSensorBuilder> multiSensorBuilders = new();
-        private readonly WorldKeyBuilder worldKeyBuilder = new();
         private readonly TargetKeyBuilder targetKeyBuilder = new();
+        private readonly List<TargetSensorBuilder> targetSensorBuilders = new();
+        private readonly WorldKeyBuilder worldKeyBuilder = new();
+        private readonly List<WorldSensorBuilder> worldSensorBuilders = new();
 
         public CapabilityBuilder(string name)
         {
@@ -26,7 +26,7 @@ namespace CrashKonijn.Goap.Runtime
         /// </summary>
         /// <typeparam name="TAction">The type of the action.</typeparam>
         /// <returns>An instance of <see cref="ActionBuilder{TAction}" />.</returns>
-        public ActionBuilder<TAction> AddAction<TAction>()
+        public IActionBuilder<TAction> AddAction<TAction>()
             where TAction : IAction
         {
             var actionBuilder = ActionBuilder.Create<TAction>(this.worldKeyBuilder, this.targetKeyBuilder);
@@ -41,7 +41,7 @@ namespace CrashKonijn.Goap.Runtime
         /// </summary>
         /// <typeparam name="TGoal">The type of the goal.</typeparam>
         /// <returns>An instance of <see cref="GoalBuilder{TGoal}" />.</returns>
-        public GoalBuilder<TGoal> AddGoal<TGoal>()
+        public IGoalBuilder<TGoal> AddGoal<TGoal>()
             where TGoal : IGoal
         {
             var goalBuilder = GoalBuilder.Create<TGoal>(this.worldKeyBuilder);
@@ -56,7 +56,7 @@ namespace CrashKonijn.Goap.Runtime
         /// </summary>
         /// <typeparam name="TWorldSensor">The type of the world sensor.</typeparam>
         /// <returns>An instance of <see cref="WorldSensorBuilder{TWorldSensor}" />.</returns>
-        public WorldSensorBuilder<TWorldSensor> AddWorldSensor<TWorldSensor>()
+        public IWorldSensorBuilder<TWorldSensor> AddWorldSensor<TWorldSensor>()
             where TWorldSensor : IWorldSensor
         {
             var worldSensorBuilder = WorldSensorBuilder.Create<TWorldSensor>(this.worldKeyBuilder);
@@ -71,7 +71,7 @@ namespace CrashKonijn.Goap.Runtime
         /// </summary>
         /// <typeparam name="TTargetSensor">The type of the target sensor.</typeparam>
         /// <returns>An instance of <see cref="TargetSensorBuilder{TTargetSensor}" />.</returns>
-        public TargetSensorBuilder<TTargetSensor> AddTargetSensor<TTargetSensor>()
+        public ITargetSensorBuilder<TTargetSensor> AddTargetSensor<TTargetSensor>()
             where TTargetSensor : ITargetSensor
         {
             var targetSensorBuilder = TargetSensorBuilder.Create<TTargetSensor>(this.targetKeyBuilder);
@@ -86,7 +86,7 @@ namespace CrashKonijn.Goap.Runtime
         /// </summary>
         /// <typeparam name="TMultiSensor">The type of the multi sensor.</typeparam>
         /// <returns>An instance of <see cref="MultiSensorBuilder{TMultiSensor}" />.</returns>
-        public MultiSensorBuilder<TMultiSensor> AddMultiSensor<TMultiSensor>()
+        public IMultiSensorBuilder<TMultiSensor> AddMultiSensor<TMultiSensor>()
             where TMultiSensor : IMultiSensor
         {
             var multiSensorBuilder = MultiSensorBuilder.Create<TMultiSensor>();
@@ -96,7 +96,7 @@ namespace CrashKonijn.Goap.Runtime
             return multiSensorBuilder;
         }
 
-        public WorldKeyBuilder GetWorldKeyBuilder()
+        public IWorldKeyBuilder GetWorldKeyBuilder()
         {
             return this.worldKeyBuilder;
         }
@@ -105,7 +105,7 @@ namespace CrashKonijn.Goap.Runtime
         ///     Builds the capability configuration.
         /// </summary>
         /// <returns>The built <see cref="CapabilityConfig" />.</returns>
-        public CapabilityConfig Build()
+        public ICapabilityConfig Build()
         {
             this.capabilityConfig.Actions = this.actionBuilders.Select(x => x.Build()).ToList();
             this.capabilityConfig.Goals = this.goalBuilders.Select(x => x.Build()).ToList();

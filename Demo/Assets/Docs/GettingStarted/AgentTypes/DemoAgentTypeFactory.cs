@@ -8,8 +8,8 @@ namespace CrashKonijn.Docs.GettingStarted.AgentTypes
     {
         public override IAgentTypeConfig Create()
         {
-            var factory = new AgentTypeBuilder("DemoAgent");
-            
+            var factory = this.CreateBuilder("DemoAgent");
+
             factory.AddCapability<IdleCapabilityFactory>();
             factory.AddCapability<PearCapability>();
 

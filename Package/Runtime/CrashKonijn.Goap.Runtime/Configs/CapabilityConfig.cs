@@ -3,9 +3,9 @@ using CrashKonijn.Goap.Core;
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class AgentTypeConfig : IAgentTypeConfig
+    public class CapabilityConfig : ICapabilityConfig
     {
-        public AgentTypeConfig(string name)
+        public CapabilityConfig(string name)
         {
             this.Name = name;
         }
