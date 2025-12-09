@@ -11,10 +11,18 @@ namespace CrashKonijn.Goap.Runtime
 
         private readonly List<CapabilityBuilder> capabilityBuilders = new();
         private readonly List<ICapabilityConfig> capabilityConfigs = new();
+        private readonly IGoapInjector injector;
 
+        public AgentTypeBuilder(IGoapInjector injector, string name)
+        {
+            this.injector = injector;
+            this.agentTypeConfig = new AgentTypeConfig(name);
+        }
+
+        [Obsolete("use AgentTypeFactoryBase.CreateBuilder(string name) instead")]
         public AgentTypeBuilder(string name)
         {
-            this.agentTypeConfig = new AgentTypeConfig(name);
+            throw new Exception("The method or operation is not implemented.");
         }
 
         /// <summary>
@@ -52,7 +60,11 @@ namespace CrashKonijn.Goap.Runtime
         public void AddCapability<TCapability>()
             where TCapability : CapabilityFactoryBase, new()
         {
-            this.capabilityConfigs.Add(new TCapability().Create());
+            var capability = new TCapability();
+
+            this.injector?.Inject(capability);
+
+            this.capabilityConfigs.Add(capability.Create());
         }
 
         /// <summary>
@@ -61,6 +73,8 @@ namespace CrashKonijn.Goap.Runtime
         /// <param name="capabilityFactory">The capability factory.</param>
         public void AddCapability(CapabilityFactoryBase capabilityFactory)
         {
+            this.injector?.Inject(capabilityFactory);
+
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
 
@@ -70,6 +84,8 @@ namespace CrashKonijn.Goap.Runtime
         /// <param name="capabilityFactory">The mono capability factory.</param>
         public void AddCapability(MonoCapabilityFactoryBase capabilityFactory)
         {
+            this.injector?.Inject(capabilityFactory);
+
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
 
@@ -79,6 +95,8 @@ namespace CrashKonijn.Goap.Runtime
         /// <param name="capabilityFactory">The scriptable capability factory.</param>
         public void AddCapability(ScriptableCapabilityFactoryBase capabilityFactory)
         {
+            this.injector?.Inject(capabilityFactory);
+
             this.capabilityConfigs.Add(capabilityFactory.Create());
         }
 

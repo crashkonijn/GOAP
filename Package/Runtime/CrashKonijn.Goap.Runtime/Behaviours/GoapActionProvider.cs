@@ -396,6 +396,22 @@ namespace CrashKonijn.Goap.Runtime
         /// <returns>A list of actions of the specified type.</returns>
         public List<TAction> GetActions<TAction>() where TAction : IGoapAction => this.AgentType.GetActions<TAction>();
 
+        public void Disable<TAction>(IActionDisabler disabler) where TAction : IGoapAction
+        {
+            foreach (var action in this.GetActions<TAction>())
+            {
+                this.Disable(action, disabler);
+            }
+        }
+        
+        public void Enable<TAction>() where TAction : IGoapAction
+        {
+            foreach (var action in this.GetActions<TAction>())
+            {
+                this.Enable(action);
+            }
+        }
+
         private void OnDestroy()
         {
             this.Logger.Dispose();

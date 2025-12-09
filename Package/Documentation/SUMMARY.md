@@ -8,6 +8,7 @@
     * [3. Pears](Introduction/Pears.md)
   * [FAQ](Introduction/FAQ.md)
 * [Upgrading](upgrading/README.md)
+  * [V3.1 Upgrade guide](upgrade/upgrade-guide-3.0-3.1.md)
   * [V3.0 Changes](upgrade/core-concepts.md)
   * [V3.0 Upgrade guide](upgrade/upgrade-guide-2.1-3.0.md)
   * [V2.1 Upgrade guide](upgrade/upgrade-guide-2.0-2.1.md)

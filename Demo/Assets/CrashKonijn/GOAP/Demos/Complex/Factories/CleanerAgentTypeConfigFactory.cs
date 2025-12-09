@@ -17,13 +17,13 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
     {
         public override IAgentTypeConfig Create()
         {
-            var builder = new AgentTypeBuilder(SetIds.Cleaner);
+            var builder = this.CreateBuilder(SetIds.Cleaner);
 
             builder.AddCapability<BaseCapability>();
             builder.AddCapability<WanderCapability>();
             builder.AddCapability<HungerCapability>();
 
-            builder.CreateCapability("CleanCapability", (capability) =>
+            builder.CreateCapability("CleanCapability", capability =>
             {
                 capability.AddGoal<CleanItemsGoal>()
                     .SetBaseCost(20)
@@ -35,7 +35,7 @@ namespace CrashKonijn.Goap.Demos.Complex.Factories
                     .AddCondition<ItemsOnFloor>(Comparison.GreaterThanOrEqual, 1)
                     .SetMoveMode(ActionMoveMode.PerformWhileMoving)
                     .SetValidateConditions(false)
-                    .SetCallback((action) =>
+                    .SetCallback(action =>
                     {
                         Debug.Log($"Action callback: {action}");
                     });

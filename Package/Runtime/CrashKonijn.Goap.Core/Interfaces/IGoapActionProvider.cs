@@ -60,6 +60,9 @@ namespace CrashKonijn.Goap.Core
         void SetDistanceMultiplierSpeed(float speed);
         List<TAction> GetActions<TAction>() where TAction : IGoapAction;
 
+        void Disable<TAction>(IActionDisabler disabler) where TAction : IGoapAction;
+        void Enable<TAction>() where TAction : IGoapAction;
+
         #region Obsolete
 
         [Obsolete("Use CurrentPlan.Goal instead")]

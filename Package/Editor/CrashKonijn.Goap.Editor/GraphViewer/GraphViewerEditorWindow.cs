@@ -10,26 +10,8 @@ namespace CrashKonijn.Goap.Editor
 {
     public class GraphViewerEditorWindow : EditorWindow
     {
+        private readonly EditorWindowValues values = new();
         private IGraph graph;
-        private EditorWindowValues values = new();
-
-        [MenuItem("Tools/GOAP/Graph Viewer %g")]
-        private static void ShowWindow()
-        {
-            var window = GetWindow<GraphViewerEditorWindow>();
-            window.titleContent = new GUIContent("Graph Viewer (GOAP)");
-            window.Show();
-
-            EditorApplication.playModeStateChanged -= window.OnPlayModeChange;
-            EditorApplication.playModeStateChanged += window.OnPlayModeChange;
-        }
-
-        private void OnPlayModeChange(PlayModeStateChange obj)
-        {
-            this.values.ShowConfig = obj != PlayModeStateChange.EnteredPlayMode;
-
-            this.OnSelectionChange();
-        }
 
         private void OnFocus()
         {
@@ -54,22 +36,34 @@ namespace CrashKonijn.Goap.Editor
             this.RenderGraph(graph, obj);
         }
 
+        [MenuItem("Tools/GOAP/Graph Viewer %g")]
+        private static void ShowWindow()
+        {
+            var window = GetWindow<GraphViewerEditorWindow>();
+            window.titleContent = new GUIContent("Graph Viewer (GOAP)");
+            window.Show();
+
+            EditorApplication.playModeStateChanged -= window.OnPlayModeChange;
+            EditorApplication.playModeStateChanged += window.OnPlayModeChange;
+        }
+
+        private void OnPlayModeChange(PlayModeStateChange obj)
+        {
+            this.values.ShowConfig = obj != PlayModeStateChange.EnteredPlayMode;
+
+            this.OnSelectionChange();
+        }
+
         private (IAgentType agentType, Object obj) GetAgentType(Object selectedObject)
         {
             if (selectedObject is AgentTypeScriptable agentTypeScriptable)
-            {
                 return (new AgentTypeFactory(GoapConfig.Default).Create(agentTypeScriptable.Create(), false), selectedObject);
-            }
 
             if (selectedObject is CapabilityConfigScriptable capabilityConfigScriptable)
-            {
                 return (new AgentTypeFactory(GoapConfig.Default).Create(capabilityConfigScriptable.Create(), false), selectedObject);
-            }
 
             if (selectedObject is ScriptableCapabilityFactoryBase capabilityFactoryScriptable)
-            {
                 return (new AgentTypeFactory(GoapConfig.Default).Create(capabilityFactoryScriptable.Create(), false), selectedObject);
-            }
 
             if (selectedObject is not GameObject gameObject)
                 return default;
@@ -77,14 +71,13 @@ namespace CrashKonijn.Goap.Editor
             var typeFactory = gameObject.GetComponent<AgentTypeFactoryBase>();
             if (typeFactory != null)
             {
+                typeFactory.Construct(GoapConfig.Default);
                 return (new AgentTypeFactory(GoapConfig.Default).Create(typeFactory.Create(), false), selectedObject);
             }
 
             var agentTypeBehaviour = gameObject.GetComponent<AgentTypeBehaviour>();
             if (agentTypeBehaviour != null)
-            {
                 return (new AgentTypeFactory(GoapConfig.Default).Create(agentTypeBehaviour.Config.Create(), false), selectedObject);
-            }
 
             var provider = gameObject.GetComponent<GoapActionProvider>();
             if (provider == null)
@@ -137,12 +130,20 @@ namespace CrashKonijn.Goap.Editor
 
             nodeRoot.schedule.Execute(() =>
             {
+#if UNITY_6000_3_OR_NEWER
+                nodeRoot.style.scale = new Vector2(this.values.Zoom / 100f, this.values.Zoom / 100f);
+#else
                 nodeRoot.transform.scale = new Vector3(this.values.Zoom / 100f, this.values.Zoom / 100f, 1);
+#endif
             }).Every(33);
 
-            this.values.DragDrawer = new DragDrawer(dragRoot, (offset) =>
+            this.values.DragDrawer = new DragDrawer(dragRoot, offset =>
             {
+#if UNITY_6000_3_OR_NEWER
+                nodeRoot.style.translate = offset;
+#else
                 nodeRoot.transform.position = offset;
+#endif
 
                 this.values.Update();
 
@@ -157,10 +158,7 @@ namespace CrashKonijn.Goap.Editor
 #endif
             });
 
-            dragRoot.RegisterCallback<WheelEvent>((evt) =>
-            {
-                this.values.UpdateZoom(2 * (int) -evt.delta.y);
-            });
+            dragRoot.RegisterCallback<WheelEvent>(evt => { this.values.UpdateZoom(2 * (int)-evt.delta.y); });
 
             foreach (var rootNode in graph.RootNodes)
             {
