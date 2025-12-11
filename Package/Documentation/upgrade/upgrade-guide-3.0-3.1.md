@@ -30,6 +30,13 @@ public interface IGoapInjector
 
 ## New Features
 
+### You can now make dynamic conditions (code only)!
+
+```csharp
+builder.AddAction<EatAction>()
+    .AddCondition<Hunger, LowHunger>(Comparison.GreaterThanOrEqual);
+```
+
 ### AgenTypeFactory and CapabilityFactory can now be injected
 You can now inject into `AgentTypeFactoryBase` and `CapabilityFactoryBase` classes, similar to other actions, goals and sensors.
 

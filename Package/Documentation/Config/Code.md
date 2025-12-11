@@ -76,6 +76,16 @@ namespace CrashKonijn.Docs.GettingStarted.Capabilities
 ```
 {% endcode %}
 
+### Dynamic Conditions
+Since v3.1 you can now add dynamic conditions!
+
+{% code lineNumbers="true" %}
+```csharp
+builder.AddAction<EatAction>()
+    .AddCondition<Hunger, LowHunger>(Comparison.GreaterThanOrEqual);
+```
+{% endcode %}
+
 ### Callbacks
 In v3 you can add a callback to your builder methods, giving you access to the instance of each class. This allows you to set extra data.
 
