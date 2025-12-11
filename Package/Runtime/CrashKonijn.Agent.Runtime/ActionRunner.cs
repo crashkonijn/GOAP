@@ -16,7 +16,7 @@ namespace CrashKonijn.Agent.Runtime
             this.proxy = proxy;
         }
 
-        public void Run()
+        public void Run(float deltaTime)
         {
             if (!this.RunIsValid())
                 return;
@@ -24,10 +24,10 @@ namespace CrashKonijn.Agent.Runtime
             switch (this.agent.ActionState.Action.GetMoveMode(this.agent))
             {
                 case ActionMoveMode.MoveBeforePerforming:
-                    this.RunMoveBeforePerforming();
+                    this.RunMoveBeforePerforming(deltaTime);
                     break;
                 case ActionMoveMode.PerformWhileMoving:
-                    this.RunPerformWhileMoving();
+                    this.RunPerformWhileMoving(deltaTime);
                     break;
             }
         }
@@ -52,29 +52,29 @@ namespace CrashKonijn.Agent.Runtime
             return true;
         }
 
-        private void RunPerformWhileMoving()
+        private void RunPerformWhileMoving(float deltaTime)
         {
             if (this.proxy.IsInRange())
             {
                 this.proxy.SetState(AgentState.PerformingAction);
                 this.proxy.SetMoveState(AgentMoveState.InRange);
-                this.PerformAction();
+                this.PerformAction(deltaTime);
                 return;
             }
 
             this.proxy.SetState(AgentState.MovingWhilePerformingAction);
             this.proxy.SetMoveState(AgentMoveState.NotInRange);
             this.Move();
-            this.PerformAction();
+            this.PerformAction(deltaTime);
         }
 
-        private void RunMoveBeforePerforming()
+        private void RunMoveBeforePerforming(float deltaTime)
         {
             if (this.proxy.IsInRange() || this.agent.State == AgentState.PerformingAction)
             {
                 this.proxy.SetState(AgentState.PerformingAction);
                 this.proxy.SetMoveState(AgentMoveState.InRange);
-                this.PerformAction();
+                this.PerformAction(deltaTime);
                 return;
             }
 
@@ -91,12 +91,12 @@ namespace CrashKonijn.Agent.Runtime
             this.agent.Events.Move(this.agent.CurrentTarget);
         }
 
-        private void PerformAction()
+        private void PerformAction(float deltaTime)
         {
             if (!this.ShouldContinue())
                 return;
 
-            this.context.DeltaTime = Time.deltaTime;
+            this.context.DeltaTime = deltaTime;
             this.context.IsInRange = this.proxy.IsInRange();
 
             if (!this.agent.ActionState.HasPerformed)

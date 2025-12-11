@@ -33,3 +33,19 @@ public interface IGoapInjector
 ### AgenTypeFactory and CapabilityFactory can now be injected
 You can now inject into `AgentTypeFactoryBase` and `CapabilityFactoryBase` classes, similar to other actions, goals and sensors.
 
+### You can now manually call AgentBehaviour.Run() with custom deltaTimes
+This allows you to determine the rate at which agents are updated, for example agents further away from the player.
+
+Make sure to set `AgentBehaviour.RunInUnityUpdate` to false before calling `Run` yourself!
+
+```csharp
+agentBehaviour.RunInUnityUpdate = false;
+agentBehaviour.Run(1f);
+
+// In actions
+public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+{
+    // Make sure to use the deltaTime provided in the context!
+    var deltaTime = context.DeltaTime;
+}
+```

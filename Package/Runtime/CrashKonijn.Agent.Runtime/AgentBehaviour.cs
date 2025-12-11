@@ -9,6 +9,9 @@ namespace CrashKonijn.Agent.Runtime
         [field: SerializeField]
         public ActionProviderBase ActionProviderBase { get; set; }
 
+        [field: SerializeField]
+        public bool RunInUnityUpdate { get; set; } = true;
+        
         [SerializeField]
         private bool isPaused = false;
 
@@ -121,13 +124,22 @@ namespace CrashKonijn.Agent.Runtime
 
         private void Update()
         {
-            this.Run();
+            if (this.RunInUnityUpdate)
+                this.Run();
+        }
+        
+        /// <summary>
+        ///     Runs the current action.
+        /// </summary>
+        public void Run()
+        {
+            this.Run(Time.deltaTime);
         }
 
         /// <summary>
-        ///     Runs the current action. This is called in the Update method.
+        ///     Runs the current action with the given deltaTime
         /// </summary>
-        public void Run()
+        public void Run(float deltaTime)
         {
             if (this.IsPaused)
                 return;
@@ -137,7 +149,7 @@ namespace CrashKonijn.Agent.Runtime
 
             this.UpdateTarget();
 
-            this.actionRunner.Run();
+            this.actionRunner.Run(deltaTime);
         }
 
         private void UpdateTarget()

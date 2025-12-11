@@ -4,7 +4,7 @@ namespace CrashKonijn.Agent.Core
 {
     public interface IAgent : IActionReceiver
     {
-        public bool IsPaused { get; set; }
+        bool RunInUnityUpdate { get; set; }
         AgentState State { get; }
         AgentMoveState MoveState { get; }
 
@@ -22,6 +22,7 @@ namespace CrashKonijn.Agent.Core
 
         void Initialize();
         void Run();
+        void Run(float deltaTime);
 
         void CompleteAction(bool resolveAction = true);
         void ResolveAction();

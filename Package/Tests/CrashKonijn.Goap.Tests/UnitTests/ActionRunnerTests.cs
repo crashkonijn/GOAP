@@ -47,7 +47,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.IsValid(this.agent, this.agent.ActionState.Data).Returns(false);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.agent.Received().StopAction();
@@ -61,7 +61,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.MoveBeforePerforming);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.proxy.Received().SetState(AgentState.PerformingAction);
@@ -75,7 +75,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.MoveBeforePerforming);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.proxy.Received().SetMoveState(AgentMoveState.InRange);
@@ -89,7 +89,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.MoveBeforePerforming);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.action.Received().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
@@ -103,7 +103,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.MoveBeforePerforming);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.proxy.Received().SetState(AgentState.MovingToTarget);
@@ -117,7 +117,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.MoveBeforePerforming);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.proxy.Received().SetMoveState(AgentMoveState.NotInRange);
@@ -131,7 +131,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.MoveBeforePerforming);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.agent.Events.Received().Move(this.agent.CurrentTarget);
@@ -146,7 +146,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.MoveBeforePerforming);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.proxy.DidNotReceive().SetState(AgentState.MovingToTarget);
@@ -160,7 +160,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.proxy.Received().SetState(AgentState.PerformingAction);
@@ -174,7 +174,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.proxy.Received().SetMoveState(AgentMoveState.InRange);
@@ -188,7 +188,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.action.Received().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
@@ -202,7 +202,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.proxy.Received().SetState(AgentState.MovingWhilePerformingAction);
@@ -216,7 +216,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.proxy.Received().SetMoveState(AgentMoveState.NotInRange);
@@ -230,7 +230,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.agent.Events.Received().Move(this.agent.CurrentTarget);
@@ -244,7 +244,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.action.Received().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
@@ -259,7 +259,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.action.DidNotReceive().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
@@ -275,7 +275,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.action.DidNotReceive().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
@@ -291,7 +291,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.GetMoveMode(this.agent).Returns(ActionMoveMode.PerformWhileMoving);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.action.Received().Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>());
@@ -307,7 +307,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>()).Returns(ActionRunState.Completed);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.agent.Received().CompleteAction();
@@ -323,7 +323,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>()).Returns(ActionRunState.Stop);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.agent.Received().StopAction();
@@ -342,7 +342,7 @@ namespace CrashKonijn.Goap.UnitTests
             this.action.Perform(this.agent, this.agent.ActionState.Data, Arg.Any<IActionContext>()).Returns(ActionRunState.Continue);
 
             // Act
-            this.actionRunner.Run();
+            this.actionRunner.Run(0f);
 
             // Assert
             this.agent.DidNotReceive().CompleteAction();

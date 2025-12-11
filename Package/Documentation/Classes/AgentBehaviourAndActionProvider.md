@@ -59,6 +59,23 @@ Actions often have associated targets, indicating a position the agent should re
 
 Some actions might need the agent to perform tasks while moving. The `MoveMode` in the `ActionConfig` allows for such configurations.
 
+### Run In Unity Update
+When set to true will call `Run` from the `Update` method. When set to false you must call `Run()` or `Run(float deltaTime)` yourself.
+
+Calling the `Run` method manually gives you full control over the agent's update cycle.
+
+```csharp
+agentBehaviour.RunInUnityUpdate = false;
+agentBehaviour.Run(1f);
+
+// In actions
+public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
+{
+    // Make sure to use the deltaTime provided in the context!
+    var deltaTime = context.DeltaTime;
+}
+```
+
 ### Distance Multiplier
 
 The primary objective of actions is to achieve goals swiftly. If the action's cost equates to its completion time, then the heuristic's distance value should be divided by the agent's movement speed. Using `SetDistanceMultiplierSpeed(float speed)` sets the agent's (max/average) speed, enabling the planner to more precisely ascertain the optimal action.
