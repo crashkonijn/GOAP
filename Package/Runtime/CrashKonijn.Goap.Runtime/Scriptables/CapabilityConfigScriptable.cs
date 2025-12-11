@@ -210,7 +210,6 @@ namespace CrashKonijn.Goap.Runtime
                 
             if (issues.Length == 0)
             {
-                Debug.Log("No issues found!");
                 return;
             }
            
