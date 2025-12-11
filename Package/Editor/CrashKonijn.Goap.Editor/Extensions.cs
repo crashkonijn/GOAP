@@ -33,5 +33,13 @@ namespace CrashKonijn.Goap.Editor
             
             return 0;
         }
+
+        public static int GetAmount(this ICondition condition)
+        {
+            if (condition is IValueCondition serializableCondition)
+                return serializableCondition.Amount;
+
+            return 0;
+        }
     }
 }

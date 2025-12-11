@@ -1,8 +1,7 @@
 ﻿using System;
 using CrashKonijn.Agent.Core;
-using CrashKonijn.Goap.Core;
 
-namespace CrashKonijn.Goap.Runtime
+namespace CrashKonijn.Goap.Core
 {
     public interface IActionBuilder<T> where T : IAction
     {
@@ -68,6 +67,17 @@ namespace CrashKonijn.Goap.Runtime
         /// <returns>The current instance of <see cref="ActionBuilder{T}" />.</returns>
         IActionBuilder<T> AddCondition<TWorldKey>(Comparison comparison, int amount)
             where TWorldKey : IWorldKey;
+
+        /// <summary>
+        ///     Adds a reference condition to the action.
+        /// </summary>
+        /// <typeparam name="TWorldKey">The type of the world key.</typeparam>
+        /// <typeparam name="TValueKey">The type of the value world key reference.</typeparam>
+        /// <param name="comparison">The comparison type.</param>
+        /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
+        IActionBuilder<T> AddCondition<TWorldKey, TValueKey>(Comparison comparison)
+            where TWorldKey : IWorldKey
+            where TValueKey : IWorldKey;
 
         IActionBuilder<T> AddEffect<TWorldKey>(bool increase)
             where TWorldKey : IWorldKey;

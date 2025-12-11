@@ -125,7 +125,7 @@ namespace CrashKonijn.Goap.Editor
                             Name = x.WorldKey.Name
                         },
                         comparison = x.Comparison,
-                        amount = x.Amount
+                        amount = x.GetAmount()
                     }).ToList()
                 });
             }
@@ -152,7 +152,7 @@ namespace CrashKonijn.Goap.Editor
                             Name = x.WorldKey.Name
                         },
                         comparison = x.Comparison,
-                        amount = x.Amount
+                        amount = x.GetAmount()
                     }).ToList(),
                     effects = actionConfig.Effects.Select(x => new CapabilityEffect
                     {

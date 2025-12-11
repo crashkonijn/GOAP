@@ -2,17 +2,17 @@
 
 namespace CrashKonijn.Goap.Runtime
 {
-    public class Condition : ICondition
+    public class ValueCondition : IValueCondition
     {
         public IWorldKey WorldKey { get; set; }
         public Comparison Comparison { get; set; }
         public int Amount { get; set; }
 
-        public Condition()
+        public ValueCondition()
         {
         }
 
-        public Condition(IWorldKey worldKey, Comparison comparison, int amount)
+        public ValueCondition(IWorldKey worldKey, Comparison comparison, int amount)
         {
             this.WorldKey = worldKey;
             this.Comparison = comparison;

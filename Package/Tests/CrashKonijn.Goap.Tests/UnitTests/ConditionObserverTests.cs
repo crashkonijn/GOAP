@@ -27,7 +27,7 @@ namespace CrashKonijn.Goap.UnitTests
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
 
-            var condition = new Condition
+            var condition = new ValueCondition
             {
                 Comparison = Comparison.GreaterThanOrEqual,
                 Amount = 1,
@@ -50,7 +50,7 @@ namespace CrashKonijn.Goap.UnitTests
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
 
-            var condition = new Condition
+            var condition = new ValueCondition
             {
                 Comparison = Comparison.GreaterThanOrEqual,
                 Amount = 1,
@@ -75,7 +75,7 @@ namespace CrashKonijn.Goap.UnitTests
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
 
-            var condition = new Condition
+            var condition = new ValueCondition
             {
                 Comparison = Comparison.SmallerThan,
                 Amount = 1,
@@ -98,7 +98,7 @@ namespace CrashKonijn.Goap.UnitTests
             var observer = new ConditionObserver();
             observer.SetWorldData(worldData);
 
-            var condition = new Condition
+            var condition = new ValueCondition
             {
                 Comparison = Comparison.SmallerThanOrEqual,
                 Amount = 0,

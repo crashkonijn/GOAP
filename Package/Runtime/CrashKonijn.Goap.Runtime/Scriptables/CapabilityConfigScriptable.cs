@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using CrashKonijn.Goap.Core;
 using UnityEditor;
 using UnityEngine;
@@ -49,7 +50,7 @@ namespace CrashKonijn.Goap.Runtime
                 for (var i = 0; i < x.conditions.Count; i++)
                 {
                     var condition = x.conditions[i];
-                    conditions[i] = new Condition
+                    conditions[i] = new ValueCondition
                     {
                         WorldKey = condition.worldKey.GetScript(worldKeys).GetInstance<IWorldKey>(),
                         Comparison = condition.comparison,
@@ -105,7 +106,7 @@ namespace CrashKonijn.Goap.Runtime
                 
                 foreach (var condition in goal.conditions)
                 {
-                    conditions.Add(new Condition
+                    conditions.Add(new ValueCondition
                     {
                         WorldKey = condition.worldKey.GetScript(worldKeys).GetInstance<IWorldKey>(),
                         Comparison = condition.comparison,
@@ -198,6 +199,34 @@ namespace CrashKonijn.Goap.Runtime
             EditorUtility.SetDirty(this);
 #endif
             return this.generatorScriptable;
+        }
+
+        public void FixIssues()
+        {
+#if UNITY_EDITOR
+            var validator = new ScriptReferenceValidator();
+                
+            var issues = validator.CheckAll(this);
+                
+            if (issues.Length == 0)
+            {
+                Debug.Log("No issues found!");
+                return;
+            }
+           
+            foreach (var issue in issues)
+            {
+                issue.Fix(this.GetGenerator());
+            }
+                
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssetIfDirty(this);
+#endif
+        }
+
+        private void OnValidate()
+        {
+            this.FixIssues();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new ICondition[]
             {
-                new Condition
+                new ValueCondition
                 {
                     WorldKey = isHungryKey,
                     Comparison = Comparison.SmallerThan,
@@ -40,7 +40,7 @@ namespace CrashKonijn.Goap.UnitTests
             var eatAppleAction = Substitute.For<IGoapAction>();
             eatAppleAction.Conditions.Returns(new ICondition[]
             {
-                new Condition
+                new ValueCondition
                 {
                     WorldKey = hasAppleKey,
                     Comparison = Comparison.GreaterThan,
@@ -59,7 +59,7 @@ namespace CrashKonijn.Goap.UnitTests
             var getAppleAction = Substitute.For<IGoapAction>();
             getAppleAction.Conditions.Returns(new ICondition[]
             {
-                new Condition
+                new ValueCondition
                 {
                     WorldKey = hasAppleKey,
                     Comparison = Comparison.SmallerThan,
@@ -120,7 +120,7 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new ICondition[]
             {
-                new Condition
+                new ValueCondition
                 {
                     WorldKey = isHungryKey,
                     Comparison = Comparison.SmallerThan,
@@ -172,7 +172,7 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new ICondition[]
             {
-                new Condition
+                new ValueCondition
                 {
                     WorldKey = isHungryKey,
                     Comparison = Comparison.SmallerThan,
@@ -235,13 +235,13 @@ namespace CrashKonijn.Goap.UnitTests
             var goal = Substitute.For<IGoal>();
             goal.Conditions.Returns(new ICondition[]
             {
-                new Condition
+                new ValueCondition
                 {
                     WorldKey = lowOnMoneyKey,
                     Comparison = Comparison.SmallerThanOrEqual,
                     Amount = 0,
                 },
-                new Condition
+                new ValueCondition
                 {
                     WorldKey = crimeCommittedKey,
                     Comparison = Comparison.SmallerThanOrEqual,

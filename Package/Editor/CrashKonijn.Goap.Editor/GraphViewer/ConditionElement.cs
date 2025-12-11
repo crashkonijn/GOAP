@@ -62,7 +62,28 @@ namespace CrashKonijn.Goap.Editor
         {
             var suffix = this.GetSuffix(condition);
             
-            return $"{condition.WorldKey.Name} {this.GetText(condition.Comparison)} {condition.Amount} {suffix}";
+            return $"{condition.WorldKey.Name} {this.GetText(condition.Comparison)} {GetValueText(condition)} {suffix}";
+        }
+
+        private string GetValueText(ICondition condition)
+        {
+            if (condition is IValueCondition valueCondition)
+                return valueCondition.Amount.ToString();
+            
+            if (condition is IReferenceCondition referenceCondition)
+            {
+                if (!Application.isPlaying)
+                    return referenceCondition.ValueKey.Name;
+            
+                if (this.values.SelectedObject is not IMonoGoapActionProvider agent)
+                    return referenceCondition.ValueKey.Name;
+                
+                var (exists, value) = agent.WorldData.GetWorldValue(referenceCondition.ValueKey);
+                
+                return $"{value} ({referenceCondition.ValueKey.Name})";
+            }
+            
+            return "";
         }
 
         private string GetSuffix(ICondition condition)
