@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CrashKonijn.Goap.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,17 +15,40 @@ namespace CrashKonijn.Goap.Runtime
 
         public IAgentTypeConfig Create()
         {
-            var configs = this.capabilities
-                .Select(behaviour => behaviour.Create())
-                .ToList();
+            // Aggregate lists
+            var allGoals = new List<IGoalConfig>();
+            var allActions = new List<IActionConfig>();
+            var allWorldSensors = new List<IWorldSensorConfig>();
+            var allTargetSensors = new List<ITargetSensorConfig>();
+            var allMultiSensors = new List<IMultiSensorConfig>();
+
+            for (int i = 0; i < this.capabilities.Count; i++)
+            {
+                var capabilityConfig = this.capabilities[i].Create();
+
+                if (capabilityConfig.Goals != null)
+                    allGoals.AddRange(capabilityConfig.Goals);
+
+                if (capabilityConfig.Actions != null)
+                    allActions.AddRange(capabilityConfig.Actions);
+
+                if (capabilityConfig.WorldSensors != null)
+                    allWorldSensors.AddRange(capabilityConfig.WorldSensors);
+
+                if (capabilityConfig.TargetSensors != null)
+                    allTargetSensors.AddRange(capabilityConfig.TargetSensors);
+
+                if (capabilityConfig.MultiSensors != null)
+                    allMultiSensors.AddRange(capabilityConfig.MultiSensors);
+            }
 
             return new AgentTypeConfig(this.name)
             {
-                Goals = configs.SelectMany(x => x.Goals).ToList(),
-                Actions = configs.SelectMany(x => x.Actions).ToList(),
-                WorldSensors = configs.SelectMany(x => x.WorldSensors).ToList(),
-                TargetSensors = configs.SelectMany(x => x.TargetSensors).ToList(),
-                MultiSensors = configs.SelectMany(x => x.MultiSensors).ToList(),
+                Goals = allGoals,
+                Actions = allActions,
+                WorldSensors = allWorldSensors,
+                TargetSensors = allTargetSensors,
+                MultiSensors = allMultiSensors,
             };
         }
     }

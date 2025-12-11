@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using CrashKonijn.Goap.Core;
 using UnityEditor;
 using UnityEngine;
@@ -40,31 +39,55 @@ namespace CrashKonijn.Goap.Runtime
 
             var actionClasses = generator.GetActions();
             var targetClasses = generator.GetTargetKeys();
-
-            return this.actions.Select(x => new ActionConfig
+            var worldKeys = generator.GetWorldKeys();
+            
+            var configs = new List<IActionConfig>();
+            
+            foreach (var x in this.actions)
             {
-                Name = x.action.Name,
-                ClassType = x.action.GetScript(actionClasses).GetFullName(),
-                BaseCost = x.baseCost,
-                Target = x.target.GetScript(targetClasses).GetInstance<ITargetKey>(),
-                StoppingDistance = x.stoppingDistance,
-                ValidateTarget = x.validateTarget,
-                RequiresTarget = x.requiresTarget,
-                ValidateConditions = x.validateConditions,
-                Conditions = x.conditions.Select(y => new ValueCondition
+                var conditions = new ICondition[x.conditions.Count];
+
+                for (var i = 0; i < x.conditions.Count; i++)
                 {
-                    WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
-                    Comparison = y.comparison,
-                    Amount = y.amount,
-                }).Cast<ICondition>().ToArray(),
-                Effects = x.effects.Select(y => new Effect
+                    var condition = x.conditions[i];
+                    conditions[i] = new ValueCondition
+                    {
+                        WorldKey = condition.worldKey.GetScript(worldKeys).GetInstance<IWorldKey>(),
+                        Comparison = condition.comparison,
+                        Amount = condition.amount,
+                    };
+                }
+                
+                var effects = new IEffect[x.effects.Count];
+                
+                for (var i = 0; i < x.effects.Count; i++)
                 {
-                    WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
-                    Increase = y.effect == EffectType.Increase,
-                }).Cast<IEffect>().ToArray(),
-                MoveMode = x.moveMode,
-                Properties = x.properties,
-            }).Cast<IActionConfig>().ToList();
+                    var effect = x.effects[i];
+                    effects[i] = new Effect
+                    {
+                        WorldKey = effect.worldKey.GetScript(worldKeys).GetInstance<IWorldKey>(),
+                        Increase = effect.effect == EffectType.Increase,
+                    };
+                }
+                
+                configs.Add(new ActionConfig
+                {
+                    Name = x.action.Name,
+                    ClassType = x.action.GetScript(actionClasses).GetFullName(),
+                    BaseCost = x.baseCost,
+                    Target = x.target.GetScript(targetClasses).GetInstance<ITargetKey>(),
+                    StoppingDistance = x.stoppingDistance,
+                    ValidateTarget = x.validateTarget,
+                    RequiresTarget = x.requiresTarget,
+                    ValidateConditions = x.validateConditions,
+                    Conditions = conditions,
+                    Effects = effects,
+                    MoveMode = x.moveMode,
+                    Properties = x.properties,
+                });
+            }
+
+            return configs;
         }
 
         public List<IGoalConfig> GetGoals(GeneratorScriptable generator)
@@ -73,18 +96,33 @@ namespace CrashKonijn.Goap.Runtime
                 return new List<IGoalConfig>();
 
             var goalClasses = generator.GetGoals();
-
-            return this.goals.Select(x => new GoalConfig
+            var worldKeys = generator.GetWorldKeys();
+            
+            var configs = new List<IGoalConfig>();
+            
+            foreach (var goal in this.goals)
             {
-                Name = x.goal.Name,
-                ClassType = x.goal.GetScript(goalClasses).GetFullName(),
-                Conditions = x.conditions.Select(y => new ValueCondition
+                var conditions = new List<ICondition>();
+                
+                foreach (var condition in goal.conditions)
                 {
-                    WorldKey = y.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
-                    Comparison = y.comparison,
-                    Amount = y.amount,
-                }).Cast<ICondition>().ToList(),
-            }).Cast<IGoalConfig>().ToList();
+                    conditions.Add(new ValueCondition
+                    {
+                        WorldKey = condition.worldKey.GetScript(worldKeys).GetInstance<IWorldKey>(),
+                        Comparison = condition.comparison,
+                        Amount = condition.amount,
+                    });
+                }
+                
+                configs.Add(new GoalConfig
+                {
+                    Name = goal.goal.Name,
+                    ClassType = goal.goal.GetScript(goalClasses).GetFullName(),
+                    Conditions = conditions,
+                });
+            }
+
+            return configs;
         }
 
         public List<IWorldSensorConfig> GetWorldSensors(GeneratorScriptable generator)
@@ -93,13 +131,21 @@ namespace CrashKonijn.Goap.Runtime
                 return new List<IWorldSensorConfig>();
 
             var sensorClasses = generator.GetWorldSensors();
-
-            return this.worldSensors.Select(x => new WorldSensorConfig
+            var worldKeys = generator.GetWorldKeys();
+            
+            var configs = new List<IWorldSensorConfig>(this.worldSensors.Count);
+            
+            foreach (var worldSensor in this.worldSensors)
             {
-                Name = x.sensor.Name,
-                ClassType = x.sensor.GetScript(sensorClasses).GetFullName(),
-                Key = x.worldKey.GetScript(generator.GetWorldKeys()).GetInstance<IWorldKey>(),
-            }).Cast<IWorldSensorConfig>().ToList();
+                configs.Add(new WorldSensorConfig
+                {
+                    Name = worldSensor.sensor.Name,
+                    ClassType = worldSensor.sensor.GetScript(sensorClasses).GetFullName(),
+                    Key = worldSensor.worldKey.GetScript(worldKeys).GetInstance<IWorldKey>(),
+                });
+            }
+            
+            return configs;
         }
 
         public List<ITargetSensorConfig> GetTargetSensors(GeneratorScriptable generator)
@@ -108,13 +154,21 @@ namespace CrashKonijn.Goap.Runtime
                 return new List<ITargetSensorConfig>();
 
             var sensorClasses = generator.GetTargetSensors();
+            var targetKeys = generator.GetTargetKeys();
+            
+            var configs = new List<ITargetSensorConfig>(this.targetSensors.Count);
 
-            return this.targetSensors.Select(x => new TargetSensorConfig
+            foreach (var targetSensor in this.targetSensors)
             {
-                Name = x.sensor.Name,
-                ClassType = x.sensor.GetScript(sensorClasses).GetFullName(),
-                Key = x.targetKey.GetScript(generator.GetTargetKeys()).GetInstance<ITargetKey>(),
-            }).Cast<ITargetSensorConfig>().ToList();
+                configs.Add(new TargetSensorConfig
+                {
+                    Name = targetSensor.sensor.Name,
+                    ClassType = targetSensor.sensor.GetScript(sensorClasses).GetFullName(),
+                    Key = targetSensor.targetKey.GetScript(targetKeys).GetInstance<ITargetKey>(),
+                });
+            }
+
+            return configs;
         }
 
         public List<IMultiSensorConfig> GetMultiSensors(GeneratorScriptable generator)
@@ -123,12 +177,19 @@ namespace CrashKonijn.Goap.Runtime
                 return new List<IMultiSensorConfig>();
 
             var sensorClasses = generator.GetMultiSensors();
+            
+            var configs = new List<IMultiSensorConfig>(this.multiSensors.Count);
 
-            return this.multiSensors.Select(x => new MultiSensorConfig
+            foreach (var multiSensor in this.multiSensors)
             {
-                Name = x.sensor.Name,
-                ClassType = x.sensor.GetScript(sensorClasses).GetFullName(),
-            }).Cast<IMultiSensorConfig>().ToList();
+                configs.Add(new MultiSensorConfig
+                {
+                    Name = multiSensor.sensor.Name,
+                    ClassType = multiSensor.sensor.GetScript(sensorClasses).GetFullName(),
+                });
+            }
+
+            return configs;
         }
 
         public GeneratorScriptable GetGenerator()
