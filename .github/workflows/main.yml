@@ -8,7 +8,6 @@ on:
   pull_request_target:
     branches:
       - master
-      - feature/v2.2
 
 jobs:
   authorize:
@@ -34,7 +33,7 @@ jobs:
           - editmode
         unityVersion:
           - '2021.3.42f1'
-          - '2022.2.8f1'
+          - '2022.3.62f3'
           - '2023.2.20f1'
           - '6000.0.21f1'
     steps:
