@@ -124,7 +124,7 @@ namespace CrashKonijn.Goap.Runtime
         /// <typeparam name="TValueKey">The type of the value world key reference.</typeparam>
         /// <param name="comparison">The comparison type.</param>
         /// <returns>The current instance of <see cref="GoalBuilder{T}" />.</returns>
-        public ActionBuilder<T> AddCondition<TWorldKey, TValueKey>(Comparison comparison)
+        public IActionBuilder<T> AddCondition<TWorldKey, TValueKey>(Comparison comparison)
             where TWorldKey : IWorldKey
             where TValueKey : IWorldKey
         {
