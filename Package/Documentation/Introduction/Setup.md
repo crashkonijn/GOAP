@@ -199,7 +199,7 @@ namespace CrashKonijn.Docs.GettingStarted.AgentTypes
     {
         public override IAgentTypeConfig Create()
         {
-            var factory = new AgentTypeBuilder("ScriptDemoAgent");
+            var factory = CreateBuilder("ScriptDemoAgent");
             
             factory.AddCapability<IdleCapabilityFactory>();
 
